@@ -1,0 +1,456 @@
+<section id="complex-analysis">
+<h2>9. Complex Analysis</h2>
+
+<p>전기공학에서 교류 회로의 임피던스(impedance)는 저항과 리액턴스를 하나의 복소수 \(Z = R + jX\)로 표현한다. 이 표기가 단순한 편의가 아님을 보여주는 것이 복소해석학이다. 복소수를 함수의 정의역으로 확장하면, 실수에서는 보이지 않던 수학적 구조가 드러난다. 제어 공학에서 전달함수(transfer function)의 극점(pole)과 영점(zero)이 시스템의 안정성을 결정하고, 나이퀴스트 판별법(Nyquist stability criterion)이 복소 평면 위의 경로 적분으로 정식화되는 것도 이 구조 덕분이다.</p>
+
+<p>2차원 유체역학에서 등각사상(conformal mapping)은 복잡한 형상 주위의 유동을 단순한 영역에서의 유동으로 변환한다. Joukowski 변환으로 원 주위의 유동에서 날개(airfoil) 주위의 양력을 계산하는 것이 대표적 사례이다. 신호처리에서 z-변환과 라플라스 변환의 수렴 영역(region of convergence)은 복소 평면의 구조로 기술되며, 라플라스 역변환은 본질적으로 복소 경로 적분이다. 이처럼 복소해석학은 공학의 여러 분야에서 이론적 기반을 제공한다.</p>
+
+<p>복소해석학(Complex Analysis)은 복소 변수 함수를 연구한다. 복소 미분 가능성의 요구 조건은 실수 경우보다 훨씬 제약적이며, 이러한 경직성은 강한 결과를 낳는다: analytic function(해석함수)은 임의의 convergence(수렴)하는 수열 위에서의 값으로 결정되고, 모든 analytic function(해석함수)은 무한번 미분 가능하며, 유계인 전체 함수는 상수이다. 한 번 미분가능하면 무한 번 미분가능하고, 멱급수로 표현되며, 적분이 경로에 무관하다 -- 이 모든 성질의 근원은 Cauchy-Riemann 방정식이다.</p>
+
+<!-- 9.1 Complex Numbers and Analytic Functions -->
+<h3>9.1 Complex Numbers and Analytic Functions</h3>
+
+<p>실수 함수의 미분 가능성은 좌극한과 우극한의 일치만 요구하지만, 복소 함수의 미분 가능성은 모든 방향에서의 극한이 일치해야 한다. 이 조건이 Cauchy-Riemann 방정식으로 구체화되며, 실수부와 허수부 사이의 강한 결합을 낳는다. 교류 회로에서 전압과 전류의 위상 관계, 2차원 정상 유동에서 속도 퍼텐셜(velocity potential)과 유선 함수(stream function)의 관계가 모두 이 방정식의 물리적 실현이다.</p>
+
+<div class="definition"><span class="env-label">Definition 9.1 (Complex Differentiability)</span>
+\(\Omega \subseteq \mathbb{C}\)가 열린 집합이고 함수 \(f: \Omega \to \mathbb{C}\)에 대해, \(f\)가 \(z_0 \in \Omega\)에서 <em>복소 미분 가능</em>(정칙, holomorphic)하다 함은
+$$ f'(z_0) = \lim_{h \to 0} \frac{f(z_0 + h) - f(z_0)}{h} $$
+이 존재하는 것을 말한다. 여기서 \(h \in \mathbb{C}\), \(h \neq 0\)이다. \(f\)가 \(\Omega\)의 모든 점에서 정칙이면, \(f\)는 \(\Omega\)에서 <em>analytic(해석적)</em>이라 한다. \(\mathbb{C}\) 전체에서 해석적인 함수를 <em>전체 함수(entire)</em>라 한다.
+</div>
+
+<div class="theorem"><span class="env-label">Theorem 9.1 (Cauchy-Riemann Equations)</span>
+\(f(x+iy) = u(x,y) + iv(x,y)\)로 쓰고, \(u,v: \mathbb{R}^2 \to \mathbb{R}\)로 놓자. \(f\)가 \(z_0 = x_0 + iy_0\)에서 정칙이면, \(u\)와 \(v\)의 편도함수가 \((x_0, y_0)\)에서 존재하고 다음을 만족한다:
+$$ \frac{\partial u}{\partial x} = \frac{\partial v}{\partial y}, \qquad \frac{\partial u}{\partial y} = -\frac{\partial v}{\partial x}. $$
+역으로, \(u\)와 \(v\)가 \((x_0, y_0)\)의 근방에서 연속 편도함수를 가지고 위 방정식을 만족하면, \(f\)는 \(z_0\)에서 정칙이다.
+</div>
+
+<div class="example"><span class="env-label">Example 9.1</span>
+\(f(z) = z^2 = (x^2 - y^2) + 2ixy\)에 대해, \(u = x^2 - y^2\), \(v = 2xy\)이다. 그러면 \(u_x = 2x = v_y\)이고 \(u_y = -2y = -v_x\)이므로, 해석성이 확인된다. 반면, \(f(z) = \bar{z} = x - iy\)는 \(u_x = 1 \neq -1 = v_y\)이므로, \(\bar{z}\)는 어디에서도 해석적이지 않다.
+</div>
+
+<div class="example"><span class="env-label">Example 9.1a (Cauchy-Riemann: 지수 함수)</span>
+\(f(z) = e^z = e^{x+iy} = e^x \cos y + i e^x \sin y\)에 대해 Cauchy-Riemann 방정식을 확인하자. \(u = e^x \cos y\), \(v = e^x \sin y\)로 놓으면:
+$$ u_x = e^x \cos y = v_y, \qquad u_y = -e^x \sin y = -v_x. $$
+따라서 \(f(z) = e^z\)는 \(\mathbb{C}\) 전체에서 해석적(전체 함수)이다. 도함수는 \(f'(z) = u_x + iv_x = e^x \cos y + ie^x \sin y = e^z\)이므로, \((e^z)' = e^z\)가 복소 영역에서도 성립한다.
+</div>
+
+<div class="example"><span class="env-label">Example 9.1b (Cauchy-Riemann: 조화 켤레 함수 구하기)</span>
+\(u(x,y) = x^3 - 3xy^2\)가 조화 함수임을 확인하고, 조화 켤레(harmonic conjugate) \(v\)를 구하자.
+
+먼저 \(u_{xx} = 6x\), \(u_{yy} = -6x\)이므로 \(\nabla^2 u = 0\)이 성립하여 조화 함수이다.
+
+Cauchy-Riemann 방정식 \(v_y = u_x = 3x^2 - 3y^2\)에서 \(y\)에 대해 적분하면:
+$$ v = 3x^2 y - y^3 + \phi(x). $$
+다른 조건 \(v_x = -u_y = 6xy\)를 적용하면 \(v_x = 6xy + \phi'(x) = 6xy\)이므로 \(\phi'(x) = 0\), 즉 \(\phi(x) = C\)이다. 따라서:
+$$ v(x,y) = 3x^2 y - y^3 + C, $$
+이고 대응하는 해석함수는 \(f(z) = (x^3 - 3xy^2) + i(3x^2 y - y^3) = z^3 + iC\)이다.
+</div>
+
+<p>해석함수의 실수부와 허수부는 각각 라플라스 방정식(Laplace equation)을 만족하며, 이를 조화 함수(harmonic function)라 부른다. 2차원 정상 열전도, 정전기 퍼텐셜, 비압축성 유동의 속도 퍼텐셜이 모두 조화 함수로 기술되므로, 복소해석학과 물리학의 접점이 여기서 형성된다.</p>
+
+<div class="definition"><span class="env-label">Definition 9.2 (Harmonic Function)</span>
+\(\Omega \subseteq \mathbb{R}^2\)가 열린 집합이고, 두 번 연속 미분 가능한 함수 \(u: \Omega \to \mathbb{R}\)가 <em>조화 함수(harmonic)</em>라 함은 \(\nabla^2 u = u_{xx} + u_{yy} = 0\)을 만족하는 것이다. Cauchy-Riemann 방정식에 의해, 임의의 analytic function(해석함수)의 실수부와 허수부는 조화 함수이다.
+</div>
+
+<p>조화 함수의 중요한 성질로 <em>평균값 성질(mean value property)</em>이 있다: \(u\)가 원판 \(\overline{B(z_0, r)} \subseteq \Omega\)에서 조화이면,
+$$ u(z_0) = \frac{1}{2\pi}\int_0^{2\pi} u(z_0 + re^{i\theta})\, d\theta. $$
+즉 조화 함수의 한 점에서의 값은 그 점을 중심으로 하는 임의의 원 위에서의 평균값과 같다. 이 성질은 <em>최대값 원리(maximum principle)</em>를 함의한다: 연결 열린 집합에서 비상수인 조화 함수는 내부에서 최대값을 가질 수 없다.</p>
+
+<div class="theorem"><span class="env-label">Theorem 9.1a (Maximum Modulus Principle)</span>
+\(f\)가 연결 열린 집합 \(\Omega\)에서 해석적이고 비상수이면, \(|f(z)|\)는 \(\Omega\)의 내부에서 극대값을 가질 수 없다. 즉, 모든 \(z_0 \in \Omega\)의 근방에는 \(|f(z)| > |f(z_0)|\)인 점 \(z\)가 존재한다. \(\Omega\)가 유계이고 \(f\)가 \(\overline{\Omega}\)에서 연속이면, \(|f|\)는 경계 \(\partial\Omega\) 위에서 최대값을 달성한다.
+</div>
+
+<!-- 9.2 Cauchy's Integral Theorem and Formula -->
+<p>Cauchy-Riemann 방정식에서 해석함수의 기본 성질을 확립했다. 다음으로, Cauchy 적분 정리는 해석함수의 경로 적분이 0이 된다는 것을 말하며, 여기서 복소해석학 특유의 결과들이 모두 파생된다.</p>
+
+<h3>9.2 Cauchy's Integral Theorem and Formula</h3>
+
+<p>Cauchy 적분 정리와 그 일반화인 Cauchy 적분 공식은 복소해석학의 중심 결과이다. 이들로부터 해석함수의 무한 미분 가능성, Taylor/Laurent 급수 표현, Liouville 정리, 대수학의 기본 정리 등 핵심 정리들이 모두 도출된다.</p>
+
+<div class="theorem"><span class="env-label">Theorem 9.2 (Cauchy's Integral Theorem)</span>
+\(f\)가 단순 연결 영역 \(\Omega\)에서 해석적이고, \(\gamma\)가 \(\Omega\) 안의 닫힌 조각 매끈 곡선이라 하자. 그러면
+$$ \oint_\gamma f(z)\, dz = 0. $$
+</div>
+
+<p>Cauchy 정리의 직관적 해석: 해석함수의 닫힌 경로 적분이 0이라는 것은, 적분이 경로의 양 끝점에만 의존한다는 뜻이다. 이는 실수 미적분에서 보존적 벡터장의 선적분이 경로에 무관한 것과 유사하며, 실제로 Cauchy-Riemann 방정식은 \((u, -v)\)와 \((v, u)\)가 비회전(curl-free) 벡터장임을 보장한다.</p>
+
+<div class="theorem"><span class="env-label">Theorem 9.3 (Cauchy's Integral Formula)</span>
+\(f\)가 단순 닫힌 윤곽선 \(\gamma\)(양의 방향) 위와 내부에서 해석적이라 하자. \(\gamma\) 내부의 임의의 \(z_0\)에 대해:
+$$ f(z_0) = \frac{1}{2\pi i} \oint_\gamma \frac{f(z)}{z - z_0}\, dz. $$
+보다 일반적으로, \(n\)차 도함수는 다음과 같이 주어진다:
+$$ f^{(n)}(z_0) = \frac{n!}{2\pi i} \oint_\gamma \frac{f(z)}{(z - z_0)^{n+1}}\, dz. $$
+</div>
+
+<div class="example"><span class="env-label">Example 9.2a (Cauchy 적분 공식: 함수값 계산)</span>
+\(\oint_{|z|=2} \frac{e^z}{z - 1}\, dz\)를 구하자. 피적분함수에서 \(f(z) = e^z\)는 전체 함수이고, \(z_0 = 1\)은 \(|z|=2\) 내부에 있다. Cauchy 적분 공식에 의해:
+$$ \oint_{|z|=2} \frac{e^z}{z - 1}\, dz = 2\pi i \cdot f(1) = 2\pi i \cdot e. $$
+</div>
+
+<div class="example"><span class="env-label">Example 9.2b (Cauchy 적분 공식: 고차 도함수)</span>
+\(\oint_{|z|=1} \frac{\cos z}{z^4}\, dz\)를 구하자. \(f(z) = \cos z\)로 놓으면 \(n = 3\)에 대한 Cauchy 도함수 공식을 적용한다:
+$$ \oint_{|z|=1} \frac{f(z)}{(z - 0)^{3+1}}\, dz = \frac{2\pi i}{3!} f'''(0). $$
+\(f'(z) = -\sin z\), \(f''(z) = -\cos z\), \(f'''(z) = \sin z\)이므로 \(f'''(0) = 0\)이다. 따라서:
+$$ \oint_{|z|=1} \frac{\cos z}{z^4}\, dz = \frac{2\pi i}{6} \cdot 0 = 0. $$
+</div>
+
+<div class="example"><span class="env-label">Example 9.2c (Cauchy 적분 공식: 2차 도함수)</span>
+\(\oint_{|z|=2} \frac{e^{2z}}{(z-1)^3}\, dz\)를 구하자. \(f(z) = e^{2z}\)로 놓고 \(n = 2\), \(z_0 = 1\)에 대해 Cauchy 도함수 공식을 적용한다:
+$$ \oint_{|z|=2} \frac{e^{2z}}{(z-1)^3}\, dz = \frac{2\pi i}{2!} f''(1). $$
+\(f''(z) = 4e^{2z}\)이므로 \(f''(1) = 4e^2\)이다. 따라서:
+$$ \oint_{|z|=2} \frac{e^{2z}}{(z-1)^3}\, dz = \frac{2\pi i}{2} \cdot 4e^2 = 4\pi i \, e^2. $$
+</div>
+
+<p>주목할 만한 결과: 모든 analytic function(해석함수)은 무한번 미분 가능하고, 국소적으로 convergence(수렴)하는 멱급수로 표현된다. 이는 실수 경우와 극명하게 대비된다.</p>
+
+<div class="theorem"><span class="env-label">Theorem 9.4 (Liouville's Theorem)</span>
+모든 유계인 전체 함수는 상수이다.
+</div>
+
+<div class="proof"><span class="env-label">Proof</span>
+임의의 \(z_0 \in \mathbb{C}\)와 \(R > 0\)에 대해, 도함수에 대한 Cauchy 적분 공식으로부터 \(|f'(z_0)| \leq \frac{M}{R}\)을 얻는다. 여기서 \(M = \sup_{|z|=R}|f(z)|\)이다. \(f\)가 \(M\)으로 유계이면, \(R \to \infty\)로 보내면 모든 \(z_0\)에 대해 \(f'(z_0) = 0\)이다. 따라서 \(f\)는 상수이다.
+</div>
+
+<p>Liouville 정리의 직접적인 따름정리: 비상수 전체 함수는 반드시 유계가 아니다. 이는 대수학의 기본 정리를 포함하여 다양한 존재성 결과의 증명에 활용된다. 또한 이 정리를 일반화하면, 다항식적 증가 조건 \(|f(z)| \leq C(1+|z|^n)\)을 만족하는 전체 함수는 \(n\)차 이하의 다항식이다 (Example 9.2d 참고).</p>
+
+<div class="theorem"><span class="env-label">Theorem 9.5 (Fundamental Theorem of Algebra)</span>
+복소 계수를 갖는 모든 비상수 다항식 \(p(z)\)는 \(\mathbb{C}\)에서 적어도 하나의 근을 갖는다.
+</div>
+
+<div class="proof"><span class="env-label">Proof</span>
+모든 \(z\)에 대해 \(p(z) \neq 0\)이라 가정하면, \(1/p(z)\)는 전체 함수이다. \(|z| \to \infty\)일 때 \(|p(z)| \to \infty\)이므로, \(1/p\)는 유계이고, Liouville 정리에 의해 상수이다. 이는 모순이다.
+</div>
+
+<div class="example"><span class="env-label">Example 9.2d (Cauchy 부등식과 Liouville 정리의 응용)</span>
+\(f\)가 전체 함수이고 양의 상수 \(A, B\)와 양의 정수 \(n\)에 대해 \(|f(z)| \leq A + B|z|^n\)을 만족하면, \(f\)는 \(n\)차 이하의 다항식임을 보이자.
+
+\(z_0 = 0\)을 중심으로 하는 반지름 \(R\)의 원에 대해 Cauchy 부등식을 적용하면, \(k > n\)인 \(k\)차 Taylor 계수에 대해:
+$$ |a_k| = \left|\frac{f^{(k)}(0)}{k!}\right| \leq \frac{\max_{|z|=R}|f(z)|}{R^k} \leq \frac{A + BR^n}{R^k}. $$
+\(k > n\)이면 \(R \to \infty\)일 때 우변이 0으로 수렴하므로 \(a_k = 0\)이다. 따라서 \(f\)는 \(n\)차 이하의 다항식이다.
+</div>
+
+<!-- 9.3 Laurent Series and Residues -->
+<p>Cauchy 적분 공식은 해석함수가 "잘 행동하는" 영역에서의 이야기였다. 이제 함수가 정의되지 않는 점 — 특이점 — 주변의 구조를 분석한다. Laurent 급수는 특이점 근방에서 Taylor 급수를 일반화한 것이며, 유수(residue)는 특이점의 정보를 하나의 수로 요약한다.</p>
+
+<h3>9.3 Laurent Series and Residues</h3>
+
+<p>고립 특이점의 분류와 유수 이론은 복소해석학의 주요 내용이다. 특이점의 성격은 함수의 Laurent 급수 전개로부터 완전히 결정되며, 유수 정리는 닫힌 경로를 따르는 적분을 유한개의 특이점 정보로 환원한다.</p>
+
+<p>특이점 분류의 동치적 특성화를 정리하면 다음과 같다:</p>
+<ul>
+  <li><strong>제거 가능 특이점:</strong> \(\lim_{z \to z_0} f(z)\)가 존재 \(\Leftrightarrow\) \(z_0\) 근방에서 \(f\)가 유계 (Riemann의 제거 가능 특이점 정리).</li>
+  <li><strong>\(m\)차 극점:</strong> \(\lim_{z \to z_0} |f(z)| = \infty\) \(\Leftrightarrow\) \((z-z_0)^m f(z)\)가 \(z_0\)에서 해석적이고 0이 아닌 값을 가짐.</li>
+  <li><strong>본질적 특이점:</strong> \(\lim_{z \to z_0} f(z)\)가 존재하지도, \(\infty\)로 발산하지도 않음 \(\Leftrightarrow\) Casorati-Weierstrass 정리에 의해 \(f\)는 \(z_0\)의 임의의 뚫린 근방에서 \(\mathbb{C}\)의 조밀한 부분집합을 값으로 취함.</li>
+</ul>
+
+<p>Taylor 급수가 해석점 주변의 국소적 표현이라면, Laurent 급수는 특이점 주변의 국소적 표현이다. 제어 공학에서 전달함수의 극점을 분석하거나, 신호처리에서 z-변환의 수렴 영역을 결정할 때, Laurent 급수의 주요부(principal part)가 핵심 정보를 담고 있다.</p>
+
+<div class="definition"><span class="env-label">Definition 9.3 (Laurent Series)</span>
+\(f\)가 고리 영역 \(r < |z - z_0| < R\)에서 해석적이면, \(f\)는 <em>Laurent 급수</em> 표현을 갖는다:
+$$ f(z) = \sum_{n=-\infty}^{\infty} a_n (z - z_0)^n, $$
+여기서
+$$ a_n = \frac{1}{2\pi i} \oint_\gamma \frac{f(z)}{(z - z_0)^{n+1}}\, dz $$
+이고, \(\gamma\)는 고리 영역 내의 양의 방향 원이다. \(\sum_{n=-\infty}^{-1} a_n (z-z_0)^n\)을 <em>주요부(principal part)</em>라 한다.
+</div>
+
+<div class="example"><span class="env-label">Example 9.2e (Laurent 급수 전개)</span>
+\(f(z) = \frac{1}{z(z-1)}\)을 영역 \(0 < |z| < 1\)에서 Laurent 급수로 전개하자.
+
+부분분수 분해: \(f(z) = \frac{-1}{z} + \frac{1}{z-1}\).
+
+\(|z| < 1\)에서 \(\frac{1}{z-1} = -\frac{1}{1-z} = -\sum_{n=0}^{\infty} z^n\)이므로:
+$$ f(z) = -\frac{1}{z} - \sum_{n=0}^{\infty} z^n = -\frac{1}{z} - 1 - z - z^2 - \cdots $$
+따라서 \(a_{-1} = -1\)이고 \(\operatorname{Res}(f, 0) = -1\)이다.
+
+한편, 영역 \(|z| > 1\)에서는 \(\frac{1}{z-1} = \frac{1}{z}\cdot\frac{1}{1 - 1/z} = \sum_{n=1}^{\infty} z^{-n}\)이므로 전개가 달라진다. 같은 함수라도 Laurent 전개는 영역에 의존한다.
+</div>
+
+<div class="definition"><span class="env-label">Definition 9.4 (Isolated Singularities)</span>
+\(f\)가 뚫린 원판 \(0 < |z - z_0| < R\)에서 해석적이면, \(z_0\)에서의 특이점은 Laurent 급수에 의해 다음과 같이 분류된다:
+<ul>
+  <li><strong>Removable</strong>: 모든 \(n < 0\)에 대해 \(a_n = 0\)인 경우 (제거 가능 특이점).</li>
+  <li><strong>Pole of order \(m\)</strong>: \(a_{-m} \neq 0\)이고 \(n < -m\)에 대해 \(a_n = 0\)인 경우 (\(m\)차 극점).</li>
+  <li><strong>Essential</strong>: \(n < 0\)인 무한히 많은 \(a_n \neq 0\)인 경우 (본질적 특이점).</li>
+</ul>
+</div>
+
+<p>유수(residue)는 특이점의 정보를 하나의 복소수로 요약한다. 라플라스 역변환에서 각 극점의 기여를 계산할 때, 그리고 나이퀴스트 안정성 판별에서 불안정 극점의 개수를 세는 데 유수가 직접 사용된다.</p>
+
+<div class="definition"><span class="env-label">Definition 9.5 (Residue)</span>
+고립 특이점 \(z_0\)에서 \(f\)의 <em>residue(유수)</em>는 Laurent 전개에서의 계수 \(a_{-1}\)이다:
+$$ \operatorname{Res}(f, z_0) = a_{-1} = \frac{1}{2\pi i} \oint_\gamma f(z)\, dz, $$
+여기서 \(\gamma\)는 \(z_0\) 주위의 작은 양의 방향 원이다.
+</div>
+
+<p><strong>유수 계산법 요약.</strong> 고립 특이점 \(z_0\)에서의 유수를 구하는 실용적인 방법은 특이점 유형에 따라 다르다:</p>
+<ul>
+  <li><strong>단순극 (\(m=1\)):</strong> \(f(z) = g(z)/h(z)\)이고 \(h(z_0) = 0\), \(h'(z_0) \neq 0\), \(g(z_0) \neq 0\)이면:
+  $$ \operatorname{Res}(f, z_0) = \frac{g(z_0)}{h'(z_0)}. $$
+  또는 직접 \(\operatorname{Res}(f, z_0) = \lim_{z \to z_0}(z - z_0)f(z)\).</li>
+  <li><strong>\(m\)차 극점:</strong>
+  $$ \operatorname{Res}(f, z_0) = \frac{1}{(m-1)!}\lim_{z \to z_0}\frac{d^{m-1}}{dz^{m-1}}\left[(z-z_0)^m f(z)\right]. $$</li>
+  <li><strong>본질적 특이점:</strong> Laurent 급수를 직접 전개하여 \(z^{-1}\) 계수를 읽는다.</li>
+</ul>
+
+<div class="theorem"><span class="env-label">Theorem 9.6 (Residue Theorem)</span>
+\(f\)가 단순 닫힌 윤곽선 \(\gamma\) 위와 내부에서, 고립 특이점 \(z_1, \ldots, z_k\)를 제외하고 해석적이라 하자. 그러면
+$$ \oint_\gamma f(z)\, dz = 2\pi i \sum_{j=1}^k \operatorname{Res}(f, z_j). $$
+</div>
+
+<p>유수 정리는 닫힌 경로를 따르는 적분을 경로 내부의 유한 개 특이점 정보로 환원한다. 이것이 라플라스 역변환 \(f(t) = \frac{1}{2\pi i}\oint F(s)e^{st}\,ds\)에서 각 극점의 유수가 시간 영역 응답의 각 모드(지수 함수, 감쇠 진동 등)에 대응하는 이유이다.</p>
+
+<div class="example"><span class="env-label">Example 9.3a (유수 계산: 단순극)</span>
+\(f(z) = \frac{\sin z}{z(z - \pi)}\)에 대해 \(z = \pi\)에서의 유수를 구하자. \(z = \pi\)는 단순극이므로:
+$$ \operatorname{Res}(f, \pi) = \lim_{z \to \pi} (z - \pi) \frac{\sin z}{z(z-\pi)} = \frac{\sin \pi}{\pi} = 0. $$
+이는 \(\sin z\)가 \(z = \pi\)에서 영점을 가져 특이점이 제거 가능함을 반영한다. 실제로 \(\sin z / (z-\pi) \to -\cos\pi = 1\)이므로 \(\operatorname{Res}(f, \pi) = 0\)이 정확하다.
+
+한편, \(z = 0\)에서는 \(\sin z\)도 영점을 가지므로 분자-분모의 차수를 확인해야 한다. \(\sin z = z - z^3/6 + \cdots\)이므로 \(\frac{\sin z}{z(z-\pi)} = \frac{1 - z^2/6 + \cdots}{z - \pi}\)이고, \(z = 0\)은 제거 가능 특이점이다. 따라서 \(\operatorname{Res}(f, 0) = 0\)이다.
+</div>
+
+<div class="example"><span class="env-label">Example 9.3b (유수 계산: 다중극)</span>
+\(f(z) = \frac{z+1}{(z-1)^3}\)에 대해 \(z = 1\)에서의 유수를 구하자. \(z = 1\)은 3차 극점이다. \(m\)차 극점에서의 유수 공식:
+$$ \operatorname{Res}(f, z_0) = \frac{1}{(m-1)!} \lim_{z \to z_0} \frac{d^{m-1}}{dz^{m-1}} \left[(z-z_0)^m f(z)\right]. $$
+여기서 \(m = 3\), \(z_0 = 1\)이므로 \((z-1)^3 f(z) = z + 1\)이고:
+$$ \operatorname{Res}(f, 1) = \frac{1}{2!} \lim_{z \to 1} \frac{d^2}{dz^2}(z+1) = \frac{1}{2} \cdot 0 = 0. $$
+</div>
+
+<div class="example"><span class="env-label">Example 9.3c (유수 계산: 본질적 특이점)</span>
+\(f(z) = e^{1/z}\)에 대해 \(z = 0\)에서의 유수를 구하자. \(z = 0\)은 본질적 특이점이다. Laurent 전개를 직접 구한다:
+$$ e^{1/z} = \sum_{n=0}^{\infty} \frac{1}{n! \, z^n} = 1 + \frac{1}{z} + \frac{1}{2! z^2} + \frac{1}{3! z^3} + \cdots $$
+\(z^{-1}\)의 계수가 유수이므로:
+$$ \operatorname{Res}(e^{1/z}, 0) = 1. $$
+따라서 \(\oint_{|z|=1} e^{1/z}\, dz = 2\pi i\)이다.
+</div>
+
+<div class="example"><span class="env-label">Example 9.3d (유수 계산: 본질적 특이점의 Laurent 급수)</span>
+\(f(z) = z^2 \sin(1/z)\)에 대해 \(z = 0\)에서의 유수를 구하자. \(z = 0\)은 본질적 특이점이다.
+
+\(\sin w = w - w^3/3! + w^5/5! - \cdots\)에서 \(w = 1/z\)로 대입하면:
+$$ z^2 \sin(1/z) = z^2 \left(\frac{1}{z} - \frac{1}{3!z^3} + \frac{1}{5!z^5} - \cdots\right) = z - \frac{1}{6z} + \frac{1}{120z^3} - \cdots $$
+\(z^{-1}\)의 계수를 읽으면:
+$$ \operatorname{Res}(z^2\sin(1/z),\, 0) = -\frac{1}{6}. $$
+</div>
+
+<div class="example"><span class="env-label">Example 9.4 (유수 정리 응용: 경로 적분)</span>
+\(\oint_{|z|=2} \frac{e^z}{z^2(z-1)}\, dz\)를 구하자. \(|z|=2\) 내부의 특이점은 \(z=0\) (\(2\)차 극점)과 \(z=1\) (단순 극점)이다.
+
+\(z = 1\)에서: \(\operatorname{Res}(f, 1) = \lim_{z \to 1}(z-1) \frac{e^z}{z^2(z-1)} = e\).
+
+\(z = 0\)에서: \(g(z) = e^z/(z-1)\)로 놓으면 \(f(z) = g(z)/z^2\)이고, \(\operatorname{Res}(f, 0) = g'(0) = \frac{e^z(z-1) - e^z}{(z-1)^2}\big|_{z=0} = \frac{-1 - 1}{1} = -2\).
+
+따라서 \(\oint_{|z|=2} f(z)\, dz = 2\pi i(e - 2)\).
+</div>
+
+<!-- 9.3.1 유수 정리를 이용한 실수 적분 -->
+<h4>유수 정리를 이용한 실수 적분 계산</h4>
+
+<p>유수 정리의 주요 응용 중 하나는 실수 축 위의 정적분을 복소 경로 적분으로 변환하여 계산하는 것이다. 경로의 선택과 보조 함수의 설정이 핵심이며, 아래에서 두 가지 전형적인 유형을 다룬다.</p>
+
+<div class="example"><span class="env-label">Example 9.5 (삼각함수 유리식의 적분)</span>
+\(I = \int_0^{2\pi} \frac{d\theta}{2 + \cos\theta}\)를 구하자. \(z = e^{i\theta}\)로 치환하면 \(\cos\theta = \frac{z + z^{-1}}{2}\), \(d\theta = \frac{dz}{iz}\)이다. 적분은 단위원 \(|z| = 1\) 위의 경로 적분으로 변환된다:
+$$ I = \oint_{|z|=1} \frac{1}{2 + \frac{z+z^{-1}}{2}} \cdot \frac{dz}{iz} = \oint_{|z|=1} \frac{2\, dz}{i(z^2 + 4z + 1)}. $$
+\(z^2 + 4z + 1 = 0\)의 근은 \(z = -2 \pm \sqrt{3}\)이다. \(|z| < 1\)을 만족하는 근은 \(z_0 = -2 + \sqrt{3}\)뿐이다 (단순극). 유수를 계산하면:
+$$ \operatorname{Res}\left(\frac{2}{i(z^2+4z+1)}, z_0\right) = \frac{2}{i \cdot 2z_0 + 4i}\bigg|_{z_0 = -2+\sqrt{3}} = \frac{2}{i \cdot 2\sqrt{3}} = \frac{1}{i\sqrt{3}}. $$
+유수 정리에 의해:
+$$ I = 2\pi i \cdot \frac{1}{i\sqrt{3}} = \frac{2\pi}{\sqrt{3}}. $$
+</div>
+
+<div class="example"><span class="env-label">Example 9.6 (실수 축 위의 이상 적분)</span>
+\(I = \int_{-\infty}^{\infty} \frac{dx}{(x^2+1)(x^2+4)}\)를 구하자. 상반 평면의 반원 경로 \(\gamma_R\) (실수 축 \([-R, R]\)과 반원 호의 합)를 취한다. \(R \to \infty\)에서 반원 호 위의 적분은 \(O(1/R^3)\)이므로 0으로 수렴한다.
+
+상반 평면 내의 특이점은 \(z = i\) (단순극)와 \(z = 2i\) (단순극)이다.
+
+\(z = i\)에서:
+$$ \operatorname{Res}(f, i) = \frac{1}{(z+i)(z^2+4)}\bigg|_{z=i} = \frac{1}{2i \cdot 3} = \frac{1}{6i}. $$
+
+\(z = 2i\)에서:
+$$ \operatorname{Res}(f, 2i) = \frac{1}{(z^2+1)(z+2i)}\bigg|_{z=2i} = \frac{1}{(-3)(4i)} = \frac{-1}{12i}. $$
+
+따라서:
+$$ I = 2\pi i \left(\frac{1}{6i} - \frac{1}{12i}\right) = 2\pi i \cdot \frac{1}{12i} = \frac{\pi}{6}. $$
+</div>
+
+<p><strong>실수 적분 계산의 일반적인 경로 선택 지침:</strong></p>
+<ul>
+  <li><strong>\(\int_0^{2\pi} R(\cos\theta, \sin\theta)\, d\theta\) 형:</strong> \(z = e^{i\theta}\)로 치환하여 단위원 위의 적분으로 변환.</li>
+  <li><strong>\(\int_{-\infty}^{\infty} f(x)\, dx\) 형 (유리함수):</strong> 상반 평면(또는 하반 평면)의 큰 반원을 잡고, 호 위 적분이 0으로 감을 보인다 (ML 부등식). 분모의 차수가 분자보다 2 이상 클 때 적용 가능.</li>
+  <li><strong>\(\int_{-\infty}^{\infty} f(x)e^{iax}\, dx\) 형 (\(a > 0\)):</strong> Jordan 보조정리(Jordan's lemma)를 이용. \(|f(z)| \to 0\) (\(|z| \to \infty\), \(\operatorname{Im}(z) \geq 0\))이면 상반 평면 반원 호의 기여가 0이다.</li>
+</ul>
+
+<div class="theorem"><span class="env-label">Theorem 9.6a (Jordan's Lemma)</span>
+\(a > 0\)이고 \(f\)가 상반 평면에서 \(|z| \to \infty\)일 때 균등하게 \(0\)으로 수렴하면:
+$$ \lim_{R \to \infty} \int_{C_R} f(z) e^{iaz}\, dz = 0, $$
+여기서 \(C_R\)은 상반 평면의 반지름 \(R\)인 반원 호이다.
+</div>
+
+<!-- 9.4 Conformal Mappings -->
+<p>지금까지 해석함수의 적분과 특이점을 다루었다. 마지막으로, 해석함수의 기하학적 측면을 다룬다. 도함수가 0이 아닌 해석함수는 각도를 보존하는 등각사상(conformal map)이 되며, 이를 이용해 복잡한 영역의 문제를 단순한 영역에서 풀 수 있다.</p>
+
+<h3>9.4 Conformal Mappings</h3>
+
+<p>등각사상의 공학적 핵심은 라플라스 방정식의 해가 등각사상에 의해 보존된다는 것이다. 따라서 복잡한 경계 조건을 가진 열전도 문제나 정전기 문제를 등각사상으로 단순한 영역으로 옮겨 풀 수 있다. 항공공학에서는 Joukowski 변환으로 원의 주위 유동 해석으로부터 날개 단면의 양력을 직접 도출한다.</p>
+
+<div class="definition"><span class="env-label">Definition 9.6 (Conformal Map)</span>
+정칙 함수 \(f: \Omega \to \mathbb{C}\)가 \(z_0\)에서 <em>conformal(등각)</em>이라 함은 \(f'(z_0) \neq 0\)인 것이다. Conformal mapping(등각사상)은 등각인 점에서 곡선 사이의 각도와 방향을 보존한다.
+</div>
+
+<div class="theorem"><span class="env-label">Theorem 9.7 (Riemann Mapping Theorem)</span>
+\(\mathbb{C}\)의 모든 단순 연결인 진부분 열린 집합은 열린 단위 원판 \(\mathbb{D}\)과 등각 동치이다. 보다 정확히, 임의의 \(z_0 \in \Omega\)에 대해 \(f(z_0) = 0\)이고 \(f'(z_0) > 0\)인 쌍정칙 사상 \(f: \Omega \to \mathbb{D}\)이 유일하게 존재한다.
+</div>
+
+<p>Riemann 사상 정리는 존재성을 보장하지만, 구체적인 사상을 구하는 것은 일반적으로 어렵다. 다각형 영역에 대해서는 <em>Schwarz-Christoffel 공식</em>이 사상을 적분 형태로 제공한다. 단순한 영역(반평면, 띠, 부채꼴, 쐐기 영역 등)의 경우 기본 등각사상의 합성으로 구성할 수 있으며, 아래의 등각사상 표가 이를 정리한다.</p>
+
+<p>등각사상은 유체역학, 전자기학, 열전도 등 2차원 라플라스 방정식이 나타나는 물리 문제에서 자주 사용된다. 기본 전략은 복잡한 영역에서의 문제를 등각사상으로 단순한 영역(원판, 상반 평면 등)으로 변환하고, 거기서 풀어낸 뒤 역사상으로 원래 영역의 해를 구하는 것이다. 조화 함수는 등각사상에 의해 보존되므로, 이 방법이 가능하다.</p>
+
+<div class="definition"><span class="env-label">Definition 9.7 (Mobius Transformation)</span>
+<em>Mobius 변환</em>(일차 분수 변환)은 다음 형태의 사상이다:
+$$ T(z) = \frac{az + b}{cz + d}, \qquad ad - bc \neq 0, $$
+여기서 \(a, b, c, d \in \mathbb{C}\)이다. Mobius 변환은 합성에 대해 군을 이루고, 원과 직선을 원과 직선으로 사상하며, \(\mathbb{C} \cup \{\infty\}\)에서 등각이다.
+</div>
+
+<div class="example"><span class="env-label">Example 9.7 (Cayley 변환)</span>
+Cayley 변환 \(T(z) = \frac{z - i}{z + i}\)는 상반 평면 \(\operatorname{Im}(z) > 0\)을 단위 원판 \(|w| < 1\)으로 등각 사상하며, \(z = i\)를 \(w = 0\)으로 보낸다. 그 역변환은 \(z = i\frac{1+w}{1-w}\)이다.
+</div>
+
+<div class="example"><span class="env-label">Example 9.8 (Joukowski 변환)</span>
+Joukowski 변환 \(w = J(z) = z + \frac{1}{z}\)는 항공역학에서 날개 단면(에어포일)의 이론적 모델에 사용된다. 이 사상의 주요 성질을 분석하자.
+
+\(J'(z) = 1 - 1/z^2\)이므로, \(z = \pm 1\)에서 \(J'(z) = 0\)이 되어 등각성이 깨진다 (이 점들은 임계점이다).
+
+\(|z| = 1\) 위에서 \(z = e^{i\theta}\)를 대입하면:
+$$ w = e^{i\theta} + e^{-i\theta} = 2\cos\theta, $$
+즉 단위원은 실수 축의 구간 \([-2, 2]\)으로 사상된다.
+
+\(|z| = R > 1\)인 원 위에서 \(z = Re^{i\theta}\)를 대입하면:
+$$ w = \left(R + \frac{1}{R}\right)\cos\theta + i\left(R - \frac{1}{R}\right)\sin\theta, $$
+이는 장축 \(a = R + 1/R\), 단축 \(b = R - 1/R\)인 타원이다. 따라서 Joukowski 변환은 단위원 외부의 원들을 타원으로 사상한다.
+</div>
+
+<div class="example"><span class="env-label">Example 9.9a (Mobius 변환의 고정점과 분류)</span>
+Mobius 변환 \(T(z) = \frac{3z - 4}{z - 1}\)의 고정점을 구하고 유형을 분류하자.
+
+고정점 조건 \(T(z) = z\)에서 \(3z - 4 = z(z-1)\), 즉 \(z^2 - 4z + 4 = (z-2)^2 = 0\)이다. 따라서 \(z = 2\)가 유일한 고정점(중근)이다. 고정점이 하나인 Mobius 변환을 <em>포물적(parabolic)</em>이라 한다. 켤레 변환을 통해 \(w = 1/(z-2)\)로 좌표 변환하면, \(T\)는 \(w \mapsto w + c\) (평행이동)의 형태가 된다.
+
+고정점이 두 개인 경우는 <em>쌍곡적(hyperbolic)</em>, <em>타원적(elliptic)</em>, 또는 <em>사영적(loxodromic)</em>으로 분류되며, 이는 고정점에서의 승수(multiplier) \(\lambda = T'(z_{\text{fix}})\)의 값에 따라 결정된다.
+</div>
+
+<div class="example"><span class="env-label">Example 9.9b (지수 사상에 의한 띠 영역의 등각 변환)</span>
+사상 \(w = e^z\)가 수평 띠 \(S = \{z \in \mathbb{C} : 0 < \operatorname{Im}(z) < \pi\}\)를 상반 평면 \(\{w : \operatorname{Im}(w) > 0\}\)으로 등각 사상함을 보이자.
+
+\(z = x + iy\)로 놓으면 \(w = e^x e^{iy}\)이므로 \(|w| = e^x > 0\)이고 \(\arg(w) = y\)이다. \(0 < y < \pi\)이면 \(0 < \arg(w) < \pi\)이므로 \(w\)는 상반 평면에 놓인다. \(e^z\)는 전체 함수이고 \((e^z)' = e^z \neq 0\)이므로 \(S\) 위에서 등각이다.
+
+경계의 사상을 확인하면: 하변 \(y = 0\) (즉 실수 축)은 \(w = e^x > 0\)으로 양의 실수 축에, 상변 \(y = \pi\)는 \(w = -e^x < 0\)으로 음의 실수 축에 사상된다.
+</div>
+
+<h4>해석적 연속 (Analytic Continuation)</h4>
+
+<p>해석적 연속(analytic continuation)은 해석 함수의 정의역을 확장하는 기법이다. 로그함수, 감마함수, 제타함수 등은 처음에 제한된 영역에서만 정의되지만, 해석적 연속을 통해 넓은 영역으로 확장된다.</p>
+
+<div class="definition"><span class="env-label">Definition 9.8 (Analytic Continuation)</span>
+\(\Omega_1, \Omega_2 \subset \mathbb{C}\)가 열린 집합이고 \(\Omega_1 \cap \Omega_2 \neq \emptyset\)라 하자. \(f_1 : \Omega_1 \to \mathbb{C}\)와 \(f_2 : \Omega_2 \to \mathbb{C}\)가 각각 해석적(analytic)이고,
+$$ f_1(z) = f_2(z) \quad \text{for all } z \in \Omega_1 \cap \Omega_2 $$
+이면, \(f_2\)를 \(f_1\)의 \(\Omega_2\)로의 <em>해석적 연속</em>(analytic continuation)이라 한다. 이때 \(F : \Omega_1 \cup \Omega_2 \to \mathbb{C}\)를
+$$ F(z) = \begin{cases} f_1(z), & z \in \Omega_1, \\ f_2(z), & z \in \Omega_2 \end{cases} $$
+로 정의하면 \(F\)는 \(\Omega_1 \cup \Omega_2\)에서 해석적이다. <em>항등 정리</em>(Identity Theorem)에 의해, \(\Omega_1 \cap \Omega_2\)가 연결(connected)이면 이러한 연속은 <strong>유일</strong>하다.
+</div>
+
+<div class="example"><span class="env-label">Example 9.10 (로그 함수의 해석적 연속과 분지점)</span>
+주가지(principal branch) \(\operatorname{Log} z = \ln|z| + i\operatorname{Arg} z\)는 \(\mathbb{C} \setminus (-\infty, 0]\)에서 해석적이다. 원점을 중심으로 경로를 따라 연속하면:
+
+음의 실수 축 위쪽(\(\operatorname{Im}(z) > 0\))에서 접근하면 \(\operatorname{Arg} z \to \pi\)이고, 아래쪽(\(\operatorname{Im}(z) < 0\))에서 접근하면 \(\operatorname{Arg} z \to -\pi\)이다.
+
+원점을 한 바퀴 도는 경로 \(\gamma(t) = e^{2\pi i t}\) (\(0 \leq t \leq 1\))를 따라 해석적 연속을 수행하면, 시작값 \(\operatorname{Log}(1) = 0\)이 끝값 \(2\pi i\)로 바뀐다:
+$$ \operatorname{Log}(e^{2\pi i}) = 2\pi i \neq 0 = \operatorname{Log}(1). $$
+이는 \(\log z\)가 본질적으로 <em>다가 함수</em>(multi-valued function)임을 보여준다. \(z = 0\)은 <em>분지점</em>(branch point)이고, 함수를 단가(single-valued)로 만들기 위해 분지 절단선(branch cut)을 도입한다.
+</div>
+
+<div class="definition"><span class="env-label">Definition 9.9 (Riemann Surface)</span>
+<em>리만 면</em>(Riemann surface)은 다가 함수를 단가 함수로 만들기 위한 기하학적 장치이다. 직관적으로, 함수의 각 가지(branch)에 해당하는 복소 평면의 복사본(sheet)들을 분지 절단선을 따라 접합(glue)하여 만든 곡면이다. 형식적으로는 복소 1차원 연결 해석적 다양체(connected 1-dimensional complex analytic manifold)이다.
+</div>
+
+<div class="example"><span class="env-label">Example 9.11 (\(\sqrt{z}\)의 리만 면)</span>
+\(w = \sqrt{z}\)는 2가 함수이며, \(z = 0\)이 분지점이다. 리만 면은 두 장(sheet)으로 구성된다:
+$$ \text{Sheet 1: } w = |z|^{1/2} e^{i\theta/2}, \qquad \text{Sheet 2: } w = |z|^{1/2} e^{i(\theta + 2\pi)/2} = -|z|^{1/2} e^{i\theta/2}, $$
+여기서 \(z = |z|e^{i\theta}\)이다. 분지 절단선(예: \((-\infty, 0]\))을 따라 Sheet 1의 윗면과 Sheet 2의 아랫면을, Sheet 2의 윗면과 Sheet 1의 아랫면을 교차 접합하면, \(\sqrt{z}\)가 이 2중 피복(double cover) 위에서 단가 해석 함수가 된다.
+</div>
+
+<div class="theorem"><span class="env-label">Theorem 9.8 (Monodromy Theorem)</span>
+\(\Omega \subset \mathbb{C}\)가 <em>단순 연결</em>(simply connected) 영역이고, \(f\)가 \(z_0 \in \Omega\) 근방에서 해석적이며, \(z_0\)에서 출발하는 \(\Omega\) 내의 <em>모든</em> 경로를 따라 해석적 연속이 가능하다고 하자. 그러면 이 연속은 \(\Omega\) 위에서 <strong>단가 해석 함수</strong>를 정의한다.
+
+즉, 같은 끝점을 갖는 두 경로를 따른 해석적 연속의 결과가 항상 일치한다.
+</div>
+
+<div class="proof">
+핵심 아이디어: \(\Omega\)가 단순 연결이므로, 같은 끝점을 갖는 두 경로 \(\gamma_0, \gamma_1\)은 \(\Omega\) 내에서 호모토픽(homotopic)하다. 연속 변형 \(\gamma_t\) (\(0 \leq t \leq 1\))의 각 단계에서 해석적 연속의 유일성(항등 정리)을 적용하면, \(\gamma_0\)을 따른 연속 결과와 \(\gamma_1\)을 따른 연속 결과가 동일함을 보일 수 있다.
+</div>
+
+<div class="example"><span class="env-label">Example 9.12 (감마 함수 \(\Gamma(z)\)의 해석적 연속)</span>
+감마 함수(Gamma function)는 \(\operatorname{Re}(z) > 0\)에서
+$$ \Gamma(z) = \int_0^{\infty} t^{z-1} e^{-t} \, dt $$
+로 정의된다. 함수 방정식(functional equation) \(\Gamma(z+1) = z\Gamma(z)\)를 반복 적용하면:
+$$ \Gamma(z) = \frac{\Gamma(z+n)}{z(z+1)\cdots(z+n-1)}, $$
+이 관계식을 반복 적용하면 \(\Gamma(z)\)를 \(\mathbb{C} \setminus \{0, -1, -2, \ldots\}\) 전체로 해석적 연속할 수 있다.
+
+\(z = -n\) (\(n = 0, 1, 2, \ldots\))에서 \(\Gamma(z)\)는 <em>단순극</em>(simple pole)을 가지며, 유수는
+$$ \operatorname{Res}_{z = -n} \Gamma(z) = \frac{(-1)^n}{n!} $$
+이다. 이는 \(\Gamma(z+1) = z\Gamma(z)\)에서 \(z = -n\) 근방의 Laurent 전개를 통해 얻어진다.
+</div>
+
+<div class="example"><span class="env-label">Example 9.13 (리만 제타 함수 \(\zeta(s)\))</span>
+리만 제타 함수(Riemann zeta function)는 \(\operatorname{Re}(s) > 1\)에서
+$$ \zeta(s) = \sum_{n=1}^{\infty} \frac{1}{n^s} $$
+로 정의되며, 이 급수는 \(\operatorname{Re}(s) > 1\)에서 절대 수렴한다.
+
+\(\zeta(s)\)는 \(\mathbb{C} \setminus \{1\}\) 전체로 해석적 연속되며, \(s = 1\)에서 유수가 1인 단순극을 갖는다. 해석적 연속 후 다음의 <em>함수 방정식</em>이 성립한다:
+$$ \zeta(s) = 2^s \pi^{s-1} \sin\!\left(\frac{\pi s}{2}\right) \Gamma(1-s) \, \zeta(1-s). $$
+이 방정식은 \(\zeta(s)\)의 \(\operatorname{Re}(s) > 1\)에서의 값과 \(\operatorname{Re}(s) < 0\)에서의 값을 연결한다.
+
+\(\sin(\pi s/2) = 0\), 즉 \(s = -2, -4, -6, \ldots\)에서 \(\zeta(s) = 0\)이 되며, 이들을 <em>자명한 영점</em>(trivial zeros)이라 한다. 리만 가설(Riemann Hypothesis)은 자명하지 않은 영점(non-trivial zeros)이 모두 임계선 \(\operatorname{Re}(s) = \frac{1}{2}\) 위에 놓인다고 추측한다.
+</div>
+
+<h4>주요 등각사상 표</h4>
+<table border="1" cellpadding="6" cellspacing="0" style="border-collapse: collapse; margin: 1em auto;">
+<thead>
+<tr><th>사상 \(w = f(z)\)</th><th>정의역</th><th>치역</th></tr>
+</thead>
+<tbody>
+<tr><td>\(w = z^2\)</td><td>상반 평면 \(\operatorname{Im}(z) > 0\)</td><td>\(\mathbb{C} \setminus [0, \infty)\) (절단 평면)</td></tr>
+<tr><td>\(w = e^z\)</td><td>수평 띠 \(0 < \operatorname{Im}(z) < \pi\)</td><td>상반 평면</td></tr>
+<tr><td>\(w = \frac{z-i}{z+i}\)</td><td>상반 평면</td><td>단위 원판 \(|w| < 1\)</td></tr>
+<tr><td>\(w = \frac{z-z_0}{1-\overline{z_0}z}\)</td><td>단위 원판</td><td>단위 원판 (\(z_0 \mapsto 0\))</td></tr>
+<tr><td>\(w = \log z\)</td><td>\(\mathbb{C} \setminus (-\infty, 0]\)</td><td>수평 띠 \(-\pi < \operatorname{Im}(w) < \pi\)</td></tr>
+<tr><td>\(w = z + 1/z\)</td><td>\(|z| > 1\), \(\operatorname{Im}(z) > 0\)</td><td>상반 평면</td></tr>
+<tr><td>\(w = \sin z\)</td><td>수직 띠 \(-\pi/2 < \operatorname{Re}(z) < \pi/2\)</td><td>\(\mathbb{C} \setminus ((-\infty,-1] \cup [1,\infty))\)</td></tr>
+</tbody>
+</table>
+
+<p class="source-note"><em>Sources: METU Math349, NPTEL Complex Analysis.</em></p>
+</section>
+
+
+<!-- ============================================================
+     SECTION 10: FUNCTIONAL ANALYSIS
+     ============================================================ -->
+
+<details class="video-resources">
+<summary>추천 영상 강의 (원본 소스 기반)</summary>
+<ul>
+<li><a href="https://www.youtube.com/playlist?list=PL7RK4EsMAcJI8S01bmUC1ef53KbTA0FSf" target="_blank">MATH 463 Complex Variables — U. of Maryland</a></li>
+<li><a href="https://www.youtube.com/playlist?list=PLkfmuPOLLntiM_HjG-FSUTyINMfgVszca" target="_blank">Applied Complex Variables (Math 3160) — U. of Utah</a></li>
+<li><a href="http://nptel.ac.in/courses/111106084/" target="_blank">Advanced Complex Analysis Part 1 — NPTEL IIT Madras</a></li>
+<li><a href="http://nptel.ac.in/courses/111106094/" target="_blank">Advanced Complex Analysis Part 2 — NPTEL IIT Madras</a></li>
+<li><a href="http://nptel.ac.in/courses/111106044/" target="_blank">Complex 1-Tori and Elliptic Curves — NPTEL IIT Madras</a></li>
+</ul>
+</details>
+
+<details class="video-resources">
+<summary>추천 교재 &amp; 오픈 자료</summary>
+<ul>
+<li><a href="https://complex-analysis.com/" target="_blank">Complex Analysis: A Visual and Interactive Introduction (Ponce Campuzano)</a> — 인터랙티브 무료 교재</li>
+<li>Ahlfors, <em>Complex Analysis</em> — 복소해석학의 고전적 표준 교재</li>
+<li>Stein &amp; Shakarchi, <em>Complex Analysis</em> (Princeton Lectures in Analysis II) — 현대적 접근</li>
+<li>Conway, <em>Functions of One Complex Variable I &amp; II</em> — GTM 시리즈, 체계적 전개</li>
+<li>Needham, <em>Visual Complex Analysis</em> — 기하학적 직관 중심의 독특한 접근</li>
+<li>Lang, <em>Complex Analysis</em> — GTM 103, 간결한 대학원 입문</li>
+</ul>
+</details>
+

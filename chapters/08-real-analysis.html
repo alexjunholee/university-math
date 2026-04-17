@@ -1,0 +1,521 @@
+<section id="real-analysis">
+<h2>Part IV: Analysis</h2>
+
+<p>해석학(Analysis)은 미적분학의 기초를 엄밀하게 세우고, 그 위에 도구들을 구축하는 분야이다. 미적분학에서 직관적으로 사용한 극한, 연속, 수렴 같은 개념들을 ε-δ 논법으로 정밀하게 재정의한다.</p>
+
+<h2>8. Real Analysis</h2>
+
+<p>실해석학은 실수 위에서 정의된 함수의 성질을 엄밀하게 연구한다. 미적분학 수업에서 '당연하다'고 넘겼던 것들 — 연속함수가 중간값을 가진다, 닫힌 구간에서 최댓값이 존재한다 — 을 증명하는 것이 이 분야의 목표이다.</p>
+
+<p>공학에서 실해석학이 왜 필요한가? 수치해석(numerical analysis)에서 반복 알고리즘이 올바른 해로 수렴하는지, 그 오차 한계가 얼마인지를 보장하려면 ε-δ 논법이 필수이다. 푸리에 급수(Fourier series)로 신호를 복원할 때 급수가 원래 함수로 수렴하려면 균등수렴(uniform convergence) 조건이 필요하다. 최적화 문제에서 최적해가 존재함을 보장하는 것은 컴팩트성(compactness)과 연속 함수의 최대값 정리이다. 실해석학은 "미적분이 왜 되는가"에 답하는 학문이고, "근사가 충분히 정확한가?"라는 공학적 질문에 엄밀한 답을 제공한다.</p>
+
+<p>실해석학(Real Analysis)은 미적분의 직관적 개념인 극한, 연속, 미분, 적분을 엄밀하게 다룬다. 여기서 개발된 도구들은 현대 수학과 그 응용의 모든 분야를 뒷받침한다.</p>
+
+<!-- 8.1 Sequences and Limits -->
+<h3>8.1 Sequences and Limits</h3>
+
+<p>수열의 수렴은 해석학 전체의 출발점이다. 수치해석에서 Newton 법이나 고정점 반복법(fixed-point iteration)이 올바른 근으로 다가가는지, 유한요소법(FEM)의 메쉬를 세밀하게 할수록 근사해가 참해에 수렴하는지 — 이 모든 문제가 수열의 수렴으로 귀결된다. ε-N 논법은 "충분히 많이 반복하면 오차를 원하는 만큼 줄일 수 있다"는 직관을 정밀한 수학적 언어로 표현한다.</p>
+
+<p>수열이 수렴한다는 것을 엄밀하게 정의하는 것이 첫 번째 과제이다.</p>
+
+<div class="definition"><span class="env-label">Definition 8.1 (Convergence of a Sequence)</span>
+\(\mathbb{R}\)에서의 수열 \((a_n)\)이 \(L \in \mathbb{R}\)로 <em>convergence(수렴)</em>한다는 것은, 모든 \(\varepsilon > 0\)에 대해 \(N \in \mathbb{N}\)이 존재하여
+$$ n \geq N \implies |a_n - L| < \varepsilon $$
+을 만족하는 것을 말한다. 이를 \(\lim_{n\to\infty} a_n = L\) 또는 \(a_n \to L\)로 표기한다.
+</div>
+
+<p>수렴의 정의는 극한값 \(L\)을 미리 알아야 적용할 수 있다. 그런데 극한값을 모르는 상태에서 수열이 수렴하는지 판별할 수는 없을까? Cauchy 수열의 개념이 이 질문에 답한다.</p>
+
+<div class="definition"><span class="env-label">Definition 8.2 (Cauchy Sequence)</span>
+\(\mathbb{R}\)에서의 수열 \((a_n)\)이 <em>Cauchy sequence(코시 수열)</em>이라 함은, 모든 \(\varepsilon > 0\)에 대해 \(N \in \mathbb{N}\)이 존재하여
+$$ m, n \geq N \implies |a_m - a_n| < \varepsilon $$
+을 만족하는 것을 말한다.
+</div>
+
+<p>실수의 완비성(completeness)이 해석학이 작동하는 이유이다. 유리수 체계에서는 Cauchy 수열이 수렴하지 않을 수 있지만(\(\sqrt{2}\)에 수렴하는 유리수 Cauchy 수열), 실수에서는 이런 일이 발생하지 않는다.</p>
+
+<div class="theorem"><span class="env-label">Theorem 8.1 (Completeness of \(\mathbb{R}\))</span>
+\(\mathbb{R}\)에서의 모든 Cauchy sequence(코시 수열)은 convergence(수렴)한다. 동치적으로, \(\mathbb{R}\)은 표준 거리 \(d(x,y) = |x-y|\) 하에서 완비 거리 공간이다.
+</div>
+
+<div class="theorem"><span class="env-label">Theorem 8.2 (Monotone Convergence for Sequences)</span>
+\(\mathbb{R}\)에서의 유계 단조 수열은 convergence(수렴)한다. 구체적으로:
+<ul>
+  <li>\((a_n)\)이 단조 비감소이고 위로 유계이면, \(a_n \to \sup\{a_n : n \in \mathbb{N}\}\)이다.</li>
+  <li>\((a_n)\)이 단조 비증가이고 아래로 유계이면, \(a_n \to \inf\{a_n : n \in \mathbb{N}\}\)이다.</li>
+</ul>
+</div>
+
+<p>Bolzano-Weierstrass 정리는 유계 수열에서 반드시 수렴하는 부분수열을 뽑아낼 수 있다는 결과이다. 이 정리는 최적화에서 최적해의 존재성, 제어 이론에서 유계 궤적의 극한 거동 분석 등의 이론적 토대가 된다.</p>
+
+<div class="theorem"><span class="env-label">Theorem 8.3 (Bolzano-Weierstrass)</span>
+\(\mathbb{R}\)에서의 모든 유계 수열은 convergence(수렴)하는 부분수열을 갖는다.
+</div>
+
+<div class="theorem"><span class="env-label">Theorem 8.3a (Squeeze Theorem)</span>
+수열 \((a_n)\), \((b_n)\), \((c_n)\)이 모든 \(n \geq N_0\)에 대해 \(a_n \leq b_n \leq c_n\)을 만족하고, \(\lim_{n\to\infty} a_n = \lim_{n\to\infty} c_n = L\)이면, \(\lim_{n\to\infty} b_n = L\)이다.
+</div>
+
+<div class="proof"><span class="env-label">Proof</span>
+임의의 \(\varepsilon > 0\)이 주어졌다고 하자. \(a_n \to L\)이므로 \(N_1\)이 존재하여 \(n \geq N_1\)이면 \(|a_n - L| < \varepsilon\), 즉 \(L - \varepsilon < a_n\)이다. 마찬가지로 \(c_n \to L\)이므로 \(N_2\)가 존재하여 \(n \geq N_2\)이면 \(c_n < L + \varepsilon\)이다. \(N = \max(N_0, N_1, N_2)\)로 놓으면, \(n \geq N\)일 때
+$$ L - \varepsilon < a_n \leq b_n \leq c_n < L + \varepsilon $$
+이므로 \(|b_n - L| < \varepsilon\)이다.
+</div>
+
+<!-- 8.1.1 수열 수렴 증명 테크닉 -->
+<h4>8.1.1 수열 수렴 증명 테크닉</h4>
+
+<p>수열의 수렴을 엄밀히 증명하려면 \(\varepsilon\)-\(N\) 논법을 직접 적용하거나, Squeeze Theorem 등의 도구를 활용한다. 아래에 대표적인 증명 기법 예제를 제시한다.</p>
+
+<div class="example"><span class="env-label">Example 8.1a (\(\varepsilon\)-\(N\) 논법 직접 적용)</span>
+\(a_n = \dfrac{3n+1}{n+2}\)이 \(3\)으로 수렴함을 증명하자.<br />
+<strong>증명.</strong> 임의의 \(\varepsilon > 0\)이 주어졌다고 하자.
+$$ |a_n - 3| = \left|\frac{3n+1}{n+2} - 3\right| = \left|\frac{3n+1 - 3n - 6}{n+2}\right| = \frac{5}{n+2} < \frac{5}{n}. $$
+따라서 \(N > 5/\varepsilon\)를 만족하는 자연수 \(N\)을 택하면, \(n \geq N\)일 때
+$$ |a_n - 3| < \frac{5}{n} \leq \frac{5}{N} < \varepsilon $$
+이 성립한다. 그러므로 \(\lim_{n\to\infty} a_n = 3\)이다.
+</div>
+
+<div class="example"><span class="env-label">Example 8.1b (\(\varepsilon\)-\(N\) 논법: \(n^2\) 분모)</span>
+\(a_n = \dfrac{n}{n^2 + 1}\)이 \(0\)으로 수렴함을 증명하자.<br />
+<strong>증명.</strong> 임의의 \(\varepsilon > 0\)에 대해,
+$$ |a_n - 0| = \frac{n}{n^2+1} < \frac{n}{n^2} = \frac{1}{n}. $$
+따라서 \(N > 1/\varepsilon\)인 \(N\)을 택하면, \(n \geq N\)일 때 \(|a_n| < 1/n \leq 1/N < \varepsilon\)이다.
+</div>
+
+<div class="example"><span class="env-label">Example 8.1c (Squeeze Theorem 활용 1)</span>
+\(a_n = \dfrac{\sin n}{n}\)이 \(0\)으로 수렴함을 보이자.<br />
+<strong>증명.</strong> 모든 \(n \geq 1\)에 대해 \(-1 \leq \sin n \leq 1\)이므로,
+$$ -\frac{1}{n} \leq \frac{\sin n}{n} \leq \frac{1}{n}. $$
+\(\lim_{n\to\infty} (-1/n) = 0 = \lim_{n\to\infty} (1/n)\)이므로, Squeeze Theorem에 의해 \(\lim_{n\to\infty} \frac{\sin n}{n} = 0\)이다.
+</div>
+
+<div class="example"><span class="env-label">Example 8.1d (Squeeze Theorem 활용 2)</span>
+\(a_n = \dfrac{(-1)^n n}{n^2 + 3}\)이 \(0\)으로 수렴함을 보이자.<br />
+<strong>증명.</strong> 모든 \(n \geq 1\)에 대해
+$$ |a_n| = \frac{n}{n^2+3} \leq \frac{n}{n^2} = \frac{1}{n}, $$
+따라서 \(-1/n \leq a_n \leq 1/n\)이다. 양변의 극한이 모두 \(0\)이므로, Squeeze Theorem에 의해 \(a_n \to 0\)이다.
+</div>
+
+<!-- 8.1.2 상극한과 하극한 -->
+<h4>8.1.2 상극한과 하극한 (Limit Superior / Limit Inferior)</h4>
+
+<div class="definition"><span class="env-label">Definition 8.3 (Limit Superior and Inferior)</span>
+유계 수열 \((a_n)\)에 대해:
+$$ \limsup_{n\to\infty} a_n = \lim_{n\to\infty} \sup_{k \geq n} a_k, \qquad \liminf_{n\to\infty} a_n = \lim_{n\to\infty} \inf_{k \geq n} a_k. $$
+수열이 convergence(수렴)할 필요충분조건은 \(\limsup a_n = \liminf a_n\)이며, 이 경우 두 값 모두 극한과 같다.
+</div>
+
+<p>직관적으로, \(s_n = \sup_{k \geq n} a_k\)는 비증가 수열이고 아래로 유계이므로 Monotone Convergence Theorem에 의해 수렴한다. 마찬가지로 \(i_n = \inf_{k \geq n} a_k\)는 비감소 수열이고 위로 유계이므로 수렴한다. 항상 \(\liminf a_n \leq \limsup a_n\)이 성립한다.</p>
+
+<div class="theorem"><span class="env-label">Theorem 8.3b (상극한/하극한의 부분수열 특성화)</span>
+유계 수열 \((a_n)\)에 대해, \(\limsup_{n\to\infty} a_n\)은 수렴하는 부분수열의 극한값들의 상한이다. 즉,
+$$ \limsup_{n\to\infty} a_n = \sup\left\{ L \in \mathbb{R} : \text{부분수열 } (a_{n_k}) \text{가 존재하여 } a_{n_k} \to L \right\}. $$
+마찬가지로, \(\liminf_{n\to\infty} a_n\)은 수렴하는 부분수열의 극한값들의 하한이다.
+</div>
+
+<div class="example"><span class="env-label">Example 8.1 (상극한/하극한 기본)</span>
+\(a_n = (-1)^n + 1/n\)을 생각하자. 짝수 항의 부분수열은 \(1 + 1/(2k) \to 1\)이 되고, 홀수 항은 \(-1 + 1/(2k-1) \to -1\)이 된다. 따라서 \(\limsup a_n = 1\)이고 \(\liminf a_n = -1\)이므로, 이 수열은 발산한다.
+</div>
+
+<div class="example"><span class="env-label">Example 8.1e (상극한/하극한 계산)</span>
+\(a_n = (-1)^n \dfrac{n}{n+1}\)로 정의하자. 짝수 항은 \(a_{2k} = \frac{2k}{2k+1} \to 1\)이고, 홀수 항은 \(a_{2k-1} = -\frac{2k-1}{2k} \to -1\)이다.<br />
+\(s_n = \sup_{k \geq n} a_k\)를 계산하면, 충분히 큰 \(n\)에 대해 \(s_n\)은 \(n\) 이상의 가장 가까운 짝수 항의 값이므로 \(s_n \to 1\)이다. 마찬가지로 \(i_n = \inf_{k \geq n} a_k \to -1\)이다.<br />
+따라서 \(\limsup a_n = 1\), \(\liminf a_n = -1\)이고, \(\limsup a_n \neq \liminf a_n\)이므로 수열은 발산한다. 수렴하는 부분수열의 극한값 집합은 \(\{-1, 1\}\)이다.
+</div>
+
+<div class="example"><span class="env-label">Example 8.1f (상극한/하극한이 일치하는 경우)</span>
+\(a_n = \dfrac{2n + (-1)^n}{n}\)으로 정의하자. \(a_n = 2 + (-1)^n / n\)이므로, 짝수 항은 \(2 + 1/(2k) \to 2\), 홀수 항은 \(2 - 1/(2k-1) \to 2\)이다.<br />
+\(\sup_{k \geq n} a_k = 2 + 1/n_{\text{even}} \to 2\)이고 \(\inf_{k \geq n} a_k = 2 - 1/n_{\text{odd}} \to 2\)이므로, \(\limsup a_n = \liminf a_n = 2\)이다. 따라서 \(\lim_{n\to\infty} a_n = 2\)이다.
+</div>
+
+<!-- 8.2 Continuity -->
+<p>수열의 수렴을 엄밀하게 정의했으니, 함수의 연속성으로 넘어간다. 연속성은 수열의 극한 개념을 함수에 적용한 것이며, 같은 ε-δ 언어로 정의된다.</p>
+
+<h3>8.2 Continuity</h3>
+
+<p>연속성은 "입력의 작은 변화가 출력의 작은 변화만을 유발한다"는 직관을 형식화한 것이다. 센서 측정에서 물리량의 미세한 변동이 센서 출력의 급격한 도약을 초래하지 않아야 하고, 제어 시스템에서 기준 입력의 소폭 변경이 출력의 폭발적 변화를 일으키지 않아야 한다. 균등연속성(uniform continuity)은 이 안정성이 정의역 전체에서 균일하게 성립하는 더 강한 조건이며, 수치 적분의 오차 추정과 함수 근사의 정확도 보장에 쓰인다. 극값 정리(Extreme Value Theorem)는 유계 폐구간에서 연속함수가 최대·최소를 달성함을 보장하여, 공학 최적화 문제에서 최적해의 존재를 이론적으로 뒷받침한다.</p>
+
+<div class="definition"><span class="env-label">Definition 8.4 (Continuity, Epsilon-Delta)</span>
+\(D \subseteq \mathbb{R}\)이고 \(f: D \to \mathbb{R}\), \(c \in D\)라 하자. \(f\)가 \(c\)에서 <em>연속</em>이라 함은, 모든 \(\varepsilon > 0\)에 대해 \(\delta > 0\)이 존재하여
+$$ x \in D,\; |x - c| < \delta \implies |f(x) - f(c)| < \varepsilon $$
+을 만족하는 것을 말한다. 동치적으로, \(f\)가 \(c\)에서 연속일 필요충분조건은, \(D\)에서의 모든 수열 \((x_n)\)이 \(x_n \to c\)이면 \(f(x_n) \to f(c)\)인 것이다.
+</div>
+
+<div class="definition"><span class="env-label">Definition 8.5 (Uniform Continuity)</span>
+함수 \(f: D \to \mathbb{R}\)가 \(D\)에서 <em>uniform continuity(균등연속)</em>라 함은, 모든 \(\varepsilon > 0\)에 대해 \(\delta > 0\)이 존재하여
+$$ x, y \in D,\; |x - y| < \delta \implies |f(x) - f(y)| < \varepsilon $$
+을 만족하는 것을 말한다. 점별 연속과의 차이점은, \(\delta\)가 \(\varepsilon\)에만 의존하고 특정 점에 의존하지 않는다는 것이다.
+</div>
+
+<div class="theorem"><span class="env-label">Theorem 8.4 (Heine-Cantor)</span>
+\(f: [a,b] \to \mathbb{R}\)가 닫힌 유계 구간에서 연속이면, \(f\)는 \([a,b]\)에서 uniform continuity(균등연속)이다.
+</div>
+
+<div class="theorem"><span class="env-label">Theorem 8.5 (Extreme Value Theorem)</span>
+\(f: [a,b] \to \mathbb{R}\)가 연속이면, \(f\)는 \([a,b]\)에서 최댓값과 최솟값을 달성한다. 즉, \(x_*, x^* \in [a,b]\)이 존재하여 모든 \(x \in [a,b]\)에 대해 \(f(x_*) \leq f(x) \leq f(x^*)\)이다.
+</div>
+
+<div class="proof"><span class="env-label">Proof Sketch (EVT)</span>
+\(M = \sup_{x \in [a,b]} f(x)\)로 놓자 (유계성은 별도로 증명 필요; 아래 참조).<br />
+<strong>Step 1 (유계성):</strong> \(f\)가 \([a,b]\)에서 유계가 아니라고 가정하면, 각 \(n\)에 대해 \(|f(x_n)| > n\)인 \(x_n \in [a,b]\)이 존재한다. Bolzano-Weierstrass 정리에 의해 수렴하는 부분수열 \(x_{n_k} \to c \in [a,b]\)가 존재하고, 연속성에 의해 \(f(x_{n_k}) \to f(c)\)이므로 유계여야 하는데, \(|f(x_{n_k})| > n_k \to \infty\)이므로 모순이다.<br />
+<strong>Step 2 (최댓값 달성):</strong> \(M = \sup f\)이면, 각 \(n\)에 대해 \(f(y_n) > M - 1/n\)인 \(y_n \in [a,b]\)가 존재한다. Bolzano-Weierstrass에 의해 \(y_{n_k} \to c^* \in [a,b]\)인 부분수열이 존재하고, 연속성에 의해 \(f(c^*) = M\)이다. 최솟값도 동일한 방법으로 증명된다.
+</div>
+
+<div class="theorem"><span class="env-label">Theorem 8.6 (Intermediate Value Theorem)</span>
+\(f: [a,b] \to \mathbb{R}\)가 연속이고 \(f(a) < v < f(b)\) (또는 \(f(b) < v < f(a)\))이면, \(c \in (a,b)\)가 존재하여 \(f(c) = v\)이다.
+</div>
+
+<div class="proof"><span class="env-label">Proof Sketch (IVT)</span>
+\(f(a) < v < f(b)\)인 경우를 증명한다 (\(f(a) > v > f(b)\)인 경우는 \(-f\)에 적용).<br />
+집합 \(S = \{x \in [a,b] : f(x) < v\}\)을 정의하자. \(a \in S\)이므로 \(S \neq \emptyset\)이고, \(S \subseteq [a,b]\)이므로 위로 유계이다. 상한 공리에 의해 \(c = \sup S\)가 존재한다.<br />
+<strong>\(f(c) = v\)임을 보인다:</strong><br />
+(i) \(f(c) < v\)라 가정하자. \(f\)의 연속성에 의해, \(c\)의 근방에서 \(f(x) < v\)인 점 \(x > c\)가 존재하여 \(x \in S\)가 되고, 이는 \(c = \sup S\)에 모순이다.<br />
+(ii) \(f(c) > v\)라 가정하자. \(f\)의 연속성에 의해, \(\delta > 0\)이 존재하여 \((c-\delta, c+\delta) \cap [a,b]\)에서 \(f(x) > v\)이다. 따라서 \((c-\delta, c]\)에 \(S\)의 원소가 없으므로 \(\sup S \leq c - \delta < c\)가 되어 모순이다.<br />
+따라서 \(f(c) = v\)이다.
+</div>
+
+<div class="example"><span class="env-label">Example 8.2a (IVT 응용: 근의 존재)</span>
+\(f(x) = x^3 + x - 1\)로 정의하자. \(f(0) = -1 < 0\)이고 \(f(1) = 1 > 0\)이므로, IVT에 의해 \(c \in (0,1)\)이 존재하여 \(f(c) = 0\)이다. 즉, \(x^3 + x = 1\)은 \((0,1)\)에서 실수 해를 갖는다.
+</div>
+
+<!-- 8.2.1 균등연속 vs 점별연속 -->
+<h4>8.2.1 균등연속 vs 점별연속 비교</h4>
+
+<p>점별 연속에서는 \(\delta\)가 \(\varepsilon\)과 점 \(c\) 모두에 의존할 수 있다. 균등연속에서는 \(\delta\)가 \(\varepsilon\)에만 의존하며, 정의역의 모든 점에서 동시에 작동한다. 이 차이는 개념적으로 미묘하지만 해석학적 결과에 큰 영향을 미친다.</p>
+
+<div class="example"><span class="env-label">Example 8.2 (균등연속 vs 점별연속: \(x^2\))</span>
+함수 \(f(x) = x^2\)는 임의의 \(M > 0\)에 대해 \([0, M]\)에서 uniform continuity(균등연속)이지만, \(\mathbb{R}\) 전체에서는 uniform continuity(균등연속)이 아니다. 후자를 보이려면, \(x_n = n\)과 \(y_n = n + 1/n\)을 잡으면 된다. 그러면 \(|x_n - y_n| = 1/n \to 0\)이지만 \(|f(x_n) - f(y_n)| = |2 + 1/n^2| \to 2\)이다.
+</div>
+
+<div class="example"><span class="env-label">Example 8.2b (균등연속: \(\sqrt{x}\))</span>
+\(f(x) = \sqrt{x}\)는 \([0, \infty)\)에서 균등연속이다.<br />
+<strong>증명.</strong> 임의의 \(\varepsilon > 0\)에 대해 \(\delta = \varepsilon^2\)으로 택한다. \(x, y \geq 0\)이고 \(|x - y| < \delta\)이면,
+$$ |\sqrt{x} - \sqrt{y}| = \frac{|x-y|}{\sqrt{x}+\sqrt{y}} \leq \frac{|x-y|}{\max(\sqrt{x}, \sqrt{y})} \leq \sqrt{|x-y|} < \sqrt{\delta} = \varepsilon. $$
+여기서 두 번째 부등식은 \(|\sqrt{x}-\sqrt{y}| \leq \sqrt{|x-y|}\)라는 사실을 이용한 것이다 (이 부등식은 양변을 제곱하면 확인할 수 있다). \(\delta\)가 점에 무관하므로, 균등연속이다.
+</div>
+
+<div class="example"><span class="env-label">Example 8.2c (점별연속이지만 균등연속이 아닌 함수: \(\sin(1/x)\))</span>
+\(f(x) = \sin(1/x)\)는 \((0, 1]\)에서 (점별) 연속이지만 균등연속이 아니다.<br />
+<strong>증명.</strong> 연속성은 합성함수의 연속성으로부터 따른다. 균등연속이 아님을 보이기 위해, \(x_n = \frac{1}{2n\pi}\)와 \(y_n = \frac{1}{2n\pi + \pi/2}\)를 잡자. \(n \to \infty\)일 때 \(|x_n - y_n| \to 0\)이지만,
+$$ |f(x_n) - f(y_n)| = |\sin(2n\pi) - \sin(2n\pi + \pi/2)| = |0 - 1| = 1 $$
+이므로, \(\varepsilon = 1/2\)에 대해 어떤 \(\delta > 0\)을 잡아도 조건을 만족시킬 수 없다.
+</div>
+
+<!-- 8.3 Differentiability -->
+<p>연속성이 "함수값이 급격히 뛰지 않는다"는 성질이라면, 미분가능성은 "함수가 국소적으로 선형 근사를 허용한다"는 더 강한 조건이다. 미분가능한 함수는 반드시 연속이지만, 그 역은 성립하지 않는다.</p>
+
+<h3>8.3 Differentiability</h3>
+
+<p>Taylor 정리(Taylor's theorem)는 미분가능성의 대표적인 응용이다. 수치해석에서 미분방정식의 차분 근사(finite difference approximation), Newton-Raphson 법의 수렴 속도 분석, 유한요소법의 오차 추정이 모두 Taylor 전개의 나머지항(remainder term)에 의존한다. 나머지항의 크기를 평균값 정리(Mean Value Theorem)로 제어할 수 있기 때문에, "근사가 얼마나 정확한가"에 대한 정량적 답변이 가능해진다.</p>
+
+<div class="definition"><span class="env-label">Definition 8.6 (Derivative)</span>
+\(f: (a,b) \to \mathbb{R}\)이고 \(c \in (a,b)\)라 하자. \(f\)의 \(c\)에서의 <em>도함수</em>는
+$$ f'(c) = \lim_{h \to 0} \frac{f(c+h) - f(c)}{h} $$
+로 정의되며, 이 극한이 존재할 때 정의된다. \(f'(c)\)가 존재하면, \(f\)는 \(c\)에서 미분 가능하다고 한다.
+</div>
+
+<p>한 점에서의 미분 가능성은 그 점에서의 연속을 함의하지만, 역은 성립하지 않는다. Weierstrass 함수는 모든 점에서 연속이지만 어디에서도 미분 가능하지 않다.</p>
+
+<div class="theorem"><span class="env-label">Theorem 8.7 (Mean Value Theorem)</span>
+\(f: [a,b] \to \mathbb{R}\)가 \([a,b]\)에서 연속이고 \((a,b)\)에서 미분 가능하면, \(c \in (a,b)\)가 존재하여
+$$ f'(c) = \frac{f(b) - f(a)}{b - a} $$
+을 만족한다.
+</div>
+
+<div class="proof"><span class="env-label">Proof</span>
+\(g(x) = f(x) - f(a) - \frac{f(b)-f(a)}{b-a}(x-a)\)로 정의하자. 그러면 \(g\)는 \([a,b]\)에서 연속이고, \((a,b)\)에서 미분 가능하며, \(g(a) = g(b) = 0\)이다. Rolle의 정리(최대·최소 정리를 \(g\)에 적용)에 의해, \(c \in (a,b)\)가 존재하여 \(g'(c) = 0\)이고, 이로부터 \(f'(c) = \frac{f(b)-f(a)}{b-a}\)를 얻는다.
+</div>
+
+<div class="theorem"><span class="env-label">Theorem 8.8 (Generalized MVT / Cauchy's MVT)</span>
+\(f, g: [a,b] \to \mathbb{R}\)가 \([a,b]\)에서 연속이고 \((a,b)\)에서 미분 가능하며, \((a,b)\)에서 \(g'(x) \neq 0\)이면, \(c \in (a,b)\)가 존재하여
+$$ \frac{f'(c)}{g'(c)} = \frac{f(b) - f(a)}{g(b) - g(a)} $$
+을 만족한다.
+</div>
+
+<div class="theorem"><span class="env-label">Theorem 8.9 (Taylor's Theorem with Remainder)</span>
+\(f: [a,b] \to \mathbb{R}\)가 \(n+1\)번 연속 미분 가능하면, \(x, x_0 \in [a,b]\)에 대해:
+$$ f(x) = \sum_{k=0}^{n} \frac{f^{(k)}(x_0)}{k!}(x - x_0)^k + \frac{f^{(n+1)}(\xi)}{(n+1)!}(x - x_0)^{n+1} $$
+을 만족하는 \(\xi\)가 \(x_0\)과 \(x\) 사이에 존재한다 (나머지의 Lagrange 형식).
+</div>
+
+<!-- 8.4 Riemann Integration -->
+<p>미분의 역연산으로서의 적분을 엄밀하게 구성한다. Riemann 적분은 구간을 잘게 쪼개고 각 소구간에서의 함수값으로 넓이를 근사하는 방식이다. 이 구성은 직관적이지만 한계도 있으며, 그 한계가 이후 Lebesgue 적분(11장)의 동기가 된다.</p>
+
+<h3>8.4 Riemann Integration</h3>
+
+<p>Riemann 적분의 구성 자체가 수치 적분(numerical integration)의 수학적 기초이다. 사다리꼴 법칙(trapezoidal rule)이나 Simpson 법칙은 본질적으로 특정 분할에 대한 Riemann 합의 변형이며, Darboux 상합과 하합의 차이는 수치 적분의 최대 오차를 직접 제어한다. "어떤 함수가 적분 가능한가?"라는 질문에 대한 Lebesgue 판정 기준(불연속점 집합의 측도가 0이면 적분 가능)은, 공학에서 흔히 등장하는 구간별 연속 함수(piecewise continuous function)가 항상 적분 가능하다는 사실을 보장한다.</p>
+
+<div class="definition"><span class="env-label">Definition 8.7 (Partition and Riemann Integral)</span>
+\(f: [a,b] \to \mathbb{R}\)가 유계라 하자. \([a,b]\)의 <em>분할</em>은 \(P = \{a = x_0 < x_1 < \cdots < x_n = b\}\)이다. 상합(upper sum)과 하합(lower sum)을 다음과 같이 정의한다:
+$$ U(f, P) = \sum_{i=1}^n M_i \Delta x_i, \qquad L(f, P) = \sum_{i=1}^n m_i \Delta x_i, $$
+여기서 \(M_i = \sup_{[x_{i-1}, x_i]} f\), \(m_i = \inf_{[x_{i-1}, x_i]} f\), \(\Delta x_i = x_i - x_{i-1}\)이다. 함수 \(f\)가 <em>Riemann 적분 가능</em>하다 함은
+$$ \inf_P U(f,P) = \sup_P L(f,P) $$
+을 만족하는 것이며, 이 공통 값을 \(\int_a^b f(x)\, dx\)로 표기한다.
+</div>
+
+<p>상합의 하한 \(\overline{\int_a^b} f = \inf_P U(f,P)\)를 <em>upper Darboux integral(상 다르부 적분)</em>, 하합의 상한 \(\underline{\int_a^b} f = \sup_P L(f,P)\)를 <em>lower Darboux integral(하 다르부 적분)</em>이라 부른다. 이 두 값이 일치할 때 Riemann 적분이 존재한다.</p>
+
+<div class="definition"><span class="env-label">Definition 8.7a (Refinement of a Partition)</span>
+분할 \(Q\)가 분할 \(P\)의 <em>세분(refinement)</em>이라 함은 \(P \subseteq Q\)인 것이다. 세분은 상합을 줄이지 않고 하합을 늘리지 않는다:
+$$ P \subseteq Q \implies L(f, P) \leq L(f, Q) \leq U(f, Q) \leq U(f, P). $$
+</div>
+
+<div class="theorem"><span class="env-label">Theorem 8.10 (Riemann Integrability Criterion)</span>
+유계 함수 \(f: [a,b] \to \mathbb{R}\)가 Riemann 적분 가능할 필요충분조건은, 모든 \(\varepsilon > 0\)에 대해 분할 \(P\)가 존재하여 \(U(f,P) - L(f,P) < \varepsilon\)을 만족하는 것이다.
+</div>
+
+<div class="proof"><span class="env-label">Proof Sketch</span>
+(\(\Rightarrow\)) \(f\)가 적분 가능하면, \(\inf_P U(f,P) = \sup_P L(f,P) = I\)이다. 임의의 \(\varepsilon > 0\)에 대해 \(U(f, P_1) < I + \varepsilon/2\)인 \(P_1\)과 \(L(f, P_2) > I - \varepsilon/2\)인 \(P_2\)가 존재한다. 공통 세분 \(P = P_1 \cup P_2\)를 택하면 \(U(f,P) - L(f,P) \leq U(f,P_1) - L(f,P_2) < \varepsilon\)이다.<br />
+(\(\Leftarrow\)) 모든 \(\varepsilon > 0\)에 대해 \(U(f,P_\varepsilon) - L(f,P_\varepsilon) < \varepsilon\)인 \(P_\varepsilon\)가 존재하면, \(0 \leq \inf_P U(f,P) - \sup_P L(f,P) \leq U(f,P_\varepsilon) - L(f,P_\varepsilon) < \varepsilon\)이다. \(\varepsilon > 0\)이 임의이므로 상 다르부 적분과 하 다르부 적분이 일치한다.
+</div>
+
+<div class="theorem"><span class="env-label">Theorem 8.11 (Lebesgue's Criterion for Riemann Integrability)</span>
+유계 함수 \(f: [a,b] \to \mathbb{R}\)가 Riemann 적분 가능할 필요충분조건은, \(f\)의 불연속점의 집합이 Lebesgue 측도 0을 갖는 것이다.
+</div>
+
+<div class="example"><span class="env-label">Example 8.3 (Dirichlet 함수와 Thomae 함수)</span>
+Dirichlet 함수 \(f(x) = \mathbf{1}_{\mathbb{Q}}(x)\)는 모든 점에서 불연속이므로, Riemann 적분 가능하지 않다. 반면, Thomae 함수(자 함수)는 기약분수 \(p/q\)에서 \(f(p/q) = 1/q\)로 정의하고 무리수 \(x\)에서 \(f(x) = 0\)으로 정의하면, 모든 무리수에서 연속이고 유리수에서만 불연속(측도 0인 집합)이므로, Riemann 적분 가능하며 \(\int_0^1 f = 0\)이다.
+</div>
+
+<div class="example"><span class="env-label">Example 8.3a (Darboux 합을 이용한 적분가능성 직접 증명)</span>
+\(f(x) = x^2\)이 \([0,1]\)에서 Riemann 적분 가능함을 Darboux 합으로 직접 보이자.<br />
+등분할 \(P_n = \{0, 1/n, 2/n, \ldots, 1\}\)을 사용한다. 각 부분구간 \([(i-1)/n,\, i/n]\)에서 \(f\)가 단조 증가이므로 \(m_i = (i-1)^2/n^2\), \(M_i = i^2/n^2\)이고, \(\Delta x_i = 1/n\)이다.
+$$ L(f, P_n) = \sum_{i=1}^n \frac{(i-1)^2}{n^2} \cdot \frac{1}{n} = \frac{1}{n^3}\sum_{i=0}^{n-1} i^2 = \frac{(n-1)n(2n-1)}{6n^3}, $$
+$$ U(f, P_n) = \sum_{i=1}^n \frac{i^2}{n^2} \cdot \frac{1}{n} = \frac{1}{n^3}\sum_{i=1}^{n} i^2 = \frac{n(n+1)(2n+1)}{6n^3}. $$
+따라서
+$$ U(f,P_n) - L(f,P_n) = \frac{n(n+1)(2n+1) - (n-1)n(2n-1)}{6n^3} = \frac{n(6n)}{6n^3} = \frac{1}{n}. $$
+임의의 \(\varepsilon > 0\)에 대해 \(n > 1/\varepsilon\)을 택하면 \(U(f,P_n) - L(f,P_n) < \varepsilon\)이므로, Riemann 적분가능 판정 기준에 의해 \(f\)는 적분 가능하고, \(\int_0^1 x^2\,dx = \lim_{n\to\infty} L(f,P_n) = 1/3\)이다.
+</div>
+
+<div class="example"><span class="env-label">Example 8.3b (유한 불연속을 갖는 함수의 적분가능성)</span>
+\(f: [0,2] \to \mathbb{R}\)를 \(f(x) = 1\) (\(0 \leq x \leq 1\)), \(f(x) = 3\) (\(1 < x \leq 2\))으로 정의하자. \(f\)는 \(x=1\)에서만 불연속이다.<br />
+분할 \(P_\delta = \{0, 1-\delta, 1+\delta, 2\}\)을 택하면, \([0, 1-\delta]\)에서 \(f \equiv 1\), \([1+\delta, 2]\)에서 \(f \equiv 3\)이므로 이 구간들에서 \(U - L = 0\)이다. 문제가 되는 구간 \([1-\delta, 1+\delta]\)에서 \(M = 3\), \(m = 1\)이므로
+$$ U(f, P_\delta) - L(f, P_\delta) = (3-1)(2\delta) = 4\delta. $$
+\(\delta = \varepsilon/4\)로 택하면 \(U - L < \varepsilon\)이므로 \(f\)는 Riemann 적분 가능하다. \(\int_0^2 f = 1 \cdot 1 + 3 \cdot 1 = 4\)이다.
+</div>
+
+<div class="theorem"><span class="env-label">Theorem 8.12 (Fundamental Theorem of Calculus)</span>
+\(f: [a,b] \to \mathbb{R}\)가 Riemann 적분 가능하다고 하자.
+<ol>
+  <li><strong>Part I.</strong> \(F(x) = \int_a^x f(t)\, dt\)로 정의하면, \(F\)는 \([a,b]\)에서 연속이다. \(f\)가 \(c \in (a,b)\)에서 연속이면, \(F\)는 \(c\)에서 미분 가능하고 \(F'(c) = f(c)\)이다.</li>
+  <li><strong>Part II.</strong> \(f\)가 \([a,b]\)에서 연속이고 \(F\)가 \(f\)의 임의의 역도함수이면, \(\int_a^b f(x)\, dx = F(b) - F(a)\)이다.</li>
+</ol>
+</div>
+
+<!-- 8.5 Sequences and Series of Functions -->
+<p>지금까지 개별 함수의 연속성, 미분, 적분을 다루었다. 이번에는 함수열과 함수급수로 시야를 넓힌다. 질문은 "극한 함수가 원래 함수열의 성질(연속성, 미분가능성, 적분가능성)을 물려받는가?"이며, 그 답은 수렴의 종류 — 점별 수렴인지 균등 수렴인지 — 에 달려 있다.</p>
+
+<h3>8.5 Sequences and Series of Functions</h3>
+
+<p>푸리에 급수로 주기 신호를 복원하거나, Taylor 급수로 함수를 다항식으로 근사할 때, 유한 항까지의 부분합이 원래 함수에 "충분히 가까운가?"라는 질문이 생긴다. 균등수렴(uniform convergence)은 이 질문에 대한 정밀한 답변을 제공한다. 균등수렴이 보장되면 항별 적분(term-by-term integration)과 항별 미분(term-by-term differentiation)이 정당화되어, 급수 해의 미분·적분 성질이 각 항의 성질로부터 유도된다. PDE의 변수 분리법(6장)에서 구한 푸리에 급수 해가 실제로 미분 가능하고 PDE를 만족하는지 확인하는 것이 바로 이 이론의 응용이다.</p>
+
+<div class="definition"><span class="env-label">Definition 8.8 (Pointwise and Uniform Convergence)</span>
+\(f_n: D \to \mathbb{R}\)를 함수열이라 하자.
+<ul>
+  <li>\((f_n)\)이 \(D\)에서 \(f\)로 <em>점별 convergence(수렴)</em>한다 함은, 각 \(x \in D\)에 대해 \(f_n(x) \to f(x)\)인 것이다.</li>
+  <li>\((f_n)\)이 \(D\)에서 \(f\)로 <em>균등 convergence(수렴)</em>한다 함은, \(\sup_{x \in D} |f_n(x) - f(x)| \to 0\)인 것, 즉 모든 \(\varepsilon > 0\)에 대해 (\(x\)에 무관한) \(N\)이 존재하여 \(n \geq N\)이면 모든 \(x \in D\)에 대해 \(|f_n(x) - f(x)| < \varepsilon\)인 것이다.</li>
+</ul>
+</div>
+
+<div class="theorem"><span class="env-label">Theorem 8.13 (Uniform Limit of Continuous Functions)</span>
+\((f_n)\)이 \(D\)에서의 연속 함수열이고, \(f_n \to f\)가 \(D\)에서 균등 convergence(수렴)하면, \(f\)는 \(D\)에서 연속이다.
+</div>
+
+<p>점별 convergence(수렴)은 일반적으로 연속성을 보존하지 않는다. 대표적인 반례는 \([0,1]\)에서의 \(f_n(x) = x^n\)으로, 이는 불연속 함수 \(f(x) = 0\) (\(x \in [0,1)\)), \(f(1) = 1\)로 점별 convergence(수렴)한다.</p>
+
+<div class="example"><span class="env-label">Example 8.4a (점별 수렴하지만 균등 수렴하지 않는 예)</span>
+\(f_n(x) = x^n\)은 \([0,1]\)에서 \(f(x) = \begin{cases} 0, & 0 \leq x < 1 \\ 1, & x = 1 \end{cases}\)로 점별 수렴한다. 그러나 균등 수렴하지 않는다:
+$$ \sup_{x \in [0,1]} |f_n(x) - f(x)| \geq |f_n(1-1/n) - f(1-1/n)| = (1-1/n)^n \to 1/e \neq 0. $$
+극한함수 \(f\)가 불연속인 것도 균등 수렴이 아님을 확인시켜 준다 (Theorem 8.13의 대우).
+</div>
+
+<div class="example"><span class="env-label">Example 8.4b (균등 수렴의 예)</span>
+\(f_n(x) = \dfrac{x}{1 + nx^2}\)는 \(\mathbb{R}\)에서 \(f(x) = 0\)으로 균등 수렴한다.<br />
+<strong>증명.</strong> AM-GM 부등식에 의해, \(1 + nx^2 \geq 2\sqrt{n}|x|\)이므로
+$$ |f_n(x)| = \frac{|x|}{1+nx^2} \leq \frac{|x|}{2\sqrt{n}|x|} = \frac{1}{2\sqrt{n}} \quad (x \neq 0). $$
+\(x = 0\)일 때 \(f_n(0) = 0\)이므로, \(\sup_{x \in \mathbb{R}} |f_n(x)| \leq \frac{1}{2\sqrt{n}} \to 0\)이다.
+</div>
+
+<div class="theorem"><span class="env-label">Theorem 8.14 (Weierstrass M-test)</span>
+\(\sum f_n\)을 \(D\)에서의 함수 급수라 하자. 상수 \(M_n \geq 0\)이 존재하여 모든 \(x \in D\)에 대해 \(|f_n(x)| \leq M_n\)이고 \(\sum M_n < \infty\)이면, \(\sum f_n\)은 \(D\)에서 균등하고 절대적으로 convergence(수렴)한다.
+</div>
+
+<div class="example"><span class="env-label">Example 8.4 (Weierstrass M-test: 지수 급수)</span>
+멱급수 \(\sum_{n=0}^\infty x^n/n!\)은 Weierstrass M-test에 의해 (\(M_n = R^n/n!\)로 잡으면) 임의의 유계 구간 \([-R, R]\)에서 균등 convergence(수렴)한다. 항별 미분에 의해 \(f'(x) = f(x)\)이므로, \(f(x) = e^x\)임을 확인할 수 있다.
+</div>
+
+<div class="example"><span class="env-label">Example 8.4c (Weierstrass M-test: 삼각급수)</span>
+급수 \(\displaystyle\sum_{n=1}^\infty \frac{\cos(nx)}{n^2}\)이 \(\mathbb{R}\)에서 균등 수렴함을 보이자.<br />
+<strong>증명.</strong> 모든 \(x \in \mathbb{R}\)과 \(n \geq 1\)에 대해
+$$ \left|\frac{\cos(nx)}{n^2}\right| \leq \frac{1}{n^2} = M_n. $$
+\(\sum_{n=1}^\infty M_n = \sum_{n=1}^\infty 1/n^2 = \pi^2/6 < \infty\)이므로, Weierstrass M-test에 의해 주어진 급수는 \(\mathbb{R}\)에서 균등하고 절대적으로 수렴한다. 각 항이 연속이므로, Theorem 8.13에 의해 합함수도 \(\mathbb{R}\)에서 연속이다.
+</div>
+
+<div class="example"><span class="env-label">Example 8.4d (Weierstrass M-test 적용 불가 사례)</span>
+급수 \(\displaystyle\sum_{n=1}^\infty \frac{(-1)^n x^n}{n}\)은 \((-1, 1]\)에서 점별 수렴하지만 (\(x=1\)에서 교대급수 \(\sum (-1)^n/n = -\ln 2\)), \((-1, 1]\) 전체에서 Weierstrass M-test를 직접 적용할 수 없다. \(\sup_{x \in (-1,1]} |(-1)^n x^n / n| = 1/n\)이고, \(\sum 1/n\)은 발산하기 때문이다.<br />
+그러나 임의의 \(0 < r < 1\)에 대해 \([-r, r]\)에서는 \(M_n = r^n/n\)으로 잡을 수 있고, \(\sum r^n/n < \infty\)이므로 \([-r, r]\)에서는 균등 수렴한다. 이는 \((-1, 1)\)에서 <em>compact subset 위에서의 균등 수렴</em>(정규 수렴)에 해당한다.
+</div>
+
+<div class="theorem"><span class="env-label">Theorem 8.15 (Term-by-term Integration)</span>
+\(f_n: [a,b] \to \mathbb{R}\)가 Riemann 적분 가능하고 \(\sum f_n\)이 \([a,b]\)에서 \(f\)로 균등 convergence(수렴)하면,
+$$ \int_a^b f(x)\, dx = \sum_{n=1}^\infty \int_a^b f_n(x)\, dx. $$
+</div>
+
+<div class="theorem"><span class="env-label">Theorem 8.16 (Term-by-term Differentiation)</span>
+\(f_n: (a,b) \to \mathbb{R}\)가 미분 가능하고, 어떤 \(x_0 \in (a,b)\)에 대해 \(\sum f_n(x_0)\)이 convergence(수렴)한다고 하자. \(\sum f_n'\)이 \((a,b)\)에서 균등 convergence(수렴)하면, \(\sum f_n\)은 미분 가능한 함수 \(f\)로 균등 convergence(수렴)하고, \(f'(x) = \sum f_n'(x)\)이다.
+</div>
+
+<!-- 8.5.1 균등 수렴과 적분/미분의 교환 -->
+<h4>8.5.1 균등 수렴과 적분/미분의 교환</h4>
+
+<p>균등 수렴이 중요한 이유는, 극한과 적분/미분의 순서를 교환할 수 있게 해 주기 때문이다. 점별 수렴만으로는 이러한 교환이 보장되지 않는다.</p>
+
+<div class="example"><span class="env-label">Example 8.4e (점별 수렴에서 적분 교환 실패)</span>
+\(f_n: [0,1] \to \mathbb{R}\)를 다음과 같이 정의하자:
+$$ f_n(x) = \begin{cases} 2n^2 x, & 0 \leq x \leq 1/(2n), \\ 2n - 2n^2 x, & 1/(2n) < x \leq 1/n, \\ 0, & 1/n < x \leq 1. \end{cases} $$
+이는 높이 \(n\), 밑변 \(1/n\)인 삼각형 모양의 함수이다. 각 \(x \in [0,1]\)에 대해 \(f_n(x) \to 0\)이므로 \(f_n \to 0\) 점별이다. 그러나
+$$ \int_0^1 f_n(x)\, dx = \frac{1}{2} \cdot \frac{1}{n} \cdot n = \frac{1}{2} \neq 0 = \int_0^1 0\, dx. $$
+적분과 극한의 순서가 교환되지 않는다. 이는 수렴이 균등하지 않기 때문이다: \(\sup_x |f_n(x)| = n \to \infty\).
+</div>
+
+<div class="example"><span class="env-label">Example 8.4f (항별 적분 응용)</span>
+\(\displaystyle\sum_{n=0}^\infty \frac{x^n}{n!}\)이 \([0, R]\)에서 균등 수렴하므로 (Example 8.4), 항별 적분이 가능하다:
+$$ \int_0^t e^x\, dx = \int_0^t \sum_{n=0}^\infty \frac{x^n}{n!}\, dx = \sum_{n=0}^\infty \frac{t^{n+1}}{(n+1)!} = e^t - 1. $$
+이는 \(\int_0^t e^x\, dx = e^t - 1\)이라는 알려진 결과와 일치한다.
+</div>
+
+<!-- 8.6 추가 주제: 급수의 수렴 판정 -->
+<p>함수급수를 다루려면 먼저 수치급수의 수렴 여부를 판정할 수 있어야 한다. 여기서는 실해석학에서 자주 쓰이는 수렴 판정법들을 체계적으로 정리한다.</p>
+
+<h3>8.6 급수와 수렴 판정</h3>
+
+<div class="definition"><span class="env-label">Definition 8.9 (급수의 수렴)</span>
+실수열 \((a_n)\)에 대해, 급수 \(\sum_{n=1}^\infty a_n\)이 <em>수렴</em>한다 함은 부분합 수열 \(S_N = \sum_{n=1}^N a_n\)이 수렴하는 것이다. 급수가 수렴하면, 반드시 \(a_n \to 0\)이어야 한다 (필요조건, 충분하지 않음).
+</div>
+
+<div class="theorem"><span class="env-label">Theorem 8.17 (비교 판정법)</span>
+\(0 \leq a_n \leq b_n\)이 모든 충분히 큰 \(n\)에 대해 성립하면:
+<ul>
+  <li>\(\sum b_n < \infty \implies \sum a_n < \infty\).</li>
+  <li>\(\sum a_n = \infty \implies \sum b_n = \infty\).</li>
+</ul>
+</div>
+
+<div class="theorem"><span class="env-label">Theorem 8.18 (비율 판정법, Ratio Test)</span>
+양항급수 \(\sum a_n\) (\(a_n > 0\))에 대해 \(L = \lim_{n\to\infty} a_{n+1}/a_n\)이 존재하면:
+<ul>
+  <li>\(L < 1\)이면 급수는 수렴한다.</li>
+  <li>\(L > 1\)이면 급수는 발산한다.</li>
+  <li>\(L = 1\)이면 판정 불가이다.</li>
+</ul>
+</div>
+
+<div class="theorem"><span class="env-label">Theorem 8.19 (근 판정법, Root Test)</span>
+급수 \(\sum a_n\) (\(a_n \geq 0\))에 대해 \(\alpha = \limsup_{n\to\infty} a_n^{1/n}\)으로 놓으면:
+<ul>
+  <li>\(\alpha < 1\)이면 급수는 절대 수렴한다.</li>
+  <li>\(\alpha > 1\)이면 급수는 발산한다.</li>
+  <li>\(\alpha = 1\)이면 판정 불가이다.</li>
+</ul>
+</div>
+
+<div class="example"><span class="env-label">Example 8.5 (비율 판정법 적용)</span>
+\(\displaystyle\sum_{n=1}^\infty \frac{n^2}{3^n}\)의 수렴 여부를 판정하자. \(a_n = n^2/3^n\)으로 놓으면
+$$ \frac{a_{n+1}}{a_n} = \frac{(n+1)^2}{3^{n+1}} \cdot \frac{3^n}{n^2} = \frac{1}{3}\left(\frac{n+1}{n}\right)^2 \to \frac{1}{3} < 1. $$
+비율 판정법에 의해 급수는 수렴한다.
+</div>
+
+<div class="example"><span class="env-label">Example 8.6 (근 판정법 적용)</span>
+\(\displaystyle\sum_{n=1}^\infty \left(\frac{n}{2n+1}\right)^n\)의 수렴 여부를 판정하자. \(a_n = \left(\frac{n}{2n+1}\right)^n\)이므로
+$$ a_n^{1/n} = \frac{n}{2n+1} \to \frac{1}{2} < 1. $$
+근 판정법에 의해 급수는 수렴한다.
+</div>
+
+<div class="example"><span class="env-label">Example 8.7 (교대급수 판정법)</span>
+\(\displaystyle\sum_{n=1}^\infty \frac{(-1)^{n+1}}{n}\)은 교대급수이다. \(b_n = 1/n\)이 단조 감소하고 \(b_n \to 0\)이므로, Leibniz 교대급수 판정법에 의해 수렴한다. 그러나 \(\sum 1/n = \infty\)이므로 절대 수렴하지는 않는다. 이 급수의 합은 \(\ln 2\)이다.
+</div>
+
+<!-- 8.7 추가 주제 정리 -->
+<p>해석학 전반에서 반복적으로 등장하는 부등식들을 모아 정리한다. 이 부등식들은 추정(estimation)의 기본 도구이며, 이후 측도론과 함수해석학에서도 자주 사용된다.</p>
+
+<h3>8.7 해석학의 핵심 부등식</h3>
+
+<div class="theorem"><span class="env-label">Theorem 8.20 (삼각 부등식의 급수 확장)</span>
+급수 \(\sum a_n\)이 절대 수렴하면,
+$$ \left|\sum_{n=1}^\infty a_n\right| \leq \sum_{n=1}^\infty |a_n|. $$
+</div>
+
+<div class="theorem"><span class="env-label">Theorem 8.21 (Abel's Summation / 아벨 변환)</span>
+수열 \((a_n)\), \((b_n)\)과 부분합 \(B_n = \sum_{k=1}^n b_k\)에 대해:
+$$ \sum_{n=1}^N a_n b_n = a_N B_N - \sum_{n=1}^{N-1} (a_{n+1} - a_n) B_n. $$
+이를 이용하면 Dirichlet 판정법과 Abel 판정법을 증명할 수 있다.
+</div>
+
+<div class="example"><span class="env-label">Example 8.8 (Abel 변환 응용)</span>
+\(\displaystyle\sum_{n=1}^\infty \frac{\sin n}{n}\)의 수렴을 보이자. \(a_n = 1/n\) (단조 감소, \(0\)으로 수렴)이고, \(b_n = \sin n\)이다. \(B_N = \sum_{k=1}^N \sin k\)는 유계임이 알려져 있다:
+$$ |B_N| = \left|\sum_{k=1}^N \sin k\right| = \left|\frac{\sin(N/2)\sin((N+1)/2)}{\sin(1/2)}\right| \leq \frac{1}{\sin(1/2)}. $$
+Dirichlet 판정법 (또는 Abel 변환 후 수렴 확인)에 의해 급수는 수렴한다.
+</div>
+
+<div class="example"><span class="env-label">Example 8.9 (Cauchy 수열 직접 증명)</span>
+\(a_n = \displaystyle\sum_{k=1}^n \frac{1}{k^2}\)이 Cauchy 수열임을 직접 보이자.<br />
+<strong>증명.</strong> \(m > n\)이면
+$$ |a_m - a_n| = \sum_{k=n+1}^m \frac{1}{k^2} \leq \sum_{k=n+1}^m \frac{1}{k(k-1)} = \sum_{k=n+1}^m \left(\frac{1}{k-1} - \frac{1}{k}\right) = \frac{1}{n} - \frac{1}{m} < \frac{1}{n}. $$
+임의의 \(\varepsilon > 0\)에 대해 \(N > 1/\varepsilon\)을 택하면, \(m > n \geq N\)일 때 \(|a_m - a_n| < 1/n \leq 1/N < \varepsilon\)이다. \(\mathbb{R}\)의 완비성에 의해 \((a_n)\)은 수렴한다.
+</div>
+
+<div class="example"><span class="env-label">Example 8.10 (Monotone Convergence 활용)</span>
+\(a_1 = 1\), \(a_{n+1} = \sqrt{2 + a_n}\)으로 정의된 수열이 수렴함을 보이고 극한을 구하자.<br />
+<strong>풀이.</strong> 귀납법으로 \(a_n < 2\)를 보인다. \(a_1 = 1 < 2\)이고, \(a_n < 2\)이면 \(a_{n+1} = \sqrt{2+a_n} < \sqrt{4} = 2\)이다. 따라서 \((a_n)\)은 위로 유계이다.<br />
+단조 증가성: \(a_{n+1}^2 - a_n^2 = (2 + a_n) - a_n^2 = -(a_n^2 - a_n - 2) = -(a_n-2)(a_n+1)\). \(a_n < 2\)이고 \(a_n > 0\)이므로 \(a_{n+1}^2 - a_n^2 > 0\), 즉 \(a_{n+1} > a_n\)이다.<br />
+Monotone Convergence Theorem에 의해 \(L = \lim a_n\)이 존재하고, \(a_{n+1} = \sqrt{2 + a_n}\)에서 양변에 극한을 취하면 \(L = \sqrt{2+L}\), 즉 \(L^2 - L - 2 = 0\)이므로 \(L = 2\) (양수 근).
+</div>
+
+<div class="example"><span class="env-label">Example 8.11 (Heine-Cantor 정리 응용)</span>
+\(f(x) = 1/x\)는 \((0, 1]\)에서 연속이지만 균등연속이 아니다. 그러나 \([\delta, 1]\) (\(\delta > 0\))에서는 Heine-Cantor 정리에 의해 균등연속이다.<br />
+\((0,1]\)에서 균등연속이 아님을 보이려면: \(x_n = 1/n\), \(y_n = 1/(n+1)\)로 잡으면 \(|x_n - y_n| = 1/(n(n+1)) \to 0\)이지만 \(|f(x_n) - f(y_n)| = |n - (n+1)| = 1\)이다. 이는 \((0,1]\)이 닫힌 유계 구간이 아닌 것과 관련된다: Heine-Cantor 정리의 조건인 콤팩트성이 성립하지 않는다.
+</div>
+
+<div class="example"><span class="env-label">Example 8.12 (Darboux 합으로 적분 불가능 확인)</span>
+Dirichlet 함수 \(f = \mathbf{1}_{\mathbb{Q}}\)가 \([0,1]\)에서 Riemann 적분 불가능함을 Darboux 합으로 직접 확인하자.<br />
+임의의 분할 \(P = \{x_0, x_1, \ldots, x_n\}\)에 대해, 유리수와 무리수의 조밀성에 의해 각 부분구간 \([x_{i-1}, x_i]\)에서 \(M_i = \sup f = 1\)이고 \(m_i = \inf f = 0\)이다. 따라서
+$$ U(f, P) = \sum_{i=1}^n 1 \cdot \Delta x_i = b - a = 1, \qquad L(f, P) = \sum_{i=1}^n 0 \cdot \Delta x_i = 0. $$
+모든 분할에 대해 \(U(f,P) - L(f,P) = 1\)이므로, \(\varepsilon < 1\)에 대해 \(U - L < \varepsilon\)을 만족하는 분할이 존재하지 않는다. 따라서 \(f\)는 Riemann 적분 불가능이다.
+</div>
+
+<p class="source-note"><em>Sources: MIT 18.100A/B (Real Analysis), Harvey Mudd Real Analysis notes, Rudin, Principles of Mathematical Analysis.</em></p>
+</section>
+
+
+<!-- ============================================================
+     SECTION 9: COMPLEX ANALYSIS
+     ============================================================ -->
+
+<details class="video-resources">
+<summary>추천 영상 강의 (원본 소스 기반)</summary>
+<ul>
+<li><a href="https://www.youtube.com/playlist?list=PLUl4u3cNGP61O7HkcF7UImpM0cR_L2gSw" target="_blank">18.100A Real Analysis — MIT</a></li>
+<li><a href="https://www.youtube.com/playlist?list=PLUl4u3cNGP62Ie7F_tTAhhXoX5_Cl8meG" target="_blank">18.100B Real Analysis — MIT</a></li>
+<li><a href="https://www.youtube.com/playlist?list=PL04BA7A9EB907EDAF" target="_blank">Real Analysis — Harvey Mudd College</a></li>
+<li><a href="https://www.youtube.com/playlist?list=PLBMmiR8tC9Um6w4pWfUq-hjgdQ24yzv0X" target="_blank">Introduction to Real Analysis — METU Math349 (Ozan)</a></li>
+<li><a href="http://nptel.ac.in/courses/111105069/" target="_blank">A Basic Course in Real Analysis — NPTEL IIT Kharagpur</a></li>
+<li><a href="http://nptel.ac.in/courses/111106053/" target="_blank">Real Analysis — NPTEL IIT Madras</a></li>
+<li><a href="https://www.youtube.com/playlist?list=PL58984C080F2B0575" target="_blank">Mathematical Analysis — U. of Nottingham</a></li>
+<li><a href="https://www.youtube.com/@RealAnalysisSummer-MaxWimberle/playlists" target="_blank">UC Berkeley Math 104 Real Analysis (Fall 2021)</a></li>
+</ul>
+</details>
+
+<details class="video-resources">
+<summary>추천 교재 &amp; 오픈 자료</summary>
+<ul>
+<li><a href="https://www.jirka.org/ra/" target="_blank">Basic Analysis I &amp; II (Lebl)</a> — 무료 실해석학 교재</li>
+<li><a href="https://www.math.ucdavis.edu/~hunter/intro_analysis_pdf/intro_analysis.pdf" target="_blank">An Introduction to Real Analysis (Hunter, UC Davis)</a> — 강의노트 PDF</li>
+<li>Rudin, <em>Principles of Mathematical Analysis</em> — "Baby Rudin", 해석학의 바이블</li>
+<li>Tao, <em>Analysis I &amp; II</em> — 기초부터 쌓아올리는 현대적 접근</li>
+<li>Abbott, <em>Understanding Analysis</em> — 직관적 설명이 뛰어난 입문서</li>
+<li>Pugh, <em>Real Mathematical Analysis</em> — 풍부한 그림과 연습문제</li>
+<li>Royden &amp; Fitzpatrick, <em>Real Analysis</em> — 르베그 적분 포함 대학원 표준</li>
+</ul>
+</details>
+

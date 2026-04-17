@@ -1,0 +1,153 @@
+<section id="statistics">
+<h3>24. Statistics</h3>
+
+<p class="chapter-intro">통계학은 데이터로부터 모집단에 대한 결론을 도출하는 학문이다. 추정, 검정, 신뢰구간이 주요 도구이며, 빈도주의와 베이즈주의 두 패러다임이 상호 보완적으로 사용된다.</p>
+
+<p>통계학의 핵심 질문은 "표본(sample)에서 모집단(population)으로의 추론이 믿을 만한가?"이다. 모수(parameter) 추정, 불확실성 정량화, 가설검정이 기본 과제이며, 공학 곳곳에서 사용된다.</p>
+
+<p>품질 관리(quality control)에서 관리도(control chart)와 공정 능력 지수(process capability index)는 통계적 추정과 검정의 직접적 응용이며, 실험 계획법(Design of Experiments)과 A/B 테스트는 가설검정(hypothesis testing) 프레임워크 위에 세워진다. 센서 교정(sensor calibration)에서 회귀분석(regression analysis)은 센서 출력과 참값 사이의 관계를 추정하고, 신호 탐지 이론(signal detection theory)에서 레이더가 목표물의 존재를 판단하는 문제는 네이만-피어슨(Neyman-Pearson) 가설검정과 정확히 동일한 구조를 가진다. 기계학습(machine learning)에서 최대우도추정(MLE)과 MAP 추정은 모형의 모수를 데이터에 적합시키는 기본 방법이다.</p>
+
+<p>통계적 추론의 출발점은 데이터를 요약하는 통계량(statistic)과, 미지의 모수를 근사하는 추정량(estimator)이다. 추정량의 불편성(unbiasedness), 일치성(consistency), 효율성(efficiency)이 추정론(estimation theory)의 기본 판단 기준이다.</p>
+
+<div class="definition"><span class="env-label">Definition 24.1 (Statistic and Estimator)</span>
+<strong>statistic(통계량)</strong>은 관측 데이터의 임의의 함수 \(T = T(X_1, \ldots, X_n)\)이다. 모수 \(\theta\)의 <strong>estimator(추정량)</strong> \(\hat{\theta}\)는 \(\theta\)를 근사하기 위한 통계량이다.
+</div>
+
+<div class="definition"><span class="env-label">Definition 24.2 (Bias, Variance, MSE)</span>
+\(\theta\)의 estimator(추정량) \(\hat{\theta}\)에 대해:
+<ul>
+  <li><strong>Bias:</strong> \(\operatorname{Bias}(\hat{\theta}) = E[\hat{\theta}] - \theta\). 편향이 0이면 <strong>unbiased(불편)</strong> estimator(추정량)라 한다.</li>
+  <li><strong>Mean squared error:</strong> \(\operatorname{MSE}(\hat{\theta}) = E[(\hat{\theta} - \theta)^2] = \operatorname{Var}(\hat{\theta}) + (\operatorname{Bias})^2\).</li>
+  <li>\(n \to \infty\)일 때 \(\hat{\theta}_n \xrightarrow{P} \theta\)이면 estimator(추정량)는 <strong>consistent(일치)</strong>라 한다.</li>
+</ul>
+</div>
+
+<p>최대우도추정(Maximum Likelihood Estimation, MLE)은 가장 널리 사용되는 점추정 방법이다. 관측된 데이터를 가장 잘 설명하는 모수값을 선택한다는 원리이며, 기계학습에서 모형 훈련의 목적함수(로그우도 최대화)가 이에 해당한다.</p>
+
+<div class="definition"><span class="env-label">Definition 24.3 (Maximum Likelihood Estimation)</span>
+데이터 \(x_1, \ldots, x_n\)과 모수적 모형 \(f(x \mid \theta)\)가 주어졌을 때, <strong>likelihood function(우도함수)</strong>은
+$$ L(\theta) = \prod_{i=1}^n f(x_i \mid \theta). $$
+<strong>maximum likelihood estimator(최대우도추정량)</strong> (MLE)는 \(\hat{\theta}_{\text{MLE}} = \arg\max_\theta L(\theta)\)이다. 실제로는 <strong>log-likelihood(로그우도)</strong> \(\ell(\theta) = \sum_{i=1}^n \log f(x_i \mid \theta)\)를 최대화한다.
+</div>
+
+<div class="theorem"><span class="env-label">Theorem 24.1 (Properties of MLE)</span>
+정칙 조건 하에서:
+<ol>
+  <li><strong>Consistency:</strong> \(\hat{\theta}_{\text{MLE}} \xrightarrow{P} \theta_0\) (참 모수로 수렴).</li>
+  <li><strong>Asymptotic normality:</strong> \(\sqrt{n}(\hat{\theta}_{\text{MLE}} - \theta_0) \xrightarrow{d} N(0, I(\theta_0)^{-1})\), 여기서 \(I(\theta)\)는 Fisher information이다.</li>
+  <li><strong>Asymptotic efficiency:</strong> MLE는 점근적으로 Cram&eacute;r&ndash;Rao 하한을 달성한다.</li>
+</ol>
+</div>
+
+<p>피셔 정보(Fisher information)는 데이터가 모수에 대해 담고 있는 정보량을 측정한다. 피셔 정보가 클수록 모수를 더 정밀하게 추정할 수 있고, Cramer-Rao 하한이 이를 정량화한다.</p>
+
+<div class="definition"><span class="env-label">Definition 24.4 (Fisher Information)</span>
+단일 관측에 대한 <strong>Fisher information</strong>은 다음과 같다:
+$$ I(\theta) = E\!\left[\left(\frac{\partial}{\partial \theta} \log f(X \mid \theta)\right)^{\!2}\right] = -E\!\left[\frac{\partial^2}{\partial \theta^2} \log f(X \mid \theta)\right]. $$
+</div>
+
+<div class="theorem"><span class="env-label">Theorem 24.2 (Cram&eacute;r&ndash;Rao Lower Bound)</span>
+\(\theta\)의 임의의 unbiased(불편) estimator(추정량) \(\hat{\theta}\)에 대해,
+$$ \operatorname{Var}(\hat{\theta}) \geq \frac{1}{n I(\theta)}. $$
+이 부등식은 어떤 불편 추정량도 넘을 수 없는 정밀도의 물리적 한계를 제시하며, 이 하한을 달성하는 추정량을 효율적(efficient) 추정량이라 한다.
+</div>
+
+<p>점추정만으로는 추정의 정밀도를 알 수 없다. 신뢰구간(confidence interval)은 추정값 주위에 불확실성의 범위를 부여한다.</p>
+
+<div class="definition"><span class="env-label">Definition 24.5 (Confidence Interval)</span>
+\(\theta\)에 대한 <strong>\((1-\alpha)\) confidence interval(신뢰구간)</strong>은 \(P(\theta \in [L, U]) \geq 1 - \alpha\)를 만족하는 확률구간 \([L(X), U(X)]\)이다. variance(분산) \(\sigma^2\)가 알려진 정규모집단의 경우:
+$$ \bar{X} \pm z_{\alpha/2} \frac{\sigma}{\sqrt{n}}, $$
+여기서 \(z_{\alpha/2}\)는 \(N(0,1)\)의 상위 \(\alpha/2\) 분위수이다.
+</div>
+
+<p>가설검정(hypothesis testing)은 데이터에 기반하여 주장의 타당성을 판단하는 체계이다. 레이더의 목표물 탐지, 임상시험의 신약 효과 판정, A/B 테스트 등이 모두 가설검정으로 정식화된다. 1종 오류(위양성)와 2종 오류(위음성) 사이의 트레이드오프를 관리하는 것이 실무적으로 중요하다.</p>
+
+<div class="definition"><span class="env-label">Definition 24.6 (Hypothesis Testing)</span>
+<strong>hypothesis testing(가설검정)</strong>은 귀무가설 \(H_0\)을 대립가설 \(H_1\)에 대해 평가한다.
+<ul>
+  <li><strong>Type I error</strong> (위양성): \(H_0\)이 참일 때 \(H_0\)을 기각하는 오류. 그 확률은 <strong>significance level(유의수준)</strong> \(\alpha\)로 상한이 정해진다.</li>
+  <li><strong>Type II error</strong> (위음성): \(H_1\)이 참일 때 \(H_0\)을 기각하지 못하는 오류. 그 확률은 \(\beta\)이다.</li>
+  <li><strong>Power(검정력)</strong> \(= 1 - \beta\): \(H_0\)을 올바르게 기각할 확률.</li>
+  <li><strong>p-value(유의확률):</strong> 관측된 데이터가 주어졌을 때 \(H_0\)을 기각할 수 있는 가장 작은 유의수준.</li>
+</ul>
+</div>
+
+<div class="theorem"><span class="env-label">Theorem 24.3 (Neyman&ndash;Pearson Lemma)</span>
+단순가설 \(H_0: \theta = \theta_0\) 대 \(H_1: \theta = \theta_1\)의 검정에서, 크기 \(\alpha\)의 가장 검정력이 높은 검정은 likelihood ratio test(우도비검정)이다: 다음 조건일 때 \(H_0\)을 기각한다.
+$$ \frac{L(\theta_1)}{L(\theta_0)} > c, $$
+여기서 \(c\)는 \(H_0\) 하에서 기각 확률이 \(\alpha\)가 되도록 선택한다.
+</div>
+
+<div class="example"><span class="env-label">Example 24.1 (MLE -- Poisson)</span>
+\(X_1, \ldots, X_n \overset{\text{iid}}{\sim} \text{Poisson}(\lambda)\)일 때, \(\lambda\)의 MLE를 구하라.<br>
+<strong>풀이.</strong> Log-likelihood:
+$$ \ell(\lambda) = \sum_{i=1}^n \left(X_i \log\lambda - \lambda - \log(X_i!)\right) = \left(\sum X_i\right)\log\lambda - n\lambda - \sum\log(X_i!). $$
+$$ \frac{d\ell}{d\lambda} = \frac{\sum X_i}{\lambda} - n = 0 \implies \hat{\lambda}_{\text{MLE}} = \bar{X}. $$
+이는 직관적이다: Poisson 분포의 평균이 \(\lambda\)이므로, 표본 평균이 자연스러운 추정량이다. 또한 \(E[\bar{X}] = \lambda\)이므로 불편 추정량이다.
+</div>
+
+<div class="example"><span class="env-label">Example 24.2 (신뢰구간 계산)</span>
+모집단의 분산 \(\sigma^2 = 16\)이 알려진 정규모집단에서 \(n = 25\)개의 표본을 뽑아 \(\bar{x} = 50.3\)을 얻었다. 모평균 \(\mu\)의 95% 신뢰구간을 구하라.<br>
+<strong>풀이.</strong> \(z_{0.025} = 1.96\), \(\sigma/\sqrt{n} = 4/5 = 0.8\).
+$$ 50.3 \pm 1.96 \times 0.8 = 50.3 \pm 1.568 = (48.732, 51.868). $$
+95% 신뢰구간은 \((48.73, 51.87)\)이다. 이는 "이 방법으로 반복적으로 구간을 만들면 95%의 경우에 참 모수가 구간 안에 포함된다"는 뜻이다.
+</div>
+
+<p>선형회귀(linear regression)는 변수 간의 관계를 모형화하는 기본 방법이다. 센서 교정에서 출력과 참값의 선형 관계를 추정하거나, 재료 시험에서 응력-변형률 기울기(영률)를 결정하는 것이 전형적인 응용이다.</p>
+
+<div class="definition"><span class="env-label">Definition 24.7 (Linear Regression)</span>
+<strong>linear regression(선형회귀) model</strong>은 \(Y = X\beta + \varepsilon\)이며, 여기서 \(Y \in \mathbb{R}^n\)은 반응변수, \(X \in \mathbb{R}^{n \times p}\)은 설계행렬, \(\beta \in \mathbb{R}^p\)은 계수, \(\varepsilon \sim N(0, \sigma^2 I)\)이다. <strong>ordinary least squares(최소제곱)</strong> (OLS) estimator(추정량)는
+$$ \hat{\beta} = (X^T X)^{-1} X^T Y. $$
+</div>
+
+<div class="theorem"><span class="env-label">Theorem 24.4 (Gauss&ndash;Markov)</span>
+\(E[\varepsilon] = 0\)이고 \(\operatorname{Cov}(\varepsilon) = \sigma^2 I\)라는 가정 하에서, OLS estimator(추정량) \(\hat{\beta}\)는 Best Linear Unbiased Estimator (BLUE)이다: 모든 선형 불편 추정량 중에서 가장 작은 variance(분산)를 가진다.
+</div>
+
+<div class="example"><span class="env-label">Example 24.3 (MLE -- 정규분포 모수 추정)</span>
+\(X_1, \ldots, X_n \overset{\text{iid}}{\sim} N(\mu, \sigma^2)\)일 때, \(\mu\)와 \(\sigma^2\)의 MLE를 구하라.<br>
+<strong>풀이.</strong> Log-likelihood:
+$$ \ell(\mu, \sigma^2) = -\frac{n}{2}\log(2\pi) - \frac{n}{2}\log\sigma^2 - \frac{1}{2\sigma^2}\sum_{i=1}^n (X_i - \mu)^2. $$
+\(\partial \ell / \partial \mu = 0\)에서 \(\hat{\mu} = \bar{X}\). \(\partial \ell / \partial \sigma^2 = 0\)에서:
+$$ \hat{\sigma}^2_{\text{MLE}} = \frac{1}{n}\sum_{i=1}^n (X_i - \bar{X})^2. $$
+MLE \(\hat{\sigma}^2\)은 \(n\)으로 나누므로 편향된 추정량이다 (\(E[\hat{\sigma}^2] = \frac{n-1}{n}\sigma^2\)). 불편 추정량은 \(n-1\)로 나눈 표본분산 \(S^2\)이다.
+</div>
+
+<div class="example"><span class="env-label">Example 24.4 (가설검정 -- Z-검정)</span>
+공장에서 생산되는 볼트의 길이가 \(N(\mu, 4)\)를 따른다. 규격은 \(\mu = 10\)cm이다. 36개를 표본 추출하여 \(\bar{x} = 10.5\)를 얻었다. \(H_0: \mu = 10\) 대 \(H_1: \mu \neq 10\), 유의수준 \(\alpha = 0.05\)로 검정하라.<br>
+<strong>풀이.</strong> 검정통계량:
+$$ Z = \frac{\bar{x} - \mu_0}{\sigma/\sqrt{n}} = \frac{10.5 - 10}{2/6} = \frac{0.5}{1/3} = 1.5. $$
+\(|Z| = 1.5 < z_{0.025} = 1.96\)이므로, \(H_0\)을 기각하지 못한다. p-value = \(2P(Z > 1.5) = 2 \times 0.0668 = 0.1336 > 0.05\).
+</div>
+
+</section>
+
+<!-- ============================================================== -->
+<!--  SECTION 25: STOCHASTIC PROCESSES                               -->
+<!-- ============================================================== -->
+
+<details class="video-resources">
+<summary>추천 영상 강의 (원본 소스 기반)</summary>
+<ul>
+<li><a href="http://nptel.ac.in/courses/111105041/" target="_blank">Probability and Statistics — NPTEL IIT Kharagpur</a></li>
+<li><a href="http://nptel.ac.in/courses/111105091/" target="_blank">Applied Multivariate Statistical Modeling — NPTEL IIT Kharagpur</a></li>
+<li><a href="http://nptel.ac.in/courses/111104024/" target="_blank">Applied Multivariate Analysis — NPTEL IIT Kanpur</a></li>
+<li><a href="http://nptel.ac.in/courses/111105043/" target="_blank">Statistical Inference — NPTEL IIT Kharagpur</a></li>
+<li><a href="https://www.youtube.com/playlist?list=PLTBqohhFNBE9jRhvdtnuxj9FiOtDOnqoy" target="_blank">Prob & Statistics with Prof Spiegelhalter</a></li>
+<li><a href="https://www.youtube.com/playlist?list=PLaLOVNqqD-2FE31HVMLOEapRdKhXAK9gI" target="_blank">DTU: Introduction to Statistics</a></li>
+</ul>
+</details>
+
+<details class="video-resources">
+<summary>추천 교재 &amp; 오픈 자료</summary>
+<ul>
+<li><a href="https://www.stat.cmu.edu/~larry/all-of-statistics/" target="_blank">All of Statistics (Wasserman, CMU)</a> — 교재 정보 &amp; 보충자료</li>
+<li><a href="https://web.stanford.edu/~hastie/ElemStatLearn/" target="_blank">The Elements of Statistical Learning (Hastie, Tibshirani, Friedman)</a> — 무료 PDF</li>
+<li><a href="https://www.statlearning.com/" target="_blank">An Introduction to Statistical Learning (James et al.)</a> — 무료 PDF</li>
+<li>Casella &amp; Berger, <em>Statistical Inference</em> — 수리통계학의 바이블</li>
+<li>Hogg, McKean &amp; Craig, <em>Introduction to Mathematical Statistics</em> — 학부 수리통계 표준</li>
+<li>Lehmann &amp; Casella, <em>Theory of Point Estimation</em> — 추정론 대학원 표준</li>
+<li>Schervish, <em>Theory of Statistics</em> — Bayesian/Frequentist 통합적 접근</li>
+</ul>
+</details>
+

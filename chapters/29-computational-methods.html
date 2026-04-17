@@ -1,0 +1,271 @@
+<section id="computational-methods">
+<h3>29. Computational Methods</h3>
+
+<p class="section-intro">28장에서 다룬 수치해석의 기본 도구들을 바탕으로, 이 장에서는 대규모 선형계의 풀이와 편미분방정식의 유한요소법(FEM) 같은 계산적 방법론을 다룬다. 조건수(condition number)의 개념은 수치 계산의 신뢰성을 판단하는 핵심 지표이며, 반복법은 직접법으로 다루기 어려운 대규모 문제의 실질적 해법이다.</p>
+
+<p>수치해석이 알고리즘의 수렴성과 정확도를 다루는 반면, 계산수학(computational mathematics)은 그 알고리즘을 실제 컴퓨터에서 구현할 때 생기는 문제를 다룬다. 이론적으로 수렴하는 알고리즘이라도 유한 정밀도 산술(finite-precision arithmetic)에서는 반올림 오차가 축적되고, 메모리와 연산 시간에 제약이 있으며, 행렬의 희소 구조(sparsity)를 활용하지 못하면 실용성을 잃는다.</p>
+
+<p>MATLAB이나 Python(NumPy/SciPy)을 이용한 수치 시뮬레이션은 구조 해석, 유체 역학, 전자기장 계산에서 표준 도구이다. 수백만 자유도를 가진 유한요소 모델의 강성 행렬(stiffness matrix)은 대부분의 원소가 0인 희소행렬(sparse matrix)이므로, 희소행렬 저장 기법과 반복 솔버가 필수적이다. 기계학습에서 역전파(backpropagation)에 쓰이는 자동미분(automatic differentiation)도 계산수학의 산물이고, 병렬 컴퓨팅(parallel computing)은 대규모 선형계를 수천 개의 프로세서에 분산시켜 계산 시간을 크게 줄인다.</p>
+
+<h4>29.1 Condition Numbers and Error Analysis</h4>
+
+<p>수치 계산의 결과를 신뢰하려면, 문제 자체의 민감도를 먼저 파악해야 한다. 입력 데이터의 측정 오차나 반올림 오차에 대해 출력이 얼마나 변하는지를 나타내는 지표가 조건수(condition number)이다. 조건수가 크면, 알고리즘이 아무리 정교해도 결과의 정밀도에 한계가 있다.</p>
+
+<div class="definition"><span class="env-label">Definition 29.1 (Condition Number)</span>
+비특이 행렬 \(A\)의 (노름 \(\|\cdot\|\)에 대한) <strong>condition number</strong>는
+$$ \kappa(A) = \|A\| \cdot \|A^{-1}\| $$
+이다. 2-노름의 경우 \(\kappa_2(A) = \sigma_{\max}(A) / \sigma_{\min}(A)\)이다. 이는 \(Ax = b\)의 해가 섭동에 대해 얼마나 민감한지를 측정한다:
+$$ \frac{\|\delta x\|}{\|x\|} \leq \kappa(A) \frac{\|\delta b\|}{\|b\|}. $$
+Condition number가 크면 ill-conditioned(악조건) 문제임을 나타낸다.
+</div>
+
+<div class="example"><span class="env-label">Example 29.1 (조건수 계산과 해석)</span>
+행렬 \(A = \begin{pmatrix} 1 & 1 \\ 1 & 1.0001 \end{pmatrix}\)을 고려하자. \(A^{-1} = \frac{1}{0.0001}\begin{pmatrix} 1.0001 & -1 \\ -1 & 1 \end{pmatrix}\)이다. 1-노름 기준으로:
+$$ \|A\|_1 = \max(2, 2.0001) = 2.0001, \quad \|A^{-1}\|_1 = 10000 \cdot \max(2.0001, 2) = 20001. $$
+따라서 \(\kappa_1(A) \approx 40002\). 이는 \(b\)에 \(10^{-4}\)의 상대 오차가 있으면 \(x\)에 최대 약 4의 상대 오차가 생길 수 있음을 의미한다. 실제로:
+<ul>
+  <li>\(b = (2, 2.0001)^T\)이면 \(x = (1, 1)^T\).</li>
+  <li>\(b\)를 \((2, 2.0002)^T\)로 살짝 변경하면 \(x = (0, 1)^T\).</li>
+</ul>
+\(b\)의 \(0.005\%\) 변화가 \(x\)에 \(100\%\) 변화를 일으킨다.
+</div>
+
+<div class="example"><span class="env-label">Example 29.2 (Hilbert 행렬의 조건수)</span>
+\(n \times n\) Hilbert 행렬 \(H_n\) (\(H_{ij} = 1/(i+j-1)\))은 대표적인 악조건 행렬이다. 2-노름 조건수:
+$$ \kappa_2(H_3) \approx 524, \quad \kappa_2(H_5) \approx 4.8 \times 10^5, \quad \kappa_2(H_{10}) \approx 1.6 \times 10^{13}. $$
+\(n\)이 증가함에 따라 조건수가 지수적으로 증가한다. \(H_{10}x = b\)를 배정밀도(\(\epsilon_{\text{mach}} \approx 10^{-16}\))로 풀면, 해에서 기대할 수 있는 정확한 자릿수는 약 \(16 - \log_{10}(\kappa_2) \approx 16 - 13 = 3\)자리에 불과하다.
+</div>
+
+<p class="subsection-transition">조건수로 문제의 민감도를 파악했으면, 다음은 실제로 선형계를 푸는 방법이다. 직접법과 반복법으로 나뉘는데, 먼저 직접법부터 다룬다.</p>
+
+<h4>29.2 Direct Methods: Matrix Factorizations (직접법: 행렬 분해)</h4>
+
+<p>공학 시뮬레이션에서 핵심 연산은 대부분 선형계 \(Ax = b\)를 푸는 것이다. FEM의 강성 행렬, 회로 해석의 노드 방정식, 최소제곱 회귀 모두 이 형태이다. 직접법(direct methods)은 행렬 \(A\)를 삼각 행렬이나 직교 행렬의 곱으로 분해하여, 정확한 해를 유한 단계 안에 구한다. 삼각 행렬로 분해하면 전방/후방 대입으로 빠르게 풀 수 있고, 직교 행렬로 분해하면 수치적 안정성이 좋다.</p>
+
+<div class="definition"><span class="env-label">Definition 29.2 (LU Decomposition)</span>
+\(n \times n\) 행렬 \(A\)의 <strong>LU 분해(LU decomposition)</strong>는
+$$ A = LU $$
+로, \(L\)은 대각 성분이 모두 1인 하삼각 행렬(unit lower triangular), \(U\)는 상삼각 행렬(upper triangular)이다. <strong>Partial pivoting</strong>을 도입하면:
+$$ PA = LU $$
+여기서 \(P\)는 치환 행렬(permutation matrix)이다. 분해의 비용은 \(O(n^3/3)\) 부동소수점 연산(flops)이다. 일단 분해가 완료되면, \(Ax = b\)의 풀이는 두 단계로 축소된다:
+<ul>
+  <li><strong>전방 대입(forward substitution):</strong> \(Ly = Pb\)를 풀어 \(y\)를 구한다. 비용: \(O(n^2)\).</li>
+  <li><strong>후방 대입(back substitution):</strong> \(Ux = y\)를 풀어 \(x\)를 구한다. 비용: \(O(n^2)\).</li>
+</ul>
+따라서 같은 계수 행렬 \(A\)에 대해 여러 우변 \(b\)를 풀 때, 분해는 한 번만 수행하면 된다.
+</div>
+
+<div class="theorem"><span class="env-label">Theorem 29.1 (LU 분해의 존재성과 유일성)</span>
+\(A\)의 모든 선행 주소행렬식(leading principal minor)이 영이 아니면, \(A\)는 유일한 LU 분해 \(A = LU\)를 갖는다. 일반적인 비특이 행렬 \(A\)에 대해서는, 적절한 치환 행렬 \(P\)가 존재하여 \(PA = LU\) 분해가 항상 가능하다 (partial pivoting).
+</div>
+
+<div class="example"><span class="env-label">Example 29.3 (LU 분해 3&times;3)</span>
+행렬
+$$ A = \begin{pmatrix} 2 & 1 & 1 \\ 4 & 3 & 3 \\ 8 & 7 & 9 \end{pmatrix} $$
+을 LU 분해한다. 가우스 소거법의 각 단계를 추적하면:
+
+<strong>1단계.</strong> 첫 번째 열의 피벗 아래 성분을 소거한다. 소거 행렬 \(L_1 = I - l_1 e_1^T\)에서 승수(multiplier)는 \(l_{21} = 4/2 = 2\), \(l_{31} = 8/2 = 4\)이다:
+$$ L_1 A = \begin{pmatrix} 1 & 0 & 0 \\ -2 & 1 & 0 \\ -4 & 0 & 1 \end{pmatrix} \begin{pmatrix} 2 & 1 & 1 \\ 4 & 3 & 3 \\ 8 & 7 & 9 \end{pmatrix} = \begin{pmatrix} 2 & 1 & 1 \\ 0 & 1 & 1 \\ 0 & 3 & 5 \end{pmatrix}. $$
+
+<strong>2단계.</strong> 두 번째 열의 피벗 아래 성분을 소거한다. 승수는 \(l_{32} = 3/1 = 3\)이다:
+$$ L_2 (L_1 A) = \begin{pmatrix} 1 & 0 & 0 \\ 0 & 1 & 0 \\ 0 & -3 & 1 \end{pmatrix} \begin{pmatrix} 2 & 1 & 1 \\ 0 & 1 & 1 \\ 0 & 3 & 5 \end{pmatrix} = \begin{pmatrix} 2 & 1 & 1 \\ 0 & 1 & 1 \\ 0 & 0 & 2 \end{pmatrix} = U. $$
+
+따라서 \(L = L_1^{-1} L_2^{-1}\)이며, 소거 행렬의 역은 승수의 부호만 바꾸면 되므로:
+$$ L = \begin{pmatrix} 1 & 0 & 0 \\ 2 & 1 & 0 \\ 4 & 3 & 1 \end{pmatrix}, \quad U = \begin{pmatrix} 2 & 1 & 1 \\ 0 & 1 & 1 \\ 0 & 0 & 2 \end{pmatrix}. $$
+
+<strong>검증:</strong> \(LU = \begin{pmatrix} 2 & 1 & 1 \\ 4 & 3 & 3 \\ 8 & 7 & 9 \end{pmatrix} = A\). \(\checkmark\)
+
+<strong>응용:</strong> \(Ax = \begin{pmatrix} 4 \\ 10 \\ 24 \end{pmatrix}\)를 풀자. 먼저 \(Ly = b\):
+$$ \begin{pmatrix} 1 & 0 & 0 \\ 2 & 1 & 0 \\ 4 & 3 & 1 \end{pmatrix} \begin{pmatrix} y_1 \\ y_2 \\ y_3 \end{pmatrix} = \begin{pmatrix} 4 \\ 10 \\ 24 \end{pmatrix} \implies y = \begin{pmatrix} 4 \\ 2 \\ 2 \end{pmatrix}. $$
+다음으로 \(Ux = y\):
+$$ \begin{pmatrix} 2 & 1 & 1 \\ 0 & 1 & 1 \\ 0 & 0 & 2 \end{pmatrix} \begin{pmatrix} x_1 \\ x_2 \\ x_3 \end{pmatrix} = \begin{pmatrix} 4 \\ 2 \\ 2 \end{pmatrix} \implies x = \begin{pmatrix} 1 \\ 1 \\ 1 \end{pmatrix}. $$
+</div>
+
+<div class="definition"><span class="env-label">Definition 29.3 (QR Decomposition)</span>
+\(m \times n\) 행렬 \(A\) (\(m \geq n\))의 <strong>QR 분해(QR decomposition)</strong>는
+$$ A = QR $$
+로, \(Q \in \mathbb{R}^{m \times m}\)는 직교 행렬(\(Q^T Q = I\)), \(R \in \mathbb{R}^{m \times n}\)는 상삼각 행렬이다. <strong>Thin QR</strong> 형태에서는 \(A = \hat{Q}\hat{R}\), \(\hat{Q} \in \mathbb{R}^{m \times n}\), \(\hat{R} \in \mathbb{R}^{n \times n}\)이다.
+
+QR 분해를 계산하는 주요 방법:
+<ul>
+  <li><strong>Gram&ndash;Schmidt 직교화</strong> (classical/modified): 직관적이지만 수치적으로 불안정할 수 있다. Modified Gram&ndash;Schmidt가 더 안정적이다.</li>
+  <li><strong>Householder 반사(reflections)</strong>: 수치적 안정성이 우수하여 실무에서 선호된다.</li>
+  <li><strong>Givens 회전(rotations)</strong>: 희소 행렬이나 특정 구조에서 유용하다.</li>
+</ul>
+Householder 방법의 비용은 \(O(2mn^2 - 2n^3/3)\) 부동소수점 연산이다.
+</div>
+
+<div class="theorem"><span class="env-label">Theorem 29.2 (QR 분해의 존재성과 유일성)</span>
+모든 \(m \times n\) 실수 행렬 (\(m \geq n\))은 QR 분해를 갖는다. \(A\)가 열 풀랭크(full column rank)이면, thin QR 분해 \(A = \hat{Q}\hat{R}\)에서 \(\hat{R}\)의 대각 성분이 모두 양이 되도록 택한 분해는 유일하다.
+</div>
+
+<div class="example"><span class="env-label">Example 29.4 (QR을 이용한 최소제곱)</span>
+최소제곱 문제 \(\min_x \|Ax - b\|_2\)를 QR 분해로 푼다. 데이터:
+$$ A = \begin{pmatrix} 1 & 1 \\ 1 & 2 \\ 1 & 3 \end{pmatrix}, \quad b = \begin{pmatrix} 1 \\ 2 \\ 4 \end{pmatrix}. $$
+
+\(A = \hat{Q}\hat{R}\)로 분해하면, 최소제곱 해는 \(\hat{R}x = \hat{Q}^T b\)를 풀면 된다.
+
+<strong>Gram&ndash;Schmidt로 \(\hat{Q}\), \(\hat{R}\) 계산:</strong>
+
+첫 번째 열: \(a_1 = (1, 1, 1)^T\), \(\|a_1\| = \sqrt{3}\)이므로 \(q_1 = \frac{1}{\sqrt{3}}(1, 1, 1)^T\).
+
+두 번째 열: \(a_2 = (1, 2, 3)^T\), \(a_2 - (q_1^T a_2)q_1 = (1,2,3)^T - 2\sqrt{3} \cdot \frac{1}{\sqrt{3}}(1,1,1)^T = (-1, 0, 1)^T\). 정규화하면 \(q_2 = \frac{1}{\sqrt{2}}(-1, 0, 1)^T\).
+
+따라서:
+$$ \hat{Q} = \begin{pmatrix} 1/\sqrt{3} & -1/\sqrt{2} \\ 1/\sqrt{3} & 0 \\ 1/\sqrt{3} & 1/\sqrt{2} \end{pmatrix}, \quad \hat{R} = \begin{pmatrix} \sqrt{3} & 2\sqrt{3} \\ 0 & \sqrt{2} \end{pmatrix}. $$
+
+\(\hat{Q}^T b = \begin{pmatrix} 7/\sqrt{3} \\ 3/\sqrt{2} \end{pmatrix}\)이므로, \(\hat{R}x = \hat{Q}^T b\)를 후방 대입으로 풀면:
+$$ x_2 = \frac{3/\sqrt{2}}{\sqrt{2}} = \frac{3}{2}, \quad x_1 = \frac{7/\sqrt{3} - 2\sqrt{3} \cdot 3/2}{\sqrt{3}} = \frac{7/\sqrt{3} - 3\sqrt{3}}{\sqrt{3}} = \frac{7 - 9}{3} = -\frac{2}{3}. $$
+
+<strong>정규방정식과의 비교:</strong> \(A^T A x = A^T b\)에서 \(A^T A = \begin{pmatrix} 3 & 6 \\ 6 & 14 \end{pmatrix}\), \(A^T b = \begin{pmatrix} 7 \\ 17 \end{pmatrix}\). 풀면 동일하게 \(x = (-2/3, 3/2)^T\)을 얻는다. QR 방법은 \(A^T A\)를 형성하지 않으므로 \(\kappa_2(A^T A) = \kappa_2(A)^2\)에 의한 정밀도 손실을 피할 수 있다.
+</div>
+
+<div class="definition"><span class="env-label">Definition 29.4 (Singular Value Decomposition)</span>
+임의의 \(m \times n\) 행렬 \(A\)의 <strong>특이값 분해(SVD, singular value decomposition)</strong>는
+$$ A = U \Sigma V^T $$
+로, \(U \in \mathbb{R}^{m \times m}\)와 \(V \in \mathbb{R}^{n \times n}\)는 직교 행렬이고, \(\Sigma \in \mathbb{R}^{m \times n}\)는 대각 성분 \(\sigma_1 \geq \sigma_2 \geq \cdots \geq 0\)을 갖는 대각 행렬이다. \(\sigma_i\)를 \(A\)의 <strong>특이값(singular values)</strong>이라 한다.
+
+주요 성질:
+<ul>
+  <li>\(\text{rank}(A) = \)영이 아닌 특이값의 개수.</li>
+  <li>\(\kappa_2(A) = \sigma_1 / \sigma_{\min}\) (최소 양의 특이값).</li>
+  <li>\(\|A\|_2 = \sigma_1\), \(\|A\|_F = \sqrt{\sigma_1^2 + \cdots + \sigma_p^2}\) (\(p = \min(m, n)\)).</li>
+</ul>
+</div>
+
+<div class="theorem"><span class="env-label">Theorem 29.3 (Eckart&ndash;Young Theorem)</span>
+\(A = U\Sigma V^T\)를 SVD라 하고, 랭크-\(k\) 근사를 \(A_k = \sum_{i=1}^{k} \sigma_i u_i v_i^T\)로 정의하자. 그러면 \(A_k\)는 2-노름과 Frobenius 노름 모두에서 \(A\)의 <strong>최적 랭크-\(k\) 근사</strong>이다:
+$$ \min_{\text{rank}(B) \leq k} \|A - B\|_2 = \|A - A_k\|_2 = \sigma_{k+1}, $$
+$$ \min_{\text{rank}(B) \leq k} \|A - B\|_F = \|A - A_k\|_F = \sqrt{\sigma_{k+1}^2 + \cdots + \sigma_p^2}. $$
+</div>
+
+<div class="example"><span class="env-label">Example 29.5 (SVD 계산)</span>
+행렬
+$$ A = \begin{pmatrix} 3 & 2 & 2 \\ 2 & 3 & -2 \end{pmatrix} $$
+의 SVD를 구한다.
+
+<strong>1단계.</strong> \(A^T A\)의 고유값과 고유벡터를 구한다:
+$$ A^T A = \begin{pmatrix} 13 & 12 & 2 \\ 12 & 13 & -2 \\ 2 & -2 & 8 \end{pmatrix}. $$
+고유값: \(\lambda_1 = 25\), \(\lambda_2 = 9\), \(\lambda_3 = 0\). 따라서 특이값은 \(\sigma_1 = 5\), \(\sigma_2 = 3\)이다.
+
+<strong>2단계.</strong> \(V\)를 구한다 (\(A^T A\)의 정규 직교 고유벡터):
+$$ v_1 = \frac{1}{\sqrt{2}}\begin{pmatrix} 1 \\ 1 \\ 0 \end{pmatrix}, \quad v_2 = \frac{1}{\sqrt{18}}\begin{pmatrix} 1 \\ -1 \\ 4 \end{pmatrix}, \quad v_3 = \frac{1}{3}\begin{pmatrix} 2 \\ -2 \\ -1 \end{pmatrix}. $$
+
+<strong>3단계.</strong> \(U\)를 구한다: \(u_i = \frac{1}{\sigma_i} A v_i\).
+$$ u_1 = \frac{1}{5} A v_1 = \frac{1}{5} \cdot \frac{1}{\sqrt{2}} \begin{pmatrix} 5 \\ 5 \end{pmatrix} = \frac{1}{\sqrt{2}}\begin{pmatrix} 1 \\ 1 \end{pmatrix}, $$
+$$ u_2 = \frac{1}{3} A v_2 = \frac{1}{3} \cdot \frac{1}{\sqrt{18}} \begin{pmatrix} 9 \\ -9 \end{pmatrix} = \frac{1}{\sqrt{2}}\begin{pmatrix} 1 \\ -1 \end{pmatrix}. $$
+
+<strong>결과:</strong>
+$$ A = \frac{1}{\sqrt{2}}\begin{pmatrix} 1 & 1 \\ 1 & -1 \end{pmatrix} \begin{pmatrix} 5 & 0 & 0 \\ 0 & 3 & 0 \end{pmatrix} V^T. $$
+
+<strong>유사역행렬(pseudoinverse):</strong> \(A^+ = V \Sigma^+ U^T\)이며, \(\Sigma^+ \in \mathbb{R}^{3 \times 2}\)는 \(\Sigma\)의 비영 대각 성분을 역수로 바꾼 것이다:
+$$ \Sigma^+ = \begin{pmatrix} 1/5 & 0 \\ 0 & 1/3 \\ 0 & 0 \end{pmatrix}. $$
+이를 이용하면 \(A^+ = V \Sigma^+ U^T\)로, 최소 노름 최소제곱 해 \(x = A^+ b\)를 구할 수 있다.
+</div>
+
+<div class="remark"><span class="env-label">Remark (직접법의 응용)</span>
+세 가지 행렬 분해는 각기 다른 강점을 가진다:
+<ul>
+  <li><strong>LU 분해:</strong> 정방 비특이 시스템 \(Ax = b\)의 표준 풀이법. 같은 \(A\)에 대해 여러 우변을 효율적으로 처리한다. 행렬식 계산(\(\det A = \det U = \prod u_{ii}\))에도 유용하다.</li>
+  <li><strong>QR 분해:</strong> 최소제곱 문제의 수치적으로 안정한 풀이. 정규방정식 \(A^T A x = A^T b\)보다 조건수 면에서 유리하다 (\(\kappa(A)\) vs \(\kappa(A)^2\)).</li>
+  <li><strong>SVD:</strong> 데이터 압축(상위 \(k\)개 특이값만 보존하여 이미지 압축 등), 유사역행렬(최소 노름 최소제곱), 주성분 분석(PCA &mdash; 주성분은 오른쪽 특이벡터), 수치적 랭크 결정 등에 사용된다.</li>
+</ul>
+</div>
+
+<p class="subsection-transition">직접법은 정확한 해를 주지만, 대규모 희소 시스템에서는 \(O(n^3)\) 비용이 감당하기 어렵다. 반복법은 근사해를 점진적으로 개선하며 희소 구조를 활용한다.</p>
+
+<h4>29.3 Iterative Methods for Linear Systems</h4>
+
+<p>3차원 FEM 모델이나 전력망 조류 계산처럼 수백만 자유도의 희소 선형계에서는 직접법이 너무 느리다. 반복법(iterative methods)은 초기 추정에서 출발하여 해를 점진적으로 개선하며, 매 반복에서 행렬-벡터 곱 \(Ax\)만 계산하므로 희소 구조를 그대로 활용한다.</p>
+
+<div class="definition"><span class="env-label">Definition 29.5 (Jacobi and Gauss&ndash;Seidel)</span>
+\(Ax = b\)를 풀기 위해 (\(A = D + L + U\), 대각, 순수 하삼각, 순수 상삼각):
+<ul>
+  <li><strong>Jacobi:</strong> \(x^{(k+1)} = D^{-1}(b - (L + U)x^{(k)})\). 모든 성분을 동시에 갱신한다.</li>
+  <li><strong>Gauss&ndash;Seidel:</strong> \(x^{(k+1)} = (D + L)^{-1}(b - U x^{(k)})\). 갱신된 성분을 즉시 사용한다.</li>
+</ul>
+\(A\)가 엄격히 대각 우세이면 둘 다 수렴한다. Gauss&ndash;Seidel은 대칭 양정치 \(A\)에 대해서도 수렴한다.
+</div>
+
+<div class="example"><span class="env-label">Example 29.6 (Jacobi 반복법)</span>
+선형 시스템
+$$ \begin{pmatrix} 4 & -1 & 0 \\ -1 & 4 & -1 \\ 0 & -1 & 4 \end{pmatrix} \begin{pmatrix} x_1 \\ x_2 \\ x_3 \end{pmatrix} = \begin{pmatrix} 1 \\ 5 \\ 3 \end{pmatrix} $$
+에 Jacobi 반복을 적용한다. 초기값 \(x^{(0)} = (0, 0, 0)^T\):
+$$ x^{(1)} = \bigl(\tfrac{1}{4}, \tfrac{5}{4}, \tfrac{3}{4}\bigr)^T, \quad
+x^{(2)} = \bigl(\tfrac{1 + 5/4}{4}, \tfrac{5 + 1/4 + 3/4}{4}, \tfrac{3 + 5/4}{4}\bigr)^T = \bigl(0.5625, 1.5, 1.0625\bigr)^T. $$
+정확해는 \(x = (0.6429, 1.5714, 1.1429)^T\)이다. 행렬이 엄격히 대각 우세이므로 (\(|4| > |-1| + |0|\) 등) 수렴이 보장된다. Jacobi 반복 행렬의 스펙트럼 반경은 \(\rho = 0.5\)이므로 매 반복마다 오차가 약 반으로 줄어든다.
+</div>
+
+<div class="definition"><span class="env-label">Definition 29.6 (Conjugate Gradient Method)</span>
+<strong>Conjugate gradient</strong>(CG, 켤레 기울기) 방법은 \(A \succ 0\)에 대해 \(Ax = b\)를 풀며, \(i \neq j\)일 때 \(p_i^T A p_j = 0\)을 만족하는 켤레 방향 \(p_0, p_1, \ldots\)를 생성한다. CG는 (정확한 산술에서) 최대 \(n\)회 반복으로 수렴하며, 다음의 오차 한계를 갖는다:
+$$ \|x^{(k)} - x^*\|_A \leq 2 \left(\frac{\sqrt{\kappa} - 1}{\sqrt{\kappa} + 1}\right)^k \|x^{(0)} - x^*\|_A, $$
+여기서 \(\kappa = \kappa_2(A)\)이다. Preconditioning(\(A\)를 \(M^{-1}A\)로 대체)은 \(\kappa\)를 크게 줄여 수렴을 가속할 수 있다.
+</div>
+
+<p class="subsection-transition">지금까지 선형계를 푸는 방법을 다루었다. 그런데 공학에서 실제로 나타나는 문제는 편미분방정식(PDE)인 경우가 많다. 유한요소법(FEM)은 PDE를 선형계로 변환하여 위의 방법들로 풀 수 있게 해준다.</p>
+
+<h4>29.4 Finite Element Method (FEM) Basics</h4>
+
+<p>유한요소법(FEM)은 복잡한 영역을 단순한 요소(삼각형, 사면체 등)로 분할하고, 각 요소 위에서 다항식으로 해를 근사한 뒤, 이를 조립하여 전체 선형계를 만든다. 구조 응력, 열전달, 유체 해석 등 공학 시뮬레이션 대부분이 이 방법에 기반한다.</p>
+
+<div class="definition"><span class="env-label">Definition 29.7 (Weak Formulation)</span>
+경계값 문제 \(-\nabla \cdot (a \nabla u) = f\) (\(\Omega\) 위), \(u = 0\) (\(\partial\Omega\) 위)를 고려하자. <strong>Weak formulation(약형식)</strong>은 다음과 같다: \(u \in H^1_0(\Omega)\)를 찾되
+$$ \int_\Omega a\, \nabla u \cdot \nabla v \, dx = \int_\Omega f v \, dx \quad \forall\, v \in H^1_0(\Omega) $$
+을 만족하도록 한다. \(a\)가 유계이고 균일 양인 경우 Lax&ndash;Milgram 정리에 의해 well-posed이다.
+</div>
+
+<div class="definition"><span class="env-label">Definition 29.8 (Galerkin Approximation)</span>
+<strong>Galerkin method</strong>는 무한 차원 공간 \(H^1_0(\Omega)\)를 유한 차원 부분공간 \(V_h\) (예: 메시 위의 구간별 다항식)로 대체한다. \(u_h \in V_h\)를 찾되
+$$ \int_\Omega a\, \nabla u_h \cdot \nabla v_h \, dx = \int_\Omega f v_h \, dx \quad \forall\, v_h \in V_h $$
+을 만족하도록 한다. \(V_h\)의 기저 \(\{\phi_1, \ldots, \phi_N\}\)를 선택하면, 이를 선형 시스템 \(K\mathbf{u} = \mathbf{f}\)로 귀결시킬 수 있으며, 여기서 \(K_{ij} = \int a\, \nabla\phi_i \cdot \nabla\phi_j\, dx\)가 강성 행렬(stiffness matrix)이다.
+</div>
+
+<div class="theorem"><span class="env-label">Theorem 29.4 (C&eacute;a's Lemma)</span>
+쌍선형 형식이 강제적(coercive)이고 연속적이면, FEM 해 \(u_h\)는 준최적 근사이다:
+$$ \|u - u_h\| \leq \frac{M}{\alpha} \inf_{v_h \in V_h} \|u - v_h\|, $$
+여기서 \(M\)은 연속성 상수이고 \(\alpha\)는 강제성 상수이다. 요소 크기 \(h\)인 준균일 메시 위의 구간별 선형 요소의 경우, \(\|u - u_h\|_{H^1} = O(h)\)이고 \(\|u - u_h\|_{L^2} = O(h^2)\)이다.
+</div>
+
+<p>Cea의 보조정리에 따르면, FEM 해의 오차는 부분공간 \(V_h\) 내 최선의 근사 오차에 비례한다. 메시를 세분화하여 \(h\)를 줄이면 오차가 체계적으로 감소한다.</p>
+
+<div class="example"><span class="env-label">Example 29.7 (Richardson 외삽법)</span>
+수치적 근사 \(I(h)\)가 \(I(h) = I + c h^p + O(h^{p+1})\)의 형태를 가질 때, 두 스텝 크기 \(h\)와 \(h/2\)의 결과를 조합하여 더 정확한 근사를 얻을 수 있다:
+$$ I_{\text{ext}} = \frac{2^p I(h/2) - I(h)}{2^p - 1}. $$
+합성 trapezoidal rule (\(p = 2\))에 이를 적용하면 Simpson rule이 된다. 예를 들어 \(\int_0^1 e^x\, dx\)에서 \(T(h=1) = (1 + e)/2 \approx 1.8591\), \(T(h=0.5) = 1.7539\)이면:
+$$ I_{\text{ext}} = \frac{4(1.7539) - 1.8591}{3} = 1.7189. $$
+이는 정확한 값 \(e - 1 \approx 1.7183\)에 근접한다.
+</div>
+
+<div class="example"><span class="env-label">Example 29.8 (수치 미분과 반올림 오차)</span>
+\(f'(x)\)를 중심 차분 \(\frac{f(x+h) - f(x-h)}{2h}\)로 근사할 때, 절단 오차는 \(O(h^2)\)이지만 반올림 오차는 \(O(\epsilon_{\text{mach}}/h)\)이다. 전체 오차:
+$$ E(h) \approx \frac{h^2}{6}|f'''(x)| + \frac{\epsilon_{\text{mach}}}{h}|f(x)|. $$
+최적 \(h\)는 \(\frac{dE}{dh} = 0\)에서 \(h_{\text{opt}} \sim \epsilon_{\text{mach}}^{1/3}\)이다. 배정밀도에서 \(h_{\text{opt}} \approx 6 \times 10^{-6}\)이며, 이보다 더 작은 \(h\)를 사용하면 오히려 정밀도가 나빠진다.
+</div>
+
+</section>
+
+<!-- ============================================================== -->
+<!--  PART XI: APPLIED MATHEMATICS & DISCRETE                       -->
+<!-- ============================================================== -->
+
+<details class="video-resources">
+<summary>추천 영상 강의 (원본 소스 기반)</summary>
+<ul>
+<li><a href="http://iacs-courses.seas.harvard.edu/courses/am205/fall13/" target="_blank">Advanced Scientific Computing: Numerical Methods — Harvard (Fall 2013)</a></li>
+<li><a href="http://www4.ncsu.edu/~ctk/ma580.html" target="_blank">Introduction to Numerical Analysis I — NCSU</a></li>
+<li><a href="http://nptel.ac.in/courses/111105038/" target="_blank">Numerical Methods of ODE and PDE — NPTEL IIT Kharagpur</a></li>
+</ul>
+</details>
+
+<details class="video-resources">
+<summary>추천 교재 &amp; 오픈 자료</summary>
+<ul>
+<li><a href="https://people.csail.mit.edu/jsolomon/share/book/numerical_book.pdf" target="_blank">Numerical Algorithms (Solomon, MIT)</a> — 무료 교재 PDF</li>
+<li><a href="https://www.scipy-lectures.org/" target="_blank">Scipy Lecture Notes</a> — Python 과학계산 무료 교재</li>
+<li>Trefethen, <em>Approximation Theory and Approximation Practice</em> — SIAM, 현대적 근사이론</li>
+<li>Press et al., <em>Numerical Recipes</em> — 실용 수치 알고리즘 레퍼런스</li>
+<li>Iserles, <em>A First Course in the Numerical Analysis of Differential Equations</em> — Cambridge, ODE/PDE 수치해법</li>
+<li>LeVeque, <em>Finite Difference Methods for Ordinary and Partial Differential Equations</em> — SIAM</li>
+</ul>
+</details>
+

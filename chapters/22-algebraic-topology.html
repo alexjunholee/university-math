@@ -1,0 +1,153 @@
+<section id="algebraic-topology">
+<h3>22. 대수적 위상수학</h3>
+
+<p class="chapter-intro">대수적 위상수학은 위상 공간에 군, 환 등의 대수적 불변량을 대응시켜 공간을 분류한다. 기본군, 호몰로지, 코호몰로지가 주요 도구이며, 이들을 통해 '구멍의 개수'와 같은 직관적 개념을 엄밀하게 정량화한다.</p>
+
+<p>위상적 성질을 대수적 불변량(숫자, 군, 환)으로 변환하면 계산할 수 있다. "이 공간에 구멍이 있는가?"라는 기하학적 질문을 "이 군이 자명한가?"라는 대수적 질문으로 바꾸면, 컴퓨터로 답을 구할 수 있다.</p>
+
+<p>센서 네트워크(sensor network)에서 커버리지 구멍(coverage hole)을 탐지하는 문제는 호몰로지(homology)로 정식화된다. 각 센서의 감지 범위가 중첩되어 만드는 공간의 호몰로지군을 계산하면, 좌표 정보 없이도 커버리지에 빈틈이 있는지 알 수 있다. 위상적 데이터 분석(Topological Data Analysis, TDA)의 persistent homology는 재료과학에서 미세구조(microstructure)의 기공(pore) 분포를 분석하거나, 단백질 구조의 형태학적 특징을 추출하는 데 사용된다. 로봇 모션 플래닝(robot motion planning)에서는 configuration space의 기본군이 로봇이 장애물을 피해 갈 수 있는 경로의 위상적 분류를 결정하며, 전산유체역학(CFD)에서 메쉬(mesh)의 위상적 일관성은 오일러 지표(Euler characteristic)로 검증된다.</p>
+
+<p>대수적 위상수학의 첫 번째 도구는 호모토피(homotopy)이다. 두 연속 사상이 연속적으로 변형되어 서로 일치할 수 있는지를 판별한다.</p>
+
+<div class="definition"><span class="env-label">Definition 22.1 (Homotopy)</span>
+두 연속 사상 \(f, g : X \to Y\)가 <strong>호모토피(homotopic)</strong>라 함은 (\(f \simeq g\)로 쓴다), \(H(x,0) = f(x)\)이고 \(H(x,1) = g(x)\)인 연속 사상 \(H : X \times [0,1] \to Y\)가 존재하는 것을 말한다. \(A \subseteq X\)이고 \(H\)가 \(A\) 위에서 상수이면, 이를 \(A\)에 대한 상대적 호모토피라 한다.
+</div>
+
+<p>기본군(fundamental group)은 공간에 뚫린 구멍을 "고리를 감아서" 탐지하는 불변량이다. 로봇 모션 플래닝에서 configuration space의 기본군은 장애물을 감싸는 경로들을 위상적으로 분류한다.</p>
+
+<div class="definition"><span class="env-label">Definition 22.2 (Fundamental Group)</span>
+\(x_0 \in X\)로 놓자. \(x_0\)을 기점으로 하는 <strong>고리(loop)</strong>란 \(\gamma(0) = \gamma(1) = x_0\)인 연속 사상 \(\gamma : [0,1] \to X\)이다. <strong>기본군(fundamental group)</strong> \(\pi_1(X, x_0)\)은 \(x_0\)을 기점으로 하는 고리들의 호모토피류의 집합으로, 군 연산은 이어붙이기(concatenation)로 주어진다:
+$$ [\gamma] \cdot [\delta] = [\gamma * \delta], \quad (\gamma * \delta)(t) = \begin{cases} \gamma(2t) & 0 \leq t \leq 1/2, \\ \delta(2t-1) & 1/2 \leq t \leq 1. \end{cases} $$
+</div>
+
+<div class="example"><span class="env-label">Example 22.1</span>
+<ul>
+  <li>\(\pi_1(\mathbb{R}^n, x_0) = 0\) (자명) &mdash; \(\mathbb{R}^n\)은 단순 연결(simply connected)이다.</li>
+  <li>\(\pi_1(S^1, x_0) \cong \mathbb{Z}\) &mdash; 고리는 감김수(winding number)로 분류된다.</li>
+  <li>\(\pi_1(T^2, x_0) \cong \mathbb{Z} \times \mathbb{Z}\).</li>
+  <li>\(n \geq 2\)일 때 \(\pi_1(S^n, x_0) = 0\).</li>
+</ul>
+</div>
+
+<div class="example"><span class="env-label">Example 22.1a (기본군 계산: 원)</span>
+\(\pi_1(S^1) \cong \mathbb{Z}\)의 직관적 이해: 보편 피복 공간 \(p : \mathbb{R} \to S^1\), \(p(t) = e^{2\pi i t}\)를 생각하자. \(\mathbb{R}\)은 단순 연결이므로, 올림 대응에 의해 \(\pi_1(S^1, 1)\)은 올 \(p^{-1}(1) = \mathbb{Z}\)와 일대일 대응한다. 생성원 \([\gamma]\)는 \(\gamma(t) = e^{2\pi i t}\) (\(0 \leq t \leq 1\))로 대표되며, \([\gamma]^n\)은 원을 \(n\)번 감는 고리에 대응한다.
+</div>
+
+<div class="example"><span class="env-label">Example 22.1b (기본군 계산: 토러스)</span>
+토러스 \(T^2 = S^1 \times S^1\)이므로, 기본군의 곱 성질에 의해:
+$$ \pi_1(T^2) \cong \pi_1(S^1) \times \pi_1(S^1) \cong \mathbb{Z} \times \mathbb{Z}. $$
+두 생성원은 경도(longitude)와 위도(meridian) 방향의 고리에 대응한다. 이 군은 아벨군이므로, 두 고리를 어떤 순서로 이어붙여도 호모토피 동치이다. 이는 \([0,1]^2\)의 몫공간 구성에서도 확인된다: 두 방향의 가장자리 동일시가 독립적으로 이루어지기 때문이다.
+</div>
+
+<div class="example"><span class="env-label">Example 22.1c (기본군 계산: Klein bottle)</span>
+클라인 병(Klein bottle) \(K\)는 \([0,1]^2\)에서 \((x,0) \sim (x,1)\)과 \((0,y) \sim (1, 1-y)\)를 동일시하여 얻는다. 기본군은 다음 표시(presentation)를 가진다:
+$$ \pi_1(K) \cong \langle a, b \mid abab^{-1} = 1 \rangle. $$
+여기서 \(a\)는 수평 방향의 고리, \(b\)는 수직 방향의 고리이다. 관계식 \(abab^{-1} = 1\), 즉 \(aba = b\)로부터, 이 군은 비아벨군임을 알 수 있다. 아벨화하면 \(\pi_1(K)^{\text{ab}} \cong \mathbb{Z} \times \mathbb{Z}/2\mathbb{Z}\)이다.
+</div>
+
+<p>피복 공간(covering space)은 공간을 "풀어 헤치는" 구성이다. 보편 피복(universal cover)은 모든 고리를 풀어버린 가장 단순한 형태이며, 기본군의 부분군과 피복 공간이 일대일 대응한다.</p>
+
+<div class="definition"><span class="env-label">Definition 22.3 (Covering Space)</span>
+\(X\)의 <strong>피복 공간(covering space)</strong>이란, 공간 \(\tilde{X}\)와 연속 전사 \(p : \tilde{X} \to X\)의 쌍으로, \(X\)의 모든 점이 열린 근방 \(U\)를 가지되 그 역상 \(p^{-1}(U)\)가 \(\tilde{X}\)의 열린집합(open set)들의 서로소인 합집합이고, 각각이 \(p\)에 의해 \(U\) 위로 위상동형(homeomorphic)으로 사상되는 것을 말한다.
+</div>
+
+<div class="theorem"><span class="env-label">Theorem 22.1 (Lifting Criterion)</span>
+\(p : \tilde{X} \to X\)를 피복(covering), \(\tilde{x}_0 \in p^{-1}(x_0)\)으로 놓고, \(f : (Y, y_0) \to (X, x_0)\)를 연속 사상이라 하자. 여기서 \(Y\)는 연결(connected)이고 국소 경로 연결(locally path-connected)이다. 그러면 \(f\)가 \(\tilde{f} : (Y, y_0) \to (\tilde{X}, \tilde{x}_0)\)로 올려질(lift) 필요충분조건은 \(f_*(\pi_1(Y, y_0)) \subseteq p_*(\pi_1(\tilde{X}, \tilde{x}_0))\)인 것이다.
+</div>
+
+<div class="theorem"><span class="env-label">Theorem 22.2 (Galois Correspondence for Coverings)</span>
+연결(connected)이고, 국소 경로 연결이며, 반국소 단순 연결인 공간 \(X\)에 대해, \(\pi_1(X, x_0)\)의 부분군의 켤레류와 \(X\)의 연결(connected) 피복 공간(covering space)의 동형류 사이에 전단사 대응이 존재한다. 보편 피복(universal cover)은 자명 부분군에 대응한다.
+</div>
+
+<p>호몰로지(homology)는 기본군보다 계산하기 쉬운 불변량으로, 공간의 각 차원에서 "구멍"을 세는 도구이다. 0차 호몰로지는 연결 성분의 수, 1차 호몰로지는 고리 형태의 구멍, 2차 호몰로지는 빈 공동(cavity)을 포착한다. 센서 네트워크의 커버리지 분석에서 1차 호몰로지가 0이 아니면 커버리지 구멍이 존재한다는 의미이며, TDA에서 persistent homology는 데이터의 스케일에 걸쳐 이러한 구멍의 지속성(persistence)을 추적한다.</p>
+
+<div class="definition"><span class="env-label">Definition 22.4 (Simplicial Homology)</span>
+<strong>\(k\)-단체(\(k\)-simplex)</strong>란 아핀 독립인 \(k+1\)개 점의 볼록 껍질이다. 단체 복합체 \(K\)가 주어질 때, \(k\)-번째 사슬군 \(C_k(K)\)는 \(k\)-단체들 위의 자유 아벨군이다. <strong>경계 연산자(boundary operator)</strong> \(\partial_k : C_k \to C_{k-1}\)는 다음과 같이 정의된다:
+$$ \partial_k [v_0, \ldots, v_k] = \sum_{i=0}^{k} (-1)^i [v_0, \ldots, \hat{v}_i, \ldots, v_k], $$
+여기서 \(\hat{v}_i\)는 생략을 나타낸다. \(\partial_{k-1} \circ \partial_k = 0\)임을 확인할 수 있다. <strong>\(k\)-번째 호몰로지(homology)군</strong>은 다음과 같다:
+$$ H_k(K) = \ker \partial_k \,/\, \operatorname{im} \partial_{k+1}. $$
+</div>
+
+<p>오일러 지표(Euler characteristic)는 가장 오래되고 계산하기 쉬운 위상적 불변량이다. 전산유체역학에서 메쉬를 생성한 뒤 \(\chi = V - E + F\)를 검증하면, 메쉬에 위상적 결함(잘못된 연결, 빠진 면 등)이 있는지 즉시 확인할 수 있다.</p>
+
+<div class="definition"><span class="env-label">Definition 22.5 (Euler Characteristic)</span>
+유한 단체 복합체 \(K\) (보다 일반적으로 유한 CW-복합체)에 대해, <strong>오일러 지표(Euler characteristic)</strong>는 다음과 같다:
+$$ \chi(K) = \sum_{k=0}^{n} (-1)^k \, c_k = \sum_{k=0}^{n} (-1)^k \, \operatorname{rank} H_k(K), $$
+여기서 \(c_k\)는 \(k\)-단체(또는 \(k\)-셀)의 개수이다.
+</div>
+
+<div class="example"><span class="env-label">Example 22.2</span>
+꼭짓점 \(V\)개, 모서리 \(E\)개, 면 \(F\)개를 가진 볼록 다면체에 대해: \(\chi = V - E + F = 2\)이다. 토러스(종수(genus) 1)에 대해: \(\chi = 0\)이다. 종수(genus) \(g\)인 닫힌 유향 곡면에 대해: \(\chi = 2 - 2g\)이다.
+</div>
+
+<div class="example"><span class="env-label">Example 22.2a (호몰로지: 구 \(S^n\))</span>
+\(n\)-구 \(S^n\) (\(n \geq 1\))의 호몰로지를 Mayer&ndash;Vietoris 열로 계산하자. \(S^n = A \cup B\)로 분해한다. 여기서 \(A\)는 남극을 제외한 부분, \(B\)는 북극을 제외한 부분이다. \(A \simeq B \simeq \mathbb{R}^n\) (각각 축약 가능)이고, \(A \cap B \simeq S^{n-1}\)이다. Mayer&ndash;Vietoris 열에서 귀납적으로:
+$$ H_k(S^n) \cong \begin{cases} \mathbb{Z} & k = 0 \text{ 또는 } k = n, \\ 0 & \text{그 외.} \end{cases} $$
+오일러 지표는 \(\chi(S^n) = 1 + (-1)^n\)이다. 따라서 \(\chi(S^2) = 2\), \(\chi(S^3) = 0\) 등이 된다.
+</div>
+
+<div class="example"><span class="env-label">Example 22.2b (호몰로지: 실사영평면 \(\mathbb{R}P^2\))</span>
+실사영평면 \(\mathbb{R}P^2\)는 \(S^2\)에서 대척점을 동일시하여 얻는다. CW-복합체 구조로 0-셀 1개, 1-셀 1개, 2-셀 1개를 가지며, 2-셀의 부착 사상은 1-셀을 두 번 감는다. 사슬 복합체에서 경계 사상은 \(\partial_2 : \mathbb{Z} \to \mathbb{Z}\)가 곱하기 2 사상이다. 따라서:
+$$ H_0(\mathbb{R}P^2) \cong \mathbb{Z}, \quad H_1(\mathbb{R}P^2) \cong \mathbb{Z}/2\mathbb{Z}, \quad H_k(\mathbb{R}P^2) = 0 \;\;(k \geq 2). $$
+\(H_1\)의 비자명 비틀림 원소 \(\mathbb{Z}/2\mathbb{Z}\)는 \(\mathbb{R}P^2\)의 비가향성을 반영한다. 오일러 지표는 \(\chi(\mathbb{R}P^2) = 1 - 1 + 1 = 1\) (셀 개수로 계산)이며, 이는 \(\operatorname{rank} H_0 - \operatorname{rank} H_1 + \operatorname{rank} H_2 = 1 - 0 + 0 = 1\)과도 일치한다.
+</div>
+
+<p>복잡한 공간의 호몰로지를 직접 계산하기는 어렵다. Mayer-Vietoris 열은 공간을 두 부분으로 분해하고, 각 부분과 교집합의 호몰로지로부터 전체 호몰로지를 조합한다.</p>
+
+<div class="theorem"><span class="env-label">Theorem 22.3 (Mayer&ndash;Vietoris Sequence)</span>
+\(A, B\)가 열린집합(open set)이고 \(X = A \cup B\)이면, 다음과 같은 긴 완전열이 존재한다:
+$$ \cdots \to H_n(A \cap B) \xrightarrow{(\iota_{A*}, \iota_{B*})} H_n(A) \oplus H_n(B) \xrightarrow{\,j_{A*} - j_{B*}\,} H_n(X) \xrightarrow{\;\partial\;} H_{n-1}(A \cap B) \to \cdots $$
+이것은 호몰로지(homology) 계산의 기본적인 도구이다.
+</div>
+
+<div class="example"><span class="env-label">Example 22.3 (Mayer&ndash;Vietoris: 토러스의 호몰로지)</span>
+토러스 \(T^2\)의 호몰로지를 Mayer&ndash;Vietoris 열로 계산하자. \(T^2\)를 두 원통 \(A\)와 \(B\)로 분해한다 (경도 방향으로 약간 겹치게 자른다). 각 원통은 \(S^1\)에 호모토피 동치이므로 \(H_0(A) \cong H_0(B) \cong \mathbb{Z}\), \(H_1(A) \cong H_1(B) \cong \mathbb{Z}\)이고, 교집합 \(A \cap B\)는 두 개의 원 \(S^1 \sqcup S^1\)에 호모토피 동치이다. Mayer&ndash;Vietoris 열:
+$$ 0 \to H_2(T^2) \xrightarrow{\partial} H_1(A \cap B) \to H_1(A) \oplus H_1(B) \to H_1(T^2) \xrightarrow{\partial} H_0(A \cap B) \to H_0(A) \oplus H_0(B) \to H_0(T^2) \to 0. $$
+사상들을 추적하면 \(H_0(T^2) \cong \mathbb{Z}\), \(H_1(T^2) \cong \mathbb{Z}^2\), \(H_2(T^2) \cong \mathbb{Z}\)를 얻는다. 오일러 지표 \(\chi(T^2) = 1 - 2 + 1 = 0\)은 토러스가 종수 1 곡면임과 일치한다.
+</div>
+
+<div class="example"><span class="env-label">Example 22.4 (호몰로지: Klein bottle)</span>
+클라인 병 \(K\)의 CW-복합체 구조는 0-셀 1개, 1-셀 2개(\(a, b\)), 2-셀 1개를 가진다. 2-셀의 부착 사상은 경계 단어 \(abab^{-1}\)을 따른다. 사슬 복합체에서 경계 사상을 계산하면:
+$$ \partial_2(e^2) = a + b + a - b = 2a, \quad \partial_1(a) = \partial_1(b) = 0. $$
+따라서 \(\ker \partial_1 = \mathbb{Z}\langle a, b \rangle\)이고 \(\operatorname{im} \partial_2 = \mathbb{Z}\langle 2a \rangle\)이므로:
+$$ H_0(K) \cong \mathbb{Z}, \quad H_1(K) \cong \mathbb{Z}\langle a, b \rangle / \mathbb{Z}\langle 2a \rangle \cong \mathbb{Z} \oplus \mathbb{Z}/2\mathbb{Z}, \quad H_2(K) = 0. $$
+\(H_2 = 0\)인 것은 클라인 병이 비가향임을 반영하고, \(H_1\)의 비틀림 부분 \(\mathbb{Z}/2\mathbb{Z}\)도 비가향성의 표지이다. 이는 \(\mathbb{R}P^2\)의 경우와 유사하다.
+</div>
+
+<p>브라우어 고정점 정리(Brouwer fixed-point theorem)는 경제학에서 내쉬 균형(Nash equilibrium)의 존재 증명, 수치해석에서 반복법(iterative method)의 수렴 보장 등에 사용된다.</p>
+
+<div class="theorem"><span class="env-label">Theorem 22.4 (Brouwer Fixed-Point Theorem)</span>
+모든 연속 사상 \(f : D^n \to D^n\) (\(D^n\)은 \(\mathbb{R}^n\)의 닫힌 단위 원판)은 고정점을 가진다.
+</div>
+
+<div class="example"><span class="env-label">Example 22.5 (Brouwer 고정점 정리의 호몰로지 증명 개요)</span>
+\(n = 2\)인 경우를 호몰로지로 증명하자. 고정점이 없다고 가정하면, 각 \(x \in D^2\)에 대해 \(f(x) \neq x\)이므로, \(f(x)\)에서 \(x\)로 향하는 반직선이 \(S^1 = \partial D^2\)과 만나는 점을 \(r(x)\)로 정의하면, \(r : D^2 \to S^1\)은 연속 수축(retraction)이다. 포함 사상 \(\iota : S^1 \hookrightarrow D^2\)에 대해 \(r \circ \iota = \mathrm{id}_{S^1}\)이므로, 호몰로지에서 \(r_* \circ \iota_* = \mathrm{id}\)이다. 그러나 \(H_1(D^2) = 0\)이고 \(H_1(S^1) \cong \mathbb{Z}\)이므로, \(\iota_* : \mathbb{Z} \to 0\)을 거쳐 항등 사상을 얻을 수 없다. 이는 모순이므로 고정점이 존재한다.
+</div>
+
+</section>
+
+<!-- ============================================================== -->
+<!--  PART VIII: PROBABILITY & STATISTICS                            -->
+<!-- ============================================================== -->
+
+<details class="video-resources">
+<summary>추천 영상 강의 (원본 소스 기반)</summary>
+<ul>
+<li><a href="https://www.youtube.com/playlist?list=PLBMmiR8tC9UnLcRhGimiNs1CVvS6tm52s" target="_blank">Algebraic Topology — METU Math537 (Ozan, Fall 2020)</a></li>
+<li><a href="https://www.youtube.com/playlist?list=PL6763F57A61FE6FE8" target="_blank">Algebraic Topology: a beginner's course — N.J. Wildberger (UNSW)</a></li>
+<li><a href="http://drorbn.net/index.php?title=AKT-09" target="_blank">Algebraic Knot Theory — U. of Toronto</a></li>
+</ul>
+</details>
+
+<details class="video-resources">
+<summary>추천 교재 &amp; 오픈 자료</summary>
+<ul>
+<li><a href="https://pi.math.cornell.edu/~hatcher/AT/ATpage.html" target="_blank">Algebraic Topology (Hatcher)</a> — 무료 교재 PDF, 대수적 위상수학의 표준</li>
+<li><a href="https://www.math.uchicago.edu/~may/CONCISE/ConciseRevised.pdf" target="_blank">A Concise Course in Algebraic Topology (May)</a> — 무료 교재 PDF</li>
+<li>Munkres, <em>Elements of Algebraic Topology</em> — 호몰로지 중심의 체계적 입문</li>
+<li>Rotman, <em>An Introduction to Algebraic Topology</em> — GTM 119, 읽기 쉬운 입문서</li>
+<li>Bredon, <em>Topology and Geometry</em> — GTM 139, 위상과 기하의 통합적 접근</li>
+<li>tom Dieck, <em>Algebraic Topology</em> — EMS, 현대적 관점</li>
+</ul>
+</details>
+

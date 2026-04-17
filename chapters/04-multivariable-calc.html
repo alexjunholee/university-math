@@ -1,0 +1,443 @@
+<h2 id="multivariable-calc">4. 다변수 미적분학</h2>
+
+<p>현실 세계는 단일 변수로 기술되지 않는다. 온도는 위치와 시간 모두에 의존하고, 지형의 높이는 경도와 위도의 함수이며, 기업의 이윤은 여러 생산 요소의 동시적 함수이다. 3장에서 구축한 미적분학의 도구들을 다변수 함수로 확장하면, 편미분, 기울기 벡터, 다중 적분, 벡터장 위의 적분 등 새로운 개념과 기법이 등장한다. 이 장에서는 일변수에서의 직관을 유지하되, 차원이 높아지면서 나타나는 차이점에 주의를 기울인다.</p>
+
+<p>편미분은 열전도 방정식에서 온도의 공간적 변화율을, 유체역학에서 속도장의 각 성분 변화를 기술한다. 그래디언트(gradient)는 경사하강법(gradient descent)에서 손실 함수를 최소화하는 방향을 결정한다. 다중적분은 3차원 물체의 질량, 무게중심, 관성 모멘트를 계산하는 데 쓰이고, 발산 정리와 Stokes 정리는 맥스웰 방정식(Maxwell's equations)과 유체역학의 연속 방정식(continuity equation)을 기술한다.</p>
+
+<h3 id="multivariable-limits">4.1 다변수 극한과 연속</h3>
+
+<p>열판(heat plate) 위의 온도 분포처럼 두 변수 이상에 의존하는 함수를 다룰 때, 한 점 근방에서의 함수 행동을 분석하려면 먼저 다변수 극한과 연속의 개념을 확립해야 한다. 일변수와 달리, 접근 경로가 무한히 많다는 사실이 본질적인 차이를 만든다.</p>
+
+<p>일변수에서 극한을 정의할 때는 좌극한과 우극한, 즉 두 방향만 고려하면 충분했다. 그러나 다변수에서는 한 점에 접근하는 경로가 무한히 많으므로, 극한의 존재 조건이 훨씬 까다로워진다.</p>
+
+<div class="definition">
+<span class="env-label">Definition 4.1 (다변수 극한)</span>
+\(f: \mathbb{R}^n \to \mathbb{R}\)에 대해, \(\mathbf{a}\)에서의 극한은 다음과 같이 정의된다:
+$$
+\lim_{\mathbf{x} \to \mathbf{a}} f(\mathbf{x}) = L
+$$
+이는 임의의 \(\epsilon > 0\)에 대해 \(\delta > 0\)이 존재하여 \(0 < \|\mathbf{x} - \mathbf{a}\| < \delta\)이면 \(|f(\mathbf{x}) - L| < \epsilon\)임을 뜻한다.
+</div>
+
+<div class="remark">
+<span class="env-label">Remark (경로 의존성)</span>
+1변수 극한과 달리, 다변수 극한에서는 <strong>모든 가능한 경로</strong>를 따라 같은 값에 수렴해야 극한이 존재한다. 서로 다른 경로에서 서로 다른 극한값을 얻으면, 극한은 존재하지 않는다.
+</div>
+
+<div class="example">
+<span class="env-label">Example 4.1 (경로 의존성 -- 극한 미존재)</span>
+\(f(x, y) = \frac{xy}{x^2 + y^2}\)에 대해 \((0,0)\)에서의 극한을 조사하자.
+<ul>
+  <li>경로 \(y = 0\): \(f(x, 0) = 0 \to 0\).</li>
+  <li>경로 \(y = x\): \(f(x, x) = \frac{x^2}{2x^2} = \frac{1}{2} \to \frac{1}{2}\).</li>
+</ul>
+서로 다른 경로에서 극한값이 다르므로, \(\displaystyle\lim_{(x,y) \to (0,0)} \frac{xy}{x^2 + y^2}\)는 <strong>존재하지 않는다</strong>.
+</div>
+
+<div class="example">
+<span class="env-label">Example 4.2 (경로 의존성 -- 미묘한 경우)</span>
+\(f(x, y) = \frac{x^2 y}{x^4 + y^2}\)에 대해 \((0,0)\)에서의 극한을 조사하자.
+<ul>
+  <li>경로 \(y = mx\): \(f(x, mx) = \frac{mx^3}{x^4 + m^2 x^2} = \frac{mx}{x^2 + m^2} \to 0\). 모든 직선 경로에서 0으로 수렴한다.</li>
+  <li>경로 \(y = x^2\): \(f(x, x^2) = \frac{x^4}{x^4 + x^4} = \frac{1}{2}\).</li>
+</ul>
+직선 경로만으로는 극한이 0인 것처럼 보이지만, 포물선 경로 \(y = x^2\)을 따르면 \(\frac{1}{2}\)이다. 따라서 극한은 <strong>존재하지 않는다</strong>. 이 예제는 직선 경로 검사만으로는 충분하지 않음을 보여준다.
+</div>
+
+<div class="definition">
+<span class="env-label">Definition 4.2 (다변수 연속)</span>
+\(f: \mathbb{R}^n \to \mathbb{R}\)가 \(\mathbf{a}\)에서 <strong>연속</strong>이란 \(\displaystyle\lim_{\mathbf{x} \to \mathbf{a}} f(\mathbf{x}) = f(\mathbf{a})\)임을 뜻한다. 다항식, 지수함수, 삼각함수 등의 합성은 정의역 내에서 연속이다.
+</div>
+
+<h3 id="partial-derivatives">4.2 Partial Derivative(편미분)과 Gradient(기울기 벡터)</h3>
+
+<p>열전도에서 "온도가 \(x\) 방향으로 얼마나 빠르게 변하는가?"를 묻는 것은 \(y\), \(z\)를 고정하고 \(x\)에 대해서만 미분하는 것이다. 이것이 편미분의 핵심 아이디어이며, 다변수 시스템에서 각 변수의 독립적 영향을 분석하는 기본 도구이다.</p>
+
+<p>다변수 함수에서는 각 변수에 대해 독립적으로 미분하는 편미분이 기본 도구가 된다. 편미분들을 하나의 벡터로 모은 gradient는 함수가 가장 빠르게 증가하는 방향과 그 크기를 알려준다.</p>
+
+<div class="definition">
+<span class="env-label">Definition 4.3 (Partial Derivative)</span>
+\(f: \mathbb{R}^n \to \mathbb{R}\)에 대해, \(x_i\)에 대한 <strong>partial derivative(편미분)</strong>은 다음과 같이 정의된다:
+$$
+\frac{\partial f}{\partial x_i} = \lim_{h \to 0} \frac{f(x_1, \ldots, x_i + h, \ldots, x_n) - f(x_1, \ldots, x_n)}{h}
+$$
+</div>
+
+<div class="definition">
+<span class="env-label">Definition 4.4 (Gradient)</span>
+\(f: \mathbb{R}^n \to \mathbb{R}\)의 <strong>gradient(기울기 벡터)</strong>는 다음 벡터로 정의된다:
+$$
+\nabla f = \left(\frac{\partial f}{\partial x_1}, \frac{\partial f}{\partial x_2}, \ldots, \frac{\partial f}{\partial x_n}\right)
+$$
+Gradient(기울기 벡터)는 가장 가파른 상승 방향을 가리키며, 등위면에 수직이다.
+</div>
+
+<p>그래디언트의 방향이 최대 증가 방향이라는 성질은 기계학습에서 경사하강법(gradient descent)의 수학적 근거이다. 손실 함수 \(L(\mathbf{w})\)의 파라미터 \(\mathbf{w}\)를 \(-\nabla L\) 방향으로 갱신하면 손실이 가장 빠르게 감소한다.</p>
+
+<div class="theorem">
+<span class="env-label">Theorem 4.1 (Chain Rule, Multivariable)</span>
+\(f = f(x, y)\)이고 \(x = x(t), y = y(t)\)이면, 다음이 성립한다:
+$$
+\frac{df}{dt} = \frac{\partial f}{\partial x}\frac{dx}{dt} + \frac{\partial f}{\partial y}\frac{dy}{dt}
+$$
+</div>
+
+<h4>고차 Partial Derivative(편미분)</h4>
+
+<div class="theorem">
+<span class="env-label">Theorem 4.2 (Clairaut's Theorem)</span>
+\(f_{xy}\)와 \(f_{yx}\)가 모두 연속이면, \(f_{xy} = f_{yx}\)이다. 즉, 혼합 partial derivative(편미분)의 미분 순서를 교환할 수 있다.
+</div>
+
+<h4>방향 도함수</h4>
+
+<div class="definition">
+<span class="env-label">Definition 4.5 (Directional Derivative)</span>
+단위 벡터 \(\hat{\mathbf{u}}\) 방향으로 점 \(\mathbf{a}\)에서의 \(f\)의 도함수는 다음과 같다:
+$$
+D_{\hat{\mathbf{u}}} f(\mathbf{a}) = \nabla f(\mathbf{a}) \cdot \hat{\mathbf{u}} = |\nabla f(\mathbf{a})| \cos\theta
+$$
+여기서 \(\theta\)는 \(\nabla f\)와 \(\hat{\mathbf{u}}\) 사이의 각도이다.
+</div>
+
+<h3 id="taylor-expansion">4.3 Taylor 전개 (2변수)</h3>
+
+<p>비선형 시스템의 안정성을 분석하거나 최적화 알고리즘을 설계할 때, 함수를 동작점 근방에서 2차 다항식으로 근사하는 것이 핵심 단계이다. 2차 근사의 계수를 담고 있는 것이 Hessian 행렬이며, 그 고유값의 부호가 임계점의 성질(극소, 극대, 안장점)을 결정한다. Newton 방법 기반 최적화 알고리즘은 이 2차 Taylor 전개에 기반한다.</p>
+
+<p>다변수에서도 편미분을 이용하여 함수를 한 점 근방에서 다항식으로 전개할 수 있다. 2차 근사에 등장하는 Hessian 행렬이 임계점의 성질을 판정한다.</p>
+
+<div class="theorem">
+<span class="env-label">Theorem 4.3 (2변수 Taylor 전개)</span>
+\(f(x,y)\)가 \((a,b)\) 근방에서 충분히 미분 가능하면, 다음이 성립한다:
+$$
+f(x,y) = f(a,b) + f_x(a,b)(x-a) + f_y(a,b)(y-b)
+$$
+$$
++ \frac{1}{2!}\left[f_{xx}(a,b)(x-a)^2 + 2f_{xy}(a,b)(x-a)(y-b) + f_{yy}(a,b)(y-b)^2\right] + \cdots
+$$
+여기서 2차까지의 전개를 행렬 형태로 쓰면:
+$$
+f(\mathbf{x}) \approx f(\mathbf{a}) + \nabla f(\mathbf{a})^T (\mathbf{x} - \mathbf{a}) + \frac{1}{2}(\mathbf{x} - \mathbf{a})^T H_f(\mathbf{a})(\mathbf{x} - \mathbf{a})
+$$
+여기서 \(H_f\)는 <strong>Hessian matrix(헤시안 행렬)</strong>이다:
+$$
+H_f = \begin{pmatrix} f_{xx} & f_{xy} \\ f_{yx} & f_{yy} \end{pmatrix}.
+$$
+</div>
+
+<div class="remark">
+<span class="env-label">Remark (2차 판정법)</span>
+임계점 \((a,b)\) (즉, \(\nabla f = \mathbf{0}\))에서 Hessian의 판별식 \(D = f_{xx}f_{yy} - (f_{xy})^2\)를 사용하여 극값을 판정한다:
+<ul>
+  <li>\(D > 0\)이고 \(f_{xx} > 0\): 극소.</li>
+  <li>\(D > 0\)이고 \(f_{xx} < 0\): 극대.</li>
+  <li>\(D < 0\): 안장점(saddle point).</li>
+  <li>\(D = 0\): 판정 불가 (고차 분석 필요).</li>
+</ul>
+</div>
+
+<div class="example">
+<span class="env-label">Example 4.3 (2차 판정법)</span>
+\(f(x,y) = x^3 - 3xy + y^3\)의 극값을 구하라.<br>
+<strong>풀이.</strong> \(f_x = 3x^2 - 3y = 0\), \(f_y = -3x + 3y^2 = 0\). 첫째 식에서 \(y = x^2\)이고, 둘째 식에 대입하면 \(-3x + 3x^4 = 0\), 즉 \(x(x^3 - 1) = 0\). 따라서 임계점은 \((0,0)\)과 \((1,1)\)이다.<br>
+\(f_{xx} = 6x\), \(f_{yy} = 6y\), \(f_{xy} = -3\)이므로 \(D = 36xy - 9\)이다.
+<ul>
+  <li>\((0,0)\): \(D = -9 < 0\). 안장점이다.</li>
+  <li>\((1,1)\): \(D = 36 - 9 = 27 > 0\)이고 \(f_{xx} = 6 > 0\). 극소이며, \(f(1,1) = -1\)이다.</li>
+</ul>
+</div>
+
+<h3 id="lagrange-multipliers">4.4 Lagrange 승수법</h3>
+
+<p>공학 설계에서 최적화는 거의 항상 제약 조건을 동반한다. 항공기 날개의 양력을 최대화하되 무게 제한을 만족해야 하고, 통신 채널의 데이터 전송률을 최대화하되 전력 제한 내에서 운용해야 한다. 이처럼 등식 제약 조건 하의 최적화를 체계적으로 푸는 방법이 Lagrange 승수법이다.</p>
+
+<p>많은 최적화 문제에서 변수들은 자유롭지 않고 제약 조건을 만족해야 한다. 예컨대 주어진 예산 내에서 효용을 최대화하거나, 곡면 위에서 거리를 최소화하는 문제가 그러하다. Lagrange 승수법은 제약 조건부 최적화 문제를 푼다.</p>
+
+<div class="theorem">
+<span class="env-label">Theorem 4.4 (Lagrange Multiplier Method)</span>
+\(g(\mathbf{x}) = c\)라는 제약 조건 하에서 \(f(\mathbf{x})\)를 최적화하려면, 다음 조건을 만족하는 점 \(\mathbf{x}\)와 승수 \(\lambda\)를 구한다:
+$$
+\nabla f = \lambda \nabla g, \qquad g(\mathbf{x}) = c.
+$$
+기하학적으로 이는 \(f\)의 등위면과 제약 곡면이 접하는 점, 즉 두 gradient가 평행한 점에 해당한다.
+</div>
+
+<div class="remark">
+<span class="env-label">Remark (복수 제약)</span>
+제약 조건이 \(g_1(\mathbf{x}) = c_1, \ldots, g_k(\mathbf{x}) = c_k\)인 경우:
+$$
+\nabla f = \lambda_1 \nabla g_1 + \lambda_2 \nabla g_2 + \cdots + \lambda_k \nabla g_k.
+$$
+</div>
+
+<div class="example">
+<span class="env-label">Example 4.4 (Lagrange 승수법 -- 기본)</span>
+제약 조건 \(x^2 + y^2 = 1\) 하에서 \(f(x,y) = x + y\)의 최댓값과 최솟값을 구하라.<br>
+<strong>풀이.</strong> \(\nabla f = (1, 1)\), \(\nabla g = (2x, 2y)\)이므로 \(1 = 2\lambda x\), \(1 = 2\lambda y\). 따라서 \(x = y\)이다. 제약 조건 \(x^2 + y^2 = 1\)에 대입하면 \(2x^2 = 1\), 즉 \(x = y = \pm\frac{1}{\sqrt{2}}\)이다.
+<ul>
+  <li>최댓값: \(f\!\left(\frac{1}{\sqrt{2}}, \frac{1}{\sqrt{2}}\right) = \sqrt{2}\).</li>
+  <li>최솟값: \(f\!\left(-\frac{1}{\sqrt{2}}, -\frac{1}{\sqrt{2}}\right) = -\sqrt{2}\).</li>
+</ul>
+</div>
+
+<div class="example">
+<span class="env-label">Example 4.5 (Lagrange 승수법 -- 3변수)</span>
+제약 조건 \(x + y + z = 12\) 하에서 \(f(x,y,z) = xyz\)의 최댓값을 구하라 (\(x, y, z > 0\)).<br>
+<strong>풀이.</strong> \(\nabla f = (yz, xz, xy)\), \(\nabla g = (1, 1, 1)\)이므로:
+$$
+yz = \lambda, \quad xz = \lambda, \quad xy = \lambda.
+$$
+첫 두 식에서 \(yz = xz\), 즉 \(y = z\) (\(z \neq 0\)). 마찬가지로 \(x = y = z\)이다. \(3x = 12\)이므로 \(x = y = z = 4\)이고, 최댓값은 \(f(4,4,4) = 64\)이다.
+</div>
+
+<div class="example">
+<span class="env-label">Example 4.6 (Lagrange 승수법 -- 타원체 위의 최대 거리)</span>
+타원체 \(\frac{x^2}{4} + \frac{y^2}{9} + z^2 = 1\) 위에서 원점으로부터의 거리 \(d^2 = x^2 + y^2 + z^2\)를 최대화하라.<br>
+<strong>풀이.</strong> \(f = x^2 + y^2 + z^2\), \(g = \frac{x^2}{4} + \frac{y^2}{9} + z^2 = 1\)로 놓는다.
+$$
+2x = \lambda \cdot \frac{x}{2}, \quad 2y = \lambda \cdot \frac{2y}{9}, \quad 2z = 2\lambda z.
+$$
+첫 번째 식에서 \(x(2 - \lambda/2) = 0\), 즉 \(x = 0\) 또는 \(\lambda = 4\)이다. 세 번째 식에서 \(z = 0\) 또는 \(\lambda = 1\). 두 번째 식에서 \(y = 0\) 또는 \(\lambda = 9\).
+<ul>
+  <li>\(\lambda = 9\): \(x = z = 0\), \(y^2/9 = 1\), \(y = \pm 3\). \(f = 9\). (최대)</li>
+  <li>\(\lambda = 4\): \(y = z = 0\), \(x^2/4 = 1\), \(x = \pm 2\). \(f = 4\).</li>
+  <li>\(\lambda = 1\): \(x = y = 0\), \(z^2 = 1\), \(z = \pm 1\). \(f = 1\). (최소)</li>
+</ul>
+원점으로부터 최대 거리는 \(\sqrt{9} = 3\)이며, 점 \((0, \pm 3, 0)\)에서 달성된다.
+</div>
+
+<h3 id="multiple-integrals">4.5 다중 적분</h3>
+
+<p>3차원 물체의 질량을 구하려면 밀도를 부피 전체에 걸쳐 적분해야 하고, 회전체의 관성 모멘트를 계산하려면 질량 요소와 회전축까지의 거리의 제곱을 적분해야 한다. 원형이나 구형 대칭을 가진 영역에서는 직교좌표 대신 극좌표, 원통좌표, 구면좌표를 사용하면 적분이 크게 간단해진다.</p>
+
+<p>다중 적분은 곡면 아래의 부피, 질량, 관성 모멘트 등 고차원 영역의 누적량을 계산한다. 적분 영역의 형태에 맞는 좌표계를 선택하는 것이 계산의 핵심이다.</p>
+
+<div class="definition">
+<span class="env-label">Definition 4.6 (Double Integral)</span>
+$$
+\iint_R f(x,y)\,dA = \lim_{\Delta A \to 0} \sum f(x_i^*, y_i^*) \Delta A_i
+$$
+반복 적분으로 계산된다: \(\int_a^b \int_{g_1(x)}^{g_2(x)} f(x,y)\,dy\,dx\).
+</div>
+
+<div class="theorem">
+<span class="env-label">Theorem 4.5 (Change of Variables)</span>
+변환 \((x, y) = T(u, v)\)에 대해:
+$$
+\iint_R f(x, y)\,dx\,dy = \iint_S f(T(u,v)) \left|\frac{\partial(x, y)}{\partial(u, v)}\right| du\,dv
+$$
+여기서 \(\left|\frac{\partial(x,y)}{\partial(u,v)}\right|\)는 <strong>Jacobian(야코비안) 행렬식</strong>의 절댓값이다.
+</div>
+
+<h4>극좌표, 원통좌표, 구면좌표</h4>
+
+<table>
+<tr><th>좌표계</th><th>변환</th><th>Jacobian(야코비안)</th></tr>
+<tr><td>극좌표</td><td>\(x = r\cos\theta,\; y = r\sin\theta\)</td><td>\(r\)</td></tr>
+<tr><td>원통좌표</td><td>\(x = r\cos\theta,\; y = r\sin\theta,\; z = z\)</td><td>\(r\)</td></tr>
+<tr><td>구면좌표</td><td>\(x = \rho\sin\phi\cos\theta,\; y = \rho\sin\phi\sin\theta,\; z = \rho\cos\phi\)</td><td>\(\rho^2 \sin\phi\)</td></tr>
+</table>
+
+<h3 id="vector-calculus">4.6 벡터 미적분학</h3>
+
+<p>전기장, 자기장, 유체의 속도장은 공간의 각 점에 벡터가 대응하는 벡터장(vector field)이다. 맥스웰 방정식은 전자기장의 발산(divergence)과 회전(curl)으로, 유체역학의 연속 방정식은 속도장의 발산으로 기술된다.</p>
+
+<p>발산, 회전 등의 미분 연산자와 선적분, 면적분은 벡터장의 성질을 분석하는 도구이다.</p>
+
+<div class="definition">
+<span class="env-label">Definition 4.7 (Vector Differential Operators)</span>
+스칼라장 \(f\)와 벡터장 \(\mathbf{F} = (P, Q, R)\)에 대해:
+<ul>
+  <li><strong>Gradient(기울기 벡터)</strong>: \(\nabla f = \left(\frac{\partial f}{\partial x}, \frac{\partial f}{\partial y}, \frac{\partial f}{\partial z}\right)\)</li>
+  <li><strong>Divergence(발산)</strong>: \(\nabla \cdot \mathbf{F} = \frac{\partial P}{\partial x} + \frac{\partial Q}{\partial y} + \frac{\partial R}{\partial z}\)</li>
+  <li><strong>Curl(회전)</strong>: \(\nabla \times \mathbf{F} = \left(\frac{\partial R}{\partial y} - \frac{\partial Q}{\partial z},\; \frac{\partial P}{\partial z} - \frac{\partial R}{\partial x},\; \frac{\partial Q}{\partial x} - \frac{\partial P}{\partial y}\right)\)</li>
+  <li><strong>Laplacian(라플라시안)</strong>: \(\nabla^2 f = \frac{\partial^2 f}{\partial x^2} + \frac{\partial^2 f}{\partial y^2} + \frac{\partial^2 f}{\partial z^2}\)</li>
+</ul>
+</div>
+
+<h4 id="line-integrals">선적분</h4>
+
+<div class="definition">
+<span class="env-label">Definition 4.8 (Line Integral)</span>
+곡선 \(C\)를 매개변수 \(\mathbf{r}(t) = (x(t), y(t), z(t))\), \(a \leq t \leq b\)로 표현할 때:
+<ul>
+  <li><strong>스칼라 선적분:</strong> \(\displaystyle\int_C f\,ds = \int_a^b f(\mathbf{r}(t))\,|\mathbf{r}'(t)|\,dt\)</li>
+  <li><strong>벡터 선적분:</strong> \(\displaystyle\int_C \mathbf{F} \cdot d\mathbf{r} = \int_a^b \mathbf{F}(\mathbf{r}(t)) \cdot \mathbf{r}'(t)\,dt\)</li>
+</ul>
+</div>
+
+<div class="example">
+<span class="env-label">Example 4.7 (선적분 계산)</span>
+\(\mathbf{F} = (y, -x)\)에 대해, 원점에서 \((1,1)\)까지의 선적분을 두 경로로 계산하라.<br>
+<strong>경로 1:</strong> 직선 \(\mathbf{r}(t) = (t, t)\), \(0 \leq t \leq 1\). \(\mathbf{r}'(t) = (1, 1)\).
+$$
+\int_C \mathbf{F} \cdot d\mathbf{r} = \int_0^1 (t, -t) \cdot (1, 1)\,dt = \int_0^1 (t - t)\,dt = 0.
+$$
+<strong>경로 2:</strong> \((0,0) \to (1,0) \to (1,1)\). 첫 구간: \(\mathbf{r}(t) = (t, 0)\), \(\int_0^1 (0, -t) \cdot (1, 0)\,dt = 0\). 둘째 구간: \(\mathbf{r}(t) = (1, t)\), \(\int_0^1 (t, -1) \cdot (0, 1)\,dt = \int_0^1 (-1)\,dt = -1\). 합계: \(0 + (-1) = -1\).<br>
+경로에 따라 값이 다르므로, \(\mathbf{F}\)는 보존장(conservative field)이 <strong>아니다</strong>. 실제로 \(\frac{\partial Q}{\partial x} - \frac{\partial P}{\partial y} = -1 - 1 = -2 \neq 0\)이다.
+</div>
+
+<h4 id="surface-integrals">면적분</h4>
+
+<div class="definition">
+<span class="env-label">Definition 4.9 (Surface Integral)</span>
+곡면 \(S\)를 \(\mathbf{r}(u,v)\)로 매개변수화할 때:
+<ul>
+  <li><strong>스칼라 면적분:</strong> \(\displaystyle\iint_S f\,dS = \iint_D f(\mathbf{r}(u,v))\,|\mathbf{r}_u \times \mathbf{r}_v|\,du\,dv\)</li>
+  <li><strong>벡터 면적분 (유량):</strong> \(\displaystyle\iint_S \mathbf{F} \cdot d\mathbf{S} = \iint_D \mathbf{F}(\mathbf{r}(u,v)) \cdot (\mathbf{r}_u \times \mathbf{r}_v)\,du\,dv\)</li>
+</ul>
+곡면이 \(z = g(x,y)\)로 주어지면, \(d\mathbf{S} = (-g_x, -g_y, 1)\,dA\)이다.
+</div>
+
+<div class="example">
+<span class="env-label">Example 4.8 (면적분 계산)</span>
+\(\mathbf{F} = (0, 0, z)\)에 대해, 반구 \(z = \sqrt{1 - x^2 - y^2}\) (상반구, \(z \geq 0\))에서의 유량 \(\iint_S \mathbf{F} \cdot d\mathbf{S}\)를 구하라. 법선은 바깥쪽(위쪽)을 향한다.<br>
+<strong>풀이.</strong> \(z = g(x,y) = \sqrt{1-x^2-y^2}\)이므로:
+$$
+d\mathbf{S} = \left(\frac{x}{\sqrt{1-x^2-y^2}},\; \frac{y}{\sqrt{1-x^2-y^2}},\; 1\right) dA.
+$$
+(부호 주의: 위쪽 법선이므로 \((-g_x, -g_y, 1)\)에서 \(-g_x = x/\sqrt{\cdots}\).) \(\mathbf{F} \cdot d\mathbf{S} = z \cdot 1\,dA = \sqrt{1-x^2-y^2}\,dA\).<br>
+극좌표로 전환하면:
+$$
+\iint_S \mathbf{F} \cdot d\mathbf{S} = \int_0^{2\pi}\int_0^1 \sqrt{1-r^2}\,r\,dr\,d\theta = 2\pi \left[-\frac{1}{3}(1-r^2)^{3/2}\right]_0^1 = \frac{2\pi}{3}.
+$$
+</div>
+
+<h3 id="integral-theorems">4.7 적분 정리와 활용 예제</h3>
+
+<p>전자기학에서 가우스 법칙(Gauss's law)은 폐곡면을 통과하는 전기 선속(electric flux)이 내부 전하량에 비례한다는 것인데, 이는 발산 정리의 직접적인 적용이다. 앙페르 법칙(Ampere's law)은 폐곡선을 따른 자기장의 선적분이 내부 전류에 비례한다는 것이며, Stokes 정리로 기술된다. 이 적분 정리들은 물리 법칙의 국소적 형태(미분 방정식)와 전역적 형태(적분 방정식)를 서로 변환할 수 있게 해 준다.</p>
+
+<p>Green 정리, Stokes 정리, 발산 정리는 영역 내부의 적분과 경계 위의 적분 사이의 관계를 밝힌다.</p>
+
+<div class="theorem">
+<span class="env-label">Theorem 4.6 (Green's Theorem)</span>
+\(C\)가 영역 \(D\)를 둘러싸는 양의 방향, 조각적으로 매끄러운 단순 폐곡선이라 하자. 그러면 다음이 성립한다:
+$$
+\oint_C (P\,dx + Q\,dy) = \iint_D \left(\frac{\partial Q}{\partial x} - \frac{\partial P}{\partial y}\right) dA
+$$
+</div>
+
+<div class="example">
+<span class="env-label">Example 4.9 (Green's Theorem 활용 -- 넓이 계산)</span>
+Green's Theorem을 사용하여 타원 \(\frac{x^2}{a^2} + \frac{y^2}{b^2} = 1\)의 넓이를 구하라.<br>
+<strong>풀이.</strong> \(P = 0, Q = x\)로 놓으면 \(\frac{\partial Q}{\partial x} - \frac{\partial P}{\partial y} = 1\)이므로:
+$$
+\text{Area} = \iint_D dA = \oint_C x\,dy.
+$$
+매개변수화: \(x = a\cos t, y = b\sin t\), \(0 \leq t \leq 2\pi\). \(dy = b\cos t\,dt\).
+$$
+\oint_C x\,dy = \int_0^{2\pi} a\cos t \cdot b\cos t\,dt = ab\int_0^{2\pi} \cos^2 t\,dt = ab \cdot \pi = \pi ab.
+$$
+</div>
+
+<div class="example">
+<span class="env-label">Example 4.10 (Green's Theorem 활용 -- 순환 계산)</span>
+\(\mathbf{F} = (x^2 - y, x + y^2)\)에 대해, 단위원 \(C\) (반시계 방향)를 따른 순환 \(\oint_C \mathbf{F} \cdot d\mathbf{r}\)을 구하라.<br>
+<strong>풀이.</strong> \(P = x^2 - y\), \(Q = x + y^2\). \(\frac{\partial Q}{\partial x} - \frac{\partial P}{\partial y} = 1 - (-1) = 2\).
+$$
+\oint_C \mathbf{F} \cdot d\mathbf{r} = \iint_D 2\,dA = 2 \cdot \pi(1)^2 = 2\pi.
+$$
+</div>
+
+<div class="theorem">
+<span class="env-label">Theorem 4.7 (Stokes' Theorem)</span>
+\(S\)가 곡선 \(C\)로 둘러싸인 향이 부여된 곡면이라 하자. 그러면 다음이 성립한다:
+$$
+\oint_C \mathbf{F} \cdot d\mathbf{r} = \iint_S (\nabla \times \mathbf{F}) \cdot d\mathbf{S}
+$$
+</div>
+
+<div class="example">
+<span class="env-label">Example 4.11 (Stokes' Theorem 활용)</span>
+\(\mathbf{F} = (y, -x, z^2)\)에 대해, 평면 \(z = 0\) 위의 단위원 \(C\) (반시계 방향)를 따른 선적분을 Stokes' Theorem으로 구하라.<br>
+<strong>풀이.</strong> \(\nabla \times \mathbf{F} = \left(\frac{\partial z^2}{\partial y} - \frac{\partial(-x)}{\partial z},\; \frac{\partial y}{\partial z} - \frac{\partial z^2}{\partial x},\; \frac{\partial(-x)}{\partial x} - \frac{\partial y}{\partial y}\right) = (0, 0, -2)\).<br>
+\(S\)를 \(z = 0\)인 단위 원판으로 택하면, 법선은 \(\hat{\mathbf{n}} = (0, 0, 1)\)이다.
+$$
+\oint_C \mathbf{F} \cdot d\mathbf{r} = \iint_S (0, 0, -2) \cdot (0, 0, 1)\,dA = \iint_S (-2)\,dA = -2\pi.
+$$
+</div>
+
+<div class="example">
+<span class="env-label">Example 4.12 (Stokes' Theorem -- 곡면 선택의 자유)</span>
+\(\mathbf{F} = (-y^2, x, z^2)\)에 대해, 삼각형 \((1,0,0), (0,1,0), (0,0,1)\)의 경계 \(C\)를 따른 선적분을 구하라.<br>
+<strong>풀이.</strong> \(\nabla \times \mathbf{F} = (0, 0, 1 + 2y)\). 삼각형은 평면 \(x + y + z = 1\) 위에 있고, 법선 \(\hat{\mathbf{n}} = \frac{1}{\sqrt{3}}(1,1,1)\), \(dS = \sqrt{3}\,dA\)이다. \((\nabla \times \mathbf{F}) \cdot \hat{\mathbf{n}}\,dS = (1 + 2y)\,dA\).
+$$
+\oint_C \mathbf{F} \cdot d\mathbf{r} = \iint_D (1 + 2y)\,dA,
+$$
+여기서 \(D\)는 \(xy\)-평면 위의 삼각형 \(\{(x,y) : x \geq 0, y \geq 0, x+y \leq 1\}\)이다.
+$$
+= \int_0^1 \int_0^{1-x} (1 + 2y)\,dy\,dx = \int_0^1 \left[(1-x) + (1-x)^2\right] dx = \frac{1}{2} + \frac{1}{3} = \frac{5}{6}.
+$$
+</div>
+
+<div class="theorem">
+<span class="env-label">Theorem 4.8 (Divergence Theorem / Gauss's Theorem)</span>
+\(V\)가 폐곡면 \(S\)로 둘러싸인 입체 영역이라 하자. 그러면 다음이 성립한다:
+$$
+\oiint_S \mathbf{F} \cdot d\mathbf{S} = \iiint_V (\nabla \cdot \mathbf{F})\,dV
+$$
+</div>
+
+<p>이 결과는 폐곡면을 통과하는 유량(flux)의 총합이 내부에서의 "생성량"(발산의 적분)과 같다는 것을 의미한다. 전자기학에서 가우스 법칙 \(\oiint \mathbf{E} \cdot d\mathbf{S} = Q_{\text{enc}}/\varepsilon_0\)은 이 정리의 직접적인 적용이다.</p>
+
+<div class="example">
+<span class="env-label">Example 4.13 (Divergence Theorem 활용 -- 구)</span>
+\(\mathbf{F} = (x, y, z)\)에 대해, 반지름 \(R\)인 구면 \(S\)를 통과하는 유량을 구하라.<br>
+<strong>풀이.</strong> \(\nabla \cdot \mathbf{F} = 1 + 1 + 1 = 3\). Divergence Theorem에 의해:
+$$
+\oiint_S \mathbf{F} \cdot d\mathbf{S} = \iiint_V 3\,dV = 3 \cdot \frac{4}{3}\pi R^3 = 4\pi R^3.
+$$
+</div>
+
+<div class="example">
+<span class="env-label">Example 4.14 (Divergence Theorem 활용 -- 원기둥)</span>
+\(\mathbf{F} = (x^2, y^2, z^2)\)에 대해, 원기둥 \(x^2 + y^2 \leq 1, 0 \leq z \leq 2\)의 폐곡면 \(S\)를 통과하는 유량을 구하라.<br>
+<strong>풀이.</strong> \(\nabla \cdot \mathbf{F} = 2x + 2y + 2z\). 원통좌표로:
+$$
+\iiint_V (2x + 2y + 2z)\,dV = \int_0^{2\pi}\int_0^1\int_0^2 (2r\cos\theta + 2r\sin\theta + 2z)\,r\,dz\,dr\,d\theta.
+$$
+\(\int_0^{2\pi} \cos\theta\,d\theta = \int_0^{2\pi} \sin\theta\,d\theta = 0\)이므로, \(2r\cos\theta\)와 \(2r\sin\theta\) 항은 사라진다. 남는 것은:
+$$
+\int_0^{2\pi}\int_0^1\int_0^2 2zr\,dz\,dr\,d\theta = 2\pi \cdot \int_0^1 r\,dr \cdot \int_0^2 2z\,dz = 2\pi \cdot \frac{1}{2} \cdot 4 = 4\pi.
+$$
+</div>
+
+<div class="remark">
+<span class="env-label">Remark</span>
+Green's Theorem(그린 정리), Stokes' Theorem(스토크스 정리), Divergence Theorem(발산 정리)은 모두 <strong>일반화된 Stokes' Theorem(스토크스 정리)</strong>의 특수한 형태이다: \(\int_{\partial \Omega} \omega = \int_{\Omega} d\omega\). 여기서 \(\omega\)는 미분 형식이고, \(\partial \Omega\)는 \(\Omega\)의 경계이다.
+</div>
+
+<p class="source-tag">Sources: MIT 18.02 (Lectures 1-35), UC Berkeley Math 53, U Maryland Math 241, UoU Vector Calculus, UNSW Vector Calculus</p>
+
+<details class="video-resources">
+<summary>추천 영상 강의 (원본 소스 기반)</summary>
+<ul>
+<li><a href="https://ocw.mit.edu/courses/mathematics/18-02-multivariable-calculus-fall-2007/" target="_blank">18.02 Multivariable Calculus — MIT OCW</a></li>
+<li><a href="https://ocw.mit.edu/resources/res-18-007-calculus-revisited-multivariable-calculus-fall-2011/" target="_blank">Calculus Revisited: Multivariable Calculus — MIT OCW</a></li>
+<li><a href="https://math.berkeley.edu/~pkoroteev/math53.html" target="_blank">Mathematics 53 Multivariable Calculus — UC Berkeley</a></li>
+<li><a href="https://www.youtube.com/playlist?list=PL7RK4EsMAcJKgJXRKXKObYFH_JdWTubU-" target="_blank">Math 241 Calculus III — U. of Maryland</a></li>
+<li><a href="https://courses.ncsu.edu/ma242/common/media/OutlineOfLectures.html" target="_blank">MA 242 Calculus III — NCSU</a></li>
+<li><a href="https://www.youtube.com/course?list=EC283CA2107AD503A3" target="_blank">Vector Calculus — UNSW (Chris Tisdell)</a></li>
+<li><a href="https://www.youtube.com/playlist?list=PLkfmuPOLLnthHE9ICNdGgdgIi16-M80ZS" target="_blank">Vector Calculus and PDE (Math 3140) — U. of Utah</a></li>
+</ul>
+</details>
+
+<details class="video-resources">
+<summary>추천 교재 &amp; 오픈 자료</summary>
+<ul>
+<li><a href="https://ocw.mit.edu/ans7870/resources/Strang/Edited/Calculus/Calculus.pdf" target="_blank">Calculus (Strang) — MIT OCW 무료 교재 PDF</a> — Ch 11-16</li>
+<li>Stewart, <em>Calculus: Early Transcendentals</em> — Ch 12-16: 벡터, 편미분, 다중적분, 벡터미적분</li>
+<li>Apostol, <em>Calculus, Vol. 2</em> — 다변수 미적분과 선형대수</li>
+<li>Hubbard &amp; Hubbard, <em>Vector Calculus, Linear Algebra, and Differential Forms</em> — 현대적 통합 접근</li>
+<li>Marsden &amp; Tromba, <em>Vector Calculus</em> — 벡터 해석학 표준 교재</li>
+<li><a href="https://math.mit.edu/~djk/calculus_beginners/" target="_blank">Calculus for Beginners and Artists (Kleitman, MIT)</a></li>
+</ul>
+</details>
+
+<hr>
+
+<!-- Placeholder sections for remaining parts -->
+
+<!-- ============================================================ -->
+<!-- Section 5: Ordinary Differential Equations                   -->
+<!-- ============================================================ -->

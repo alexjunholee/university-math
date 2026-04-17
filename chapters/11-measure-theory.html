@@ -1,0 +1,282 @@
+<section id="measure-theory">
+<h2>11. Measure Theory</h2>
+
+<p>리만 적분(Riemann integral)은 공학 수학의 기본 도구이지만, 본질적인 한계가 있다. 극한과 적분의 교환이 자유롭지 않고, 디리클레 함수(Dirichlet function)처럼 "병리적인" 함수를 적분할 수 없다. 확률론을 엄밀하게 세우려면 "사건의 확률"을 체계적으로 정의해야 하는데, 이 역시 리만 적분만으로는 불가능하다. 확률 = 측도(measure)라는 통찰이 현대 확률론의 출발점이며, 이를 위한 수학적 장치가 측도론이다.</p>
+
+<p>공학에서의 사용례를 보면, 신호의 에너지 \(\int |f(t)|^2\,dt\)와 전력 \(\lim_{T\to\infty}\frac{1}{2T}\int_{-T}^{T}|f(t)|^2\,dt\)은 르베그 적분(Lebesgue integral)으로 정의되며, 정보이론에서 섀넌 엔트로피(Shannon entropy)의 연속 확장인 미분 엔트로피(differential entropy)는 확률 밀도 함수의 르베그 적분으로 엄밀히 정의된다. 이미지 처리에서 잡음 모델이 확률 공간(probability space) 위에서 정식화되고, 베이즈 추론(Bayesian inference)에서 사전/사후 분포의 관계가 측도의 절대 연속성(absolute continuity)과 라돈-니코딤 도함수(Radon-Nikodym derivative)로 기술된다.</p>
+
+<p>측도론(Measure Theory)은 길이, 넓이, 부피, 확률 등 "크기"의 개념을 일반적인 체계로 확장한다. 이 체계 위에 구축된 Lebesgue integral(르베그 적분)은 리만 적분보다 훨씬 유연하게 적분과 극한의 교환을 다룰 수 있으며, 현대 해석학, 확률론, 응용 수학의 표준이다.</p>
+
+<!-- 11.1 Sigma-Algebras and Measures -->
+<h3>11.1 Sigma-Algebras and Measures</h3>
+
+<p>측도를 정의하기 전에, "어떤 집합들에 대해 크기를 잴 수 있는가?"를 먼저 정해야 한다. 직관적으로는 모든 부분집합에 대해 크기를 정의하고 싶지만, Vitali 구성이 보여주듯 이는 불가능하다. 시그마 대수(sigma-algebra)는 여집합과 가산 합집합에 대해 닫혀 있는 "잴 수 있는 집합들의 모임"을 규정하며, 확률론에서는 이것이 관측 가능한 사건(event)들의 모임에 해당한다.</p>
+
+<div class="definition"><span class="env-label">Definition 11.1 (Sigma-Algebra)</span>
+집합 \(\Omega\)의 부분집합들의 모임 \(\mathcal{F}\)가 <em>sigma-algebra(시그마 대수)</em>가 되려면 다음 조건을 만족해야 한다:
+<ol>
+  <li>\(\Omega \in \mathcal{F}\),</li>
+  <li>\(A \in \mathcal{F} \implies A^c \in \mathcal{F}\) (여집합에 대해 닫혀 있음),</li>
+  <li>\(A_1, A_2, \ldots \in \mathcal{F} \implies \bigcup_{n=1}^\infty A_n \in \mathcal{F}\) (가산 합집합에 대해 닫혀 있음).</li>
+</ol>
+쌍 \((\Omega, \mathcal{F})\)을 <em>가측 공간(measurable space)</em>이라 한다.
+</div>
+
+<div class="definition"><span class="env-label">Definition 11.2 (Borel Sigma-Algebra)</span>
+<em>보렐 sigma-algebra(시그마 대수)</em> \(\mathcal{B}(\mathbb{R})\)는 \(\mathbb{R}\) 위의 모든 열린 집합을 포함하는 가장 작은 sigma-algebra(시그마 대수)이다. 동치적으로, 열린 구간들 또는 반직선 \((-\infty, a]\)에 의해 생성된다.
+</div>
+
+<p>시그마 대수 위에 "크기"를 부여하는 것이 측도이다. 가산 가법성(countable additivity)은 중심 공리로, 서로소인 사건들의 확률의 합이 합사건의 확률과 같다는 확률 공리와 정확히 대응한다.</p>
+
+<div class="definition"><span class="env-label">Definition 11.3 (Measure)</span>
+가측 공간 \((\Omega, \mathcal{F})\) 위의 <em>측도(measure)</em>란 다음 조건을 만족하는 함수 \(\mu: \mathcal{F} \to [0, \infty]\)이다:
+<ol>
+  <li>\(\mu(\emptyset) = 0\),</li>
+  <li><em>가산 가법성(countable additivity)</em>: \(A_1, A_2, \ldots \in \mathcal{F}\)가 쌍마다 서로소이면, \(\mu\bigl(\bigcup_{n=1}^\infty A_n\bigr) = \sum_{n=1}^\infty \mu(A_n)\).</li>
+</ol>
+삼중쌍 \((\Omega, \mathcal{F}, \mu)\)을 <em>측도 공간(measure space)</em>이라 한다. \(\mu(\Omega) = 1\)이면 <em>확률 공간(probability space)</em>이라 한다.
+</div>
+
+<div class="theorem"><span class="env-label">Theorem 11.1 (Properties of Measures)</span>
+\((\Omega, \mathcal{F}, \mu)\)를 측도 공간이라 하자. 그러면:
+<ul>
+  <li><strong>단조성:</strong> \(A \subseteq B \implies \mu(A) \leq \mu(B)\).</li>
+  <li><strong>아래로부터의 연속성:</strong> \(A_1 \subseteq A_2 \subseteq \cdots \implies \mu(\bigcup A_n) = \lim \mu(A_n)\).</li>
+  <li><strong>위로부터의 연속성:</strong> \(A_1 \supseteq A_2 \supseteq \cdots\)이고 \(\mu(A_1) < \infty\)이면 \(\mu(\bigcap A_n) = \lim \mu(A_n)\).</li>
+  <li><strong>가산 열가법성:</strong> \(\mu(\bigcup_{n=1}^\infty A_n) \leq \sum_{n=1}^\infty \mu(A_n)\).</li>
+</ul>
+</div>
+
+<!-- 11.2 Lebesgue Measure and Integral -->
+<p>추상적 측도의 틀을 세웠으니, 이제 가장 중요한 구체적 측도인 Lebesgue 측도를 구성하고, 그 위에서 적분을 정의한다. Lebesgue 적분은 Riemann 적분과 달리 정의역이 아닌 치역을 분할하여 적분을 구성하며, 이 접근이 훨씬 넓은 클래스의 함수를 적분 가능하게 만든다.</p>
+
+<h3>11.2 Lebesgue Measure and the Lebesgue Integral</h3>
+
+<div class="definition"><span class="env-label">Definition 11.4 (Lebesgue Outer Measure)</span>
+\(A \subseteq \mathbb{R}\)의 <em>르베그 외측도(Lebesgue outer measure)</em>는 다음과 같이 정의된다:
+$$ m^*(A) = \inf\left\{ \sum_{n=1}^\infty (b_n - a_n) : A \subseteq \bigcup_{n=1}^\infty (a_n, b_n) \right\}. $$
+집합 \(A\)가 <em>르베그 가측(Lebesgue measurable)</em>이라 함은, 모든 \(E \subseteq \mathbb{R}\)에 대해 다음이 성립하는 것이다:
+$$ m^*(E) = m^*(E \cap A) + m^*(E \cap A^c) \qquad \text{(Caratheodory criterion)}. $$
+가측 집합으로의 \(m^*\)의 제한이 <em>르베그 측도(Lebesgue measure)</em> \(m\)을 준다.
+</div>
+
+<div class="remark"><span class="env-label">Remark 11.0 (Lebesgue 측도의 핵심 성질)</span>
+\(\mathbb{R}^n\) 위의 Lebesgue 측도 \(m\)은 다음 성질을 만족한다:
+<ul>
+  <li><strong>평행이동 불변성:</strong> 모든 가측 집합 \(A\)와 \(x \in \mathbb{R}^n\)에 대해 \(m(A + x) = m(A)\).</li>
+  <li><strong>스케일링:</strong> \(m(cA) = |c|^n m(A)\) (\(c \in \mathbb{R}\)).</li>
+  <li><strong>정규성(regularity):</strong> 가측 집합은 열린 집합으로 밖에서, 닫힌 집합으로 안에서 임의의 정밀도로 근사할 수 있다.</li>
+  <li><strong>완비성:</strong> 측도 0인 집합의 모든 부분집합도 가측이다(보렐 sigma-algebra에서는 성립하지 않을 수 있음).</li>
+</ul>
+Vitali 구성은 선택 공리를 사용하여 비가측 집합이 존재함을 보여준다. 즉, Lebesgue 측도는 \(\mathbb{R}\)의 모든 부분집합에 정의될 수 없다.
+</div>
+
+<div class="example"><span class="env-label">Example 11.1 (Lebesgue 측도 구성 예제)</span>
+Lebesgue 측도가 구체적으로 어떤 값을 주는지 몇 가지 집합에 대해 확인하자.
+
+<p><strong>(a) 구간의 측도.</strong> 열린 구간 \((a,b)\)에 대해 \(m((a,b)) = b - a\)이다. 닫힌 구간 \([a,b]\)에 대해서도 \(m([a,b]) = b - a\)이다. 이는 한 점 집합 \(\{a\}\)의 측도가 0이므로 \(m([a,b]) = m((a,b)) + m(\{a\}) + m(\{b\}) = (b-a) + 0 + 0\)이기 때문이다.</p>
+
+<p><strong>(b) 가산 집합의 측도.</strong> 유리수 집합 \(\mathbb{Q}\)를 \(\{q_1, q_2, q_3, \ldots\}\)로 나열하자. 임의의 \(\varepsilon > 0\)에 대해, \(q_n\)을 길이 \(\varepsilon / 2^n\)인 구간 \((q_n - \varepsilon/2^{n+1}, q_n + \varepsilon/2^{n+1})\)으로 덮으면 전체 덮개의 길이 합은 \(\sum_{n=1}^\infty \varepsilon/2^n = \varepsilon\)이다. \(\varepsilon\)이 임의이므로 \(m(\mathbb{Q}) = 0\)이다. 일반적으로, 모든 가산 집합의 Lebesgue 측도는 0이다.</p>
+
+<p><strong>(c) 칸토어 집합.</strong> 칸토어 집합 \(C\)는 \([0,1]\)에서 반복적으로 각 구간의 가운데 1/3을 제거하여 구성한다. \(n\)번째 단계에서 제거되는 구간들의 총 길이는 \((1/3)(2/3)^{n-1}\)이므로, 제거된 전체 길이는
+$$ \sum_{n=0}^\infty \frac{2^n}{3^{n+1}} = \frac{1/3}{1 - 2/3} = 1 $$
+이다. 따라서 \(m(C) = 1 - 1 = 0\)이다. 그런데 \(C\)는 비가산 집합이다(3진 전개로 보면 \(C\)는 \([0,1]\)과 대등하다). 이는 "비가산이지만 측도가 0"인 집합이 존재함을 보여준다.</p>
+</div>
+
+<p>적분을 정의하려면 먼저 "적분할 수 있는 함수"의 클래스를 정해야 한다. 가측 함수(measurable function)는 함수값이 특정 범위에 속하는 정의역의 부분집합이 항상 가측인 함수를 말하며, 이는 확률론에서 확률변수(random variable)의 정의와 동일하다.</p>
+
+<div class="definition"><span class="env-label">Definition 11.5 (Measurable Function)</span>
+함수 \(f: (\Omega, \mathcal{F}) \to (\mathbb{R}, \mathcal{B}(\mathbb{R}))\)가 <em>가측(measurable)</em>이라 함은, 모든 보렐 집합 \(B\)에 대해 \(f^{-1}(B) \in \mathcal{F}\)인 것이며, 이는 모든 \(a \in \mathbb{R}\)에 대해 \(\{f > a\} \in \mathcal{F}\)인 것과 동치이다.
+</div>
+
+<p>리만 적분은 정의역을 분할하고 각 구간에서 함수값의 범위를 보지만, 르베그 적분은 치역을 분할하고 각 값에 대응하는 정의역의 크기(측도)를 본다. 이 관점 전환 덕분에 훨씬 넓은 함수 클래스를 적분할 수 있다.</p>
+
+<div class="definition"><span class="env-label">Definition 11.6 (Lebesgue Integral)</span>
+Lebesgue integral(르베그 적분)은 다음 단계를 거쳐 구성된다:
+<ol>
+  <li><strong>단순 함수.</strong> \(c_i \geq 0\)이고 \(A_i\)가 가측인 \(\varphi = \sum_{i=1}^n c_i \mathbf{1}_{A_i}\)에 대해, \(\int \varphi\, d\mu = \sum c_i \mu(A_i)\)로 정의한다.</li>
+  <li><strong>비음 가측 함수.</strong> \(\int f\, d\mu = \sup\{\int \varphi\, d\mu : 0 \leq \varphi \leq f,\; \varphi \text{ simple}\}\).</li>
+  <li><strong>일반 가측 함수.</strong> \(f^+ = \max(f,0)\), \(f^- = \max(-f,0)\)으로 놓고 \(f = f^+ - f^-\)로 쓴다. 적어도 한쪽이 유한이면 \(\int f\, d\mu = \int f^+\, d\mu - \int f^-\, d\mu\)로 정의한다. 양쪽 모두 유한이면, \(f\)는 <em>르베그 적분 가능</em>(\(f \in L^1\))하다.</li>
+</ol>
+</div>
+
+<div class="example"><span class="env-label">Example 11.2</span>
+디리클레 함수 \(\mathbf{1}_\mathbb{Q}\)는 가측이며(\(\mathbb{Q}\)가 보렐 집합이므로), \(\int_{[0,1]} \mathbf{1}_\mathbb{Q}\, dm = m(\mathbb{Q} \cap [0,1]) = 0\)이다. 유리수 집합의 측도가 0이기 때문이다. 리만 적분으로는 처리할 수 없는 이 함수를 Lebesgue integral(르베그 적분)은 다룰 수 있다.
+</div>
+
+<div class="example"><span class="env-label">Example 11.2a (Lebesgue 적분 구성의 단계별 예)</span>
+단순 함수에서 시작하여 Lebesgue 적분이 구성되는 과정을 구체적으로 추적하자. \(f(x) = x\)의 \([0,1]\) 위에서의 적분을 단순 함수 근사로 계산한다.
+
+<p><strong>단순 함수 근사.</strong> \(n\)을 고정하고 \([0,1]\)을 \(n\)등분하자. \(A_k = [(k-1)/n, \; k/n)\) (\(k = 1, \ldots, n\))으로 놓으면, 아래 근사 단순 함수는</p>
+$$
+\varphi_n(x) = \sum_{k=1}^n \frac{k-1}{n} \mathbf{1}_{A_k}(x)
+$$
+<p>이고, \(\varphi_n \leq f\)이며 \(\varphi_n \nearrow f\)이다. 적분을 계산하면:</p>
+$$
+\int_{[0,1]} \varphi_n\, dm = \sum_{k=1}^n \frac{k-1}{n} \cdot \frac{1}{n} = \frac{1}{n^2}\sum_{k=0}^{n-1} k = \frac{(n-1)n}{2n^2} = \frac{n-1}{2n}.
+$$
+<p>정의에 의해 \(\int_{[0,1]} f\, dm = \sup_n \int \varphi_n\, dm = \lim_{n\to\infty} \frac{n-1}{2n} = \frac{1}{2}\)이다. 리만 적분과 같은 값이지만, 근사 방식이 근본적으로 다르다: 리만 적분은 정의역을 분할하고 각 구간에서 함수값의 범위를 보는 반면, Lebesgue 적분은 치역을 분할하고 각 값에 대응하는 정의역의 "크기"(측도)를 본다.</p>
+</div>
+
+<!-- 11.3 Convergence Theorems -->
+<p>Lebesgue 적분을 구성한 진짜 이유가 여기에 있다. 수렴 정리들은 "언제 극한과 적분을 교환할 수 있는가?"라는 해석학의 핵심 질문에 답한다. Riemann 적분에서는 균등 수렴이라는 강한 조건이 필요했지만, Lebesgue 적분에서는 훨씬 약한 조건으로 교환이 가능하다.</p>
+
+<h3>11.3 Convergence Theorems</h3>
+
+<p>Lebesgue integral(르베그 적분)의 강점은 수렴 정리에 있으며, 약한 조건 하에서 극한과 적분의 교환을 허용한다.</p>
+
+<div class="theorem"><span class="env-label">Theorem 11.2 (Monotone Convergence Theorem, MCT)</span>
+\(f_n: \Omega \to [0, \infty]\)가 가측이고 \(f_1 \leq f_2 \leq \cdots\) (거의 어디서나)이면,
+$$ \int \lim_{n\to\infty} f_n\, d\mu = \lim_{n\to\infty} \int f_n\, d\mu. $$
+</div>
+
+<p>단조 수렴 정리는 비음이고 증가하는 함수열에 대해 극한과 적분의 교환을 무조건 보장한다. 이 정리가 급수의 항별 적분(term-by-term integration)을 정당화하며, 신호 에너지의 주파수 성분별 분해에서 급수와 적분의 교환이 가능한 근거를 제공한다.</p>
+
+<div class="theorem"><span class="env-label">Theorem 11.3 (Fatou's Lemma)</span>
+\(f_n \geq 0\)이 가측이면,
+$$ \int \liminf_{n\to\infty} f_n\, d\mu \leq \liminf_{n\to\infty} \int f_n\, d\mu. $$
+</div>
+
+<div class="theorem"><span class="env-label">Theorem 11.4 (Dominated Convergence Theorem, DCT)</span>
+\(f_n\)이 가측이고 거의 어디서나 \(f_n \to f\)라 하자. 모든 \(n\)에 대해 거의 어디서나 \(|f_n| \leq g\)를 만족하는 적분 가능 함수 \(g\)가 존재하면, \(f\)는 적분 가능하고
+$$ \lim_{n\to\infty} \int f_n\, d\mu = \int f\, d\mu. $$
+또한, \(\int |f_n - f|\, d\mu \to 0\)이다.
+</div>
+
+<p>지배 수렴 정리(DCT)는 부호가 바뀌는 함수열에 대해서도 적분 가능한 우함수(dominating function)가 있으면 극한과 적분을 교환할 수 있다. 매개변수 적분의 미분, 적률 생성 함수(moment generating function)의 미분, 최적화에서 목적함수의 기울기와 적분의 교환 등이 모두 DCT에 의존한다.</p>
+
+<div class="example"><span class="env-label">Example 11.3</span>
+\([0, \infty)\) 위에서 \(f_n(x) = n x e^{-nx^2}\)을 생각하자. 직접 계산하면 모든 \(n\)에 대해 \(\int_0^\infty f_n\, dx = \frac{1}{2}\)이지만, 각 \(x > 0\)에서 \(f_n(x) \to 0\)이다. 적분 가능한 우함수(dominator)가 존재하지 않아 DCT가 적용되지 않으므로, 극한과 적분을 교환할 수 없다: \(\int \lim f_n = 0 \neq \frac{1}{2} = \lim \int f_n\). 이는 우세 조건의 필요성을 보여준다.
+</div>
+
+<div class="example"><span class="env-label">Example 11.4 (MCT 활용: 급수와 적분의 교환)</span>
+MCT를 사용하여 다음 급수의 적분을 계산하자:
+$$ \int_0^1 \sum_{n=1}^\infty x^n \, dx. $$
+
+<p>\(f_N(x) = \sum_{n=1}^N x^n\)으로 놓으면, \(0 \leq x \leq 1\)에서 \(f_1 \leq f_2 \leq \cdots\)이고 각 \(f_N\)은 비음 가측 함수이다. MCT에 의해 적분과 급수의 순서를 교환할 수 있다:</p>
+$$
+\int_0^1 \sum_{n=1}^\infty x^n\, dx = \sum_{n=1}^\infty \int_0^1 x^n\, dx = \sum_{n=1}^\infty \frac{1}{n+1}.
+$$
+<p>이 값은 \(\sum_{n=2}^\infty 1/n = +\infty\)이다. 실제로 \(\sum_{n=1}^\infty x^n = x/(1-x)\)이므로 \(\int_0^1 x/(1-x)\, dx = +\infty\)와 일치한다.</p>
+
+<p>MCT가 적용되는 핵심 조건을 정리하면: (i) \(f_n \geq 0\), (ii) \(f_n\)이 단조증가, (iii) 각 \(f_n\)이 가측. 이 세 조건만 충족되면 극한이 무한일 때조차 등호가 성립한다. MCT는 DCT나 Fatou 보조정리의 증명에도 사용된다.</p>
+</div>
+
+<div class="example"><span class="env-label">Example 11.4a (DCT 활용: 매개변수에 대한 극한)</span>
+\(f_n(x) = n(1 + n^2 x^2)^{-1}\)에 대해 \(\lim_{n \to \infty} \int_0^1 f_n(x)\, dx\)를 구하자.
+
+<p><strong>점별 극한.</strong> 고정된 \(x > 0\)에 대해 \(f_n(x) = n/(1 + n^2 x^2) \to 0\) (\(n \to \infty\))이다. \(x = 0\)에서 \(f_n(0) = n \to \infty\)이지만, 한 점 집합 \(\{0\}\)의 측도는 0이므로 거의 어디서나(a.e.) \(f_n \to 0\)이다.</p>
+
+<p><strong>우함수 찾기.</strong> \(f_n(x) = n/(1 + n^2 x^2)\)를 \(n\)에 대해 최대화하면, \(\partial f_n / \partial n = (1 - n^2 x^2)/(1 + n^2 x^2)^2\)에서 최대는 \(n = 1/x\)일 때 달성되고, 최댓값은 \(1/(2x)\)이다. 따라서 모든 \(n\)에 대해 \(|f_n(x)| \leq 1/(2x)\)이다. 그런데 \(\int_0^1 1/(2x)\, dx = +\infty\)이므로 이 bound는 적분 가능하지 않다.</p>
+
+<p><strong>올바른 접근.</strong> 직접 계산으로 확인: \(\int_0^1 f_n\, dx = \int_0^1 \frac{n}{1 + n^2 x^2}\, dx = [\arctan(nx)]_0^1 = \arctan(n) \to \pi/2\).</p>
+
+<p>따라서 \(\lim \int f_n = \pi/2 \neq 0 = \int \lim f_n\)이다. 극한과 적분이 교환되지 않는 이유는, 적분 가능한 우함수가 존재하지 않아 DCT의 가정이 충족되지 않기 때문이다. 이 예제는 DCT에서 우세 조건이 단순한 기술적 조건이 아니라 결론의 성립에 본질적임을 보여준다.</p>
+</div>
+
+<div class="example"><span class="env-label">Example 11.5 (DCT의 전형적 활용)</span>
+매개변수 적분의 미분에 DCT를 적용하는 예를 보자. \(F(t) = \int_0^\infty e^{-tx} \frac{\sin x}{x}\, dx\) (\(t > 0\))로 정의하면, \(F'(t)\)를 구하고 싶다. 형식적으로 적분 부호 아래에서 미분하면:
+$$ F'(t) = -\int_0^\infty e^{-tx} \sin x\, dx. $$
+이 교환의 정당화: \(t \geq t_0 > 0\)인 영역에서 \(|{-x e^{-tx} \sin x}/{x}| = |e^{-tx} \sin x| \leq e^{-t_0 x}\)이고, \(\int_0^\infty e^{-t_0 x}\, dx = 1/t_0 < \infty\)이므로, DCT에 의해 교환이 정당하다. 이제 \(F'(t) = -\int_0^\infty e^{-tx}\sin x\, dx = -1/(1+t^2)\) (부분적분 두 번)이다. \(F(t) \to 0\) (\(t \to \infty\))이므로, \(F(t) = \pi/2 - \arctan t\)를 얻고, 특히 \(\lim_{t \to 0^+} F(t) = \pi/2\)이다. 이로부터 유명한 디리클레 적분 \(\int_0^\infty \frac{\sin x}{x}\, dx = \frac{\pi}{2}\)를 복원한다.
+</div>
+
+<!-- 11.4 Fubini's Theorem -->
+<p>단일 변수의 적분을 다루었으니, 이제 다변수로 확장한다. 다중 적분에서 적분 순서를 바꿀 수 있는 조건을 제시하는 것이 Fubini 정리이다.</p>
+
+<h3>11.4 Product Measures and Fubini's Theorem</h3>
+
+<p>결합 확률 분포(joint probability distribution)에서 주변 확률(marginal probability)을 구하는 것은 본질적으로 적분 순서의 교환이다. 곱 측도와 Fubini 정리는 이 교환이 언제 허용되는지를 엄밀히 규정한다.</p>
+
+<div class="definition"><span class="env-label">Definition 11.7 (Product Measure)</span>
+sigma-유한 측도 공간 \((X, \mathcal{A}, \mu)\)와 \((Y, \mathcal{B}, \nu)\)가 주어졌을 때, <em>곱 sigma-algebra(시그마 대수)</em> \(\mathcal{A} \otimes \mathcal{B}\)는 가측 직사각형 \(A \times B\) (\(A \in \mathcal{A}\), \(B \in \mathcal{B}\))에 의해 생성된다. <em>곱 측도(product measure)</em> \(\mu \otimes \nu\)는 \((\mu \otimes \nu)(A \times B) = \mu(A) \cdot \nu(B)\)를 만족하는 \(\mathcal{A} \otimes \mathcal{B}\) 위의 유일한 측도이다.
+</div>
+
+<div class="theorem"><span class="env-label">Theorem 11.5 (Tonelli's Theorem)</span>
+\(\mu\)와 \(\nu\)가 sigma-유한이고, \(f: X \times Y \to [0, \infty]\)가 \(\mathcal{A} \otimes \mathcal{B}\)에 대해 가측이면,
+$$ \int_{X \times Y} f\, d(\mu \otimes \nu) = \int_X \left(\int_Y f(x,y)\, d\nu(y)\right) d\mu(x) = \int_Y \left(\int_X f(x,y)\, d\mu(x)\right) d\nu(y). $$
+</div>
+
+<div class="theorem"><span class="env-label">Theorem 11.6 (Fubini's Theorem)</span>
+\(f \in L^1(X \times Y, \mu \otimes \nu)\)이면, 반복 적분이 존재하고 서로 같다:
+$$ \int_{X \times Y} f\, d(\mu \otimes \nu) = \int_X \left(\int_Y f(x,y)\, d\nu(y)\right) d\mu(x) = \int_Y \left(\int_X f(x,y)\, d\mu(x)\right) d\nu(y). $$
+실용적 절차: 먼저 \(|f|\)에 토넬리 정리를 적용하여 적분 가능성을 확인한 뒤, \(f\)에 푸비니 정리를 적용한다.
+</div>
+
+<div class="example"><span class="env-label">Example 11.6</span>
+\(\int_0^1 \int_0^1 \frac{x^2 - y^2}{(x^2 + y^2)^2}\, dx\, dy\)를 계산하자. 적분 순서에 따라 반복 적분은 서로 다른 값(\(\pi/4\)와 \(-\pi/4\))을 준다. 이는 푸비니 정리에 모순되지 않는데,
+$$ \int_0^1 \int_0^1 \frac{|x^2 - y^2|}{(x^2 + y^2)^2}\, dx\, dy = +\infty $$
+이므로 \(f \notin L^1\)이고 푸비니 정리의 가정이 충족되지 않기 때문이다.
+</div>
+
+<div class="example"><span class="env-label">Example 11.7 (Fubini 정리 활용: 적분 순서 교환)</span>
+적분 \(\int_0^1 \int_x^1 e^{y^2}\, dy\, dx\)를 계산하자. 내부 적분 \(\int_x^1 e^{y^2}\, dy\)는 초등함수로 표현할 수 없다. 그러나 적분 순서를 바꾸면 계산이 가능하다.
+
+<p>적분 영역은 \(\{(x,y) : 0 \leq x \leq 1,\; x \leq y \leq 1\} = \{(x,y) : 0 \leq y \leq 1,\; 0 \leq x \leq y\}\)이다. 피적분함수 \(e^{y^2} \geq 0\)이므로 토넬리 정리에 의해 적분 순서를 자유롭게 교환할 수 있다:</p>
+$$
+\int_0^1 \int_x^1 e^{y^2}\, dy\, dx = \int_0^1 \int_0^y e^{y^2}\, dx\, dy = \int_0^1 y \, e^{y^2}\, dy = \left[\frac{1}{2}e^{y^2}\right]_0^1 = \frac{e - 1}{2}.
+$$
+<p>핵심은 적분 영역의 그림을 그려 \(x\)와 \(y\)의 범위를 재설정하는 것이다. 이 기법은 초등함수로 닫히지 않는 적분을 다룰 때 빈번하게 사용된다.</p>
+</div>
+
+<div class="example"><span class="env-label">Example 11.8 (Fubini/Tonelli를 이용한 기댓값 공식)</span>
+비음 확률변수 \(X\)에 대해 기댓값의 "꼬리 합" 공식을 Tonelli 정리로 증명하자:
+$$ E[X] = \int_0^\infty P(X > t)\, dt. $$
+
+<p>\((\Omega, \mathcal{F}, P)\)를 확률 공간이라 하자. \(X: \Omega \to [0,\infty)\)가 가측이면,</p>
+$$
+E[X] = \int_\Omega X(\omega)\, dP(\omega) = \int_\Omega \int_0^{X(\omega)} 1\, dt\, dP(\omega) = \int_\Omega \int_0^\infty \mathbf{1}_{\{t < X(\omega)\}}\, dt\, dP(\omega).
+$$
+<p>피적분함수 \(\mathbf{1}_{\{t < X(\omega)\}} \geq 0\)이고 두 측도 \(P\)와 Lebesgue 측도 \(m\)이 모두 sigma-유한이므로 Tonelli 정리를 적용할 수 있다:</p>
+$$
+= \int_0^\infty \int_\Omega \mathbf{1}_{\{X(\omega) > t\}}\, dP(\omega)\, dt = \int_0^\infty P(X > t)\, dt.
+$$
+<p>이 공식은 확률론에서 기댓값 계산에 광범위하게 활용된다. 예를 들어, \(X \sim \text{Exp}(\lambda)\)이면 \(P(X > t) = e^{-\lambda t}\)이므로 \(E[X] = \int_0^\infty e^{-\lambda t}\, dt = 1/\lambda\)를 즉시 얻는다.</p>
+</div>
+
+<div class="remark"><span class="env-label">Remark 11.1 (수렴정리 선택 기준)</span>
+수렴정리의 적용에서 가장 흔한 실수는 적절한 정리를 선택하지 않는 것이다. 실용적인 기준을 정리하면:
+<ul>
+  <li><strong>MCT:</strong> \(f_n \geq 0\)이 단조증가할 때. 비음 급수의 항별 적분에 사용. 극한이 무한이어도 적용 가능.</li>
+  <li><strong>DCT:</strong> \(|f_n| \leq g \in L^1\)인 적분 가능한 우함수를 찾을 수 있을 때. 부호가 바뀌는 함수열에서 가장 일반적으로 사용.</li>
+  <li><strong>Fatou 보조정리:</strong> DCT의 조건을 만족하지 않지만, 하한(lower bound)만 필요할 때. 부등호 방향에 유의.</li>
+</ul>
+매개변수 적분 \(F(t) = \int f(x, t)\, d\mu(x)\)의 연속성/미분 가능성을 보이는 데에도 DCT가 표준 도구이다.
+</div>
+
+<div class="remark"><span class="env-label">Remark 11.2 (Fubini vs. Tonelli 사용법)</span>
+적분 순서 교환 문제에서의 표준 절차:
+<ol>
+  <li>\(f \geq 0\)이면 Tonelli 정리를 직접 적용한다(적분 가능성 확인 불필요).</li>
+  <li>\(f\)가 부호를 가지면, 먼저 \(|f|\)에 Tonelli를 적용하여 \(\int |f|\, d(\mu \otimes \nu) < \infty\)를 확인한다.</li>
+  <li>적분 가능성이 확인되면 Fubini 정리를 적용하여 순서를 교환한다.</li>
+</ol>
+이 절차를 생략하고 바로 적분 순서를 바꾸면, Example 11.6에서 본 것처럼 잘못된 결과를 얻을 수 있다.
+</div>
+
+<p class="source-note"><em>Sources: MIT 18.103 (Measure Theory), NPTEL Measure and Integration.</em></p>
+</section>
+
+
+<!-- ============================================================
+     SECTION 12: FOURIER ANALYSIS
+     ============================================================ -->
+
+<details class="video-resources">
+<summary>추천 영상 강의 (원본 소스 기반)</summary>
+<ul>
+<li><a href="http://nptel.ac.in/courses/111101005/" target="_blank">Measure and Integration — NPTEL IIT Bombay</a></li>
+</ul>
+</details>
+
+<details class="video-resources">
+<summary>추천 교재 &amp; 오픈 자료</summary>
+<ul>
+<li><a href="https://measure.axler.net/" target="_blank">Measure, Integration &amp; Real Analysis (Axler)</a> — Springer Open Access 무료 교재</li>
+<li><a href="https://terrytao.wordpress.com/books/an-introduction-to-measure-theory/" target="_blank">An Introduction to Measure Theory (Tao)</a> — 블로그 기반 강의노트</li>
+<li>Folland, <em>Real Analysis: Modern Techniques and Their Applications</em> — 대학원 표준 교재</li>
+<li>Royden &amp; Fitzpatrick, <em>Real Analysis</em> — 르베그 측도와 적분</li>
+<li>Halmos, <em>Measure Theory</em> — GTM, 측도론의 고전</li>
+<li>Bartle, <em>The Elements of Integration and Lebesgue Measure</em> — 간결한 입문</li>
+</ul>
+</details>
+

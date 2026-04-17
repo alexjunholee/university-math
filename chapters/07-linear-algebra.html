@@ -1,0 +1,1343 @@
+<h2 id="linear-algebra">7. Linear Algebra</h2>
+
+<p>선형대수는 선형 연립방정식을 푸는 문제에서 출발했다. Gauss 소거법이라는 구체적 알고리즘에서 시작해, 벡터 공간이라는 추상적 구조로 발전했다. 이 장에서는 그 여정을 따라간다: 먼저 벡터와 행렬의 연산을 정의하고, 소거법으로 연립방정식을 풀고, 그 과정에서 벡터 공간·부분공간·차원의 개념에 도달한다.</p>
+
+<p>선형대수는 현대 공학에서 폭넓게 쓰인다. 키르히호프 법칙(Kirchhoff's law)에 의한 전기 회로 해석, 유한요소법(FEM)에 의한 구조물 응력 계산은 결국 대규모 연립방정식 \( A\mathbf{x} = \mathbf{b} \)를 푸는 문제이다. 고유값(eigenvalue)은 건축물의 고유진동 모드 분석, 양자역학의 에너지 준위 계산, Google PageRank 알고리즘에 쓰인다. 특이값 분해(SVD)는 이미지 압축, 추천 시스템, 자연어 처리의 기반 기술이며, 최소제곱법(least squares)은 GPS 위치 결정, 센서 융합(sensor fusion), 실험 데이터 회귀 분석에 매일 사용된다. 이렇게 적용 범위가 넓은 이유는, "여러 물리량을 하나의 객체(벡터)로 묶고, 그들 사이의 선형 관계를 행렬로 표현한다"는 구조가 보편적이기 때문이다.</p>
+
+<p>
+  선형대수학(linear algebra)은 벡터, 행렬, 선형 변환을 다루는 학문이다.
+  연립일차방정식, vector space(벡터 공간), eigenvalue(고유값) 문제, 행렬 분해 등을 위한 언어와 계산 체계를 제공한다.
+  본 절의 구성은 MIT 18.06 (Strang) 강의를 따른다.
+</p>
+
+<!-- ============================================================ -->
+<h3 id="vectors-matrices">7.1 Vectors and Matrices</h3>
+<!-- ============================================================ -->
+
+<p>벡터가 왜 필요한가? 3차원 공간에서 힘, 속도, 전기장은 크기와 방향을 가지므로 단일 숫자로는 기술할 수 없다. \( n \)개의 물리량을 하나의 수학적 객체로 묶어 다루는 것이 벡터이고, 벡터들 사이의 선형 관계를 간결하게 표현하는 것이 행렬이다. 행렬-벡터 곱 \( A\mathbf{x} \)는 "시스템 \( A \)에 입력 \( \mathbf{x} \)를 넣었을 때의 출력"으로 읽을 수 있으며, 이 관점은 회로, 제어 시스템, 컴퓨터 그래픽스의 좌표 변환에 그대로 적용된다.</p>
+
+<div class="definition">
+  <span class="env-label">Definition 7.1 (Vector in \(\mathbb{R}^n\))</span>
+  \(\mathbb{R}^n\)에서의 <strong>벡터</strong>는 실수 \(n\)개의 순서쌍으로, 열(column)로 표기한다:
+  $$
+    \mathbf{x} = \begin{pmatrix} x_1 \\ x_2 \\ \vdots \\ x_n \end{pmatrix} \in \mathbb{R}^n.
+  $$
+</div>
+
+<div class="definition">
+  <span class="env-label">Definition 7.2 (Linear Combination)</span>
+  벡터 \(\mathbf{v}_1, \ldots, \mathbf{v}_k \in \mathbb{R}^n\)와 스칼라 \(c_1, \ldots, c_k \in \mathbb{R}\)가 주어졌을 때,
+  \(c_1 \mathbf{v}_1 + c_2 \mathbf{v}_2 + \cdots + c_k \mathbf{v}_k\)를 벡터 \(\mathbf{v}_i\)의 <strong>일차결합(linear combination)</strong>이라 한다.
+</div>
+
+<div class="definition">
+  <span class="env-label">Definition 7.3 (Matrix)</span>
+  \(m \times n\) <strong>행렬</strong> \(A\)는 \(m\)개의 행과 \(n\)개의 열을 갖는 실수의 직사각 배열이다.
+  \(a_{ij}\)는 \(i\)행 \(j\)열의 성분을 나타낸다.
+</div>
+
+<h4>행렬&ndash;벡터 곱</h4>
+
+<p>
+  \(A\)가 \(m \times n\)이고 \(\mathbf{x} \in \mathbb{R}^n\)이면, 곱 \(A\mathbf{x}\)는 \(\mathbb{R}^m\)의 벡터이다.
+  두 가지 동치인 관점이 있다:
+</p>
+<ul>
+  <li><strong>행(row) 관점.</strong> \(A\mathbf{x}\)의 각 성분은 \(A\)의 행과 \(\mathbf{x}\)의 내적이다:
+    \((A\mathbf{x})_i = \sum_{k=1}^{n} a_{ik} x_k\).</li>
+  <li><strong>열(column) 관점.</strong> \(A\mathbf{x}\)는 \(A\)의 열들의 일차결합이다:
+    \(A\mathbf{x} = x_1 \mathbf{a}_1 + x_2 \mathbf{a}_2 + \cdots + x_n \mathbf{a}_n\).</li>
+</ul>
+
+<h4>행렬&ndash;행렬 곱</h4>
+
+<p>
+  \(A\)가 \(m \times n\)이고 \(B\)가 \(n \times p\)이면, \(C = AB\)는 \(m \times p\)이며 다음과 같다:
+</p>
+$$
+  c_{ij} = \sum_{k=1}^{n} a_{ik}\, b_{kj}.
+$$
+<p>\(AB\)를 생각하는 네 가지 방법:</p>
+<ol>
+  <li><strong>내적:</strong> \(c_{ij}\) = (\(A\)의 행 \(i\)) \(\cdot\) (\(B\)의 열 \(j\)).</li>
+  <li><strong>열:</strong> \(C\)의 열 \(j\) = \(A\) 곱하기 \(B\)의 열 \(j\).</li>
+  <li><strong>행:</strong> \(C\)의 행 \(i\) = (\(A\)의 행 \(i\)) 곱하기 \(B\).</li>
+  <li><strong>열 \(\times\) 행:</strong> \(AB = \sum_{k=1}^{n}(\text{col } k \text{ of } A)(\text{row } k \text{ of } B)\).</li>
+</ol>
+<p>행렬 곱은 결합법칙이 성립하지만&mdash;\(A(BC)=(AB)C\)&mdash;일반적으로 교환법칙은 성립하지 <em>않는다</em>.</p>
+
+<h4>전치(Transpose)</h4>
+
+<p>전치 연산은 행과 열을 교환하는 단순한 조작이지만, 대칭행렬(\(A^T = A\))의 정의부터 최소제곱법의 정규방정식 \(A^T A \hat{\mathbf{x}} = A^T \mathbf{b}\)까지 선형대수 전반에서 등장한다.</p>
+
+<div class="definition">
+  <span class="env-label">Definition 7.4 (Transpose)</span>
+  \(m \times n\) 행렬 \(A\)의 <strong>전치행렬</strong>은 \(n \times m\) 행렬 \(A^T\)로,
+  \((A^T)_{ij} = a_{ji}\)로 정의된다.
+  \(A^T = A\)인 행렬을 <strong>대칭행렬(symmetric matrix)</strong>이라 한다.
+</div>
+
+<div class="theorem">
+  <span class="env-label">Theorem 7.1 (Transpose of a product)</span>
+  적합한 크기의 행렬 \(A\)와 \(B\)에 대해,
+  $$(AB)^T = B^T A^T.$$
+</div>
+
+<div class="theorem">
+  <span class="env-label">Theorem 7.2 (\(R^T R\) is symmetric)</span>
+  임의의 행렬 \(R\) (정방행렬일 필요 없음)에 대해, 곱 \(R^T R\)은 대칭이다:
+  \((R^T R)^T = R^T (R^T)^T = R^T R\).
+</div>
+
+<h4>역행렬(Inverse)</h4>
+
+<p>연립방정식 \(A\mathbf{x} = \mathbf{b}\)에서 \(A\)가 가역이면 해는 \(\mathbf{x} = A^{-1}\mathbf{b}\)로 유일하게 결정된다. 가역성은 시스템이 "완전히 결정된" 상태인지 아닌지를 판별하는 기준이며, 행렬식(determinant)이 0이 아닌 것과 동치이다.</p>
+
+<div class="definition">
+  <span class="env-label">Definition 7.5 (Invertible matrix)</span>
+  정방행렬 \(A\)가 <strong>가역(invertible)</strong> (비특이, nonsingular)이란 \(A^{-1}A = I = A A^{-1}\)을 만족하는 행렬 \(A^{-1}\)이 존재함을 뜻한다.
+  가역이 아닌 행렬을 <strong>특이행렬(singular)</strong>이라 한다.
+</div>
+
+<p>\(\det A = ad - bc \neq 0\)인 \(2 \times 2\) 행렬의 경우:</p>
+$$
+  \begin{pmatrix} a & b \\ c & d \end{pmatrix}^{-1}
+  = \frac{1}{ad - bc}\begin{pmatrix} d & -b \\ -c & a \end{pmatrix}.
+$$
+
+<div class="theorem">
+  <span class="env-label">Theorem 7.3 (Inverse of a product)</span>
+  \(A\)와 \(B\)가 가역이면, \((AB)^{-1} = B^{-1}A^{-1}\)이다.
+</div>
+
+<div class="theorem">
+  <span class="env-label">Theorem 7.4 (Inverse via cofactors)</span>
+  \(A\)가 가역이면,
+  $$A^{-1} = \frac{1}{\det A}\, C^T,$$
+  여기서 \(C\)는 \(A\)의 여인자(cofactor) 행렬이다.
+</div>
+
+<div class="example">
+  <span class="env-label">Example 7.1</span>
+  \(A = \begin{pmatrix} 1 & 3 \\ 2 & 7 \end{pmatrix}\)의 역행렬을 구하라.
+  <br><br>
+  Gauss&ndash;Jordan 소거법을 사용하여 \([A \mid I]\)를 확대 행렬로 만들고 기약행 사다리꼴로 변환한다:
+  $$
+    \begin{pmatrix} 1 & 3 & 1 & 0 \\ 2 & 7 & 0 & 1 \end{pmatrix}
+    \;\longrightarrow\;
+    \begin{pmatrix} 1 & 0 & 7 & -3 \\ 0 & 1 & -2 & 1 \end{pmatrix}.
+  $$
+  따라서 \(A^{-1} = \begin{pmatrix} 7 & -3 \\ -2 & 1 \end{pmatrix}\)이다.
+</div>
+
+<h4>치환행렬(Permutation matrices)</h4>
+
+<p>
+  치환행렬 \(P\)는 단위행렬의 행을 재배열하여 얻는다.
+  \(PA\)는 \(A\)의 행을 교환하고, \(AP\)는 열을 교환한다.
+  치환행렬의 역행렬은 전치와 같다: \(P^{-1} = P^T\).
+</p>
+
+<h4>Determinant(행렬식)의 성질</h4>
+
+<p>정방행렬의 determinant(행렬식) \(\det A\)는 세 가지 공리로 특성화된다:</p>
+<ol>
+  <li>\(\det I = 1\).</li>
+  <li>두 행을 교환하면 \(\det A\)의 부호가 바뀐다.</li>
+  <li>determinant(행렬식)은 각 행에 대해 개별적으로 선형이다.</li>
+</ol>
+<p>주요 결과:</p>
+<ul>
+  <li>두 행이 같으면 \(\det A = 0\)이다.</li>
+  <li>\(\det A = 0\)인 것은 \(A\)가 특이행렬인 것과 동치이다.</li>
+  <li>삼각행렬에서 \(\det A = \) 대각 성분의 곱이다.</li>
+  <li>\(\det(AB) = (\det A)(\det B)\).</li>
+  <li>\(\det A^T = \det A\).</li>
+  <li>\(|\det A|\)는 \(A\)의 열(또는 행)이 이루는 평행육면체의 부피와 같다.</li>
+</ul>
+
+<p class="source-tag">[Source: MIT 18.06SC, Sessions 1.1&ndash;1.4, 2.4&ndash;2.7]</p>
+
+<details class="video-resources">
+<summary>추천 영상 강의 (원본 소스 기반)</summary>
+<ul>
+<li><a href="https://ocw.mit.edu/courses/mathematics/18-06sc-linear-algebra-fall-2011/" target="_blank">18.06SC Linear Algebra — MIT OCW (Gilbert Strang)</a></li>
+<li><a href="https://www.youtube.com/playlist?list=PLGqzsq0erqU7w7ZrTZ-pWWk4-AOkiGEGp" target="_blank">Linear Algebra — Princeton</a></li>
+<li><a href="https://www.youtube.com/course?list=EC44B6B54CBF6A72DF" target="_blank">A First Course in Linear Algebra — N.J. Wildberger (UNSW)</a></li>
+<li><a href="https://www.youtube.com/playlist?list=PL7RK4EsMAcJJ5XWkPJi-CyY_ABx_gIKR9" target="_blank">MATH 461 Linear Algebra for Scientists and Engineers — U. of Maryland</a></li>
+<li><a href="https://www.youtube.com/playlist?list=PL7RK4EsMAcJLL-sTuDoIetoxYnyqCDWmG" target="_blank">MATH 401 Applications of Linear Algebra — U. of Maryland</a></li>
+<li><a href="https://www.youtube.com/playlist?list=PLlXfTHzgMRUKXD88IdzS14F4NxAZudSmv" target="_blank">Linear Algebra In-Depth Introduction (Parts 1-3)</a></li>
+<li><a href="https://www.youtube.com/playlist?list=PLS3WLIIQXmMJ2bO_YS1r0UFW2XRRGqUUL" target="_blank">Math 312 Linear Algebra — UPenn</a></li>
+<li><a href="http://nptel.ac.in/courses/111108066/" target="_blank">Advanced Matrix Theory and Linear Algebra — NPTEL IISC Bangalore</a></li>
+<li><a href="http://nptel.ac.in/courses/111106051/" target="_blank">Linear Algebra — NPTEL IIT Madras</a></li>
+<li><a href="https://see.stanford.edu/Course/EE263" target="_blank">EE263 Intro to Linear Dynamical Systems — Stanford</a></li>
+</ul>
+</details>
+
+<details class="video-resources">
+<summary>추천 교재 &amp; 오픈 자료</summary>
+<ul>
+<li><a href="https://math.mit.edu/~gs/linearalgebra/ila6/indexila6.html" target="_blank">Introduction to Linear Algebra (Strang) — 공식 사이트</a></li>
+<li><a href="https://hefferon.net/linearalgebra/" target="_blank">Linear Algebra (Hefferon)</a> — 무료 교재 PDF</li>
+<li><a href="https://linear.axler.net/" target="_blank">Linear Algebra Done Right (Axler)</a> — Springer Open Access</li>
+<li>Hoffman &amp; Kunze, <em>Linear Algebra</em> — 추상적 벡터공간 중심의 고전</li>
+<li>Friedberg, Insel &amp; Spence, <em>Linear Algebra</em> — 증명과 계산의 균형</li>
+<li>Horn &amp; Johnson, <em>Matrix Analysis</em> — 행렬 이론 심화 레퍼런스</li>
+</ul>
+</details>
+
+<!-- ============================================================ -->
+<h3 id="linear-systems">7.2 Systems of Linear Equations</h3>
+<!-- ============================================================ -->
+
+<p>연립방정식을 푸는 것은 선형대수의 가장 기본적이고 실용적인 문제이다. 키르히호프 법칙을 적용하면 회로의 각 루프와 노드에서 전류와 전압에 대한 연립방정식이 나오고, 구조역학에서 트러스(truss)의 각 절점에 힘의 평형 조건을 세우면 역시 연립방정식이 된다. Gauss 소거법은 이러한 연립방정식을 체계적으로 푸는 알고리즘이며, 컴퓨터에서 수천 개의 미지수를 가진 시스템을 풀 때에도 기본 연산은 Gauss 소거법이다.</p>
+
+<p>
+  선형대수학의 기본 문제: \(m \times n\) 행렬 \(A\)와 벡터 \(\mathbf{b} \in \mathbb{R}^m\)가 주어졌을 때,
+  다음을 풀어라.
+  $$A\mathbf{x} = \mathbf{b}.$$
+</p>
+
+<h4>가우스 소거법(Gaussian elimination)</h4>
+
+<div class="definition">
+  <span class="env-label">Definition 7.6 (Pivot)</span>
+  소거 과정에서 <strong>피벗(pivot)</strong>이란 현재 행렬의 한 행에서 그 아래(및 이후 위)의 성분을 소거하는 데 사용되는
+  첫 번째 영이 아닌 성분을 말한다.
+  피벗 위치에 0이 나타나면 행 교환을 수행한다.
+</div>
+
+<p>
+  소거법은 행 연산(한 행의 배수를 다른 행에서 빼는 것)을 통해 \(A\)를 상삼각행렬 \(U\)로 변환한다.
+  동일한 연산을 \(\mathbf{b}\)에 적용하면 벡터 \(\mathbf{c}\)가 되고,
+  \(U\mathbf{x} = \mathbf{c}\)를 <strong>후진 대입(back substitution)</strong>으로 풀 수 있다.
+</p>
+
+<div class="example">
+  <span class="env-label">Example 7.2</span>
+  \(A = \begin{pmatrix} 1 & 2 & 1 \\ 3 & 8 & 1 \\ 0 & 4 & 1 \end{pmatrix}\),
+  \(\mathbf{b} = \begin{pmatrix} 2 \\ 12 \\ 2 \end{pmatrix}\)일 때
+  \(A\mathbf{x} = \mathbf{b}\)를 풀어라.
+  <br><br>
+  소거(피벗 1, 2, 5)를 수행하면
+  \(U = \begin{pmatrix} 1 & 2 & 1 \\ 0 & 2 & -2 \\ 0 & 0 & 5 \end{pmatrix}\),
+  \(\mathbf{c} = \begin{pmatrix} 2 \\ 6 \\ -10 \end{pmatrix}\)을 얻는다.
+  후진 대입: \(z = -2\), \(y = 1\), \(x = 2\).
+</div>
+
+<h4>소거 행렬과 LU 분해</h4>
+
+<p>
+  각 소거 단계는 <em>소거 행렬(elimination matrix)</em> \(E_{ij}\)의 좌곱에 해당한다.
+  행 교환이 필요 없는 경우,
+</p>
+$$
+  E_{32}\, E_{31}\, E_{21}\, A = U
+  \quad\Longrightarrow\quad
+  A = \underbrace{E_{21}^{-1} E_{31}^{-1} E_{32}^{-1}}_{L}\; U = LU.
+$$
+
+<div class="theorem">
+  <span class="env-label">Theorem 7.5 (LU factorization)</span>
+  행 교환 없이 \(A\)를 상삼각형 \(U\)로 변환할 수 있으면,
+  \(A = LU\)가 성립한다. 여기서 \(L\)은 대각 성분이 1인 하삼각행렬이고,
+  대각 아래 성분은 소거 과정의 승수(multiplier)이다.
+  일반적으로 행 교환을 반영하는 치환행렬 \(P\)를 포함하여 \(PA = LU\)로 쓴다.
+</div>
+
+<p>
+  \(n \times n\) 행렬에 대한 소거법의 연산량은 약 \(\tfrac{1}{3}n^3\)이다.
+</p>
+
+<h4>사다리꼴과 RREF</h4>
+
+<div class="definition">
+  <span class="env-label">Definition 7.7 (Reduced row echelon form)</span>
+  행렬이 <strong>기약행 사다리꼴(reduced row echelon form, RREF)</strong>에 있다 함은 다음을 의미한다:
+  <ol>
+    <li>모든 피벗이 1이다.</li>
+    <li>피벗은 해당 열에서 유일한 영이 아닌 성분이다.</li>
+    <li>각 피벗은 윗 행의 피벗보다 오른쪽에 있다.</li>
+    <li>모든 성분이 0인 행은 아래에 위치한다.</li>
+  </ol>
+  피벗 열을 앞에 배치하면 RREF는 블록 구조
+  \(R = \begin{pmatrix} I & F \\ 0 & 0 \end{pmatrix}\)를 갖는다.
+</div>
+
+<h4>풀이 가능성과 완전해</h4>
+
+<div class="theorem">
+  <span class="env-label">Theorem 7.6 (Solvability of \(A\mathbf{x} = \mathbf{b}\))</span>
+  연립방정식 \(A\mathbf{x} = \mathbf{b}\)가 풀이 가능한 것은 \(\mathbf{b}\)가 \(A\)의 column space(열공간)에 속하는 것과 동치이다.
+  동치 조건으로, \(A\)의 행들의 일차결합이 영 행을 줄 때 \(\mathbf{b}\) 성분의 같은 결합도 0이어야 한다.
+</div>
+
+<p><strong>완전해</strong>는 다음과 같다:</p>
+$$
+  \mathbf{x} = \mathbf{x}_p + \mathbf{x}_n,
+$$
+<p>
+  여기서 \(\mathbf{x}_p\)는 임의의 <em>특수해</em> (자유 변수를 0으로 놓아 구함)이고,
+  \(\mathbf{x}_n\)은 null space(영공간) \(N(A)\)의 일반 원소이다.
+</p>
+
+<div class="theorem">
+  <span class="env-label">Theorem 7.7 (Solution count by rank)</span>
+  \(A\)가 rank(계수) \(r\)인 \(m \times n\) 행렬일 때,
+  <ul>
+    <li>\(r = m = n\): 모든 \(\mathbf{b}\)에 대해 유일한 해가 존재한다.</li>
+    <li>\(r = n < m\): 해가 0개 또는 1개이다.</li>
+    <li>\(r = m < n\): 모든 \(\mathbf{b}\)에 대해 무한히 많은 해가 존재한다.</li>
+    <li>\(r < m\)이고 \(r < n\): 해가 0개 또는 무한히 많다.</li>
+  </ul>
+</div>
+
+<div class="example">
+  <span class="env-label">Example 7.3</span>
+  \(A = \begin{pmatrix} 1 & 2 & 2 & 2 \\ 2 & 4 & 6 & 8 \\ 3 & 6 & 8 & 10 \end{pmatrix}\)일 때,
+  rank(계수) \(r = 2\), 피벗 열은 1, 3번째이고, 자유 변수는 \(x_2, x_4\)이다.
+  <br><br>
+  RREF: \(R = \begin{pmatrix} 1 & 2 & 0 & -2 \\ 0 & 0 & 1 & 2 \\ 0 & 0 & 0 & 0 \end{pmatrix}\).
+  <br><br>
+  특수해 (null space(영공간) 기저): 자유 변수 하나를 1로, 나머지를 0으로 놓는다.
+  $$
+    \mathbf{x}_1 = \begin{pmatrix} -2\\1\\0\\0 \end{pmatrix}, \qquad
+    \mathbf{x}_2 = \begin{pmatrix} 2\\0\\-2\\1 \end{pmatrix}.
+  $$
+  null space(영공간) \(N(A)\)의 차원은 \(n - r = 4 - 2 = 2\)이다.
+</div>
+
+<h4>크래머 법칙(Cramer's rule)</h4>
+
+<div class="theorem">
+  <span class="env-label">Theorem 7.8 (Cramer's rule)</span>
+  \(A\)가 가역인 \(n \times n\) 행렬이면, \(A\mathbf{x} = \mathbf{b}\)의 해는 다음과 같다.
+  $$x_j = \frac{\det B_j}{\det A},$$
+  여기서 \(B_j\)는 \(A\)의 \(j\)번째 열을 \(\mathbf{b}\)로 대체한 행렬이다.
+</div>
+
+<p class="source-tag">[Source: MIT 18.06SC, Sessions 1.2&ndash;1.8, 2.7]</p>
+
+
+<p>Gaussian 소거법은 해를 찾는 실용적 도구이다. 그런데 해가 '어디에 사는지'를 이해하려면 더 추상적인 틀이 필요하다. 이것이 벡터 공간이다. 소거법의 결과를 해석하면 — pivot 열은 독립인 방향을 나타내고, free variable은 해 공간의 차원을 결정한다 — 벡터 공간의 개념으로 이어진다.</p>
+
+<!-- ============================================================ -->
+<h3 id="vector-spaces">7.3 Vector Spaces</h3>
+<!-- ============================================================ -->
+
+<p>소거법은 특정 연립방정식의 해를 찾는 도구이다. 그런데 "해 전체가 어떤 구조를 이루는가?"라는 더 깊은 질문에 답하려면, 벡터 공간(vector space)이라는 추상적 틀이 필요하다. 연립방정식 \( A\mathbf{x} = \mathbf{0} \)의 해 전체(null space)가 벡터 공간을 이루고, 그 차원이 자유 변수의 수와 일치한다는 사실은, 해의 구조를 기저(basis) 몇 개로 완전히 기술할 수 있음을 의미한다. 이 추상화는 신호 처리에서 신호 공간, 양자역학에서 상태 공간, 통계학에서 모델 공간 등으로 확장되며, "선형 구조를 가진 모든 대상"에 같은 도구를 적용할 수 있게 해준다.</p>
+
+<div class="definition">
+  <span class="env-label">Definition 7.8 (Vector space)</span>
+  <strong>Vector space(벡터 공간)</strong>란 덧셈과 스칼라 곱(일차결합)에 대해 닫혀 있으며
+  통상적인 공리(결합법칙, 덧셈의 교환법칙, 영벡터의 존재 등)를 만족하는 대상(벡터)들의 모임이다.
+</div>
+
+<div class="definition">
+  <span class="env-label">Definition 7.9 (Subspace)</span>
+  Vector space(벡터 공간) \(V\)의 <strong>부분공간(subspace)</strong>은 그 자체가 vector space(벡터 공간)인
+  공집합이 아닌 부분집합 \(S \subseteq V\)이다. 일차결합에 대해 닫혀 있어야 한다.
+  모든 부분공간은 영벡터를 포함해야 한다.
+</div>
+
+<p>
+  \(\mathbb{R}^2\)의 부분공간은: \(\mathbb{R}^2\) 자체, 원점을 지나는 직선, 그리고 \(\{\mathbf{0}\}\)이다.
+  \(\mathbb{R}^3\)의 부분공간은: \(\mathbb{R}^3\) 자체, 원점을 지나는 평면,
+  원점을 지나는 직선, 그리고 \(\{\mathbf{0}\}\)이다.
+</p>
+
+<h4>일차독립, 생성, 기저, 차원</h4>
+
+<div class="definition">
+  <span class="env-label">Definition 7.10 (Linear independence)</span>
+  벡터 \(\mathbf{v}_1, \ldots, \mathbf{v}_k\)가 <strong>일차독립(linearly independent)</strong>이란
+  \(c_1 \mathbf{v}_1 + \cdots + c_k \mathbf{v}_k = \mathbf{0}\)이면 \(c_1 = c_2 = \cdots = c_k = 0\)임을 뜻한다.
+  벡터들이 행렬 \(A\)의 열일 때, 독립이란 \(N(A) = \{\mathbf{0}\}\)을 의미한다.
+</div>
+
+<div class="definition">
+  <span class="env-label">Definition 7.11 (Span)</span>
+  벡터 \(\mathbf{v}_1, \ldots, \mathbf{v}_k\)가 공간 \(S\)를 <strong>생성(span)</strong>한다는 것은 \(S\)가 그 벡터들의
+  모든 일차결합으로 이루어짐을 의미한다.
+</div>
+
+<div class="definition">
+  <span class="env-label">Definition 7.12 (Basis and dimension)</span>
+  Vector space(벡터 공간) \(V\)의 <strong>기저(basis)</strong>는 일차독립이면서 \(V\)를 생성하는 벡터 집합이다.
+  \(V\)의 모든 기저는 같은 수의 벡터를 가지며, 이 수를 \(V\)의 <strong>차원(dimension)</strong>이라 한다.
+</div>
+
+<div class="theorem">
+  <span class="env-label">Theorem 7.9 (Basis from pivot columns)</span>
+  행렬 \(A\)의 피벗 열은 column space(열공간) \(C(A)\)의 기저를 이룬다.
+  \(\dim C(A) = r = \operatorname{rank}(A)\)이다.
+</div>
+
+<h4>네 가지 기본 부분공간</h4>
+
+<div class="definition">
+  <span class="env-label">Definition 7.13 (Four fundamental subspaces)</span>
+  rank(계수) \(r\)인 \(m \times n\) 행렬 \(A\)에 대해:
+  <ol>
+    <li><strong>Column space(열공간)</strong> \(C(A) \subseteq \mathbb{R}^m\): \(A\)의 열들의 모든 일차결합. 차원 \(r\).</li>
+    <li><strong>Null space(영공간)</strong> \(N(A) \subseteq \mathbb{R}^n\): \(A\mathbf{x} = \mathbf{0}\)의 모든 해. 차원 \(n - r\).</li>
+    <li><strong>행공간(Row space)</strong> \(C(A^T) \subseteq \mathbb{R}^n\): \(A\)의 행들의 모든 일차결합
+      (\(A^T\)의 column space(열공간)과 동일). 차원 \(r\).</li>
+    <li><strong>좌 null space(좌영공간, Left nullspace)</strong> \(N(A^T) \subseteq \mathbb{R}^m\): \(A^T\mathbf{y} = \mathbf{0}\)인 모든 \(\mathbf{y}\)
+      (\(\mathbf{y}^T A = \mathbf{0}^T\)와 동치). 차원 \(m - r\).</li>
+  </ol>
+</div>
+
+<div class="theorem">
+  <span class="env-label">Theorem 7.10 (Fundamental theorem of linear algebra, Part I)</span>
+  네 가지 기본 부분공간의 차원은 다음을 만족한다:
+  $$
+    \dim C(A) + \dim N(A) = n, \qquad \dim C(A^T) + \dim N(A^T) = m.
+  $$
+  \(r + (n - r) = n\)이고 \(r + (m - r) = m\)이다.
+</div>
+
+<div class="theorem">
+  <span class="env-label">Theorem 7.11 (Fundamental theorem of linear algebra, Part II)</span>
+  네 가지 부분공간은 직교 쌍을 이룬다:
+  <ul>
+    <li>행공간 \(C(A^T)\)과 null space(영공간) \(N(A)\)는 \(\mathbb{R}^n\)에서 직교 여공간이다.</li>
+    <li>Column space(열공간) \(C(A)\)과 좌 null space(좌영공간) \(N(A^T)\)는 \(\mathbb{R}^m\)에서 직교 여공간이다.</li>
+  </ul>
+</div>
+
+<div class="proof">
+  <span class="env-label">Proof</span>
+  \(\mathbf{x} \in N(A)\)이면 \(A\mathbf{x} = \mathbf{0}\)이므로, \(\mathbf{x}\)와 \(A\)의 모든 행의
+  내적이 0이다. 행공간의 모든 벡터는 \(A\)의 행들의 결합이므로, \(\mathbf{x}\)는 행공간 전체에 직교한다.
+  차원의 합이 \(n\)이므로, 이들은 단순히 직교인 부분공간이 아닌 직교 여공간이다.
+  Column space(열공간)/좌 null space(좌영공간) 쌍은 \(A^T\)에 같은 논증을 적용하여 얻는다.
+</div>
+
+<h4>Rank(계수)</h4>
+
+<div class="definition">
+  <span class="env-label">Definition 7.14 (Rank)</span>
+  행렬 \(A\)의 <strong>rank(계수)</strong>는 사다리꼴에서의 피벗 수이다.
+  동치로,
+  $$\operatorname{rank}(A) = \dim C(A) = \dim C(A^T).$$
+</div>
+
+<div class="theorem">
+  <span class="env-label">Theorem 7.12 (Rank of \(A^T A\))</span>
+  임의의 행렬 \(A\)에 대해,
+  \(N(A^T A) = N(A)\)이고 \(\operatorname{rank}(A^T A) = \operatorname{rank}(A)\)이다.
+  따라서 \(A^T A\)가 가역인 것은 \(A\)의 열이 독립인 것과 동치이다.
+</div>
+
+<div class="example">
+  <span class="env-label">Example 7.4</span>
+  \(A = \begin{pmatrix} 1 & 2 & 3 & 1 \\ 1 & 1 & 2 & 1 \\ 1 & 2 & 3 & 1 \end{pmatrix}\)로 놓자.
+  행 축소하면
+  \(R = \begin{pmatrix} 1 & 0 & 1 & 1 \\ 0 & 1 & 1 & 0 \\ 0 & 0 & 0 & 0 \end{pmatrix}\)을 얻는다.
+  <br><br>
+  <strong>Column space(열공간):</strong> 피벗 열 1, 2가 \(C(A)\)의 기저이다; \(\dim C(A) = 2\).<br>
+  <strong>Null space(영공간):</strong> \(\dim N(A) = 4 - 2 = 2\). 기저:
+  \(\begin{pmatrix}-1\\-1\\1\\0\end{pmatrix}\)과 \(\begin{pmatrix}-1\\0\\0\\1\end{pmatrix}\).<br>
+  <strong>행공간:</strong> \(R\)의 처음 2행이 기저이다; \(\dim C(A^T) = 2\).<br>
+  <strong>좌 null space(좌영공간):</strong> \(\dim N(A^T) = 3 - 2 = 1\). \(EA = R\)에서
+  \(E\)의 마지막 행이 기저 벡터를 준다.
+</div>
+
+<p class="source-tag">[Source: MIT 18.06SC, Sessions 1.5&ndash;1.11, 2.1]</p>
+
+
+<!-- ============================================================ -->
+<h3 id="eigenvalues">7.4 Eigenvalues and Eigenvectors</h3>
+<!-- ============================================================ -->
+
+<p>행렬에 의한 선형 변환은 일반적으로 벡터의 방향과 크기를 모두 변화시킨다. 그런데 특별한 방향이 존재하여, 그 방향의 벡터는 행렬에 의해 방향이 바뀌지 않고 크기만 스케일링되는 경우가 있다 — 이것이 고유벡터(eigenvector)이고, 스케일링 비율이 고유값(eigenvalue)이다. 공학적으로 고유값은 시스템의 고유한 특성을 나타낸다. 건물의 고유진동수, ODE 시스템의 안정성 지표, 주성분 분석(PCA)에서 데이터의 주요 변동 방향이 모두 고유값 문제로 귀결된다.</p>
+
+<div class="definition">
+  <span class="env-label">Definition 7.15 (Eigenvalue and eigenvector)</span>
+  \(A\)를 \(n \times n\) 행렬이라 하자. 영이 아닌 벡터 \(\mathbf{x}\)가 \(A\)의 <strong>eigenvector(고유벡터)</strong>이고
+  <strong>eigenvalue(고유값)</strong>가 \(\lambda\)라 함은 다음을 만족함을 뜻한다:
+  $$A\mathbf{x} = \lambda \mathbf{x}.$$
+  동치로, \(\mathbf{x} \in N(A - \lambda I)\)이고 \(\mathbf{x} \neq \mathbf{0}\)이다.
+</div>
+
+<h4>특성 다항식(Characteristic polynomial)</h4>
+
+<div class="theorem">
+  <span class="env-label">Theorem 7.13 (Characteristic equation)</span>
+  \(\lambda\)가 \(A\)의 eigenvalue(고유값)인 것과
+  $$\det(A - \lambda I) = 0$$
+  인 것은 동치이다.
+  이것은 \(\lambda\)에 대한 \(n\)차 다항식 (<strong>특성 다항식</strong>)이므로,
+  \(A\)는 중복도를 포함하여 정확히 \(n\)개의 eigenvalue(고유값)를 가진다 (\(\mathbb{C}\)에서).
+</div>
+
+<div class="theorem">
+  <span class="env-label">Theorem 7.14 (Trace and determinant)</span>
+  eigenvalue(고유값)가 \(\lambda_1, \ldots, \lambda_n\)인 \(n \times n\) 행렬 \(A\)에 대해:
+  $$\lambda_1 + \lambda_2 + \cdots + \lambda_n = \operatorname{tr}(A) = a_{11} + a_{22} + \cdots + a_{nn},$$
+  $$\lambda_1 \lambda_2 \cdots \lambda_n = \det A.$$
+</div>
+
+<div class="example">
+  <span class="env-label">Example 7.5</span>
+  \(A = \begin{pmatrix} 3 & 1 \\ 1 & 3 \end{pmatrix}\)로 놓자.
+  $$\det(A - \lambda I) = (3-\lambda)^2 - 1 = \lambda^2 - 6\lambda + 8 = (\lambda - 4)(\lambda - 2).$$
+  Eigenvalue(고유값): \(\lambda_1 = 4\), \(\lambda_2 = 2\).
+  Eigenvector(고유벡터): \(\mathbf{x}_1 = \begin{pmatrix}1\\1\end{pmatrix}\),
+  \(\mathbf{x}_2 = \begin{pmatrix}1\\-1\end{pmatrix}\).
+  <br><br>
+  확인: \(\operatorname{tr}(A) = 6 = 4 + 2\), \(\det A = 8 = 4 \cdot 2\).
+</div>
+
+<h4>대각화(Diagonalization)</h4>
+
+<p>대각화는 행렬을 고유벡터 기저에서 바라보는 것이다. 대각화된 행렬의 거듭제곱은 \(A^k = S\Lambda^k S^{-1}\)으로 즉시 계산되므로, 이산 동역학계(\(\mathbf{x}_{k+1} = A\mathbf{x}_k\))의 장기 거동을 고유값의 크기만으로 예측할 수 있다. 이 원리는 Google PageRank 알고리즘, 마르코프 체인(Markov chain)의 정상 분포 계산, 구조물의 진동 모드 분석에 직접 적용된다.</p>
+
+<div class="theorem">
+  <span class="env-label">Theorem 7.15 (Diagonalization)</span>
+  \(A\)가 \(n\)개의 일차독립인 eigenvector(고유벡터) \(\mathbf{x}_1, \ldots, \mathbf{x}_n\)를 가지면,
+  행렬 \(S = \begin{pmatrix} \mathbf{x}_1 & \cdots & \mathbf{x}_n \end{pmatrix}\)를 구성하자. 그러면
+  $$S^{-1}AS = \Lambda = \operatorname{diag}(\lambda_1, \ldots, \lambda_n),$$
+  또는 동치로 \(A = S\Lambda S^{-1}\)이다.
+</div>
+
+<p>
+  서로 다른 \(n\)개의 eigenvalue(고유값)를 갖는 행렬은 항상 대각화 가능하다.
+  중복 eigenvalue(고유값)를 갖는 행렬은 독립인 eigenvector(고유벡터)의 완전한 집합이 존재하느냐에 따라
+  대각화 가능할 수도, 불가능할 수도 있다.
+</p>
+
+<div class="theorem">
+  <span class="env-label">Theorem 7.16 (Powers of \(A\))</span>
+  \(A = S\Lambda S^{-1}\)이면, \(A^k = S\Lambda^k S^{-1}\)이다.
+  \(A^k \to 0\) (\(k \to \infty\))인 것은 모든 \(|\lambda_i| < 1\)인 것과 동치이다.
+</div>
+
+<h4>대칭 행렬(Symmetric matrices)</h4>
+
+<p>대칭 행렬(\(A = A^T\))은 물리학과 공학에서 가장 자주 등장하는 행렬 유형이다. 관성 텐서, 응력 텐서, 공분산 행렬(covariance matrix), 유한요소법의 강성 행렬(stiffness matrix)이 모두 대칭이다. 스펙트럼 정리(spectral theorem)에 의해 대칭 행렬은 항상 실수 고유값과 정규직교 고유벡터를 가지므로, 대각화가 보장되고 물리적 해석이 명료해진다.</p>
+
+<div class="theorem">
+  <span class="env-label">Theorem 7.17 (Spectral theorem for symmetric matrices)</span>
+  \(A = A^T\) (실대칭행렬)이면:
+  <ol>
+    <li>\(A\)의 모든 eigenvalue(고유값)는 실수이다.</li>
+    <li>\(A\)는 정규직교(orthonormal) eigenvector(고유벡터)의 완전한 집합을 갖는다.</li>
+    <li>\(A\)는 다음과 같이 분해된다:
+      $$A = Q\Lambda Q^T,$$
+      여기서 \(Q\)는 직교행렬 (\(Q^T Q = I\))이고 \(\Lambda\)는 대각행렬이다.
+    </li>
+  </ol>
+  이를 다음과 같이 쓸 수도 있다:
+  \(A = \lambda_1 \mathbf{q}_1 \mathbf{q}_1^T + \lambda_2 \mathbf{q}_2 \mathbf{q}_2^T + \cdots + \lambda_n \mathbf{q}_n \mathbf{q}_n^T\),
+  eigenvalue(고유값)로 스케일링된 rank(계수)-1 사영행렬의 합이다.
+</div>
+
+<div class="proof">
+  <span class="env-label">Proof</span> (Eigenvalue(고유값)가 실수임의 증명)
+  \(A\mathbf{x} = \lambda \mathbf{x}\)라 하자. 켤레를 취하면: \(A\bar{\mathbf{x}} = \bar{\lambda}\bar{\mathbf{x}}\)
+  (\(A\)의 성분이 실수이므로). 켤레 등식을 전치하면:
+  \(\bar{\mathbf{x}}^T A^T = \bar{\mathbf{x}}^T \bar{\lambda}\).
+  \(A = A^T\)이므로 오른쪽에 \(\mathbf{x}\)를 곱하면:
+  \(\bar{\mathbf{x}}^T A \mathbf{x} = \bar{\lambda}\, \bar{\mathbf{x}}^T \mathbf{x}\).
+  한편 \(\bar{\mathbf{x}}^T A \mathbf{x} = \bar{\mathbf{x}}^T \lambda \mathbf{x} = \lambda\, \bar{\mathbf{x}}^T \mathbf{x}\).
+  \(\bar{\mathbf{x}}^T \mathbf{x} = |\mathbf{x}|^2 > 0\)이므로 \(\lambda = \bar{\lambda}\)를 얻고, 따라서 \(\lambda\)는 실수이다.
+</div>
+
+<div class="example">
+  <span class="env-label">Example 7.6</span>
+  비대칭 행렬에서는 복소 eigenvalue(고유값)가 나타난다.
+  회전 행렬 \(Q = \begin{pmatrix} 0 & -1 \\ 1 & 0 \end{pmatrix}\)는
+  \(\det(Q - \lambda I) = \lambda^2 + 1 = 0\)이므로, eigenvalue(고유값)는 \(\lambda = \pm i\)이다.
+  실행렬의 복소 eigenvalue(고유값)는 항상 켤레 쌍으로 나타난다.
+</div>
+
+<p class="source-tag">[Source: MIT 18.06SC, Sessions 2.8&ndash;2.10, 3.1, 3.4]</p>
+
+
+<!-- ============================================================ -->
+<h3 id="svd">7.5 SVD and Applications</h3>
+<!-- ============================================================ -->
+
+<p>SVD(특이값 분해, Singular Value Decomposition)는 선형대수에서 가장 범용적인 행렬 분해이다. 고유값 분해가 정방행렬에만 적용되는 데 반해, SVD는 임의의 직사각행렬에 적용된다. 이미지 압축에서 저랭크 근사(low-rank approximation)로 데이터를 효율적으로 저장하고, 추천 시스템에서 사용자-아이템 행렬의 잠재 요인(latent factor)을 추출하며, GPS 위치결정이나 센서 융합에서 과결정 시스템의 최소제곱해를 구하는 데 SVD가 사용된다. 양정치(positive definite) 행렬, 최소제곱법, 직교화의 개념이 모두 SVD로 통합된다.</p>
+
+<h4>Positive definite(양정치) 행렬</h4>
+
+<div class="definition">
+  <span class="env-label">Definition 7.16 (Positive definite matrix)</span>
+  대칭 행렬 \(A\)가 <strong>positive definite(양정치)</strong>라 함은 모든 eigenvalue(고유값)가 양수인 것,
+  또는 동치로, 영이 아닌 모든 벡터 \(\mathbf{x}\)에 대해 \(\mathbf{x}^T A \mathbf{x} > 0\)인 것을 말한다.
+</div>
+
+<div class="theorem">
+  <span class="env-label">Theorem 7.18 (Tests for positive definiteness)</span>
+  대칭 행렬 \(A\)에 대해 다음은 동치이다:
+  <ol>
+    <li>\(A\)의 모든 eigenvalue(고유값)가 양수이다.</li>
+    <li>(행 교환 없이) 소거로 얻은 모든 피벗이 양수이다.</li>
+    <li>모든 좌상 \(k \times k\) 소행렬식이 양수이다, \(1 \le k \le n\).</li>
+    <li>모든 \(\mathbf{x} \neq \mathbf{0}\)에 대해 \(\mathbf{x}^T A \mathbf{x} > 0\)이다.</li>
+  </ol>
+</div>
+
+<div class="theorem">
+  <span class="env-label">Theorem 7.19 (\(A^T A\) is positive semidefinite)</span>
+  임의의 \(m \times n\) 행렬 \(A\)에 대해:
+  $$\mathbf{x}^T(A^T A)\mathbf{x} = (A\mathbf{x})^T(A\mathbf{x}) = \|A\mathbf{x}\|^2 \ge 0.$$
+  \(A\)의 열이 독립(rank(계수) \(n\))이면 \(A^T A\)는 positive definite(양정치)이다.
+</div>
+
+<h4>최소제곱법(Least squares)</h4>
+
+<div class="definition">
+  <span class="env-label">Definition 7.17 (Least squares solution)</span>
+  \(A\mathbf{x} = \mathbf{b}\)에 해가 없을 때(과결정 연립방정식), <strong>최소제곱해</strong>
+  \(\hat{\mathbf{x}}\)는 \(\|A\mathbf{x} - \mathbf{b}\|^2\)를 최소화한다. 이는 <strong>정규방정식(normal equations)</strong>을 풀어 구한다:
+  $$A^T A \hat{\mathbf{x}} = A^T \mathbf{b}.$$
+</div>
+
+<p>
+  \(\mathbf{b}\)를 \(A\)의 column space(열공간)에 사영하면
+  \(\mathbf{p} = A\hat{\mathbf{x}} = A(A^T A)^{-1} A^T \mathbf{b}\)이고,
+  사영행렬은 \(P = A(A^T A)^{-1} A^T\)이다.
+  사영행렬은 \(P^T = P\)이고 \(P^2 = P\)를 만족한다.
+</p>
+
+<div class="example">
+  <span class="env-label">Example 7.7</span>
+  점 \((1,1), (2,2), (3,2)\)를 지나는 최적 적합 직선 \(b = C + Dt\)를 구하라.
+  <br><br>
+  이는 과결정 연립방정식
+  \(\begin{pmatrix}1&1\\1&2\\1&3\end{pmatrix}\begin{pmatrix}C\\D\end{pmatrix}
+  = \begin{pmatrix}1\\2\\2\end{pmatrix}\)
+  을 푸는 문제이다.
+  <br><br>
+  정규방정식:
+  \(\begin{pmatrix}3&6\\6&14\end{pmatrix}\begin{pmatrix}\hat{C}\\\hat{D}\end{pmatrix}
+  = \begin{pmatrix}5\\11\end{pmatrix}\).
+  <br><br>
+  해: \(\hat{D} = 1/2\), \(\hat{C} = 2/3\). 최적 적합 직선은 \(b = \tfrac{2}{3} + \tfrac{1}{2}t\)이다.
+</div>
+
+<h4>SVD(특이값 분해)</h4>
+
+<div class="definition">
+  <span class="env-label">Definition 7.18 (SVD)</span>
+  임의의 \(m \times n\) 행렬 \(A\) (rank(계수) \(r\))의 <strong>SVD(특이값 분해)</strong>는 다음과 같다:
+  $$A = U \Sigma V^T,$$
+  여기서:
+  <ul>
+    <li>\(U\)는 \(m \times m\) 직교행렬 (열이 <em>좌 특이벡터</em>),</li>
+    <li>\(V\)는 \(n \times n\) 직교행렬 (열이 <em>우 특이벡터</em>),</li>
+    <li>\(\Sigma\)는 \(m \times n\)이며 음이 아닌 대각 성분 \(\sigma_1 \ge \sigma_2 \ge \cdots \ge \sigma_r > 0\)
+      (<em>특이값</em>)을 갖고 나머지는 0이다.</li>
+  </ul>
+</div>
+
+<div class="theorem">
+  <span class="env-label">Theorem 7.20 (Existence of the SVD)</span>
+  모든 실 \(m \times n\) 행렬 \(A\)는 SVD(특이값 분해) \(A = U\Sigma V^T\)를 갖는다.
+  특이값 \(\sigma_i\)는 \(A^T A\) (또는 동치로 \(AA^T\))의 eigenvalue(고유값)의 양의 제곱근이다.
+  \(V\)의 열은 \(A^T A\)의 eigenvector(고유벡터)이고,
+  \(U\)의 열은 \(AA^T\)의 eigenvector(고유벡터)이다.
+</div>
+
+<div class="theorem">
+  <span class="env-label">Theorem 7.21 (SVD and the four fundamental subspaces)</span>
+  SVD(특이값 분해) \(A = U\Sigma V^T\)에서:
+  <ul>
+    <li>\(\mathbf{v}_1, \ldots, \mathbf{v}_r\)은 행공간 \(C(A^T)\)의 정규직교 기저를 이룬다.</li>
+    <li>\(\mathbf{u}_1, \ldots, \mathbf{u}_r\)은 column space(열공간) \(C(A)\)의 정규직교 기저를 이룬다.</li>
+    <li>\(\mathbf{v}_{r+1}, \ldots, \mathbf{v}_n\)은 null space(영공간) \(N(A)\)의 정규직교 기저를 이룬다.</li>
+    <li>\(\mathbf{u}_{r+1}, \ldots, \mathbf{u}_m\)은 좌 null space(좌영공간) \(N(A^T)\)의 정규직교 기저를 이룬다.</li>
+  </ul>
+  핵심 관계식은 \(A\mathbf{v}_i = \sigma_i \mathbf{u}_i\) (\(i = 1, \ldots, r\))이다.
+</div>
+
+<h4>SVD(특이값 분해) 계산</h4>
+
+<p>절차:</p>
+<ol>
+  <li>\(A^T A\)를 계산하고, eigenvalue(고유값) \(\sigma_1^2 \ge \sigma_2^2 \ge \cdots \ge 0\)과
+    정규직교 eigenvector(고유벡터) \(\mathbf{v}_i\)를 구한다. 이들이 \(V\)를 이룬다.</li>
+  <li>\(\sigma_i = \sqrt{\lambda_i}\)로 놓는다.</li>
+  <li>\(i = 1, \ldots, r\)에 대해 \(\mathbf{u}_i = \frac{1}{\sigma_i} A \mathbf{v}_i\)를 구하고,
+    \(\mathbb{R}^m\)의 완전한 정규직교 기저로 확장한다. 이들이 \(U\)를 이룬다.</li>
+</ol>
+
+<div class="example">
+  <span class="env-label">Example 7.8</span>
+  \(A = \begin{pmatrix} 4 & 4 \\ -3 & 3 \end{pmatrix}\)로 놓자.
+  <br><br>
+  \(A^T A = \begin{pmatrix} 25 & 7 \\ 7 & 25 \end{pmatrix}\)이고, eigenvalue(고유값)는 32, 18이다.
+  따라서 \(\sigma_1 = 4\sqrt{2}\), \(\sigma_2 = 3\sqrt{2}\).
+  <br><br>
+  \(A^T A\)의 eigenvector(고유벡터):
+  \(\mathbf{v}_1 = \frac{1}{\sqrt{2}}\begin{pmatrix}1\\1\end{pmatrix}\),
+  \(\mathbf{v}_2 = \frac{1}{\sqrt{2}}\begin{pmatrix}1\\-1\end{pmatrix}\).
+  <br><br>
+  \(AA^T = \begin{pmatrix}32 & 0 \\ 0 & 18\end{pmatrix}\)이므로,
+  \(\mathbf{u}_1 = \begin{pmatrix}1\\0\end{pmatrix}\),
+  \(\mathbf{u}_2 = \begin{pmatrix}0\\-1\end{pmatrix}\)
+  (\(A\mathbf{v}_2 = \sigma_2 \mathbf{u}_2\)를 만족하도록 부호를 선택).
+  <br><br>
+  $$
+  A = \begin{pmatrix}1&0\\0&-1\end{pmatrix}
+      \begin{pmatrix}4\sqrt{2}&0\\0&3\sqrt{2}\end{pmatrix}
+      \begin{pmatrix}1/\sqrt{2}&1/\sqrt{2}\\1/\sqrt{2}&-1/\sqrt{2}\end{pmatrix}.
+  $$
+</div>
+
+<h4>유사역행렬(Pseudoinverse)</h4>
+
+<div class="definition">
+  <span class="env-label">Definition 7.19 (Moore&ndash;Penrose pseudoinverse)</span>
+  \(A = U\Sigma V^T\)이고 rank(계수)가 \(r\)일 때, <strong>유사역행렬(pseudoinverse)</strong>은 다음과 같다:
+  $$A^+ = V \Sigma^+ U^T,$$
+  여기서 \(\Sigma^+\)는 \(\Sigma\)의 각 영이 아닌 특이값의 역수를 취하고 전치하여 얻는다:
+  \((\Sigma^+)_{ii} = 1/\sigma_i\) (\(i \le r\)), 나머지는 0이다.
+</div>
+
+<p>
+  \(A\)의 열이 독립이면, \(A^+ = (A^T A)^{-1} A^T\)이고 최소제곱해는
+  \(\hat{\mathbf{x}} = A^+ \mathbf{b}\)이다.
+  유사역행렬은 이를 rank(계수) 부족 및 비정방 행렬로 일반화한다:
+  \(\|A\mathbf{x} - \mathbf{b}\|\)를 최소화하는 모든 벡터 \(\mathbf{x}\) 중에서,
+  \(\mathbf{x} = A^+ \mathbf{b}\)는 노름이 가장 작은 것이다.
+</p>
+
+<h4>직교행렬과 Gram&ndash;Schmidt</h4>
+
+<div class="definition">
+  <span class="env-label">Definition 7.20 (Orthogonal matrix)</span>
+  정방행렬 \(Q\)의 열이 정규직교이면 <strong>직교행렬</strong>이라 한다:
+  \(Q^T Q = I\), 따라서 \(Q^{-1} = Q^T\).
+</div>
+
+<div class="theorem">
+  <span class="env-label">Theorem 7.22 (Gram&ndash;Schmidt and QR factorization)</span>
+  일차독립인 벡터 \(\mathbf{a}_1, \ldots, \mathbf{a}_n\)가 주어지면, Gram&ndash;Schmidt
+  과정은 같은 공간을 생성하는 정규직교 벡터 \(\mathbf{q}_1, \ldots, \mathbf{q}_n\)을 생산한다.
+  행렬 형태로 쓰면 <strong>QR 분해</strong>를 얻는다:
+  $$A = QR,$$
+  여기서 \(Q\)는 정규직교 열을 갖고, \(R\)은 양의 대각 성분을 갖는 상삼각행렬이다.
+</div>
+
+<p>
+  Gram&ndash;Schmidt 절차: \(\mathbf{A}_1 = \mathbf{a}_1\)로 놓는다. 이후 각 벡터에 대해,
+  이전에 구한 모든 방향에 대한 사영을 빼준다:
+  $$\mathbf{A}_k = \mathbf{a}_k - \sum_{j=1}^{k-1} \frac{\mathbf{A}_j^T \mathbf{a}_k}{\mathbf{A}_j^T \mathbf{A}_j}\, \mathbf{A}_j.$$
+  그런 다음 정규화한다: \(\mathbf{q}_k = \mathbf{A}_k / \|\mathbf{A}_k\|\).
+</p>
+
+<p class="source-tag">[Source: MIT 18.06SC, Sessions 2.2&ndash;2.5, 3.4&ndash;3.5]</p>
+
+
+<!-- ============================================================ -->
+<h3 id="matrix-decompositions-extended">7.6 행렬 분해 확장</h3>
+<!-- ============================================================ -->
+
+<p>행렬 분해(matrix decomposition)는 복잡한 행렬을 구조가 단순한 행렬들의 곱으로 표현하여, 연립방정식 풀이, 고유값 계산, 수치적 안정성을 확보하는 기법이다. LU 분해는 Gauss 소거법을 행렬 언어로 기록한 것이고, Cholesky 분해는 대칭 양정치 행렬에 대한 효율적인 변형이며, Schur 분해는 고유값 분해의 일반화이다. 이들은 수치 선형대수(numerical linear algebra)의 기초이며, MATLAB이나 NumPy의 `solve`, `eig`, `svd` 함수 내부에서 실제로 수행되는 연산이다.</p>
+
+<h4>LU 분해 상세 과정</h4>
+
+<p>
+  LU 분해의 요점은 가우스 소거법의 각 단계를 하삼각 행렬 \(L\)에 기록하는 것이다.
+  소거 과정에서 \(i\)행을 제거하기 위해 \(j\)행에서 뺀 배수 \(\ell_{ji}\)가 \(L\)의 \((j,i)\) 성분이 된다.
+  \(L\)의 대각 성분은 모두 1이다.
+</p>
+
+<div class="example">
+  <span class="env-label">Example 7.9 (LU 분해 상세)</span>
+  \(A = \begin{pmatrix} 2 & 1 & 1 \\ 4 & 3 & 3 \\ 8 & 7 & 9 \end{pmatrix}\)를 LU 분해하라.
+  <br><br>
+  <strong>1단계:</strong> 피벗 \(a_{11} = 2\). 승수: \(\ell_{21} = 4/2 = 2\), \(\ell_{31} = 8/2 = 4\).
+  $$
+    \begin{pmatrix} 2 & 1 & 1 \\ 0 & 1 & 1 \\ 0 & 3 & 5 \end{pmatrix}.
+  $$
+  <strong>2단계:</strong> 피벗 \(a_{22}' = 1\). 승수: \(\ell_{32} = 3/1 = 3\).
+  $$
+    U = \begin{pmatrix} 2 & 1 & 1 \\ 0 & 1 & 1 \\ 0 & 0 & 2 \end{pmatrix}.
+  $$
+  따라서
+  $$
+    L = \begin{pmatrix} 1 & 0 & 0 \\ 2 & 1 & 0 \\ 4 & 3 & 1 \end{pmatrix}, \quad
+    U = \begin{pmatrix} 2 & 1 & 1 \\ 0 & 1 & 1 \\ 0 & 0 & 2 \end{pmatrix}.
+  $$
+  검산: \(LU\)의 \((3,3)\) 성분 = \(4 \cdot 1 + 3 \cdot 1 + 1 \cdot 2 = 9 = a_{33}\). \(\checkmark\)
+</div>
+
+<div class="example">
+  <span class="env-label">Example 7.10 (PA = LU)</span>
+  \(A = \begin{pmatrix} 0 & 2 \\ 3 & 4 \end{pmatrix}\)는 \(a_{11} = 0\)이므로 행 교환이 필요하다.
+  치환행렬 \(P = \begin{pmatrix} 0 & 1 \\ 1 & 0 \end{pmatrix}\)를 적용하면
+  \(PA = \begin{pmatrix} 3 & 4 \\ 0 & 2 \end{pmatrix}\)이다.
+  이 경우 \(L = I\), \(U = PA\)이므로 \(PA = LU\)가 성립한다.
+</div>
+
+<h4>LDU 분해</h4>
+
+<p>
+  \(A = LU\)에서 \(U\)의 대각 성분(피벗)을 분리하면 \(A = LDU'\)로 쓸 수 있다.
+  여기서 \(D = \operatorname{diag}(d_1, \ldots, d_n)\)이고,
+  \(U' = D^{-1}U\)는 대각 성분이 1인 상삼각행렬이다.
+  대칭 행렬 \(A = A^T\)이면 \(U' = L^T\)이므로 \(A = LDL^T\)가 된다.
+</p>
+
+<h4>Cholesky 분해</h4>
+
+<div class="theorem">
+  <span class="env-label">Theorem 7.23 (Cholesky decomposition)</span>
+  대칭 positive definite(양정치) 행렬 \(A\)는 유일하게
+  $$A = R^T R$$
+  로 분해된다. 여기서 \(R\)은 양의 대각 성분을 갖는 상삼각행렬이다.
+  이는 \(A = LDL^T\)에서 \(R = \sqrt{D}\, L^T\) (\(\sqrt{D} = \operatorname{diag}(\sqrt{d_1}, \ldots, \sqrt{d_n})\))로 얻어진다.
+</div>
+
+<div class="example">
+  <span class="env-label">Example 7.11 (Cholesky 분해)</span>
+  \(A = \begin{pmatrix} 4 & 2 \\ 2 & 5 \end{pmatrix}\)를 Cholesky 분해하라.
+  <br><br>
+  \(A\)는 대칭이고, eigenvalue(고유값)가 \(\frac{9 + \sqrt{17}}{2} \approx 6.56\), \(\frac{9 - \sqrt{17}}{2} \approx 2.44\)이므로 positive definite(양정치)이다.
+  <br><br>
+  LDL\(^T\) 분해: \(L = \begin{pmatrix}1&0\\1/2&1\end{pmatrix}\),
+  \(D = \begin{pmatrix}4&0\\0&4\end{pmatrix}\).
+  <br><br>
+  \(R = \sqrt{D}\,L^T = \begin{pmatrix}2&0\\0&2\end{pmatrix}\begin{pmatrix}1&1/2\\0&1\end{pmatrix}
+  = \begin{pmatrix}2&1\\0&2\end{pmatrix}\).
+  <br><br>
+  검산: \(R^T R = \begin{pmatrix}2&0\\1&2\end{pmatrix}\begin{pmatrix}2&1\\0&2\end{pmatrix}
+  = \begin{pmatrix}4&2\\2&5\end{pmatrix} = A\). \(\checkmark\)
+</div>
+
+<h4>Schur 분해</h4>
+
+<div class="theorem">
+  <span class="env-label">Theorem 7.24 (Schur decomposition)</span>
+  임의의 정방행렬 \(A \in \mathbb{C}^{n \times n}\)에 대해,
+  $$A = UTU^*$$
+  를 만족하는 유니터리(unitary) 행렬 \(U\)와 상삼각행렬 \(T\)가 존재한다.
+  \(T\)의 대각 성분은 \(A\)의 eigenvalue(고유값)이다.
+  \(A\)가 실수 행렬이면 고유값이 모두 실수일 때에만 직교행렬 \(Q\)에 대해 \(A = QTQ^T\)로 쓸 수 있다.
+  \(A\)가 정규행렬(normal, \(A^*A = AA^*\))이면 \(T\)는 대각행렬이 되며, 대칭(Hermitian) 행렬의 경우 스펙트럼 정리와 일치한다.
+</div>
+
+<p>
+  Schur 분해의 존재성은 귀납법으로 증명된다:
+  \(A\)의 eigenvalue(고유값) \(\lambda_1\)과 대응하는 단위 eigenvector(고유벡터) \(\mathbf{u}_1\)을 취하고,
+  \(\mathbf{u}_1\)을 포함하는 정규직교 기저를 구성한다.
+  이 기저에 대한 \(A\)의 표현 행렬은 첫 열이 \((\lambda_1, 0, \ldots, 0)^T\)인 블록 상삼각 형태가 되고,
+  나머지 \((n-1) \times (n-1)\) 블록에 귀납법을 적용한다.
+</p>
+
+<p class="source-tag">[Source: MIT 18.06SC, Sessions 1.4&ndash;1.5, 3.4]</p>
+
+
+<!-- ============================================================ -->
+<h3 id="projection">7.7 사영(Projection)</h3>
+<!-- ============================================================ -->
+
+<p>사영(projection)은 "주어진 부분공간에서 가장 가까운 점을 찾는" 문제이다. 이 기하학적 아이디어가 최소제곱법(least squares)으로 이어진다. GPS 위치결정에서 과결정 연립방정식의 최적해를 구하거나, 실험 데이터에 회귀 직선을 적합(fitting)하거나, 칼만 필터(Kalman filter)에서 측정 업데이트를 수행하는 것이 모두 사영의 응용이다. 오차 벡터가 부분공간에 직교한다는 조건이 정규방정식(normal equations)을 자연스럽게 유도한다.</p>
+
+<h4>직교 사영</h4>
+
+<p>
+  벡터 \(\mathbf{b}\)를 부분공간 \(V\) 위로 <strong>직교 사영</strong>한다는 것은,
+  \(V\) 안에서 \(\mathbf{b}\)에 가장 가까운 벡터 \(\mathbf{p}\)를 찾는 것이다.
+  이때 오차 벡터 \(\mathbf{e} = \mathbf{b} - \mathbf{p}\)는 \(V\)에 직교한다.
+</p>
+
+<h4>직선 위로의 사영</h4>
+
+<p>
+  \(V = \operatorname{span}(\mathbf{a})\), 즉 1차원 부분공간(직선) 위로 \(\mathbf{b}\)를 사영하면:
+  $$
+    \mathbf{p} = \frac{\mathbf{a}^T \mathbf{b}}{\mathbf{a}^T \mathbf{a}}\,\mathbf{a}, \qquad
+    P = \frac{\mathbf{a}\mathbf{a}^T}{\mathbf{a}^T \mathbf{a}}.
+  $$
+  사영행렬 \(P\)는 rank(계수) 1이고, \(P = P^T\), \(P^2 = P\)를 만족한다.
+</p>
+
+<div class="example">
+  <span class="env-label">Example 7.12 (직선 위 사영)</span>
+  \(\mathbf{a} = \begin{pmatrix}1\\1\\1\end{pmatrix}\),
+  \(\mathbf{b} = \begin{pmatrix}1\\2\\2\end{pmatrix}\)로 놓자.
+  <br><br>
+  \(\mathbf{a}^T\mathbf{b} = 1 + 2 + 2 = 5\),
+  \(\mathbf{a}^T\mathbf{a} = 3\).
+  <br><br>
+  $$\mathbf{p} = \frac{5}{3}\begin{pmatrix}1\\1\\1\end{pmatrix}
+  = \begin{pmatrix}5/3\\5/3\\5/3\end{pmatrix}.$$
+  오차: \(\mathbf{e} = \mathbf{b} - \mathbf{p} = \begin{pmatrix}-2/3\\1/3\\1/3\end{pmatrix}\).
+  <br>
+  확인: \(\mathbf{a}^T\mathbf{e} = -2/3 + 1/3 + 1/3 = 0\). \(\checkmark\)
+</div>
+
+<h4>부분공간 위로의 사영</h4>
+
+<p>
+  \(A\)의 열이 부분공간 \(V\)의 기저를 이룰 때, \(\mathbf{b}\)를 \(V\) 위로 사영하면:
+</p>
+
+<div class="theorem">
+  <span class="env-label">Theorem 7.25 (Projection onto column space)</span>
+  \(A\)의 열이 일차독립이면,
+  $$
+    \mathbf{p} = A(A^T A)^{-1} A^T \mathbf{b}, \qquad P = A(A^T A)^{-1} A^T.
+  $$
+  사영행렬 \(P\)는 다음을 만족한다:
+  <ul>
+    <li>\(P^T = P\) (대칭)</li>
+    <li>\(P^2 = P\) (멱등)</li>
+    <li>\(C(P) = C(A)\)</li>
+    <li>\(N(P) = N(A^T)\)</li>
+  </ul>
+</div>
+
+<h4>최소제곱법의 기하학적 해석</h4>
+
+<p>
+  과결정 연립방정식 \(A\mathbf{x} = \mathbf{b}\)에서 해가 존재하지 않을 때,
+  \(\mathbf{b}\)를 \(C(A)\) 위로 사영한 \(\mathbf{p} = A\hat{\mathbf{x}}\)를 구한다.
+  오차 \(\mathbf{e} = \mathbf{b} - A\hat{\mathbf{x}}\)는 \(C(A)\)에 직교하므로,
+  \(A^T(\mathbf{b} - A\hat{\mathbf{x}}) = \mathbf{0}\), 즉 \(A^T A \hat{\mathbf{x}} = A^T \mathbf{b}\)를 얻는다.
+  기하학적으로 말하면, 정규방정식은 "오차를 column space(열공간)에 수직으로 만들어라"는 조건의 직접적 표현이다.
+</p>
+
+<div class="example">
+  <span class="env-label">Example 7.13 (2차원 부분공간 위 사영과 최소제곱)</span>
+  \(A = \begin{pmatrix}1&0\\1&1\\1&2\end{pmatrix}\),
+  \(\mathbf{b} = \begin{pmatrix}6\\0\\0\end{pmatrix}\)로 놓자.
+  <br><br>
+  \(A^T A = \begin{pmatrix}3&3\\3&5\end{pmatrix}\),
+  \(A^T \mathbf{b} = \begin{pmatrix}6\\0\end{pmatrix}\).
+  <br><br>
+  정규방정식: \(\begin{pmatrix}3&3\\3&5\end{pmatrix}\hat{\mathbf{x}} = \begin{pmatrix}6\\0\end{pmatrix}\).
+  <br><br>
+  해: \(\hat{x}_2 = -3\), \(\hat{x}_1 = 5\).
+  <br><br>
+  사영: \(\mathbf{p} = A\hat{\mathbf{x}} = \begin{pmatrix}5\\2\\-1\end{pmatrix}\).
+  <br>
+  오차: \(\mathbf{e} = \begin{pmatrix}1\\-2\\1\end{pmatrix}\).
+  <br>
+  확인: \(A^T\mathbf{e} = \begin{pmatrix}1-2+1\\-2+2\end{pmatrix} = \begin{pmatrix}0\\0\end{pmatrix}\). \(\checkmark\)
+</div>
+
+<div class="example">
+  <span class="env-label">Example 7.14 (이차 다항식 적합)</span>
+  점 \((0,1), (1,1), (2,3)\)에 이차식 \(y = c_0 + c_1 t + c_2 t^2\)를 적합하라.
+  <br><br>
+  이 경우 데이터 수 = 미지수 수 = 3이므로, 연립방정식
+  $$
+    \begin{pmatrix}1&0&0\\1&1&1\\1&2&4\end{pmatrix}
+    \begin{pmatrix}c_0\\c_1\\c_2\end{pmatrix}
+    = \begin{pmatrix}1\\1\\3\end{pmatrix}
+  $$
+  은 정확한 해를 갖는다.
+  소거하면: \(c_0 = 1\), \(c_1 = -1\), \(c_2 = 1\).
+  따라서 \(y = 1 - t + t^2\).
+  <br><br>
+  만약 네 번째 점 \((3,2)\)가 추가되면 과결정이 되어, 최소제곱법으로 최적 이차 적합을 구해야 한다.
+</div>
+
+<p class="source-tag">[Source: MIT 18.06SC, Sessions 2.2&ndash;2.5]</p>
+
+
+<!-- ============================================================ -->
+<h3 id="eigenvalues-extended">7.8 고유값 확장</h3>
+<!-- ============================================================ -->
+
+<p>7.4절에서 고유값의 기본 이론을 다루었다. 이 절에서는 고유값 분해의 구체적 응용과 대각화가 불가능한 경우의 처리(Jordan 표준형)로 확장한다. 행렬 거듭제곱 \(A^k\)는 이산 시간 동역학계, 재귀적 수열(피보나치 등), 마르코프 체인의 장기 거동 분석에 필수적이며, 행렬 지수함수 \(e^{At}\)는 연립 미분방정식(5.4절)의 해를 고유값으로 표현하는 방법을 제공한다.</p>
+
+<h4>고유값 분해와 행렬 거듭제곱</h4>
+
+<p>
+  \(A = S\Lambda S^{-1}\)이면, 행렬의 \(k\)제곱은
+  $$A^k = S\Lambda^k S^{-1} = S\,\operatorname{diag}(\lambda_1^k, \ldots, \lambda_n^k)\, S^{-1}$$
+  이다. 이는 \(\mathbf{u}_k = A^k \mathbf{u}_0\) 형태의 동역학계에서 해를 고유벡터 성분별로 분해하여
+  장기 거동을 분석하는 데 쓰인다.
+</p>
+
+<div class="example">
+  <span class="env-label">Example 7.15 (피보나치 수열과 행렬 거듭제곱)</span>
+  피보나치 수열 \(F_{k+2} = F_{k+1} + F_k\)를 행렬 형태로 쓰면
+  $$
+    \begin{pmatrix}F_{k+2}\\F_{k+1}\end{pmatrix}
+    = \begin{pmatrix}1&1\\1&0\end{pmatrix}
+    \begin{pmatrix}F_{k+1}\\F_k\end{pmatrix},
+    \quad A = \begin{pmatrix}1&1\\1&0\end{pmatrix}.
+  $$
+  특성 다항식: \(\lambda^2 - \lambda - 1 = 0\), eigenvalue(고유값): \(\lambda_1 = \frac{1+\sqrt{5}}{2}\) (황금비), \(\lambda_2 = \frac{1-\sqrt{5}}{2}\).
+  <br><br>
+  \(|\lambda_1| > |\lambda_2|\)이므로, \(k\)가 커질수록 \(F_k \approx c \cdot \lambda_1^k\)이다.
+  정확하게는 \(F_k = \frac{\lambda_1^k - \lambda_2^k}{\sqrt{5}}\)이다.
+</div>
+
+<h4>미분방정식에의 응용</h4>
+
+<p>
+  상수 계수 선형 미분방정식 \(\frac{d\mathbf{u}}{dt} = A\mathbf{u}\)의 해는
+  $$\mathbf{u}(t) = e^{At}\,\mathbf{u}(0), \qquad e^{At} = S\,\operatorname{diag}(e^{\lambda_1 t}, \ldots, e^{\lambda_n t})\,S^{-1}$$
+  이다 (단, \(A = S\Lambda S^{-1}\)).
+  따라서 모든 \(\operatorname{Re}(\lambda_i) < 0\)이면 \(\mathbf{u}(t) \to \mathbf{0}\) (안정),
+  어떤 \(\operatorname{Re}(\lambda_i) > 0\)이면 \(\|\mathbf{u}(t)\| \to \infty\) (불안정)이다.
+</p>
+
+<div class="example">
+  <span class="env-label">Example 7.16 (연립 미분방정식)</span>
+  \(\frac{d\mathbf{u}}{dt} = \begin{pmatrix}-1&2\\0&-3\end{pmatrix}\mathbf{u}\),
+  \(\mathbf{u}(0) = \begin{pmatrix}1\\1\end{pmatrix}\)를 풀어라.
+  <br><br>
+  Eigenvalue(고유값): \(\lambda_1 = -1\), \(\lambda_2 = -3\).
+  Eigenvector(고유벡터): \(\mathbf{x}_1 = \begin{pmatrix}1\\0\end{pmatrix}\),
+  \(\mathbf{x}_2 = \begin{pmatrix}1\\-1\end{pmatrix}\).
+  <br><br>
+  일반해: \(\mathbf{u}(t) = c_1 e^{-t}\begin{pmatrix}1\\0\end{pmatrix} + c_2 e^{-3t}\begin{pmatrix}1\\-1\end{pmatrix}\).
+  <br><br>
+  초기 조건: \(c_1 + c_2 = 1\), \(-c_2 = 1\), 즉 \(c_2 = -1\), \(c_1 = 2\).
+  $$\mathbf{u}(t) = 2e^{-t}\begin{pmatrix}1\\0\end{pmatrix} - e^{-3t}\begin{pmatrix}1\\-1\end{pmatrix}
+  = \begin{pmatrix}2e^{-t} - e^{-3t}\\e^{-3t}\end{pmatrix}.$$
+  두 eigenvalue(고유값)가 모두 음수이므로 \(\mathbf{u}(t) \to \mathbf{0}\). 안정계이다.
+</div>
+
+<h4>대각화 불가능한 행렬 (Defective matrix)</h4>
+
+<p>
+  중복 eigenvalue(고유값)를 가지면서 독립인 eigenvector(고유벡터)가 부족한 행렬을
+  <strong>defective</strong>하다고 한다. 이런 행렬은 대각화할 수 없다.
+</p>
+
+<div class="example">
+  <span class="env-label">Example 7.17 (Defective matrix)</span>
+  \(A = \begin{pmatrix}3&1\\0&3\end{pmatrix}\)의 eigenvalue(고유값)는 \(\lambda = 3\) (중복도 2)이다.
+  <br><br>
+  \(A - 3I = \begin{pmatrix}0&1\\0&0\end{pmatrix}\)이므로
+  \(N(A - 3I) = \operatorname{span}\left(\begin{pmatrix}1\\0\end{pmatrix}\right)\).
+  eigenvector(고유벡터)가 하나뿐이므로 \(A\)는 대각화 불가능하다.
+</div>
+
+<h4>Jordan 표준형</h4>
+
+<div class="theorem">
+  <span class="env-label">Theorem 7.26 (Jordan normal form)</span>
+  임의의 정방행렬 \(A\)에 대해, 가역행렬 \(M\)이 존재하여
+  $$M^{-1}AM = J = \operatorname{diag}(J_1, J_2, \ldots, J_s)$$
+  가 성립한다. 각 <strong>Jordan 블록</strong> \(J_k\)는
+  $$
+    J_k = \begin{pmatrix}
+      \lambda_k & 1 & & \\
+       & \lambda_k & \ddots & \\
+       & & \ddots & 1 \\
+       & & & \lambda_k
+    \end{pmatrix}
+  $$
+  형태의 \(n_k \times n_k\) 행렬이다.
+  \(A\)가 대각화 가능하면 모든 Jordan 블록의 크기가 1이 되어 \(J = \Lambda\)가 된다.
+</div>
+
+<p>
+  Jordan 표준형은 대각화의 일반화이다.
+  defective 행렬의 경우 eigenvector(고유벡터)가 부족하므로,
+  <strong>일반화 고유벡터(generalized eigenvector)</strong>를 도입한다:
+  \((A - \lambda I)^p \mathbf{v} = \mathbf{0}\)을 만족하되 \((A - \lambda I)^{p-1}\mathbf{v} \neq \mathbf{0}\)인 벡터가 그것이다.
+</p>
+
+<div class="example">
+  <span class="env-label">Example 7.18 (Jordan 표준형)</span>
+  Example 7.17의 \(A = \begin{pmatrix}3&1\\0&3\end{pmatrix}\)는 이미 Jordan 표준형이다:
+  eigenvalue(고유값) \(\lambda = 3\)에 대한 크기 2의 Jordan 블록 하나로 이루어져 있다.
+  <br><br>
+  \(A^k\)를 구하면:
+  $$A^k = \begin{pmatrix}3^k & k\cdot 3^{k-1}\\0&3^k\end{pmatrix}.$$
+  대각행렬이 아니므로 off-diagonal 항 \(k \cdot 3^{k-1}\)이 나타난다.
+  이는 defective 경우의 전형적 특징이다.
+</div>
+
+<p class="source-tag">[Source: MIT 18.06SC, Sessions 2.8&ndash;2.10, 3.1&ndash;3.4]</p>
+
+
+<!-- ============================================================ -->
+<h3 id="svd-extended">7.9 SVD 확장</h3>
+<!-- ============================================================ -->
+
+<p>7.5절에서 SVD의 정의와 계산법을 다루었다. 이 절에서는 SVD의 기하학적 의미와 실용적 응용 — 저랭크 근사(low-rank approximation)에 의한 데이터 압축, 주성분 분석(PCA)에 의한 차원 축소 — 으로 확장한다. SVD가 "임의의 선형 변환을 회전-스케일링-회전으로 분해한다"는 기하학적 해석은 행렬의 구조를 가장 명료하게 보여준다.</p>
+
+<h4>SVD의 기하학적 의미</h4>
+
+<p>
+  \(A = U\Sigma V^T\)는 선형 변환 \(A\)를 세 단계로 분해한다:
+</p>
+<ol>
+  <li>\(V^T\): 입력 공간에서의 회전(또는 반사). 정규직교 기저 \(\{\mathbf{v}_i\}\)를 표준 기저로 보낸다.</li>
+  <li>\(\Sigma\): 각 축 방향의 스케일링. \(i\)번째 축을 \(\sigma_i\)배 늘린다.</li>
+  <li>\(U\): 출력 공간에서의 회전(또는 반사). 표준 기저를 \(\{\mathbf{u}_i\}\)로 보낸다.</li>
+</ol>
+<p>
+  기하학적으로 말하면, 임의의 행렬에 의한 선형 변환은 "회전 - 스케일링 - 회전"의 합성이다.
+  \(\mathbb{R}^n\)의 단위구(unit sphere)는 \(A\)에 의해 \(\mathbb{R}^m\)에서 축의 길이가 \(\sigma_1, \ldots, \sigma_r\)인 타원체(ellipsoid)로 변환된다.
+</p>
+
+<h4>저랭크 근사와 이미지 압축</h4>
+
+<div class="theorem">
+  <span class="env-label">Theorem 7.27 (Eckart&ndash;Young theorem)</span>
+  rank(계수) \(r\)인 행렬 \(A\)의 SVD(특이값 분해)에서, \(k < r\)에 대해
+  $$A_k = \sum_{i=1}^{k} \sigma_i\, \mathbf{u}_i \mathbf{v}_i^T$$
+  는 rank(계수) \(k\)인 행렬 중 \(\|A - A_k\|\) (연산자 노름 또는 Frobenius 노름)를 최소화한다.
+  연산자 노름의 경우 \(\|A - A_k\|_2 = \sigma_{k+1}\)이고,
+  Frobenius 노름의 경우 \(\|A - A_k\|_F = \sqrt{\sigma_{k+1}^2 + \cdots + \sigma_r^2}\)이다.
+</div>
+
+<p>
+  이미지 압축에의 응용: \(m \times n\) 그레이스케일 이미지를 행렬 \(A\)로 간주하고 SVD를 적용한다.
+  원래 저장에 \(mn\)개의 수가 필요하지만, rank-\(k\) 근사 \(A_k\)는
+  \(k(m + n + 1)\)개의 수(\(\mathbf{u}_i\), \(\mathbf{v}_i\), \(\sigma_i\))만으로 표현된다.
+  특이값이 급격히 감소하면 작은 \(k\)로도 원본에 가까운 근사가 가능하다.
+</p>
+
+<h4>차원 축소</h4>
+
+<p>
+  데이터 행렬 \(A\)의 각 행이 하나의 데이터 포인트일 때,
+  SVD를 통해 가장 큰 특이값에 대응하는 \(k\)개의 우 특이벡터 \(\mathbf{v}_1, \ldots, \mathbf{v}_k\)를 선택하면,
+  원래의 \(n\)차원 데이터를 \(k\)차원으로 사영할 수 있다.
+  이것이 <strong>주성분 분석(PCA)</strong>이다.
+  투영된 좌표는 \(AV_k\)이고, 정보 손실은 \(\sigma_{k+1}^2 + \cdots + \sigma_r^2\)에 비례한다.
+</p>
+
+<h4>유사역행렬 활용 예제</h4>
+
+<div class="example">
+  <span class="env-label">Example 7.19 (Pseudoinverse를 이용한 최소 노름 해)</span>
+  \(A = \begin{pmatrix}1&2\\2&4\end{pmatrix}\), \(\mathbf{b} = \begin{pmatrix}3\\6\end{pmatrix}\)를 풀어라.
+  <br><br>
+  \(A\)는 rank(계수) 1이므로 해가 무한히 많다: \(x_1 + 2x_2 = 3\).
+  <br><br>
+  SVD를 구하면: \(A^T A = \begin{pmatrix}5&10\\10&20\end{pmatrix}\).
+  eigenvalue(고유값): 25, 0.
+  \(\sigma_1 = 5\),
+  \(\mathbf{v}_1 = \frac{1}{\sqrt{5}}\begin{pmatrix}1\\2\end{pmatrix}\),
+  \(\mathbf{v}_2 = \frac{1}{\sqrt{5}}\begin{pmatrix}-2\\1\end{pmatrix}\).
+  <br><br>
+  \(AA^T = \begin{pmatrix}5&10\\10&20\end{pmatrix}\).
+  \(\mathbf{u}_1 = \frac{1}{\sqrt{5}}\begin{pmatrix}1\\2\end{pmatrix}\),
+  \(\mathbf{u}_2 = \frac{1}{\sqrt{5}}\begin{pmatrix}-2\\1\end{pmatrix}\).
+  <br><br>
+  \(\Sigma^+ = \begin{pmatrix}1/5&0\\0&0\end{pmatrix}\).
+  $$A^+ = V\Sigma^+ U^T
+  = \frac{1}{25}\begin{pmatrix}1&2\\2&4\end{pmatrix}.$$
+  <br>
+  최소 노름 해: \(\hat{\mathbf{x}} = A^+\mathbf{b} = \frac{1}{25}\begin{pmatrix}1&2\\2&4\end{pmatrix}\begin{pmatrix}3\\6\end{pmatrix}
+  = \frac{1}{25}\begin{pmatrix}15\\30\end{pmatrix}
+  = \begin{pmatrix}3/5\\6/5\end{pmatrix}\).
+  <br><br>
+  확인: \(A\hat{\mathbf{x}} = \begin{pmatrix}3/5 + 12/5\\6/5+24/5\end{pmatrix} = \begin{pmatrix}3\\6\end{pmatrix} = \mathbf{b}\). \(\checkmark\)
+  <br>
+  이 해의 노름 \(\|\hat{\mathbf{x}}\| = \frac{3}{\sqrt{5}}\)는 \(x_1 + 2x_2 = 3\)을 만족하는 모든 벡터 중 가장 작다.
+</div>
+
+<div class="example">
+  <span class="env-label">Example 7.20 (비호환 연립방정식의 Pseudoinverse)</span>
+  \(A = \begin{pmatrix}1\\1\\1\end{pmatrix}\), \(\mathbf{b} = \begin{pmatrix}2\\4\\6\end{pmatrix}\)이면
+  (이 경우 \(A\)는 \(3 \times 1\), rank(계수) 1),
+  <br><br>
+  \(A^+ = (A^T A)^{-1}A^T = \frac{1}{3}\begin{pmatrix}1&1&1\end{pmatrix}\).
+  <br><br>
+  \(\hat{x} = A^+\mathbf{b} = \frac{1}{3}(2+4+6) = 4\).
+  이는 \(x = 4\)가 \(\|A x - \mathbf{b}\|^2 = (x-2)^2 + (x-4)^2 + (x-6)^2\)를 최소화함을 뜻한다
+  (평균값).
+</div>
+
+<p class="source-tag">[Source: MIT 18.06SC, Sessions 3.4&ndash;3.5]</p>
+
+
+<!-- ============================================================ -->
+<h3 id="inner-product-space">7.10 내적 공간과 QR 분해</h3>
+<!-- ============================================================ -->
+
+<p>내적(inner product)은 벡터의 길이와 각도를 정의하는 대수적 도구이다. 직교성(orthogonality)은 내적이 0인 것으로 정의되며, 직교 기저는 수치 계산의 안정성과 효율성을 동시에 보장한다. Gram-Schmidt 과정은 임의의 기저를 정규직교 기저로 변환하는 알고리즘이며, 그 결과인 QR 분해는 최소제곱 문제의 수치적으로 안정한 풀이법과 QR 알고리즘(고유값 계산의 표준 방법)의 기초가 된다.</p>
+
+<h4>내적(Inner product)</h4>
+
+<div class="definition">
+  <span class="env-label">Definition 7.21 (Inner product)</span>
+  실 vector space(벡터 공간) \(V\) 위의 <strong>내적</strong>이란 함수 \(\langle \cdot, \cdot \rangle : V \times V \to \mathbb{R}\)로서,
+  <ol>
+    <li><strong>대칭:</strong> \(\langle \mathbf{u}, \mathbf{v} \rangle = \langle \mathbf{v}, \mathbf{u} \rangle\).</li>
+    <li><strong>선형:</strong> \(\langle a\mathbf{u} + b\mathbf{w}, \mathbf{v} \rangle = a\langle \mathbf{u}, \mathbf{v} \rangle + b\langle \mathbf{w}, \mathbf{v} \rangle\).</li>
+    <li><strong>양정치:</strong> \(\langle \mathbf{v}, \mathbf{v} \rangle > 0\) (\(\mathbf{v} \neq \mathbf{0}\)).</li>
+  </ol>
+  \(\mathbb{R}^n\)에서 표준 내적은 \(\langle \mathbf{u}, \mathbf{v} \rangle = \mathbf{u}^T \mathbf{v}\)이다.
+  내적으로부터 노름 \(\|\mathbf{v}\| = \sqrt{\langle \mathbf{v}, \mathbf{v} \rangle}\)과
+  각도 \(\cos\theta = \frac{\langle \mathbf{u}, \mathbf{v} \rangle}{\|\mathbf{u}\|\,\|\mathbf{v}\|}\)가 정의된다.
+</div>
+
+<h4>Gram&ndash;Schmidt 과정 상세 예제</h4>
+
+<div class="example">
+  <span class="env-label">Example 7.21 (Gram&ndash;Schmidt, 3차원)</span>
+  \(\mathbf{a}_1 = \begin{pmatrix}1\\1\\1\end{pmatrix}\),
+  \(\mathbf{a}_2 = \begin{pmatrix}1\\0\\2\end{pmatrix}\),
+  \(\mathbf{a}_3 = \begin{pmatrix}2\\1\\0\end{pmatrix}\)에 Gram&ndash;Schmidt를 적용하라.
+  <br><br>
+  <strong>1단계:</strong>
+  \(\mathbf{A}_1 = \mathbf{a}_1 = \begin{pmatrix}1\\1\\1\end{pmatrix}\),
+  \(\mathbf{q}_1 = \frac{\mathbf{A}_1}{\|\mathbf{A}_1\|} = \frac{1}{\sqrt{3}}\begin{pmatrix}1\\1\\1\end{pmatrix}\).
+  <br><br>
+  <strong>2단계:</strong>
+  \(\mathbf{a}_2\)에서 \(\mathbf{q}_1\) 방향 성분을 뺀다.
+  \(\mathbf{q}_1^T\mathbf{a}_2 = \frac{1}{\sqrt{3}}(1+0+2) = \frac{3}{\sqrt{3}} = \sqrt{3}\).
+  $$\mathbf{A}_2 = \mathbf{a}_2 - (\mathbf{q}_1^T\mathbf{a}_2)\,\mathbf{q}_1
+  = \begin{pmatrix}1\\0\\2\end{pmatrix} - \sqrt{3}\cdot\frac{1}{\sqrt{3}}\begin{pmatrix}1\\1\\1\end{pmatrix}
+  = \begin{pmatrix}0\\-1\\1\end{pmatrix}.$$
+  \(\mathbf{q}_2 = \frac{1}{\sqrt{2}}\begin{pmatrix}0\\-1\\1\end{pmatrix}\).
+  <br><br>
+  <strong>3단계:</strong>
+  \(\mathbf{q}_1^T\mathbf{a}_3 = \frac{1}{\sqrt{3}}(2+1+0) = \sqrt{3}\),
+  \(\mathbf{q}_2^T\mathbf{a}_3 = \frac{1}{\sqrt{2}}(-1+0) = -\frac{1}{\sqrt{2}}\).
+  $$\mathbf{A}_3 = \mathbf{a}_3 - \sqrt{3}\,\mathbf{q}_1 - \left(-\tfrac{1}{\sqrt{2}}\right)\mathbf{q}_2
+  = \begin{pmatrix}2\\1\\0\end{pmatrix} - \begin{pmatrix}1\\1\\1\end{pmatrix} + \frac{1}{2}\begin{pmatrix}0\\-1\\1\end{pmatrix}
+  = \begin{pmatrix}1\\-1/2\\-1/2\end{pmatrix}.$$
+  \(\|\mathbf{A}_3\| = \sqrt{1 + 1/4 + 1/4} = \sqrt{3/2}\).
+  \(\mathbf{q}_3 = \sqrt{\frac{2}{3}}\begin{pmatrix}1\\-1/2\\-1/2\end{pmatrix}
+  = \frac{1}{\sqrt{6}}\begin{pmatrix}2\\-1\\-1\end{pmatrix}\).
+  <br><br>
+  확인: \(\mathbf{q}_1^T\mathbf{q}_2 = 0\), \(\mathbf{q}_1^T\mathbf{q}_3 = 0\), \(\mathbf{q}_2^T\mathbf{q}_3 = 0\). \(\checkmark\)
+</div>
+
+<h4>QR 분해 활용</h4>
+
+<p>
+  Gram&ndash;Schmidt 과정은 \(A = QR\) 분해를 직접 생산한다.
+  \(Q\)의 열은 \(\mathbf{q}_i\)이고, \(R\)의 성분은
+  \(r_{ij} = \mathbf{q}_i^T \mathbf{a}_j\) (\(i \le j\))이다.
+</p>
+
+<div class="example">
+  <span class="env-label">Example 7.22 (QR 분해)</span>
+  Example 7.21의 결과를 이용하면:
+  $$
+    Q = \begin{pmatrix}
+      1/\sqrt{3} & 0 & 2/\sqrt{6} \\
+      1/\sqrt{3} & -1/\sqrt{2} & -1/\sqrt{6} \\
+      1/\sqrt{3} & 1/\sqrt{2} & -1/\sqrt{6}
+    \end{pmatrix},
+  $$
+  $$
+    R = \begin{pmatrix}
+      \sqrt{3} & \sqrt{3} & \sqrt{3} \\
+      0 & \sqrt{2} & -1/\sqrt{2} \\
+      0 & 0 & \sqrt{3/2}
+    \end{pmatrix}.
+  $$
+  <br>
+  QR 분해의 응용:
+  <ul>
+    <li><strong>최소제곱:</strong> \(A^T A \hat{\mathbf{x}} = A^T\mathbf{b}\) 대신
+      \(R\hat{\mathbf{x}} = Q^T\mathbf{b}\)를 풀면 된다 (계산이 더 안정적).</li>
+    <li><strong>고유값 알고리즘 (QR algorithm):</strong> \(A_0 = A\), \(A_k = Q_k R_k\), \(A_{k+1} = R_k Q_k\)를
+      반복하면 \(A_k\)가 상삼각(또는 대각) 행렬로 수렴하여 eigenvalue(고유값)를 구할 수 있다.</li>
+  </ul>
+</div>
+
+<p class="source-tag">[Source: MIT 18.06SC, Sessions 2.4&ndash;2.5]</p>
+
+
+<!-- ============================================================ -->
+<h3 id="four-subspaces-detail">7.11 네 가지 기본 부분공간의 관계</h3>
+<!-- ============================================================ -->
+
+<p>선형대수의 기본 정리(Fundamental Theorem of Linear Algebra)는 행렬 하나에서 파생되는 네 가지 부분공간 — 열공간, 영공간, 행공간, 좌영공간 — 이 두 쌍의 직교 여공간을 형성한다는 구조적 결과이다. 이 관계는 최소제곱 문제의 기하학적 구조를 밝혀 주고, SVD가 네 부분공간 각각의 정규직교 기저를 동시에 제공한다는 사실의 이론적 토대이다.</p>
+
+<p>
+  \(m \times n\) 행렬 \(A\)의 네 가지 기본 부분공간은 \(\mathbb{R}^n\)과 \(\mathbb{R}^m\)을 각각 직교 여공간 쌍으로 분할한다.
+  이 구조가 선형대수학의 기본 정리이다.
+</p>
+
+<h4>직교 여공간 관계</h4>
+
+<p>\(\mathbb{R}^n\)에서:</p>
+$$\mathbb{R}^n = C(A^T) \oplus N(A) \quad (\text{직교 직합}),$$
+<p>모든 \(\mathbf{x} \in \mathbb{R}^n\)은 행공간 성분 \(\mathbf{x}_r \in C(A^T)\)과 null space(영공간) 성분 \(\mathbf{x}_n \in N(A)\)의 합으로 유일하게 분해된다.</p>
+
+<p>\(\mathbb{R}^m\)에서:</p>
+$$\mathbb{R}^m = C(A) \oplus N(A^T) \quad (\text{직교 직합}).$$
+
+<h4>\(A\)의 작용 해석</h4>
+
+<p>
+  \(A: \mathbb{R}^n \to \mathbb{R}^m\)에서, \(A\)는 행공간 \(C(A^T)\)을 column space(열공간) \(C(A)\)로 일대일(단사)이면서
+  위로(전사)인 사상을 유도한다. null space(영공간)은 \(\mathbf{0}\)으로 보내진다.
+  SVD는 이 사상의 정확한 구조를 보여준다: \(A\mathbf{v}_i = \sigma_i \mathbf{u}_i\).
+</p>
+
+<div class="example">
+  <span class="env-label">Example 7.23 (네 부분공간 관계)</span>
+  \(A = \begin{pmatrix}1&3&5\\2&6&10\end{pmatrix}\)로 놓자.
+  rank(계수) \(r = 1\).
+  <br><br>
+  <strong>행공간</strong> \(C(A^T)\): \(\operatorname{span}\left(\begin{pmatrix}1\\3\\5\end{pmatrix}\right)\),
+  차원 1, \(\mathbb{R}^3\)의 부분공간.
+  <br><br>
+  <strong>Null space(영공간)</strong> \(N(A)\): \(x_1 + 3x_2 + 5x_3 = 0\)의 해공간.
+  기저: \(\begin{pmatrix}-3\\1\\0\end{pmatrix}\), \(\begin{pmatrix}-5\\0\\1\end{pmatrix}\).
+  차원 2, \(\mathbb{R}^3\)의 부분공간.
+  <br><br>
+  확인: 행공간과 null space(영공간)의 차원의 합 = \(1 + 2 = 3 = n\).
+  내적: \(\begin{pmatrix}1\\3\\5\end{pmatrix} \cdot \begin{pmatrix}-3\\1\\0\end{pmatrix} = -3+3+0 = 0\). \(\checkmark\)
+  <br><br>
+  <strong>Column space(열공간)</strong> \(C(A)\): \(\operatorname{span}\left(\begin{pmatrix}1\\2\end{pmatrix}\right)\),
+  차원 1, \(\mathbb{R}^2\)의 부분공간.
+  <br><br>
+  <strong>좌 null space(좌영공간)</strong> \(N(A^T)\):
+  \(\operatorname{span}\left(\begin{pmatrix}-2\\1\end{pmatrix}\right)\),
+  차원 \(m - r = 1\).
+  <br><br>
+  확인: \(\begin{pmatrix}1\\2\end{pmatrix} \cdot \begin{pmatrix}-2\\1\end{pmatrix} = 0\). \(\checkmark\)
+  <br><br>
+  \(A\)의 작용: 행공간의 벡터 \(c\begin{pmatrix}1\\3\\5\end{pmatrix}\)는
+  \(A \cdot c\begin{pmatrix}1\\3\\5\end{pmatrix} = c(1+9+25)\begin{pmatrix}1\\2\end{pmatrix}/\sqrt{35}\)... 로
+  column space(열공간)에 대응된다.
+  null space(영공간)의 벡터는 \(\mathbf{0}\)으로 보내진다.
+</div>
+
+<h4>Rank&ndash;nullity 정리의 의미</h4>
+
+<p>
+  rank(계수)-nullity 정리 \(\operatorname{rank}(A) + \dim N(A) = n\)은 다음을 뜻한다:
+  행렬의 "자유도"(\(n\))는 행렬이 실제로 활용하는 차원(rank(계수))과
+  잃어버리는 차원(nullity)의 합이다.
+  이것은 모든 선형 사상에 대한 보편적 보존 법칙이다.
+</p>
+
+<h4>기저의 선택과 RREF</h4>
+
+<p>
+  RREF \(R = \begin{pmatrix}I & F\\0&0\end{pmatrix}\)로부터 네 부분공간의 기저를 읽을 수 있다:
+</p>
+<ul>
+  <li><strong>Column space(열공간):</strong> \(A\)의 피벗 열 (RREF에서 단위 열에 대응하는 원래 열).</li>
+  <li><strong>Null space(영공간):</strong> 특수해 \(\begin{pmatrix}-F\\I\end{pmatrix}\)의 열.</li>
+  <li><strong>행공간:</strong> \(R\)의 영이 아닌 행.</li>
+  <li><strong>좌 null space(좌영공간):</strong> \(EA = R\)에서 \(E\)의 마지막 \(m-r\)개 행.</li>
+</ul>
+
+<p class="source-tag">[Source: MIT 18.06SC, Sessions 1.10&ndash;1.11]</p>
+
+
+<hr>
+
+</section>
+
+<!-- ============================================================
+     Part IV: Analysis (Sections 8-12)
+     Sources: MIT 18.100A/B, Harvey Mudd Real Analysis, METU Math349,
+              NPTEL Complex Analysis, MIT 18.102, NPTEL Functional Analysis,
+              NPTEL Measure and Integration, Stanford EE261, MIT 18.103
+     ============================================================ -->
+
+
+<!-- ============================================================
+     SECTION 8: REAL ANALYSIS
+     ============================================================ -->

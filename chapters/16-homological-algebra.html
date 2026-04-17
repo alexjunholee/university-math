@@ -1,0 +1,185 @@
+<h2 id="homological-algebra">16. Homological Algebra</h2>
+
+<p class="chapter-intro">호몰로지 대수는 사슬 복합체와 완전열을 통해 대수적 구조의 '결함'을 측정하는 이론이다. 텐서곱의 비완전성, 확장 문제, 위상 공간의 불변량 등 다양한 맥락에서 등장하는 공통 구조를 추상화한다.</p>
+
+<p>호몰로지(homology)는 대수적 구조에서 불변량(invariant)을 체계적으로 추출하는 방법이다. 위상수학에서 출발하여 대수학, 해석학, 기하학으로 확장되었다. 완전열(exact sequence)은 정보가 손실 없이 전달되는 상태를 기술하고, 호몰로지는 완전성이 깨지는 정도, 즉 장애물(obstruction)을 측정한다.</p>
+
+<p>위상적 데이터 분석(topological data analysis, TDA)에서 지속 호몰로지(persistent homology)는 고차원 점 구름(point cloud) 데이터의 형태학적 특징 -- 연결 성분, 고리, 빈 공동(cavity) -- 을 다양한 스케일에서 추출하며, 약물 분자 설계, 뇌 신경망 분석, 재료과학의 다공성(porosity) 분석 등에 적용된다. 센서 네트워크(sensor network)에서 센서들의 커버리지(coverage)가 빈틈없는지 검증하는 문제는 신경 복합체(nerve complex)의 호몰로지로 환원되며, 개별 센서의 정확한 위치를 모르더라도 위상적 방법으로 커버리지를 보장할 수 있다. 전기 회로에서 키르히호프 전압 법칙(KVL)과 전류 법칙(KCL)은 회로 그래프의 사슬 복합체에서의 경계 작용소(boundary operator)와 쌍경계 작용소(coboundary operator)로 해석되며, 회로의 독립 루프 수와 독립 컷셋(cutset) 수는 각각 1차 호몰로지와 1차 코호몰로지의 차원이다.</p>
+
+<h3 id="chain-complexes">16.1 Chain Complexes and Exact Sequences</h3>
+
+<p>사슬 복합체는 \(\partial^2 = 0\)이라는 조건에서 출발하며, 이 조건이 호몰로지를 정의 가능하게 만든다. 짧은 완전열(short exact sequence)은 한 대상이 두 개의 더 단순한 대상으로 어떻게 조립되는지를 기술하고, 긴 완전열(long exact sequence)은 이 조립 과정에서 호몰로지 불변량의 연결을 추적한다.</p>
+
+<div class="definition">
+<span class="env-label">Definition 16.1 (Chain Complex)</span>
+\(R\)-가군의 <strong>사슬 복합체(chain complex)</strong> \((C_\bullet, \partial)\)는 다음과 같은 열이다:
+$$
+\cdots \xrightarrow{\partial_{n+2}} C_{n+1} \xrightarrow{\partial_{n+1}} C_n \xrightarrow{\partial_n} C_{n-1} \xrightarrow{\partial_{n-1}} \cdots
+$$
+여기서 각 \(\partial_n: C_n \to C_{n-1}\)은 \(R\)-가군 homomorphism(준동형)이며, 모든 \(n\)에 대해 \(\partial_n \circ \partial_{n+1} = 0\)을 만족한다. 사상 \(\partial_n\)을 <strong>경계 작용소(boundary operator)</strong>(또는 미분)라 한다.
+</div>
+
+<p><strong>쌍대사슬 복합체(cochain complex)</strong> \((C^\bullet, d)\)는 쌍대적으로 정의되며, 사상 \(d^n: C^n \to C^{n+1}\)이 \(d^{n+1} \circ d^n = 0\)을 만족한다.</p>
+
+<p>조건 \(\partial^2 = 0\)은 경계(boundary)가 항상 순환(cycle)임을 보장하지만, 모든 순환이 경계는 아닐 수 있다. 이 차이 -- "순환이지만 경계가 아닌 것" -- 를 측정하는 것이 호몰로지이다.</p>
+
+<div class="definition">
+<span class="env-label">Definition 16.2 (Homology)</span>
+조건 \(\partial_n \circ \partial_{n+1} = 0\)은 \(\operatorname{im} \partial_{n+1} \subseteq \ker \partial_n\)을 함의한다. 사슬 복합체의 \(n\)번째 <strong>호몰로지(homology)</strong>는
+$$
+H_n(C_\bullet) = \ker \partial_n / \operatorname{im} \partial_{n+1} = Z_n / B_n
+$$
+이다. 여기서 \(Z_n = \ker \partial_n\)은 <strong>순환(cycle)</strong>이고 \(B_n = \operatorname{im} \partial_{n+1}\)은 <strong>경계(boundary)</strong>이다. 호몰로지는 복합체가 위치 \(n\)에서 완전이 되지 못하는 정도를 측정한다.
+</div>
+
+<div class="definition">
+<span class="env-label">Definition 16.3 (Exact Sequence)</span>
+사슬 복합체가 \(C_n\)에서 <strong>완전(exact)</strong>이란, \(H_n = 0\), 즉 \(\ker \partial_n = \operatorname{im} \partial_{n+1}\)인 것이다. 복합체가 <strong>완전</strong>이란, 모든 위치에서 완전인 것이다. <strong>short exact sequence(짧은 완전열)</strong>은 다음 형태의 완전열이다:
+$$
+0 \to A \xrightarrow{f} B \xrightarrow{g} C \to 0.
+$$
+이것은 \(f\)가 단사이고 \(g\)가 전사이며 \(\ker g = \operatorname{im} f\)임을 의미하므로, \(C \cong B / f(A)\)이다.
+</div>
+
+<div class="example">
+<span class="env-label">Example 16.1</span>
+열 \(0 \to \mathbb{Z} \xrightarrow{\times n} \mathbb{Z} \xrightarrow{\pi} \mathbb{Z}/n\mathbb{Z} \to 0\)은 short exact sequence(짧은 완전열)이다. 첫째 사상은 \(n\)배 곱이고, 둘째 사상은 몫 사상이다.
+</div>
+
+<div class="theorem">
+<span class="env-label">Theorem 16.1 (Long Exact Sequence in Homology)</span>
+사슬 복합체의 short exact sequence(짧은 완전열) \(0 \to A_\bullet \to B_\bullet \to C_\bullet \to 0\)은 호몰로지에서의 긴 완전열(long exact sequence)을 유도한다:
+$$
+\cdots \to H_n(A) \to H_n(B) \to H_n(C) \xrightarrow{\delta} H_{n-1}(A) \to H_{n-1}(B) \to \cdots
+$$
+사상 \(\delta: H_n(C) \to H_{n-1}(A)\)를 <strong>연결 homomorphism(준동형)(connecting homomorphism)</strong>이라 하며, 다이어그램 추적(diagram chasing), 즉 뱀 보조정리(Snake Lemma)를 통해 구성된다.
+</div>
+
+<div class="theorem">
+<span class="env-label">Theorem 16.2 (Snake Lemma)</span>
+행이 완전인 \(R\)-가군의 가환 다이어그램이 주어질 때:
+$$
+\begin{array}{ccccccccc}
+& & A & \xrightarrow{f} & B & \xrightarrow{g} & C & \to & 0 \\
+& & \downarrow \alpha & & \downarrow \beta & & \downarrow \gamma & & \\
+0 & \to & A' & \xrightarrow{f'} & B' & \xrightarrow{g'} & C' & & \\
+\end{array}
+$$
+자연스러운 완전열이 존재한다:
+$$
+\ker \alpha \to \ker \beta \to \ker \gamma \xrightarrow{\delta} \operatorname{coker} \alpha \to \operatorname{coker} \beta \to \operatorname{coker} \gamma.
+$$
+</div>
+
+<div class="definition">
+<span class="env-label">Definition 16.4 (Split Exact Sequence)</span>
+short exact sequence(짧은 완전열) \(0 \to A \xrightarrow{f} B \xrightarrow{g} C \to 0\)이 <strong>분열(split)</strong>한다 함은, 다음 동치 조건 중 하나가 성립하는 것이다:
+<ul>
+ <li>\(g \circ s = \operatorname{id}_C\)인 \(s: C \to B\)가 존재한다(단면, section).</li>
+ <li>\(r \circ f = \operatorname{id}_A\)인 \(r: B \to A\)가 존재한다(수축, retraction).</li>
+ <li>\(B \cong A \oplus C\).</li>
+</ul>
+</div>
+
+<div class="theorem">
+<span class="env-label">Theorem 16.3 (Projective and Injective Modules)</span>
+<ul>
+ <li>가군 \(P\)가 <strong>사영적(projective)</strong>이란, 모든 short exact sequence(짧은 완전열) \(0 \to A \to B \to P \to 0\)이 분열하는 것이다. 동치 조건으로, \(P\)가 자유 가군의 직합인수(direct summand)이다. 동치 조건으로, \(\operatorname{Hom}(P, -)\)가 완전이다.</li>
+ <li>가군 \(Q\)가 <strong>단사적(injective)</strong>이란, 모든 short exact sequence(짧은 완전열) \(0 \to Q \to B \to C \to 0\)이 분열하는 것이다. 동치 조건으로, \(\operatorname{Hom}(-, Q)\)가 완전이다.</li>
+</ul>
+PID 위에서, 가군이 사영적일 필요충분조건은 자유인 것이다. PID 위에서, 가군이 단사적일 필요충분조건은 가분(divisible)인 것이다.
+</div>
+
+<h3 id="ext-tor">16.2 Ext and Tor Functors</h3>
+
+<p>짧은 완전열에 함자(functor)를 적용하면 완전성이 깨질 수 있다. Hom 함자와 텐서곱 함자는 각각 한쪽 방향의 완전성만 보존한다. Ext와 Tor는 이 결손을 기록하는 유도 함자(derived functor)이다. 가군의 확장 분류(Ext), 비틀림 정보 추출(Tor), 보편 계수 정리를 통한 코호몰로지 계산 등에 쓰인다.</p>
+
+<p class="section-transition">Ext와 Tor는 Hom 함자와 텐서곱 함자의 유도 함자로, 완전성이 깨지는 정도를 측정한다.</p>
+
+<div class="definition">
+<span class="env-label">Definition 16.5 (Projective Resolution)</span>
+가군 \(M\)의 <strong>사영 분해(projective resolution)</strong>는 다음과 같은 완전열이다:
+$$
+\cdots \to P_2 \xrightarrow{d_2} P_1 \xrightarrow{d_1} P_0 \xrightarrow{\epsilon} M \to 0
+$$
+여기서 각 \(P_i\)는 사영 가군이다. 모든 가군은 사영 분해를 갖는다(항상 자유 가군을 택할 수 있다).
+</div>
+
+<div class="definition">
+<span class="env-label">Definition 16.6 (Tor Functor)</span>
+\(R\)-가군 \(M\)과 \(N\)이 주어질 때, 사영 분해 \(P_\bullet \to M \to 0\)을 택하고 복합체 \(P_\bullet \otimes_R N\)을 구성한다. <strong>Tor 함자</strong>는 이 복합체의 호몰로지이다:
+$$
+\operatorname{Tor}_n^R(M, N) = H_n(P_\bullet \otimes_R N).
+$$
+주요 성질:
+<ul>
+ <li>\(\operatorname{Tor}_0^R(M, N) \cong M \otimes_R N\).</li>
+ <li>\(M\) 또는 \(N\)이 평탄이면, 모든 \(n \geq 1\)에 대해 \(\operatorname{Tor}_n^R(M, N) = 0\)이다.</li>
+ <li>\(\operatorname{Tor}\)는 대칭적이다: \(\operatorname{Tor}_n^R(M, N) \cong \operatorname{Tor}_n^R(N, M)\).</li>
+</ul>
+</div>
+
+<div class="definition">
+<span class="env-label">Definition 16.7 (Ext Functor)</span>
+\(R\)-가군 \(M\)과 \(N\)이 주어질 때, 사영 분해 \(P_\bullet \to M \to 0\)을 택하고 쌍대사슬 복합체 \(\operatorname{Hom}_R(P_\bullet, N)\)을 구성한다. <strong>Ext 함자</strong>는 이 복합체의 코호몰로지이다:
+$$
+\operatorname{Ext}_R^n(M, N) = H^n(\operatorname{Hom}_R(P_\bullet, N)).
+$$
+주요 성질:
+<ul>
+ <li>\(\operatorname{Ext}_R^0(M, N) \cong \operatorname{Hom}_R(M, N)\).</li>
+ <li>\(M\)이 사영적이거나 \(N\)이 단사적이면, 모든 \(n \geq 1\)에 대해 \(\operatorname{Ext}_R^n(M, N) = 0\)이다.</li>
+ <li>\(\operatorname{Ext}_R^1(M, N)\)은 \(M\)을 \(N\)으로 확장하는 것, 즉 short exact sequence(짧은 완전열) \(0 \to N \to E \to M \to 0\)의 동치류를 분류한다.</li>
+</ul>
+</div>
+
+<div class="example">
+<span class="env-label">Example 16.2</span>
+\(R = \mathbb{Z}\)인 경우: 분해 \(0 \to \mathbb{Z} \xrightarrow{\times n} \mathbb{Z} \to \mathbb{Z}/n\mathbb{Z} \to 0\)으로부터
+$$
+\operatorname{Tor}_1^{\mathbb{Z}}(\mathbb{Z}/n\mathbb{Z}, A) \cong \{a \in A : na = 0\} = A[n], \qquad
+\operatorname{Ext}_{\mathbb{Z}}^1(\mathbb{Z}/n\mathbb{Z}, A) \cong A/nA
+$$
+를 얻는다. 예를 들어, \(\operatorname{Tor}_1^{\mathbb{Z}}(\mathbb{Z}/2\mathbb{Z}, \mathbb{Z}/6\mathbb{Z}) \cong \mathbb{Z}/2\mathbb{Z}\)이고 \(\operatorname{Ext}_{\mathbb{Z}}^1(\mathbb{Z}/2\mathbb{Z}, \mathbb{Z}) \cong \mathbb{Z}/2\mathbb{Z}\)이다.
+</div>
+
+<div class="theorem">
+<span class="env-label">Theorem 16.4 (Universal Coefficient Theorem)</span>
+자유 아벨 group(군)의 사슬 복합체 \(C_\bullet\)와 아벨 group(군) \(G\)에 대해, 다음과 같은 (분열하는) short exact sequence(짧은 완전열)가 존재한다:
+$$
+0 \to H_n(C) \otimes G \to H_n(C \otimes G) \to \operatorname{Tor}_1^{\mathbb{Z}}(H_{n-1}(C), G) \to 0,
+$$
+$$
+0 \to \operatorname{Ext}^1_{\mathbb{Z}}(H_{n-1}(C), G) \to H^n(\operatorname{Hom}(C, G)) \to \operatorname{Hom}(H_n(C), G) \to 0.
+$$
+</div>
+
+<p>보편 계수 정리(Universal Coefficient Theorem)는 정수 계수로 계산한 호몰로지 \(H_n(C)\)로부터 임의의 계수군 \(G\)에 대한 호몰로지와 코호몰로지를 복원하는 공식이다. Tor와 Ext 항은 계수를 바꿀 때 발생하는 "보정값"으로, 계수군에 비틀림(torsion)이 있을 때에만 비자명하게 기여한다.</p>
+
+
+<!-- ============================================================
+ SECTION 17: ELEMENTARY NUMBER THEORY
+ ============================================================ -->
+<div class="part-intro">
+<p>정수론은 수학에서 가장 오래된 분야 중 하나이다. 소수의 분포, 합동식, 디오판토스 방정식 등 겉보기에 단순한 문제들이 수세기에 걸쳐 수학의 발전을 이끌어 왔다. Part VI에서는 초등 정수론의 기본 도구에서 출발하여 대수적 정수론의 심화 이론까지 다룬다.</p>
+</div>
+
+<details class="video-resources">
+<summary>추천 영상 강의 (원본 소스 기반)</summary>
+<ul>
+<li><a href="https://www.youtube.com/playlist?list=PLS3WLIIQXmMLvfY5NOfWRs55x_H4lRTpj" target="_blank">Math 340 Homological Algebra — UPenn</a></li>
+</ul>
+</details>
+
+<details class="video-resources">
+<summary>추천 교재 &amp; 오픈 자료</summary>
+<ul>
+<li><a href="https://www.math.uni-bielefeld.de/~sek/select/homol.pdf" target="_blank">An Introduction to Homological Algebra (Rotman) — 미리보기</a></li>
+<li>Weibel, <em>An Introduction to Homological Algebra</em> — 현대 호몰로지 대수의 표준 교재</li>
+<li>Rotman, <em>An Introduction to Homological Algebra</em> — 접근성 좋은 입문서</li>
+<li>Cartan &amp; Eilenberg, <em>Homological Algebra</em> — 분야를 개척한 역사적 원전</li>
+<li>Hilton &amp; Stammbach, <em>A Course in Homological Algebra</em> — GTM 4, 간결한 입문</li>
+<li>Gelfand &amp; Manin, <em>Methods of Homological Algebra</em> — 도래 범주 포함 현대적 접근</li>
+</ul>
+</details>
+

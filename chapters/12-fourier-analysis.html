@@ -1,0 +1,399 @@
+<section id="fourier-analysis">
+<h2>12. Fourier Analysis</h2>
+
+<p>임의의 신호를 사인(sine)과 코사인(cosine)의 합으로 분해한다 -- 이 아이디어가 공학에서 가장 중요한 관점 전환인 "시간 영역(time domain) vs 주파수 영역(frequency domain)"을 만들어냈다. 음향 신호의 스펙트럼 분석, JPEG 이미지 압축의 핵심인 DCT(Discrete Cosine Transform), 통신 시스템의 변조/복조(modulation/demodulation)와 대역폭(bandwidth) 할당, 구조물의 진동 해석에서 고유진동수(natural frequency) 추출, 안테나 방사 패턴(radiation pattern)과 개구면(aperture) 분포 사이의 푸리에 변환 관계 -- 이 모든 것이 푸리에 해석의 응용이다.</p>
+
+<p>시간 영역에서 복잡한 합성곱(convolution)이 주파수 영역에서 단순한 곱셈이 된다는 사실은, 필터 설계를 주파수 응답(frequency response)의 관점에서 직관적으로 수행할 수 있게 한다. 불확정성 원리(uncertainty principle)는 신호가 시간과 주파수에서 동시에 좁게 국소화될 수 없음을 정량적으로 보여주며, 이는 레이더 펄스 설계, 통신 대역폭 설계, 양자역학의 하이젠베르크 부등식에까지 연결된다. 이 장에서는 푸리에 급수, 푸리에 변환, 합성곱, 이산 푸리에 변환(DFT)과 FFT를 차례로 다룬다.</p>
+
+<p>Fourier analysis(푸리에 해석)는 함수를 정현파 성분으로 분해하고, 주파수 데이터로부터 재구성한다. 이 이론은 수학(편미분방정식, 정수론), 공학(신호 처리, 제어), 응용 과학(영상, 양자역학) 전반에 걸쳐 필수적이다.</p>
+
+<!-- 12.1 Fourier Series -->
+<h3>12.1 Fourier Series</h3>
+
+<p>주기 함수를 사인/코사인의 합으로 표현하는 것이 푸리에 급수이다. 역사적으로 Fourier가 열전도 방정식의 해를 삼각급수로 표현한 것이 시작이었으며, 오늘날에는 전력 계통의 고조파(harmonics) 분석, 악기 음색의 배음(overtone) 구조 파악, 구조물에 가해지는 주기 하중의 주파수 분해에 직접 사용된다. 수학적으로는 Chapter 10에서 다룬 \(L^2\) 공간의 정규직교 기저 \(\{e^{inx}/\sqrt{2\pi}\}\)에 대한 좌표 전개이다.</p>
+
+<div class="definition"><span class="env-label">Definition 12.1 (Fourier Series)</span>
+\(f: [-\pi, \pi] \to \mathbb{C}\)가 적분 가능하다고 하자. \(f\)의 <em>푸리에 계수(Fourier coefficients)</em>는 다음과 같다:
+$$ \hat{f}(n) = c_n = \frac{1}{2\pi} \int_{-\pi}^{\pi} f(x) e^{-inx}\, dx, \quad n \in \mathbb{Z}. $$
+\(f\)의 <em>푸리에 급수(Fourier series)</em>는 형식적 급수
+$$ f(x) \sim \sum_{n=-\infty}^{\infty} c_n e^{inx} $$
+이다. 실수 형태로는 \(f(x) \sim \frac{a_0}{2} + \sum_{n=1}^\infty (a_n \cos nx + b_n \sin nx)\)이며, 여기서 \(a_n = \frac{1}{\pi}\int_{-\pi}^\pi f(x)\cos(nx)\, dx\), \(b_n = \frac{1}{\pi}\int_{-\pi}^\pi f(x)\sin(nx)\, dx\)이다.
+</div>
+
+<div class="theorem"><span class="env-label">Theorem 12.1 (Bessel's Inequality and Parseval's Theorem)</span>
+\(f \in L^2[-\pi, \pi]\)에 대해:
+$$ \sum_{n=-\infty}^{\infty} |c_n|^2 \leq \frac{1}{2\pi}\int_{-\pi}^{\pi} |f(x)|^2\, dx \qquad \text{(Bessel's inequality)}. $$
+등호가 성립하며(파르스발 정리), 푸리에 급수는 \(L^2\)에서 \(f\)로 수렴한다:
+$$ \frac{1}{2\pi}\int_{-\pi}^{\pi} |f(x)|^2\, dx = \sum_{n=-\infty}^{\infty} |c_n|^2. $$
+</div>
+
+<div class="theorem"><span class="env-label">Theorem 12.2 (Pointwise Convergence -- Dirichlet Conditions)</span>
+\(f\)가 \([-\pi, \pi]\) 위에서 조각적으로 매끄러운(조각적 \(C^1\)이고 유한개의 점프 불연속을 갖는) 함수이면, 푸리에 급수는 모든 점에서 수렴한다:
+$$ \sum_{n=-\infty}^{\infty} c_n e^{inx} = \frac{f(x^+) + f(x^-)}{2}. $$
+연속점에서는 급수가 \(f(x)\)로 수렴한다.
+</div>
+
+<div class="theorem"><span class="env-label">Theorem 12.3 (Uniform Convergence)</span>
+\(f\)가 연속이고 주기적이며 조각적 \(C^1\)이면, 그 푸리에 급수는 \(f\)로 균등 수렴한다.
+</div>
+
+<p>푸리에 급수의 수렴 속도는 함수의 매끄러움에 의해 결정된다. \(f\)가 \(k\)번 연속 미분 가능하면 \(|c_n| = O(|n|^{-k})\)이다. 이는 부분적분을 반복하면 얻어진다. 따라서 매끄러운 함수일수록 푸리에 계수가 빠르게 감쇠하고, 적은 항으로도 정확한 근사를 준다. 불연속이 있으면 \(c_n = O(1/n)\)으로 느리게 감쇠하며, Gibbs 현상이 나타난다.</p>
+
+<div class="example"><span class="env-label">Example 12.1</span>
+톱니파 \(f(x) = x\) (\((-\pi, \pi)\) 위)의 푸리에 계수는 \(b_n = \frac{2(-1)^{n+1}}{n}\) (그리고 \(a_n = 0\))이며, 다음을 준다:
+$$ x \sim 2\sum_{n=1}^\infty \frac{(-1)^{n+1}}{n} \sin(nx), \quad x \in (-\pi, \pi). $$
+\(x = \pi/2\)를 대입하면 \(\frac{\pi}{4} = 1 - \frac{1}{3} + \frac{1}{5} - \cdots\) (라이프니츠 공식)을 얻는다.
+</div>
+
+<div class="example"><span class="env-label">Example 12.1a (구형파의 푸리에 급수)</span>
+구형파(square wave)를 \([-\pi, \pi]\) 위에서 다음과 같이 정의하자:
+$$ f(x) = \begin{cases} -1, & -\pi < x < 0, \\ \phantom{-}1, & 0 < x < \pi. \end{cases} $$
+\(f\)는 홀함수이므로 \(a_n = 0\)이고, \(b_n\)을 계산하면:
+$$ b_n = \frac{1}{\pi}\int_{-\pi}^{\pi} f(x)\sin(nx)\, dx = \frac{2}{\pi}\int_0^{\pi} \sin(nx)\, dx = \frac{2}{n\pi}(1 - \cos(n\pi)) = \begin{cases} \frac{4}{n\pi}, & n \text{ 홀수}, \\ 0, & n \text{ 짝수}. \end{cases} $$
+따라서 구형파의 푸리에 급수는:
+$$ f(x) \sim \frac{4}{\pi}\sum_{k=0}^{\infty} \frac{\sin((2k+1)x)}{2k+1} = \frac{4}{\pi}\left(\sin x + \frac{\sin 3x}{3} + \frac{\sin 5x}{5} + \cdots\right). $$
+불연속점 \(x = 0, \pm\pi\)에서 급수는 \(\frac{f(x^+)+f(x^-)}{2} = 0\)으로 수렴한다. 불연속점 근처에서 부분합이 약 9% 초과하여 진동하는 현상을 <em>Gibbs 현상</em>이라 한다.
+</div>
+
+<div class="example"><span class="env-label">Example 12.1b (톱니파의 푸리에 계수 — 복소 형태)</span>
+주기 \(2\pi\)의 톱니파 \(f(x) = x\) (\((-\pi, \pi)\) 위)에 대해 복소 푸리에 계수를 직접 계산하자.
+$$ c_n = \frac{1}{2\pi}\int_{-\pi}^{\pi} x\, e^{-inx}\, dx. $$
+\(n = 0\)이면 \(c_0 = \frac{1}{2\pi}\int_{-\pi}^{\pi} x\, dx = 0\)이다 (홀함수).
+
+\(n \neq 0\)이면 부분적분으로:
+$$ c_n = \frac{1}{2\pi}\left[\frac{x\, e^{-inx}}{-in}\right]_{-\pi}^{\pi} - \frac{1}{2\pi}\int_{-\pi}^{\pi} \frac{e^{-inx}}{-in}\, dx = \frac{1}{2\pi} \cdot \frac{-2\pi\cos(n\pi)}{in} = \frac{(-1)^{n+1}}{in} = \frac{i(-1)^n}{n}. $$
+이는 실수 형태의 계수 \(b_n = 2(-1)^{n+1}/n\)과 관계식 \(c_n = -ib_n/2\) (\(n > 0\))으로 일치함을 확인할 수 있다.
+</div>
+
+<div class="example"><span class="env-label">Example 12.1c (Parseval 등식의 활용)</span>
+구형파 \(f(x)\) (Example 12.1a)에 Parseval 등식을 적용하여 급수의 합을 구하자.
+
+좌변: \(\frac{1}{2\pi}\int_{-\pi}^{\pi} |f(x)|^2\, dx = \frac{1}{2\pi}\int_{-\pi}^{\pi} 1\, dx = 1\).
+
+우변: 실수 형태의 Parseval 등식은 \(\frac{a_0^2}{4} + \frac{1}{2}\sum_{n=1}^\infty (a_n^2 + b_n^2) = \frac{1}{2\pi}\int_{-\pi}^{\pi}|f(x)|^2\, dx\)이므로 (비표준화 주의를 맞추면):
+$$ \frac{1}{2}\sum_{k=0}^{\infty} b_{2k+1}^2 = \frac{1}{2}\sum_{k=0}^{\infty} \frac{16}{(2k+1)^2 \pi^2} = 1. $$
+따라서:
+$$ \sum_{k=0}^{\infty} \frac{1}{(2k+1)^2} = 1 + \frac{1}{9} + \frac{1}{25} + \cdots = \frac{\pi^2}{8}. $$
+여기서 \(\sum_{n=1}^{\infty} \frac{1}{n^2} = \sum_{k=0}^{\infty}\frac{1}{(2k+1)^2} + \sum_{m=1}^{\infty}\frac{1}{(2m)^2}\)임을 이용하면, \(\frac{\pi^2}{8} + \frac{1}{4}\sum\frac{1}{n^2} = \sum\frac{1}{n^2}\)이고, 이로부터 바젤 문제의 해 \(\sum_{n=1}^{\infty}\frac{1}{n^2} = \frac{\pi^2}{6}\)을 얻는다.
+</div>
+
+<!-- 12.2 Fourier Transform -->
+<p>Fourier 급수는 주기 함수를 다룬다. 비주기 함수로 확장하려면 주기를 무한대로 보내야 하며, 그 결과가 Fourier 변환이다. 이산적인 Fourier 계수의 합이 연속적인 적분으로 바뀌고, 주파수도 이산 값에서 연속 변수가 된다.</p>
+
+<h3>12.2 The Fourier Transform</h3>
+
+<p>푸리에 급수에서 주기를 무한대로 보내면, 이산적인 주파수 \(n\)이 연속 변수 \(\xi\)가 되고, 계수의 합이 적분으로 바뀐다. 이것이 푸리에 변환이며, 비주기 신호의 주파수 분석을 가능하게 한다. 레이더 신호 설계, 통신 채널의 대역폭 분석, 의료 영상(MRI)의 k-공간(k-space) 데이터 처리가 모두 푸리에 변환에 기반한다.</p>
+
+<div class="definition"><span class="env-label">Definition 12.2 (Fourier Transform)</span>
+\(f \in L^1(\mathbb{R})\)에 대해, <em>Fourier transform(푸리에 변환)</em>은 다음과 같이 정의된다:
+$$ \hat{f}(\xi) = \int_{-\infty}^{\infty} f(x)\, e^{-2\pi i \xi x}\, dx, \quad \xi \in \mathbb{R}. $$
+<em>역 Fourier transform(역 푸리에 변환)</em>은 (적용 가능할 때) 다음과 같다:
+$$ f(x) = \int_{-\infty}^{\infty} \hat{f}(\xi)\, e^{2\pi i \xi x}\, d\xi. $$
+(일부 관례에서는 \(2\pi\)를 지수부에 다르게 배치한다; 여기서는 Stanford EE261 관례를 따른다.)
+</div>
+
+<div class="theorem"><span class="env-label">Theorem 12.4 (Properties of the Fourier Transform)</span>
+\(f, g \in L^1(\mathbb{R})\)에 대해, Fourier transform(푸리에 변환)은 다음 성질을 만족한다:
+<ul>
+ <li><strong>선형성:</strong> \(\widehat{af + bg} = a\hat{f} + b\hat{g}\).</li>
+ <li><strong>시간 이동:</strong> \(g(x) = f(x - x_0)\)이면, \(\hat{g}(\xi) = e^{-2\pi i \xi x_0} \hat{f}(\xi)\).</li>
+ <li><strong>변조:</strong> \(g(x) = e^{2\pi i \xi_0 x} f(x)\)이면, \(\hat{g}(\xi) = \hat{f}(\xi - \xi_0)\).</li>
+ <li><strong>스케일링:</strong> \(g(x) = f(ax)\), \(a \neq 0\)이면, \(\hat{g}(\xi) = \frac{1}{|a|} \hat{f}(\xi/a)\).</li>
+ <li><strong>미분:</strong> \(\widehat{f'}(\xi) = 2\pi i \xi\, \hat{f}(\xi)\) (\(f' \in L^1\)일 때).</li>
+ <li><strong>리만-르베그 보조정리:</strong> \(|\xi| \to \infty\)일 때 \(\hat{f}(\xi) \to 0\).</li>
+</ul>
+</div>
+
+<div class="example"><span class="env-label">Example 12.2a (직사각형 펄스의 푸리에 변환)</span>
+직사각형 펄스 \(f(x) = \mathbf{1}_{[-a/2,\, a/2]}(x)\)의 푸리에 변환을 구하자.
+$$ \hat{f}(\xi) = \int_{-a/2}^{a/2} e^{-2\pi i \xi x}\, dx = \frac{e^{-2\pi i \xi \cdot (-a/2)} - e^{-2\pi i \xi \cdot a/2}}{2\pi i \xi} = \frac{2\sin(\pi a \xi)}{2\pi\xi} = a\operatorname{sinc}(a\xi), $$
+여기서 \(\operatorname{sinc}(u) = \frac{\sin(\pi u)}{\pi u}\)이다. \(a = 1\)일 때 \(\hat{f}(\xi) = \operatorname{sinc}(\xi)\)이다.
+
+이 결과는 중요한 쌍대성을 보여준다: 시간 영역에서 좁은 펄스(작은 \(a\))는 주파수 영역에서 넓게 퍼지고, 넓은 펄스(큰 \(a\))는 주파수 영역에서 좁아진다.
+</div>
+
+<h4>주요 푸리에 변환 쌍 표</h4>
+<table border="1" cellpadding="6" cellspacing="0" style="border-collapse: collapse; margin: 1em auto;">
+<thead>
+<tr><th>\(f(x)\)</th><th>\(\hat{f}(\xi)\)</th><th>비고</th></tr>
+</thead>
+<tbody>
+<tr><td>\(e^{-\pi x^2}\)</td><td>\(e^{-\pi \xi^2}\)</td><td>가우시안 (자기쌍대)</td></tr>
+<tr><td>\(\mathbf{1}_{[-a/2, a/2]}(x)\)</td><td>\(a\operatorname{sinc}(a\xi)\)</td><td>직사각형 펄스</td></tr>
+<tr><td>\(e^{-a|x|}\), \(a > 0\)</td><td>\(\dfrac{2a}{a^2 + (2\pi\xi)^2}\)</td><td>양쪽 지수 감쇠</td></tr>
+<tr><td>\(\dfrac{1}{x^2 + a^2}\), \(a > 0\)</td><td>\(\dfrac{\pi}{a} e^{-2\pi a|\xi|}\)</td><td>로렌츠 함수</td></tr>
+<tr><td>\(\delta(x)\)</td><td>\(1\)</td><td>디랙 델타</td></tr>
+<tr><td>\(1\)</td><td>\(\delta(\xi)\)</td><td>상수 함수</td></tr>
+<tr><td>\(e^{2\pi i \xi_0 x}\)</td><td>\(\delta(\xi - \xi_0)\)</td><td>복소 지수</td></tr>
+<tr><td>\(\cos(2\pi \xi_0 x)\)</td><td>\(\frac{1}{2}[\delta(\xi - \xi_0) + \delta(\xi + \xi_0)]\)</td><td>코사인파</td></tr>
+<tr><td>\(\operatorname{sgn}(x)\)</td><td>\(\dfrac{1}{i\pi\xi}\)</td><td>부호 함수 (분포 의미)</td></tr>
+<tr><td>\(|x|^{-1/2}\)</td><td>\(|\xi|^{-1/2}\)</td><td>동차 분포</td></tr>
+</tbody>
+</table>
+
+<h4>푸리에 변환 성질 요약표</h4>
+<table border="1" cellpadding="6" cellspacing="0" style="border-collapse: collapse; margin: 1em auto;">
+<thead>
+<tr><th>성질</th><th>시간 영역</th><th>주파수 영역</th></tr>
+</thead>
+<tbody>
+<tr><td>선형성</td><td>\(\alpha f + \beta g\)</td><td>\(\alpha \hat{f} + \beta \hat{g}\)</td></tr>
+<tr><td>시간 이동</td><td>\(f(x - x_0)\)</td><td>\(e^{-2\pi i \xi x_0}\hat{f}(\xi)\)</td></tr>
+<tr><td>주파수 이동 (변조)</td><td>\(e^{2\pi i \xi_0 x}f(x)\)</td><td>\(\hat{f}(\xi - \xi_0)\)</td></tr>
+<tr><td>스케일링</td><td>\(f(ax)\)</td><td>\(\frac{1}{|a|}\hat{f}(\xi/a)\)</td></tr>
+<tr><td>시간 미분</td><td>\(f'(x)\)</td><td>\(2\pi i\xi \, \hat{f}(\xi)\)</td></tr>
+<tr><td>주파수 미분</td><td>\(-2\pi i x \, f(x)\)</td><td>\(\hat{f}'(\xi)\)</td></tr>
+<tr><td>반전 (시간 역전)</td><td>\(f(-x)\)</td><td>\(\hat{f}(-\xi)\)</td></tr>
+<tr><td>켤레</td><td>\(\overline{f(x)}\)</td><td>\(\overline{\hat{f}(-\xi)}\)</td></tr>
+<tr><td>합성곱</td><td>\((f * g)(x)\)</td><td>\(\hat{f}(\xi)\hat{g}(\xi)\)</td></tr>
+<tr><td>곱</td><td>\(f(x)g(x)\)</td><td>\((\hat{f} * \hat{g})(\xi)\)</td></tr>
+<tr><td>\(n\)차 도함수</td><td>\(f^{(n)}(x)\)</td><td>\((2\pi i\xi)^n \hat{f}(\xi)\)</td></tr>
+<tr><td>\(x^n\) 곱</td><td>\(x^n f(x)\)</td><td>\(\left(\frac{1}{-2\pi i}\frac{d}{d\xi}\right)^n \hat{f}(\xi)\)</td></tr>
+</tbody>
+</table>
+
+<div class="theorem"><span class="env-label">Theorem 12.5 (Fourier Inversion)</span>
+\(f \in L^1(\mathbb{R})\)이고 \(\hat{f} \in L^1(\mathbb{R})\)이면,
+$$ f(x) = \int_{-\infty}^{\infty} \hat{f}(\xi)\, e^{2\pi i \xi x}\, d\xi \quad \text{a.e.} $$
+</div>
+
+<div class="theorem"><span class="env-label">Theorem 12.6 (Plancherel Theorem)</span>
+Fourier transform(푸리에 변환)은 \(L^2(\mathbb{R})\) 위의 유니타리 작용소로 확장된다:
+$$ \int_{-\infty}^{\infty} |f(x)|^2\, dx = \int_{-\infty}^{\infty} |\hat{f}(\xi)|^2\, d\xi. $$
+시간 영역과 주파수 영역 사이에서 에너지가 보존된다. 이 등식은 통신 공학에서 신호의 총 전력을 주파수 성분별 전력의 합으로 분해할 수 있음을 보장한다.
+</div>
+
+<div class="example"><span class="env-label">Example 12.2</span>
+가우시안 \(f(x) = e^{-\pi x^2}\)은 자기 자신의 Fourier transform(푸리에 변환)이다: \(\hat{f}(\xi) = e^{-\pi \xi^2}\). 보다 일반적으로, \(f(x) = e^{-ax^2}\)의 경우 \(\hat{f}(\xi) = \sqrt{\pi/a}\, e^{-\pi^2 \xi^2/a}\)이다. 가우시안이 중심적 역할을 하는 이유는, 시간과 주파수 양쪽에서 동시에 퍼짐을 최소화하기 때문이다(불확정성 원리의 등호 조건을 충족한다).
+</div>
+
+<!-- 12.3 Convolution -->
+<p>Fourier 변환의 중요한 대수적 성질은 합성곱(convolution)을 곱셈으로 변환한다는 것이다. 미분방정식, 필터링, 확률 분포의 합 등 합성곱이 등장하는 문제를 주파수 영역에서 곱셈으로 풀 수 있다.</p>
+
+<h3>12.3 Convolution Theorem</h3>
+
+<p>선형 시불변(LTI, Linear Time-Invariant) 시스템에서 입력 신호 \(x(t)\)에 대한 출력은 임펄스 응답 \(h(t)\)와의 합성곱 \(y = h * x\)로 주어진다. 합성곱은 또한 두 독립 확률변수의 합의 분포, 이미지에 블러(blur) 필터를 적용하는 연산, 다항식 곱셈 등을 통합적으로 기술하는 연산이다.</p>
+
+<div class="definition"><span class="env-label">Definition 12.3 (Convolution)</span>
+\(f, g \in L^1(\mathbb{R})\)의 <em>convolution(합성곱)</em>은 다음과 같이 정의된다:
+$$ (f * g)(x) = \int_{-\infty}^{\infty} f(t)\, g(x - t)\, dt. $$
+Convolution(합성곱)은 교환 법칙, 결합 법칙을 만족하며, 덧셈에 대해 분배 법칙이 성립한다. \(f \in L^1\)이고 \(g \in L^p\) (\(1 \leq p \leq \infty\))이면, \(f * g \in L^p\)이고 \(\|f * g\|_p \leq \|f\|_1 \|g\|_p\) (Young 부등식)이 성립한다.
+</div>
+
+<div class="theorem"><span class="env-label">Theorem 12.7 (Convolution Theorem)</span>
+\(f, g \in L^1(\mathbb{R})\)에 대해:
+$$ \widehat{f * g}(\xi) = \hat{f}(\xi) \cdot \hat{g}(\xi). $$
+시간 영역에서의 convolution(합성곱)은 주파수 영역에서의 점별 곱셈에 대응하며, 그 역도 성립한다:
+$$ \widehat{f \cdot g}(\xi) = (\hat{f} * \hat{g})(\xi). $$
+</div>
+
+<p>합성곱 정리는 시간 영역에서의 \(O(N^2)\) 합성곱 연산을 주파수 영역에서의 \(O(N)\) 점별 곱셈으로 대체할 수 있음을 의미한다. FFT를 활용하면 전체 과정이 \(O(N \log N)\)에 수행된다. 디지털 필터링, 이미지 처리, 다항식/큰 수의 곱셈이 대표적인 응용이다.</p>
+
+<div class="example"><span class="env-label">Example 12.3</span>
+\(f = \mathbf{1}_{[-1/2, 1/2]}\)(직사각형 함수)로 놓고 \(h = f * f\)라 하자. 그러면 \(\hat{f}(\xi) = \operatorname{sinc}(\xi)\)이고, \(\hat{h}(\xi) = \operatorname{sinc}^2(\xi)\)이다. Convolution(합성곱)을 직접 계산하면 삼각형 함수 \(h(x) = \max(1 - |x|, 0)\)을 얻으며, 삼각형 함수의 Fourier transform(푸리에 변환)이 \(\operatorname{sinc}^2\)임을 확인할 수 있다.
+</div>
+
+<div class="example"><span class="env-label">Example 12.3a (합성곱 정리 활용: LTI 시스템 출력 계산)</span>
+LTI 시스템의 임펄스 응답이 \(h(t) = e^{-t}\mathbf{1}_{[0,\infty)}(t)\) (인과적 지수 감쇠)이고, 입력이 \(x(t) = e^{-2t}\mathbf{1}_{[0,\infty)}(t)\)일 때 출력 \(y = h * x\)를 합성곱 정리로 구하자.
+
+먼저 각각의 푸리에 변환을 계산한다:
+$$ \hat{h}(\xi) = \frac{1}{1 + 2\pi i \xi}, \qquad \hat{x}(\xi) = \frac{1}{2 + 2\pi i \xi}. $$
+합성곱 정리에 의해:
+$$ \hat{y}(\xi) = \hat{h}(\xi)\hat{x}(\xi) = \frac{1}{(1 + 2\pi i \xi)(2 + 2\pi i \xi)}. $$
+부분분수 분해하면:
+$$ \hat{y}(\xi) = \frac{1}{1 + 2\pi i \xi} - \frac{1}{2 + 2\pi i \xi}. $$
+역 푸리에 변환하면:
+$$ y(t) = (e^{-t} - e^{-2t})\mathbf{1}_{[0,\infty)}(t). $$
+이를 합성곱을 직접 계산하여 검증할 수 있다: \(t \geq 0\)일 때,
+$$ y(t) = \int_0^t e^{-\tau} e^{-2(t-\tau)}\, d\tau = e^{-2t}\int_0^t e^{\tau}\, d\tau = e^{-2t}(e^t - 1) = e^{-t} - e^{-2t}. $$
+</div>
+
+<div class="example"><span class="env-label">Example 12.3b (Plancherel 정리 활용: 적분 계산)</span>
+Plancherel 정리를 이용하여 \(\int_{-\infty}^{\infty} \operatorname{sinc}^2(x)\, dx\)를 구하자.
+
+\(f(x) = \mathbf{1}_{[-1/2, 1/2]}(x)\)의 푸리에 변환은 \(\hat{f}(\xi) = \operatorname{sinc}(\xi)\)이다. Plancherel 정리에 의해:
+$$ \int_{-\infty}^{\infty} |\hat{f}(\xi)|^2\, d\xi = \int_{-\infty}^{\infty} |f(x)|^2\, dx. $$
+좌변은 \(\int_{-\infty}^{\infty} \operatorname{sinc}^2(\xi)\, d\xi\)이고, 우변은 \(\int_{-1/2}^{1/2} 1\, dx = 1\)이다. 따라서:
+$$ \int_{-\infty}^{\infty} \operatorname{sinc}^2(\xi)\, d\xi = 1, $$
+즉 \(\int_{-\infty}^{\infty} \frac{\sin^2(\pi\xi)}{\pi^2 \xi^2}\, d\xi = 1\)이다.
+</div>
+
+<!-- 12.4 Applications -->
+<p>이론적 도구를 갖추었으니, Fourier 해석의 응용을 다룬다. 신호처리에서의 필터 설계와 편미분방정식의 풀이가 대표적인 응용이다.</p>
+
+<h3>12.4 Applications</h3>
+
+<h4>Signal Processing</h4>
+<p>Fourier transform(푸리에 변환)은 신호 처리의 이론적 근간이다. 임펄스 응답 \(h(t)\)를 갖는 선형 시불변(LTI) 시스템은 입력 신호 \(x(t)\)에 convolution(합성곱)으로 작용한다: \(y = h * x\). 주파수 영역에서 이는 \(\hat{y} = \hat{h} \cdot \hat{x}\)가 되며, 여기서 \(\hat{h}\)가 <em>전달 함수(transfer function)</em>이다. 필터 설계란 원하는 주파수 대역을 증폭 또는 억제하도록 \(\hat{h}\)를 선택하는 것이다.</p>
+
+<div class="theorem"><span class="env-label">Theorem 12.8 (Shannon-Nyquist Sampling Theorem)</span>
+\(f \in L^2(\mathbb{R})\)가 대역 제한 함수로서 \(|\xi| > B\)일 때 \(\hat{f}(\xi) = 0\)이면, \(f\)는 \(1/(2B)\) 간격의 표본값으로부터 완전히 결정된다:
+$$ f(t) = \sum_{n=-\infty}^{\infty} f\!\left(\frac{n}{2B}\right) \operatorname{sinc}\!\left(2Bt - n\right), $$
+여기서 \(\operatorname{sinc}(x) = \frac{\sin(\pi x)}{\pi x}\)이다. 최소 표본화율 \(2B\)를 <em>나이퀴스트율(Nyquist rate)</em>이라 한다.
+</div>
+
+<p>샘플링 정리는 아날로그-디지털 변환(ADC)의 이론적 기초이다. CD 음질의 표본화율 44.1kHz는 인간 청각의 상한 주파수 약 20kHz의 두 배 이상이며, 이는 나이퀴스트 조건을 만족시키기 위한 것이다. 나이퀴스트율보다 낮은 표본화율은 에일리어싱(aliasing)을 발생시켜 원래 신호를 복원할 수 없게 만든다.</p>
+
+<div class="example"><span class="env-label">Example 12.3c (양쪽 지수 감쇠의 푸리에 변환)</span>
+\(f(x) = e^{-a|x|}\) (\(a > 0\))의 푸리에 변환을 구하자.
+$$\begin{aligned}
+\hat{f}(\xi) &= \int_{-\infty}^{0} e^{ax} e^{-2\pi i\xi x}\, dx + \int_0^{\infty} e^{-ax} e^{-2\pi i\xi x}\, dx \\
+&= \frac{1}{a - 2\pi i\xi} + \frac{1}{a + 2\pi i\xi} = \frac{2a}{a^2 + 4\pi^2\xi^2}.
+\end{aligned}$$
+이 결과는 로렌츠 분포(Lorentzian)의 형태이다. \(a\)가 작을수록 \(f(x)\)는 넓게 퍼지고 \(\hat{f}(\xi)\)는 좁은 피크를 가지며, \(a\)가 클수록 반대이다. 이는 불확정성 원리의 또 다른 사례이다.
+</div>
+
+<h4>Partial Differential Equations</h4>
+<p>Fourier transform(푸리에 변환)은 상수 계수 선형 편미분방정식을 대수 방정식으로 변환한다. \(\mathbb{R}\) 위의 열 방정식 \(u_t = k\, u_{xx}\)에 초기 조건 \(u(x,0) = f(x)\)가 주어졌을 때, \(x\)에 대해 Fourier transform(푸리에 변환)을 취하면 \(\hat{u}_t = -4\pi^2 k \xi^2 \hat{u}\)를 얻고, 이를 풀면 \(\hat{u}(\xi, t) = \hat{f}(\xi) e^{-4\pi^2 k \xi^2 t}\)이다. 역변환하면:</p>
+$$ u(x,t) = f * G_t(x), \qquad G_t(x) = \frac{1}{\sqrt{4\pi k t}}\, e^{-x^2/(4kt)}, $$
+<p>여기서 \(G_t\)는 열 핵(heat kernel)으로, 시간이 지남에 따라 넓어지는 가우시안이다.</p>
+
+<div class="example"><span class="env-label">Example 12.4</span>
+\(\mathbb{R}\) 위의 파동 방정식 \(u_{tt} = c^2 u_{xx}\)에 대해, \(x\)에 대한 Fourier transform(푸리에 변환)을 취하면 \(\hat{u}_{tt} = -4\pi^2 c^2 \xi^2 \hat{u}\)이고, 해는 \(\hat{u}(\xi,t) = A(\xi)\cos(2\pi c\xi t) + B(\xi)\sin(2\pi c\xi t)\)이다. 초기 데이터 \(u(x,0) = f(x)\), \(u_t(x,0) = g(x)\)로 역변환하면 달랑베르 공식 \(u(x,t) = \frac{1}{2}[f(x+ct) + f(x-ct)] + \frac{1}{2c}\int_{x-ct}^{x+ct} g(s)\, ds\)을 얻는다.
+</div>
+
+<!-- 12.5 Discrete Fourier Transform and FFT -->
+<p>연속 Fourier 변환은 이론적으로 강력하지만, 컴퓨터로 계산하려면 이산화가 필요하다. 이산 Fourier 변환(DFT)은 유한 개의 샘플로부터 주파수 성분을 추출하며, FFT 알고리즘은 이를 \(O(N \log N)\) 시간에 수행하여 대규모 데이터의 주파수 분석을 실용적으로 만든다.</p>
+
+<h3>12.5 Discrete Fourier Transform (DFT) and Fast Fourier Transform (FFT)</h3>
+
+<p>컴퓨터로 신호를 처리하려면 유한 개의 이산 샘플을 다루어야 한다. DFT는 연속 푸리에 변환을 유한 이산 데이터에 적용한 것으로, 디지털 오실로스코프의 스펙트럼 표시, 음성 인식의 특징 추출(MFCC), 구조물 진동 데이터의 주파수 분석에서 실제로 계산되는 것이 바로 DFT이다.</p>
+
+<div class="definition"><span class="env-label">Definition 12.5 (Discrete Fourier Transform)</span>
+길이 \(N\)인 복소수 열 \(x_0, x_1, \ldots, x_{N-1}\)에 대해, <em>이산 푸리에 변환(DFT)</em>은 다음과 같이 정의된다:
+$$ X_k = \sum_{n=0}^{N-1} x_n \, e^{-2\pi i \, kn / N}, \qquad k = 0, 1, \ldots, N-1. $$
+<em>역 DFT(IDFT)</em>는:
+$$ x_n = \frac{1}{N} \sum_{k=0}^{N-1} X_k \, e^{2\pi i \, kn / N}, \qquad n = 0, 1, \ldots, N-1. $$
+DFT는 이산 합성곱을 점별 곱으로 변환하는 성질을 유지한다: 순환 합성곱 \(x \circledast y\)에 대해 \(\operatorname{DFT}(x \circledast y)_k = X_k Y_k\).
+</div>
+
+<p>DFT를 정의대로 계산하면 \(O(N^2)\)의 곱셈이 필요하다. <em>고속 푸리에 변환(FFT)</em>은 DFT의 대칭성과 주기성을 이용하여 연산량을 \(O(N \log N)\)으로 줄이는 알고리즘이다.</p>
+
+<div class="theorem"><span class="env-label">Theorem 12.9 (Cooley-Tukey FFT)</span>
+\(N = 2^m\)일 때, \(\omega_N = e^{-2\pi i/N}\)으로 놓자. DFT를 짝수 인덱스와 홀수 인덱스로 분리하면:
+$$ X_k = \underbrace{\sum_{j=0}^{N/2-1} x_{2j}\, \omega_{N/2}^{jk}}_{E_k} + \omega_N^k \underbrace{\sum_{j=0}^{N/2-1} x_{2j+1}\, \omega_{N/2}^{jk}}_{O_k}, $$
+여기서 \(E_k\)는 짝수 부분의 길이 \(N/2\) DFT, \(O_k\)는 홀수 부분의 길이 \(N/2\) DFT이다. \(E_k\)와 \(O_k\)는 \(k\)에 대해 주기 \(N/2\)이므로:
+$$ X_k = E_k + \omega_N^k O_k, \qquad X_{k+N/2} = E_k - \omega_N^k O_k. $$
+이 분할을 재귀적으로 적용하면, 총 연산량은 \(T(N) = 2T(N/2) + O(N)\)을 만족하여 \(T(N) = O(N \log N)\)이다.
+</div>
+
+<p>FFT는 디지털 신호 처리, 영상 압축(JPEG, MP3), 다항식 곱셈, 큰 수의 곱셈(Schonhage-Strassen) 등에서 핵심 알고리즘이다. 실용적으로 \(N = 10^6\)인 경우, 직접 DFT(\(\sim 10^{12}\) 연산)에 비해 FFT(\(\sim 2 \times 10^7\) 연산)는 약 \(5 \times 10^4\)배 빠르다.</p>
+
+<div class="example"><span class="env-label">Example 12.5 (4점 DFT 수동 계산)</span>
+\(x = (1, 2, 3, 4)\)의 DFT를 구하자. \(N = 4\), \(\omega_4 = e^{-2\pi i/4} = -i\)이다.
+$$\begin{aligned}
+X_0 &= 1 + 2 + 3 + 4 = 10, \\
+X_1 &= 1 + 2(-i) + 3(-1) + 4(i) = 1 - 2i - 3 + 4i = -2 + 2i, \\
+X_2 &= 1 + 2(-1) + 3(1) + 4(-1) = 1 - 2 + 3 - 4 = -2, \\
+X_3 &= 1 + 2(i) + 3(-1) + 4(-i) = 1 + 2i - 3 - 4i = -2 - 2i.
+\end{aligned}$$
+검증: Parseval 등식 \(\sum|x_n|^2 = \frac{1}{N}\sum|X_k|^2\)을 확인하면, 좌변 \(= 1+4+9+16 = 30\), 우변 \(= \frac{1}{4}(100+8+4+8) = 30\). 일치한다.
+</div>
+
+<div class="example"><span class="env-label">Example 12.6 (Fourier 변환을 이용한 확산 방정식의 해)</span>
+1차원 확산 방정식 \(u_t = D\, u_{xx}\) (\(x \in \mathbb{R}\), \(t > 0\))에 초기 조건 \(u(x,0) = e^{-|x|}\)가 주어졌을 때 해를 구하자.
+
+\(x\)에 대해 푸리에 변환을 취하면:
+$$ \hat{u}_t = -4\pi^2 D \xi^2 \hat{u}, \qquad \hat{u}(\xi, 0) = \hat{f}(\xi) = \frac{2}{1 + 4\pi^2\xi^2}. $$
+(양쪽 지수 감쇠의 푸리에 변환 표 참고, \(a = 1\).)
+
+이 ODE의 해는:
+$$ \hat{u}(\xi, t) = \frac{2}{1 + 4\pi^2\xi^2}\, e^{-4\pi^2 D \xi^2 t}. $$
+시간 영역에서 이는 초기 프로파일과 열 핵의 합성곱이다:
+$$ u(x,t) = (f * G_t)(x), \qquad G_t(x) = \frac{1}{\sqrt{4\pi D t}}\, e^{-x^2/(4Dt)}. $$
+\(t\)가 증가함에 따라 초기의 뾰족한 \(e^{-|x|}\) 프로파일이 점차 가우시안에 가까워지며 넓게 퍼진다.
+</div>
+
+<div class="example"><span class="env-label">Example 12.7 (주파수 필터링)</span>
+잡음이 섞인 신호 \(x(t) = \cos(2\pi \cdot 50t) + 0.5\cos(2\pi \cdot 500t)\)에서 50Hz 성분만 추출하려 한다. 이상적 저대역 필터(ideal low-pass filter)의 전달 함수를 다음과 같이 정의하자:
+$$ \hat{h}(\xi) = \mathbf{1}_{[-B, B]}(\xi), \qquad B = 100\text{ Hz}. $$
+합성곱 정리에 의해 출력의 주파수 영역 표현은:
+$$ \hat{y}(\xi) = \hat{h}(\xi) \hat{x}(\xi). $$
+\(\hat{x}(\xi)\)는 \(\pm 50\)Hz와 \(\pm 500\)Hz에 델타 함수를 가지므로, \(B = 100\)Hz 필터는 \(\pm 500\)Hz 성분을 제거하고 \(\pm 50\)Hz 성분만 통과시킨다. 따라서 \(y(t) = \cos(2\pi \cdot 50t)\)이다.
+
+시간 영역에서 이 필터링은 합성곱 \(y(t) = (h * x)(t)\)에 해당하며, \(h(t) = 2B\operatorname{sinc}(2Bt)\)이다. 이상적 저대역 필터의 임펄스 응답은 무한 지속 시간을 가지므로 인과적이지 않다는 한계가 있다.
+</div>
+
+<div class="example"><span class="env-label">Example 12.8 (이산 신호의 순환 합성곱과 DFT)</span>
+길이 4인 두 신호 \(x = (1, 0, 1, 0)\)과 \(h = (1, 1, 0, 0)\)의 순환 합성곱을 DFT로 계산하자.
+
+먼저 각 신호의 DFT를 구한다 (\(\omega_4 = -i\)):
+$$\begin{aligned}
+X &= (2, \; 1-(-i) + 1\cdot(-1) + 0\cdot(i), \; \ldots) \\
+ &= (2, \; 0, \; 2, \; 0), \\
+H &= (2, \; 1+(-i), \; 0, \; 1+i) = (2, \; 1-i, \; 0, \; 1+i).
+\end{aligned}$$
+점별 곱: \(Y_k = X_k H_k\)이므로 \(Y = (4, 0, 0, 0)\).
+
+IDFT: \(y_n = \frac{1}{4}\sum_{k} Y_k \omega_4^{-kn} = \frac{4}{4} = 1\) (모든 \(n\)에 대해). 따라서 \(y = (1, 1, 1, 1)\).
+
+직접 순환 합성곱으로 확인: \(y_0 = x_0 h_0 + x_3 h_1 + x_2 h_2 + x_1 h_3 = 1+0+0+0 = 1\), \(y_1 = x_1 h_0 + x_0 h_1 + x_3 h_2 + x_2 h_3 = 0+1+0+0 = 1\), 나머지도 동일하게 1이다.
+</div>
+
+<div class="example"><span class="env-label">Example 12.9 (Gibbs 현상의 정량적 분석)</span>
+구형파 (Example 12.1a)의 부분합 \(S_N(x) = \frac{4}{\pi}\sum_{k=0}^{N-1}\frac{\sin((2k+1)x)}{2k+1}\)에서 Gibbs 현상을 정량적으로 분석하자.
+
+\(N\)이 클 때, \(S_N\)의 최대값은 \(x \approx \frac{\pi}{2N+1}\) 부근에서 나타나며, 그 크기는:
+$$ \max S_N \approx \frac{2}{\pi}\int_0^{\pi} \frac{\sin t}{t}\, dt \approx \frac{2}{\pi} \cdot \text{Si}(\pi) \approx \frac{2}{\pi} \cdot 1.8519 \approx 1.1790. $$
+이는 목표값 1에 비해 약 \(8.95\%\) 초과한다. 이 초과량은 \(N \to \infty\)에서도 사라지지 않으며, 급수의 항수와 무관하게 약 \(9\%\)로 일정하다. 이는 \(L^2\) 수렴과 점별 수렴의 본질적 차이를 보여주는 현상이다.
+</div>
+
+<p>불확정성 원리는 신호 설계의 물리적 한계를 규정한다. 레이더 공학에서 짧은 펄스(시간 분해능)와 좁은 대역폭(주파수 분해능)을 동시에 달성할 수 없다는 것, 양자역학에서 위치와 운동량의 동시 측정 정밀도에 한계가 있다는 것이 모두 같은 수학적 부등식의 서로 다른 물리적 표현이다.</p>
+
+<div class="definition"><span class="env-label">Definition 12.6 (Uncertainty Principle)</span>
+\(f \in L^2(\mathbb{R})\)이고 \(\|f\|_2 = 1\)일 때, <em>시간 퍼짐(time spread)</em> \(\Delta x^2 = \int x^2 |f(x)|^2\, dx\)과 <em>주파수 퍼짐(frequency spread)</em> \(\Delta \xi^2 = \int \xi^2 |\hat{f}(\xi)|^2\, d\xi\)를 정의하면(\(f\)가 중심에 놓여 있다고 가정),
+$$ \Delta x \cdot \Delta \xi \geq \frac{1}{4\pi} $$
+이 성립하며, 등호 조건은 \(f\)가 가우시안일 때에만 성립한다. 신호는 시간과 주파수에서 동시에 국소화될 수 없다.
+</div>
+
+<div class="example"><span class="env-label">Example 12.10 (불확정성 원리의 구체적 적용)</span>
+가우시안 파속(wave packet) \(f(x) = \left(\frac{2\alpha}{\pi}\right)^{1/4} e^{-\alpha x^2}\)의 시간-주파수 퍼짐을 계산하자. \(\|f\|_2 = 1\)이 되도록 정규화되어 있다.
+
+시간 퍼짐: \(\Delta x^2 = \int x^2 |f(x)|^2\, dx = \frac{1}{4\alpha}\)이므로 \(\Delta x = \frac{1}{2\sqrt{\alpha}}\).
+
+\(\hat{f}(\xi) = \left(\frac{2}{\pi\alpha}\right)^{1/4} \cdot \frac{1}{\sqrt{2\alpha}} \cdot \sqrt{\pi}\, e^{-\pi^2\xi^2/\alpha}\) (정규화된 가우시안의 변환)에서 주파수 퍼짐: \(\Delta \xi = \frac{\sqrt{\alpha}}{2\pi}\).
+
+따라서 \(\Delta x \cdot \Delta \xi = \frac{1}{2\sqrt{\alpha}} \cdot \frac{\sqrt{\alpha}}{2\pi} = \frac{1}{4\pi}\)으로, 불확정성 원리의 하한과 정확히 일치한다. 가우시안은 시간-주파수 분해능을 동시에 최적화하는 유일한 함수 형태이다.
+</div>
+
+<p class="source-note"><em>Sources: Stanford EE261 (The Fourier Transform and Its Applications), MIT 18.103.</em></p>
+</section>
+
+
+<hr>
+
+<!-- ============================================================
+ Part 5 & 6: Algebra and Number Theory (Sections 13-18)
+ Sources: Harvard Abstract Algebra, UPenn Math371/602/603/620/702,
+ U Maryland MATH 406, Liberty University Number Theory
+ ============================================================ -->
+
+<!-- ============================================================
+ SECTION 13: GROUP THEORY
+ ============================================================ -->
+
+<div class="part-intro">
+<p>대수학은 구조를 연구하는 학문이다. 숫자의 덧셈, 행렬의 곱셈, 대칭 변환의 합성 -- 이들의 공통 구조를 추상화한 것이 군, 환, 체이다. Part V에서는 이 세 가지 대수적 구조를 차례로 다루며, 추상 대수학의 기본 틀을 세운다.</p>
+</div>
+
+<details class="video-resources">
+<summary>추천 영상 강의 (원본 소스 기반)</summary>
+<ul>
+<li><a href="https://see.stanford.edu/Course/EE261" target="_blank">EE261 The Fourier Transform and its Applications — Stanford</a></li>
+<li><a href="https://www.youtube.com/playlist?list=PLun8-Z_lTkC5KUsw0dO2SBkdwdEVKqcP5" target="_blank">Math 139 Fourier Analysis — Winston Ou</a></li>
+<li><a href="https://www.youtube.com/playlist?list=PLIygTcviGPKBMyjct4h5QLNBWxIeglSMA" target="_blank">18.103 Fourier Analysis: Theory and Applications — MIT</a></li>
+</ul>
+</details>
+
+<details class="video-resources">
+<summary>추천 교재 &amp; 오픈 자료</summary>
+<ul>
+<li><a href="https://see.stanford.edu/materials/lsoftaee261/book-fall-07.pdf" target="_blank">The Fourier Transform and Its Applications (Osgood, Stanford)</a> — 강의노트 PDF</li>
+<li>Stein &amp; Shakarchi, <em>Fourier Analysis: An Introduction</em> (Princeton Lectures in Analysis I) — 현대적 입문</li>
+<li>Katznelson, <em>An Introduction to Harmonic Analysis</em> — 조화해석학 고전</li>
+<li>Grafakos, <em>Classical Fourier Analysis</em> — GTM 249, 대학원 표준</li>
+<li>Körner, <em>Fourier Analysis</em> — 다양한 응용과 역사적 맥락</li>
+<li>Folland, <em>Fourier Analysis and Its Applications</em> — PDE와의 연결 강조</li>
+</ul>
+</details>
+

@@ -1,0 +1,133 @@
+<h2 id="sets-logic">1. Sets and Logic(집합과 논리)</h2>
+
+<p>현대 수학은 집합론을 공통 언어로 사용한다. 19세기 말 Georg Cantor가 무한 집합 연구를 시작하면서, 집합론은 수학 전체를 통일적으로 서술할 수 있는 기반이 되었다. "자기 자신을 원소로 포함하지 않는 모든 집합의 집합"이라는 Russell의 역설(1901)은, 집합 개념을 무제한으로 사용하면 모순이 발생함을 보여주었고, 이후 공리적 집합론(ZFC 등)의 발전으로 이어졌다. 이 장에서는 공리적 세부 사항까지는 다루지 않지만, 집합의 기본 연산과 성질을 정립한 뒤, 수학적 명제를 다루는 논리학으로 넘어간다.</p>
+
+<p>공학에서 집합과 논리는 놀라울 정도로 직접적으로 활용된다. 디지털 회로 설계의 기초인 불 대수(Boolean algebra)는 집합 연산과 논리 연결사의 직접적인 구현이다. AND, OR, NOT 게이트는 각각 교집합, 합집합, 여집합에 대응하며, De Morgan 법칙은 NAND/NOR 게이트만으로 모든 논리 회로를 구성할 수 있는 이론적 근거가 된다. 데이터베이스 쿼리 언어인 SQL에서 WHERE 절의 조건 결합은 집합의 교집합과 합집합 연산이고, 신호 처리에서는 주파수 대역을 집합으로 표현하여 필터의 통과 대역(passband)과 차단 대역(stopband)을 기술한다. 제어 시스템의 안정성 조건을 "모든 특성근의 실수부가 음수이다"와 같은 논리식으로 기술하는 것도 이 장의 언어를 사용하는 것이다.</p>
+
+<p>논리학은 증명의 뼈대이다. 수학에서 어떤 주장이 참인지 판단하려면, 명제를 정확히 기술하고 추론 규칙에 따라 결론을 이끌어내야 한다. 집합론이 수학의 대상을 정의하는 언어라면, 논리학은 그 대상들에 대한 참·거짓을 따지는 방법론이다. 공학 시스템의 명세(specification)를 작성하고, 그 시스템이 명세를 만족하는지 검증(verification)하는 과정은 본질적으로 논리적 추론이다. 엄밀한 논리 체계 없이는 "이 회로가 항상 올바른 출력을 내는가?"와 같은 질문에 답할 수 없다.</p>
+
+<h3>1.1 Sets(집합)</h3>
+
+<p>수학적 대상을 다루려면 먼저 "어떤 것들을 모아 놓은 것"을 엄밀하게 정의할 수 있어야 한다. 예컨대 "3.3 kHz 이하의 모든 주파수"나 "시스템이 안정인 모든 파라미터 값"처럼, 공학에서 다루는 조건을 만족하는 대상들의 모임을 형식화하는 것이 집합의 출발점이다.</p>
+
+<div class="definition">
+<span class="env-label">Definition 1.1 (Set)</span>
+<strong>Set(집합)</strong>은 서로 구별 가능한 대상들의 잘 정의된 모임이며, 그 대상들을 집합의 <strong>element(원소)</strong> 또는 <strong>member(구성원)</strong>라 한다. \(x\)가 집합 \(A\)의 원소임을 \(x \in A\)로 나타내고, 원소가 아님을 \(x \notin A\)로 나타낸다.
+</div>
+
+<p>집합은 원소를 나열하는 방법(roster notation(원소나열법)) 또는 원소의 성질을 명시하는 방법(set-builder notation(조건제시법))으로 기술할 수 있다:</p>
+<ul>
+  <li>원소나열법: \(A = \{1, 2, 3, 4, 5\}\)</li>
+  <li>조건제시법: \(A = \{x \in \mathbb{Z} \mid 1 \leq x \leq 5\}\)</li>
+</ul>
+
+<h4>Set Operations(집합 연산)</h4>
+
+<p>개별 집합을 정의하는 것만으로는 충분하지 않다. 두 필터의 통과 대역을 결합하거나, 특정 조건을 만족하지 않는 신호를 걸러내는 등, 집합들을 합치고 교차시키고 빼는 연산이 필요하다.</p>
+
+<p>집합 연산을 정의하려면, 논의의 범위를 한정하는 <strong>universal set(전체집합)</strong> \(U\)가 필요하다. 모든 집합은 \(U\)의 부분집합으로 간주하며, 특히 여집합(complement)은 \(U\)에 대해 정의된다.</p>
+
+<div class="definition">
+<span class="env-label">Definition 1.2 (Set Operations)</span>
+\(U\)를 전체집합이라 하고, \(A\)와 \(B\)를 \(U\)의 부분집합이라 하자.
+<ul>
+  <li><strong>Union(합집합)</strong>: \(A \cup B = \{x \mid x \in A \text{ or } x \in B\}\)</li>
+  <li><strong>Intersection(교집합)</strong>: \(A \cap B = \{x \mid x \in A \text{ and } x \in B\}\)</li>
+  <li><strong>Difference(차집합)</strong>: \(A \setminus B = \{x \mid x \in A \text{ and } x \notin B\}\)</li>
+  <li><strong>Complement(여집합)</strong>: \(A^c = \{x \in U \mid x \notin A\}\), 여기서 \(U\)는 universal set(전체집합)이다</li>
+  <li><strong>Cartesian Product(곱집합)</strong>: \(A \times B = \{(a, b) \mid a \in A, b \in B\}\)</li>
+</ul>
+</div>
+
+<div class="theorem">
+<span class="env-label">Theorem 1.1 (De Morgan's Laws)</span>
+임의의 집합 \(A\)와 \(B\)에 대해:
+$$
+(A \cup B)^c = A^c \cap B^c, \qquad (A \cap B)^c = A^c \cup B^c
+$$
+</div>
+
+<p>De Morgan 법칙 덕분에 NAND 게이트 하나만으로(또는 NOR 게이트 하나만으로) 모든 논리 연산을 구현할 수 있으며, 실제 집적회로(IC) 설계에서 게이트 종류를 최소화하는 데 쓰인다.</p>
+
+<h4>Functions(함수)</h4>
+
+<p>집합 사이의 대응 관계를 형식화한 것이 함수이다. 공학에서 입력 신호를 출력 신호로 변환하는 시스템, 센서 측정값을 물리량으로 환산하는 보정 곡선 등은 모두 함수로 기술된다.</p>
+
+<div class="definition">
+<span class="env-label">Definition 1.3 (Function)</span>
+<strong>Function(함수)</strong> \(f: A \to B\)는 \(A\)의 각 원소 \(a \in A\)에 대해 정확히 하나의 원소 \(f(a) \in B\)를 대응시키는 규칙이다. 집합 \(A\)를 <strong>domain(정의역)</strong>, \(B\)를 <strong>codomain(공역)</strong>이라 한다.
+<ul>
+  <li>\(f\)가 <strong>injective(단사)</strong> (일대일)이라 함은 \(f(a_1) = f(a_2) \Rightarrow a_1 = a_2\)임을 뜻한다</li>
+  <li>\(f\)가 <strong>surjective(전사)</strong> (위로의)라 함은 모든 \(b \in B\)에 대해 \(f(a) = b\)인 \(a \in A\)가 존재함을 뜻한다</li>
+  <li>\(f\)가 <strong>bijective(전단사)</strong>라 함은 injective이면서 동시에 surjective임을 뜻한다</li>
+</ul>
+</div>
+
+<h3>1.2 Mathematical Logic(수리논리학)</h3>
+
+<p>소프트웨어 검증(formal verification)에서 프로그램이 명세를 만족하는지 증명하거나, 제어 시스템에서 안정성 조건을 논리적으로 도출하는 작업은 수리논리학의 영역이다.</p>
+
+<p>집합으로 수학적 대상을 정의했으니, 이제 그 대상들에 대한 주장을 엄밀하게 다루는 도구가 필요하다. 수리논리학은 명제의 구조를 분석하고, 주어진 가정으로부터 결론을 도출하는 규칙을 제공한다. 증명 자체가 논리적 추론의 연쇄이므로, 논리학은 수학의 모든 정리가 의존하는 기반이다.</p>
+
+<p>명제 논리는 복합적인 주장을 기본 명제들의 조합으로 분해하고, 그 진릿값을 체계적으로 추적할 수 있게 해 준다. 이는 디지털 회로에서 논리 게이트의 입출력 관계를 진리표(truth table)로 분석하는 것과 정확히 같은 구조이다.</p>
+
+<div class="definition">
+<span class="env-label">Definition 1.4 (Propositional Logic)</span>
+<strong>Proposition(명제)</strong>은 참 또는 거짓인 선언적 문장이다. 명제 \(P\)와 \(Q\)가 주어졌을 때:
+<ul>
+  <li><strong>Negation(부정)</strong>: \(\neg P\)는 \(P\)가 거짓일 때 참이다</li>
+  <li><strong>Conjunction(논리곱)</strong>: \(P \land Q\)는 \(P\)와 \(Q\)가 모두 참일 때 참이다</li>
+  <li><strong>Disjunction(논리합)</strong>: \(P \lor Q\)는 \(P, Q\) 중 적어도 하나가 참일 때 참이다</li>
+  <li><strong>Implication(함의)</strong>: \(P \Rightarrow Q\)는 \(P\)가 참이고 \(Q\)가 거짓일 때만 거짓이다</li>
+  <li><strong>Biconditional(쌍조건)</strong>: \(P \Leftrightarrow Q\)는 \(P\)와 \(Q\)의 진릿값이 같을 때 참이다</li>
+</ul>
+</div>
+
+<h4>Quantifiers(양화사)</h4>
+
+<p>"모든 입력에 대해 출력이 유계(bounded)인가?" 또는 "안정성 조건을 만족하는 파라미터가 존재하는가?"와 같은 질문은 명제 논리만으로는 표현할 수 없다. 변수의 범위를 지정하여 "모든" 또는 "존재"를 표현하는 양화사가 필요하다.</p>
+
+<ul>
+  <li><strong>Universal quantifier(전칭 양화사)</strong>: \(\forall x \in S, P(x)\)는 "\(S\)의 모든 \(x\)에 대해 \(P(x)\)가 성립한다"를 뜻한다</li>
+  <li><strong>Existential quantifier(존재 양화사)</strong>: \(\exists x \in S, P(x)\)는 "\(P(x)\)가 성립하는 \(x\)가 \(S\)에 존재한다"를 뜻한다</li>
+</ul>
+
+<div class="remark">
+<span class="env-label">Remark</span>
+양화사의 부정: \(\neg(\forall x, P(x)) \equiv \exists x, \neg P(x)\) 그리고 \(\neg(\exists x, P(x)) \equiv \forall x, \neg P(x)\).
+</div>
+
+<h4>Methods of Proof(증명 방법)</h4>
+
+<p>수학적 주장을 검증하려면 체계적인 증명 방법이 필요하다. 공학에서는 알고리즘의 정확성을 증명하거나, 귀납법으로 재귀적 구조의 성질을 보이는 경우가 흔하다. 아래의 네 가지 기본 증명 방법은 이후 모든 장에서 반복적으로 사용된다.</p>
+
+<ul>
+  <li><strong>Direct proof(직접 증명)</strong>: \(P\)를 가정하고 \(Q\)를 유도하여 \(P \Rightarrow Q\)를 증명한다</li>
+  <li><strong>Proof by contradiction(귀류법)</strong>: \(\neg Q\) (또는 \(\neg(P \Rightarrow Q)\))를 가정하고 모순을 유도한다</li>
+  <li><strong>Proof by contrapositive(대우 증명)</strong>: \(P \Rightarrow Q\)와 동치인 \(\neg Q \Rightarrow \neg P\)를 증명한다</li>
+  <li><strong>Mathematical induction(수학적 귀납법)</strong>: \(P(1)\)을 증명하고 (base case(기초 단계)), \(P(n) \Rightarrow P(n+1)\)을 증명한다 (inductive step(귀납 단계))</li>
+</ul>
+
+<p class="source-tag">Sources: NPTEL Mathematical Logic (IIT Madras), Harvard Sets/Counting/Probability, Nottingham Foundations of Pure Mathematics</p>
+
+<details class="video-resources">
+<summary>추천 영상 강의 (원본 소스 기반)</summary>
+<ul>
+<li><a href="http://nptel.ac.in/courses/111106052/" target="_blank">Mathematical Logic — NPTEL IIT Madras</a></li>
+<li><a href="https://www.youtube.com/playlist?list=PLpRE0Zu_k-BzsKBqQ-HEqD6WVLIHSNuXa" target="_blank">Foundations of Pure Mathematics — U. of Nottingham</a></li>
+<li><a href="https://www.youtube.com/playlist?list=PLelIK3uylPMFx0ChiZsKts8cs46wu9CJb" target="_blank">Sets, Counting, and Probability — Harvard</a></li>
+</ul>
+</details>
+
+<details class="video-resources">
+<summary>추천 교재 &amp; 오픈 자료</summary>
+<ul>
+<li><a href="https://discrete.openmathbooks.org/dmoi3.html" target="_blank">Discrete Mathematics: An Open Introduction (Levin)</a> — Ch 0: Introduction and Preliminaries</li>
+<li><a href="https://www.people.vcu.edu/~rhammack/BookOfProof/" target="_blank">Book of Proof (Hammack)</a> — Part I: Fundamentals (Sets, Logic, Counting)</li>
+<li>Halmos, <em>Naive Set Theory</em> — 공리적 집합론의 고전적 입문서</li>
+<li>Enderton, <em>Elements of Set Theory</em> — ZFC 공리계 체계적 전개</li>
+<li>Velleman, <em>How to Prove It</em> — 증명 기법과 논리의 체계적 입문</li>
+</ul>
+</details>
+
+<hr>

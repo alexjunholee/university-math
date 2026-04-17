@@ -1,0 +1,331 @@
+<section id="functional-analysis">
+<h2>10. Functional Analysis</h2>
+
+<p>선형대수에서 벡터를 다루듯 함수를 벡터처럼 다루면 어떤 일이 벌어지는가? 신호처리에서 \(L^2\) 공간은 에너지가 유한한 신호들의 집합이고, 푸리에 급수 전개는 이 공간에서의 정규직교 기저(orthonormal basis)에 대한 좌표 분해이다. 양자역학에서 상태 벡터가 사는 공간이 힐베르트 공간(Hilbert space)이고, 관측 가능량(observable)이 자기수반 작용소(self-adjoint operator)이다. 유한요소법(Finite Element Method, FEM)에서 편미분방정식의 약해(weak solution)가 존재하는지 판정하는 데 Lax-Milgram 정리가 사용된다. 이들의 공통된 수학적 언어가 함수해석학이다.</p>
+
+<p>함수해석학의 기본 질문은 이것이다: 유한차원 선형대수의 결과들 -- 고유값 분해, 직교 사영, 역행렬의 존재 -- 이 무한차원으로 확장될 때 무엇이 유지되고 무엇이 무너지는가? 무한차원에서는 단위 구(unit ball)가 콤팩트가 아니고, 모든 선형 작용소가 연속인 것도 아니며, 고유값 외에 연속 스펙트럼(continuous spectrum)이 등장한다. 이 장에서는 이러한 차이를 체계적으로 다룬다.</p>
+
+<p>함수해석학(Functional Analysis)은 위상 구조(보통 노름 또는 내적)가 부여된 무한 차원 벡터 공간과 그 위에서 작용하는 선형 작용소를 연구하는 분야다. 이 분야는 양자역학, 편미분방정식 이론, 최적화, 신호 처리의 기본 언어를 제공한다.</p>
+
+<!-- 10.1 Normed Spaces and Banach Spaces -->
+<h3>10.1 Normed Spaces and Banach Spaces</h3>
+
+<p>함수 공간에서 "두 함수가 얼마나 가까운가?"를 측정하려면 노름(norm)이 필요하다. 신호의 에너지를 \(\|f\|_2 = (\int |f|^2\,dx)^{1/2}\)로, 최대 진폭을 \(\|f\|_\infty = \sup|f|\)로 측정하는 것이 대표적이다. 노름 공간에서 코시 수열이 반드시 수렴하는 완비성(completeness)을 갖추면 Banach 공간이 되며, 이 완비성은 반복법(iterative method)이나 급수 해의 수렴을 보장하는 데 필수적이다.</p>
+
+<div class="definition"><span class="env-label">Definition 10.1 (Normed Space)</span>
+<em>노름 공간(normed space)</em>이란 \(\mathbb{R}\) 또는 \(\mathbb{C}\) 위의 벡터 공간 \(X\)와 다음 조건을 만족하는 함수 \(\|\cdot\|: X \to [0, \infty)\)의 쌍 \((X, \|\cdot\|)\)을 말한다:
+<ol>
+  <li>\(\|x\| = 0 \iff x = 0\) (확정성),</li>
+  <li>\(\|\alpha x\| = |\alpha|\, \|x\|\) (모든 스칼라 \(\alpha\)에 대해, 동차성),</li>
+  <li>\(\|x + y\| \leq \|x\| + \|y\|\) (삼각 부등식).</li>
+</ol>
+노름 공간은 \(d(x,y) = \|x - y\|\)로 정의되는 거리를 통해 자연스럽게 거리 공간이 된다.
+</div>
+
+<div class="definition"><span class="env-label">Definition 10.2 (Banach Space)</span>
+<em>완비</em>(모든 코시 수열이 수렴)인 노름 공간을 <em>Banach space(바나흐 공간)</em>라 한다.
+</div>
+
+<div class="example"><span class="env-label">Example 10.1</span>
+Banach space(바나흐 공간)의 표준적인 예:
+<ul>
+  <li>\(\mathbb{R}^n\)에 임의의 \(p\)-노름 \(\|x\|_p = \bigl(\sum |x_i|^p\bigr)^{1/p}\)을 부여한 공간, \(1 \leq p \leq \infty\).</li>
+  <li>\(\ell^p\) = \(\sum |x_n|^p < \infty\)를 만족하는 수열 \((x_n)\)의 공간, \(1 \leq p < \infty\).</li>
+  <li>\(C([a,b])\), \([a,b]\) 위의 연속함수 공간에 상한 노름 \(\|f\|_\infty = \sup_{x \in [a,b]} |f(x)|\)을 부여한 공간.</li>
+  <li>\(L^p([a,b])\), \(1 \leq p \leq \infty\) (거의 어디서나 같은 함수를 동일시한 후).</li>
+</ul>
+\(C([a,b])\)에 \(L^1\) 노름을 부여한 공간은 완비가 <em>아니다</em>.
+</div>
+
+<!-- 10.2 Hilbert Spaces -->
+<p>Banach 공간은 노름만 주어진 완비 공간이다. 여기에 내적 구조를 추가하면 Hilbert 공간을 얻고, "각도"와 "직교"를 정의할 수 있게 된다.</p>
+
+<h3>10.2 Hilbert Spaces</h3>
+
+<p>Banach 공간에 내적이 추가되면 "각도"와 "직교"라는 기하학적 개념을 정의할 수 있다. 신호처리에서 두 신호의 상관(correlation)이 내적으로 표현되고, 직교성이 독립적 주파수 성분의 분리를 의미하는 것은 이 구조 덕분이다.</p>
+
+<div class="definition"><span class="env-label">Definition 10.3 (Inner Product Space, Hilbert Space)</span>
+<em>내적 공간(inner product space)</em>이란 \(\mathbb{R}\)(또는 \(\mathbb{C}\)) 위의 벡터 공간 \(H\)에 다음 조건을 만족하는 사상 \(\langle \cdot, \cdot \rangle: H \times H \to \mathbb{R}\)(또는 \(\mathbb{C}\))이 주어진 것이다:
+<ol>
+  <li>\(\langle x, x \rangle \geq 0\)이고, 등호 조건은 \(x = 0\)일 때에만 성립,</li>
+  <li>\(\langle x, y \rangle = \overline{\langle y, x \rangle}\) (켤레 대칭성),</li>
+  <li>첫째 변수에 대한 선형성.</li>
+</ol>
+모든 내적은 노름 \(\|x\| = \sqrt{\langle x, x \rangle}\)을 유도한다. 이 노름에 대해 완비인 내적 공간을 <em>Hilbert space(힐베르트 공간)</em>라 한다.
+</div>
+
+<div class="theorem"><span class="env-label">Theorem 10.1 (Cauchy-Schwarz Inequality)</span>
+임의의 내적 공간에서 \(|\langle x, y \rangle| \leq \|x\|\, \|y\|\)이 성립하며, 등호 조건은 \(x\)와 \(y\)가 선형 종속일 때에만 성립한다.
+</div>
+
+<div class="theorem"><span class="env-label">Theorem 10.2 (Projection Theorem)</span>
+\(H\)를 Hilbert space(힐베르트 공간), \(M \subseteq H\)를 닫힌 볼록 부분집합이라 하자. 모든 \(x \in H\)에 대해, \(\|x - m_0\| = \inf_{m \in M} \|x - m\|\)을 만족하는 유일한 \(m_0 \in M\)(<em>최적 근사</em>)이 존재한다. \(M\)이 닫힌 부분공간이면, \(m_0\)는 \((x - m_0) \perp M\)을 만족하는 유일한 원소이며,
+$$ H = M \oplus M^\perp. $$
+</div>
+
+<div class="theorem"><span class="env-label">Theorem 10.3 (Orthonormal Basis / Parseval's Identity)</span>
+\(\{e_n\}_{n=1}^\infty\)를 가분 Hilbert space(힐베르트 공간) \(H\)의 정규직교 기저라 하자. 모든 \(x \in H\)는 \(x = \sum_{n=1}^\infty \langle x, e_n \rangle e_n\)으로 전개되며,
+$$ \|x\|^2 = \sum_{n=1}^\infty |\langle x, e_n \rangle|^2 \qquad \text{(Parseval's identity)}. $$
+</div>
+
+<p>Parseval 항등식은 신호의 에너지가 시간 영역과 주파수 영역에서 보존됨을 의미한다. 이것은 Chapter 12에서 다룰 Plancherel 정리의 추상적 일반화이며, 통신 공학에서 전력 스펙트럼 밀도(power spectral density) 분석의 이론적 근거이다.</p>
+
+<!-- 10.3 Bounded Linear Operators -->
+<p>공간의 구조를 확립했으니, 공간 사이의 사상(map)으로 넘어간다. 유한차원에서 행렬이 선형변환을 나타내듯, 무한차원에서는 유계 선형 작용소가 그 역할을 한다. "유계"라는 조건이 유한차원에서는 자동이지만, 무한차원에서는 연속성을 보장하기 위해 반드시 요구된다.</p>
+
+<h3>10.3 Bounded Linear Operators</h3>
+
+<p>유한차원에서는 모든 선형변환이 자동으로 연속이지만, 무한차원에서는 그렇지 않다. "유계"라는 조건이 입력의 작은 변화에 대해 출력도 제한적으로 변한다는 것을 보장하며, 이것이 수치 해석에서 알고리즘의 안정성(stability)과 직결된다.</p>
+
+<div class="definition"><span class="env-label">Definition 10.4 (Bounded Linear Operator)</span>
+노름 공간 사이의 선형 사상 \(T: X \to Y\)가 <em>유계(bounded)</em>라 함은, 모든 \(x \in X\)에 대해 \(\|Tx\|_Y \leq C\|x\|_X\)를 만족하는 \(C \geq 0\)이 존재하는 것이다. <em>작용소 노름(operator norm)</em>은 다음과 같이 정의된다:
+$$ \|T\| = \sup_{\|x\| = 1} \|Tx\| = \sup_{x \neq 0} \frac{\|Tx\|}{\|x\|}. $$
+노름 공간 사이의 선형 작용소가 유계인 것은 연속인 것과 동치이다.
+</div>
+
+<div class="definition"><span class="env-label">Definition 10.5 (Dual Space)</span>
+노름 공간 \(X\)의 <em>쌍대 공간(dual space)</em> \(X^*\)는 모든 bounded linear functional(유계 선형 범함수) \(\varphi: X \to \mathbb{R}\)(또는 \(\mathbb{C}\))로 이루어진 Banach space(바나흐 공간)이며, 작용소 노름이 부여된다.
+</div>
+
+<div class="theorem"><span class="env-label">Theorem 10.4 (Hahn-Banach Theorem)</span>
+\(X\)를 실수 노름 공간, \(M \subseteq X\)를 부분공간, \(\varphi: M \to \mathbb{R}\)를 bounded linear functional(유계 선형 범함수)이라 하자. 이때 \(\varphi\)를 확장하는 bounded linear functional(유계 선형 범함수) \(\tilde{\varphi}: X \to \mathbb{R}\)가 존재하여 \(\|\tilde{\varphi}\| = \|\varphi\|\)를 만족한다.
+</div>
+
+<div class="theorem"><span class="env-label">Theorem 10.5 (Banach-Steinhaus / Uniform Boundedness Principle)</span>
+\(X\)를 Banach space(바나흐 공간), \(Y\)를 노름 공간, \(\{T_\alpha\}\)를 bounded linear operator(유계 작용소)의 모임 \(T_\alpha: X \to Y\)이라 하자. 각 \(x \in X\)에 대해 \(\sup_\alpha \|T_\alpha x\| < \infty\)이면, \(\sup_\alpha \|T_\alpha\| < \infty\)이다.
+</div>
+
+<div class="theorem"><span class="env-label">Theorem 10.6 (Open Mapping Theorem)</span>
+\(T: X \to Y\)가 Banach space(바나흐 공간) 사이의 전사 bounded linear operator(유계 작용소)이면, \(T\)는 열린 집합을 열린 집합으로 보낸다. 따라서 \(T\)가 단사이기도 하면, \(T^{-1}\)은 유계이다(<em>유계 역사상 정리(bounded inverse theorem)</em>).
+</div>
+
+<div class="theorem"><span class="env-label">Theorem 10.7 (Closed Graph Theorem)</span>
+Banach space(바나흐 공간) 사이의 선형 작용소 \(T: X \to Y\)가 유계인 것은, 그 그래프 \(\{(x, Tx) : x \in X\}\)가 \(X \times Y\)에서 닫혀 있는 것과 동치이다.
+</div>
+
+<!-- 10.4 Riesz Representation -->
+<p>Hilbert 공간에서 유계 선형 범함수는 어떤 형태를 가지는가? Riesz 표현 정리는 모든 유계 선형 범함수가 내적으로 표현된다는 것을 보여준다. 이는 Hilbert 공간이 자기 자신의 쌍대 공간과 동형이라는 뜻이며, 유한차원에서 행벡터와 열벡터의 대응이 무한차원으로 확장된 것이다.</p>
+
+<h3>10.4 Riesz Representation Theorem</h3>
+
+<div class="theorem"><span class="env-label">Theorem 10.8 (Riesz Representation Theorem for Hilbert Spaces)</span>
+\(H\)를 Hilbert space(힐베르트 공간)라 하자. 모든 bounded linear functional(유계 선형 범함수) \(\varphi \in H^*\)에 대해, 다음을 만족하는 유일한 \(y \in H\)가 존재한다:
+$$ \varphi(x) = \langle x, y \rangle \quad \text{for all } x \in H, $$
+또한 \(\|\varphi\| = \|y\|\)이다. 따라서 \(H^* \cong H\)가 등거리적으로(복소수 경우 켤레선형적으로) 성립한다.
+</div>
+
+<div class="proof"><span class="env-label">Proof</span>
+\(\varphi = 0\)이면 \(y = 0\)으로 놓는다. 그렇지 않으면 \(\ker \varphi\)는 닫힌 진부분공간이므로, \((\ker \varphi)^\perp\)에 단위 벡터 \(e\)가 존재한다. \(y = \overline{\varphi(e)}\, e\)로 놓자. 임의의 \(x \in H\)에 대해 \(x = (x - \frac{\varphi(x)}{\varphi(e)} e) + \frac{\varphi(x)}{\varphi(e)} e\)로 쓸 수 있다. 첫째 항은 \(\ker \varphi\)에 속하므로, \(\langle x, y \rangle = \frac{\varphi(x)}{\varphi(e)} \langle e, \overline{\varphi(e)} e \rangle = \varphi(x)\)이다. 유일성은 내적의 확정성으로부터 따른다.
+</div>
+
+<!-- 10.5 Spectral Theory -->
+<p>유한차원에서 행렬의 고유값 분해가 선형변환의 구조를 파악하는 데 쓰이듯, 스펙트럼 이론은 이를 무한차원 작용소로 확장한다. 무한차원에서는 고유값 외에 연속 스펙트럼이 등장하며, 이것이 양자역학에서 연속적인 물리량의 관측에 대응된다.</p>
+
+<h3>10.5 Spectral Theory Basics</h3>
+
+<p>유한차원에서 행렬의 특성 다항식이 0이 되는 값이 고유값이다. 무한차원에서는 고유값이 아니면서도 \(T - \lambda I\)가 가역이 아닌 \(\lambda\)가 존재할 수 있으며, 이를 포함한 전체 집합이 스펙트럼이다. 양자역학에서 수소 원자의 에너지 스펙트럼이 이산 고유값(속박 상태)과 연속 스펙트럼(산란 상태)으로 나뉘는 것이 이 수학적 구분의 물리적 발현이다.</p>
+
+<div class="definition"><span class="env-label">Definition 10.6 (Spectrum)</span>
+\(T: X \to X\)를 Banach space(바나흐 공간) \(X\) 위의 bounded linear operator(유계 작용소)라 하자. \(T\)의 <em>스펙트럼(spectrum)</em>은 다음과 같이 정의된다:
+$$ \sigma(T) = \{\lambda \in \mathbb{C} : T - \lambda I \text{ is not invertible in } \mathcal{B}(X)\}. $$
+스펙트럼은 다음과 같이 분해된다:
+<ul>
+  <li><em>점 스펙트럼(point spectrum)</em> \(\sigma_p(T)\): \(\lambda\)가 고유값인 경우 (\(T - \lambda I\)가 단사가 아님).</li>
+  <li><em>연속 스펙트럼(continuous spectrum)</em> \(\sigma_c(T)\): \(T - \lambda I\)가 단사이고, 치역이 조밀하지만 \(X\) 전체가 아닌 경우.</li>
+  <li><em>잔류 스펙트럼(residual spectrum)</em> \(\sigma_r(T)\): \(T - \lambda I\)가 단사이고, 치역이 조밀하지 않은 경우.</li>
+</ul>
+</div>
+
+<div class="theorem"><span class="env-label">Theorem 10.9 (Properties of the Spectrum)</span>
+Banach space(바나흐 공간) 위의 임의의 bounded linear operator(유계 작용소) \(T\)에 대해:
+<ol>
+  <li>\(\sigma(T)\)는 \(\{|\lambda| \leq \|T\|\}\) 안의 공집합이 아닌 컴팩트 부분집합이다.</li>
+  <li><em>스펙트럼 반지름(spectral radius)</em>은 \(r(T) = \lim_{n\to\infty} \|T^n\|^{1/n} = \inf_n \|T^n\|^{1/n}\)을 만족한다.</li>
+</ol>
+</div>
+
+<div class="theorem"><span class="env-label">Theorem 10.10 (Spectral Theorem for Compact Self-Adjoint Operators)</span>
+\(T: H \to H\)를 Hilbert space(힐베르트 공간) 위의 컴팩트 자기수반 작용소라 하자. 그러면:
+<ol>
+  <li>\(\sigma(T)\)의 모든 0이 아닌 원소는 유한 중복도를 갖는 고유값이다.</li>
+  <li>고유값은 0에서만 집적될 수 있다.</li>
+  <li>\(H\)는 \(T\)의 고유벡터로 이루어진 정규직교 기저 \(\{e_n\}\)을 가지며, \(Tx = \sum_n \lambda_n \langle x, e_n \rangle e_n\)이다.</li>
+</ol>
+</div>
+
+<p>이 정리는 유한차원의 대칭 행렬 대각화를 무한차원으로 확장한 것이다. Sturm-Liouville 경계값 문제에서 고유함수 전개, 구조 역학에서 고유진동수(natural frequency) 분석, 주성분 분석(PCA)에서 공분산 작용소의 고유값 분해가 모두 이 정리의 응용이다.</p>
+
+<!-- 10.6 Additional Examples -->
+<p>이론적 정리들을 구체적인 예제로 확인한다.</p>
+
+<h3>10.6 Additional Examples</h3>
+
+<h4>10.6.1. Banach 공간 예제</h4>
+
+<div class="example"><span class="env-label">Example 10.2 (\(L^p\) 공간의 완비성)</span>
+\( 1 \leq p < \infty \)일 때, \( L^p([0,1]) \)이 Banach space(바나흐 공간)임을 보이는 핵심은 Riesz-Fischer 정리이다. 구체적 예로, 함수열 \( f_n(x) = n^{1/p}\, \mathbf{1}_{[0, 1/n]}(x) \)를 생각하자. 각 \( f_n \)에 대해 \( \|f_n\|_p = 1 \)이지만, \( \|f_n\|_q = n^{1/p - 1/q} \)이므로 \( q > p \)이면 \( \|f_n\|_q \to \infty \)이다. 따라서 \( f_n \in L^p \)이지만 \( f_n \notin L^q \) (\( q > p \))이며, 이는 \( p \)의 선택에 따라 공간이 본질적으로 다름을 보여준다.
+<br><br>
+Minkowski 부등식 \( \|f + g\|_p \leq \|f\|_p + \|g\|_p \)이 삼각 부등식을 제공하고, H&ouml;lder 부등식 \( \|fg\|_1 \leq \|f\|_p \|g\|_q \) (\( 1/p + 1/q = 1 \))은 쌍대성 분석의 기초가 된다.
+</div>
+
+<div class="example"><span class="env-label">Example 10.3 (\(C[a,b]\)의 완비성과 비완비 노름)</span>
+\( C[0,1] \)에 상한 노름 \( \|f\|_\infty = \sup_{x \in [0,1]}|f(x)| \)을 부여하면 Banach space(바나흐 공간)이다. 이를 확인하기 위해, 코시 수열 \( \{f_n\} \)을 생각하면, 각 점에서 \( f_n(x) \to f(x) \)로 균등수렴하며, 균등수렴의 극한은 연속이므로 \( f \in C[0,1] \)이다.
+<br><br>
+반면, 같은 공간에 \( L^1 \) 노름 \( \|f\|_1 = \int_0^1 |f(x)|\,dx \)를 부여하면 완비가 아니다. 반례: 함수열
+$$ f_n(x) = \begin{cases} 0, & 0 \leq x \leq \tfrac{1}{2} - \tfrac{1}{n}, \\ \tfrac{n}{2}(x - \tfrac{1}{2} + \tfrac{1}{n}), & \tfrac{1}{2} - \tfrac{1}{n} < x < \tfrac{1}{2}, \\ 1, & \tfrac{1}{2} \leq x \leq 1, \end{cases} $$
+은 \( C[0,1] \)에서 \( L^1 \) 노름에 대한 코시 수열이지만, \( L^1 \) 극한인 계단함수 \( \mathbf{1}_{[1/2, 1]} \)은 연속이 아니므로 \( C[0,1] \)에 속하지 않는다.
+</div>
+
+<h4>10.6.2. Hilbert 공간의 직교 분해</h4>
+
+<div class="example"><span class="env-label">Example 10.4 (직교 분해의 구체적 계산)</span>
+\( H = L^2([0, 2\pi]) \), 부분공간 \( M = \overline{\text{span}}\{1, \cos x, \sin x\} \)로 놓자. 벡터 \( f(x) = x \)의 \( M \)으로의 직교 사영을 구하라.
+<br><br>
+정규직교 기저 \( e_0 = \frac{1}{\sqrt{2\pi}} \), \( e_1 = \frac{\cos x}{\sqrt{\pi}} \), \( e_2 = \frac{\sin x}{\sqrt{\pi}} \)를 사용하면:
+$$ \langle f, e_0 \rangle = \frac{1}{\sqrt{2\pi}}\int_0^{2\pi} x\,dx = \pi\sqrt{2\pi}, $$
+$$ \langle f, e_1 \rangle = \frac{1}{\sqrt{\pi}}\int_0^{2\pi} x\cos x\,dx = 0, $$
+$$ \langle f, e_2 \rangle = \frac{1}{\sqrt{\pi}}\int_0^{2\pi} x\sin x\,dx = \frac{-2\pi}{\sqrt{\pi}}. $$
+따라서 직교 사영은:
+$$ P_M f = \langle f, e_0\rangle e_0 + \langle f, e_1\rangle e_1 + \langle f, e_2\rangle e_2 = \pi - 2\sin x. $$
+나머지 \( f - P_M f = x - \pi + 2\sin x \)는 \( M^\perp \)에 속한다. 이것은 \( H = M \oplus M^\perp \) (Theorem 10.2)의 구체적 실현이다.
+</div>
+
+<div class="example"><span class="env-label">Example 10.5 (Fourier 급수를 통한 직교 분해)</span>
+\( H = L^2([-\pi, \pi]) \)에서 정규직교 기저 \( \{e^{inx}/\sqrt{2\pi}\}_{n \in \mathbb{Z}} \)를 생각하자. 함수 \( f(x) = |x| \)에 대해 Parseval 항등식을 적용한다.
+<br><br>
+Fourier 계수를 계산하면 \( c_0 = \pi/2 \), \( c_n = \frac{(-1)^n - 1}{\pi n^2} \) (\( n \neq 0 \))이다. Parseval 항등식 \( \|f\|^2 = \sum |c_n|^2 \)로부터:
+$$ \int_{-\pi}^{\pi} x^2\,dx = \frac{2\pi^3}{3} = 2\pi\left[\frac{\pi^2}{4} + \frac{2}{\pi^2}\sum_{k=0}^{\infty}\frac{4}{(2k+1)^4}\right]. $$
+정리하면 \( \sum_{k=0}^{\infty} \frac{1}{(2k+1)^4} = \frac{\pi^4}{96} \)을 얻고, 이로부터 \( \zeta(4) = \frac{\pi^4}{90} \)을 유도할 수 있다.
+</div>
+
+<h4>10.6.3. Riesz 표현 정리의 활용</h4>
+
+<div class="example"><span class="env-label">Example 10.6 (Riesz 표현 정리를 통한 범함수 식별)</span>
+\( H = L^2([0,1]) \)에서 bounded linear functional(유계 선형 범함수) \( \varphi(f) = \int_0^1 (3x^2 + 1)\, f(x)\,dx \)를 생각하자.
+<br><br>
+Riesz 표현 정리 (Theorem 10.8)에 의해, \( \varphi(f) = \langle f, y \rangle \)를 만족하는 유일한 \( y \in H \)가 존재한다. \( L^2 \)의 내적이 \( \langle f, y \rangle = \int_0^1 f(x)\overline{y(x)}\,dx \)이므로 (실수 공간이므로 켤레는 생략), 직접 비교하면:
+$$ y(x) = 3x^2 + 1. $$
+범함수의 노름은 \( \|\varphi\| = \|y\|_{L^2} = \left(\int_0^1 (3x^2+1)^2\,dx\right)^{1/2} = \left(\frac{9}{5} + 2 + 1\right)^{1/2} = \sqrt{\frac{24}{5}} \)이다.
+</div>
+
+<div class="example"><span class="env-label">Example 10.7 (Lax-Milgram 정리)</span>
+Riesz 표현 정리의 중요한 확장인 <em>Lax-Milgram 정리</em>를 소개한다. Hilbert space(힐베르트 공간) \( H \) 위의 쌍선형 형식 \( a: H \times H \to \mathbb{R} \)가 연속이고 <em>강제적(coercive)</em>이면, 즉
+$$ |a(u,v)| \leq M\|u\|\|v\|, \qquad a(u,u) \geq \gamma\|u\|^2, \qquad \gamma > 0, $$
+이면, 모든 \( F \in H^* \)에 대해 \( a(u,v) = F(v) \) (\( \forall v \in H \))를 만족하는 유일한 \( u \in H \)가 존재한다.
+<br><br>
+적용 예: Sobolev 공간 \( H = H_0^1(0,1) \)에서 \( a(u,v) = \int_0^1 u'v'\,dx \), \( F(v) = \int_0^1 f v\,dx \)로 놓으면, Lax-Milgram에 의해 \( -u'' = f \), \( u(0) = u(1) = 0 \)의 약해(weak solution)가 유일하게 존재한다.
+</div>
+
+<h4>10.6.4. 콤팩트 작용소</h4>
+
+<p>콤팩트 작용소는 무한차원에서 유한차원 작용소의 "좋은 성질"을 가장 많이 보존하는 클래스이다. 적분 방정식(integral equation)의 핵(kernel)으로 정의되는 작용소가 대표적이며, FEM에서 Green 함수를 통한 해 표현과 직결된다.</p>
+
+<div class="definition"><span class="env-label">Definition 10.7 (Compact Operator)</span>
+노름 공간 사이의 선형 작용소 \( T: X \to Y \)가 <em>콤팩트(compact)</em>라 함은, \( X \)의 모든 유계 수열 \( \{x_n\} \)에 대해 \( \{Tx_n\} \)이 \( Y \)에서 수렴하는 부분수열을 가지는 것이다. 동치 조건으로, \( T \)가 유계 집합을 상대적 콤팩트 집합으로 사상하는 것이다.
+</div>
+
+<div class="example"><span class="env-label">Example 10.8 (적분 작용소의 콤팩트성)</span>
+\( K \in C([0,1] \times [0,1]) \)에 대해, 적분 작용소 \( T: L^2([0,1]) \to L^2([0,1]) \)를
+$$ (Tf)(x) = \int_0^1 K(x,\xi)\, f(\xi)\, d\xi $$
+로 정의하면, \( T \)는 콤팩트 작용소이다.
+<br><br>
+구체적 예로, \( K(x,\xi) = \min(x, \xi) \)을 취하자. 이 핵은 \( [0,1] \)에서 Dirichlet 경계 조건을 갖는 \( -u'' = f \)의 Green 함수이다. \( T \)는 자기수반이고 콤팩트이며, 고유값 문제 \( Tf = \lambda f \)는 \( -f'' = (1/\lambda)f \), \( f(0) = f(1) = 0 \)과 동치이다. 따라서:
+$$ \lambda_n = \frac{1}{n^2\pi^2}, \qquad f_n(x) = \sqrt{2}\sin(n\pi x), \qquad n = 1, 2, 3, \ldots $$
+고유값이 0으로 수렴하며 (\( \lambda_n \to 0 \)), 이는 Theorem 10.10의 결론과 일치한다.
+</div>
+
+<div class="example"><span class="env-label">Example 10.9 (Volterra 적분 작용소)</span>
+\( L^2([0,1]) \) 위의 Volterra 적분 작용소를
+$$ (Vf)(x) = \int_0^x f(\xi)\, d\xi $$
+로 정의한다. \( V \)는 콤팩트 작용소이다 (Arzel&agrave;-Ascoli 정리로 증명 가능). 그러나 \( V \)는 자기수반이 아니다: \( V^* \)를 계산하면
+$$ (V^*g)(x) = \int_x^1 g(\xi)\, d\xi $$
+이므로 \( V \neq V^* \)이다.
+<br><br>
+\( V \)의 스펙트럼은 \( \sigma(V) = \{0\} \)이다. \( Vf = \lambda f \)를 풀면 \( f(x) = Ce^{x/\lambda} \)인데, \( f(0) = 0 \) 조건에 의해 \( C = 0 \)이 되어 고유값이 존재하지 않는다. 따라서 \( \sigma(V) = \sigma_c(V) = \{0\} \)으로, 스펙트럼이 연속 스펙트럼으로만 구성된 콤팩트 작용소의 예이다.
+</div>
+
+<div class="example"><span class="env-label">Example 10.10 (유한 랭크 작용소에 의한 근사)</span>
+콤팩트 작용소는 유한 랭크 작용소의 작용소 노름 극한이다. Example 10.8의 적분 작용소 \( T \)에 대해, 유한 랭크 근사를:
+$$ T_N f = \sum_{n=1}^{N} \lambda_n \langle f, f_n \rangle f_n = \sum_{n=1}^{N} \frac{1}{n^2\pi^2} \langle f, f_n \rangle f_n $$
+으로 정의하면, \( \|T - T_N\| = \lambda_{N+1} = \frac{1}{(N+1)^2\pi^2} \to 0 \)이다. \( N = 3 \)이면 \( \|T - T_3\| = \frac{1}{16\pi^2} \approx 0.0063 \)이므로, 불과 3개의 항으로 상당히 정밀한 근사를 달성한다. 이는 수치 해석에서 저랭크 근사법의 이론적 기반이 된다.
+</div>
+
+<h4>10.6.5. 추가 예제</h4>
+
+<div class="example"><span class="env-label">Example 10.11 (\(\ell^2\)에서의 대각 작용소)</span>
+수열 공간 \( \ell^2 \)에서 작용소 \( T: \ell^2 \to \ell^2 \)를 \( T(x_1, x_2, x_3, \ldots) = (x_1, x_2/2, x_3/3, \ldots) \)으로 정의하자. 즉 \( Te_n = \frac{1}{n}e_n \)이다.
+<br><br>
+\( T \)는 자기수반 작용소이고, 고유값은 \( \lambda_n = 1/n \)이다. \( \lambda_n \to 0 \)이므로 \( T \)는 콤팩트이다. 작용소 노름은 \( \|T\| = \sup_n |1/n| = 1 \)이다. 스펙트럼은 \( \sigma(T) = \{1/n : n \geq 1\} \cup \{0\} \)이며, 0은 고유값이 아니라 집적점으로서 스펙트럼에 포함된다 (스펙트럼은 닫힌 집합이므로).
+</div>
+
+<div class="example"><span class="env-label">Example 10.12 (오른쪽 이동 작용소)</span>
+\( \ell^2 \)에서 오른쪽 이동 작용소 \( S(x_1, x_2, x_3, \ldots) = (0, x_1, x_2, \ldots) \)를 생각하자. \( S \)는 등거리 사상(isometry)이므로 \( \|S\| = 1 \)이다. \( S \)는 단사이지만 전사가 아니다.
+<br><br>
+\( S \)의 수반 작용소는 왼쪽 이동 \( S^*(x_1, x_2, x_3, \ldots) = (x_2, x_3, x_4, \ldots) \)이다. 스펙트럼 분석:
+<ul>
+<li>\( S \)에는 고유값이 없다: \( Sx = \lambda x \)이면 \( x_1 = 0 \), \( x_n = \lambda x_{n+1} \)에서 \( x = 0 \).</li>
+<li>\( S^* \)의 고유값은 단위 원판 내부의 모든 \( |\lambda| < 1 \)이다: \( x = (1, \lambda, \lambda^2, \ldots) \in \ell^2 \).</li>
+<li>\( \sigma(S) = \{|\lambda| \leq 1\} \) (단위 원판 전체).</li>
+</ul>
+\( S \)는 콤팩트가 아니다 (등거리이므로 단위 구의 상이 부분수렴열을 갖지 않음).
+</div>
+
+<div class="example"><span class="env-label">Example 10.13 (약수렴과 강수렴의 차이)</span>
+Hilbert space(힐베르트 공간) \( \ell^2 \)에서 정규직교 기저 \( \{e_n\} \)을 생각하자. 수열 \( \{e_n\} \)은 약수렴(weak convergence)의 의미에서 0으로 수렴한다:
+$$ \langle e_n, y \rangle = y_n \to 0 \quad \text{for all } y \in \ell^2, $$
+이는 \( \sum |y_n|^2 < \infty \)이면 \( y_n \to 0 \)이기 때문이다. 그러나 \( \|e_n\| = 1 \)이므로 노름(강)수렴은 성립하지 않는다.
+<br><br>
+이 관찰은 무한 차원 공간의 본질적 특성을 드러낸다: 단위 구가 콤팩트가 아니며, 약수렴과 강수렴이 일치하지 않는다. Banach-Alaoglu 정리에 의해 단위 구는 약*-위상에서는 콤팩트이다.
+</div>
+
+<div class="example"><span class="env-label">Example 10.14 (Fredholm 대안 정리의 적용)</span>
+콤팩트 작용소 \( T: H \to H \)에 대해, 방정식 \( (I - T)x = y \)를 생각하자. Fredholm 대안 정리에 의하면:
+<ul>
+<li>1이 \( T \)의 고유값이 아니면, \( (I-T)^{-1} \)가 유계 작용소로 존재하여 모든 \( y \)에 대해 유일한 해가 존재한다.</li>
+<li>1이 \( T \)의 고유값이면, \( (I-T)x = y \)는 \( y \perp \ker(I - T^*) \)인 경우에만 해를 가진다.</li>
+</ul>
+Example 10.8의 적분 작용소에 적용하면, \( \lambda_n = 1/(n^2\pi^2) \)이므로 1은 고유값이 아니다. 따라서 Fredholm 적분 방정식
+$$ f(x) - \int_0^1 \min(x,\xi)\, f(\xi)\, d\xi = g(x) $$
+는 모든 \( g \in L^2([0,1]) \)에 대해 유일한 해를 가진다.
+</div>
+
+<div class="remark"><span class="env-label">Remark</span>
+이 절의 예제들은 함수해석학의 추상적 정리들이 구체적 문제에서 어떻게 작동하는지를 보여준다. 핵심 관계를 요약하면:
+<ul>
+<li>Banach 공간의 완비성은 급수 해의 수렴 보장에 필수적이다 (Example 10.2, 10.3).</li>
+<li>Hilbert 공간의 직교 분해는 Fourier 급수와 최적 근사의 이론적 기초이다 (Example 10.4, 10.5).</li>
+<li>Riesz 표현 정리는 편미분방정식의 약해(weak solution) 이론을 가능하게 한다 (Example 10.6, 10.7).</li>
+<li>콤팩트 작용소의 스펙트럼 이론은 Sturm-Liouville 문제와 적분 방정식의 해석에 직결된다 (Example 10.8--10.10).</li>
+<li>약수렴, 이동 작용소 등은 무한 차원의 고유 현상으로, 유한 차원의 직관이 무너지는 지점을 가리킨다 (Example 10.12, 10.13).</li>
+</ul>
+</div>
+
+<p class="source-note"><em>Sources: MIT 18.102 (Introduction to Functional Analysis), NPTEL Functional Analysis.</em></p>
+</section>
+
+
+<!-- ============================================================
+     SECTION 11: MEASURE THEORY
+     ============================================================ -->
+
+<details class="video-resources">
+<summary>추천 영상 강의 (원본 소스 기반)</summary>
+<ul>
+<li><a href="https://www.youtube.com/playlist?list=PLUl4u3cNGP63micsJp_--fRAjZXPrQzW_" target="_blank">18.102 Introduction to Functional Analysis — MIT</a></li>
+<li><a href="http://nptel.ac.in/courses/111105037/" target="_blank">Functional Analysis — NPTEL IIT Kharagpur</a></li>
+<li><a href="https://www.youtube.com/playlist?list=PL554B877A872B4F94" target="_blank">Functional Analysis — U. of Nottingham</a></li>
+</ul>
+</details>
+
+<details class="video-resources">
+<summary>추천 교재 &amp; 오픈 자료</summary>
+<ul>
+<li><a href="https://www.math.ucdavis.edu/~hunter/book/pdfbook.html" target="_blank">Applied Analysis (Hunter &amp; Nachtergaele, UC Davis)</a> — 무료 교재</li>
+<li>Kreyszig, <em>Introductory Functional Analysis with Applications</em> — 가장 접근성 높은 입문서</li>
+<li>Rudin, <em>Functional Analysis</em> — "Big Rudin", 대학원 표준 교재</li>
+<li>Conway, <em>A Course in Functional Analysis</em> — GTM 96, 명쾌한 서술</li>
+<li>Brezis, <em>Functional Analysis, Sobolev Spaces and Partial Differential Equations</em> — PDE 연결</li>
+<li>Reed &amp; Simon, <em>Methods of Modern Mathematical Physics I: Functional Analysis</em> — 물리 응용</li>
+</ul>
+</details>
+
