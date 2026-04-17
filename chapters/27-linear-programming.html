@@ -1,0 +1,221 @@
+<section id="linear-programming">
+<h3>27. Linear Programming</h3>
+
+<p class="section-intro">선형계획법은 볼록 최적화의 가장 기본적인 특수 경우이다. 목적함수와 제약 조건이 모두 선형이라는 단순한 구조이지만, 자원 배분, 생산 계획, 네트워크 흐름 등 응용 범위가 넓다. 심플렉스 방법과 쌍대성 이론은 일반 최적화 이론의 발전에도 큰 영향을 주었다.</p>
+
+<p>선형계획법(LP)은 2차 세계대전 중 군사 물류 최적화를 위해 George Dantzig가 심플렉스 방법을 개발하면서 실용적인 도구가 되었다. 오늘날 LP는 항공사 승무원 스케줄링, 석유 정제 공정의 혼합 비율 결정, 택배 물류의 차량 경로 최적화, 전력 시스템의 경제급전(economic dispatch), 통신 네트워크의 최대 유량(maximum flow) 계산 등 산업 전반에 걸쳐 사용된다. 미국 항공사들은 LP 기반 스케줄링으로 연간 수십억 달러의 비용을 절감하는 것으로 알려져 있다.</p>
+
+<p>LP의 실행 가능 영역은 다면체(polyhedron)이다. 선형 목적함수는 다면체의 내부가 아니라 반드시 꼭짓점(vertex)에서 최적값을 달성하므로, 연속적인 무한 차원 탐색 문제가 유한 개의 꼭짓점을 조사하는 조합적 문제로 환원된다. 심플렉스 방법은 꼭짓점에서 인접 꼭짓점으로 이동하며 목적함수를 개선하는 전략이다. 최악의 경우 지수적 복잡도를 가지지만, 실전에서는 제약 조건 수에 비례하는 반복 횟수로 종료한다.</p>
+
+<p>LP의 표준형은 등식 제약과 비음수 조건으로 구성된다. 부등식 형태의 제약은 슬랙 변수(slack variable)를 도입하면 표준형으로 변환할 수 있다.</p>
+
+<div class="definition"><span class="env-label">Definition 27.1 (Linear Program)</span>
+표준형의 <strong>linear program</strong>(LP, 선형계획법)은 다음과 같다:
+$$ \begin{aligned}
+\operatorname{minimize} \quad & c^T x \\
+\text{subject to} \quad & Ax = b, \\
+& x \geq 0,
+\end{aligned} $$
+여기서 \(c \in \mathbb{R}^n\), \(A \in \mathbb{R}^{m \times n}\), \(b \in \mathbb{R}^m\)이다. 실행 가능 영역은 다면체이다. 최적해가 존재하면, 실행 가능 다면체의 꼭짓점(극점)에서 달성된다.
+</div>
+
+<p>LP의 실행 가능 영역이 다면체이므로, 최적해는 다면체의 꼭짓점에서 달성된다. 이 꼭짓점에 대응하는 대수적 객체가 기본 실행 가능해(BFS)이다.</p>
+
+<div class="definition"><span class="env-label">Definition 27.2 (Basic Feasible Solution)</span>
+<strong>Basic feasible solution</strong>(BFS, 기본 실행 가능해)은 \(A\)의 \(m\)개 선형 독립인 열을 선택하여(기저 \(B\)), \(x_B = A_B^{-1}b\) (기본 변수)로, \(x_N = 0\) (비기본 변수)으로 설정하며, \(x_B \geq 0\)을 만족하는 것이다. BFS는 실행 가능 다면체의 꼭짓점에 대응한다.
+</div>
+
+<div class="definition"><span class="env-label">Definition 27.3 (Simplex Method)</span>
+<strong>Simplex method(심플렉스 방법)</strong>(Dantzig)는 실행 가능 다면체의 변을 따라 꼭짓점에서 꼭짓점으로 이동하며, 각 단계에서 목적 함수를 감소시킨다:
+<ol>
+  <li>BFS에서 시작한다.</li>
+  <li>축소 비용 \(\bar{c}_j = c_j - c_B^T A_B^{-1} A_j\)를 계산한다. 모든 \(\bar{c}_j \geq 0\)이면 현재 BFS가 최적이다.</li>
+  <li>그렇지 않으면, 진입 변수(\(\bar{c}_j < 0\)인 어떤 \(j\))를 선택하고, 최소 비율 검정으로 이탈 변수를 찾은 후 피벗한다.</li>
+</ol>
+Simplex method(심플렉스 방법)는 최악의 경우 지수적 복잡도를 갖지만 실제로는 효율적이다.
+</div>
+
+<p>모든 LP에는 쌍대(dual) 문제가 존재한다. 쌍대 문제는 원시 문제의 최적값에 대한 하한(최대화 문제에서는 상한)을 제공하며, 쌍대 변수는 각 제약 조건의 경제적 가치를 나타내는 그림자 가격(shadow price)으로 해석된다.</p>
+
+<div class="definition"><span class="env-label">Definition 27.4 (LP Dual)</span>
+표준형 LP의 dual(쌍대) 문제는 다음과 같다:
+$$ \begin{aligned}
+\operatorname{maximize} \quad & b^T y \\
+\text{subject to} \quad & A^T y \leq c.
+\end{aligned} $$
+</div>
+
+<div class="theorem"><span class="env-label">Theorem 27.1 (LP Duality)</span>
+<ul>
+  <li><strong>Weak duality(약한 쌍대성):</strong> 모든 실행 가능한 \(x, y\)에 대해 \(b^T y \leq c^T x\).</li>
+  <li><strong>Strong duality(강한 쌍대성):</strong> 원시 또는 쌍대 중 하나가 유한 최적값을 가지면, 둘 다 유한 최적값을 가지며 그 최적값은 같다: \(c^T x^* = b^T y^*\).</li>
+</ul>
+</div>
+
+<p>상보 이완(complementary slackness) 조건은 원시 최적해와 쌍대 최적해 사이의 관계를 기술한다. 한쪽 해를 알면 다른 쪽 해를 효율적으로 구할 수 있다.</p>
+
+<div class="theorem"><span class="env-label">Theorem 27.2 (Complementary Slackness)</span>
+Primal-feasible \(x^*\)와 dual-feasible \(y^*\)가 동시에 최적일 필요충분조건은 각 \(j\)에 대해 다음이 성립하는 것이다:
+$$ x_j^* (c_j - (A^T y^*)_j) = 0. $$
+원시 변수가 0이거나 대응하는 쌍대 제약이 등호로 성립하거나(또는 둘 다) 해야 한다.
+</div>
+
+<div class="theorem"><span class="env-label">Theorem 27.3 (Fundamental Theorem of LP)</span>
+LP가 최적해를 가지면, basic feasible solution인 최적해가 존재한다.
+</div>
+
+<div class="example"><span class="env-label">Example 27.1 (Simplex Method — 2변수 LP)</span>
+다음 LP를 심플렉스 방법으로 풀자:
+$$ \begin{aligned}
+\operatorname{maximize} \quad & 5x_1 + 4x_2 \\
+\text{subject to} \quad & 6x_1 + 4x_2 \leq 24, \\
+& x_1 + 2x_2 \leq 6, \\
+& x_1, x_2 \geq 0.
+\end{aligned} $$
+
+<strong>Step 1. 표준형 변환.</strong>
+Slack variable(슬랙 변수) \(s_1, s_2 \geq 0\)을 도입하고, 최대화를 최소화로 바꾸면:
+$$ \begin{aligned}
+\operatorname{minimize} \quad & -5x_1 - 4x_2 \\
+\text{subject to} \quad & 6x_1 + 4x_2 + s_1 = 24, \\
+& x_1 + 2x_2 + s_2 = 6, \\
+& x_1, x_2, s_1, s_2 \geq 0.
+\end{aligned} $$
+
+<strong>Step 2. 초기 BFS.</strong>
+기저(basis) \(B = \{s_1, s_2\}\), 비기본 변수 \(x_1 = x_2 = 0\). 기본 변수: \(s_1 = 24\), \(s_2 = 6\). 목적 함수값 \(z = 0\).
+
+초기 심플렉스 타블로:
+$$ \begin{array}{c|cccc|c}
+ & x_1 & x_2 & s_1 & s_2 & \text{RHS} \\ \hline
+s_1 & 6 & 4 & 1 & 0 & 24 \\
+s_2 & 1 & 2 & 0 & 1 & 6 \\ \hline
+-z & -5 & -4 & 0 & 0 & 0
+\end{array} $$
+
+<strong>Step 3. 반복 1 — 진입 변수 선택.</strong>
+축소 비용(reduced cost): \(\bar{c}_{x_1} = -5\), \(\bar{c}_{x_2} = -4\). 가장 음수인 \(\bar{c}_{x_1} = -5\)이므로 \(x_1\)이 진입 변수(entering variable).
+
+<strong>Step 4. 최소 비율 검정(minimum ratio test) 및 피벗.</strong>
+$$ \frac{24}{6} = 4, \quad \frac{6}{1} = 6. $$
+최솟값 4는 \(s_1\) 행에서 달성 → \(s_1\)이 이탈 변수(leaving variable). 피벗 원소: 6.
+
+\(s_1\) 행을 6으로 나누고, \(s_2\) 행과 목적 행에서 소거하면:
+$$ \begin{array}{c|cccc|c}
+ & x_1 & x_2 & s_1 & s_2 & \text{RHS} \\ \hline
+x_1 & 1 & \frac{2}{3} & \frac{1}{6} & 0 & 4 \\
+s_2 & 0 & \frac{4}{3} & -\frac{1}{6} & 1 & 2 \\ \hline
+-z & 0 & -\frac{2}{3} & \frac{5}{6} & 0 & 20
+\end{array} $$
+현재 BFS: \(x_1 = 4\), \(x_2 = 0\), \(s_1 = 0\), \(s_2 = 2\), \(z = 20\).
+
+<strong>Step 5. 반복 2 — 진입 및 이탈 변수.</strong>
+축소 비용: \(\bar{c}_{x_2} = -\frac{2}{3} < 0\) → \(x_2\)가 진입 변수.
+
+최소 비율 검정:
+$$ \frac{4}{2/3} = 6, \quad \frac{2}{4/3} = \frac{3}{2}. $$
+최솟값 \(\frac{3}{2}\)은 \(s_2\) 행 → \(s_2\)가 이탈 변수. 피벗 원소: \(\frac{4}{3}\).
+
+\(s_2\) 행을 \(\frac{4}{3}\)으로 나누고 소거:
+$$ \begin{array}{c|cccc|c}
+ & x_1 & x_2 & s_1 & s_2 & \text{RHS} \\ \hline
+x_1 & 1 & 0 & \frac{1}{4} & -\frac{1}{2} & 3 \\
+x_2 & 0 & 1 & -\frac{1}{8} & \frac{3}{4} & \frac{3}{2} \\ \hline
+-z & 0 & 0 & \frac{3}{4} & \frac{1}{2} & 21
+\end{array} $$
+
+<strong>Step 6. 최적성 판정.</strong>
+모든 축소 비용이 \(\geq 0\): \(\bar{c}_{s_1} = \frac{3}{4}\), \(\bar{c}_{s_2} = \frac{1}{2}\). 따라서 현재 BFS가 최적이다:
+$$ \boxed{x_1^* = 3, \quad x_2^* = \frac{3}{2}, \quad z^* = 5 \cdot 3 + 4 \cdot \frac{3}{2} = 21.} $$
+</div>
+
+<div class="example"><span class="env-label">Example 27.2 (Dual LP and Shadow Prices)</span>
+Example 27.1의 원시(primal) 문제로부터 쌍대(dual) 문제를 구성하자. 원시 문제를 부등식 형태로 쓰면:
+$$ \begin{aligned}
+\operatorname{maximize} \quad & 5x_1 + 4x_2 \\
+\text{subject to} \quad & 6x_1 + 4x_2 \leq 24, \\
+& x_1 + 2x_2 \leq 6, \\
+& x_1, x_2 \geq 0.
+\end{aligned} $$
+이 문제의 쌍대는:
+$$ \begin{aligned}
+\operatorname{minimize} \quad & 24y_1 + 6y_2 \\
+\text{subject to} \quad & 6y_1 + y_2 \geq 5, \\
+& 4y_1 + 2y_2 \geq 4, \\
+& y_1, y_2 \geq 0.
+\end{aligned} $$
+
+<strong>상보 이완(complementary slackness)으로 쌍대해 결정.</strong>
+원시 최적해에서 \(x_1^* = 3 > 0\), \(x_2^* = \frac{3}{2} > 0\)이므로, 상보 이완 조건에 의해 대응하는 쌍대 제약이 모두 등호(active)로 성립해야 한다:
+$$ \begin{aligned}
+6y_1 + y_2 &= 5, \\
+4y_1 + 2y_2 &= 4.
+\end{aligned} $$
+첫 번째 식에서 \(y_2 = 5 - 6y_1\)을 두 번째에 대입하면:
+$$ 4y_1 + 2(5 - 6y_1) = 4 \implies 4y_1 + 10 - 12y_1 = 4 \implies -8y_1 = -6 \implies y_1 = \frac{3}{4}. $$
+따라서 \(y_2 = 5 - 6 \cdot \frac{3}{4} = 5 - \frac{9}{2} = \frac{1}{2}\).
+
+<strong>강한 쌍대성(strong duality) 검증.</strong>
+$$ \text{Dual objective} = 24 \cdot \frac{3}{4} + 6 \cdot \frac{1}{2} = 18 + 3 = 21 = z^*. $$
+원시와 쌍대의 최적값이 일치하여 강한 쌍대성이 확인된다.
+
+<strong>그림자 가격(shadow price) 해석.</strong>
+쌍대 변수 \(y_i^*\)는 \(i\)번째 제약의 우변(RHS)을 한 단위 증가시킬 때 최적값의 변화율이다:
+<ul>
+  <li>\(y_1^* = \frac{3}{4}\): 첫 번째 제약 \(6x_1 + 4x_2 \leq 24\)에서 RHS를 24 → 25로 늘리면, 최적값이 약 \(\frac{3}{4}\)만큼 증가한다. 이 자원의 한 단위 가치가 \(\frac{3}{4}\)이다.</li>
+  <li>\(y_2^* = \frac{1}{2}\): 두 번째 제약 \(x_1 + 2x_2 \leq 6\)에서 RHS를 6 → 7로 늘리면, 최적값이 약 \(\frac{1}{2}\)만큼 증가한다.</li>
+</ul>
+또한 심플렉스 최종 타블로의 목적 행에서 슬랙 변수 \(s_1, s_2\)의 축소 비용이 정확히 \(\frac{3}{4}, \frac{1}{2}\)로 쌍대 변수의 값과 일치함을 확인할 수 있다.
+</div>
+
+<div class="example"><span class="env-label">Example 27.3 (Sensitivity Analysis)</span>
+Example 27.1의 최적 기저 \(B = \{x_1, x_2\}\)를 유지하면서 RHS 및 목적 계수의 변동 허용 범위를 구한다.
+
+<strong>(a) RHS 민감도: \(b_1 = 24\)의 허용 범위.</strong>
+현재 기저 \(B\)에 대응하는 열은 \(A_B = \begin{pmatrix} 6 & 4 \\ 1 & 2 \end{pmatrix}\)이다. 역행렬:
+$$ A_B^{-1} = \frac{1}{8}\begin{pmatrix} 2 & -4 \\ -1 & 6 \end{pmatrix} = \begin{pmatrix} \frac{1}{4} & -\frac{1}{2} \\ -\frac{1}{8} & \frac{3}{4} \end{pmatrix}. $$
+\(b_1\)을 \(24 + \Delta\)로 변경하면 기본 변수값이:
+$$ x_B = A_B^{-1} \begin{pmatrix} 24 + \Delta \\ 6 \end{pmatrix} = \begin{pmatrix} \frac{1}{4}(24+\Delta) - \frac{1}{2} \cdot 6 \\ -\frac{1}{8}(24+\Delta) + \frac{3}{4} \cdot 6 \end{pmatrix} = \begin{pmatrix} 3 + \frac{\Delta}{4} \\ \frac{3}{2} - \frac{\Delta}{8} \end{pmatrix}. $$
+BFS 조건 \(x_B \geq 0\)을 만족하려면:
+$$ 3 + \frac{\Delta}{4} \geq 0 \implies \Delta \geq -12, \qquad \frac{3}{2} - \frac{\Delta}{8} \geq 0 \implies \Delta \leq 12. $$
+따라서 \(b_1 \in [12, 36]\) 범위에서 현재 기저가 유지되며, 이 범위 내에서 그림자 가격 \(y_1^* = \frac{3}{4}\)가 유효하다.
+
+<strong>(b) 목적 계수 민감도: \(c_1 = 5\)의 허용 범위.</strong>
+\(c_1\)을 \(5 + \delta\)로 변경하면, 비기본 변수의 축소 비용이 변한다. 현재 \(c_B = (5+\delta, 4)^T\)이고, 비기본 변수 \(s_1, s_2\)에 대해:
+$$ \bar{c}_{s_1} = 0 - c_B^T A_B^{-1} a_{s_1} = -(5+\delta, 4) \begin{pmatrix} \frac{1}{4} \\ -\frac{1}{8} \end{pmatrix} \cdot (-1) $$
+여기서 부호 규약에 주의하면 (최대화 문제에서 축소 비용):
+$$ \bar{c}_{s_1} = c_B^T A_B^{-1} e_1 = (5+\delta) \cdot \frac{1}{4} + 4 \cdot \bigl(-\frac{1}{8}\bigr) = \frac{5+\delta}{4} - \frac{1}{2} = \frac{3+\delta}{4}. $$
+$$ \bar{c}_{s_2} = (5+\delta) \cdot \bigl(-\frac{1}{2}\bigr) + 4 \cdot \frac{3}{4} = -\frac{5+\delta}{2} + 3 = \frac{1-\delta}{2}. $$
+현재 기저의 최적성 조건 \(\bar{c}_{s_1} \geq 0\), \(\bar{c}_{s_2} \geq 0\)에서:
+$$ \frac{3+\delta}{4} \geq 0 \implies \delta \geq -3, \qquad \frac{1-\delta}{2} \geq 0 \implies \delta \leq 1. $$
+따라서 \(c_1 \in [2, 6]\) 범위에서 현재 기저(따라서 최적해 \(x^* = (3, \frac{3}{2})\))가 유지된다. 이 범위를 벗어나면 다른 꼭짓점이 최적이 된다.
+</div>
+
+<p class="source-tag">Sources: Boyd & Vandenberghe, Convex Optimization (Stanford EE364A/B), MIT 6.251, Carnegie Mellon 10-725</p>
+
+<details class="video-resources">
+<summary>추천 영상 강의 (원본 소스 기반)</summary>
+<ul>
+<li><a href="http://nptel.ac.in/courses/111104027/" target="_blank">Linear Programming and Extensions — NPTEL IIT Kanpur</a></li>
+<li><a href="http://nptel.ac.in/courses/111105039/" target="_blank">Optimization — NPTEL IIT Kharagpur</a></li>
+</ul>
+</details>
+
+<details class="video-resources">
+<summary>추천 교재 &amp; 오픈 자료</summary>
+<ul>
+<li><a href="https://vanderbei.princeton.edu/307/textbook/BertsijaTswordsitsiklis_702x1000.pdf" target="_blank">Introduction to Linear Optimization (Bertsimas &amp; Tsitsiklis)</a> — 미리보기</li>
+<li><a href="https://www.math.washington.edu/~burke/crs/407/notes/" target="_blank">Linear Programming (Burke, UW)</a> — 강의노트</li>
+<li>Bertsimas &amp; Tsitsiklis, <em>Introduction to Linear Optimization</em> — LP의 현대적 표준 교재</li>
+<li>Vanderbei, <em>Linear Programming: Foundations and Extensions</em> — 심플렉스와 내점법 모두 다룸</li>
+<li>Chvátal, <em>Linear Programming</em> — 간결하고 우아한 고전</li>
+<li>Dantzig &amp; Thapa, <em>Linear Programming</em> — LP 창시자의 저서</li>
+<li>Schrijver, <em>Theory of Linear and Integer Programming</em> — 이론적 깊이의 레퍼런스</li>
+</ul>
+</details>
+
+</section>
+
+<!-- ============================================================== -->
+<!--  PART X: NUMERICAL & COMPUTATIONAL METHODS                      -->
+<!-- ============================================================== -->

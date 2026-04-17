@@ -1,0 +1,354 @@
+<h2 id="ring-field-theory">14. Rings and Fields</h2>
+
+<p class="chapter-intro">환(ring)은 덧셈과 곱셈 두 가지 연산을 가진 구조이다. 정수 \(\mathbb{Z}\), 다항식 환 \(R[x]\), 행렬 환 등 익숙한 대상들이 모두 환이다. 군이 하나의 연산에 대한 대칭성을 다뤘다면, 환과 체는 두 연산의 상호작용을 탐구한다. 이 장에서는 환과 아이디얼의 기본 이론에서 출발하여 다항식 환, 체 확장, 유한체까지 다룬다.</p>
+
+<p>정수에서 자연스럽게 수행하는 덧셈, 곱셈, 나머지 연산은 다항식에서도 거의 동일한 규칙을 따른다. 이 관찰이 환론의 출발점이다. "정수와 다항식이 공유하는 연산 구조"를 추상화하면 환(ring)이 되고, 거기에 "나눗셈이 자유롭게 가능한" 조건을 추가하면 체(field)가 된다. 이 추상화는 디지털 통신과 암호학에서 직접 쓰인다.</p>
+
+<p>디지털 통신에서 데이터 전송 시 발생하는 오류를 정정하는 BCH 부호와 Reed-Solomon 부호는 본질적으로 다항식 환 \(\mathbb{F}_q[x]\) 위의 대수적 구조에 기반한다. CD, DVD, QR 코드, 심해 탐사 위성 통신 모두 이 이론의 산물이다. AES(Advanced Encryption Standard) 암호화의 핵심 연산은 유한체 \(\operatorname{GF}(2^8)\)에서의 다항식 산술이며, 현대 인터넷 보안의 근간이다. 신호처리에서 z-변환(z-transform)은 이산 신호를 다항식(또는 형식적 멱급수)으로 표현하며, 디지털 필터의 설계와 분석은 다항식 환에서의 연산으로 귀결된다.</p>
+
+<h3 id="rings-ideals">14.1 Rings and Ideals</h3>
+
+<p>환의 공리는 우리가 정수에서 익숙하게 사용하는 산술 규칙 -- 덧셈의 교환/결합 법칙, 곱셈의 결합법칙, 분배법칙 -- 을 최소한의 요구 조건으로 추출한 것이다. 아이디얼(ideal)은 환에서 "나머지 연산"을 가능하게 하는 특별한 부분집합으로, 정수에서 \(n\)의 배수 집합 \(n\mathbb{Z}\)가 그 원형(prototype)이다. 아이디얼을 통해 몫환(quotient ring)을 구성하면, 복소수체 \(\mathbb{C}\)를 \(\mathbb{R}[x]/(x^2+1)\)로 대수적으로 구성하는 것처럼, 원하는 성질을 갖는 새로운 환과 체를 체계적으로 만들어낼 수 있다.</p>
+
+<div class="definition">
+<span class="env-label">Definition 14.1 (Ring)</span>
+<strong>ring(환)</strong>은 두 이항연산 \(+\)와 \(\cdot\)를 갖춘 집합 \(R\)로, 다음을 만족한다:
+<ul>
+ <li>\((R, +)\)는 아벨 group(군)이다(항등원은 \(0\)).</li>
+ <li>곱셈은 결합적이다: \(a(bc) = (ab)c\).</li>
+ <li>분배법칙이 성립한다: \(a(b + c) = ab + ac\)이고 \((a + b)c = ac + bc\).</li>
+</ul>
+모든 \(a, b\)에 대해 \(ab = ba\)이면 ring(환)을 <strong>가환(commutative)</strong>이라 한다. 모든 \(a\)에 대해 \(1 \cdot a = a \cdot 1 = a\)인 \(1 \in R\)이 존재하면, ring(환)은 <strong>항등원을 가진다(unital)</strong>고 한다. 항등원을 가진 가환 ring(환)에서 영이 아닌 원소 \(a\)가 <strong>영인자(zero divisor)</strong>란, \(ab = 0\)인 영이 아닌 \(b\)가 존재하는 것이다.
+</div>
+
+<div class="definition">
+<span class="env-label">Definition 14.2 (Integral Domain, Field)</span>
+<strong>정역(integral domain)</strong>은 \(1 \neq 0\)인 항등원을 가진 가환 ring(환)으로 영인자가 없는 것이다. <strong>field(체)</strong>는 모든 영이 아닌 원소가 곱셈에 대한 역원을 갖는, 항등원을 가진 가환 ring(환)이다. \((R \setminus \{0\}, \cdot)\)가 아벨 group(군)이다. 모든 field(체)는 정역이다.
+</div>
+
+<div class="example">
+<span class="env-label">Example 14.1</span>
+<ul>
+ <li>\(\mathbb{Z}\)는 정역이지만 field(체)는 아니다.</li>
+ <li>\(\mathbb{Q}, \mathbb{R}, \mathbb{C}\)는 field(체)이다.</li>
+ <li>\(\mathbb{Z}/n\mathbb{Z}\)가 field(체)일 필요충분조건은 \(n\)이 소수인 것이다. \(n\)이 합성수이면, 가령 \(n = ab\)이면, \(\bar{a} \cdot \bar{b} = \bar{0}\)이 영인자이다.</li>
+ <li>\(M_n(\mathbb{R})\)(\(n \times n\) 행렬의 ring(환))은 \(n \geq 2\)일 때 항등원을 가진 비가환 ring(환)이다.</li>
+</ul>
+</div>
+
+<div class="example">
+<span class="env-label">Example 14.1a (구체적 환 예제: 정수환과 다항식환)</span>
+
+<p><strong>(a) 정수환 \(\mathbb{Z}\)의 아이디얼 구조.</strong> \(\mathbb{Z}\)는 PID이므로 모든 ideal(아이디얼)은 주 아이디얼이다. 모든 ideal(아이디얼)은 어떤 정수 \(n\)에 대해 \((n) = n\mathbb{Z} = \{\ldots, -2n, -n, 0, n, 2n, \ldots\}\) 형태이다. 몫환 \(\mathbb{Z}/(n)\)은 원소가 \(n\)개인 환 \(\mathbb{Z}/n\mathbb{Z}\)이다. 아이디얼의 포함 관계는 나눗셈(divisibility)의 역순을 따른다: \((m) \supseteq (n) \iff m \mid n\). 예를 들어 \((6) \subset (3) \subset (1) = \mathbb{Z}\)이다.</p>
+
+<p><strong>(b) 다항식환 \(\mathbb{R}[x]\)에서의 아이디얼과 몫환.</strong> \(\mathbb{R}[x]\)는 유클리드 정역이므로 PID이다. \(f(x) = x^2 + 1\)은 \(\mathbb{R}\) 위에서 기약이다(실수 근이 없으므로). 따라서 \((x^2+1)\)은 극대 아이디얼이고, 몫환은</p>
+$$
+\mathbb{R}[x]/(x^2+1) \cong \mathbb{C}
+$$
+<p>이다. 이 동형은 \(\bar{x} \mapsto i\)로 주어진다. 몫환의 원소는 \(a + b\bar{x}\) (\(a,b \in \mathbb{R}\))이고, \(\bar{x}^2 = -1\)이므로 복소수의 곱셈 규칙과 정확히 일치한다. 이 복소수체를 대수적으로 구성하는 표준적인 방법이다.</p>
+
+<p><strong>(c) 다항식환 \(\mathbb{Z}[x]\)의 아이디얼.</strong> \(\mathbb{Z}[x]\)는 UFD이지만 PID가 아니다. 예를 들어, 아이디얼 \((2, x) = \{f(x) \in \mathbb{Z}[x] : f(0) \text{이 짝수}\}\)는 주 아이디얼이 아니다. 만약 \((2, x) = (g(x))\)라면, \(g \mid 2\)이고 \(g \mid x\)여야 한다. \(g \mid 2\)에서 \(g\)는 상수이고, \(g \mid x\)에서 \(g = \pm 1\)이어야 하지만, 그러면 \((g) = \mathbb{Z}[x] \neq (2, x)\)이므로 모순이다. 몫환 \(\mathbb{Z}[x]/(2, x) \cong \mathbb{Z}/2\mathbb{Z} = \mathbb{F}_2\)는 field(체)이므로 \((2, x)\)는 극대 아이디얼이다.</p>
+</div>
+
+<div class="definition">
+<span class="env-label">Definition 14.3 (Ideal)</span>
+ring(환) \(R\)의 부분집합 \(I \subseteq R\)가 <strong>ideal(아이디얼)</strong>이란, \(I \trianglelefteq R\)로 쓰며, 다음을 만족하는 것이다:
+<ul>
+ <li>\((I, +)\)는 \((R, +)\)의 subgroup(부분군)이고,</li>
+ <li>모든 \(r \in R\)과 \(a \in I\)에 대해 \(ra \in I\)이고 \(ar \in I\)이다(흡수 성질).</li>
+</ul>
+원소 \(a_1, \ldots, a_k\)에 의해 생성되는 ideal(아이디얼)은 \((a_1, \ldots, a_k) = \{r_1 a_1 + \cdots + r_k a_k : r_i \in R\}\)이다. <strong>주 ideal(주 아이디얼)</strong>은 단일 원소로 생성되는 것이다: \((a) = Ra\).
+</div>
+
+<div class="definition">
+<span class="env-label">Definition 14.4 (Quotient Ring)</span>
+\(I \trianglelefteq R\)이면, <strong>quotient ring(몫환)</strong> \(R/I = \{r + I : r \in R\}\)은 다음 연산을 갖는다:
+$$
+(a + I) + (b + I) = (a + b) + I, \qquad (a + I)(b + I) = ab + I.
+$$
+자연 사영 \(\pi: R \to R/I\), \(\pi(r) = r + I\)는 kernel(핵)이 \(I\)인 전사 ring(환) homomorphism(준동형)이다.
+</div>
+
+<div class="theorem">
+<span class="env-label">Theorem 14.1 (Ring Isomorphism Theorems)</span>
+<ul>
+ <li><strong>First</strong>: \(\varphi: R \to S\)가 ring(환) homomorphism(준동형)이면, \(\ker \varphi \trianglelefteq R\)이고 \(R / \ker \varphi \cong \operatorname{im} \varphi\)이다.</li>
+ <li><strong>Second</strong>: \(S\)가 부분환(subring)이고 \(I \trianglelefteq R\)이면, \(S/(S \cap I) \cong (S + I)/I\)이다.</li>
+ <li><strong>Third</strong>: \(I \subseteq J\)가 \(R\)의 ideal(아이디얼)이면, \((R/I)/(J/I) \cong R/J\)이다.</li>
+</ul>
+</div>
+
+<div class="theorem">
+<span class="env-label">Theorem 14.2 (Prime and Maximal Ideals)</span>
+\(R\)을 항등원을 가진 가환 ring(환)이라 하자.
+<ul>
+ <li>ideal(아이디얼) \(P \neq R\)가 <strong>소(prime)</strong>란, \(ab \in P\)이면 \(a \in P\)이거나 \(b \in P\)인 것이다. 동치 조건으로, \(R/P\)가 정역이다.</li>
+ <li>ideal(아이디얼) \(M \neq R\)가 <strong>극대(maximal)</strong>란, \(M \subsetneq I \subsetneq R\)인 ideal(아이디얼) \(I\)가 존재하지 않는 것이다. 동치 조건으로, \(R/M\)이 field(체)이다.</li>
+ <li>모든 극대 ideal(아이디얼)은 소 ideal(아이디얼)이다. 역은 PID에서는 성립하지만 일반적으로는 성립하지 않는다.</li>
+</ul>
+</div>
+
+<div class="example">
+<span class="env-label">Example 14.2</span>
+\(\mathbb{Z}\)에서, 각 소수 \(p\)에 대해 ideal(아이디얼) \((p)\)는 극대(이자 소)이다. \(\mathbb{Z}/(p) \cong \mathbb{F}_p\)가 field(체)이기 때문이다. ideal(아이디얼) \((0)\)은 소이지만(\(\mathbb{Z}\)가 정역이므로) 극대는 아니다. ideal(아이디얼) \((6) = (2) \cap (3)\)은 소도 극대도 아니다.
+</div>
+
+<h3 id="polynomial-rings-pid-ufd">14.2 Polynomial Rings, PIDs, and UFDs</h3>
+
+<p>정수의 소인수분해(prime factorization)는 수론의 근본 정리이다. 이 "유일한 인수분해" 성질이 다항식, 가우스 정수 등 다른 환에서도 성립하는지를 묻는 것이 유일 인수분해 정역(UFD)의 동기이다. 공학적으로, 디지털 통신에서 다항식의 기약 분해(irreducible factorization)는 순환 부호(cyclic code)의 생성 다항식(generator polynomial)을 결정하며, CRC(Cyclic Redundancy Check)의 설계는 \(\mathbb{F}_2[x]\)에서의 다항식 나눗셈에 직접 의존한다.</p>
+
+<p class="section-transition">PID와 UFD는 정수의 소인수분해가 어느 범위까지 일반화되는지를 규명하는 개념이다.</p>
+
+<div class="definition">
+<span class="env-label">Definition 14.5 (Polynomial Ring)</span>
+가환 ring(환) \(R\)에 대해, <strong>다항식 ring(환)</strong> \(R[x]\)는 형식적 표현 \(a_n x^n + \cdots + a_1 x + a_0\) (\(a_i \in R\))으로 이루어지며, 통상적인 덧셈과 곱셈을 갖는다. \(R\)이 정역이면 \(R[x]\)도 정역이고, \(\deg(fg) = \deg f + \deg g\)이다.
+</div>
+
+<div class="theorem">
+<span class="env-label">Theorem 14.3 (Division Algorithm for Polynomials)</span>
+\(F\)를 field(체)라 하고, \(f, g \in F[x]\), \(g \neq 0\)이라 하자. 그러면
+$$
+f = qg + r, \quad \deg r < \deg g
+$$
+를 만족하는 유일한 \(q, r \in F[x]\)가 존재한다. 따라서 \(F[x]\)는 유클리드 정역(Euclidean domain)이다(고로 PID이고, 고로 UFD이다).
+</div>
+
+<div class="definition">
+<span class="env-label">Definition 14.6 (PID, UFD)</span>
+<ul>
+ <li><strong>주 ideal(아이디얼) 정역(principal ideal domain, PID)</strong>은 모든 ideal(아이디얼)이 주 ideal(아이디얼)인 정역이다.</li>
+ <li><strong>유일 인수 분해 정역(unique factorization domain, UFD)</strong>은 모든 영이 아닌 비단원(non-unit) 원소가 기약원(irreducible)의 곱으로 분해되며, 그 분해가 순서와 동반원(associate)을 제외하면 유일한 정역이다.</li>
+ <li><strong>유클리드 정역(Euclidean domain)</strong>은 나눗셈 알고리즘을 지원하는 노름 함수 \(N: R \setminus \{0\} \to \mathbb{Z}_{\geq 0}\)를 갖춘 정역이다.</li>
+</ul>
+포함 관계는 다음과 같다:
+$$
+\text{Fields} \subset \text{Euclidean domains} \subset \text{PIDs} \subset \text{UFDs} \subset \text{Integral domains}.
+$$
+</div>
+
+<div class="example">
+<span class="env-label">Example 14.3</span>
+<ul>
+ <li>\(\mathbb{Z}\)는 유클리드 정역(노름 \(N(a) = |a|\))이므로, PID이자 UFD이다.</li>
+ <li>\(\mathbb{Z}[i] = \{a + bi : a, b \in \mathbb{Z}\}\)(가우스 정수)는 노름 \(N(a+bi) = a^2 + b^2\)을 갖는 유클리드 정역이다.</li>
+ <li>\(\mathbb{Z}[x]\)는 UFD이지만 PID가 아니다: ideal(아이디얼) \((2, x)\)는 주 ideal(아이디얼)이 아니다.</li>
+ <li>\(\mathbb{Z}[\sqrt{-5}]\)는 UFD가 아니다: \(6 = 2 \cdot 3 = (1+\sqrt{-5})(1-\sqrt{-5})\)가 두 가지 서로 다른 기약 인수 분해이다.</li>
+</ul>
+</div>
+
+<div class="theorem">
+<span class="env-label">Theorem 14.4 (Irreducibility Criteria)</span>
+<ul>
+ <li><strong>Eisenstein's Criterion</strong>: \(f(x) = a_n x^n + \cdots + a_0 \in \mathbb{Z}[x]\)라 하자. 소수 \(p\)가 존재하여 \(p \nmid a_n\), \(0 \leq i < n\)인 모든 \(i\)에 대해 \(p \mid a_i\), 그리고 \(p^2 \nmid a_0\)이면, \(f\)는 \(\mathbb{Q}\) 위에서 기약이다.</li>
+ <li><strong>Gauss's Lemma</strong>: \(f \in \mathbb{Z}[x]\)가 원시적(primitive)(계수의 최대공약수가 1)이면, \(f\)가 \(\mathbb{Z}[x]\)에서 기약일 필요충분조건은 \(\mathbb{Q}[x]\)에서 기약인 것이다.</li>
+</ul>
+</div>
+
+<div class="example">
+<span class="env-label">Example 14.4</span>
+다항식 \(f(x) = x^4 + 1\)은 \(\mathbb{Q}\) 위에서 기약이지만, 모든 소수 \(p\)에 대해 모듈로 \(p\)에서는 가약이다. 원분 다항식 \(\Phi_p(x) = x^{p-1} + x^{p-2} + \cdots + 1\)은 \(\Phi_p(x+1)\)에 아이젠슈타인 판정법을 적용하면 \(\mathbb{Q}\) 위에서 기약임이 증명된다.
+</div>
+
+<h3 id="field-extensions">14.3 Field Extensions</h3>
+
+<p>체 확장의 아이디어는 "기존 수 체계에서 풀 수 없는 방정식의 근을 추가하여 더 큰 수 체계를 만든다"는 것이다. 실수에서 \(x^2 + 1 = 0\)의 근 \(i\)를 추가하여 복소수 \(\mathbb{C}\)를 얻는 것이 가장 익숙한 예이다. 이 과정을 임의의 체와 임의의 다항식으로 일반화하면 체 확장 이론이 된다. 유한체의 확장 \(\mathbb{F}_{2^n}/\mathbb{F}_2\)에서 확장 차수 \(n\)은 AES의 블록 비트 길이나 Reed-Solomon 부호의 심볼 크기(symbol size)를 결정한다.</p>
+
+<p class="section-transition">체 확장은 기존 체에 새 원소를 첨가하여 더 큰 체를 구성하는 과정이다. 작도 불가능 문제의 해결과 갈루아 이론이 이 위에 세워진다.</p>
+
+<div class="definition">
+<span class="env-label">Definition 14.7 (Field Extension)</span>
+<strong>field extension(체 확장)</strong> \(K/F\)란, field(체) \(K\)가 \(F\)를 부분체(subfield)로 포함하는 것이다. 확장의 <strong>차수(degree)</strong> \([K : F]\)는 \(K\)를 \(F\) 위의 벡터 공간으로 볼 때의 차원이다. \([K:F] < \infty\)이면 확장은 <strong>유한(finite)</strong>이다.
+</div>
+
+<div class="theorem">
+<span class="env-label">Theorem 14.5 (Tower Law)</span>
+\(F \subseteq K \subseteq L\)이 field(체)이면,
+$$
+[L : F] = [L : K] \cdot [K : F].
+$$
+</div>
+
+<div class="definition">
+<span class="env-label">Definition 14.8 (Algebraic, Transcendental)</span>
+원소 \(\alpha \in K\)가 \(F\) 위에서 <strong>대수적(algebraic)</strong>이란, \(F[x]\)의 어떤 영이 아닌 다항식의 근인 것이다. \(\alpha\)의 <strong>최소다항식(minimal polynomial)</strong>은 \(m_\alpha(\alpha) = 0\)인 유일한 모닉 기약 다항식 \(m_\alpha(x) \in F[x]\)이다. \(\alpha\)가 대수적이 아니면 <strong>초월적(transcendental)</strong>이라 한다.
+</div>
+
+<div class="theorem">
+<span class="env-label">Theorem 14.6</span>
+\(\alpha\)가 \(F\) 위에서 대수적이고 최소다항식의 차수가 \(n\)이면,
+$$
+F(\alpha) \cong F[x]/(m_\alpha(x)),
+$$
+이고 \([F(\alpha) : F] = n\)이다. \(F(\alpha)\)의 \(F\) 위의 기저는 \(\{1, \alpha, \alpha^2, \ldots, \alpha^{n-1}\}\)이다.
+</div>
+
+<div class="example">
+<span class="env-label">Example 14.5</span>
+\(\sqrt{2}\)는 \(\mathbb{Q}\) 위에서 대수적이며 최소다항식은 \(x^2 - 2\)이다. 따라서 \(\mathbb{Q}(\sqrt{2}) = \{a + b\sqrt{2} : a, b \in \mathbb{Q}\}\)이고, \([\mathbb{Q}(\sqrt{2}) : \mathbb{Q}] = 2\)이다.
+</div>
+
+<div class="example">
+<span class="env-label">Example 14.5a (체 확장 \(\mathbb{Q}(\sqrt{2})\)의 상세 구조)</span>
+
+<p><strong>산술 연산.</strong> \(\mathbb{Q}(\sqrt{2})\)의 원소는 \(a + b\sqrt{2}\) (\(a, b \in \mathbb{Q}\)) 형태이다. 덧셈은 성분별로 수행한다: \((a + b\sqrt{2}) + (c + d\sqrt{2}) = (a+c) + (b+d)\sqrt{2}\). 곱셈은 \(\sqrt{2}^2 = 2\)를 이용한다:</p>
+$$
+(a + b\sqrt{2})(c + d\sqrt{2}) = ac + ad\sqrt{2} + bc\sqrt{2} + 2bd = (ac + 2bd) + (ad + bc)\sqrt{2}.
+$$
+
+<p><strong>역원 계산.</strong> \(a + b\sqrt{2} \neq 0\)의 곱셈 역원은 켤레를 이용하여 구한다:</p>
+$$
+\frac{1}{a + b\sqrt{2}} = \frac{a - b\sqrt{2}}{a^2 - 2b^2} = \frac{a}{a^2 - 2b^2} - \frac{b}{a^2 - 2b^2}\sqrt{2}.
+$$
+<p>분모 \(a^2 - 2b^2 \neq 0\)은 \(\sqrt{2}\)가 무리수이므로 \(a + b\sqrt{2} \neq 0\)일 때 항상 성립한다. 예: \((3 + 2\sqrt{2})^{-1} = \frac{3 - 2\sqrt{2}}{9 - 8} = 3 - 2\sqrt{2}\).</p>
+
+<p><strong>Tower Law 활용.</strong> \(\mathbb{Q} \subset \mathbb{Q}(\sqrt{2}) \subset \mathbb{Q}(\sqrt{2}, \sqrt{3})\)을 생각하자. \(\sqrt{3}\)의 \(\mathbb{Q}(\sqrt{2})\) 위에서의 최소다항식은 \(x^2 - 3\)이다(이 \(\mathbb{Q}(\sqrt{2})\)에서 기약임을 확인해야 한다: \(\sqrt{3} = a + b\sqrt{2}\)이면 \(3 = a^2 + 2b^2 + 2ab\sqrt{2}\)에서 \(ab = 0\)이어야 하고, \(b = 0\)이면 \(a^2 = 3\)이므로 \(a \notin \mathbb{Q}\), \(a = 0\)이면 \(2b^2 = 3\)이므로 \(b \notin \mathbb{Q}\)). Tower Law에 의해:</p>
+$$
+[\mathbb{Q}(\sqrt{2}, \sqrt{3}) : \mathbb{Q}] = [\mathbb{Q}(\sqrt{2}, \sqrt{3}) : \mathbb{Q}(\sqrt{2})] \cdot [\mathbb{Q}(\sqrt{2}) : \mathbb{Q}] = 2 \cdot 2 = 4.
+$$
+<p>\(\mathbb{Q}\) 위의 기저는 \(\{1, \sqrt{2}, \sqrt{3}, \sqrt{6}\}\)이다.</p>
+</div>
+
+<div class="example">
+<span class="env-label">Example 14.5b (체 확장의 비자명한 예: \(\mathbb{Q}(\sqrt[3]{2})\)와 분해체)</span>
+
+<p><strong>\(\mathbb{Q}(\sqrt[3]{2})\).</strong> \(\sqrt[3]{2}\)의 \(\mathbb{Q}\) 위에서의 최소다항식은 \(x^3 - 2\)이다(아이젠슈타인, \(p = 2\)). 따라서 \([\mathbb{Q}(\sqrt[3]{2}) : \mathbb{Q}] = 3\)이고, 원소는 \(a + b\sqrt[3]{2} + c\sqrt[3]{4}\) (\(a,b,c \in \mathbb{Q}\)) 형태이다.</p>
+
+<p>이 확장은 \(x^3 - 2\)의 분해체가 아니다. \(x^3 - 2 = (x - \sqrt[3]{2})(x - \omega\sqrt[3]{2})(x - \omega^2\sqrt[3]{2})\)에서 \(\omega = e^{2\pi i/3}\)이고, \(\omega\sqrt[3]{2} \notin \mathbb{Q}(\sqrt[3]{2}) \subset \mathbb{R}\)이다(\(\omega\sqrt[3]{2}\)는 복소수). 분해체는 \(\mathbb{Q}(\sqrt[3]{2}, \omega)\)이며, Tower Law에 의해:</p>
+$$
+[\mathbb{Q}(\sqrt[3]{2}, \omega) : \mathbb{Q}] = [\mathbb{Q}(\sqrt[3]{2}, \omega) : \mathbb{Q}(\sqrt[3]{2})] \cdot [\mathbb{Q}(\sqrt[3]{2}) : \mathbb{Q}].
+$$
+<p>\(\omega\)의 최소다항식은 \(x^2 + x + 1\) (\(\mathbb{Q}\) 위에서)이고, \(\omega \notin \mathbb{Q}(\sqrt[3]{2})\)이므로 \(\mathbb{Q}(\sqrt[3]{2})\) 위에서도 기약이다. 따라서 \([\mathbb{Q}(\sqrt[3]{2}, \omega) : \mathbb{Q}] = 2 \cdot 3 = 6\)이며, 이는 \(\deg(x^3 - 2) = 3\)에 대해 \(3! = 6\)의 상한과 일치한다.</p>
+</div>
+
+<div class="definition">
+<span class="env-label">Definition 14.9 (Splitting Field)</span>
+다항식 \(f(x) \in F[x]\)의 <strong>분해체(splitting field)</strong>는 \(f\)가 일차인수들의 곱으로 완전히 인수분해되는 \(F\)의 가장 작은 확장체이다. 동형을 제외하면 유일하다.
+</div>
+
+<div class="theorem">
+<span class="env-label">Theorem 14.7 (Existence and Uniqueness of Splitting Fields)</span>
+임의의 다항식 \(f(x) \in F[x]\)(차수 \(n\))에 대해, \([K:F] \leq n!\)인 분해체 \(K\)가 존재한다. \(f\)의 \(F\) 위의 임의의 두 분해체는 \(F\)를 고정하는 동형사상으로 연결된다.
+</div>
+
+<div class="definition">
+<span class="env-label">Definition 14.10 (Algebraic Closure)</span>
+field(체) \(F\)가 <strong>대수적으로 닫혀 있다(algebraically closed)</strong>란, \(F[x]\)의 모든 비상수 다항식이 \(F\)에 근을 갖는 것이다. \(F\)의 <strong>대수적 폐포(algebraic closure)</strong> \(\overline{F}\)는 \(F\) 위에서 대수적인 대수적으로 닫힌 field(체)이다. 모든 field(체)는 동형을 제외하면 유일한 대수적 폐포를 갖는다.
+</div>
+
+<h3 id="finite-fields">14.4 Finite Fields</h3>
+
+<p>유한체(finite field)는 구조가 완전히 분류되어 있으면서, 디지털 시스템에서 널리 쓰인다. \(\operatorname{GF}(2^8)\)은 AES 암호 블록의 각 바이트가 사는 공간이고, \(\operatorname{GF}(2^{16})\) 위의 Reed-Solomon 부호는 Blu-ray 디스크와 심우주 통신(deep-space communication)의 오류정정을 담당한다.</p>
+
+<p class="section-transition">유한체는 원소의 개수가 유한한 체이다. 암호학, 부호 이론, 조합론에서 사용된다.</p>
+
+<div class="theorem">
+<span class="env-label">Theorem 14.8 (Classification of Finite Fields)</span>
+<ul>
+ <li>모든 유한 field(체)의 위수는 어떤 소수 \(p\)와 양의 정수 \(n\)에 대해 \(p^n\)이다. 소수 \(p\)가 field(체)의 표수(characteristic)이다.</li>
+ <li>각 소수 거듭제곱 \(q = p^n\)에 대해, 위수 \(q\)인 field(체)가 동형을 제외하면 유일하게 존재하며, \(\mathbb{F}_q\) 또는 \(\operatorname{GF}(q)\)로 표기한다. 이것은 \(x^q - x\)의 \(\mathbb{F}_p\) 위의 분해체이다.</li>
+ <li>곱셈군 \(\mathbb{F}_q^\times\)는 위수 \(q - 1\)인 순환군이다.</li>
+</ul>
+</div>
+
+<div class="theorem">
+<span class="env-label">Theorem 14.9 (Subfields of Finite Fields)</span>
+\(\mathbb{F}_{p^n}\)의 부분체(subfield)는 정확히 약수 \(d \mid n\)에 대한 \(\mathbb{F}_{p^d}\)이다. 확장 \(\mathbb{F}_{p^n} / \mathbb{F}_{p^d}\)의 차수는 \(n/d\)이다.
+</div>
+
+<div class="theorem">
+<span class="env-label">Theorem 14.10 (Frobenius Endomorphism)</span>
+사상 \(\sigma: \mathbb{F}_q \to \mathbb{F}_q\)를 \(\sigma(x) = x^p\)(\(q = p^n\))로 정의하면, 이것은 field(체) 자기동형사상이며 <strong>프로베니우스 자기준동형(Frobenius endomorphism)</strong>이라 한다. 갈루아 group(군) \(\operatorname{Gal}(\mathbb{F}_{p^n}/\mathbb{F}_p)\)는 \(\sigma\)에 의해 생성되는 위수 \(n\)인 순환군이다.
+</div>
+
+<div class="example">
+<span class="env-label">Example 14.6</span>
+\(\mathbb{F}_4 = \mathbb{F}_{2^2}\)를 구성하려면, \(\mathbb{F}_2\) 위에서 차수 2인 기약 다항식이 필요하다. 다항식 \(x^2 + x + 1\)은 \(\mathbb{F}_2\) 위에서 기약이다(\(\mathbb{F}_2\)에 근이 없으므로). 그러면
+$$
+\mathbb{F}_4 = \mathbb{F}_2[x]/(x^2 + x + 1) = \{0, 1, \alpha, \alpha + 1\},
+$$
+여기서 \(\alpha^2 = \alpha + 1\)이다. 곱셈군 \(\mathbb{F}_4^\times = \{1, \alpha, \alpha+1\} \cong \mathbb{Z}/3\mathbb{Z}\)이다. 곱셈표를 명시적으로 작성하면:
+
+<table style="border-collapse: collapse; margin: 10px 0;">
+<tr><td style="padding: 2px 12px;">\(\cdot\)</td><td style="padding: 2px 12px;">\(1\)</td><td style="padding: 2px 12px;">\(\alpha\)</td><td style="padding: 2px 12px;">\(\alpha+1\)</td></tr>
+<tr><td style="padding: 2px 12px;">\(1\)</td><td style="padding: 2px 12px;">\(1\)</td><td style="padding: 2px 12px;">\(\alpha\)</td><td style="padding: 2px 12px;">\(\alpha+1\)</td></tr>
+<tr><td style="padding: 2px 12px;">\(\alpha\)</td><td style="padding: 2px 12px;">\(\alpha\)</td><td style="padding: 2px 12px;">\(\alpha+1\)</td><td style="padding: 2px 12px;">\(1\)</td></tr>
+<tr><td style="padding: 2px 12px;">\(\alpha+1\)</td><td style="padding: 2px 12px;">\(\alpha+1\)</td><td style="padding: 2px 12px;">\(1\)</td><td style="padding: 2px 12px;">\(\alpha\)</td></tr>
+</table>
+
+<p>예를 들어 \(\alpha \cdot \alpha = \alpha^2 = \alpha + 1\)이고, \(\alpha \cdot (\alpha+1) = \alpha^2 + \alpha = (\alpha+1) + \alpha = 1\)이다 (\(\mathbb{F}_2\)에서 \(1+1=0\)). 따라서 \(\alpha^{-1} = \alpha + 1\)이다. 프로베니우스 자기동형사상은 \(\sigma(\alpha) = \alpha^2 = \alpha + 1\)로 두 근 \(\alpha\)와 \(\alpha+1\)을 교환한다.</p>
+</div>
+
+<div class="example">
+<span class="env-label">Example 14.6a (유한체 \(\mathbb{F}_8\)과 \(\mathbb{F}_9\)의 구성)</span>
+
+<p><strong>(a) \(\mathbb{F}_8 = \mathbb{F}_{2^3}\)의 구성.</strong> \(\mathbb{F}_2\) 위에서 차수 3인 기약 다항식이 필요하다. \(p(x) = x^3 + x + 1\)은 \(\mathbb{F}_2\)에서 \(p(0) = 1 \neq 0\), \(p(1) = 1 + 1 + 1 = 1 \neq 0\)이므로 기약이다. 따라서</p>
+$$
+\mathbb{F}_8 = \mathbb{F}_2[x]/(x^3 + x + 1) = \{a_0 + a_1\alpha + a_2\alpha^2 : a_i \in \mathbb{F}_2\},
+$$
+<p>여기서 \(\alpha^3 = \alpha + 1\)이다. 원소는 총 \(2^3 = 8\)개이다. 곱셈표를 구성할 때, 예를 들어</p>
+$$
+\alpha^3 = \alpha + 1, \quad \alpha^4 = \alpha \cdot \alpha^3 = \alpha^2 + \alpha, \quad \alpha^5 = \alpha^3 + \alpha^2 = \alpha^2 + \alpha + 1,
+$$
+$$
+\alpha^6 = \alpha^3 + \alpha^2 + \alpha = \alpha^2 + 1, \quad \alpha^7 = \alpha^3 + \alpha = 1.
+$$
+<p>따라서 \(\alpha\)는 \(\mathbb{F}_8^\times\)의 생성원(원시근)이다. \(\mathbb{F}_8^\times = \langle \alpha \rangle \cong \mathbb{Z}/7\mathbb{Z}\).</p>
+
+<p><strong>(b) \(\mathbb{F}_9 = \mathbb{F}_{3^2}\)의 구성.</strong> \(\mathbb{F}_3\) 위에서 차수 2인 기약 다항식이 필요하다. \(p(x) = x^2 + 1\)을 검사하면: \(p(0) = 1\), \(p(1) = 2\), \(p(2) = 5 \equiv 2 \pmod{3}\). 모두 0이 아니므로 기약이다. 따라서</p>
+$$
+\mathbb{F}_9 = \mathbb{F}_3[x]/(x^2 + 1) = \{a + b\alpha : a, b \in \mathbb{F}_3\},
+$$
+<p>여기서 \(\alpha^2 = -1 \equiv 2 \pmod{3}\)이다. 원소는 \(\{0, 1, 2, \alpha, \alpha+1, \alpha+2, 2\alpha, 2\alpha+1, 2\alpha+2\}\)의 9개이다. 곱셈군 \(\mathbb{F}_9^\times\)는 위수 8인 순환군이다. \(\alpha\)가 생성원인지 확인: \(\alpha^2 = 2\), \(\alpha^4 = 4 = 1\)이므로 \(\alpha\)의 위수는 4이다. 따라서 \(\alpha\)는 생성원이 아니다. \(\alpha + 1\)을 시도하면: \((\alpha+1)^2 = \alpha^2 + 2\alpha + 1 = 2 + 2\alpha + 1 = 2\alpha\), \((\alpha+1)^4 = (2\alpha)^2 = 4\alpha^2 = 4 \cdot 2 = 8 \equiv 2 \pmod{3}\). 위수가 4가 아니므로 계속: \((\alpha+1)^8 = 2^2 = 4 \equiv 1\)이므로 \(\alpha+1\)의 위수는 8이고, 이 \(\mathbb{F}_9^\times\)의 생성원이다.</p>
+</div>
+
+
+<div class="remark">
+<span class="env-label">Remark 14.1 (유한체의 응용)</span>
+유한체의 응용 예:
+<ul>
+ <li><strong>오류 정정 부호(error-correcting codes):</strong> Reed-Solomon 부호는 \(\mathbb{F}_{2^8}\) 위에서 구성되며, CD/DVD, QR 코드, 위성 통신에 사용된다.</li>
+ <li><strong>암호학:</strong> 타원곡선 암호(ECC)는 \(\mathbb{F}_p\) 또는 \(\mathbb{F}_{2^n}\) 위의 타원곡선을 사용한다. AES 암호의 내부 연산은 \(\mathbb{F}_{2^8} = \mathbb{F}_2[x]/(x^8 + x^4 + x^3 + x + 1)\)에서 수행된다.</li>
+ <li><strong>조합론:</strong> \(\mathbb{F}_q\) 위의 사영 평면은 \(q^2 + q + 1\)개의 점과 같은 수의 직선을 갖는 유한 기하 구조이다.</li>
+</ul>
+</div>
+
+<div class="remark">
+<span class="env-label">Remark 14.2 (환-체 계층 요약)</span>
+이 절에서 다룬 대수적 구조의 계층을 정리하면:
+$$
+\text{Ring} \supset \text{Commutative ring} \supset \text{Integral domain} \supset \text{UFD} \supset \text{PID} \supset \text{Euclidean domain} \supset \text{Field}.
+$$
+각 포함은 진포함이다. 대표적 반례:
+<ul>
+ <li>가환이지만 정역이 아닌 환: \(\mathbb{Z}/6\mathbb{Z}\) (영인자 \(\bar{2} \cdot \bar{3} = \bar{0}\)).</li>
+ <li>정역이지만 UFD가 아닌 환: \(\mathbb{Z}[\sqrt{-5}]\).</li>
+ <li>UFD이지만 PID가 아닌 환: \(\mathbb{Z}[x]\).</li>
+ <li>PID이지만 유클리드 정역이 아닌 환: \(\mathbb{Z}[\frac{1+\sqrt{-19}}{2}]\).</li>
+</ul>
+</div>
+
+<!-- ============================================================
+ SECTION 15: GRADUATE ALGEBRA
+ ============================================================ -->
+
+<details class="video-resources">
+<summary>추천 영상 강의 (원본 소스 기반)</summary>
+<ul>
+<li><a href="https://www.youtube.com/playlist?list=PLelIK3uylPMGzHBuR3hLMHrYfMqWWsmx5" target="_blank">Abstract Algebra — Harvard</a></li>
+<li><a href="https://www.youtube.com/playlist?list=PLS3WLIIQXmML4mJgnP9q6EaL8sBTg7I3p" target="_blank">Math 371 Algebra II (2011) — UPenn</a></li>
+<li><a href="https://www.youtube.com/playlist?list=PLS3WLIIQXmMIM2UqSvLGnE-sbUPkDF4Bu" target="_blank">Math 371 Algebra II (2014) — UPenn</a></li>
+</ul>
+</details>
+
+<details class="video-resources">
+<summary>추천 교재 &amp; 오픈 자료</summary>
+<ul>
+<li><a href="https://abstract.ups.edu/" target="_blank">Abstract Algebra: Theory and Applications (Judson)</a> — Ch 16-23: Rings, Domains, Fields, Galois Theory</li>
+<li>Dummit &amp; Foote, <em>Abstract Algebra</em> — Part II-IV: Ring Theory, Modules, Field/Galois Theory</li>
+<li>Artin, <em>Algebra</em> — Ch 11-15: Rings, Factoring, Fields, Galois Theory</li>
+<li>Jacobson, <em>Basic Algebra I &amp; II</em> — 환론과 체론의 고전적 레퍼런스</li>
+<li>Atiyah &amp; MacDonald, <em>Introduction to Commutative Algebra</em> — 가환대수 입문의 바이블</li>
+<li>Lang, <em>Algebra</em> — GTM 211, 대학원 대수학 백과사전</li>
+</ul>
+</details>
+

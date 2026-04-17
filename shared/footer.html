@@ -1,0 +1,88 @@
+</main>
+
+<!-- KaTeX -->
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // KaTeX auto-render
+  renderMathInElement(document.body, {
+    delimiters: [
+      {left: '$$', right: '$$', display: true},
+      {left: '\\[', right: '\\]', display: true},
+      {left: '\\(', right: '\\)', display: false},
+      {left: '$', right: '$', display: false}
+    ],
+    throwOnError: false
+  });
+
+  // Highlight.js
+  document.querySelectorAll('pre code').forEach(function(el) { hljs.highlightElement(el); });
+
+  // Progress bar
+  window.addEventListener('scroll', function() {
+    var scrollTop = window.scrollY || window.pageYOffset || document.body.scrollTop;
+    var height = document.documentElement.scrollHeight - window.innerHeight;
+    var pct = height > 0 ? (scrollTop / height) * 100 : 0;
+    document.getElementById('progress-bar').style.width = pct + '%';
+  });
+
+  // TOC active state
+  var tocItems = document.querySelectorAll('.toc-item');
+  var headings = [];
+  tocItems.forEach(function(item) {
+    var id = item.getAttribute('href');
+    if (id) {
+      var el = document.querySelector(id);
+      if (el) headings.push({el: el, link: item});
+    }
+  });
+
+  function updateActive() {
+    var scrollPos = window.scrollY + 100;
+    var active = null;
+    headings.forEach(function(h) {
+      if (h.el.offsetTop <= scrollPos) active = h;
+    });
+    tocItems.forEach(function(item) { item.classList.remove('active'); });
+    if (active) {
+      active.link.classList.add('active');
+      active.link.scrollIntoView({block: 'nearest'});
+    }
+  }
+  window.addEventListener('scroll', updateActive);
+  updateActive();
+
+  // Search
+  var searchInput = document.getElementById('search-input');
+  searchInput.addEventListener('input', function() {
+    var query = this.value.toLowerCase();
+    var items = document.querySelectorAll('.toc-item, .toc-group-label');
+    if (!query) {
+      items.forEach(function(item) { item.classList.remove('toc-hidden'); });
+      return;
+    }
+    items.forEach(function(item) {
+      if (item.classList.contains('toc-group-label')) {
+        item.classList.add('toc-hidden');
+      } else {
+        var text = item.textContent.toLowerCase();
+        item.classList.toggle('toc-hidden', text.indexOf(query) === -1);
+      }
+    });
+    // Show group labels if any child is visible
+    document.querySelectorAll('.toc-group-label').forEach(function(label) {
+      var next = label.nextElementSibling;
+      var hasVisible = false;
+      while (next && !next.classList.contains('toc-group-label')) {
+        if (!next.classList.contains('toc-hidden')) hasVisible = true;
+        next = next.nextElementSibling;
+      }
+      label.classList.toggle('toc-hidden', !hasVisible);
+    });
+  });
+});
+</script>
+</body>
+</html>

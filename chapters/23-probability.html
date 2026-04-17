@@ -1,0 +1,432 @@
+<h2 class="part-title">Part VIII &mdash; Probability &amp; Statistics</h2>
+
+<div class="part-intro">
+<p>확률과 통계는 불확실성을 다루는 수학이다. 도박 문제에서 출발한 확률론은 이제 물리학, 금융, 기계학습의 핵심 도구이다. 콜모고로프의 공리적 체계가 확률을 측도론 위에 정초한 이후, 확률론은 엄밀한 수학의 한 분과로 자리잡았다. Part VIII에서는 확률론의 기초, 통계적 추론, 확률과정을 다룬다.</p>
+</div>
+
+<!-- ============================================================== -->
+<!--  SECTION 23: PROBABILITY THEORY                                 -->
+<!-- ============================================================== -->
+
+<section id="probability">
+<h3>23. Probability Theory</h3>
+
+<p class="chapter-intro">확률론은 불확실한 현상을 수학적으로 모형화하는 이론이다. 표본공간, 사건, 확률측도의 삼중쌍에서 출발하여 확률변수, 기댓값, 분포, 그리고 대수의 법칙과 중심극한정리 등 확률의 핵심 결과들을 전개한다.</p>
+
+<p>불확실성(uncertainty)은 공학의 모든 분야에 편재한다. 통신 시스템(communication system)에서 채널 용량(channel capacity)과 비트 오류율(bit error rate)은 확률적 채널 모형 위에서 정의되며, 샤논의 채널 코딩 정리(Shannon's channel coding theorem)는 확률론 없이는 진술조차 할 수 없다. 신뢰성 공학(reliability engineering)에서 부품의 수명은 지수분포(exponential distribution)나 와이블 분포(Weibull distribution)로 모형화되고, 시스템 전체의 신뢰도는 각 부품의 고장 확률로부터 계산된다.</p>
+
+<p>금융공학(financial engineering)에서 리스크 모델링(risk modeling)은 수익률의 확률 분포에 기반하며, 기계학습(machine learning)의 핵심인 베이즈 추론(Bayesian inference)은 조건부 확률과 베이즈 정리의 직접적 응용이다. 센서 융합(sensor fusion)에서 칼만 필터(Kalman filter)의 예측-갱신 구조는 조건부 기댓값과 정규분포의 공액 성질(conjugacy)에 의해 수학적으로 정당화된다. 공리적 확률이 필요한 이유는 조건부 확률에서 드러난다. "양성 반응이 나왔을 때 실제 질병이 있을 확률"은 직관과 크게 다를 수 있다(base rate fallacy).</p>
+
+<!-- Axioms and fundamentals, following MIT 6.041SC Lectures 1-3 -->
+
+<p>확률론의 공리적 체계는 콜모고로프(Kolmogorov)가 1933년에 확립했다. 표본공간, 시그마-대수, 확률측도의 삼중쌍이 그 골격이다.</p>
+
+<div class="definition"><span class="env-label">Definition 23.1 (Probability Space)</span>
+<strong>probability(확률) space</strong>는 삼중쌍 \((\Omega, \mathcal{F}, P)\)으로 구성되며, 각 요소는 다음과 같다:
+<ul>
+  <li>\(\Omega\)는 <strong>sample space(표본공간)</strong>으로, 가능한 결과들의 집합이다 (상호 배타적이며 전체를 포괄한다).</li>
+  <li>\(\mathcal{F}\)는 \(\Omega\)의 부분집합들로 이루어진 \(\sigma\)-algebra(사건들의 모임)이다.</li>
+  <li>\(P : \mathcal{F} \to [0,1]\)는 아래의 공리를 만족하는 <strong>probability measure(확률측도)</strong>이다.</li>
+</ul>
+</div>
+
+<div class="definition"><span class="env-label">Definition 23.2 (Kolmogorov Axioms)</span>
+<ol>
+  <li><strong>Nonnegativity:</strong> 모든 \(A \in \mathcal{F}\)에 대해 \(P(A) \geq 0\).</li>
+  <li><strong>Normalization:</strong> \(P(\Omega) = 1\).</li>
+  <li><strong>Countable additivity:</strong> \(A_1, A_2, \ldots\)가 쌍별 서로소인 사건들이면,
+  $$ P\!\left(\bigcup_{i=1}^{\infty} A_i\right) = \sum_{i=1}^{\infty} P(A_i). $$
+  </li>
+</ol>
+</div>
+
+<div class="definition"><span class="env-label">Definition 23.3 (Discrete Uniform Law)</span>
+\(\Omega\)가 유한이고 모든 결과가 동일한 확률을 가지면, 임의의 사건 \(A\)에 대해
+$$ P(A) = \frac{|A|}{|\Omega|} = \frac{\text{number of favorable outcomes}}{\text{total number of outcomes}}. $$
+</div>
+
+<div class="example"><span class="env-label">Example 23.1 (주사위 예제 -- MIT 6.041 L1)</span>
+정사면체 주사위 두 개를 굴린다. 표본공간 \(\Omega\)는 16개의 점 \(\{(i,j) : 1 \leq i,j \leq 4\}\)이다. 각 결과가 동일한 확률 \(1/16\)을 가질 때:
+<ul>
+  <li>\(P(\min(X,Y) = 2) = P(\{(2,2),(2,3),(2,4),(3,2),(4,2)\}) = 5/16\).</li>
+  <li>\(P(X + Y \text{ is odd}) = 8/16 = 1/2\). (홀+짝 또는 짝+홀의 경우의 수가 8개.)</li>
+</ul>
+</div>
+
+<h4>23.1 조건부 확률과 독립</h4>
+
+<p class="section-transition">새로운 정보가 주어졌을 때 확률이 어떻게 갱신되는지를 다룬다.</p>
+
+<div class="definition"><span class="env-label">Definition 23.4 (Conditional Probability)</span>
+\(P(B) > 0\)인 사건 \(A, B\)에 대해, \(B\)가 주어졌을 때 \(A\)의 <strong>conditional probability(조건부확률)</strong>는
+$$ P(A \mid B) = \frac{P(A \cap B)}{P(B)}. $$
+조건부 확률은 \(B\)라는 새로운 universe 위에서의 확률 법칙을 정의한다. \(P(\cdot \mid B)\)는 모든 확률 공리를 만족한다.
+</div>
+
+<div class="theorem"><span class="env-label">Theorem 23.1 (Multiplication Rule)</span>
+$$ P(A \cap B \cap C) = P(A)\, P(B \mid A)\, P(C \mid A \cap B). $$
+보다 일반적으로, 사건 \(A_1, \ldots, A_n\)에 대해:
+$$ P(A_1 \cap \cdots \cap A_n) = P(A_1)\, P(A_2 \mid A_1)\, P(A_3 \mid A_1 \cap A_2) \cdots P(A_n \mid A_1 \cap \cdots \cap A_{n-1}). $$
+</div>
+
+<div class="theorem"><span class="env-label">Theorem 23.2 (Total Probability Theorem)</span>
+\(A_1, A_2, \ldots, A_n\)이 \(\Omega\)의 분할(쌍별 서로소이고 합집합이 \(\Omega\))을 이루면, 임의의 사건 \(B\)에 대해:
+$$ P(B) = \sum_{i=1}^{n} P(A_i)\, P(B \mid A_i). $$
+</div>
+
+<div class="theorem"><span class="env-label">Theorem 23.3 (Bayes' Rule)</span>
+\(\Omega\)의 분할 \(\{A_i\}\)에 대한 사전확률 \(P(A_i)\)와 각 \(i\)에 대해 \(P(B \mid A_i)\)가 주어졌을 때:
+$$ P(A_i \mid B) = \frac{P(A_i)\, P(B \mid A_i)}{\sum_{j} P(A_j)\, P(B \mid A_j)}. $$
+새로운 증거 \(B\)가 주어졌을 때 기존의 믿음을 갱신할 수 있다. 이것이 Bayes' theorem(베이즈 정리)의 핵심이다.
+</div>
+
+<div class="example"><span class="env-label">Example 23.2 (레이더 탐지 -- MIT 6.041 L2)</span>
+비행기가 상공에 있는 사건을 \(A\), 레이더에 신호가 잡히는 사건을 \(B\)라 하자. \(P(A) = 0.05\), \(P(B \mid A) = 0.99\), \(P(B \mid A^c) = 0.10\)이 주어져 있다.
+<ul>
+  <li>\(P(A \cap B) = P(A)P(B \mid A) = 0.05 \times 0.99 = 0.0495\).</li>
+  <li>\(P(B) = P(A)P(B \mid A) + P(A^c)P(B \mid A^c) = 0.0495 + 0.95 \times 0.10 = 0.1445\).</li>
+  <li>\(P(A \mid B) = \frac{0.0495}{0.1445} \approx 0.3426\).</li>
+</ul>
+레이더 신호가 잡혔을 때 실제 비행기가 있을 확률은 약 34.3%이다. 사전확률 5%에서 크게 갱신되었지만, 위양성률이 높아 여전히 100%는 아니다.
+</div>
+
+<div class="example"><span class="env-label">Example 23.3 (Bayesian 추론 -- 질병 검사)</span>
+질병 유병률이 \(P(D) = 0.001\)이고, 검사의 민감도 \(P(+ \mid D) = 0.99\), 특이도 \(P(- \mid D^c) = 0.95\)라 하자. 양성 반응이 나왔을 때 실제 질병이 있을 확률은?<br>
+<strong>풀이.</strong>
+$$ P(D \mid +) = \frac{P(D)P(+ \mid D)}{P(D)P(+ \mid D) + P(D^c)P(+ \mid D^c)} = \frac{0.001 \times 0.99}{0.001 \times 0.99 + 0.999 \times 0.05}. $$
+$$ = \frac{0.00099}{0.00099 + 0.04995} = \frac{0.00099}{0.05094} \approx 0.0194. $$
+양성 반응에도 불구하고 실제 질병이 있을 확률은 약 2%에 불과하다. 이는 유병률(사전확률)이 낮기 때문이다. Base rate를 무시하면 안 된다는 것을 보여주는 전형적인 예이다.
+</div>
+
+<div class="definition"><span class="env-label">Definition 23.5 (Independence)</span>
+사건 \(A\)와 \(B\)가 \(P(A \cap B) = P(A)\, P(B)\)를 만족하면 <strong>independent(독립)</strong>이라 한다. 사건 \(A_1, \ldots, A_n\)이 <strong>mutually independent(상호독립)</strong>이려면, 모든 부분집합 \(S \subseteq \{1, \ldots, n\}\)에 대해
+$$ P\!\left(\bigcap_{i \in S} A_i\right) = \prod_{i \in S} P(A_i). $$
+</div>
+
+<div class="remark"><span class="env-label">Remark (Pairwise vs. Mutual Independence -- MIT 6.041 L3)</span>
+Pairwise independence는 mutual independence를 함의하지 않는다. 공정한 동전 두 번 던지기에서 \(A\) = 첫째 앞면, \(B\) = 둘째 앞면, \(C\) = 두 결과가 같음으로 정의하면, \(A, B, C\)는 쌍별 독립이지만 \(P(A \cap B \cap C) = 1/4 \neq P(A)P(B)P(C) = 1/8\)이므로 상호독립이 아니다.
+</div>
+
+<div class="remark"><span class="env-label">Remark (조건부 독립 -- MIT 6.041 L3)</span>
+\(A\)와 \(B\)가 (무조건) 독립이더라도, 사건 \(C\)를 조건으로 했을 때 조건부 독립이 아닐 수 있으며, 그 역도 성립한다. 편향된 동전 두 종류 (A: \(P(H)=0.9\), B: \(P(H)=0.1\)) 중 하나를 무작위로 선택하여 반복 던지는 경우, 각 던지기는 (무조건적으로) 독립이 아니다. 그러나 어떤 동전인지를 조건으로 하면 독립이 된다.
+</div>
+
+<h4>23.2 확률변수와 기본 성질</h4>
+
+<p class="section-transition">확률변수는 표본공간의 결과를 수치로 변환하는 함수이다.</p>
+
+<div class="definition"><span class="env-label">Definition 23.6 (Random Variable)</span>
+<strong>random variable(확률변수)</strong> \(X\)는 가측함수 \(X : \Omega \to \mathbb{R}\)이다. 이산 \(X\)의 경우, <strong>probability mass function(확률질량함수)</strong> (PMF)는 \(p_X(x) = P(X = x)\)이다. 연속 \(X\)의 경우, <strong>probability density function(확률밀도함수)</strong> (PDF) \(f_X(x)\)는 \(P(a \leq X \leq b) = \int_a^b f_X(x)\, dx\)를 만족한다. <strong>cumulative distribution function(누적분포함수)</strong> (CDF)는 \(F_X(x) = P(X \leq x)\)이다.
+</div>
+
+<div class="definition"><span class="env-label">Definition 23.7 (Expectation and Variance)</span>
+random variable(확률변수) \(X\)의 <strong>expectation(기댓값)</strong> (평균)은 다음과 같다:
+$$ E[X] = \begin{cases} \sum_x x\, p_X(x) & \text{(discrete)}, \\ \int_{-\infty}^{\infty} x\, f_X(x)\, dx & \text{(continuous)}. \end{cases} $$
+<strong>variance(분산)</strong>는 \(\text{Var}(X) = E[(X - E[X])^2] = E[X^2] - (E[X])^2\)이다. <strong>standard deviation(표준편차)</strong>는 \(\sigma_X = \sqrt{\text{Var}(X)}\)이다.
+</div>
+
+<p><strong>핵심 성질:</strong> expectation(기댓값)의 선형성: \(E[aX + bY] = aE[X] + bE[Y]\) (종속 여부에 관계없이 항상 성립). 독립인 \(X, Y\)에 대해: \(\text{Var}(X + Y) = \text{Var}(X) + \text{Var}(Y)\).</p>
+
+<div class="definition"><span class="env-label">Definition 23.8 (Conditional Expectation)</span>
+이산 확률변수 \(X\)에 대해, 사건 \(A\)가 주어졌을 때의 <strong>conditional expectation(조건부 기댓값)</strong>은:
+$$ E[X \mid A] = \sum_x x\, P(X = x \mid A). $$
+확률변수 \(Y\)가 주어졌을 때의 조건부 기댓값 \(E[X \mid Y]\)는 그 자체가 \(Y\)의 함수인 확률변수이며, <strong>Total Expectation Theorem(전체 기댓값 정리)</strong>이 성립한다:
+$$ E[X] = E[E[X \mid Y]] = \sum_y E[X \mid Y = y]\, P(Y = y). $$
+</div>
+
+<div class="example"><span class="env-label">Example 23.4 (조건부 기댓값 활용)</span>
+공정한 동전을 던져 앞면이 나오면 주사위를 한 번, 뒷면이 나오면 주사위를 두 번 던진다고 하자. 주사위 눈의 합의 기댓값은?<br>
+<strong>풀이.</strong> \(X\)를 주사위 눈의 합이라 하자.
+<ul>
+  <li>\(E[X \mid H] = E[\text{주사위 1회}] = 3.5\).</li>
+  <li>\(E[X \mid T] = E[\text{주사위 2회 합}] = 7\).</li>
+</ul>
+$$ E[X] = E[X \mid H] P(H) + E[X \mid T] P(T) = 3.5 \times 0.5 + 7 \times 0.5 = 5.25. $$
+</div>
+
+<div class="theorem"><span class="env-label">Theorem 23.4 (LOTUS -- Law of the Unconscious Statistician)</span>
+\(g(X)\)의 기댓값을 \(X\)의 분포로 직접 계산할 수 있다:
+$$ E[g(X)] = \begin{cases} \sum_x g(x)\, p_X(x) & \text{(discrete)}, \\ \int_{-\infty}^{\infty} g(x)\, f_X(x)\, dx & \text{(continuous)}. \end{cases} $$
+\(g(X)\)의 분포를 별도로 구할 필요가 없다.
+</div>
+
+<div class="example"><span class="env-label">Example 23.5 (LOTUS 활용)</span>
+\(X \sim \text{Uniform}(0, 2)\)일 때, \(E[X^3]\)을 구하라.<br>
+<strong>풀이.</strong> \(f_X(x) = 1/2\) (\(0 \leq x \leq 2\)).
+$$ E[X^3] = \int_0^2 x^3 \cdot \frac{1}{2}\,dx = \frac{1}{2} \cdot \frac{x^4}{4}\bigg|_0^2 = \frac{1}{2} \cdot 4 = 2. $$
+</div>
+
+<div class="definition"><span class="env-label">Definition 23.9 (Joint Distribution)</span>
+확률변수 \(X, Y\)의 <strong>joint PMF/PDF</strong>는 \(p_{X,Y}(x,y) = P(X=x, Y=y)\) (이산) 또는 \(f_{X,Y}(x,y)\) (연속, \(P((X,Y) \in A) = \iint_A f_{X,Y}\,dx\,dy\))이다. <strong>Marginal(주변) 분포</strong>는 합산/적분으로 얻는다: \(p_X(x) = \sum_y p_{X,Y}(x,y)\). \(X\)와 \(Y\)가 독립이면 \(f_{X,Y}(x,y) = f_X(x) f_Y(y)\)이다.
+</div>
+
+<div class="definition"><span class="env-label">Definition 23.10 (Covariance and Correlation)</span>
+<ul>
+  <li><strong>Covariance(공분산):</strong> \(\text{Cov}(X, Y) = E[(X - E[X])(Y - E[Y])] = E[XY] - E[X]E[Y]\).</li>
+  <li><strong>Correlation coefficient(상관계수):</strong> \(\rho_{X,Y} = \frac{\text{Cov}(X,Y)}{\sigma_X \sigma_Y}\), 범위는 \([-1, 1]\).</li>
+  <li>\(X, Y\)가 독립이면 \(\text{Cov}(X,Y) = 0\). 역은 일반적으로 성립하지 않는다.</li>
+  <li><strong>분산의 합:</strong> \(\text{Var}(X + Y) = \text{Var}(X) + \text{Var}(Y) + 2\text{Cov}(X,Y)\).</li>
+</ul>
+</div>
+
+<h4>23.3 주요 이산 분포 상세</h4>
+
+<p class="section-transition">이산 확률변수의 주요 분포와 그 성질을 다룬다.</p>
+
+<p>이항분포(binomial distribution)는 독립 반복 시행에서 성공 횟수를 센다. 품질 관리의 불량품 수, 통신의 비트 오류 수 등이 이항분포로 모형화된다.</p>
+
+<div class="definition"><span class="env-label">Definition 23.11 (Binomial Distribution)</span>
+\(X \sim \text{Binomial}(n, p)\): 독립적인 Bernoulli 시행 \(n\)회 중 성공 횟수.
+<ul>
+  <li><strong>PMF:</strong> \(P(X = k) = \binom{n}{k} p^k (1-p)^{n-k}\), \(k = 0, 1, \ldots, n\).</li>
+  <li><strong>기댓값:</strong> \(E[X] = np\).</li>
+  <li><strong>분산:</strong> \(\text{Var}(X) = np(1-p)\).</li>
+  <li><strong>직관:</strong> 각 시행이 독립이고 성공 확률이 \(p\)로 동일한 경우. \(X = \sum_{i=1}^n X_i\)로 쓸 수 있으며, 여기서 \(X_i \sim \text{Bernoulli}(p)\)이다.</li>
+</ul>
+</div>
+
+<div class="example"><span class="env-label">Example 23.6 (Binomial)</span>
+결함률이 3%인 공정에서 20개의 제품을 검사한다. 결함이 정확히 2개일 확률은?
+$$ P(X = 2) = \binom{20}{2}(0.03)^2(0.97)^{18} = 190 \times 0.0009 \times 0.5820 \approx 0.0988. $$
+</div>
+
+<div class="definition"><span class="env-label">Definition 23.12 (Poisson Distribution)</span>
+\(X \sim \text{Poisson}(\lambda)\): 단위 시간(또는 단위 영역)당 발생하는 사건의 수.
+<ul>
+  <li><strong>PMF:</strong> \(P(X = k) = \frac{\lambda^k e^{-\lambda}}{k!}\), \(k = 0, 1, 2, \ldots\)</li>
+  <li><strong>기댓값:</strong> \(E[X] = \lambda\).</li>
+  <li><strong>분산:</strong> \(\text{Var}(X) = \lambda\).</li>
+  <li><strong>직관:</strong> \(n\)이 크고 \(p\)가 작으며 \(np = \lambda\)인 경우 \(\text{Binomial}(n,p)\)의 근사이다. 희소 사건의 모형에 적합하다.</li>
+</ul>
+</div>
+
+<div class="example"><span class="env-label">Example 23.7 (Poisson)</span>
+교차로에서 시간당 평균 4건의 사고가 발생한다. 한 시간 동안 사고가 6건 이상 발생할 확률은?
+$$ P(X \geq 6) = 1 - \sum_{k=0}^{5} \frac{4^k e^{-4}}{k!} = 1 - e^{-4}\left(1 + 4 + 8 + \frac{32}{3} + \frac{32}{3} + \frac{128}{15}\right). $$
+$$ = 1 - e^{-4} \cdot \frac{643}{15} \approx 1 - 0.01832 \times 42.87 \approx 1 - 0.7851 = 0.2149. $$
+(정확한 계산은 수치적으로 수행하는 것이 좋다.)
+</div>
+
+<div class="definition"><span class="env-label">Definition 23.13 (Geometric Distribution)</span>
+\(X \sim \text{Geometric}(p)\): 첫 성공까지의 시행 횟수.
+<ul>
+  <li><strong>PMF:</strong> \(P(X = k) = (1-p)^{k-1}p\), \(k = 1, 2, \ldots\)</li>
+  <li><strong>기댓값:</strong> \(E[X] = 1/p\).</li>
+  <li><strong>분산:</strong> \(\text{Var}(X) = (1-p)/p^2\).</li>
+  <li><strong>무기억 성질:</strong> \(P(X > m + n \mid X > m) = P(X > n)\). 이미 \(m\)번 실패했다는 사실이 앞으로의 확률에 영향을 주지 않는다.</li>
+</ul>
+</div>
+
+<h4>23.4 주요 연속 분포 상세</h4>
+
+<p class="section-transition">연속 확률변수의 주요 분포를 다룬다.</p>
+
+<p>정규분포(normal distribution)는 중심극한정리에 의해 많은 독립적 요인의 합이 따르는 분포이다. 센서 잡음(noise) 모형, 금융 수익률 모형, 칼만 필터의 상태 추정 등에서 기본 가정으로 쓰인다.</p>
+
+<div class="definition"><span class="env-label">Definition 23.14 (Normal / Gaussian Distribution)</span>
+\(X \sim N(\mu, \sigma^2)\):
+<ul>
+  <li><strong>PDF:</strong> \(f_X(x) = \frac{1}{\sqrt{2\pi}\sigma} \exp\!\left(-\frac{(x - \mu)^2}{2\sigma^2}\right)\), \(x \in \mathbb{R}\).</li>
+  <li><strong>기댓값:</strong> \(E[X] = \mu\).</li>
+  <li><strong>분산:</strong> \(\text{Var}(X) = \sigma^2\).</li>
+  <li><strong>표준화:</strong> \(Z = \frac{X - \mu}{\sigma} \sim N(0,1)\). 표준정규분포의 CDF를 \(\Phi(z)\)로 표기한다.</li>
+  <li><strong>선형 결합:</strong> 독립인 \(X_i \sim N(\mu_i, \sigma_i^2)\)에 대해, \(\sum a_i X_i \sim N\!\left(\sum a_i \mu_i, \sum a_i^2 \sigma_i^2\right)\).</li>
+  <li><strong>68-95-99.7 규칙:</strong> 데이터의 약 68%, 95%, 99.7%가 각각 \(\mu \pm \sigma\), \(\mu \pm 2\sigma\), \(\mu \pm 3\sigma\) 이내에 있다.</li>
+</ul>
+</div>
+
+<div class="definition"><span class="env-label">Definition 23.15 (Exponential Distribution)</span>
+\(X \sim \text{Exponential}(\lambda)\):
+<ul>
+  <li><strong>PDF:</strong> \(f_X(x) = \lambda e^{-\lambda x}\), \(x \geq 0\).</li>
+  <li><strong>CDF:</strong> \(F_X(x) = 1 - e^{-\lambda x}\).</li>
+  <li><strong>기댓값:</strong> \(E[X] = 1/\lambda\).</li>
+  <li><strong>분산:</strong> \(\text{Var}(X) = 1/\lambda^2\).</li>
+  <li><strong>무기억 성질:</strong> \(P(X > s + t \mid X > s) = P(X > t)\). Exponential 분포는 이 성질을 만족하는 유일한 연속 분포이다.</li>
+  <li><strong>Poisson 과정과의 관계:</strong> rate \(\lambda\)인 Poisson 과정에서 도착간 시간은 \(\text{Exponential}(\lambda)\)를 따른다.</li>
+</ul>
+</div>
+
+<div class="definition"><span class="env-label">Definition 23.16 (Gamma Distribution)</span>
+\(X \sim \text{Gamma}(\alpha, \beta)\) (shape \(\alpha > 0\), rate \(\beta > 0\)):
+<ul>
+  <li><strong>PDF:</strong> \(f_X(x) = \frac{\beta^\alpha}{\Gamma(\alpha)} x^{\alpha - 1} e^{-\beta x}\), \(x > 0\). 여기서 \(\Gamma(\alpha) = \int_0^\infty t^{\alpha-1}e^{-t}\,dt\).</li>
+  <li><strong>기댓값:</strong> \(E[X] = \alpha / \beta\).</li>
+  <li><strong>분산:</strong> \(\text{Var}(X) = \alpha / \beta^2\).</li>
+  <li><strong>특수한 경우:</strong> \(\text{Gamma}(1, \lambda) = \text{Exponential}(\lambda)\). \(\text{Gamma}(n, \lambda)\)는 i.i.d. \(\text{Exponential}(\lambda)\) 확률변수 \(n\)개의 합의 분포이다.</li>
+  <li>\(\text{Gamma}(n/2, 1/2) = \chi^2(n)\) (자유도 \(n\)의 카이제곱 분포).</li>
+</ul>
+</div>
+
+<div class="example"><span class="env-label">Example 23.8 (Exponential -- 대기 시간)</span>
+고객이 평균 5분마다 도착한다 (\(\lambda = 1/5\) per minute). 다음 고객이 10분 이상 걸릴 확률은?
+$$ P(X > 10) = e^{-\lambda \cdot 10} = e^{-2} \approx 0.1353. $$
+이미 3분을 기다린 상태에서 추가로 7분 이상 기다릴 확률은? 무기억 성질에 의해:
+$$ P(X > 10 \mid X > 3) = P(X > 7) = e^{-7/5} \approx 0.2466. $$
+</div>
+
+<h4>23.5 Bayesian 추론</h4>
+
+<p class="section-transition">사전분포를 데이터로 갱신하여 사후분포를 얻는 베이즈 추론을 다룬다.</p>
+
+<div class="remark"><span class="env-label">Remark (Bayesian 추론의 구조)</span>
+Bayesian 추론은 다음 단계를 따른다:
+<ol>
+  <li><strong>사전분포(prior)</strong> \(P(\theta)\): 데이터를 보기 전 모수에 대한 믿음.</li>
+  <li><strong>우도(likelihood)</strong> \(P(D \mid \theta)\): 모수가 주어졌을 때 데이터가 관찰될 확률.</li>
+  <li><strong>사후분포(posterior)</strong> \(P(\theta \mid D) \propto P(\theta) P(D \mid \theta)\): 데이터를 관찰한 후 갱신된 믿음.</li>
+</ol>
+연속 모수의 경우: \(f_{\Theta \mid X}(\theta \mid x) = \frac{f_\Theta(\theta) f_{X \mid \Theta}(x \mid \theta)}{f_X(x)}\).
+</div>
+
+<div class="example"><span class="env-label">Example 23.9 (Bayesian 추론 -- 동전 편향 추정)</span>
+동전의 앞면 확률 \(\theta\)가 \(\text{Uniform}(0,1)\)을 따른다고 가정하자 (사전분포). 10번 던져서 7번 앞면이 나왔을 때, \(\theta\)의 사후분포는?<br>
+<strong>풀이.</strong> 사전분포: \(f_\Theta(\theta) = 1\), \(0 \leq \theta \leq 1\). 우도: \(P(X = 7 \mid \theta) = \binom{10}{7}\theta^7(1-\theta)^3\).
+$$ f_{\Theta \mid X}(\theta \mid 7) \propto \theta^7(1-\theta)^3. $$
+이는 \(\text{Beta}(8, 4)\) 분포이다. 사후 평균은 \(\frac{8}{8+4} = \frac{2}{3} \approx 0.667\)이며, 이는 MLE 추정치 \(7/10 = 0.7\)보다 약간 \(0.5\) 쪽으로 shrink된다 (사전분포의 영향).
+</div>
+
+<div class="example"><span class="env-label">Example 23.10 (Bayesian 추론 -- 정규 사전분포와 정규 우도)</span>
+모수 \(\theta \sim N(\mu_0, \sigma_0^2)\)이고, 관측 \(X \mid \theta \sim N(\theta, \sigma^2)\)일 때 하나의 관측 \(x\)가 주어졌을 때의 사후분포는?<br>
+<strong>풀이.</strong> 정규-정규 공액 쌍에 의해:
+$$ \theta \mid X = x \sim N\!\left(\frac{\sigma^2 \mu_0 + \sigma_0^2 x}{\sigma^2 + \sigma_0^2},\; \frac{\sigma^2 \sigma_0^2}{\sigma^2 + \sigma_0^2}\right). $$
+사후 평균은 사전 평균 \(\mu_0\)과 관측값 \(x\)의 <strong>가중 평균</strong>이다. 관측의 정밀도(precision = \(1/\sigma^2\))가 높을수록 관측값에 더 많은 가중치가 부여된다.
+</div>
+
+<h4>23.6 부등식</h4>
+
+<p class="section-transition">분포를 모르더라도 꼬리 확률의 상한을 제공하는 부등식들을 다룬다.</p>
+
+<div class="theorem"><span class="env-label">Theorem 23.5 (Markov's Inequality)</span>
+\(X \geq 0\)인 확률변수와 \(a > 0\)에 대해:
+$$ P(X \geq a) \leq \frac{E[X]}{a}. $$
+<strong>증명 스케치:</strong> \(E[X] = \int_0^\infty x f(x)\,dx \geq \int_a^\infty x f(x)\,dx \geq a \int_a^\infty f(x)\,dx = a P(X \geq a)\).
+</div>
+
+<div class="theorem"><span class="env-label">Theorem 23.6 (Chebyshev's Inequality)</span>
+유한한 평균 \(\mu\)와 variance(분산) \(\sigma^2\)를 가지는 임의의 random variable(확률변수) \(X\)에 대해, 임의의 \(k > 0\)에 대해:
+$$ P(|X - \mu| \geq k\sigma) \leq \frac{1}{k^2}. $$
+동치 형태: 임의의 \(a > 0\)에 대해 \(P(|X - \mu| \geq a) \leq \frac{\sigma^2}{a^2}\).
+</div>
+
+<div class="remark"><span class="env-label">Remark (Markov와 Chebyshev의 관계)</span>
+Chebyshev 부등식은 \(Y = (X - \mu)^2\)에 Markov 부등식을 적용하여 얻을 수 있다: \(P((X-\mu)^2 \geq a^2) \leq E[(X-\mu)^2]/a^2 = \sigma^2/a^2\). 이 부등식들은 분포의 구체적인 형태를 모를 때에도 꼬리 확률의 상한을 제공한다.
+</div>
+
+<div class="example"><span class="env-label">Example 23.11 (Chebyshev 부등식 활용)</span>
+\(X\)의 평균이 100, 분산이 25라 하자. \(P(|X - 100| \geq 15)\)의 상한은?
+$$ P(|X - 100| \geq 15) = P(|X - \mu| \geq 3\sigma) \leq \frac{1}{3^2} = \frac{1}{9} \approx 0.111. $$
+만약 \(X \sim N(100, 25)\)이라면, 실제 확률은 \(P(|Z| \geq 3) \approx 0.0027\)이다. Chebyshev는 분포 무관하게 적용 가능하지만, 그만큼 느슨한 상한을 제공한다.
+</div>
+
+<h4>23.7 대수의 법칙과 중심극한정리</h4>
+
+<p class="section-transition">표본평균의 수렴(대수의 법칙)과 수렴 속도(중심극한정리)를 다룬다.</p>
+
+<div class="theorem"><span class="env-label">Theorem 23.7 (Law of Large Numbers)</span>
+\(X_1, X_2, \ldots\)가 평균 \(\mu\)와 유한한 variance(분산)를 가지는 i.i.d. random variable(확률변수)이라 하자. 그러면 표본평균 \(\bar{X}_n = \frac{1}{n}\sum_{i=1}^n X_i\)는 \(\mu\)로 수렴한다:
+<ul>
+  <li><strong>Weak LLN:</strong> \(\bar{X}_n \xrightarrow{P} \mu\) (확률수렴). 임의의 \(\epsilon > 0\)에 대해 \(P(|\bar{X}_n - \mu| \geq \epsilon) \to 0\).</li>
+  <li><strong>Strong LLN:</strong> \(\bar{X}_n \xrightarrow{\text{a.s.}} \mu\) (거의 확실한 수렴).</li>
+</ul>
+</div>
+
+<div class="remark"><span class="env-label">Remark (Weak LLN의 Chebyshev 증명)</span>
+\(\text{Var}(\bar{X}_n) = \sigma^2/n\)이므로, Chebyshev 부등식에 의해:
+$$ P(|\bar{X}_n - \mu| \geq \epsilon) \leq \frac{\sigma^2}{n\epsilon^2} \to 0 \quad (n \to \infty). $$
+이것이 Weak LLN의 가장 간단한 증명이다.
+</div>
+
+<div class="remark"><span class="env-label">Remark (대수의 법칙의 직관)</span>
+대수의 법칙은 "충분히 많은 독립 시행의 평균은 이론적 기댓값에 (확률적으로) 수렴한다"고 말한다. 동전을 \(n\)번 던지면, \(n\)이 커질수록 앞면 비율이 \(p\)에 가까워진다. 이는 확률의 빈도적 해석의 수학적 정당화이다. 주의: 대수의 법칙은 "앞면이 적으면 나중에 보상받는다"는 도박사의 오류를 지지하지 않는다.
+</div>
+
+<div class="theorem"><span class="env-label">Theorem 23.8 (Central Limit Theorem)</span>
+\(X_1, X_2, \ldots\)가 평균 \(\mu\)와 variance(분산) \(\sigma^2 < \infty\)를 가지는 i.i.d.라 하자. 그러면
+$$ \frac{\bar{X}_n - \mu}{\sigma / \sqrt{n}} \xrightarrow{d} N(0, 1) \quad \text{as } n \to \infty. $$
+즉, 정규화된 합은 분포 수렴의 의미에서 표준정규분포로 수렴한다.
+</div>
+
+<div class="remark"><span class="env-label">Remark (CLT의 직관)</span>
+중심극한정리는 원래 분포가 무엇이든 (균등, 지수, 이항 등), 충분히 많은 독립 확률변수의 합은 정규분포에 가까워진다고 말한다. 정규분포가 자주 관찰되는 이유는 신장, 측정 오차, 금융 수익률 등 수많은 독립적인 소량의 효과가 합산된 결과이다. 실용적으로, 보통 \(n \geq 30\) 정도면 근사가 합리적이다 (단, 원래 분포의 비대칭성이 심하면 더 큰 \(n\)이 필요하다).
+</div>
+
+<div class="example"><span class="env-label">Example 23.12 (CLT 활용)</span>
+공장에서 한 제품의 무게가 평균 500g, 표준편차 10g이다. 64개 제품을 무작위로 뽑았을 때, 총 무게가 32,080g을 초과할 확률을 근사하라.<br>
+<strong>풀이.</strong> \(S_{64} = \sum_{i=1}^{64} X_i\). \(E[S_{64}] = 64 \times 500 = 32000\), \(\text{Var}(S_{64}) = 64 \times 100 = 6400\), \(\sigma_{S} = 80\).
+$$ P(S_{64} > 32080) = P\!\left(\frac{S_{64} - 32000}{80} > \frac{80}{80}\right) = P(Z > 1) \approx 1 - \Phi(1) \approx 0.1587. $$
+</div>
+
+<div class="example"><span class="env-label">Example 23.13 (CLT -- 선거 여론조사)</span>
+지지율이 \(p = 0.52\)인 후보에 대해, \(n = 1000\)명을 무작위 조사하여 지지율이 50% 이상으로 나올 확률은?<br>
+<strong>풀이.</strong> \(\hat{p} = \bar{X}_n\)이고 \(E[\hat{p}] = 0.52\), \(\text{Var}(\hat{p}) = \frac{p(1-p)}{n} = \frac{0.52 \times 0.48}{1000} = 0.0002496\), \(\sigma_{\hat{p}} \approx 0.0158\).
+$$ P(\hat{p} > 0.5) = P\!\left(Z > \frac{0.5 - 0.52}{0.0158}\right) = P(Z > -1.27) = \Phi(1.27) \approx 0.898. $$
+약 90%의 확률로 조사 결과가 50% 이상 지지를 보여준다.
+</div>
+
+<div class="example"><span class="env-label">Example 23.14 (Markov 부등식 활용)</span>
+비음인 확률변수 \(X\)의 기댓값이 \(E[X] = 4\)일 때, \(P(X \geq 20)\)의 상한은?<br>
+<strong>풀이.</strong> Markov 부등식에 의해:
+$$ P(X \geq 20) \leq \frac{E[X]}{20} = \frac{4}{20} = 0.2. $$
+분포에 대한 추가 정보 없이도, \(X\)가 20 이상일 확률은 최대 20%라는 것을 알 수 있다.
+</div>
+
+<div class="example"><span class="env-label">Example 23.15 (조건부 확률 -- 편향된 동전 식별)</span>
+동전 A: \(P(H) = 0.9\), 동전 B: \(P(H) = 0.1\). 동전을 무작위로 선택하여 (\(P(\text{A}) = P(\text{B}) = 0.5\)) 3번 던져 모두 앞면이 나왔다. 동전 A일 확률은?<br>
+<strong>풀이.</strong> \(D = \text{HHH}\)라 하자.
+$$ P(D \mid \text{A}) = 0.9^3 = 0.729, \quad P(D \mid \text{B}) = 0.1^3 = 0.001. $$
+$$ P(\text{A} \mid D) = \frac{0.5 \times 0.729}{0.5 \times 0.729 + 0.5 \times 0.001} = \frac{0.3645}{0.365} \approx 0.9986. $$
+3번 연속 앞면이 나오면 동전 A일 확률이 99.9% 이상이다. 이는 조건부 독립의 효과를 보여준다: 각 던지기는 동전 종류를 조건으로 했을 때 독립이지만, 동전이 미지인 상태에서는 독립이 아니다 (앞선 결과가 동전 종류에 대한 정보를 제공한다).
+</div>
+
+<div class="example"><span class="env-label">Example 23.16 (Moment Generating Function 활용)</span>
+\(X \sim \text{Poisson}(\lambda_1)\), \(Y \sim \text{Poisson}(\lambda_2)\)가 독립일 때, \(Z = X + Y\)의 분포를 구하라.<br>
+<strong>풀이.</strong> MGF 방법: \(M_X(t) = e^{\lambda_1(e^t - 1)}\), \(M_Y(t) = e^{\lambda_2(e^t - 1)}\). 독립이므로:
+$$ M_Z(t) = M_X(t) M_Y(t) = e^{(\lambda_1 + \lambda_2)(e^t - 1)}. $$
+이는 \(\text{Poisson}(\lambda_1 + \lambda_2)\)의 MGF이다. MGF의 유일성에 의해 \(Z \sim \text{Poisson}(\lambda_1 + \lambda_2)\).
+</div>
+
+<h4>주요 분포 요약표</h4>
+
+<table>
+<tr><th>분포</th><th>PMF/PDF</th><th>\(E[X]\)</th><th>\(\text{Var}(X)\)</th></tr>
+<tr><td>Bernoulli\((p)\)</td><td>\(P(X=1)=p\)</td><td>\(p\)</td><td>\(p(1-p)\)</td></tr>
+<tr><td>Binomial\((n,p)\)</td><td>\(\binom{n}{k}p^k(1-p)^{n-k}\)</td><td>\(np\)</td><td>\(np(1-p)\)</td></tr>
+<tr><td>Geometric\((p)\)</td><td>\((1-p)^{k-1}p\)</td><td>\(1/p\)</td><td>\((1-p)/p^2\)</td></tr>
+<tr><td>Poisson\((\lambda)\)</td><td>\(\frac{\lambda^k e^{-\lambda}}{k!}\)</td><td>\(\lambda\)</td><td>\(\lambda\)</td></tr>
+<tr><td>Uniform\((a,b)\)</td><td>\(\frac{1}{b-a}\)</td><td>\(\frac{a+b}{2}\)</td><td>\(\frac{(b-a)^2}{12}\)</td></tr>
+<tr><td>Exponential\((\lambda)\)</td><td>\(\lambda e^{-\lambda x}\)</td><td>\(1/\lambda\)</td><td>\(1/\lambda^2\)</td></tr>
+<tr><td>Normal\((\mu,\sigma^2)\)</td><td>\(\frac{1}{\sqrt{2\pi}\sigma}e^{-(x-\mu)^2/2\sigma^2}\)</td><td>\(\mu\)</td><td>\(\sigma^2\)</td></tr>
+<tr><td>Gamma\((\alpha,\beta)\)</td><td>\(\frac{\beta^\alpha}{\Gamma(\alpha)}x^{\alpha-1}e^{-\beta x}\)</td><td>\(\alpha/\beta\)</td><td>\(\alpha/\beta^2\)</td></tr>
+</table>
+
+</section>
+
+<!-- ============================================================== -->
+<!--  SECTION 24: STATISTICS                                         -->
+<!-- ============================================================== -->
+
+<details class="video-resources">
+<summary>추천 영상 강의 (원본 소스 기반)</summary>
+<ul>
+<li><a href="https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-041sc-probabilistic-systems-analysis-and-applied-probability-fall-2013/" target="_blank">6.041SC Probabilistic Systems Analysis — MIT OCW</a></li>
+<li><a href="https://www.youtube.com/course?list=EC2SOU6wwxB0uwwH80KTQ6ht66KWxbzTIo" target="_blank">Statistics 110: Probability — Harvard</a></li>
+<li><a href="https://www.youtube.com/playlist?list=PLuiPz6iU5SQ8ra5kjxx770vk_famaeuvz" target="_blank">EE230 Probability and Random Variables — METU</a></li>
+<li><a href="http://nptel.ac.in/courses/111104089/" target="_blank">Probability and Stochastics for Finance — NPTEL IIT Kanpur</a></li>
+<li><a href="http://nptel.ac.in/courses/111104079/" target="_blank">Probability Theory and Applications — NPTEL IIT Kanpur</a></li>
+</ul>
+</details>
+
+<details class="video-resources">
+<summary>추천 교재 &amp; 오픈 자료</summary>
+<ul>
+<li><a href="https://projects.iq.harvard.edu/stat110/home" target="_blank">Introduction to Probability (Blitzstein &amp; Hwang) — Harvard Stat 110</a> — 무료 교재 &amp; 강의</li>
+<li><a href="https://www.probabilitycourse.com/" target="_blank">Introduction to Probability, Statistics, and Random Processes (Pishro-Nik)</a> — 무료 온라인 교재</li>
+<li>Feller, <em>An Introduction to Probability Theory and Its Applications</em> Vol I &amp; II — 고전 중의 고전</li>
+<li>Ross, <em>A First Course in Probability</em> — 학부 확률론 표준 교재</li>
+<li>Durrett, <em>Probability: Theory and Examples</em> — 측도론 기반 대학원 표준</li>
+<li>Billingsley, <em>Probability and Measure</em> — 측도론과 확률의 통합</li>
+<li>Grimmett &amp; Stirzaker, <em>Probability and Random Processes</em> — Oxford, 풍부한 연습문제</li>
+</ul>
+</details>
+

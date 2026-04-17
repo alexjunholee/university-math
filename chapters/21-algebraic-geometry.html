@@ -1,0 +1,156 @@
+<section id="algebraic-geometry">
+<h3>21. 대수기하</h3>
+
+<p class="chapter-intro">대수기하학은 다항 방정식의 해집합(다양체)을 기하학적 대상으로 연구한다. 대수와 기하의 사전(힐베르트 영점정리)을 통해, 아이디얼의 대수적 성질이 다양체의 기하학적 성질로 번역된다.</p>
+
+<p>공학에서 다항식 연립방정식의 해집합은 예상보다 자주 등장한다. 로봇 운동학(robot kinematics)에서 관절 각도 조건은 다항식 제약(polynomial constraint)으로 표현되며, 로봇 팔의 역기구학(inverse kinematics) 문제는 결국 다항식 연립방정식의 해집합, 즉 아핀 다양체(affine variety)를 구하는 문제이다. 컴퓨터 비전(computer vision)에서 다시점 기하학(multi-view geometry)의 에피폴라 제약(epipolar constraint)은 기본 행렬(fundamental matrix)에 대한 다항식 조건으로 기술되며, 사영 다양체(projective variety)의 언어가 자연스럽게 적용된다.</p>
+
+<p>코딩 이론(coding theory)에서는 대수기하 부호(algebraic geometry code, Goppa code)가 유한체 위의 대수 곡선의 유리점(rational point)을 이용하여 오류 정정 능력이 뛰어난 부호를 설계한다. 현대 암호학(cryptography)의 핵심인 타원곡선 암호(Elliptic Curve Cryptography, ECC)는 타원곡선 위의 이산 로그 문제(discrete logarithm problem)에 기반하며, 이 장에서 다루는 종수(genus) 1 곡선의 군 구조(group law)가 그 수학적 토대이다. 대수기하학은 다항식 방정식의 해집합을 곡선, 곡면, 그리고 그 위의 대수적 구조로 다루는 언어를 제공한다.</p>
+
+<p>대수기하학의 출발점은 다항식의 해집합을 기하학적 대상으로 보는 관점이다. 하나의 다항식 \(f(x, y) = 0\)의 해집합은 평면 위의 곡선이고, 여러 다항식의 공통 영점 집합은 더 복잡한 기하학적 형태를 가진다. 이 해집합을 체계적으로 연구하기 위해 아핀 다양체(affine variety)라는 개념을 도입한다.</p>
+
+<div class="definition"><span class="env-label">Definition 21.1 (Affine Variety)</span>
+\(k\)를 대수적으로 닫힌 체라 하고 \(S \subseteq k[x_1, \ldots, x_n]\)을 다항식들의 집합이라 하자. \(S\)에 의해 정의되는 <strong>아핀 다양체(affine variety)</strong>는 다음과 같다:
+$$ V(S) = \{ (a_1, \ldots, a_n) \in k^n : f(a_1, \ldots, a_n) = 0 \text{ for all } f \in S \}. $$
+</div>
+
+<p>다양체에서 아이디얼로의 역방향 대응도 중요하다. 기하학적 대상(점들의 집합)이 주어졌을 때, 그 위에서 소멸하는 모든 다항식을 모으면 하나의 아이디얼을 얻는다.</p>
+
+<div class="definition"><span class="env-label">Definition 21.2 (Ideal of a Variety)</span>
+부분집합 \(X \subseteq k^n\)이 주어질 때, \(X\)의 <strong>아이디얼(ideal)</strong>은 다음과 같다:
+$$ I(X) = \{ f \in k[x_1, \ldots, x_n] : f(a) = 0 \text{ for all } a \in X \}. $$
+이것은 항상 근기 아이디얼(radical ideal)이다: \(I(X) = \sqrt{I(X)}\). 즉, 다양체 위에서 어떤 거듭제곱이 소멸하는 다항식은 자기 자신도 소멸한다.
+</div>
+
+<p>다양체를 기하학적으로 다루려면 위상(topology)이 필요하다. 대수기하학에서는 통상적인 유클리드 위상 대신, 다항식 방정식의 해집합을 닫힌집합으로 선언하는 자리스키 위상(Zariski topology)을 사용한다.</p>
+
+<div class="definition"><span class="env-label">Definition 21.3 (Zariski Topology)</span>
+\(k^n\) (또는 아핀 다양체(affine variety) \(V\)) 위의 <strong>자리스키 위상(Zariski topology)</strong>은 닫힌집합을 아핀 다양체(affine variety)로 선언하여 정의한다. 열린집합(open set)은 다양체(variety)의 여집합이며, 이 위상(topology)은 일반적으로 하우스도르프(Hausdorff)가 아니다.
+</div>
+
+<div class="theorem"><span class="env-label">Theorem 21.1 (Hilbert's Basis Theorem)</span>
+다항식 환 \(k[x_1, \ldots, x_n]\)은 뇌터 환(Noetherian)이다: 모든 아이디얼(ideal)은 유한 생성이다. 따라서 모든 아핀 다양체(affine variety)는 유한 개의 다항식의 영점 집합이다.
+</div>
+
+<p>힐베르트 기저 정리는 다양체를 정의하는 데 무한 개의 다항식이 필요하지 않음을 보장한다. 이는 로봇 운동학에서 무한히 많은 제약 조건처럼 보이는 상황도 유한 개의 다항식으로 기술할 수 있음을 의미한다.</p>
+
+<div class="theorem"><span class="env-label">Theorem 21.2 (Hilbert's Nullstellensatz)</span>
+\(k\)를 대수적으로 닫힌 체라 하고 \(J \subseteq k[x_1, \ldots, x_n]\)을 아이디얼(ideal)이라 하자. 그러면
+$$ I(V(J)) = \sqrt{J}, $$
+여기서 \(\sqrt{J} = \{f : f^r \in J \text{ for some } r \geq 1\}\)는 \(J\)의 근기(radical)이다. 특히, \(V(J) = \emptyset\)일 필요충분조건은 \(J = k[x_1, \ldots, x_n]\) (즉, \(1 \in J\))인 것이다.
+</div>
+
+<p>영점정리는 대수(아이디얼)와 기하(다양체) 사이의 사전(dictionary)을 세운다. 아이디얼에 대한 대수적 조작이 다양체의 기하학적 성질로 번역되므로, 연립방정식의 해집합 구조를 환론(ring theory)으로 분석할 수 있다.</p>
+
+<div class="definition"><span class="env-label">Definition 21.4 (Coordinate Ring)</span>
+아핀 다양체(affine variety) \(V = V(J)\)의 <strong>좌표환(coordinate ring)</strong>은 다음과 같은 몫환이다:
+$$ k[V] = k[x_1, \ldots, x_n] / I(V). $$
+이 환은 \(V\) 위의 모든 다항식 함수를 부호화한다.
+</div>
+
+<p>아핀 공간에서는 평행한 두 직선이 만나지 않는 등, 교점 이론이 예외적인 경우로 복잡해진다. 사영 공간(projective space)은 "무한원점(point at infinity)"을 추가하여 이러한 예외를 제거하고, 베주 정리(B&eacute;zout's theorem)처럼 깔끔한 교점 공식을 가능하게 한다. 컴퓨터 비전에서 동차 좌표(homogeneous coordinates)를 사용하는 것도 바로 이 사영 기하학의 언어이다.</p>
+
+<div class="definition"><span class="env-label">Definition 21.5 (Projective Space and Projective Variety)</span>
+<strong>사영 \(n\)-공간(projective \(n\)-space)</strong> \(\mathbb{P}^n(k)\)은 \(k^{n+1} \setminus \{0\}\)에서 관계 \((x_0, \ldots, x_n) \sim (\lambda x_0, \ldots, \lambda x_n)\) (\(\lambda \neq 0\))에 의한 동치류들의 집합이다. <strong>사영 다양체(projective variety)</strong>는 동차 다항식들의 모임의 \(\mathbb{P}^n\)에서의 영점 궤적이다.
+</div>
+
+<p>다양체 사이의 사상을 정의하려면 구조를 보존해야 한다. 좌표 함수가 다항식인 사상이 자연스러운 선택이다.</p>
+
+<div class="definition"><span class="env-label">Definition 21.6 (Morphism of Varieties)</span>
+아핀 다양체(affine variety) 사이의 <strong>사상(morphism)</strong> (또는 정칙 사상) \(\phi : V \to W\)은 좌표 함수가 다항식인 사상이다. 다항식 역사상을 가지면 <strong>동형사상(isomorphism)</strong>이라 한다. <strong>유리 사상(rational map)</strong>은 유리 함수로 정의되며, 적절한 닫힌 부분집합 위에서는 정의되지 않을 수 있다.
+</div>
+
+<div class="example"><span class="env-label">Example 21.1</span>
+곡선 \(V(y^2 - x^3) \subset \mathbb{R}^2\)는 뾰족점을 가진 3차 곡선(cuspidal cubic)이다. 그 좌표환(coordinate ring)은 \(k[x,y]/(y^2 - x^3)\)이며, 이는 정수적으로 닫혀 있지 않다 (분수체에서 원 다항식 관계를 만족하는 원소 \(y/x\)를 가진다). 매끄러운 곡선 \(V(y^2 - x^3 - x)\)는 타원 곡선(elliptic curve)이다 (\(\mathbb{C}\) 위에서 종수(genus) 1).
+</div>
+
+<div class="theorem"><span class="env-label">Theorem 21.3 (Affine&ndash;Projective Dictionary)</span>
+\(k[x_0, \ldots, x_n]\)의 근기 동차 아이디얼(비관련 아이디얼 \((x_0, \ldots, x_n)\)을 제외)과 \(\mathbb{P}^n\)의 사영 다양체(projective variety) 사이에 전단사 대응이 존재한다. 아핀 다양체(affine variety)는 사상 \((a_1, \ldots, a_n) \mapsto [1 : a_1 : \cdots : a_n]\)을 통해 사영 공간에 매장된다.
+</div>
+
+<p>다양체의 "크기"를 재는 가장 기본적인 불변량은 차원(dimension)이다. 직관적으로 곡선은 1차원, 곡면은 2차원이지만, 대수기하학에서는 기약 닫힌 부분다양체의 사슬 길이로 차원을 엄밀하게 정의한다.</p>
+
+<div class="definition"><span class="env-label">Definition 21.7 (Dimension / Krull Dimension)</span>
+다양체 \(V\)의 <strong>크룰 차원(Krull dimension)</strong>은 기약 닫힌 부분다양체(irreducible closed subvariety)의 사슬
+$$ V_0 \subsetneq V_1 \subsetneq \cdots \subsetneq V_d \subseteq V $$
+의 길이 \(d\)의 상한(supremum)이다. 동치적으로, \(\dim V = \operatorname{Krull\,dim} k[V]\)이다. 아핀 공간의 경우 \(\dim k^n = n\)이다. 곡선(curve)의 차원은 1이고, 곡면(surface)의 차원은 2이다.
+</div>
+
+<p>미분기하학에서처럼, 다양체의 각 점에서 접선 공간(tangent space)을 정의할 수 있다. 접선 공간의 차원이 다양체의 차원보다 클 때 그 점은 특이점(singular point)이 되며, 이는 공학적으로 메커니즘의 고정점(singularity)이나 로봇 팔의 특이 자세(singular configuration)와 직접적으로 대응된다.</p>
+
+<div class="definition"><span class="env-label">Definition 21.8 (Zariski Tangent Space)</span>
+점 \(p \in V\)에서의 <strong>자리스키 접선 공간(Zariski tangent space)</strong>은 다음과 같이 정의된다:
+$$ T_p V = (\mathfrak{m}_p / \mathfrak{m}_p^2)^*, $$
+여기서 \(\mathfrak{m}_p\)는 점 \(p\)에서의 국소환(local ring)의 극대 아이디얼(maximal ideal)이다. 항상 \(\dim T_p V \geq \dim V\)가 성립한다.
+</div>
+
+<div class="definition"><span class="env-label">Definition 21.9 (Smooth and Singular Points)</span>
+점 \(p \in V\)가 \(\dim T_p V = \dim V\)를 만족하면 <strong>매끄러운 점(smooth point, non-singular point)</strong>이라 하고, 그렇지 않으면 <strong>특이점(singular point)</strong>이라 한다. 모든 점이 매끄러우면 \(V\)를 <strong>매끄러운 다양체(smooth variety)</strong>라 한다. 특이 궤적(singular locus) \(\operatorname{Sing}(V)\)는 항상 진부분 닫힌 부분다양체(proper closed subvariety)이다.
+</div>
+
+<div class="example"><span class="env-label">Example 21.2 (Singularity Detection)</span>
+<strong>뾰족 3차 곡선(cuspidal cubic)</strong> \(V(y^2 - x^3)\): 원점에서 \(\mathfrak{m} = (x, y)\)이고 \(\mathfrak{m}/\mathfrak{m}^2\)의 기저는 \(\{\bar{x}, \bar{y}\}\)이므로 \(\dim T_0 V = 2 > 1 = \dim V\)이다. 따라서 원점은 특이점(singular point)이다.
+
+<strong>마디 3차 곡선(nodal cubic)</strong> \(V(y^2 - x^2(x+1))\): 원점에서 마찬가지로 \(\dim T_0 V = 2 > 1\)이므로 특이점이다 (두 접선 방향이 존재한다).
+
+두 곡선 모두 원점을 제외하면 매끄럽다(smooth).
+</div>
+
+<div class="theorem"><span class="env-label">Theorem 21.4 (B&eacute;zout's Theorem)</span>
+\(\mathbb{P}^2(k)\)에서 차수 \(d\)와 \(e\)의 사영 곡선(projective curve) \(C\)와 \(D\)가 공통 성분(common component)을 갖지 않으면, 교점 중복도(intersection multiplicity)를 세어
+$$ \sum_{p} I_p(C, D) = de $$
+이 성립한다. 즉, 두 곡선의 교점 수(중복도 포함)는 차수의 곱으로 정확히 결정된다.
+</div>
+
+<div class="example"><span class="env-label">Example 21.3 (B&eacute;zout Applications)</span>
+직선(\(d=1\))과 이차 곡선(conic, \(e=2\))은 최대 2개의 점에서 만난다. 두 이차 곡선은 최대 4개의 점에서 만난다. 두 3차 곡선(cubic)은 최대 9개의 점에서 만난다.
+
+사영 공간(projective space)의 필요성: 아핀 평면에서 평행한 두 직선은 만나지 않지만, \(\mathbb{P}^2\)에서는 "무한원점(point at infinity)"에서 만나므로 베주 정리가 정확히 성립한다.
+</div>
+
+<p>대수 곡선의 분류에서 가장 중요한 불변량은 종수(genus)이다. 종수는 직관적으로 곡선에 뚫린 "구멍의 수"이다. 타원곡선 암호(ECC)에서 사용하는 종수 1 곡선은 군 구조를 가지며, 이 군 구조가 암호학적 안전성을 뒷받침한다.</p>
+
+<div class="definition"><span class="env-label">Definition 21.10 (Genus)</span>
+\(\mathbb{P}^2\) 안의 차수 \(d\)인 매끄러운 사영 곡선(smooth projective curve) \(C\)의 <strong>(산술적) 종수(arithmetic genus)</strong>는 다음과 같다:
+$$ g = \frac{(d-1)(d-2)}{2}. $$
+\(k = \mathbb{C}\)일 때 이는 위상적 종수(topological genus)와 일치한다.
+</div>
+
+<div class="remark"><span class="env-label">Remark 21.1 (Classification by Genus)</span>
+종수(genus)에 따른 대수 곡선의 분류:
+<ul>
+<li>\(g = 0\): <strong>유리 곡선(rational curve)</strong> — \(\mathbb{P}^1\)과 동형이다.</li>
+<li>\(g = 1\): <strong>타원 곡선(elliptic curve)</strong> — 자연스러운 군 구조(group law)를 가진다.</li>
+<li>\(g \geq 2\): <strong>일반형 곡선(curve of general type)</strong> — 팔팅스 정리(Faltings' theorem, 모르델 추측)에 의해 유한 개의 유리점(rational point)만 존재한다.</li>
+</ul>
+</div>
+
+</section>
+
+<!-- ============================================================== -->
+<!--  SECTION 22: ALGEBRAIC TOPOLOGY                                 -->
+<!-- ============================================================== -->
+
+<details class="video-resources">
+<summary>추천 영상 강의 (원본 소스 기반)</summary>
+<ul>
+<li><a href="http://nptel.ac.in/courses/111106097/" target="_blank">Basic Algebraic Geometry: Varieties, Morphisms — NPTEL IIT Madras</a></li>
+<li><a href="http://www.mathnet.or.kr/new_VOD/sub1.php?key_s_title=Lectures+on+Basic+Algebraic+Geometry+by+Miles+Reid+%28WCU+project%29" target="_blank">Lectures on Basic Algebraic Geometry — Miles Reid (WCU)</a></li>
+<li><a href="http://vod.mathnet.or.kr/sub1.php?key_s_title=Lectures+on+Algebraic+Surfaces+by+Miles+Reid+%28WCU+project%29" target="_blank">Lectures on Algebraic Surfaces — Miles Reid (WCU)</a></li>
+<li><a href="http://www.uni-math.gwdg.de/aufzeichnungen/SummerSchool/" target="_blank">Arithmetic Geometry — Clay Mathematics Institute 2006</a></li>
+</ul>
+</details>
+
+<details class="video-resources">
+<summary>추천 교재 &amp; 오픈 자료</summary>
+<ul>
+<li><a href="https://www.math.ens.psl.eu/~debarre/Manin.pdf" target="_blank">Introduction to Schemes (Debarre, ENS)</a> — 스킴 입문 무료 강의노트</li>
+<li><a href="https://math.stanford.edu/~vakil/216blog/FOAGnov1817public.pdf" target="_blank">The Rising Sea: Foundations of Algebraic Geometry (Vakil, Stanford)</a> — 무료 교재</li>
+<li>Hartshorne, <em>Algebraic Geometry</em> — GTM 52, 대수기하의 바이블</li>
+<li>Shafarevich, <em>Basic Algebraic Geometry 1 &amp; 2</em> — 다양체에서 스킴까지</li>
+<li>Reid, <em>Undergraduate Algebraic Geometry</em> — LMS Student Texts, 학부 수준 입문</li>
+<li>Eisenbud &amp; Harris, <em>The Geometry of Schemes</em> — GTM 197, 스킴의 기하학적 직관</li>
+<li>Gathmann, <a href="https://agag-gathmann.math.rptu.de/class/alggeom-2021/alggeom-2021.pdf" target="_blank">Algebraic Geometry (강의노트)</a></li>
+</ul>
+</details>
+
