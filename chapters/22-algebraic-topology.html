@@ -1,7 +1,7 @@
 <section id="algebraic-topology">
 <h3>22. 대수적 위상수학</h3>
 
-<p class="chapter-intro">대수적 위상수학은 위상 공간에 군, 환 등의 대수적 불변량을 대응시켜 공간을 분류한다. 기본군, 호몰로지, 코호몰로지가 주요 도구이며, 이들을 통해 '구멍의 개수'와 같은 직관적 개념을 엄밀하게 정량화한다.</p>
+<p class="chapter-intro">대수적 위상수학은 위상 공간에 군, 환 등의 대수적 불변량을 대응시켜 공간을 분류한다. 기본군, 호몰로지, 코호몰로지가 주요 도구이며, 이들로 '구멍의 개수' 같은 직관을 엄밀하게 정량화한다.</p>
 
 <p>위상적 성질을 대수적 불변량(숫자, 군, 환)으로 변환하면 계산할 수 있다. "이 공간에 구멍이 있는가?"라는 기하학적 질문을 "이 군이 자명한가?"라는 대수적 질문으로 바꾸면, 컴퓨터로 답을 구할 수 있다.</p>
 
@@ -92,12 +92,12 @@ $$ H_0(\mathbb{R}P^2) \cong \mathbb{Z}, \quad H_1(\mathbb{R}P^2) \cong \mathbb{Z
 \(H_1\)의 비자명 비틀림 원소 \(\mathbb{Z}/2\mathbb{Z}\)는 \(\mathbb{R}P^2\)의 비가향성을 반영한다. 오일러 지표는 \(\chi(\mathbb{R}P^2) = 1 - 1 + 1 = 1\) (셀 개수로 계산)이며, 이는 \(\operatorname{rank} H_0 - \operatorname{rank} H_1 + \operatorname{rank} H_2 = 1 - 0 + 0 = 1\)과도 일치한다.
 </div>
 
-<p>복잡한 공간의 호몰로지를 직접 계산하기는 어렵다. Mayer-Vietoris 열은 공간을 두 부분으로 분해하고, 각 부분과 교집합의 호몰로지로부터 전체 호몰로지를 조합한다.</p>
+<p>복잡한 공간의 호몰로지를 직접 계산하기는 어렵다. Mayer&ndash;Vietoris 열은 공간을 두 부분으로 분해하고, 각 부분과 교집합의 호몰로지로부터 전체 호몰로지를 조합한다.</p>
 
 <div class="theorem"><span class="env-label">Theorem 22.3 (Mayer&ndash;Vietoris Sequence)</span>
 \(A, B\)가 열린집합(open set)이고 \(X = A \cup B\)이면, 다음과 같은 긴 완전열이 존재한다:
 $$ \cdots \to H_n(A \cap B) \xrightarrow{(\iota_{A*}, \iota_{B*})} H_n(A) \oplus H_n(B) \xrightarrow{\,j_{A*} - j_{B*}\,} H_n(X) \xrightarrow{\;\partial\;} H_{n-1}(A \cap B) \to \cdots $$
-이것은 호몰로지(homology) 계산의 기본적인 도구이다.
+호몰로지 계산의 핵심 도구이다.
 </div>
 
 <div class="example"><span class="env-label">Example 22.3 (Mayer&ndash;Vietoris: 토러스의 호몰로지)</span>

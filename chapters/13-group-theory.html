@@ -1,6 +1,6 @@
 <h2 id="group-theory">13. Group Theory</h2>
 
-<p class="chapter-intro">군(group)은 대칭성을 수학적으로 포착하는 구조이다. 정다각형의 대칭, 루빅 큐브의 조작, 물리학의 보존법칙 -- 이 모든 것이 군론의 언어로 기술된다. 이 장에서는 군의 정의에서 출발하여 부분군, 잉여류, 동형 정리, 군 작용, 정리까지 전개한다.</p>
+<p class="chapter-intro">군(group)은 대칭성을 수학적으로 포착하는 구조이다. 정다각형의 대칭, 루빅 큐브의 조작, 물리학의 보존법칙 -- 이 모든 것을 군론의 언어로 기술한다. 군의 정의에서 출발해 부분군, 잉여류, 동형 정리, 군 작용, Sylow 정리까지 전개한다.</p>
 
 <p>대칭(symmetry)이 존재하는 곳에는 반드시 군이 있다. 결정학(crystallography)에서 230개의 공간군(space group)은 결정 구조의 가능한 대칭성을 완전히 분류하며, 이는 재료과학과 고체물리학의 기초가 된다. 화학공학에서 분자의 점군(point group)을 알면 적외선/라만 분광법에서 활성화되는 진동 모드(vibrational mode)를 군론적으로 예측할 수 있다. 로봇공학에서 3차원 회전은 특수직교군 \(\operatorname{SO}(3)\)으로, 강체의 자세와 운동은 특수유클리드군 \(\operatorname{SE}(3)\)으로 기술되며, 이 군들의 구조를 이해하는 것이 로봇 운동학(kinematics)의 핵심이다.</p>
 
@@ -82,7 +82,7 @@ $$
 </ul>
 이들은 모두 무한군이지만, 유한체 \(\mathbb{F}_q\) 위에서 정의하면 유한군이 된다. 예를 들어 \(|\operatorname{GL}_2(\mathbb{F}_q)| = (q^2 - 1)(q^2 - q)\)이다.
 
-<p>추가적으로, <strong>유니터리군(unitary group)</strong> \(\operatorname{U}(n) = \{A \in \operatorname{GL}_n(\mathbb{C}) : A^*A = I\}\)과 <strong>특수유니터리군</strong> \(\operatorname{SU}(n) = \{A \in \operatorname{U}(n) : \det A = 1\}\)은 양자역학과 소립자 물리에서 양자역학과 소립자 물리에서 사용된다. \(\operatorname{SO}(3)\)은 3차원 공간의 회전군이며, 로보틱스에서 강체 자세(attitude) 표현에 사용된다.</p>
+<p>추가적으로, <strong>유니터리군(unitary group)</strong> \(\operatorname{U}(n) = \{A \in \operatorname{GL}_n(\mathbb{C}) : A^*A = I\}\)과 <strong>특수유니터리군</strong> \(\operatorname{SU}(n) = \{A \in \operatorname{U}(n) : \det A = 1\}\)은 양자역학과 소립자 물리에서 쓴다. \(\operatorname{SO}(3)\)은 3차원 공간의 회전군이며, 로보틱스에서 강체 자세(attitude) 표현에 쓴다.</p>
 </div>
 
 <div class="example">
@@ -144,7 +144,7 @@ group(군) \(G\)가 <strong>순환군(cyclic)</strong>이란, \(G = \langle g \r
 
 <h3 id="cosets-lagrange">13.2 Cosets and Lagrange's Theorem</h3>
 
-<p class="section-transition">잉여류는 부분군이 군을 어떻게 분할하는지를 기술하며, 라그랑주 정리는 유한군에서 가장 기본적인 제약 조건을 준다.</p>
+<p class="section-transition">잉여류는 부분군이 군을 분할하는 방식을 보여준다. 라그랑주 정리는 유한군에서 가장 기본적인 제약 조건을 준다.</p>
 
 <div class="definition">
 <span class="env-label">Definition 13.5 (Coset)</span>
@@ -206,7 +206,7 @@ $$
 이며, 연산은 \((aN)(bN) = (ab)N\)으로 정의한다. 항등원은 \(eN = N\)이고, 역원은 \((gN)^{-1} = g^{-1}N\)이다. 위수는 \(|G/N| = [G:N]\)이다.
 </div>
 
-<p>\(N\)의 정규성이 바로 잉여류의 곱셈을 잘 정의되게(well-defined) 만드는 조건이다. \(N\)이 정규가 아니면, 좌잉여류의 집합은 일반적으로 군 구조를 물려받지 못한다.</p>
+<p>\(N\)이 정규이어야 잉여류의 곱셈이 잘 정의된다(well-defined). \(N\)이 정규가 아니면 좌잉여류의 집합은 군 구조를 물려받지 못한다.</p>
 
 <div class="example">
 <span class="env-label">Example 13.4</span>
@@ -222,7 +222,7 @@ group(군) \(G\)가 <strong>단순(simple)</strong>이란, \(|G| > 1\)이고 정
 
 <p>동형(isomorphic)인 군으로 기술되는 두 시스템은 한쪽에서 얻은 결과를 다른 쪽에 번역할 수 있다. 전기 회로의 임피던스 조합 법칙과 기계 시스템의 강성(stiffness) 조합 법칙이 같은 군 구조를 공유하는 것이 그 예이다.</p>
 
-<p class="section-transition">준동형 사상은 군의 구조를 보존하면서 한 군을 다른 군으로 보내는 사상이다. 동형 정리들은 핵, 상, 몫군 사이의 관계를 기술한다.</p>
+<p class="section-transition">준동형 사상은 군의 구조를 보존하며 한 군을 다른 군으로 보낸다. 동형 정리들은 핵, 상, 몫군 사이의 관계를 밝힌다.</p>
 
 <div class="definition">
 <span class="env-label">Definition 13.8 (Group Homomorphism)</span>
@@ -285,7 +285,7 @@ group(군) \(G\)와 \(H\)의 <strong>직접곱(direct product)</strong>은 \(G \
 
 <p>분자 궤도 이론(molecular orbital theory)에서 분자의 대칭군이 전자 궤도 함수에 작용하면 허용 전이를 판별할 수 있다. Burnside 보조정리는 이성질체(isomer)의 수를 세거나, 대칭을 고려한 부호어(codeword)의 비동치류를 세는 데 쓰인다. Sylow 정리는 유한군의 구조를 소수 거듭제곱 단위로 분석한다.</p>
 
-<p class="section-transition">군 작용은 군이 집합 위에 작용하는 상황을 형식화한다. 궤도-안정자 정리와 Burnside 보조정리는 조합론적 세기 문제에 적용되며, Sylow 정리는 유한군의 소수 거듭제곱 위수 부분군의 존재와 개수를 다룬다.</p>
+<p class="section-transition">군 작용은 군이 집합 위에 작용하는 상황을 형식화한다. 궤도-안정자 정리와 Burnside 보조정리는 조합론적 세기 문제에 쓰이고, Sylow 정리는 유한군의 소수 거듭제곱 위수 부분군의 존재와 개수를 확정한다.</p>
 
 <div class="definition">
 <span class="env-label">Definition 13.9 (Group Action)</span>
@@ -324,7 +324,7 @@ $$
 이다. 여기서 \(X^g = \{x \in X : g \cdot x = x\}\)는 \(g\)의 고정점 집합이다.
 </div>
 
-<p>Burnside 보조정리는 세기 조합론(enumerative combinatorics)에서 "서로 다른" 구조의 수를 세는 데 사용된다. 핵심 아이디어는 대칭군이 구성(configuration)의 집합에 작용할 때, 궤도의 수가 곧 대칭을 고려한 비동치 구성의 수라는 것이다.</p>
+<p>Burnside 보조정리는 세기 조합론(enumerative combinatorics)에서 "서로 다른" 구조의 수를 셀 때 쓴다. 대칭군이 구성(configuration)의 집합에 작용하면, 궤도의 수가 곧 대칭을 고려한 비동치 구성의 수이다.</p>
 
 <h4>Burnside's Lemma: Applications</h4>
 

@@ -2,9 +2,9 @@
 
 <p class="chapter-intro">대수적 정수론은 정수의 성질을 수체(number field)로 확장하여 연구하는 분야이다. 유일 인수분해의 실패를 아이디얼의 유일 분해로 복원하는 데데킨트의 아이디어가 이 이론의 출발점이며, 류군과 단원 정리는 수체의 산술적 구조를 정밀하게 기술한다.</p>
 
-<p>대수적 정수론의 구조는 현대 암호학과 부호 이론(coding theory)에서 점점 더 중요해지고 있다. 양자 컴퓨터의 등장 가능성에 대비한 포스트 양자 암호(post-quantum cryptography)에서 가장 유력한 후보 중 하나인 격자 기반 암호(lattice-based cryptography)는 대수적 수체의 정수환 위에 정의된 이상 격자(ideal lattice)의 구조를 활용한다. Shor의 양자 알고리즘(Shor's algorithm)이 RSA를 깨뜨릴 수 있는 이유 역시, 정수의 위수 찾기(order finding) 문제를 양자 푸리에 변환으로 효율적으로 풀 수 있다는 수론적 구조에 기인한다. 부호 이론에서는 대수적 수체의 이상(ideal)이 갖는 유일 인수분해 성질이 오류 정정 부호(error-correcting code)의 구성에 활용된다.</p>
+<p>대수적 정수론의 구조는 현대 암호학과 부호 이론(coding theory)에서 점점 더 중요해지고 있다. 양자 컴퓨터의 등장 가능성에 대비한 포스트 양자 암호(post-quantum cryptography)에서 가장 유력한 후보 중 하나인 격자 기반 암호(lattice-based cryptography)는 대수적 수체의 정수환 위에 정의된 이상 격자(ideal lattice)의 구조를 활용한다. Shor의 양자 알고리즘(Shor's algorithm)이 RSA를 깨뜨릴 수 있는 이유 역시, 정수의 위수 찾기(order finding) 문제를 양자 푸리에 변환으로 효율적으로 풀 수 있다는 수론적 구조에 기인한다. 부호 이론에서는 대수적 수체의 아이디얼(ideal)이 갖는 유일 인수분해 성질이 오류 정정 부호(error-correcting code)의 구성에 활용된다.</p>
 
-<p>이 장의 주제는 "정수" 개념의 일반화이다. 일반적인 수체에서는 원소의 유일 인수분해(unique factorization)가 성립하지 않을 수 있다. 데데킨트(Dedekind)의 통찰은 원소 대신 아이디얼(ideal)을 인수분해의 기본 단위로 삼으면 유일성이 복원된다는 것이었다. "왜 '수' 대신 '이상'으로 인수분해하는가?"라는 질문에 대한 답이 이 장의 주제이다.</p>
+<p>이 장은 "정수" 개념을 일반화한다. 일반적인 수체에서는 원소의 유일 인수분해(unique factorization)가 성립하지 않을 수 있다. 데데킨트(Dedekind)는 원소 대신 아이디얼(ideal)을 인수분해의 기본 단위로 삼으면 유일성이 복원된다는 것을 보였다. "왜 '수' 대신 '아이디얼'로 인수분해하는가?"가 이 장이 답하는 질문이다.</p>
 
 <h3 id="number-fields">18.1 Number Fields and Rings of Integers</h3>
 
@@ -169,7 +169,7 @@ $$
 
 <div class="example">
 <span class="env-label">Example 18.5</span>
-\(K = \mathbb{Q}(\sqrt{-5})\)의 경우: \(n = 2\), \(r_2 = 1\), \(\Delta_K = -20\). 민코프스키 한계는 \(M_K = \frac{2}{4} \cdot \frac{4}{\pi} \cdot \sqrt{20} = \frac{2\sqrt{20}}{\pi} \approx 2.85\)이다. 따라서 소수(prime) \(p = 2\)만 확인하면 된다. \((2) = (2, 1+\sqrt{-5})^2\)이고 \((2, 1+\sqrt{-5})\)는 단항 아이디얼이 아니므로 (노름이 2인 원소는 \(a^2 + 5b^2 = 2\)의 정수해가 없어 존재하지 않는다), 류군의 위수는 \(h_K = 2\)이다.
+\(K = \mathbb{Q}(\sqrt{-5})\)에서는: \(n = 2\), \(r_2 = 1\), \(\Delta_K = -20\). 민코프스키 한계는 \(M_K = \frac{2}{4} \cdot \frac{4}{\pi} \cdot \sqrt{20} = \frac{2\sqrt{20}}{\pi} \approx 2.85\)이다. 따라서 소수(prime) \(p = 2\)만 확인하면 된다. \((2) = (2, 1+\sqrt{-5})^2\)이고 \((2, 1+\sqrt{-5})\)는 단항 아이디얼이 아니므로 (노름이 2인 원소는 \(a^2 + 5b^2 = 2\)의 정수해가 없어 존재하지 않는다), 류군의 위수는 \(h_K = 2\)이다.
 </div>
 
 <div class="theorem">
@@ -208,7 +208,7 @@ $$
 \lim_{s \to 1^+} (s - 1)\zeta_K(s) = \frac{2^{r_1} (2\pi)^{r_2} h_K R_K}{w_K \sqrt{|\Delta_K|}},
 $$
 여기서 \(h_K\)는 류수, \(R_K\)는 조정자, \(w_K = |\mu_K|\)는 단위근의 수이다.
-이 공식은 해석학(제타 함수의 극)과 대수학(류수, 단원군)을 하나의 등식으로 연결하며, 류수를 계산하는 실질적인 방법이기도 하다.
+해석학(제타 함수의 극)과 대수학(류수, 단원군)이 하나의 등식에 만난다. 류수를 실제로 계산할 때도 이 공식을 쓴다.
 </div>
 
 <p class="source-tag">Sources: Harvard Abstract Algebra (Gross, Elkies), UPenn Math 371/602/603/620/702 (Chai, Harbater, Shatz), U Maryland MATH 406 (Ramachandran), Liberty University Number Theory (Zargar).</p>

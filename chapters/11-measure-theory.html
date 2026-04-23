@@ -123,14 +123,14 @@ $$
 
 <h3>11.3 Convergence Theorems</h3>
 
-<p>Lebesgue integral(르베그 적분)의 강점은 수렴 정리에 있으며, 약한 조건 하에서 극한과 적분의 교환을 허용한다.</p>
+<p>Lebesgue integral(르베그 적분)의 강점은 수렴 정리에 있다. 약한 조건만으로 극한과 적분을 교환할 수 있다.</p>
 
 <div class="theorem"><span class="env-label">Theorem 11.2 (Monotone Convergence Theorem, MCT)</span>
 \(f_n: \Omega \to [0, \infty]\)가 가측이고 \(f_1 \leq f_2 \leq \cdots\) (거의 어디서나)이면,
 $$ \int \lim_{n\to\infty} f_n\, d\mu = \lim_{n\to\infty} \int f_n\, d\mu. $$
 </div>
 
-<p>단조 수렴 정리는 비음이고 증가하는 함수열에 대해 극한과 적분의 교환을 무조건 보장한다. 이 정리가 급수의 항별 적분(term-by-term integration)을 정당화하며, 신호 에너지의 주파수 성분별 분해에서 급수와 적분의 교환이 가능한 근거를 제공한다.</p>
+<p>단조 수렴 정리는 비음이고 증가하는 함수열에 대해 극한과 적분의 교환을 무조건 보장한다. 이 정리가 급수의 항별 적분(term-by-term integration)을 정당화하며, 신호 에너지의 주파수 성분별 분해에서 급수와 적분의 순서를 바꿀 수 있는 것도 MCT 덕분이다.</p>
 
 <div class="theorem"><span class="env-label">Theorem 11.3 (Fatou's Lemma)</span>
 \(f_n \geq 0\)이 가측이면,
@@ -171,7 +171,7 @@ $$
 
 <p><strong>올바른 접근.</strong> 직접 계산으로 확인: \(\int_0^1 f_n\, dx = \int_0^1 \frac{n}{1 + n^2 x^2}\, dx = [\arctan(nx)]_0^1 = \arctan(n) \to \pi/2\).</p>
 
-<p>따라서 \(\lim \int f_n = \pi/2 \neq 0 = \int \lim f_n\)이다. 극한과 적분이 교환되지 않는 이유는, 적분 가능한 우함수가 존재하지 않아 DCT의 가정이 충족되지 않기 때문이다. 이 예제는 DCT에서 우세 조건이 단순한 기술적 조건이 아니라 결론의 성립에 본질적임을 보여준다.</p>
+<p>따라서 \(\lim \int f_n = \pi/2 \neq 0 = \int \lim f_n\)이다. 극한과 적분이 교환되지 않는 이유는, 적분 가능한 우함수가 존재하지 않아 DCT의 가정이 충족되지 않기 때문이다. 우세 조건은 단순한 기술적 장치가 아니다. 이 예제가 그것을 실제로 확인시켜 준다.</p>
 </div>
 
 <div class="example"><span class="env-label">Example 11.5 (DCT의 전형적 활용)</span>
@@ -185,7 +185,7 @@ $$ F'(t) = -\int_0^\infty e^{-tx} \sin x\, dx. $$
 
 <h3>11.4 Product Measures and Fubini's Theorem</h3>
 
-<p>결합 확률 분포(joint probability distribution)에서 주변 확률(marginal probability)을 구하는 것은 본질적으로 적분 순서의 교환이다. 곱 측도와 Fubini 정리는 이 교환이 언제 허용되는지를 엄밀히 규정한다.</p>
+<p>결합 확률 분포(joint probability distribution)에서 주변 확률(marginal probability)을 구하는 것은 적분 순서를 바꾸는 일이다. 곱 측도와 Fubini 정리는 이 교환이 언제 가능한지를 엄밀히 규정한다.</p>
 
 <div class="definition"><span class="env-label">Definition 11.7 (Product Measure)</span>
 sigma-유한 측도 공간 \((X, \mathcal{A}, \mu)\)와 \((Y, \mathcal{B}, \nu)\)가 주어졌을 때, <em>곱 sigma-algebra(시그마 대수)</em> \(\mathcal{A} \otimes \mathcal{B}\)는 가측 직사각형 \(A \times B\) (\(A \in \mathcal{A}\), \(B \in \mathcal{B}\))에 의해 생성된다. <em>곱 측도(product measure)</em> \(\mu \otimes \nu\)는 \((\mu \otimes \nu)(A \times B) = \mu(A) \cdot \nu(B)\)를 만족하는 \(\mathcal{A} \otimes \mathcal{B}\) 위의 유일한 측도이다.

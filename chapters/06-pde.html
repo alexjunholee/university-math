@@ -1,10 +1,10 @@
 <h2 id="pde">6. Partial Differential Equations</h2>
 
-<p>ODE가 하나의 독립변수에 대한 미분방정식이라면, PDE는 여러 독립변수에 대한 미분방정식이다. 열의 확산, 파동의 전파, 전위의 분포 — 공간과 시간을 동시에 다루는 문제들은 PDE로 기술된다. ODE에서는 해가 곡선이었지만, PDE에서는 해가 곡면 또는 장(field)이 된다. 독립변수가 늘어난 만큼 경계 조건의 역할이 커지고, 해의 존재·유일성 문제도 한층 복잡해진다.</p>
+<p>ODE가 하나의 독립변수에 대한 미분방정식이라면, PDE는 여러 독립변수에 대한 미분방정식이다. 열의 확산이나 파동의 전파처럼, 공간과 시간을 동시에 다루는 문제들은 PDE로 기술된다. ODE에서는 해가 곡선이었지만, PDE에서는 해가 곡면 또는 장(field)이 된다. 독립변수가 늘어난 만큼 경계 조건의 역할이 커지고, 해의 존재·유일성 문제도 한층 복잡해진다.</p>
 
 <p>PDE는 공학의 거의 모든 분야에서 등장한다. 반도체 칩 위의 온도 분포를 예측하여 냉각 시스템을 설계하는 문제는 열전도 방정식(heat equation)으로 귀결되고, 건물의 내진 설계나 악기의 음향 특성은 파동방정식(wave equation)으로 분석된다. 정전기장의 전위 분포, 비행기 날개 주변의 유체 흐름, 반도체 내부의 전자 상태 — 이 모든 것이 Laplace 방정식, 나비에-스토크스(Navier-Stokes) 방정식, 슈뢰딩거(Schrodinger) 방정식이라는 PDE로 기술된다. 공간과 시간 모두에서 변하는 물리량을 다루어야 할 때, PDE가 필요하다.</p>
 
-<p>PDE(편미분방정식)는 두 개 이상의 독립변수를 갖는 미지 함수와 그 편도함수를 포함하는 방정식이다. 여기서는 물리학과 공학 전반에 걸쳐 등장하는 두 변수의 2차 선형 PDE(편미분방정식)에 초점을 맞춘다.</p>
+<p>PDE(편미분방정식)는 두 개 이상의 독립변수를 갖는 미지 함수와 그 편도함수를 포함하는 방정식이다. 여기서는 물리학과 공학 전반에 걸쳐 등장하는 두 변수의 2차 선형 PDE에 초점을 맞춘다.</p>
 
 <!-- 6.1 Classification -->
 <h3 id="pde-classification">6.1. Classification of Second-Order PDEs</h3>
@@ -12,13 +12,13 @@
 <p>2차 PDE를 타원형, 포물형, 쌍곡형으로 분류하는 것은 단순한 수학적 형식이 아니라, 해의 물리적 거동을 결정짓는 구분이다. 타원형(Laplace)은 정상상태(시간 독립) 문제에, 포물형(heat)은 확산 과정에, 쌍곡형(wave)은 파동 전파에 대응한다. 분류에 따라 적절한 경계/초기 조건이 달라지므로, 문제를 올바르게 설정하려면 먼저 PDE의 유형을 파악해야 한다.</p>
 
 <div class="definition"><span class="env-label">Definition 6.1 (General Second-Order Linear PDE)</span>
-두 변수에 대한 일반적인 2차 선형 PDE(편미분방정식)는 다음과 같다:
+두 변수에 대한 일반적인 2차 선형 PDE는 다음과 같다:
 $$ Au_{xx} + 2Bu_{xy} + Cu_{yy} + Du_x + Eu_y + Fu = G, $$
 여기서 계수 \( A, B, C, D, E, F, G \)는 \( x \)와 \( y \)에 의존할 수 있다.
 </div>
 
 <div class="definition"><span class="env-label">Definition 6.2 (Classification by Discriminant)</span>
-2차 PDE(편미분방정식)의 유형은 판별식 \( \Delta = B^2 - AC \)에 의해 결정된다:
+2차 PDE의 유형은 판별식 \( \Delta = B^2 - AC \)에 의해 결정된다:
 <ul>
 <li><strong>타원형(Elliptic)</strong>: \( \Delta < 0 \) (예: Laplace 방정식).</li>
 <li><strong>포물형(Parabolic)</strong>: \( \Delta = 0 \) (예: heat equation(열 방정식)).</li>
@@ -34,7 +34,7 @@ $$ Au_{xx} + 2Bu_{xy} + Cu_{yy} + Du_x + Eu_y + Fu = G, $$
 <!-- 6.2 The Three Canonical Equations -->
 <h3 id="pde-canonical">6.2. The Three Canonical Equations</h3>
 
-<p>물리학과 공학에서 반복적으로 등장하는 세 가지 정준 PDE를 다룬다. 이 세 방정식 — 열 방정식, 파동 방정식, Laplace 방정식 — 은 각각 확산, 전파, 평형이라는 서로 다른 물리적 과정을 기술하며, 2차 선형 PDE의 세 가지 유형(포물형, 쌍곡형, 타원형)을 대표한다.</p>
+<p>물리학과 공학에서 반복적으로 등장하는 세 가지 정준 PDE를 다룬다. 이 세 방정식(열 방정식, 파동 방정식, Laplace 방정식)은 각각 확산, 전파, 평형이라는 서로 다른 물리적 과정을 기술하며, 2차 선형 PDE의 세 가지 유형(포물형, 쌍곡형, 타원형)을 대표한다.</p>
 
 <h4>6.2.1. The Heat Equation (Parabolic)</h4>
 
@@ -142,7 +142,7 @@ $$ u(x,y) = \sum_{n=1}^{\infty} c_n \sin\!\left(\frac{n\pi x}{a}\right) \frac{\s
 6.2절 전반에 걸쳐 사용된 변수 분리법은 다음과 같은 체계적 절차를 따른다:
 <ol>
 <li>해가 곱의 형태 \( u = X(x)\,T(t) \) (또는 타원형 문제의 경우 \( u = X(x)\,Y(y) \))를 갖는다고 가정한다.</li>
-<li>PDE(편미분방정식)에 대입하고 변수를 분리하여 각 변이 하나의 변수에만 의존하도록 한다. 양변은 상수 \( -\lambda \) (분리 상수)와 같아야 한다.</li>
+<li>PDE에 대입하고 변수를 분리하여 각 변이 하나의 변수에만 의존하도록 한다. 양변은 상수 \( -\lambda \) (분리 상수)와 같아야 한다.</li>
 <li>결과로 얻어지는 ODE(상미분방정식)를 푼다. 경계 조건이 \( \lambda \)의 허용 가능한 값 (eigenvalue(고유값))과 대응하는 고유함수를 결정한다.</li>
 <li>곱 형태 해의 중첩(무한 급수)으로 일반해를 구성하고, 직교성을 이용하여 초기 조건 또는 나머지 경계 조건으로부터 계수를 결정한다.</li>
 </ol>
@@ -165,7 +165,7 @@ $$ \frac{d}{dx}\!\left[p(x)\frac{dX}{dx}\right] + q(x)X + \lambda\,w(x)\,X = 0, 
 <p>경계 조건(boundary condition)은 PDE 문제를 물리적으로 완전하게 규정한다. 막대 끝의 온도가 고정되어 있는가(Dirichlet), 단열되어 열 유속이 0인가(Neumann), 대류에 의해 주변 환경과 열 교환을 하는가(Robin) — 이러한 물리적 상황이 경계 조건의 유형을 결정한다. 잘못된 유형의 경계 조건을 설정하면 해가 존재하지 않거나, 데이터의 미세한 변동에 해가 폭발적으로 민감해지는 부적정(ill-posed) 문제가 된다.</p>
 
 <div class="definition"><span class="env-label">Definition 6.6 (Standard Boundary Conditions)</span>
-영역 \( \Omega \)에서 경계 \( \partial\Omega \)를 갖는 PDE(편미분방정식)의 표준 경계 조건 유형은 다음과 같다:
+영역 \( \Omega \)에서 경계 \( \partial\Omega \)를 갖는 PDE의 표준 경계 조건 유형은 다음과 같다:
 <ul>
 <li><strong>Dirichlet:</strong> \( u = g \) on \( \partial\Omega \) (값을 지정).</li>
 <li><strong>Neumann:</strong> \( \partial u/\partial n = h \) on \( \partial\Omega \) (법선 도함수를 지정).</li>
@@ -189,7 +189,7 @@ $$ \frac{d}{dx}\!\left[p(x)\frac{dX}{dx}\right] + q(x)X + \lambda\,w(x)\,X = 0, 
 </div>
 
 <div class="remark"><span class="env-label">Remark</span>
-PDE(편미분방정식)의 유형이 적절한 경계/초기 조건을 결정한다. 잘못된 유형의 데이터를 지정하면 부적정 문제가 된다. 예를 들어, Laplace 방정식에 초기 조건을 부과하는 것(타원형 PDE(편미분방정식)에 대한 Cauchy 문제)은 부적정하다: Hadamard는 데이터의 임의로 작은 섭동이 해에 임의로 큰 변화를 초래할 수 있음을 보였다.
+PDE의 유형이 적절한 경계/초기 조건을 결정한다. 잘못된 유형의 데이터를 지정하면 부적정 문제가 된다. 예를 들어, Laplace 방정식에 초기 조건을 부과하는 것(타원형 PDE에 대한 Cauchy 문제)은 부적정하다: Hadamard는 데이터의 임의로 작은 섭동이 해에 임의로 큰 변화를 초래할 수 있음을 보였다.
 </div>
 
 <div class="example"><span class="env-label">Example 6.4</span>
@@ -209,7 +209,7 @@ $$ u(r,\theta) = \frac{a_0}{2} + \sum_{n=1}^{\infty} \left(\frac{r}{R}\right)^n 
 <!-- 6.5 Additional Examples and Methods -->
 <h3 id="pde-additional">6.5. Additional Examples and Methods</h3>
 
-<p>6.2절에서 유한 영역의 기본적인 경계값 문제를 다루었다. 이 절에서는 무한 영역에서의 초기값 문제와 보다 복잡한 기하학적 영역에서의 풀이로 확장한다. 무한 영역의 열 방정식은 반도체 웨이퍼의 순간 레이저 가열, 지구 표면의 일주기 온도 변동 깊이 추정 등에 응용되며, 해의 형태인 Gauss 함수(열 핵)는 확산 현상의 보편적 특성을 드러낸다.</p>
+<p>6.2절은 유한 영역 경계값 문제를 다뤘다. 여기서는 무한 영역 초기값 문제와 비직교 기하 영역으로 나아간다. 무한 영역의 열 방정식은 반도체 웨이퍼의 순간 레이저 가열, 지구 표면의 일주기 온도 변동 깊이 추정 등에 응용되며, 해의 형태인 Gauss 함수(열 핵)는 확산 현상의 보편적 특성을 드러낸다.</p>
 
 <h4>6.5.1. 열 방정식 초기값 문제 (무한 영역)</h4>
 
@@ -233,7 +233,7 @@ $$ u(x,t) = \frac{1}{\sqrt{1+4t}}\, \exp\!\left(-\frac{x^2}{1+4t}\right). $$
 
 <h4>6.5.2. 파동 방정식: d'Alembert 해 예제</h4>
 
-<p>d'Alembert 해는 무한 영역에서 파동이 좌행파와 우행파로 분리되어 전파되는 모습을 명시적으로 보여준다. 지진파 분석에서 P파의 전파 패턴 예측, 광섬유에서 펄스 신호의 분산 없는 전달 등이 이 형태의 해로 기술된다.</p>
+<p>d'Alembert 해는 무한 영역에서 파동이 좌행파와 우행파로 분리되어 전파되는 모습을 명시적으로 보여준다. 지진파 분석에서 P파의 전파 패턴 예측, 광섬유에서 펄스 신호의 분산 없는 전달 등이 이 형태의 해로 표현된다.</p>
 
 <div class="example"><span class="env-label">Example 6.7 (d'Alembert 해 적용)</span>
 무한 현에서 \( c = 1 \), 초기 변위 \( f(x) = \frac{1}{1+x^2} \), 초기 속도 \( g(x) = 0 \)일 때 파동 방정식의 해를 구하라.
@@ -257,7 +257,7 @@ $$ u(x,t) = \frac{1}{2}\cos x\, \sin 2t. $$
 
 <h4>6.5.3. Laplace 방정식 극좌표 풀이</h4>
 
-<p>원형 또는 원환(annular) 영역에서의 Laplace 방정식은 동축 케이블의 전위 분포, 원통형 도체의 정상 온도장, 파이프 단면의 응력 분포 등에 직접 응용된다. 극좌표에서의 변수 분리는 Euler 형 ODE와 주기 경계 조건을 결합하며, 비정수 고유값이 등장할 수 있다는 점이 직사각형의 경우와 구별된다.</p>
+<p>원형 또는 원환(annular) 영역에서의 Laplace 방정식은 동축 케이블의 전위 분포, 원통형 도체의 정상 온도장, 파이프 단면의 응력 분포 등에 직접 응용된다. 극좌표에서의 변수 분리는 Euler 형 ODE와 주기 경계 조건을 결합하며, 직사각형과 달리 고유값이 정수가 아닌 값을 취할 수 있다.</p>
 
 <div class="example"><span class="env-label">Example 6.9 (원환 영역에서의 Laplace 방정식)</span>
 내부 반지름 \( a \), 외부 반지름 \( b \)인 원환(annulus)에서 Laplace 방정식을 풀어라. 경계 조건은 \( u(a,\theta) = 0 \), \( u(b,\theta) = \sin 3\theta \)이다.
@@ -279,7 +279,7 @@ $$ u(r,\theta) = \frac{r^3 - a^6 r^{-3}}{b^3 - a^6 b^{-3}} \sin 3\theta. $$
 $$ \Theta_n(\theta) = \sin\!\left(\frac{n\pi\theta}{\beta}\right), \qquad n = 1, 2, 3, \ldots $$
 원점에서의 유계 조건에서 \( R_n(r) = r^{n\pi/\beta} \)만 허용된다 (음의 거듭제곱은 발산). 따라서:
 $$ u(r,\theta) = \sum_{n=1}^{\infty} c_n \left(\frac{r}{R}\right)^{n\pi/\beta} \sin\!\left(\frac{n\pi\theta}{\beta}\right), $$
-여기서 \( c_n = \frac{2}{\beta}\int_0^\beta f(\theta)\sin\!\left(\frac{n\pi\theta}{\beta}\right) d\theta \)이다. 고유값이 \( \lambda_n = (n\pi/\beta)^2 \)으로, 일반적으로 정수가 아닌 값을 가질 수 있다는 점이 직사각형의 경우와 다르다.
+여기서 \( c_n = \frac{2}{\beta}\int_0^\beta f(\theta)\sin\!\left(\frac{n\pi\theta}{\beta}\right) d\theta \)이다. 고유값이 \( \lambda_n = (n\pi/\beta)^2 \)으로, \( \beta \)가 \( \pi \)의 유리수 배가 아닐 때 정수가 아닌 값을 취한다는 점이 직사각형의 경우와 다르다.
 </div>
 
 <!-- 6.6 Green's Functions for PDEs -->
@@ -374,7 +374,7 @@ $$ r^2 R'' + r R' + (\lambda r^2) R = 0. $$
 $$ \hat{f}(k) = \int_{-\infty}^{\infty} e^{-|x|} e^{-ikx}\,dx = \frac{2}{1+k^2}. $$
 역변환으로 해를 구하면:
 $$ u(x,t) = \frac{1}{2\pi}\int_{-\infty}^{\infty} \frac{2}{1+k^2}\, e^{-k^2 t}\, e^{ikx}\, dk. $$
-\( t = 0 \)에서 \( e^{-|x|} \)이 복원되며, \( t \) 증가에 따라 고주파 성분(\( |k| \) 큰 항)이 \( e^{-k^2 t} \) 인자에 의해 급속히 감쇠하여 해가 점차 평탄해진다.
+\( t = 0 \)에서 \( e^{-|x|} \)이 복원되며, \( t \) 증가에 따라 고주파 성분(\( |k| \) 큰 항)이 \( e^{-k^2 t} \) 인자에 의해 지수적으로 감쇠하여 해가 점차 평탄해진다.
 </div>
 
 <hr>
@@ -388,7 +388,6 @@ $$ u(x,t) = \frac{1}{2\pi}\int_{-\infty}^{\infty} \frac{2}{1+k^2}\, e^{-k^2 t}\,
 <ul>
 <li><a href="http://nptel.ac.in/courses/111105093/" target="_blank">PDE for Engineers: Separation of Variables — NPTEL IIT Kharagpur</a></li>
 <li><a href="https://www.youtube.com/playlist?list=PLkfmuPOLLntjZFL7lH75U4jQeUJznduqL" target="_blank">Partial Differential Equations (Math 3150) — U. of Utah</a></li>
-<li><a href="http://nptel.ac.in/courses/111105038/" target="_blank">Numerical Methods of ODE and PDE — NPTEL IIT Kharagpur</a></li>
 </ul>
 </details>
 
