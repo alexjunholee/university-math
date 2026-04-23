@@ -8,7 +8,7 @@
 <p>측도론(Measure Theory)은 길이, 넓이, 부피, 확률 등 "크기"의 개념을 일반적인 체계로 확장한다. 이 체계 위에 구축된 Lebesgue integral(르베그 적분)은 리만 적분보다 훨씬 유연하게 적분과 극한의 교환을 다룰 수 있으며, 현대 해석학, 확률론, 응용 수학의 표준이다.</p>
 
 <!-- 11.1 Sigma-Algebras and Measures -->
-<h3>11.1 Sigma-Algebras and Measures</h3>
+<h3 id="sigma-algebras">11.1 Sigma-Algebras and Measures</h3>
 
 <p>측도를 정의하기 전에, "어떤 집합들에 대해 크기를 잴 수 있는가?"를 먼저 정해야 한다. 직관적으로는 모든 부분집합에 대해 크기를 정의하고 싶지만, Vitali 구성이 보여주듯 이는 불가능하다. 시그마 대수(sigma-algebra)는 여집합과 가산 합집합에 대해 닫혀 있는 "잴 수 있는 집합들의 모임"을 규정하며, 확률론에서는 이것이 관측 가능한 사건(event)들의 모임에 해당한다.</p>
 
@@ -50,7 +50,7 @@
 <!-- 11.2 Lebesgue Measure and Integral -->
 <p>추상적 측도의 틀을 세웠으니, 이제 가장 중요한 구체적 측도인 Lebesgue 측도를 구성하고, 그 위에서 적분을 정의한다. Lebesgue 적분은 Riemann 적분과 달리 정의역이 아닌 치역을 분할하여 적분을 구성하며, 이 접근이 훨씬 넓은 클래스의 함수를 적분 가능하게 만든다.</p>
 
-<h3>11.2 Lebesgue Measure and the Lebesgue Integral</h3>
+<h3 id="lebesgue-measure">11.2 Lebesgue Measure and the Lebesgue Integral</h3>
 
 <div class="definition"><span class="env-label">Definition 11.4 (Lebesgue Outer Measure)</span>
 \(A \subseteq \mathbb{R}\)의 <em>르베그 외측도(Lebesgue outer measure)</em>는 다음과 같이 정의된다:
@@ -121,7 +121,7 @@ $$
 <!-- 11.3 Convergence Theorems -->
 <p>Lebesgue 적분을 구성한 진짜 이유가 여기에 있다. 수렴 정리들은 "언제 극한과 적분을 교환할 수 있는가?"라는 해석학의 핵심 질문에 답한다. Riemann 적분에서는 균등 수렴이라는 강한 조건이 필요했지만, Lebesgue 적분에서는 훨씬 약한 조건으로 교환이 가능하다.</p>
 
-<h3>11.3 Convergence Theorems</h3>
+<h3 id="convergence-theorems">11.3 Convergence Theorems</h3>
 
 <p>Lebesgue integral(르베그 적분)의 강점은 수렴 정리에 있다. 약한 조건만으로 극한과 적분을 교환할 수 있다.</p>
 
@@ -183,7 +183,7 @@ $$ F'(t) = -\int_0^\infty e^{-tx} \sin x\, dx. $$
 <!-- 11.4 Fubini's Theorem -->
 <p>단일 변수의 적분을 다루었으니, 이제 다변수로 확장한다. 다중 적분에서 적분 순서를 바꿀 수 있는 조건을 제시하는 것이 Fubini 정리이다.</p>
 
-<h3>11.4 Product Measures and Fubini's Theorem</h3>
+<h3 id="product-measures">11.4 Product Measures and Fubini's Theorem</h3>
 
 <p>결합 확률 분포(joint probability distribution)에서 주변 확률(marginal probability)을 구하는 것은 적분 순서를 바꾸는 일이다. 곱 측도와 Fubini 정리는 이 교환이 언제 가능한지를 엄밀히 규정한다.</p>
 

@@ -10,7 +10,7 @@
 <p>공학에서 실해석학이 왜 필요한가? 수치해석(numerical analysis)에서 반복 알고리즘이 올바른 해로 수렴하는지, 그 오차 한계가 얼마인지를 보장하려면 ε-δ 논법이 필수이다. 푸리에 급수(Fourier series)로 신호를 복원할 때 급수가 원래 함수로 수렴하려면 균등수렴(uniform convergence) 조건이 필요하다. 최적화 문제에서 최적해가 존재함을 보장하는 것은 컴팩트성(compactness)과 연속 함수의 최댓값 정리이다.</p>
 
 <!-- 8.1 Sequences and Limits -->
-<h3>8.1 Sequences and Limits</h3>
+<h3 id="sequences-limits">8.1 Sequences and Limits</h3>
 
 <p>수열의 수렴은 해석학 전체의 출발점이다. 수치해석에서 Newton 법이나 고정점 반복법(fixed-point iteration)이 올바른 근으로 다가가는지, 유한요소법(FEM)의 메쉬를 세밀하게 할수록 근사해가 참해에 수렴하는지 — 이 모든 문제가 수열의 수렴으로 귀결된다. ε-N 논법은 "충분히 많이 반복하면 오차를 원하는 만큼 줄일 수 있다"는 직관을 정밀한 수학적 언어로 표현한다.</p>
 
@@ -130,7 +130,7 @@ $$ \limsup_{n\to\infty} a_n = \sup\left\{ L \in \mathbb{R} : \text{부분수열 
 <!-- 8.2 Continuity -->
 <p>수열의 수렴을 엄밀하게 정의했으니, 함수의 연속성으로 넘어간다. 연속성은 수열의 극한 개념을 함수에 적용한 것이며, 같은 ε-δ 언어로 정의된다.</p>
 
-<h3>8.2 Continuity</h3>
+<h3 id="real-continuity">8.2 Continuity</h3>
 
 <p>연속성은 "입력의 작은 변화가 출력의 작은 변화만을 유발한다"는 직관을 형식화한 것이다. 센서 측정에서 물리량의 미세한 변동이 센서 출력의 급격한 도약을 초래하지 않아야 하고, 제어 시스템에서 기준 입력의 소폭 변경이 출력의 폭발적 변화를 일으키지 않아야 한다. 균등연속성(uniform continuity)은 이 안정성이 정의역 전체에서 균일하게 성립하는 더 강한 조건이며, 수치 적분의 오차 추정과 함수 근사의 정확도 보장에 쓰인다. 극값 정리(Extreme Value Theorem)는 유계 폐구간에서 연속함수가 최대·최소를 달성함을 보장하여, 공학 최적화 문제에서 최적해의 존재를 이론적으로 뒷받침한다.</p>
 
@@ -203,7 +203,7 @@ $$ |f(x_n) - f(y_n)| = |\sin(2n\pi) - \sin(2n\pi + \pi/2)| = |0 - 1| = 1 $$
 <!-- 8.3 Differentiability -->
 <p>연속성이 "함수값이 급격히 뛰지 않는다"는 성질이라면, 미분가능성은 "함수가 국소적으로 선형 근사를 허용한다"는 더 강한 조건이다. 미분가능한 함수는 반드시 연속이지만, 그 역은 성립하지 않는다.</p>
 
-<h3>8.3 Differentiability</h3>
+<h3 id="differentiability">8.3 Differentiability</h3>
 
 <p>Taylor 정리(Taylor's theorem)는 미분가능성의 대표적인 응용이다. 수치해석에서 미분방정식의 차분 근사(finite difference approximation), Newton-Raphson 법의 수렴 속도 분석, 유한요소법의 오차 추정이 모두 Taylor 전개의 나머지항(remainder term)에 의존한다. 나머지항의 크기를 평균값 정리(Mean Value Theorem)로 제어할 수 있기 때문에, "근사가 얼마나 정확한가"에 대한 정량적 답변이 가능해진다.</p>
 
@@ -240,7 +240,7 @@ $$ f(x) = \sum_{k=0}^{n} \frac{f^{(k)}(x_0)}{k!}(x - x_0)^k + \frac{f^{(n+1)}(\x
 <!-- 8.4 Riemann Integration -->
 <p>미분의 역연산으로서의 적분을 엄밀하게 구성한다. Riemann 적분은 구간을 잘게 쪼개고 각 소구간에서의 함수값으로 넓이를 근사하는 방식이다. 이 구성은 직관적이지만 한계도 있으며, 그 한계가 이후 Lebesgue 적분(11장)의 동기가 된다.</p>
 
-<h3>8.4 Riemann Integration</h3>
+<h3 id="riemann-integration">8.4 Riemann Integration</h3>
 
 <p>Riemann 적분의 구성 자체가 수치 적분(numerical integration)의 수학적 기초이다. 사다리꼴 법칙(trapezoidal rule)이나 Simpson 법칙은 특정 분할에 대한 Riemann 합의 변형이며, Darboux 상합과 하합 사이의 간격이 수치 적분의 최대 오차를 직접 제어한다. "어떤 함수가 적분 가능한가?"라는 질문에 대한 Lebesgue 판정 기준(불연속점 집합의 측도가 0이면 적분 가능)은, 공학에서 흔히 등장하는 구간별 연속 함수(piecewise continuous function)가 항상 적분 가능하다는 사실을 보장한다.</p>
 
@@ -304,7 +304,7 @@ $$ U(f, P_\delta) - L(f, P_\delta) = (3-1)(2\delta) = 4\delta. $$
 <!-- 8.5 Sequences and Series of Functions -->
 <p>지금까지 개별 함수의 연속성, 미분, 적분을 다루었다. 이번에는 함수열과 함수급수로 시야를 넓힌다. 질문은 "극한 함수가 원래 함수열의 성질(연속성, 미분가능성, 적분가능성)을 물려받는가?"이며, 그 답은 수렴의 종류 — 점별 수렴인지 균등 수렴인지 — 에 달려 있다.</p>
 
-<h3>8.5 Sequences and Series of Functions</h3>
+<h3 id="sequences-series-functions">8.5 Sequences and Series of Functions</h3>
 
 <p>푸리에 급수로 주기 신호를 복원하거나, Taylor 급수로 함수를 다항식으로 근사할 때, 유한 항까지의 부분합이 원래 함수에 "충분히 가까운가?"라는 질문이 생긴다. 균등수렴(uniform convergence)이 이 질문에 정밀하게 답한다. 균등수렴이 보장되면 항별 적분(term-by-term integration)과 항별 미분(term-by-term differentiation)이 정당화되어, 급수 해의 미분·적분 성질이 각 항의 성질로부터 유도된다. PDE의 변수 분리법(6장)에서 구한 푸리에 급수 해가 실제로 미분 가능하고 PDE를 만족하는지 확인하는 것이 바로 이 이론의 응용이다.</p>
 
@@ -386,7 +386,7 @@ $$ \int_0^t e^x\, dx = \int_0^t \sum_{n=0}^\infty \frac{x^n}{n!}\, dx = \sum_{n=
 <!-- 8.6 추가 주제: 급수의 수렴 판정 -->
 <p>함수급수를 다루려면 먼저 수치급수의 수렴 여부를 판정할 수 있어야 한다. 여기서는 실해석학에서 자주 쓰이는 수렴 판정법들을 체계적으로 정리한다.</p>
 
-<h3>8.6 급수와 수렴 판정</h3>
+<h3 id="series-convergence-tests">8.6 급수와 수렴 판정</h3>
 
 <div class="definition"><span class="env-label">Definition 8.9 (급수의 수렴)</span>
 실수열 \((a_n)\)에 대해, 급수 \(\sum_{n=1}^\infty a_n\)이 <em>수렴</em>한다 함은 부분합 수열 \(S_N = \sum_{n=1}^N a_n\)이 수렴하는 것이다. 급수가 수렴하면, 반드시 \(a_n \to 0\)이어야 한다 (필요조건, 충분하지 않음).
@@ -437,7 +437,7 @@ $$ a_n^{1/n} = \frac{n}{2n+1} \to \frac{1}{2} < 1. $$
 <!-- 8.7 추가 주제 정리 -->
 <p>해석학 전반에서 반복적으로 등장하는 부등식들을 모아 정리한다. 이 부등식들은 추정(estimation)의 기본 도구이며, 이후 측도론과 함수해석학에서도 자주 사용된다.</p>
 
-<h3>8.7 해석학의 핵심 부등식</h3>
+<h3 id="analysis-inequalities">8.7 해석학의 핵심 부등식</h3>
 
 <div class="theorem"><span class="env-label">Theorem 8.20 (삼각 부등식의 급수 확장)</span>
 급수 \(\sum a_n\)이 절대 수렴하면,

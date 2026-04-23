@@ -8,7 +8,7 @@
 <p>Fourier analysis(푸리에 해석)는 함수를 정현파 성분으로 분해하고, 주파수 데이터로부터 재구성한다. 수학(편미분방정식, 정수론), 공학(신호 처리, 제어), 응용 과학(영상, 양자역학) 전반에 쓰인다.</p>
 
 <!-- 12.1 Fourier Series -->
-<h3>12.1 Fourier Series</h3>
+<h3 id="fourier-series">12.1 Fourier Series</h3>
 
 <p>주기 함수를 사인/코사인의 합으로 표현하는 것이 푸리에 급수이다. 역사적으로 Fourier가 열전도 방정식의 해를 삼각급수로 표현한 것이 시작이었으며, 오늘날에는 전력 계통의 고조파(harmonics) 분석, 악기 음색의 배음(overtone) 구조 파악, 구조물에 가해지는 주기 하중의 주파수 분해에 직접 사용된다. 수학적으로는 Chapter 10에서 다룬 \(L^2\) 공간의 정규직교 기저 \(\{e^{inx}/\sqrt{2\pi}\}\)에 대한 좌표 전개이다.</p>
 
@@ -80,7 +80,7 @@ $$ \sum_{k=0}^{\infty} \frac{1}{(2k+1)^2} = 1 + \frac{1}{9} + \frac{1}{25} + \cd
 <!-- 12.2 Fourier Transform -->
 <p>Fourier 급수는 주기 함수를 다룬다. 비주기 함수로 확장하려면 주기를 무한대로 보내야 하며, 그 결과가 Fourier 변환이다. 이산적인 Fourier 계수의 합이 연속적인 적분으로 바뀌고, 주파수도 이산 값에서 연속 변수가 된다.</p>
 
-<h3>12.2 The Fourier Transform</h3>
+<h3 id="fourier-transform">12.2 The Fourier Transform</h3>
 
 <p>푸리에 급수에서 주기를 무한대로 보내면, 이산적인 주파수 \(n\)이 연속 변수 \(\xi\)가 되고, 계수의 합이 적분으로 바뀐다. 이것이 푸리에 변환이며, 비주기 신호의 주파수 분석을 가능하게 한다. 레이더 신호 설계, 통신 채널의 대역폭 분석, 의료 영상(MRI)의 k-공간(k-space) 데이터 처리가 모두 푸리에 변환에 기반한다.</p>
 
@@ -170,7 +170,7 @@ $$ \int_{-\infty}^{\infty} |f(x)|^2\, dx = \int_{-\infty}^{\infty} |\hat{f}(\xi)
 <!-- 12.3 Convolution -->
 <p>Fourier 변환은 합성곱(convolution)을 곱셈으로 바꾼다. 미분방정식, 필터링, 확률 분포의 합 등 합성곱이 등장하는 문제를 주파수 영역에서 곱셈으로 풀 수 있다.</p>
 
-<h3>12.3 Convolution Theorem</h3>
+<h3 id="convolution-theorem">12.3 Convolution Theorem</h3>
 
 <p>선형 시불변(LTI, Linear Time-Invariant) 시스템에서 입력 신호 \(x(t)\)에 대한 출력은 임펄스 응답 \(h(t)\)와의 합성곱 \(y = h * x\)로 주어진다. 합성곱은 또한 두 독립 확률변수의 합의 분포, 이미지에 블러(blur) 필터를 적용하는 연산, 다항식 곱셈 등을 통합적으로 기술하는 연산이다.</p>
 
@@ -221,7 +221,7 @@ $$ \int_{-\infty}^{\infty} \operatorname{sinc}^2(\xi)\, d\xi = 1, $$
 <!-- 12.4 Applications -->
 <p>이론적 도구가 갖춰졌으니 응용으로 넘어간다. 신호처리의 필터 설계와 편미분방정식의 풀이가 대표적이다.</p>
 
-<h3>12.4 Applications</h3>
+<h3 id="fourier-applications">12.4 Applications</h3>
 
 <h4>Signal Processing</h4>
 <p>Fourier transform(푸리에 변환)은 신호 처리의 이론적 근간이다. 임펄스 응답 \(h(t)\)를 갖는 선형 시불변(LTI) 시스템은 입력 신호 \(x(t)\)에 convolution(합성곱)으로 작용한다: \(y = h * x\). 주파수 영역에서 이는 \(\hat{y} = \hat{h} \cdot \hat{x}\)가 되며, 여기서 \(\hat{h}\)가 <em>전달 함수(transfer function)</em>이다. 필터 설계란 원하는 주파수 대역을 증폭 또는 억제하도록 \(\hat{h}\)를 선택하는 것이다.</p>
@@ -255,7 +255,7 @@ $$ u(x,t) = f * G_t(x), \qquad G_t(x) = \frac{1}{\sqrt{4\pi k t}}\, e^{-x^2/(4kt
 <!-- 12.5 Discrete Fourier Transform and FFT -->
 <p>연속 Fourier 변환은 이론적으로 강력하지만, 컴퓨터로 계산하려면 이산화가 필요하다. 이산 Fourier 변환(DFT)은 유한 개의 샘플로부터 주파수 성분을 추출하며, FFT 알고리즘은 이를 \(O(N \log N)\) 시간에 수행하여 대규모 데이터의 주파수 분석을 실용적으로 만든다.</p>
 
-<h3>12.5 Discrete Fourier Transform (DFT) and Fast Fourier Transform (FFT)</h3>
+<h3 id="dft-fft">12.5 Discrete Fourier Transform (DFT) and Fast Fourier Transform (FFT)</h3>
 
 <p>컴퓨터로 신호를 처리하려면 유한 개의 이산 샘플을 다루어야 한다. DFT는 연속 푸리에 변환을 유한 이산 데이터에 적용한 것으로, 디지털 오실로스코프의 스펙트럼 표시, 음성 인식의 특징 추출(MFCC), 구조물 진동 데이터의 주파수 분석에서 실제로 계산되는 것이 바로 DFT이다.</p>
 

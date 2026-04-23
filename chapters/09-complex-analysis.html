@@ -8,7 +8,7 @@
 <p>복소해석학(Complex Analysis)은 복소 변수 함수를 연구한다. 복소 미분 가능성의 요구 조건은 실수 경우보다 훨씬 제약적이며, 그 제약이 강한 결과를 낳는다. 해석함수는 수렴하는 수열 위에서의 값만으로 결정되고, 한 번 미분 가능하면 무한 번 미분 가능하며, 멱급수로 표현되고, 적분은 경로에 무관하다. 유계인 전체 함수는 상수이다. 이 모든 성질의 근원은 Cauchy-Riemann 방정식이다.</p>
 
 <!-- 9.1 Complex Numbers and Analytic Functions -->
-<h3>9.1 Complex Numbers and Analytic Functions</h3>
+<h3 id="complex-numbers-analytic">9.1 Complex Numbers and Analytic Functions</h3>
 
 <p>실수 함수의 미분 가능성은 좌극한과 우극한의 일치만 요구하지만, 복소 함수의 미분 가능성은 모든 방향에서의 극한이 일치해야 한다. 이 조건이 Cauchy-Riemann 방정식으로 구체화되며, 실수부와 허수부 사이의 강한 결합을 낳는다. 교류 회로에서 전압과 전류의 위상 관계, 2차원 정상 유동에서 속도 퍼텐셜(velocity potential)과 유선 함수(stream function)의 관계가 모두 이 방정식의 물리적 실현이다.</p>
 
@@ -63,7 +63,7 @@ $$ u(z_0) = \frac{1}{2\pi}\int_0^{2\pi} u(z_0 + re^{i\theta})\, d\theta. $$
 <!-- 9.2 Cauchy's Integral Theorem and Formula -->
 <p>Cauchy-Riemann 방정식은 해석함수의 적분에도 흔적을 남긴다. 닫힌 경로를 따르는 적분이 0이라는 것, 이 단 하나의 사실에서 복소해석학 특유의 결과들이 모두 파생된다.</p>
 
-<h3>9.2 Cauchy's Integral Theorem and Formula</h3>
+<h3 id="cauchy-integral">9.2 Cauchy's Integral Theorem and Formula</h3>
 
 <p>Cauchy 적분 정리와 그 일반화인 Cauchy 적분 공식은 복소해석학의 중심 결과이다. 해석함수의 무한 미분 가능성, Liouville 정리, 대수학의 기본 정리가 모두 여기서 파생된다.</p>
 
@@ -131,7 +131,7 @@ $$ |a_k| = \left|\frac{f^{(k)}(0)}{k!}\right| \leq \frac{\max_{|z|=R}|f(z)|}{R^k
 <!-- 9.3 Laurent Series and Residues -->
 <p>Cauchy 적분 공식은 해석함수가 "잘 행동하는" 영역에서의 이야기였다. 이제 함수가 정의되지 않는 점 — 특이점 — 주변의 구조를 분석한다. Laurent 급수는 특이점 근방에서 Taylor 급수를 일반화한 것이며, 유수(residue)는 특이점의 정보를 하나의 수로 요약한다.</p>
 
-<h3>9.3 Laurent Series and Residues</h3>
+<h3 id="laurent-residues">9.3 Laurent Series and Residues</h3>
 
 <p>특이점의 성격은 Laurent 급수 전개가 결정하며, 유수 정리는 닫힌 경로를 따르는 적분을 유한개의 특이점 정보로 환원한다.</p>
 
@@ -285,7 +285,7 @@ $$ \lim_{R \to \infty} \int_{C_R} f(z) e^{iaz}\, dz = 0, $$
 <!-- 9.4 Conformal Mappings -->
 <p>도함수가 0이 아닌 해석함수는 각도를 보존하는 등각사상이 된다. 이를 이용하면 복잡한 영역의 문제를 단순한 영역에서 풀 수 있다.</p>
 
-<h3>9.4 Conformal Mappings</h3>
+<h3 id="conformal-mappings">9.4 Conformal Mappings</h3>
 
 <p>등각사상의 공학적 핵심은 라플라스 방정식의 해가 등각사상 아래서 보존된다는 점이다. 복잡한 경계 조건의 열전도·정전기 문제를 단순한 영역으로 옮겨 풀 수 있는 이유가 여기 있다. 항공공학에서는 Joukowski 변환으로 원 주위의 유동 해를 날개 단면의 양력 계산에 직접 연결한다.</p>
 
