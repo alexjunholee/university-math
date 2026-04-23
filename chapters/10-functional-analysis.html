@@ -6,7 +6,7 @@
 <p>함수해석학의 기본 질문은 이것이다: 유한차원 선형대수의 결과들 — 고유값 분해, 직교 사영, 역행렬의 존재 — 이 무한차원으로 확장될 때 무엇이 유지되고 무엇이 무너지는가? 무한차원에서는 단위 구(unit ball)가 콤팩트가 아니고, 모든 선형 작용소가 연속인 것도 아니며, 고유값 외에 연속 스펙트럼(continuous spectrum)이 등장한다.</p>
 
 <!-- 10.1 Normed Spaces and Banach Spaces -->
-<h3>10.1 Normed Spaces and Banach Spaces</h3>
+<h3 id="normed-banach">10.1 Normed Spaces and Banach Spaces</h3>
 
 <p>함수 공간에서 "두 함수가 얼마나 가까운가?"를 측정하려면 노름(norm)이 필요하다. 신호의 에너지를 \(\|f\|_2 = (\int |f|^2\,dx)^{1/2}\)로, 최대 진폭을 \(\|f\|_\infty = \sup|f|\)로 측정하는 것이 대표적이다. 노름 공간에서 코시 수열이 반드시 수렴하는 완비성(completeness)을 갖추면 Banach space가 되며, 이 완비성은 반복법(iterative method)이나 급수 해의 수렴을 보장하는 데 필수적이다.</p>
 
@@ -38,7 +38,7 @@ Banach space의 표준적인 예:
 <!-- 10.2 Hilbert Spaces -->
 <p>Banach space는 노름만 주어진 완비 공간이다. 여기에 내적 구조를 추가하면 Hilbert space를 얻고, "각도"와 "직교"를 정의할 수 있게 된다.</p>
 
-<h3>10.2 Hilbert Spaces</h3>
+<h3 id="hilbert-spaces">10.2 Hilbert Spaces</h3>
 
 <p>Banach space에 내적이 추가되면 "각도"와 "직교"라는 기하학적 개념을 정의할 수 있다. 신호처리에서 두 신호의 상관(correlation)이 내적으로 표현되고, 직교성이 독립적 주파수 성분의 분리를 의미하는 것은 이 구조 덕분이다.</p>
 
@@ -71,7 +71,7 @@ $$ \|x\|^2 = \sum_{n=1}^\infty |\langle x, e_n \rangle|^2 \qquad \text{(Parseval
 <!-- 10.3 Bounded Linear Operators -->
 <p>공간의 구조를 확립했으니, 공간 사이의 사상(map)으로 넘어간다. 유한차원에서 행렬이 선형변환을 나타내듯, 무한차원에서는 유계 선형 작용소가 그 역할을 한다.</p>
 
-<h3>10.3 Bounded Linear Operators</h3>
+<h3 id="bounded-operators">10.3 Bounded Linear Operators</h3>
 
 <p>유한차원에서는 모든 선형변환이 자동으로 연속이지만, 무한차원에서는 그렇지 않다. "유계"라는 조건이 입력의 작은 변화에 대해 출력도 제한적으로 변한다는 것을 보장하며, 이것이 수치 해석에서 알고리즘의 안정성(stability)과 직결된다.</p>
 
@@ -104,7 +104,7 @@ Banach space 사이의 선형 작용소 \(T: X \to Y\)가 유계인 것은, 그 
 <!-- 10.4 Riesz Representation -->
 <p>Hilbert space에서 유계 선형 범함수는 어떤 형태를 가지는가? Riesz 표현 정리는 모든 유계 선형 범함수가 내적으로 표현된다는 것을 보여준다. 이는 Hilbert space가 자기 자신의 쌍대 공간과 동형이라는 뜻이며, 유한차원에서 행벡터와 열벡터의 대응이 무한차원으로 확장된 것이다.</p>
 
-<h3>10.4 Riesz Representation Theorem</h3>
+<h3 id="riesz-representation">10.4 Riesz Representation Theorem</h3>
 
 <div class="theorem"><span class="env-label">Theorem 10.8 (Riesz Representation Theorem for Hilbert Spaces)</span>
 \(H\)를 Hilbert space라 하자. 모든 유계 선형 범함수 \(\varphi \in H^*\)에 대해, 다음을 만족하는 유일한 \(y \in H\)가 존재한다:
@@ -119,7 +119,7 @@ $$ \varphi(x) = \langle x, y \rangle \quad \text{for all } x \in H, $$
 <!-- 10.5 Spectral Theory -->
 <p>유한차원에서 행렬의 고유값 분해가 선형변환의 구조를 파악하는 데 쓰이듯, 스펙트럼 이론은 이를 무한차원 작용소로 확장한다. 무한차원에서는 고유값 외에 연속 스펙트럼이 등장하며, 이것이 양자역학에서 연속적인 물리량의 관측에 대응된다.</p>
 
-<h3>10.5 Spectral Theory Basics</h3>
+<h3 id="spectral-theory">10.5 Spectral Theory Basics</h3>
 
 <p>유한차원에서 행렬의 특성 다항식이 0이 되는 값이 고유값이다. 무한차원에서는 고유값이 아니면서도 \(T - \lambda I\)가 가역이 아닌 \(\lambda\)가 존재할 수 있으며, 이를 포함한 전체 집합이 스펙트럼이다. 양자역학에서 수소 원자의 에너지 스펙트럼이 이산 고유값(속박 상태)과 연속 스펙트럼(산란 상태)으로 나뉘는 것이 이 수학적 구분의 물리적 발현이다.</p>
 
@@ -156,7 +156,7 @@ Banach space 위의 임의의 유계 작용소 \(T\)에 대해:
 <!-- 10.6 Additional Examples -->
 <p>추상적 정리가 구체적 공간과 작용소에서 어떻게 작동하는지 아래 예제들로 살펴본다.</p>
 
-<h3>10.6 Additional Examples</h3>
+<h3 id="functional-examples">10.6 Additional Examples</h3>
 
 <h4>10.6.1. Banach space 예제</h4>
 

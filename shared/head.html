@@ -514,7 +514,25 @@ hr { border: none; border-top: 1px solid var(--border); margin: 56px 0; }
     <a class="toc-item toc-h3" href="#vector-calculus">4.6 Vector Calculus</a>
     <a class="toc-item toc-h3" href="#integral-theorems">4.7 Integral Theorems</a>
     <a class="toc-item" href="#ode">5. Ordinary Differential Equations</a>
+    <a class="toc-item toc-h3" href="#ode-first-order">5.1 First-Order ODEs</a>
+    <a class="toc-item toc-h3" href="#ode-existence">5.2 Existence and Uniqueness</a>
+    <a class="toc-item toc-h3" href="#ode-second-order">5.3 Second-Order Linear ODEs</a>
+    <a class="toc-item toc-h3" href="#ode-systems">5.4 Systems of ODEs</a>
+    <a class="toc-item toc-h3" href="#ode-laplace">5.5 Laplace Transform Method</a>
+    <a class="toc-item toc-h3" href="#ode-series">5.6 Series Solutions</a>
+    <a class="toc-item toc-h3" href="#ode-first-order-additional">5.7 Additional First-Order Methods</a>
+    <a class="toc-item toc-h3" href="#ode-vop">5.8 Variation of Parameters</a>
+    <a class="toc-item toc-h3" href="#ode-operator">5.9 Operator Method</a>
+    <a class="toc-item toc-h3" href="#ode-laplace-extended">5.10 Laplace Transform Extended</a>
+    <a class="toc-item toc-h3" href="#ode-phase-plane">5.11 Phase Plane Analysis</a>
     <a class="toc-item" href="#pde">6. Partial Differential Equations</a>
+    <a class="toc-item toc-h3" href="#pde-classification">6.1 Classification of Second-Order PDEs</a>
+    <a class="toc-item toc-h3" href="#pde-canonical">6.2 The Three Canonical Equations</a>
+    <a class="toc-item toc-h3" href="#pde-separation">6.3 Separation of Variables</a>
+    <a class="toc-item toc-h3" href="#pde-bvp">6.4 Boundary Value Problems</a>
+    <a class="toc-item toc-h3" href="#pde-additional">6.5 Additional Examples and Methods</a>
+    <a class="toc-item toc-h3" href="#pde-green">6.6 Green 함수</a>
+    <a class="toc-item toc-h3" href="#pde-energy">6.7 에너지 방법과 유일성</a>
 
     <span class="toc-group-label">Part III: Linear Algebra</span>
     <a class="toc-item" href="#linear-algebra">7. Linear Algebra</a>
@@ -532,20 +550,68 @@ hr { border: none; border-top: 1px solid var(--border); margin: 56px 0; }
 
     <span class="toc-group-label">Part IV: Analysis</span>
     <a class="toc-item" href="#real-analysis">8. Real Analysis</a>
+    <a class="toc-item toc-h3" href="#sequences-limits">8.1 Sequences and Limits</a>
+    <a class="toc-item toc-h3" href="#real-continuity">8.2 Continuity</a>
+    <a class="toc-item toc-h3" href="#differentiability">8.3 Differentiability</a>
+    <a class="toc-item toc-h3" href="#riemann-integration">8.4 Riemann Integration</a>
+    <a class="toc-item toc-h3" href="#sequences-series-functions">8.5 Sequences and Series of Functions</a>
+    <a class="toc-item toc-h3" href="#series-convergence-tests">8.6 급수와 수렴 판정</a>
+    <a class="toc-item toc-h3" href="#analysis-inequalities">8.7 해석학의 핵심 부등식</a>
     <a class="toc-item" href="#complex-analysis">9. Complex Analysis</a>
+    <a class="toc-item toc-h3" href="#complex-numbers-analytic">9.1 Complex Numbers and Analytic Functions</a>
+    <a class="toc-item toc-h3" href="#cauchy-integral">9.2 Cauchy's Integral Theorem</a>
+    <a class="toc-item toc-h3" href="#laurent-residues">9.3 Laurent Series and Residues</a>
+    <a class="toc-item toc-h3" href="#conformal-mappings">9.4 Conformal Mappings</a>
     <a class="toc-item" href="#functional-analysis">10. Functional Analysis</a>
+    <a class="toc-item toc-h3" href="#normed-banach">10.1 Normed and Banach Spaces</a>
+    <a class="toc-item toc-h3" href="#hilbert-spaces">10.2 Hilbert Spaces</a>
+    <a class="toc-item toc-h3" href="#bounded-operators">10.3 Bounded Linear Operators</a>
+    <a class="toc-item toc-h3" href="#riesz-representation">10.4 Riesz Representation</a>
+    <a class="toc-item toc-h3" href="#spectral-theory">10.5 Spectral Theory Basics</a>
+    <a class="toc-item toc-h3" href="#functional-examples">10.6 Additional Examples</a>
     <a class="toc-item" href="#measure-theory">11. Measure Theory</a>
+    <a class="toc-item toc-h3" href="#sigma-algebras">11.1 Sigma-Algebras and Measures</a>
+    <a class="toc-item toc-h3" href="#lebesgue-measure">11.2 Lebesgue Measure and Integral</a>
+    <a class="toc-item toc-h3" href="#convergence-theorems">11.3 Convergence Theorems</a>
+    <a class="toc-item toc-h3" href="#product-measures">11.4 Product Measures and Fubini</a>
     <a class="toc-item" href="#fourier-analysis">12. Fourier Analysis</a>
+    <a class="toc-item toc-h3" href="#fourier-series">12.1 Fourier Series</a>
+    <a class="toc-item toc-h3" href="#fourier-transform">12.2 The Fourier Transform</a>
+    <a class="toc-item toc-h3" href="#convolution-theorem">12.3 Convolution Theorem</a>
+    <a class="toc-item toc-h3" href="#fourier-applications">12.4 Applications</a>
+    <a class="toc-item toc-h3" href="#dft-fft">12.5 DFT and FFT</a>
 
     <span class="toc-group-label">Part V: Algebra</span>
     <a class="toc-item" href="#group-theory">13. Group Theory</a>
+    <a class="toc-item toc-h3" href="#groups-subgroups">13.1 Groups and Subgroups</a>
+    <a class="toc-item toc-h3" href="#cosets-lagrange">13.2 Cosets and Lagrange's Theorem</a>
+    <a class="toc-item toc-h3" href="#normal-subgroups-quotients">13.3 Normal Subgroups and Quotients</a>
+    <a class="toc-item toc-h3" href="#homomorphisms-isomorphism-theorems">13.4 Homomorphisms and Isomorphism Theorems</a>
+    <a class="toc-item toc-h3" href="#group-actions-sylow">13.5 Group Actions and Sylow Theorems</a>
     <a class="toc-item" href="#ring-field-theory">14. Rings and Fields</a>
+    <a class="toc-item toc-h3" href="#rings-ideals">14.1 Rings and Ideals</a>
+    <a class="toc-item toc-h3" href="#polynomial-rings-pid-ufd">14.2 Polynomial Rings, PIDs, UFDs</a>
+    <a class="toc-item toc-h3" href="#field-extensions">14.3 Field Extensions</a>
+    <a class="toc-item toc-h3" href="#finite-fields">14.4 Finite Fields</a>
     <a class="toc-item" href="#graduate-algebra">15. Graduate Algebra</a>
+    <a class="toc-item toc-h3" href="#modules-over-pids">15.1 Modules over PIDs</a>
+    <a class="toc-item toc-h3" href="#galois-theory">15.2 Galois Theory</a>
+    <a class="toc-item toc-h3" href="#tensor-products">15.3 Tensor Products</a>
     <a class="toc-item" href="#homological-algebra">16. Homological Algebra</a>
+    <a class="toc-item toc-h3" href="#chain-complexes">16.1 Chain Complexes and Exact Sequences</a>
+    <a class="toc-item toc-h3" href="#ext-tor">16.2 Ext and Tor Functors</a>
 
     <span class="toc-group-label">Part VI: Number Theory</span>
     <a class="toc-item" href="#elementary-number-theory">17. Elementary Number Theory</a>
+    <a class="toc-item toc-h3" href="#divisibility-primes">17.1 Divisibility and Primes</a>
+    <a class="toc-item toc-h3" href="#modular-arithmetic">17.2 Modular Arithmetic</a>
+    <a class="toc-item toc-h3" href="#euler-fermat">17.3 Euler's Totient and Fermat's Little</a>
+    <a class="toc-item toc-h3" href="#quadratic-residues">17.4 Quadratic Residues and Legendre Symbol</a>
     <a class="toc-item" href="#algebraic-number-theory">18. Algebraic Number Theory</a>
+    <a class="toc-item toc-h3" href="#number-fields">18.1 Number Fields and Rings of Integers</a>
+    <a class="toc-item toc-h3" href="#ideal-theory">18.2 Ideal Theory and Unique Factorization</a>
+    <a class="toc-item toc-h3" href="#dedekind-domains">18.3 Dedekind Domains</a>
+    <a class="toc-item toc-h3" href="#class-number-units">18.4 Class Group and Dirichlet's Unit Theorem</a>
 
     <span class="toc-group-label">Part VII: Topology & Geometry</span>
     <a class="toc-item" href="#topology">19. Topology</a>
@@ -555,6 +621,13 @@ hr { border: none; border-top: 1px solid var(--border); margin: 56px 0; }
 
     <span class="toc-group-label">Part VIII: Probability & Statistics</span>
     <a class="toc-item" href="#probability">23. Probability Theory</a>
+    <a class="toc-item toc-h3" href="#conditional-probability">23.1 조건부 확률과 독립</a>
+    <a class="toc-item toc-h3" href="#random-variables">23.2 확률변수와 기본 성질</a>
+    <a class="toc-item toc-h3" href="#discrete-distributions">23.3 주요 이산 분포</a>
+    <a class="toc-item toc-h3" href="#continuous-distributions">23.4 주요 연속 분포</a>
+    <a class="toc-item toc-h3" href="#bayesian-inference">23.5 Bayesian 추론</a>
+    <a class="toc-item toc-h3" href="#prob-inequalities">23.6 부등식</a>
+    <a class="toc-item toc-h3" href="#lln-clt">23.7 대수의 법칙과 중심극한정리</a>
     <a class="toc-item" href="#statistics">24. Statistics</a>
     <a class="toc-item" href="#stochastic-processes">25. Stochastic Processes</a>
 
@@ -564,11 +637,22 @@ hr { border: none; border-top: 1px solid var(--border); margin: 56px 0; }
 
     <span class="toc-group-label">Part X: Numerical Methods</span>
     <a class="toc-item" href="#numerical-analysis">28. Numerical Analysis</a>
+    <a class="toc-item toc-h3" href="#root-finding">28.1 Root Finding</a>
+    <a class="toc-item toc-h3" href="#interpolation">28.2 Interpolation</a>
+    <a class="toc-item toc-h3" href="#numerical-integration">28.3 Numerical Integration</a>
+    <a class="toc-item toc-h3" href="#numerical-ode">28.4 Numerical ODE Methods</a>
     <a class="toc-item" href="#computational-methods">29. Computational Methods</a>
+    <a class="toc-item toc-h3" href="#condition-numbers">29.1 Condition Numbers and Error Analysis</a>
+    <a class="toc-item toc-h3" href="#direct-methods">29.2 Direct Methods: Matrix Factorizations</a>
+    <a class="toc-item toc-h3" href="#iterative-methods">29.3 Iterative Methods for Linear Systems</a>
+    <a class="toc-item toc-h3" href="#fem-basics">29.4 Finite Element Method Basics</a>
 
     <span class="toc-group-label">Part XI: Applied</span>
     <a class="toc-item" href="#dynamical-systems">30. Dynamical Systems</a>
     <a class="toc-item" href="#discrete-math">31. Discrete Mathematics</a>
+    <a class="toc-item toc-h3" href="#combinatorics">31.1 Combinatorics</a>
+    <a class="toc-item toc-h3" href="#graph-theory">31.2 Graph Theory</a>
+    <a class="toc-item toc-h3" href="#recurrence-relations">31.3 Recurrence Relations</a>
     <a class="toc-item" href="#math-history">32. History of Mathematics</a>
   </div>
 </nav>
