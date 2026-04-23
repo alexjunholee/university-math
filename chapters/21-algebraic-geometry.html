@@ -1,11 +1,11 @@
 <section id="algebraic-geometry">
 <h3>21. 대수기하</h3>
 
-<p class="chapter-intro">대수기하학은 다항 방정식의 해집합(다양체)을 기하학적 대상으로 연구한다. 대수와 기하의 사전(힐베르트 영점정리)을 통해, 아이디얼의 대수적 성질이 다양체의 기하학적 성질로 번역된다.</p>
+<p class="chapter-intro">대수기하학은 다항 방정식의 해집합(다양체)을 기하학적 대상으로 연구한다. 대수와 기하의 사전(힐베르트 영점정리)을 통해, 아이디얼의 대수적 성질이 다양체의 기하학적 성질에 대응한다.</p>
 
 <p>공학에서 다항식 연립방정식의 해집합은 예상보다 자주 등장한다. 로봇 운동학(robot kinematics)에서 관절 각도 조건은 다항식 제약(polynomial constraint)으로 표현되며, 로봇 팔의 역기구학(inverse kinematics) 문제는 결국 다항식 연립방정식의 해집합, 즉 아핀 다양체(affine variety)를 구하는 문제이다. 컴퓨터 비전(computer vision)에서 다시점 기하학(multi-view geometry)의 에피폴라 제약(epipolar constraint)은 기본 행렬(fundamental matrix)에 대한 다항식 조건으로 기술되며, 사영 다양체(projective variety)의 언어가 자연스럽게 적용된다.</p>
 
-<p>코딩 이론(coding theory)에서는 대수기하 부호(algebraic geometry code, Goppa code)가 유한체 위의 대수 곡선의 유리점(rational point)을 이용하여 오류 정정 능력이 뛰어난 부호를 설계한다. 현대 암호학(cryptography)의 핵심인 타원곡선 암호(Elliptic Curve Cryptography, ECC)는 타원곡선 위의 이산 로그 문제(discrete logarithm problem)에 기반하며, 이 장에서 다루는 종수(genus) 1 곡선의 군 구조(group law)가 그 수학적 토대이다. 대수기하학은 다항식 방정식의 해집합을 곡선, 곡면, 그리고 그 위의 대수적 구조로 다루는 언어를 제공한다.</p>
+<p>코딩 이론(coding theory)에서는 대수기하 부호(algebraic geometry code, Goppa code)가 유한체 위의 대수 곡선의 유리점(rational point)을 이용하여 오류 정정 능력이 뛰어난 부호를 설계한다. 현대 암호학(cryptography)의 핵심인 타원곡선 암호(ECC)는 타원곡선 위의 이산 로그 문제(discrete logarithm problem)에 의존하며, 이 장의 종수(genus) 1 곡선이 가진 군 구조(group law)가 그 수학적 토대이다. 대수기하학은 다항식 방정식의 해집합을 곡선, 곡면, 그리고 그 위의 대수적 구조로 다루는 언어다.</p>
 
 <p>대수기하학의 출발점은 다항식의 해집합을 기하학적 대상으로 보는 관점이다. 하나의 다항식 \(f(x, y) = 0\)의 해집합은 평면 위의 곡선이고, 여러 다항식의 공통 영점 집합은 더 복잡한 기하학적 형태를 가진다. 이 해집합을 체계적으로 연구하기 위해 아핀 다양체(affine variety)라는 개념을 도입한다.</p>
 
@@ -32,7 +32,7 @@ $$ I(X) = \{ f \in k[x_1, \ldots, x_n] : f(a) = 0 \text{ for all } a \in X \}. $
 다항식 환 \(k[x_1, \ldots, x_n]\)은 뇌터 환(Noetherian)이다: 모든 아이디얼(ideal)은 유한 생성이다. 따라서 모든 아핀 다양체(affine variety)는 유한 개의 다항식의 영점 집합이다.
 </div>
 
-<p>힐베르트 기저 정리는 다양체를 정의하는 데 무한 개의 다항식이 필요하지 않음을 보장한다. 이는 로봇 운동학에서 무한히 많은 제약 조건처럼 보이는 상황도 유한 개의 다항식으로 기술할 수 있음을 의미한다.</p>
+<p>힐베르트 기저 정리는 다양체를 정의하는 데 무한 개의 다항식이 필요하지 않음을 보장한다. 로봇 운동학에서 무한히 많은 제약 조건처럼 보이는 상황도 유한 개의 다항식으로 기술된다.</p>
 
 <div class="theorem"><span class="env-label">Theorem 21.2 (Hilbert's Nullstellensatz)</span>
 \(k\)를 대수적으로 닫힌 체라 하고 \(J \subseteq k[x_1, \ldots, x_n]\)을 아이디얼(ideal)이라 하자. 그러면
@@ -40,7 +40,7 @@ $$ I(V(J)) = \sqrt{J}, $$
 여기서 \(\sqrt{J} = \{f : f^r \in J \text{ for some } r \geq 1\}\)는 \(J\)의 근기(radical)이다. 특히, \(V(J) = \emptyset\)일 필요충분조건은 \(J = k[x_1, \ldots, x_n]\) (즉, \(1 \in J\))인 것이다.
 </div>
 
-<p>영점정리는 대수(아이디얼)와 기하(다양체) 사이의 사전(dictionary)을 세운다. 아이디얼에 대한 대수적 조작이 다양체의 기하학적 성질로 번역되므로, 연립방정식의 해집합 구조를 환론(ring theory)으로 분석할 수 있다.</p>
+<p>영점정리는 대수(아이디얼)와 기하(다양체) 사이의 사전(dictionary)을 세운다. 아이디얼에 대한 대수적 조작이 다양체의 기하학적 성질로 옮겨지므로, 연립방정식의 해집합 구조를 환론(ring theory)으로 분석한다.</p>
 
 <div class="definition"><span class="env-label">Definition 21.4 (Coordinate Ring)</span>
 아핀 다양체(affine variety) \(V = V(J)\)의 <strong>좌표환(coordinate ring)</strong>은 다음과 같은 몫환이다:
@@ -108,7 +108,7 @@ $$ \sum_{p} I_p(C, D) = de $$
 사영 공간(projective space)의 필요성: 아핀 평면에서 평행한 두 직선은 만나지 않지만, \(\mathbb{P}^2\)에서는 "무한원점(point at infinity)"에서 만나므로 베주 정리가 정확히 성립한다.
 </div>
 
-<p>대수 곡선의 분류에서 가장 중요한 불변량은 종수(genus)이다. 종수는 직관적으로 곡선에 뚫린 "구멍의 수"이다. 타원곡선 암호(ECC)에서 사용하는 종수 1 곡선은 군 구조를 가지며, 이 군 구조가 암호학적 안전성을 뒷받침한다.</p>
+<p>대수 곡선의 분류에서 가장 중요한 불변량은 종수(genus)이다. 종수는 직관적으로 곡선에 뚫린 "구멍의 수"이다. ECC에서 쓰는 종수 1 곡선은 군 구조를 가지며, 암호학적 안전성은 이 군 위의 이산 로그 문제에 기댄다.</p>
 
 <div class="definition"><span class="env-label">Definition 21.10 (Genus)</span>
 \(\mathbb{P}^2\) 안의 차수 \(d\)인 매끄러운 사영 곡선(smooth projective curve) \(C\)의 <strong>(산술적) 종수(arithmetic genus)</strong>는 다음과 같다:

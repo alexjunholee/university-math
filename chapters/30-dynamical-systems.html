@@ -1,6 +1,6 @@
 <h2 class="part-title">Part XI &mdash; Applied Mathematics &amp; Discrete</h2>
 
-<p class="part-intro">마지막 Part에서는 여러 응용 분야를 간략히 다룬다. 동역학 시스템은 시간에 따른 상태의 변화를, 이산수학은 연속이 아닌 구조를 다룬다. 그리고 수학사를 통해 이 모든 것이 어떻게 발전해 왔는지 조망한다.</p>
+<p class="part-intro">마지막 Part에서는 여러 응용 분야를 간략히 본다. 동역학 시스템은 시간에 따른 상태의 변화를, 이산수학은 연속이 아닌 구조를 이야기한다. 수학사를 통해 이 모든 것이 어떻게 발전해 왔는지도 짚는다.</p>
 
 <!-- ============================================================== -->
 <!--  SECTION 30: DYNAMICAL SYSTEMS                                  -->
@@ -22,7 +22,7 @@
 </div>
 
 <div class="definition"><span class="env-label">Definition 30.2 (Phase Portrait, 2D Linear Systems)</span>
-선형 시스템 \(\dot{\mathbf{x}} = A\mathbf{x}\) (\(A \in \mathbb{R}^{2 \times 2}\))의 원점 근방 거동은 \(A\)의 고유값 \(\lambda_1, \lambda_2\)에 의해 분류된다:
+선형 시스템 \(\dot{\mathbf{x}} = A\mathbf{x}\) (\(A \in \mathbb{R}^{2 \times 2}\))의 원점 근방 거동은 \(A\)의 고유값 \(\lambda_1, \lambda_2\)에 따라 분류된다:
 <ul>
   <li><strong>Stable node:</strong> \(\lambda_1, \lambda_2 < 0\) (실수). 궤적이 원점으로 수렴한다.</li>
   <li><strong>Unstable node:</strong> \(\lambda_1, \lambda_2 > 0\) (실수).</li>
@@ -108,12 +108,12 @@ $$ H(x,y) = \delta x - \gamma \ln x + \beta y - \alpha \ln y $$
   <li><strong>Saddle-node:</strong> 두 평형점이 충돌하여 소멸한다. 정규 형식: \(\dot{x} = \mu + x^2\).</li>
   <li><strong>Transcritical:</strong> 두 평형점이 안정성을 교환한다. 정규 형식: \(\dot{x} = \mu x - x^2\).</li>
   <li><strong>Pitchfork:</strong> 대칭적 분기. 정규 형식: \(\dot{x} = \mu x - x^3\) (초임계).</li>
-  <li><strong>Hopf:</strong> 안정 평형점이 안정성을 잃고 극한 주기가 태어난다. 한 쌍의 켤레 복소 고유값이 허수축을 통과할 때 발생한다.</li>
+  <li><strong>Hopf:</strong> 안정 평형점이 안정성을 잃고 리미트 사이클이 생겨난다. 한 쌍의 켤레 복소 고유값이 허수축을 통과할 때 발생한다.</li>
 </ul>
 </div>
 
 <div class="theorem"><span class="env-label">Theorem 30.3 (Poincar&eacute;&ndash;Bendixson)</span>
-\(\mathbb{R}^2\)에서의 연속 dynamical system(동역학 시스템)에서, 궤적이 유계이고 그 \(\omega\)-극한 집합이 평형점을 포함하지 않으면, \(\omega\)-극한 집합은 주기 궤도(극한 주기)이다.
+\(\mathbb{R}^2\)에서의 연속 dynamical system(동역학 시스템)에서, 궤적이 유계이고 그 \(\omega\)-극한 집합이 평형점을 포함하지 않으면, \(\omega\)-극한 집합은 주기 궤도(리미트 사이클)이다.
 </div>
 
 <p>Poincare-Bendixson 정리는 2차원에서 가능한 장기 거동이 평형점 수렴 아니면 주기 진동뿐임을 보여준다. 2차원에서는 카오스가 불가능하다는 뜻이다. 카오스적 거동에는 3차원 이상이 필요하고, 로렌츠 어트랙터(Lorenz attractor)가 3개의 변수를 갖는 것도 이 때문이다.</p>

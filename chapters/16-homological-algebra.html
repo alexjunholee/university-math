@@ -1,14 +1,14 @@
 <h2 id="homological-algebra">16. Homological Algebra</h2>
 
-<p class="chapter-intro">호몰로지 대수는 사슬 복합체와 완전열을 통해 대수적 구조의 '결함'을 측정하는 이론이다. 텐서곱의 비완전성, 확장 문제, 위상 공간의 불변량 등 다양한 맥락에서 등장하는 공통 구조를 추상화한다.</p>
+<p class="chapter-intro">호몰로지 대수는 사슬 복합체와 완전열로 대수적 구조의 '결함'을 측정한다. 텐서곱의 비완전성, 확장 문제, 위상 공간의 불변량 — 맥락은 달라도 공통 구조가 있다. 호몰로지 대수가 그 공통 구조를 잡아낸다.</p>
 
-<p>호몰로지(homology)는 대수적 구조에서 불변량(invariant)을 체계적으로 추출하는 방법이다. 위상수학에서 출발하여 대수학, 해석학, 기하학으로 확장되었다. 완전열(exact sequence)은 정보가 손실 없이 전달되는 상태를 기술하고, 호몰로지는 완전성이 깨지는 정도, 즉 장애물(obstruction)을 측정한다.</p>
+<p>호몰로지(homology)는 대수적 구조에서 불변량(invariant)을 체계적으로 추출하는 방법이다. 위상수학에서 출발하여 대수학, 해석학, 기하학으로 뻗어 나갔다. 완전열(exact sequence)은 정보가 손실 없이 전달되는 상태를 기술하고, 호몰로지는 완전성이 깨지는 정도, 즉 장애물(obstruction)을 측정한다.</p>
 
 <p>위상적 데이터 분석(topological data analysis, TDA)에서 지속 호몰로지(persistent homology)는 고차원 점 구름(point cloud) 데이터의 형태학적 특징 -- 연결 성분, 고리, 빈 공동(cavity) -- 을 다양한 스케일에서 추출하며, 약물 분자 설계, 뇌 신경망 분석, 재료과학의 다공성(porosity) 분석 등에 적용된다. 센서 네트워크(sensor network)에서 센서들의 커버리지(coverage)가 빈틈없는지 검증하는 문제는 신경 복합체(nerve complex)의 호몰로지로 환원되며, 개별 센서의 정확한 위치를 모르더라도 위상적 방법으로 커버리지를 보장할 수 있다. 전기 회로에서 키르히호프 전압 법칙(KVL)과 전류 법칙(KCL)은 회로 그래프의 사슬 복합체에서의 경계 작용소(boundary operator)와 쌍경계 작용소(coboundary operator)로 해석되며, 회로의 독립 루프 수와 독립 컷셋(cutset) 수는 각각 1차 호몰로지와 1차 코호몰로지의 차원이다.</p>
 
 <h3 id="chain-complexes">16.1 Chain Complexes and Exact Sequences</h3>
 
-<p>사슬 복합체는 \(\partial^2 = 0\)이라는 조건에서 출발하며, 이 조건이 호몰로지를 정의 가능하게 만든다. 짧은 완전열(short exact sequence)은 한 대상이 두 개의 더 단순한 대상으로 어떻게 조립되는지를 기술하고, 긴 완전열(long exact sequence)은 이 조립 과정에서 호몰로지 불변량의 연결을 추적한다.</p>
+<p>사슬 복합체는 \(\partial^2 = 0\)이라는 조건에서 출발하며, 이 조건 덕분에 호몰로지를 정의할 수 있다. 짧은 완전열(short exact sequence)은 한 대상이 두 개의 더 단순한 대상으로 어떻게 조립되는지를 기술하고, 긴 완전열(long exact sequence)은 이 조립 과정에서 호몰로지 불변량의 연결을 추적한다.</p>
 
 <div class="definition">
 <span class="env-label">Definition 16.1 (Chain Complex)</span>
@@ -93,8 +93,6 @@ PID 위에서, 가군이 사영적일 필요충분조건은 자유인 것이다.
 <h3 id="ext-tor">16.2 Ext and Tor Functors</h3>
 
 <p>짧은 완전열에 함자(functor)를 적용하면 완전성이 깨질 수 있다. Hom 함자와 텐서곱 함자는 각각 한쪽 방향의 완전성만 보존한다. Ext와 Tor는 이 결손을 기록하는 유도 함자(derived functor)이다. 가군의 확장 분류(Ext), 비틀림 정보 추출(Tor), 보편 계수 정리를 통한 코호몰로지 계산 등에 쓰인다.</p>
-
-<p class="section-transition">Ext와 Tor는 Hom 함자와 텐서곱 함자의 유도 함자로, 완전성이 깨지는 정도를 측정한다.</p>
 
 <div class="definition">
 <span class="env-label">Definition 16.5 (Projective Resolution)</span>

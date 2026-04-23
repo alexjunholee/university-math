@@ -1,7 +1,7 @@
 <section id="computational-methods">
 <h3>29. Computational Methods</h3>
 
-<p class="section-intro">28장에서 다룬 수치해석의 기본 도구들을 바탕으로, 이 장에서는 대규모 선형계의 풀이와 편미분방정식의 유한요소법(FEM) 같은 계산적 방법론을 다룬다. 조건수(condition number)의 개념은 수치 계산의 신뢰성을 판단하는 핵심 지표이며, 반복법은 직접법으로 다루기 어려운 대규모 문제의 실질적 해법이다.</p>
+<p class="section-intro">28장의 수치해석 기본 도구를 이어받아, 이 장은 대규모 선형계 풀이와 유한요소법(FEM)으로 나아간다. 조건수(condition number)는 수치 계산의 신뢰성을 판단하는 핵심 지표이고, 반복법은 직접법으로 감당하기 어려운 대규모 문제의 실질적 해법이다.</p>
 
 <p>수치해석이 알고리즘의 수렴성과 정확도를 다루는 반면, 계산수학(computational mathematics)은 그 알고리즘을 실제 컴퓨터에서 구현할 때 생기는 문제를 다룬다. 이론적으로 수렴하는 알고리즘이라도 유한 정밀도 산술(finite-precision arithmetic)에서는 반올림 오차가 축적되고, 메모리와 연산 시간에 제약이 있으며, 행렬의 희소 구조(sparsity)를 활용하지 못하면 실용성을 잃는다.</p>
 
@@ -16,7 +16,7 @@
 $$ \kappa(A) = \|A\| \cdot \|A^{-1}\| $$
 이다. 2-노름의 경우 \(\kappa_2(A) = \sigma_{\max}(A) / \sigma_{\min}(A)\)이다. 이는 \(Ax = b\)의 해가 섭동에 대해 얼마나 민감한지를 측정한다:
 $$ \frac{\|\delta x\|}{\|x\|} \leq \kappa(A) \frac{\|\delta b\|}{\|b\|}. $$
-Condition number가 크면 ill-conditioned(악조건) 문제임을 나타낸다.
+Condition number가 크면 ill-conditioned(악조건) 문제다.
 </div>
 
 <div class="example"><span class="env-label">Example 29.1 (조건수 계산과 해석)</span>
@@ -36,7 +36,7 @@ $$ \kappa_2(H_3) \approx 524, \quad \kappa_2(H_5) \approx 4.8 \times 10^5, \quad
 \(n\)이 증가함에 따라 조건수가 지수적으로 증가한다. \(H_{10}x = b\)를 배정밀도(\(\epsilon_{\text{mach}} \approx 10^{-16}\))로 풀면, 해에서 기대할 수 있는 정확한 자릿수는 약 \(16 - \log_{10}(\kappa_2) \approx 16 - 13 = 3\)자리에 불과하다.
 </div>
 
-<p class="subsection-transition">조건수로 문제의 민감도를 파악했으면, 다음은 실제로 선형계를 푸는 방법이다. 직접법과 반복법으로 나뉘는데, 먼저 직접법부터 다룬다.</p>
+<p class="subsection-transition">조건수로 문제의 민감도를 파악했으면, 다음은 실제로 선형계를 푸는 방법이다. 직접법과 반복법, 두 갈래다. 직접법부터 본다.</p>
 
 <h4>29.2 Direct Methods: Matrix Factorizations (직접법: 행렬 분해)</h4>
 
@@ -168,7 +168,7 @@ $$ \Sigma^+ = \begin{pmatrix} 1/5 & 0 \\ 0 & 1/3 \\ 0 & 0 \end{pmatrix}. $$
 <ul>
   <li><strong>LU 분해:</strong> 정방 비특이 시스템 \(Ax = b\)의 표준 풀이법. 같은 \(A\)에 대해 여러 우변을 효율적으로 처리한다. 행렬식 계산(\(\det A = \det U = \prod u_{ii}\))에도 유용하다.</li>
   <li><strong>QR 분해:</strong> 최소제곱 문제의 수치적으로 안정한 풀이. 정규방정식 \(A^T A x = A^T b\)보다 조건수 면에서 유리하다 (\(\kappa(A)\) vs \(\kappa(A)^2\)).</li>
-  <li><strong>SVD:</strong> 데이터 압축(상위 \(k\)개 특이값만 보존하여 이미지 압축 등), 유사역행렬(최소 노름 최소제곱), 주성분 분석(PCA &mdash; 주성분은 오른쪽 특이벡터), 수치적 랭크 결정 등에 사용된다.</li>
+  <li><strong>SVD:</strong> 데이터 압축(상위 \(k\)개 특이값만 보존하여 이미지 압축 등), 유사역행렬(최소 노름 최소제곱), 주성분 분석(PCA &mdash; 주성분은 오른쪽 특이벡터), 수치적 랭크 결정에 쓴다.</li>
 </ul>
 </div>
 
@@ -202,7 +202,7 @@ $$ \|x^{(k)} - x^*\|_A \leq 2 \left(\frac{\sqrt{\kappa} - 1}{\sqrt{\kappa} + 1}\
 여기서 \(\kappa = \kappa_2(A)\)이다. Preconditioning(\(A\)를 \(M^{-1}A\)로 대체)은 \(\kappa\)를 크게 줄여 수렴을 가속할 수 있다.
 </div>
 
-<p class="subsection-transition">지금까지 선형계를 푸는 방법을 다루었다. 그런데 공학에서 실제로 나타나는 문제는 편미분방정식(PDE)인 경우가 많다. 유한요소법(FEM)은 PDE를 선형계로 변환하여 위의 방법들로 풀 수 있게 해준다.</p>
+<p class="subsection-transition">선형계 풀이는 여기까지다. 공학에서 실제로 만나는 문제는 편미분방정식(PDE)이 많다. 유한요소법(FEM)은 PDE를 선형계로 바꾸어 앞의 방법들로 풀 수 있게 한다.</p>
 
 <h4>29.4 Finite Element Method (FEM) Basics</h4>
 
@@ -211,13 +211,13 @@ $$ \|x^{(k)} - x^*\|_A \leq 2 \left(\frac{\sqrt{\kappa} - 1}{\sqrt{\kappa} + 1}\
 <div class="definition"><span class="env-label">Definition 29.7 (Weak Formulation)</span>
 경계값 문제 \(-\nabla \cdot (a \nabla u) = f\) (\(\Omega\) 위), \(u = 0\) (\(\partial\Omega\) 위)를 고려하자. <strong>Weak formulation(약형식)</strong>은 다음과 같다: \(u \in H^1_0(\Omega)\)를 찾되
 $$ \int_\Omega a\, \nabla u \cdot \nabla v \, dx = \int_\Omega f v \, dx \quad \forall\, v \in H^1_0(\Omega) $$
-을 만족하도록 한다. \(a\)가 유계이고 균일 양인 경우 Lax&ndash;Milgram 정리에 의해 well-posed이다.
+을 만족하도록 한다. \(a\)가 유계이고 균일 양이면 Lax&ndash;Milgram 정리가 well-posedness를 보장한다.
 </div>
 
 <div class="definition"><span class="env-label">Definition 29.8 (Galerkin Approximation)</span>
 <strong>Galerkin method</strong>는 무한 차원 공간 \(H^1_0(\Omega)\)를 유한 차원 부분공간 \(V_h\) (예: 메시 위의 구간별 다항식)로 대체한다. \(u_h \in V_h\)를 찾되
 $$ \int_\Omega a\, \nabla u_h \cdot \nabla v_h \, dx = \int_\Omega f v_h \, dx \quad \forall\, v_h \in V_h $$
-을 만족하도록 한다. \(V_h\)의 기저 \(\{\phi_1, \ldots, \phi_N\}\)를 선택하면, 이를 선형 시스템 \(K\mathbf{u} = \mathbf{f}\)로 귀결시킬 수 있으며, 여기서 \(K_{ij} = \int a\, \nabla\phi_i \cdot \nabla\phi_j\, dx\)가 강성 행렬(stiffness matrix)이다.
+을 만족하도록 한다. \(V_h\)의 기저 \(\{\phi_1, \ldots, \phi_N\}\)를 택하면 선형 시스템 \(K\mathbf{u} = \mathbf{f}\)로 떨어진다. \(K_{ij} = \int a\, \nabla\phi_i \cdot \nabla\phi_j\, dx\)가 강성 행렬(stiffness matrix)이다.
 </div>
 
 <div class="theorem"><span class="env-label">Theorem 29.4 (C&eacute;a's Lemma)</span>
