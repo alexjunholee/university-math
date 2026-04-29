@@ -1,39 +1,208 @@
 {
   "_schema": "writing-pipeline-v1",
-  "_stages": ["1-prewriting", "2-drafting", "3-revising", "4-editing", "done"],
+  "_stages": [
+    "1-prewriting",
+    "2-drafting",
+    "3-revising",
+    "4-editing",
+    "done"
+  ],
   "units": {
-    "00-about.html": { "stage": "done", "revising_date": "2026-04-15", "editing_date": "2026-04-15" },
-    "01-sets-logic.html": { "stage": "done", "revising_date": "2026-04-15", "editing_date": "2026-04-15" },
-    "02-number-systems.html": { "stage": "done", "revising_date": "2026-04-15", "editing_date": "2026-04-15" },
-    "03-single-var-calc.html": { "stage": "done", "revising_date": "2026-04-15", "editing_date": "2026-04-15" },
-    "04-multivariable-calc.html": { "stage": "done", "revising_date": "2026-04-15", "editing_date": "2026-04-15" },
-    "05-ode.html": { "stage": "done", "revising_date": "2026-04-15", "editing_date": "2026-04-15" },
-    "06-pde.html": { "stage": "done", "revising_date": "2026-04-15", "editing_date": "2026-04-15" },
-    "07-linear-algebra.html": { "stage": "done", "revising_date": "2026-04-15", "editing_date": "2026-04-15" },
-    "08-real-analysis.html": { "stage": "done", "revising_date": "2026-04-15", "editing_date": "2026-04-15" },
-    "09-complex-analysis.html": { "stage": "done", "revising_date": "2026-04-15", "editing_date": "2026-04-15", "notes": "해석적 연속 섹션 추가 및 검증 완료" },
-    "10-functional-analysis.html": { "stage": "done", "revising_date": "2026-04-15", "editing_date": "2026-04-15" },
-    "11-measure-theory.html": { "stage": "done", "revising_date": "2026-04-15", "editing_date": "2026-04-15" },
-    "12-fourier-analysis.html": { "stage": "done", "revising_date": "2026-04-15", "editing_date": "2026-04-15" },
-    "13-group-theory.html": { "stage": "done", "revising_date": "2026-04-15", "editing_date": "2026-04-15" },
-    "14-ring-field-theory.html": { "stage": "done", "revising_date": "2026-04-15", "editing_date": "2026-04-15" },
-    "15-graduate-algebra.html": { "stage": "done", "revising_date": "2026-04-15", "editing_date": "2026-04-15" },
-    "16-homological-algebra.html": { "stage": "done", "revising_date": "2026-04-15", "editing_date": "2026-04-15" },
-    "17-elementary-number-theory.html": { "stage": "done", "revising_date": "2026-04-15", "editing_date": "2026-04-15" },
-    "18-algebraic-number-theory.html": { "stage": "done", "revising_date": "2026-04-15", "editing_date": "2026-04-15" },
-    "19-topology.html": { "stage": "done", "revising_date": "2026-04-15", "editing_date": "2026-04-15" },
-    "20-differential-geometry.html": { "stage": "done", "revising_date": "2026-04-15", "editing_date": "2026-04-15" },
-    "21-algebraic-geometry.html": { "stage": "done", "revising_date": "2026-04-15", "editing_date": "2026-04-15", "notes": "차원, 접선공간, Bézout, 종수 추가 및 검증 완료" },
-    "22-algebraic-topology.html": { "stage": "done", "revising_date": "2026-04-15", "editing_date": "2026-04-15" },
-    "23-probability.html": { "stage": "done", "revising_date": "2026-04-15", "editing_date": "2026-04-15", "notes": "넘버링 정규화: Thm 23.T1->23.4, Ex 23.T1->23.5, Def 23.D1/D2->23.9/23.10, 후속 번호 순차 조정" },
-    "24-statistics.html": { "stage": "done", "revising_date": "2026-04-15", "editing_date": "2026-04-15" },
-    "25-stochastic-processes.html": { "stage": "done", "revising_date": "2026-04-15", "editing_date": "2026-04-15", "notes": "마팅게일, 이토 미적분, 에르고딕 추가 및 검증 완료" },
-    "26-convex-optimization.html": { "stage": "done", "revising_date": "2026-04-15", "editing_date": "2026-04-15", "notes": "넘버링 정규화: Thm 26.0a/0b->26.1/26.2, Ex 26.0a-26.2e->26.1-26.13 순차 번호로 변경" },
-    "27-linear-programming.html": { "stage": "done", "revising_date": "2026-04-15", "editing_date": "2026-04-15", "notes": "심플렉스 예제 3개 추가 및 산술 검증 완료" },
-    "28-numerical-analysis.html": { "stage": "done", "revising_date": "2026-04-15", "editing_date": "2026-04-15" },
-    "29-computational-methods.html": { "stage": "done", "revising_date": "2026-04-15", "editing_date": "2026-04-15", "notes": "넘버링 정규화: Def/Thm/Ex 순차 번호로 재배열 (중복 및 점프 해소)" },
-    "30-dynamical-systems.html": { "stage": "done", "revising_date": "2026-04-15", "editing_date": "2026-04-15" },
-    "31-discrete-math.html": { "stage": "done", "revising_date": "2026-04-15", "editing_date": "2026-04-15" },
-    "32-math-history.html": { "stage": "done", "revising_date": "2026-04-15", "editing_date": "2026-04-15" }
+    "00-about.html": {
+      "stage": "done",
+      "revising_date": "2026-04-15",
+      "editing_date": "2026-04-23",
+      "notes": "STYLE_PROSE §5 pass: §5.1 수동태 2건(세워진다→놓인다, 사용되는→쓰이는), §5.5 상투어 1건(다룬다→본다)"
+    },
+    "01-sets-logic.html": {
+      "stage": "done",
+      "revising_date": "2026-04-15",
+      "editing_date": "2026-04-23"
+    },
+    "02-number-systems.html": {
+      "stage": "done",
+      "revising_date": "2026-04-15",
+      "editing_date": "2026-04-23"
+    },
+    "03-single-var-calc.html": {
+      "stage": "done",
+      "revising_date": "2026-04-15",
+      "editing_date": "2026-04-23",
+      "notes": "AI 패턴 정리: bold 12건 제거(법칙명 목록 9건, 강조 bold 3건), 병렬 산문 1건 리듬 완화"
+    },
+    "04-multivariable-calc.html": {
+      "stage": "done",
+      "revising_date": "2026-04-15",
+      "editing_date": "2026-04-23",
+      "notes": "ai-sweep 59건 처리: AI패턴 제거(bold남발 8건, 병렬/중복도입문단 5건, 챕터메타선언 1건, 한영병기반복 4건, 강조bold 3건), 잘못된 링크 교체(Math 246 ODE URL→Math 241 Multivariable Calculus 확인된 플레이리스트)"
+    },
+    "05-ode.html": {
+      "stage": "done",
+      "revising_date": "2026-04-15",
+      "editing_date": "2026-04-23",
+      "notes": "ai-sweep 교정: ODE(상미분방정식) 병기 10건 제거(첫 등장 외), eigenvalue(고유값) 2건, Laplace transform(라플라스 변환) 2건 단독화; bold남발 2건(동차해/특수해 레이블), 6건(풀이전략 리스트); em-dash 2건(단락 내 이중 사용, 어색한 삽입); 3의법칙 4건(도입부·§5.3·§5.4·§5.11 목록 산문 완화). STYLE_PROSE §5 pass: §2.1 챕터메타선언 1건(이 장에서 다루는 풀이법 하나하나가→축약), §5.5 상투어 1건(본질적으로 삭제), §5.3 번역체 1건(유일성이 깨지는 경우를 이해하는 것은→능동 구조 교정)"
+    },
+    "06-pde.html": {
+      "stage": "done",
+      "revising_date": "2026-04-15",
+      "editing_date": "2026-04-23",
+      "notes": "ai-sweep 교정: 약어 병기 6건 제거(첫 등장 외), 병렬/3의법칙 1건, em-dash 1건, P6 홍보어휘 1건(급속히→지수적으로), P9 vague 1건(일반적으로→구체화), 중복 NPTEL URL 1건 삭제"
+    },
+    "07-linear-algebra.html": {
+      "stage": "done",
+      "revising_date": "2026-04-15",
+      "editing_date": "2026-04-23",
+      "notes": "ai-sweep 교정: 영문병기반복 제거 49건(eigenvalue/eigenvector/rank/null space/column space/SVD/vector space/positive definite 첫 정의 이후 반복), em-dash 이중삽입구 3건→괄호 치환(§7.2 전환문단, §7.9 도입, §7.11 도입), bold남발 10건(예제 내 subhead 한국어로 통일: Column space/Null space/좌 null space→열공간/영공간/좌영공간)"
+    },
+    "08-real-analysis.html": {
+      "stage": "done",
+      "revising_date": "2026-04-15",
+      "editing_date": "2026-04-23",
+      "notes": "ai-sweep 교정: 영문병기반복 13건(convergence(수렴) 10건, uniform continuity(균등연속) 3건), 중복도입문단 1건 제거(메타선언 단락 삭제), 오타 1건(최대값→최댓값); Example 번호 충돌 해결: 8.1(→8.1e)/8.2(→8.2b→8.2c→8.2d)/8.4(→8.4c→8.4d→8.4e→8.4f→8.4g) 재번호, 참조 본문 1건 업데이트; Proof Sketch→Proof 통일 3건"
+    },
+    "09-complex-analysis.html": {
+      "stage": "done",
+      "revising_date": "2026-04-15",
+      "editing_date": "2026-04-23",
+      "notes": "ai-sweep 교정: 영문병기반복 5건 제거(analytic function×3, convergence×1, simple pole×1), em-dash double-hyphen 1건 수정, bold남발 3건 제거(유수계산법 요약·실수적분 지침 헤지레이블, 강조bold→이탤릭/제거 2건), 자기예고 전환 3건 수정, 챕터메타선언 1건 수정; §5 번역체 pass: 수동태 2건(보존되다/결정되다→능동), 추상명사주어 4건(이 경직성/이것이/이 성질은/이 관계식→능동), 영문접속사 1건, 한자어접미사 2건(해석성→CR방정식 만족/등각성→등각조건), 상투어 3건(~이라는 것이다→이 때문이다/~을 다룬다→본다/~의 경우→~은)"
+    },
+    "10-functional-analysis.html": {
+      "stage": "done",
+      "revising_date": "2026-04-15",
+      "editing_date": "2026-04-23",
+      "notes": "ai-sweep 25건 교정: 용어통일(Hilbert space) 11건, 용어통일(Banach space) 7건, 영문병기반복제거(bounded linear functional/operator) 4건, em-dash/en-dash 2건, 챕터메타선언 단락 제거+중복문장 1건"
+    },
+    "11-measure-theory.html": {
+      "stage": "done",
+      "revising_date": "2026-04-15",
+      "editing_date": "2026-04-23",
+      "notes": "§5 pass: 번역체 교정 4건 — §5.5 상투어 2건(허용한다→2문장 분리/근거를 제공한다→MCT 덕분이다), §5.3 접속어 1건(본질적으로 삭제), §5.2+5.5 복합 1건(결론의 성립에 본질적임을 보여준다→능동 2문장 재구성)"
+    },
+    "12-fourier-analysis.html": {
+      "stage": "done",
+      "revising_date": "2026-04-15",
+      "editing_date": "2026-04-23",
+      "notes": "번역체 §5 pass: §5.2 추상명사주어 1건(Fourier 변환의 중요한 대수적 성질은→Fourier 변환은), §5.5 상투어 2건(차례로 다룬다→순서대로 전개한다; 응용을 다룬다→응용으로 넘어간다), §5.2+§5.5 복합 1건(이 이론은 전반에 걸쳐 필수적이다→주어 교체·간결화)"
+    },
+    "13-group-theory.html": {
+      "stage": "done",
+      "revising_date": "2026-04-15",
+      "editing_date": "2026-04-23",
+      "notes": "STYLE_PROSE §5 pass: §5.1 수동태 3건(사용된다→쓴다 2건, 중복 구절 포함), §5.2 추상명사 주어 1건(정규성이 조건이다→N이 정규이어야 잘 정의된다로 능동화), §5.3 번역체 어순 2건(기술하며→보여준다, 기술한다→밝힌다), §5.4 중복 텍스트 1건(양자역학 소립자 물리 반복 제거), §5.5 상투어 3건(사용된다→쓴다, 다룬다→확정한다, 형식화한다+문단 능동화)"
+    },
+    "14-ring-field-theory.html": {
+      "stage": "done",
+      "revising_date": "2026-04-15",
+      "editing_date": "2026-04-23",
+      "notes": "STYLE_PROSE §5 pass: §5.1 번역체 동사 2건(기반한다→쓴다, 귀결된다→돌아간다), §5.2 추상명사 주어 1건(체 확장의 아이디어는→체 확장은), §5.3 영문식 어순 1건(일반화하면 ~이 된다→일반화한 것이다), §5.5 상투어 4건(본질적으로 삭제, 규명하는→보여주는, 세워진다→놓인다, 사용된다→쓴다)"
+    },
+    "15-graduate-algebra.html": {
+      "stage": "done",
+      "revising_date": "2026-04-15",
+      "editing_date": "2026-04-23",
+      "notes": "STYLE_PROSE §5 pass: §5.1 수동태 3건(증명되었다→증명했다, 체계화되며→분석하며, 기술되며→나타내며), §5.1 에 의해 1건(거듭제곱근에 의해→거듭제곱근으로), §5.3 통해 1건(대응을 통해→대응시키면), §5.5 상투어 1건(세워진다→있다), §5.6 역사 서술 1건(수동 발견→인물+시대 능동 서술)"
+    },
+    "16-homological-algebra.html": {
+      "stage": "done",
+      "revising_date": "2026-04-15",
+      "editing_date": "2026-04-23",
+      "notes": "STYLE_PROSE §5 pass: §5.1 수동태 1건(확장되었다→뻗어 나갔다), §5.2 추상명사주어 1건(이 조건이 ~만든다→이 조건 덕분에 ~할 수 있다), §5.3 번역체 어순 1건(chapter-intro 을 통해 삭제+3문장 재구성), 중복 section-transition 문단 1건 삭제(§16.2 도입 산문과 내용 동일)"
+    },
+    "17-elementary-number-theory.html": {
+      "stage": "done",
+      "revising_date": "2026-04-15",
+      "editing_date": "2026-04-23",
+      "notes": "STYLE_PROSE §5 pass: §5.1 수동태 1건(로그 함수에 의해 기술됨→로그 함수가 잡아낸다), §5.2 추상주어 1건(결과들이 토대를 제공한다→결과들이 그 바탕이다), §5.3 번역체 어순 1건(~를 다룬 후 이제 ~로 넘어간다→~를 쥐었으면 다음은), §5.5 상투어 2건(수학적 기반이 된다→바탕이다, 질문을 다룬다→핵심 질문은 하나다)"
+    },
+    "18-algebraic-number-theory.html": {
+      "stage": "done",
+      "revising_date": "2026-04-15",
+      "editing_date": "2026-04-23",
+      "notes": "STYLE_PROSE §5 pass: §5.2 추상명사주어 2건(이 장의 주제는→이 장은; 이 공식은 연결하며→해석학·대수학이 하나의 등식에 만난다로 재구성), §5.5 상투어 1건(류수를 계산하는 실질적인 방법이기도 하다→류수를 실제로 계산할 때도 이 공식을 쓴다), 표기통일 1건(이상(ideal)→아이디얼(ideal), 이상 격자(ideal lattice)는 암호학 번역어로 유지), §5.5 의경우→에서는 1건"
+    },
+    "19-topology.html": {
+      "stage": "done",
+      "revising_date": "2026-04-15",
+      "editing_date": "2026-04-23",
+      "notes": "STYLE_PROSE §5 pass: §5.5 상투어 2건(차례로 다룬다→살펴본다; 기반이 된다→토대가 여기에 있다), §5.1 수동태 2건(위상 불변량에 의해 보호된다→위상 불변량이 지킨다; 완비성의 결과이며→완비성에서 바로 따라온다), §5.2 추상명사주어 1건(이것은...사용된다→이 성질에 기댄다), §5.3 영문식 어순 1건(정량적 측정을 가능하게 한다→정량적으로 잰다)"
+    },
+    "20-differential-geometry.html": {
+      "stage": "done",
+      "revising_date": "2026-04-15",
+      "editing_date": "2026-04-23",
+      "notes": "STYLE_PROSE §5 pass: §5.1 수동태 4건(측지선 방정식이 사용된다→쓴다, 직접 활용된다→능동 재구성, 위상적 유형에 의해 고정된다→위상적 유형이 고정한다, 균일화 정리로 설명된다→균일화 정리가 말해 준다), §5.2 추상명사주어 1건(이것은 ~을 의미한다→주어 교체), §5.3 메타선언 1건(이 장에서는 ~에 도달한다→능동 서술+문장 분리), §5.5 상투어 1건(관점이 필요하다→핵심은 ~이다)"
+    },
+    "21-algebraic-geometry.html": {
+      "stage": "done",
+      "revising_date": "2026-04-15",
+      "editing_date": "2026-04-23",
+      "notes": "차원, 접선공간, Bézout, 종수 추가 및 검증 완료. STYLE_PROSE §5 pass: §5.5 상투어 3건(언어를 제공한다→언어다; 기술할 수 있음을 의미한다→기술된다; 분석할 수 있다→분석한다), §5.1 수동태 1건(번역되므로→옮겨지므로), §5.5+§5.2 복합 1건(뒷받침한다→기댄다+주어 능동화), §2.7 영문병기반복 1건(ECC 2회 단독화)"
+    },
+    "22-algebraic-topology.html": {
+      "stage": "done",
+      "revising_date": "2026-04-15",
+      "editing_date": "2026-04-23",
+      "notes": "STYLE_PROSE §5 pass: 표기통일 1건(Mayer-Vietoris 본문 하이픈→엔대시), §5.5 상투어 1건(이것은 호몰로지(homology) 계산의 기본적인 도구이다→호몰로지 계산의 핵심 도구이다, 중복 영문병기 제거), 오타 1건(띄어쓰기: '구멍의 개수'같은→'구멍의 개수' 같은)"
+    },
+    "23-probability.html": {
+      "stage": "done",
+      "revising_date": "2026-04-15",
+      "editing_date": "2026-04-23",
+      "notes": "넘버링 정규화: Thm 23.T1->23.4, Ex 23.T1->23.5, Def 23.D1/D2->23.9/23.10, 후속 번호 순차 조정. STYLE_PROSE §5 pass: §5.5 상투어 7건(section-transition '다룬다' 5건 → 간결 서술로; '모형화된다' 2건 → 능동 재구성), §5.2 추상명사주어 1건(이것이 Bayes' theorem의 핵심이다→베이즈 정리의 핵심이다 능동화), §5.3 번역체 1건(Base rate 무시 상투어 분리+3문장 재구성), §5.1 수동태 1건(공리적 체계가 정초한→콜모고로프가 확립했다 능동화), §5.7 장엄함 해체 1건(chapter-intro '전개한다'→구체 도달점 명시)"
+    },
+    "24-statistics.html": {
+      "stage": "done",
+      "revising_date": "2026-04-15",
+      "editing_date": "2026-04-23",
+      "notes": "STYLE_PROSE §5 pass: §5.1 수동태 3건(사용된다→보완한다, 세워진다→따른다, 가진다→구조다), §5.5 상투어 2건(다음과 같다 제거, 제시하며→없다로), §2.4 헤지 1건(이는 직관적이다 제거), 표기 4건(Cramer-Rao→Cramér–Rao, Example em-dash 3건)"
+    },
+    "25-stochastic-processes.html": {
+      "stage": "done",
+      "revising_date": "2026-04-15",
+      "editing_date": "2026-04-23",
+      "notes": "STYLE_PROSE §5 pass: 표기 2건(Example 25.3·25.4 제목 double-hyphen→em-dash), 표기 1건(Ito→Itô 악센트 복원), §5.1 수동태 2건(사용된다→쓰인다; 발생한다→능동 2문장 분리), §5.5 상투어 1건(~을 필요로 하게 만드는→능동 재구성), §2.1 챕터메타선언 1건(이 장은 … 순으로 전개한다 삭제), §5.2 추상명사주어 1건(Optional Stopping Theorem은 환원시킨다→쓰면 줄어든다), §2.4 헤지라벨 1건(이는 마팅게일의 가장 일반적인 구성이다→능동 재구성), §5.5 상투어 1건(이론적 정당화를 제공한다→이론적 근거가 여기에 있다)"
+    },
+    "26-convex-optimization.html": {
+      "stage": "done",
+      "revising_date": "2026-04-15",
+      "editing_date": "2026-04-23",
+      "notes": "넘버링 정규화: Thm 26.0a/0b->26.1/26.2, Ex 26.0a-26.2e->26.1-26.13 순차 번호로 변경. STYLE_PROSE §5 pass: §5.5 상투어 2건(차례로 다룬다→살펴본다; 다룬다→본다), §5.1 수동태 1건(다음과 같이 정의된다→다음과 같다), §5.1+§5.2 복합 1건(에 의해 결정된다→이 결정한다), §5.3 따라서 1건 삭제"
+    },
+    "27-linear-programming.html": {
+      "stage": "done",
+      "revising_date": "2026-04-15",
+      "editing_date": "2026-04-23",
+      "notes": "STYLE_PROSE §5 pass: §5.1 수동태 2건(사용된다→쓰인다; 달성된다→얻어진다), §5.1 에 의해 1건(상보 이완 조건에 의해→에 따라), §5.5 상투어 3건(기술한다→드러낸다; 것이다→해이다; 확인된다→성립한다), §5.5 부호규약 번역체 1건(주의하면→따라 정리하면), §5.3 접속어 1건(따라서→즉, 중복 제거), 표기통일 1건(목적 함수→목적함수 2건), AI패턴 1건(Definition 27.3 말미 Simplex method 중복 병기 제거→심플렉스 방법으로 단일화)"
+    },
+    "28-numerical-analysis.html": {
+      "stage": "done",
+      "revising_date": "2026-04-15",
+      "editing_date": "2026-04-23",
+      "notes": "STYLE_PROSE §5 pass: §5.1 수동태 1건(보간 오차 정리에 의해→따르면), §5.5 상투어 2건(을 필요로 한다→이 필요하다; 을 다룬다→을 본다), §5.5 확인표현 1건(확인할 수 있다→삭제+이차수렴답게)"
+    },
+    "29-computational-methods.html": {
+      "stage": "done",
+      "revising_date": "2026-04-15",
+      "editing_date": "2026-04-23",
+      "notes": "넘버링 정규화: Def/Thm/Ex 순차 번호로 재배열 (중복 및 점프 해소); STYLE_PROSE §5 pass: §5.5 상투어 4건(다룬다→본다/여기까지; 사용된다→쓴다), §5.1 수동태 2건(나타낸다→이다; 에 의해→정리가 보장한다), §5.2 추상명사주어 1건(개념은 지표이며→조건수는 지표이고), §5.3 접속사 1건(그런데 삭제), §5.3 귀결 1건(귀결시킬 수 있으며→떨어진다)"
+    },
+    "30-dynamical-systems.html": {
+      "stage": "done",
+      "revising_date": "2026-04-15",
+      "editing_date": "2026-04-23",
+      "notes": "STYLE_PROSE §5 pass: §5.1 수동태 1건(에 의해 분류된다→에 따라 분류된다), 용어통일 2건(극한 주기→리미트 사이클 — Def 30.5·Thm 30.3, 첫 등장 section-intro의 리미트 사이클(limit cycle)에 맞춤)"
+    },
+    "31-discrete-math.html": {
+      "stage": "done",
+      "revising_date": "2026-04-15",
+      "editing_date": "2026-04-23",
+      "notes": "STYLE_PROSE §5 pass: §5.5 상투어 2건(기술한다→잡는다; 기술한다면→다룬다면), §5.1 수동태 2건(구성된다→밟는다; 표현된다→쓴다), §5.2 it-cleft 구조 1건(~덕분이다→이 추상화가 있어 ~할 수 있다)"
+    },
+    "32-math-history.html": {
+      "stage": "done",
+      "revising_date": "2026-04-15",
+      "editing_date": "2026-04-23",
+      "notes": "STYLE_PROSE §5 pass: §5.2 추상명사주어·메타선언 1건(수학사에서 반복되는 패턴이 하나 있다 선언 제거+첫 문단 메타선언 단락 통합), §5.3 접속어 1건(동기를 제공했고→자극했고), §5.5 상투어 2건(볼 수 있다 메타문단 삭제, 축적의 결과이다→수천 년이 쌓였다), §5.6 장면 복원 2건(뉴턴/라이프니츠 행성 운동 맥락 명시, 맥스웰→벡터해석을 밀어 올렸다 능동화), §5.7 장엄함 해체 1건(메타 도입 문단 제거); 표기통일 2건(graph theory(그래프 이론)→그래프 이론(graph theory), simplex method(심플렉스 방법)→심플렉스 방법(simplex method) 한영병기 순서 교정)"
+    }
   }
 }
