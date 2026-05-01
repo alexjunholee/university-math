@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>대학공업수학</title>
+<title>대학수학 종합 레퍼런스</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-light.min.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -294,6 +294,34 @@ p { margin: 12px 0; color: var(--text-body); }
   letter-spacing: -0.010em;
 }
 
+/* About This Document (two-notes style) */
+.about-document {
+  margin: 0 0 56px 0;
+  padding: 24px 28px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+}
+.about-document h2 {
+  border-bottom: none !important;
+  margin: 0 0 14px 0 !important;
+  padding-bottom: 0 !important;
+  font-size: 24px !important;
+  line-height: 1.18 !important;
+}
+.about-document h4 {
+  color: var(--link) !important;
+  margin-top: 22px !important;
+}
+.about-document table { margin-top: 10px !important; }
+.about-document p:last-child,
+.about-document ul:last-child { margin-bottom: 0 !important; }
+.about-document .source-tag {
+  font-size: 14px;
+  font-style: normal;
+  margin-top: 18px;
+}
+
 /* ─────────── Blockquote ─────────── */
 blockquote {
   margin: 20px 0;
@@ -489,7 +517,7 @@ hr { border: none; border-top: 1px solid var(--border); margin: 56px 0; }
 
 <div id="topbar">
   <button class="menu-toggle" onclick="document.getElementById('sidebar').classList.toggle('open'); document.querySelector('.overlay').classList.toggle('active');">&#9776;</button>
-  <span class="title">대학공업수학</span>
+  <span class="title">대학수학 종합 레퍼런스</span>
   <a href="../" class="back-link">← repos</a>
 </div>
 
