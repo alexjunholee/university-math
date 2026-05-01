@@ -48,7 +48,7 @@
 </div>
 
 <!-- 11.2 Lebesgue Measure and Integral -->
-<p>추상적 측도의 틀을 세웠으니, 이제 가장 중요한 구체적 측도인 Lebesgue 측도를 구성하고, 그 위에서 적분을 정의한다. Lebesgue 적분은 Riemann 적분과 달리 정의역이 아닌 치역을 분할하여 적분을 구성하며, 이 접근이 훨씬 넓은 클래스의 함수를 적분 가능하게 만든다.</p>
+<p>추상적 측도의 틀을 세웠으니, 이제 가장 중요한 구체적 측도인 Lebesgue 측도를 구성하고, 그 위에서 적분을 정의한다. Lebesgue 적분은 Riemann 적분과 달리 치역을 분할하여 적분을 구성하며, 이 접근이 훨씬 넓은 클래스의 함수를 적분 가능하게 만든다.</p>
 
 <h3 id="lebesgue-measure">11.2 Lebesgue Measure and the Lebesgue Integral</h3>
 
@@ -171,7 +171,7 @@ $$
 
 <p><strong>올바른 접근.</strong> 직접 계산으로 확인: \(\int_0^1 f_n\, dx = \int_0^1 \frac{n}{1 + n^2 x^2}\, dx = [\arctan(nx)]_0^1 = \arctan(n) \to \pi/2\).</p>
 
-<p>따라서 \(\lim \int f_n = \pi/2 \neq 0 = \int \lim f_n\)이다. 극한과 적분이 교환되지 않는 이유는, 적분 가능한 우함수가 존재하지 않아 DCT의 가정이 충족되지 않기 때문이다. 우세 조건은 단순한 기술적 장치가 아니다. 이 예제가 그것을 실제로 확인시켜 준다.</p>
+<p>따라서 \(\lim \int f_n = \pi/2 \neq 0 = \int \lim f_n\)이다. 극한과 적분이 교환되지 않는 이유는, 적분 가능한 우함수가 존재하지 않아 DCT의 가정이 충족되지 않기 때문이다. 이 예제가 우세 조건의 필요성을 직접 확인시켜 준다.</p>
 </div>
 
 <div class="example"><span class="env-label">Example 11.5 (DCT의 전형적 활용)</span>

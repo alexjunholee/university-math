@@ -9,7 +9,7 @@
 <section id="convex-optimization">
 <h3>26. Convex Optimization</h3>
 
-<p class="section-intro">볼록 최적화의 기반은 볼록 집합과 볼록 함수이다. 볼록 집합의 정의, 볼록 함수, 쌍대성 이론, 최적화 알고리즘 순으로 살펴본다.</p>
+<p class="section-intro">볼록 최적화의 기반은 볼록 집합과 볼록 함수이다.</p>
 
 <p>볼록 문제에서는 모든 지역 최솟값(local minimum)이 곧 전역 최솟값(global minimum)이므로, 경사하강법 같은 단순한 알고리즘으로도 전역 최적해에 도달할 수 있다. 기계학습에서 SVM(support vector machine)의 쌍대 문제와 로지스틱 회귀의 손실함수 최소화, 제어 시스템에서 LQR(linear quadratic regulator)과 모델 예측 제어(MPC), 신호처리에서 압축 센싱(compressed sensing)과 빔포밍(beamforming), 통신에서 OFDM 부반송파 전력 할당, 구조 설계에서 최소 중량 최적화 등이 모두 볼록 최적화 문제로 정식화된다.</p>
 
@@ -189,7 +189,7 @@ Stationarity: \(-\frac{1}{\alpha_i + x_i} - \lambda_i + \nu = 0\), 즉 \(\frac{1
  \(\|Ax - b\|_2^2\)를 최소화하는 것은 제약 조건 없는 convex(볼록) 문제이다 (\(\nabla^2 f = 2A^TA \succeq 0\)). 최적성 조건 \(\nabla f = 2A^T(Ax - b) = 0\)으로부터 정규방정식 \(A^TAx = A^Tb\)를 얻는다. \(\ell_1\) 벌칙항 \(\|x\|_1\)을 추가하면 Lasso가 되며, 여전히 convex(볼록)이지만 모든 곳에서 미분 가능하지는 않다.
 </div>
 
-<p class="subsection-transition">실제로 최적해를 계산하는 알고리즘을 본다. 경사하강법, Newton 방법, 내부점 방법은 각각 정확도와 계산 비용의 절충이 다르다.</p>
+<p class="subsection-transition">경사하강법, Newton 방법, 내부점 방법은 각각 정확도와 계산 비용의 절충이 다르다.</p>
 
 <h4>Optimization Algorithms</h4>
 
