@@ -1,6 +1,6 @@
 <h2 id="homological-algebra">16. Homological Algebra</h2>
 
-<p class="chapter-intro">호몰로지 대수는 사슬 복합체와 완전열로 대수적 구조의 '결함'을 측정한다. 텐서곱의 비완전성, 확장 문제, 위상 공간의 불변량 — 맥락은 달라도 공통 구조가 있다. 호몰로지 대수가 그 공통 구조를 잡아낸다.</p>
+<p class="chapter-intro">호몰로지 대수는 사슬 복합체와 완전열로 대수적 구조의 '결함'을 측정한다. 텐서곱의 비완전성, 확장 문제, 위상 공간의 불변량은 서로 다른 맥락에서 같은 구조를 드러낸다.</p>
 
 <p>호몰로지(homology)는 대수적 구조에서 불변량(invariant)을 체계적으로 추출하는 방법이다. 위상수학에서 출발하여 대수학, 해석학, 기하학으로 뻗어 나갔다. 완전열(exact sequence)은 정보가 손실 없이 전달되는 상태를 기술하고, 호몰로지는 완전성이 깨지는 정도, 즉 장애물(obstruction)을 측정한다.</p>
 
@@ -16,7 +16,7 @@
 $$
 \cdots \xrightarrow{\partial_{n+2}} C_{n+1} \xrightarrow{\partial_{n+1}} C_n \xrightarrow{\partial_n} C_{n-1} \xrightarrow{\partial_{n-1}} \cdots
 $$
-여기서 각 \(\partial_n: C_n \to C_{n-1}\)은 \(R\)-가군 homomorphism(준동형)이며, 모든 \(n\)에 대해 \(\partial_n \circ \partial_{n+1} = 0\)을 만족한다. 사상 \(\partial_n\)을 <strong>경계 작용소(boundary operator)</strong>(또는 미분)라 한다.
+여기서 각 \(\partial_n: C_n \to C_{n-1}\)은 \(R\)-가군 준동형이며, 모든 \(n\)에 대해 \(\partial_n \circ \partial_{n+1} = 0\)을 만족한다. 사상 \(\partial_n\)을 <strong>경계 작용소(boundary operator)</strong>(또는 미분)라 한다.
 </div>
 
 <p><strong>쌍대사슬 복합체(cochain complex)</strong> \((C^\bullet, d)\)는 쌍대적으로 정의되며, 사상 \(d^n: C^n \to C^{n+1}\)이 \(d^{n+1} \circ d^n = 0\)을 만족한다.</p>
@@ -34,7 +34,7 @@ $$
 
 <div class="definition">
 <span class="env-label">Definition 16.3 (Exact Sequence)</span>
-사슬 복합체가 \(C_n\)에서 <strong>완전(exact)</strong>이란, \(H_n = 0\), 즉 \(\ker \partial_n = \operatorname{im} \partial_{n+1}\)인 것이다. 복합체가 <strong>완전</strong>이란, 모든 위치에서 완전인 것이다. <strong>short exact sequence(짧은 완전열)</strong>은 다음 형태의 완전열이다:
+사슬 복합체가 \(C_n\)에서 <strong>완전(exact)</strong>이란, \(H_n = 0\), 즉 \(\ker \partial_n = \operatorname{im} \partial_{n+1}\)인 것이다. 복합체가 <strong>완전</strong>이란, 모든 위치에서 완전인 것이다. <strong>짧은 완전열(short exact sequence)</strong>은 다음 형태의 완전열이다:
 $$
 0 \to A \xrightarrow{f} B \xrightarrow{g} C \to 0.
 $$
@@ -43,16 +43,16 @@ $$
 
 <div class="example">
 <span class="env-label">Example 16.1</span>
-열 \(0 \to \mathbb{Z} \xrightarrow{\times n} \mathbb{Z} \xrightarrow{\pi} \mathbb{Z}/n\mathbb{Z} \to 0\)은 short exact sequence(짧은 완전열)이다. 첫째 사상은 \(n\)배 곱이고, 둘째 사상은 몫 사상이다.
+열 \(0 \to \mathbb{Z} \xrightarrow{\times n} \mathbb{Z} \xrightarrow{\pi} \mathbb{Z}/n\mathbb{Z} \to 0\)은 짧은 완전열이다. 첫째 사상은 \(n\)배 곱이고, 둘째 사상은 몫 사상이다.
 </div>
 
 <div class="theorem">
 <span class="env-label">Theorem 16.1 (Long Exact Sequence in Homology)</span>
-사슬 복합체의 short exact sequence(짧은 완전열) \(0 \to A_\bullet \to B_\bullet \to C_\bullet \to 0\)은 호몰로지에서의 긴 완전열(long exact sequence)을 유도한다:
+사슬 복합체의 짧은 완전열 \(0 \to A_\bullet \to B_\bullet \to C_\bullet \to 0\)은 호몰로지에서의 긴 완전열(long exact sequence)을 유도한다:
 $$
 \cdots \to H_n(A) \to H_n(B) \to H_n(C) \xrightarrow{\delta} H_{n-1}(A) \to H_{n-1}(B) \to \cdots
 $$
-사상 \(\delta: H_n(C) \to H_{n-1}(A)\)를 <strong>연결 homomorphism(준동형)(connecting homomorphism)</strong>이라 하며, 다이어그램 추적(diagram chasing), 즉 뱀 보조정리(Snake Lemma)를 통해 구성된다.
+사상 \(\delta: H_n(C) \to H_{n-1}(A)\)를 <strong>연결 준동형(connecting homomorphism)</strong>이라 하며, 다이어그램 추적(diagram chasing), 즉 뱀 보조정리(Snake Lemma)를 통해 구성된다.
 </div>
 
 <div class="theorem">
@@ -73,7 +73,7 @@ $$
 
 <div class="definition">
 <span class="env-label">Definition 16.4 (Split Exact Sequence)</span>
-short exact sequence(짧은 완전열) \(0 \to A \xrightarrow{f} B \xrightarrow{g} C \to 0\)이 <strong>분열(split)</strong>한다 함은, 다음 동치 조건 중 하나가 성립하는 것이다:
+짧은 완전열 \(0 \to A \xrightarrow{f} B \xrightarrow{g} C \to 0\)이 <strong>분열(split)</strong>한다 함은, 다음 동치 조건 중 하나가 성립하는 것이다:
 <ul>
  <li>\(g \circ s = \operatorname{id}_C\)인 \(s: C \to B\)가 존재한다(단면, section).</li>
  <li>\(r \circ f = \operatorname{id}_A\)인 \(r: B \to A\)가 존재한다(수축, retraction).</li>
@@ -84,8 +84,8 @@ short exact sequence(짧은 완전열) \(0 \to A \xrightarrow{f} B \xrightarrow{
 <div class="theorem">
 <span class="env-label">Theorem 16.3 (Projective and Injective Modules)</span>
 <ul>
- <li>가군 \(P\)가 <strong>사영적(projective)</strong>이란, 모든 short exact sequence(짧은 완전열) \(0 \to A \to B \to P \to 0\)이 분열하는 것이다. 동치 조건으로, \(P\)가 자유 가군의 직합인수(direct summand)이다. 동치 조건으로, \(\operatorname{Hom}(P, -)\)가 완전이다.</li>
- <li>가군 \(Q\)가 <strong>단사적(injective)</strong>이란, 모든 short exact sequence(짧은 완전열) \(0 \to Q \to B \to C \to 0\)이 분열하는 것이다. 동치 조건으로, \(\operatorname{Hom}(-, Q)\)가 완전이다.</li>
+ <li>가군 \(P\)가 <strong>사영적(projective)</strong>이란, 모든 짧은 완전열 \(0 \to A \to B \to P \to 0\)이 분열하는 것이다. 동치 조건으로, \(P\)가 자유 가군의 직합인수(direct summand)이다. 동치 조건으로, \(\operatorname{Hom}(P, -)\)가 완전이다.</li>
+ <li>가군 \(Q\)가 <strong>단사적(injective)</strong>이란, 모든 짧은 완전열 \(0 \to Q \to B \to C \to 0\)이 분열하는 것이다. 동치 조건으로, \(\operatorname{Hom}(-, Q)\)가 완전이다.</li>
 </ul>
 PID 위에서, 가군이 사영적일 필요충분조건은 자유인 것이다. PID 위에서, 가군이 단사적일 필요충분조건은 가분(divisible)인 것이다.
 </div>
@@ -127,7 +127,7 @@ $$
 <ul>
  <li>\(\operatorname{Ext}_R^0(M, N) \cong \operatorname{Hom}_R(M, N)\).</li>
  <li>\(M\)이 사영적이거나 \(N\)이 단사적이면, 모든 \(n \geq 1\)에 대해 \(\operatorname{Ext}_R^n(M, N) = 0\)이다.</li>
- <li>\(\operatorname{Ext}_R^1(M, N)\)은 \(M\)을 \(N\)으로 확장하는 것, 즉 short exact sequence(짧은 완전열) \(0 \to N \to E \to M \to 0\)의 동치류를 분류한다.</li>
+ <li>\(\operatorname{Ext}_R^1(M, N)\)은 \(M\)을 \(N\)으로 확장하는 것, 즉 짧은 완전열 \(0 \to N \to E \to M \to 0\)의 동치류를 분류한다.</li>
 </ul>
 </div>
 
@@ -143,7 +143,7 @@ $$
 
 <div class="theorem">
 <span class="env-label">Theorem 16.4 (Universal Coefficient Theorem)</span>
-자유 아벨 group(군)의 사슬 복합체 \(C_\bullet\)와 아벨 group(군) \(G\)에 대해, 다음과 같은 (분열하는) short exact sequence(짧은 완전열)가 존재한다:
+자유 아벨 군의 사슬 복합체 \(C_\bullet\)와 아벨 군 \(G\)에 대해, 다음과 같은 (분열하는) 짧은 완전열이 존재한다:
 $$
 0 \to H_n(C) \otimes G \to H_n(C \otimes G) \to \operatorname{Tor}_1^{\mathbb{Z}}(H_{n-1}(C), G) \to 0,
 $$
@@ -180,4 +180,3 @@ $$
 <li>Gelfand &amp; Manin, <em>Methods of Homological Algebra</em> — 도래 범주 포함 현대적 접근</li>
 </ul>
 </details>
-

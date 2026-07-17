@@ -10,24 +10,24 @@
 <p>통계적 추론의 출발점은 데이터를 요약하는 통계량(statistic)과, 미지의 모수를 근사하는 추정량(estimator)이다. 추정량의 불편성(unbiasedness), 일치성(consistency), 효율성(efficiency)이 추정론(estimation theory)의 기본 판단 기준이다.</p>
 
 <div class="definition"><span class="env-label">Definition 24.1 (Statistic and Estimator)</span>
-<strong>statistic(통계량)</strong>은 관측 데이터의 임의의 함수 \(T = T(X_1, \ldots, X_n)\)이다. 모수 \(\theta\)의 <strong>estimator(추정량)</strong> \(\hat{\theta}\)는 \(\theta\)를 근사하기 위한 통계량이다.
+<strong>통계량</strong>은 관측 데이터의 임의의 함수 \(T = T(X_1, \ldots, X_n)\)이다. 모수 \(\theta\)의 <strong>추정량</strong> \(\hat{\theta}\)는 \(\theta\)를 근사하기 위한 통계량이다.
 </div>
 
 <div class="definition"><span class="env-label">Definition 24.2 (Bias, Variance, MSE)</span>
-\(\theta\)의 estimator(추정량) \(\hat{\theta}\)에 대해:
+\(\theta\)의 추정량 \(\hat{\theta}\)에 대해:
 <ul>
-  <li><strong>Bias:</strong> \(\operatorname{Bias}(\hat{\theta}) = E[\hat{\theta}] - \theta\). 편향이 0이면 <strong>unbiased(불편)</strong> estimator(추정량)라 한다.</li>
+  <li><strong>Bias:</strong> \(\operatorname{Bias}(\hat{\theta}) = E[\hat{\theta}] - \theta\). 편향이 0이면 <strong>불편</strong> 추정량이라 한다.</li>
   <li><strong>Mean squared error:</strong> \(\operatorname{MSE}(\hat{\theta}) = E[(\hat{\theta} - \theta)^2] = \operatorname{Var}(\hat{\theta}) + (\operatorname{Bias})^2\).</li>
-  <li>\(n \to \infty\)일 때 \(\hat{\theta}_n \xrightarrow{P} \theta\)이면 estimator(추정량)는 <strong>consistent(일치)</strong>라 한다.</li>
+  <li>\(n \to \infty\)일 때 \(\hat{\theta}_n \xrightarrow{P} \theta\)이면 추정량은 <strong>일치</strong>한다고 한다.</li>
 </ul>
 </div>
 
 <p>최대우도추정(Maximum Likelihood Estimation, MLE)은 가장 널리 사용되는 점추정 방법이다. 관측된 데이터를 가장 잘 설명하는 모수값을 선택한다는 원리이며, 기계학습에서 모형 훈련의 목적함수(로그우도 최대화)가 이에 해당한다.</p>
 
 <div class="definition"><span class="env-label">Definition 24.3 (Maximum Likelihood Estimation)</span>
-데이터 \(x_1, \ldots, x_n\)과 모수적 모형 \(f(x \mid \theta)\)가 주어졌을 때, <strong>likelihood function(우도함수)</strong>은
+데이터 \(x_1, \ldots, x_n\)과 모수적 모형 \(f(x \mid \theta)\)가 주어졌을 때, <strong>우도함수</strong>는
 $$ L(\theta) = \prod_{i=1}^n f(x_i \mid \theta). $$
-<strong>maximum likelihood estimator(최대우도추정량)</strong> (MLE)는 \(\hat{\theta}_{\text{MLE}} = \arg\max_\theta L(\theta)\)이다. 실제로는 <strong>log-likelihood(로그우도)</strong> \(\ell(\theta) = \sum_{i=1}^n \log f(x_i \mid \theta)\)를 최대화한다.
+<strong>최대우도추정량</strong> (MLE)는 \(\hat{\theta}_{\text{MLE}} = \arg\max_\theta L(\theta)\)이다. 실제로는 <strong>로그우도</strong> \(\ell(\theta) = \sum_{i=1}^n \log f(x_i \mid \theta)\)를 최대화한다.
 </div>
 
 <div class="theorem"><span class="env-label">Theorem 24.1 (Properties of MLE)</span>
@@ -47,7 +47,7 @@ $$ I(\theta) = E\!\left[\left(\frac{\partial}{\partial \theta} \log f(X \mid \th
 </div>
 
 <div class="theorem"><span class="env-label">Theorem 24.2 (Cram&eacute;r&ndash;Rao Lower Bound)</span>
-\(\theta\)의 임의의 unbiased(불편) estimator(추정량) \(\hat{\theta}\)에 대해,
+\(\theta\)의 임의의 불편 추정량 \(\hat{\theta}\)에 대해,
 $$ \operatorname{Var}(\hat{\theta}) \geq \frac{1}{n I(\theta)}. $$
 어떤 불편 추정량도 이 하한 아래로 분산을 줄일 수 없다. 이 하한을 달성하는 추정량을 효율적(efficient) 추정량이라 한다.
 </div>
@@ -55,7 +55,7 @@ $$ \operatorname{Var}(\hat{\theta}) \geq \frac{1}{n I(\theta)}. $$
 <p>점추정만으로는 추정의 정밀도를 알 수 없다. 신뢰구간(confidence interval)은 추정값 주위에 불확실성의 범위를 부여한다.</p>
 
 <div class="definition"><span class="env-label">Definition 24.5 (Confidence Interval)</span>
-\(\theta\)에 대한 <strong>\((1-\alpha)\) confidence interval(신뢰구간)</strong>은 \(P(\theta \in [L, U]) \geq 1 - \alpha\)를 만족하는 확률구간 \([L(X), U(X)]\)이다. variance(분산) \(\sigma^2\)가 알려진 정규모집단의 경우:
+\(\theta\)에 대한 <strong>\((1-\alpha)\) 신뢰구간</strong>은 \(P(\theta \in [L, U]) \geq 1 - \alpha\)를 만족하는 확률구간 \([L(X), U(X)]\)이다. 분산 \(\sigma^2\)가 알려진 정규모집단의 경우:
 $$ \bar{X} \pm z_{\alpha/2} \frac{\sigma}{\sqrt{n}}, $$
 여기서 \(z_{\alpha/2}\)는 \(N(0,1)\)의 상위 \(\alpha/2\) 분위수이다.
 </div>
@@ -63,17 +63,17 @@ $$ \bar{X} \pm z_{\alpha/2} \frac{\sigma}{\sqrt{n}}, $$
 <p>가설검정(hypothesis testing)은 데이터에 기반하여 주장의 타당성을 판단하는 체계이다. 레이더의 목표물 탐지, 임상시험의 신약 효과 판정, A/B 테스트 등이 모두 가설검정으로 정식화된다. 1종 오류(위양성)와 2종 오류(위음성) 사이의 트레이드오프를 관리하는 것이 실무적으로 중요하다.</p>
 
 <div class="definition"><span class="env-label">Definition 24.6 (Hypothesis Testing)</span>
-<strong>hypothesis testing(가설검정)</strong>은 귀무가설 \(H_0\)을 대립가설 \(H_1\)에 대해 평가한다.
+<strong>가설검정</strong>은 귀무가설 \(H_0\)을 대립가설 \(H_1\)에 대해 평가한다.
 <ul>
-  <li><strong>Type I error</strong> (위양성): \(H_0\)이 참일 때 \(H_0\)을 기각하는 오류. 그 확률은 <strong>significance level(유의수준)</strong> \(\alpha\)로 상한이 정해진다.</li>
+  <li><strong>Type I error</strong> (위양성): \(H_0\)이 참일 때 \(H_0\)을 기각하는 오류. 그 확률은 <strong>유의수준</strong> \(\alpha\)로 상한이 정해진다.</li>
   <li><strong>Type II error</strong> (위음성): \(H_1\)이 참일 때 \(H_0\)을 기각하지 못하는 오류. 그 확률은 \(\beta\)이다.</li>
-  <li><strong>Power(검정력)</strong> \(= 1 - \beta\): \(H_0\)을 올바르게 기각할 확률.</li>
-  <li><strong>p-value(유의확률):</strong> 관측된 데이터가 주어졌을 때 \(H_0\)을 기각할 수 있는 가장 작은 유의수준.</li>
+  <li><strong>검정력</strong> \(= 1 - \beta\): \(H_0\)을 올바르게 기각할 확률.</li>
+  <li><strong>유의확률:</strong> 관측된 데이터가 주어졌을 때 \(H_0\)을 기각할 수 있는 가장 작은 유의수준.</li>
 </ul>
 </div>
 
 <div class="theorem"><span class="env-label">Theorem 24.3 (Neyman&ndash;Pearson Lemma)</span>
-단순가설 \(H_0: \theta = \theta_0\) 대 \(H_1: \theta = \theta_1\)의 검정에서, 크기 \(\alpha\)의 가장 검정력이 높은 검정은 likelihood ratio test(우도비검정)이다: 다음 조건일 때 \(H_0\)을 기각한다.
+단순가설 \(H_0: \theta = \theta_0\) 대 \(H_1: \theta = \theta_1\)의 검정에서, 크기 \(\alpha\)의 가장 검정력이 높은 검정은 우도비검정이다: 다음 조건일 때 \(H_0\)을 기각한다.
 $$ \frac{L(\theta_1)}{L(\theta_0)} > c, $$
 여기서 \(c\)는 \(H_0\) 하에서 기각 확률이 \(\alpha\)가 되도록 선택한다.
 </div>
@@ -96,12 +96,12 @@ $$ 50.3 \pm 1.96 \times 0.8 = 50.3 \pm 1.568 = (48.732, 51.868). $$
 <p>선형회귀(linear regression)는 변수 간의 관계를 모형화하는 기본 방법이다. 센서 교정에서 출력과 참값의 선형 관계를 추정하거나, 재료 시험에서 응력-변형률 기울기(영률)를 결정하는 것이 전형적인 응용이다.</p>
 
 <div class="definition"><span class="env-label">Definition 24.7 (Linear Regression)</span>
-<strong>linear regression(선형회귀) model</strong>은 \(Y = X\beta + \varepsilon\)이며, 여기서 \(Y \in \mathbb{R}^n\)은 반응변수, \(X \in \mathbb{R}^{n \times p}\)은 설계행렬, \(\beta \in \mathbb{R}^p\)은 계수, \(\varepsilon \sim N(0, \sigma^2 I)\)이다. <strong>ordinary least squares(최소제곱)</strong> (OLS) estimator(추정량)는
+<strong>선형회귀 모형</strong>은 \(Y = X\beta + \varepsilon\)이며, 여기서 \(Y \in \mathbb{R}^n\)은 반응변수, \(X \in \mathbb{R}^{n \times p}\)은 설계행렬, \(\beta \in \mathbb{R}^p\)은 계수, \(\varepsilon \sim N(0, \sigma^2 I)\)이다. <strong>최소제곱(ordinary least squares)</strong> (OLS) 추정량은
 $$ \hat{\beta} = (X^T X)^{-1} X^T Y. $$
 </div>
 
 <div class="theorem"><span class="env-label">Theorem 24.4 (Gauss&ndash;Markov)</span>
-\(E[\varepsilon] = 0\)이고 \(\operatorname{Cov}(\varepsilon) = \sigma^2 I\)라는 가정 하에서, OLS estimator(추정량) \(\hat{\beta}\)는 Best Linear Unbiased Estimator (BLUE)이다: 모든 선형 불편 추정량 중에서 가장 작은 variance(분산)를 가진다.
+\(E[\varepsilon] = 0\)이고 \(\operatorname{Cov}(\varepsilon) = \sigma^2 I\)라는 가정 하에서, OLS 추정량 \(\hat{\beta}\)는 Best Linear Unbiased Estimator (BLUE)이다: 모든 선형 불편 추정량 중에서 가장 작은 분산을 가진다.
 </div>
 
 <div class="example"><span class="env-label">Example 24.3 (MLE &mdash; 정규분포 모수 추정)</span>
@@ -150,4 +150,3 @@ $$ Z = \frac{\bar{x} - \mu_0}{\sigma/\sqrt{n}} = \frac{10.5 - 10}{2/6} = \frac{0
 <li>Schervish, <em>Theory of Statistics</em> — Bayesian/Frequentist 통합적 접근</li>
 </ul>
 </details>
-

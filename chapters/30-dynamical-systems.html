@@ -1,6 +1,6 @@
 <h2 class="part-title">Part XI &mdash; Applied Mathematics &amp; Discrete</h2>
 
-<p class="part-intro">마지막 Part에서는 여러 응용 분야를 간략히 본다. 동역학 시스템은 시간에 따른 상태의 변화를, 이산수학은 연속이 아닌 구조를 이야기한다. 수학사를 통해 이 모든 것이 어떻게 발전해 왔는지도 짚는다.</p>
+<p class="part-intro">동역학 시스템은 시간에 따른 상태의 변화를, 이산수학은 연속이 아닌 구조를 이야기한다. 수학사는 이 개념들이 어떤 문제에서 태어나 서로 이어졌는지 보여준다.</p>
 
 <!-- ============================================================== -->
 <!--  SECTION 30: DYNAMICAL SYSTEMS                                  -->
@@ -18,7 +18,7 @@
 <p>분석의 출발점은 자율 시스템(autonomous system)과 평형점(equilibrium point)의 정의이다. 평형에 있다는 것은 외부 입력 없이 상태가 변하지 않는다는 뜻이고, 공학에서는 '정상 상태(steady state)'라 부른다.</p>
 
 <div class="definition"><span class="env-label">Definition 30.1 (Autonomous System)</span>
-<strong>Autonomous system(자율 시스템)</strong>은 ODE \(\dot{\mathbf{x}} = \mathbf{f}(\mathbf{x})\)이며, 여기서 \(\mathbf{x} \in \mathbb{R}^n\)이고 \(\mathbf{f} : \mathbb{R}^n \to \mathbb{R}^n\)이다. <strong>Equilibrium point</strong>(평형점, 고정점)은 \(\mathbf{f}(\mathbf{x}^*) = 0\)을 만족하는 \(\mathbf{x}^*\)이다.
+<strong>자율 시스템(autonomous system)</strong>은 ODE \(\dot{\mathbf{x}} = \mathbf{f}(\mathbf{x})\)이며, 여기서 \(\mathbf{x} \in \mathbb{R}^n\)이고 \(\mathbf{f} : \mathbb{R}^n \to \mathbb{R}^n\)이다. <strong>평형점(equilibrium point)</strong> 또는 고정점은 \(\mathbf{f}(\mathbf{x}^*) = 0\)을 만족하는 \(\mathbf{x}^*\)이다.
 </div>
 
 <div class="definition"><span class="env-label">Definition 30.2 (Phase Portrait, 2D Linear Systems)</span>
@@ -51,7 +51,7 @@ $$ \det(A - \lambda I) = (-1-\lambda)(-3-\lambda) = 0 \implies \lambda_1 = -1, \
 <ul>
   <li><strong>Stable (Lyapunov 안정)</strong>이라 함은, 모든 \(\epsilon > 0\)에 대해 \(\delta > 0\)이 존재하여 \(\|\mathbf{x}(0) - \mathbf{x}^*\| < \delta\)이면 모든 \(t \geq 0\)에서 \(\|\mathbf{x}(t) - \mathbf{x}^*\| < \epsilon\)이 성립하는 것이다.</li>
   <li><strong>Asymptotically stable(점근 안정)</strong>이라 함은, 안정이면서 추가로 \(t \to \infty\)일 때 \(\mathbf{x}(t) \to \mathbf{x}^*\)인 것이다.</li>
-  <li><strong>Unstable(불안정)</strong>이라 함은, 안정이 아닌 것이다.</li>
+  <li><strong>불안정(unstable)</strong>이라 함은 안정 조건을 만족하지 않는 경우를 말한다.</li>
 </ul>
 </div>
 

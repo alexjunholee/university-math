@@ -2,7 +2,7 @@
 
 <p class="chapter-intro">초등 정수론은 정수의 나눗셈, 소인수분해, 합동식 등을 다루는 분야이다. '초등'이라는 이름과 달리 이 분야의 결과들은 암호학(RSA), 해시 함수, 난수 생성 등 현대 응용의 토대이다.</p>
 
-<p>인터넷 보안의 근간인 RSA 암호 체계(RSA cryptosystem)는 전적으로 정수론에 기반한다. 두 큰 소수의 곱은 쉽게 계산할 수 있지만, 그 곱을 다시 소인수분해(prime factorization)하는 것은 현재 알려진 어떤 고전 알고리즘으로도 다항 시간 내에 해결할 수 없다. 이 비대칭성이 공개키 암호의 안전성을 보장한다. 디지털 통신에서 데이터 무결성을 검증하는 CRC(Cyclic Redundancy Check)는 다항식의 모듈러 나눗셈(modular division)에 기초하며, 의사난수 생성기(pseudorandom number generator)에 널리 쓰이는 선형 합동식(linear congruential generator) \(x_{n+1} \equiv ax_n + c \pmod{m}\)은 합동 산술의 직접적인 응용이다.</p>
+<p>RSA 암호 체계(RSA cryptosystem)는 정수론에 기반한다. 두 큰 소수의 곱은 쉽게 계산할 수 있지만, 그 곱의 소인수분해(prime factorization)를 고전 컴퓨터에서 효율적으로 푸는 방법은 알려져 있지 않다. RSA는 이 계산 난이도의 차이를 이용한다. 디지털 통신에서 데이터 무결성을 검증하는 CRC(Cyclic Redundancy Check)는 다항식의 모듈러 나눗셈(modular division)에 기초하며, 의사난수 생성기에 쓰이는 선형 합동식(linear congruential generator) \(x_{n+1} \equiv ax_n + c \pmod{m}\)은 합동 산술의 직접적인 응용이다.</p>
 
 <p>해시 함수(hash function)의 설계에서도 모듈러 연산은 핵심 도구이다. 예를 들어 해시 테이블의 주소 계산, 체크섬(checksum) 생성, 블룸 필터(Bloom filter) 등은 모두 정수를 특정 범위로 축소하는 나머지 연산에 의존한다. 나눗셈 정리, 유클리드 호제법, 페르마 소정리, 이차상호법칙 — 이 장에서 다루는 결과들이 그 수학적 바탕이다.</p>
 
@@ -372,4 +372,3 @@ $$
 <li>Burton, <em>Elementary Number Theory</em> — 접근성 좋은 입문서</li>
 </ul>
 </details>
-

@@ -1,8 +1,8 @@
 <h2 id="ode">5. Ordinary Differential Equations</h2>
 
-<p>자연 현상의 대부분은 변화율로 기술된다. 물체의 운동, 회로의 전류, 인구의 증가 — 이 모든 것이 미분방정식으로 표현된다. 미적분학에서 도함수를 배웠다면, 이제 '도함수를 포함하는 방정식'을 풀어야 한다. 주어진 함수의 도함수를 구하는 것이 미분이었다면, 미분방정식은 그 역문제다: 도함수에 대한 조건으로부터 원래 함수를 복원한다.</p>
+<p>물체의 운동, 회로의 전류, 인구의 증가처럼 변화율로 기술되는 현상은 미분방정식으로 표현할 수 있다. 미분이 주어진 함수의 도함수를 구하는 일이라면, 미분방정식은 도함수에 관한 조건에서 원래 함수를 찾는 역문제다.</p>
 
-<p>ODE(상미분방정식)는 공학 전반에 걸쳐 등장한다. RC 회로에 전압을 인가하면 커패시터 양단의 전압은 1차 ODE를 따라 지수적으로 변화하고, 스프링에 매달린 질량체의 운동은 2차 ODE로 기술되어 감쇠 진동이나 공명 현상을 예측할 수 있다. 로봇 팔의 각 관절 운동방정식이나 화학 반응조의 농도 속도론도 다르지 않다. 시간에 따라 변하는 시스템을 수학으로 기술하면 결국 ODE가 된다. 이 장의 풀이법들은 실제 시스템의 과도응답(transient response), 정상상태(steady state), 안정성(stability)을 분석하는 데 쓰인다.</p>
+<p>ODE(상미분방정식)는 공학 여러 분야에 등장한다. RC 회로에 전압을 인가하면 커패시터 양단의 전압은 1차 ODE를 따라 지수적으로 변하고, 스프링에 매달린 질량체의 운동은 2차 ODE로 나타내 감쇠 진동이나 공명을 분석한다. 로봇 팔의 관절 운동방정식과 화학 반응조의 농도 속도론도 시간에 따른 상태 변화를 ODE로 기술한다. 이 장의 풀이법은 이런 시스템의 과도응답(transient response), 정상상태(steady state), 안정성(stability)을 분석하는 데 쓰인다.</p>
 
 <p>ODE는 단일 독립변수의 함수와 그 도함수 사이의 관계식이다. 여기서는 독립변수를 \( t \), 종속변수를 \( x \), \( \dot{x} = dx/dt \), \( \ddot{x} = d^2x/dt^2 \)로 표기한다.</p>
 
@@ -83,7 +83,7 @@ $$ F = \int M\,dt = t^2 x + 3t + g(x), \quad F_x = t^2 + g'(x) = t^2 + 4x \impli
 <!-- 5.2 Existence and Uniqueness -->
 <h3 id="ode-existence">5.2. Existence and Uniqueness</h3>
 
-<p>풀이법을 적용하기 전에, 해가 존재하는지, 존재한다면 유일한지를 먼저 물어야 한다. 이는 단순한 이론적 호기심이 아니다. 공학 시뮬레이션에서 수치 해법이 의미 있는 결과를 내려면, 풀고 있는 초기값 문제가 유일한 해를 가져야 한다. 해가 유일하지 않다면 초기 조건의 미세한 오차가 전혀 다른 궤적으로 분기할 수 있고, 시뮬레이션 결과를 신뢰할 수 없게 된다.</p>
+<p>풀이법을 적용하기 전에 해가 존재하는지, 존재한다면 유일한지를 먼저 확인해야 한다. 공학 시뮬레이션에서 수치 해법이 의미 있는 결과를 내려면 풀고 있는 초기값 문제가 유일한 해를 가져야 한다. 해가 유일하지 않다면 초기 조건의 미세한 오차가 전혀 다른 궤적으로 분기할 수 있어 시뮬레이션 결과를 신뢰하기 어렵다.</p>
 
 <div class="theorem"><span class="env-label">Theorem 5.3 (Picard&ndash;Lindel&ouml;f / Existence and Uniqueness)</span>
 \( f(t,x) \)가 점 \( (a,b) \)를 포함하는 영역에서 연속이고, \( \partial f/\partial x \)가 그 영역에서 존재하며 연속이라고 하자. 그러면 초기값 문제
@@ -242,7 +242,7 @@ $$ p(D+3I)u = t^2, \quad \text{여기서 } p(s+3) = s^2 + 7s + 13. $$
 
 <h4>5.3.5. Sinusoidal Response and Frequency Analysis</h4>
 
-<p>공학에서 가장 중요한 입력은 정현파(sinusoidal signal)이다. 교류 전원, 음파, 기계적 주기 하중 등이 모두 정현파로 분해되기 때문이다. 주파수 응답(frequency response) 분석은 시스템이 각 주파수의 정현파 입력에 대해 얼마나 증폭하고 얼마나 위상을 지연시키는지를 파악하는 것이며, 이는 필터 설계, 구조물의 공명 회피, 제어 시스템의 안정성 분석의 기초가 된다.</p>
+<p>정현파(sinusoidal signal)는 공학에서 자주 쓰이는 입력이다. 교류 전원, 음파, 기계적 주기 하중을 정현파 성분으로 분해할 수 있기 때문이다. 주파수 응답(frequency response) 분석은 시스템이 각 주파수의 입력을 얼마나 증폭하고 위상을 얼마나 지연시키는지 파악하며, 필터 설계와 구조물의 공명 회피, 제어 시스템의 안정성 분석에 쓰인다.</p>
 
 <div class="remark"><span class="env-label">Remark</span>
 \( p(D)x = A\cos(\omega t) \)를 풀려면, 복소화한다: \( p(D)z = Ae^{i\omega t} \)의 해 \( z \)에 대해 \( x_p = \operatorname{Re}(z_p) \)이다. <em>전달함수(transfer function)</em>는 \( W(s) = 1/p(s) \)이고, 진동수 \( \omega \)에서의 복소 이득은 \( W(i\omega) \)이다. \( W(i\omega) = g\,e^{-i\phi} \)로 쓰면, 이득 \( g(\omega) = |W(i\omega)| \)은 진폭비를 나타내고, 위상 지연은 \( \phi(\omega) = \arg\!\bigl(p(i\omega)\bigr) \)이다.
@@ -275,7 +275,7 @@ $$ \dot{\mathbf{x}} = A\mathbf{x} + \mathbf{f}(t), $$
 </div>
 
 <div class="theorem"><span class="env-label">Theorem 5.11 (Solution via Eigenvalues)</span>
-\( A \)가 eigenvalue(고유값) \( \lambda_1, \ldots, \lambda_n \)에 대응하는 \( n \)개의 선형독립인 고유벡터 \( \mathbf{v}_1, \ldots, \mathbf{v}_n \)을 가지면, \( \dot{\mathbf{x}} = A\mathbf{x} \)의 일반해는
+\( A \)가 고유값 \( \lambda_1, \ldots, \lambda_n \)에 대응하는 \( n \)개의 선형독립인 고유벡터 \( \mathbf{v}_1, \ldots, \mathbf{v}_n \)을 가지면, \( \dot{\mathbf{x}} = A\mathbf{x} \)의 일반해는
 $$ \mathbf{x}(t) = c_1 e^{\lambda_1 t}\mathbf{v}_1 + c_2 e^{\lambda_2 t}\mathbf{v}_2 + \cdots + c_n e^{\lambda_n t}\mathbf{v}_n. $$
 </div>
 
@@ -559,7 +559,7 @@ $$ p(D)\,e^{rt} = p(r)\,e^{rt}. $$
 $$ p(D)\bigl[e^{rt}u(t)\bigr] = e^{rt}\,p(D+r)\,u(t). $$
 이 법칙을 반복 적용할 수 있다. \( r \)이 \( p(s) \)의 \( k \)중근이면 \( p(s) = (s-r)^k q(s) \)이므로:
 $$ p(D)\bigl[e^{rt}u\bigr] = e^{rt}\,(D)^k\,q(D+r)\,u. $$
-\( u = 1 \)을 대입하면 \( p(D)[t^k e^{rt}/(k!)] = e^{rt}\,q(r) \cdot (t^k/(k!)) \cdot k!/1 \)... 이런 방식으로 공명 ERF를 유도할 수 있다.
+\( u = 1 \)을 대입하면 \( p(D)[t^k e^{rt}/(k!)] = e^{rt}\,q(r) \cdot (t^k/(k!)) \cdot k!/1 \)이다. 이 관계를 이용하면 공명 ERF를 유도할 수 있다.
 </div>
 
 <div class="example"><span class="env-label">Example 5.18</span>

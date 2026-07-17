@@ -2,7 +2,7 @@
 
 <p class="chapter-intro">대수적 정수론은 정수의 성질을 수체(number field)로 확장하여 연구하는 분야이다. 유일 인수분해의 실패를 아이디얼의 유일 분해로 복원하는 데데킨트의 아이디어가 이 이론의 출발점이며, 류군과 단원 정리는 수체의 산술적 구조를 정밀하게 기술한다.</p>
 
-<p>대수적 정수론의 구조는 현대 암호학과 부호 이론(coding theory)에서 점점 더 중요해지고 있다. 양자 컴퓨터의 등장 가능성에 대비한 포스트 양자 암호(post-quantum cryptography)에서 가장 유력한 후보 중 하나인 격자 기반 암호(lattice-based cryptography)는 대수적 수체의 정수환 위에 정의된 이상 격자(ideal lattice)의 구조를 활용한다. Shor의 양자 알고리즘(Shor's algorithm)이 RSA를 깨뜨릴 수 있는 이유 역시, 정수의 위수 찾기(order finding) 문제를 양자 푸리에 변환으로 효율적으로 풀 수 있다는 수론적 구조에 기인한다. 부호 이론에서는 대수적 수체의 아이디얼(ideal)이 갖는 유일 인수분해 성질이 오류 정정 부호(error-correcting code)의 구성에 활용된다.</p>
+<p>대수적 정수론의 구조는 암호학과 부호 이론(coding theory)에도 쓰인다. 포스트 양자 암호(post-quantum cryptography)의 한 갈래인 격자 기반 암호(lattice-based cryptography)는 대수적 수체의 정수환 위에 정의된 아이디얼 격자(ideal lattice)를 활용한다. Shor의 양자 알고리즘(Shor's algorithm)은 정수의 위수 찾기(order finding) 문제를 양자 푸리에 변환으로 효율적으로 푼다. 부호 이론에서는 대수적 수체의 아이디얼(ideal)이 갖는 유일 인수분해 성질을 오류 정정 부호(error-correcting code)의 구성에 활용한다.</p>
 
 <p>이 장은 "정수" 개념을 일반화한다. 일반적인 수체에서는 원소의 유일 인수분해(unique factorization)가 성립하지 않을 수 있다. 데데킨트(Dedekind)는 원소 대신 아이디얼(ideal)을 인수분해의 기본 단위로 삼으면 유일성이 복원된다는 것을 보였다. "왜 '수' 대신 '아이디얼'로 인수분해하는가?"가 이 장이 답하는 질문이다.</p>
 
@@ -183,7 +183,11 @@ $$
 
 <div class="proof">
 <span class="env-label">Proof</span>
-(개요.) 대수적 매장 \(\ell: \mathcal{O}_K^\times \to \mathbb{R}^{r_1 + r_2}\)를 \(\ell(u) = (\log|\sigma_1(u)|, \ldots, \log|\sigma_{r_1}(u)|, 2\log|\sigma_{r_1+1}(u)|, \ldots, 2\log|\sigma_{r_1+r_2}(u)|)\)로 정의한다. 상은 초평면 \(\sum x_i = 0\) 위에 놓인다 (단원에 대해 \(\sum = \log|N(u)| = 0\)이므로). \(\ell\)의 핵은 정확히 \(\mu_K\)이다. 격자 논법 (민코프스키의 볼록체 정리를 사용)에 의해, 상은 이 초평면에서 계수 \(r_1 + r_2 - 1\)인 격자이다. \(\blacksquare\)
+(개요.) 대수적 매장 \(\ell: \mathcal{O}_K^\times \to \mathbb{R}^{r_1 + r_2}\)를
+\[
+\ell(u) = (\log|\sigma_1(u)|, \ldots, \log|\sigma_{r_1}(u)|, 2\log|\sigma_{r_1+1}(u)|, \ldots, 2\log|\sigma_{r_1+r_2}(u)|)
+\]
+로 정의한다. 상은 초평면 \(\sum x_i = 0\) 위에 놓인다 (단원에 대해 \(\sum = \log|N(u)| = 0\)이므로). \(\ell\)의 핵은 정확히 \(\mu_K\)이다. 격자 논법 (민코프스키의 볼록체 정리를 사용)에 의해, 상은 이 초평면에서 계수 \(r_1 + r_2 - 1\)인 격자이다. \(\blacksquare\)
 </div>
 
 <div class="example">
@@ -251,4 +255,3 @@ $$
 <!-- ============================================================== -->
 <!--  PART VII: TOPOLOGY & GEOMETRY                                  -->
 <!-- ============================================================== -->
-

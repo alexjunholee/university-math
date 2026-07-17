@@ -1,8 +1,8 @@
 <h2 id="graduate-algebra">15. Graduate Algebra</h2>
 
-<p class="chapter-intro">대학원 수준의 대수학은 환 위의 가군, 갈루아 이론, 텐서곱 등 보다 정교한 도구를 도입한다. 이들은 선형대수의 표준형 이론, 방정식의 가해성 판정, 다중선형 대수 등 다양한 문제에 통일된 관점을 제공한다.</p>
+<p class="chapter-intro">대학원 수준의 대수학에서는 환 위의 가군, 갈루아 이론, 텐서곱을 배운다. 이 도구들은 선형대수의 표준형, 방정식의 가해성, 다중선형 대수처럼 서로 다른 문제를 공통된 대수 구조로 연결한다.</p>
 
-<p>학부 대수학에서 배운 군, 환, 체는 각각 독립적인 이론처럼 보일 수 있지만, 대학원 대수학은 이들을 관통하는 통일적 구조를 드러낸다. 가군(module)은 벡터 공간의 일반화이면서 동시에 아벨 군의 일반화이며, PID 위의 가군에 대한 구조 정리 하나로 유한 생성 아벨 군의 분류와 조르당 표준형(Jordan normal form)이라는 전혀 다른 두 결과를 동시에 증명할 수 있다. 갈루아 이론은 체 확장과 군론을 하나의 대응으로 연결하여, 5차 방정식의 근의 공식이 존재하지 않음이라는 수세기의 난제를 해결한다. 추상적 구조가 구체적 계산을 단순화하는 패턴이 반복된다.</p>
+<p>학부 대수학에서 배운 군, 환, 체는 각각 독립적인 이론처럼 보일 수 있지만, 대학원 대수학은 이들을 관통하는 통일적 구조를 드러낸다. 가군(module)은 벡터 공간의 일반화이면서 동시에 아벨 군의 일반화이며, PID 위의 가군에 대한 구조 정리 하나로 유한 생성 아벨 군의 분류와 조르당 표준형(Jordan normal form)이라는 전혀 다른 두 결과를 동시에 증명할 수 있다. 갈루아 이론은 체 확장과 군론을 하나의 대응으로 연결하여, 5차 방정식에는 근의 공식이 없다는 수세기의 난제를 해결한다. 추상적 구조가 구체적 계산을 단순화하는 패턴이 반복된다.</p>
 
 <p>공학에서도 이 관점이 쓰인다. 선형 시스템 이론에서 상태 공간 모델 \(\dot{x} = Ax\)는 \(F[x]\)-가군 구조로 분석하며, 가제어성(controllability)과 가관측성(observability)의 구조적 분해가 가군의 분해에 대응한다. 양자 정보(quantum information)에서 여러 큐비트(qubit)의 합성 시스템은 벡터 공간의 텐서곱 \(\mathbb{C}^2 \otimes \mathbb{C}^2 \otimes \cdots\)으로 나타내며, 양자 얽힘(entanglement)은 텐서곱에서 분해 불가능한(non-decomposable) 원소의 존재로 정의된다. 함수형 프로그래밍(functional programming)에서 모나드(monad)와 펑터(functor)는 카테고리 이론의 개념을 프로그래밍 언어에 직접 구현한 것이다.</p>
 
@@ -12,14 +12,14 @@
 
 <div class="definition">
 <span class="env-label">Definition 15.1 (Module)</span>
-ring(환) \(R\)에 대해, <strong>(좌) \(R\)-가군(module)</strong>은 아벨 group(군) \((M, +)\)와 스칼라 곱 \(R \times M \to M\), \((r, m) \mapsto rm\)의 쌍으로, 모든 \(r, s \in R\)과 \(m, n \in M\)에 대해 다음을 만족한다:
+환 \(R\)에 대해, <strong>(좌) \(R\)-가군(module)</strong>은 아벨 군 \((M, +)\)와 스칼라 곱 \(R \times M \to M\), \((r, m) \mapsto rm\)의 쌍으로, 모든 \(r, s \in R\)과 \(m, n \in M\)에 대해 다음을 만족한다:
 <ul>
  <li>\(r(m + n) = rm + rn\),</li>
  <li>\((r + s)m = rm + sm\),</li>
  <li>\((rs)m = r(sm)\),</li>
  <li>\(1m = m\) (\(R\)이 항등원을 가질 때).</li>
 </ul>
-\(R\)이 field(체)이면, \(R\)-가군은 정확히 \(R\) 위의 벡터 공간이다. \(R = \mathbb{Z}\)이면, \(\mathbb{Z}\)-가군은 정확히 아벨 group(군)이다.
+\(R\)이 체이면, \(R\)-가군은 정확히 \(R\) 위의 벡터 공간이다. \(R = \mathbb{Z}\)이면, \(\mathbb{Z}\)-가군은 정확히 아벨 군이다.
 </div>
 
 <div class="definition">
@@ -49,11 +49,11 @@ $$
 
 <div class="example">
 <span class="env-label">Example 15.1</span>
-<strong>유한 생성 아벨 group(군)의 분류.</strong> \(R = \mathbb{Z}\)를 택하면, 모든 유한 생성 아벨 group(군)은 다음 형태이다:
+<strong>유한 생성 아벨 군의 분류.</strong> \(R = \mathbb{Z}\)를 택하면, 모든 유한 생성 아벨 군은 다음 형태이다:
 $$
 G \cong \mathbb{Z}^r \oplus \mathbb{Z}/d_1\mathbb{Z} \oplus \cdots \oplus \mathbb{Z}/d_k\mathbb{Z}, \quad d_1 \mid d_2 \mid \cdots \mid d_k.
 $$
-예를 들어, 위수 12인 아벨 group(군)은 \(\mathbb{Z}/12\mathbb{Z}\)(불변 인자: 12)와 \(\mathbb{Z}/2\mathbb{Z} \oplus \mathbb{Z}/6\mathbb{Z}\)(불변 인자: 2, 6)이다. 단인자 형태로는: \(\mathbb{Z}/4\mathbb{Z} \oplus \mathbb{Z}/3\mathbb{Z}\)와 \(\mathbb{Z}/2\mathbb{Z} \oplus \mathbb{Z}/2\mathbb{Z} \oplus \mathbb{Z}/3\mathbb{Z}\)이다.
+예를 들어, 위수 12인 아벨 군은 \(\mathbb{Z}/12\mathbb{Z}\)(불변 인자: 12)와 \(\mathbb{Z}/2\mathbb{Z} \oplus \mathbb{Z}/6\mathbb{Z}\)(불변 인자: 2, 6)이다. 단인자 형태로는: \(\mathbb{Z}/4\mathbb{Z} \oplus \mathbb{Z}/3\mathbb{Z}\)와 \(\mathbb{Z}/2\mathbb{Z} \oplus \mathbb{Z}/2\mathbb{Z} \oplus \mathbb{Z}/3\mathbb{Z}\)이다.
 </div>
 
 <div class="remark">
@@ -77,7 +77,7 @@ PID 위의 가군에 대한 구조 정리를 \(F[x]\)-가군 \(V\)에 적용하�
 
 <div class="definition">
 <span class="env-label">Definition 15.4 (Galois Extension)</span>
-유한 확장 \(K/F\)가 <strong>갈루아 확장(Galois extension)</strong>이란, 분리이면서 정규인 것이다. <strong>갈루아 group(군)(Galois group)</strong>은
+유한 확장 \(K/F\)가 <strong>갈루아 확장(Galois extension)</strong>이란, 분리이면서 정규인 것이다. <strong>갈루아 군(Galois group)</strong>은
 $$
 \operatorname{Gal}(K/F) = \{\sigma: K \to K \mid \sigma \text{ is an automorphism with } \sigma|_F = \operatorname{id}\}
 $$
@@ -86,7 +86,7 @@ $$
 
 <div class="theorem">
 <span class="env-label">Theorem 15.3 (Fundamental Theorem of Galois Theory)</span>
-\(K/F\)를 갈루아 group(군) \(G = \operatorname{Gal}(K/F)\)를 갖는 유한 갈루아 확장이라 하자. 포함 관계를 역전시키는 전단사 대응이 존재한다:
+\(K/F\)를 갈루아 군 \(G = \operatorname{Gal}(K/F)\)를 갖는 유한 갈루아 확장이라 하자. 포함 관계를 역전시키는 전단사 대응이 존재한다:
 $$
 \{\text{intermediate fields } F \subseteq E \subseteq K\} \longleftrightarrow \{\text{subgroups } H \leq G\}
 $$
@@ -99,12 +99,12 @@ $$
 
 <div class="example">
 <span class="env-label">Example 15.2</span>
-\(K = \mathbb{Q}(\sqrt{2}, \sqrt{3})\), \(F = \mathbb{Q}\)를 생각하자. 이것은 차수 4인 갈루아 확장이다. 갈루아 group(군)은 \(G = \{e, \sigma, \tau, \sigma\tau\}\)이며, \(\sigma(\sqrt{2}) = -\sqrt{2}, \sigma(\sqrt{3}) = \sqrt{3}\)이고 \(\tau(\sqrt{2}) = \sqrt{2}, \tau(\sqrt{3}) = -\sqrt{3}\)이다. 따라서 \(G \cong \mathbb{Z}/2\mathbb{Z} \times \mathbb{Z}/2\mathbb{Z}\)(클라인 4원군)이다. 세 비자명 subgroup(부분군) \(\langle\sigma\rangle, \langle\tau\rangle, \langle\sigma\tau\rangle\)는 중간체 \(\mathbb{Q}(\sqrt{3}), \mathbb{Q}(\sqrt{2}), \mathbb{Q}(\sqrt{6})\)에 대응한다.
+\(K = \mathbb{Q}(\sqrt{2}, \sqrt{3})\), \(F = \mathbb{Q}\)를 생각하자. 이것은 차수 4인 갈루아 확장이다. 갈루아 군은 \(G = \{e, \sigma, \tau, \sigma\tau\}\)이며, \(\sigma(\sqrt{2}) = -\sqrt{2}, \sigma(\sqrt{3}) = \sqrt{3}\)이고 \(\tau(\sqrt{2}) = \sqrt{2}, \tau(\sqrt{3}) = -\sqrt{3}\)이다. 따라서 \(G \cong \mathbb{Z}/2\mathbb{Z} \times \mathbb{Z}/2\mathbb{Z}\)(클라인 4원군)이다. 세 비자명 부분군 \(\langle\sigma\rangle, \langle\tau\rangle, \langle\sigma\tau\rangle\)는 중간체 \(\mathbb{Q}(\sqrt{3}), \mathbb{Q}(\sqrt{2}), \mathbb{Q}(\sqrt{6})\)에 대응한다.
 </div>
 
 <div class="theorem">
 <span class="env-label">Theorem 15.4 (Insolvability of the Quintic)</span>
-다항 방정식이 거듭제곱근으로 풀릴 필요충분조건은 그 갈루아 group(군)이 가해군(solvable group)인 것이다. 차수 \(n \geq 5\)인 일반 다항식의 갈루아 group(군)은 \(S_n\)이며, 이것은 가해가 아니다(\(A_n\)이 \(n \geq 5\)에서 단순이고 비가환이므로). 따라서, 일반 5차 방정식의 근에 대한 거듭제곱근 공식은 존재하지 않는다.
+다항 방정식이 거듭제곱근으로 풀릴 필요충분조건은 그 갈루아 군이 가해군(solvable group)인 것이다. 차수 \(n \geq 5\)인 일반 다항식의 갈루아 군은 \(S_n\)이며, 이것은 가해가 아니다(\(A_n\)이 \(n \geq 5\)에서 단순이고 비가환이므로). 따라서, 일반 5차 방정식의 근에 대한 거듭제곱근 공식은 존재하지 않는다.
 </div>
 
 <h3 id="tensor-products">15.3 Tensor Products</h3>
@@ -115,7 +115,7 @@ $$
 
 <div class="definition">
 <span class="env-label">Definition 15.5 (Tensor Product of Modules)</span>
-\(R\)을 가환 ring(환), \(M\)과 \(N\)을 \(R\)-가군이라 하자. <strong>tensor product(텐서곱)</strong> \(M \otimes_R N\)은 \(m \in M, n \in N\)에 대한 기호 \(m \otimes n\)으로 생성되는 \(R\)-가군으로, 다음 관계식을 만족한다:
+\(R\)을 가환 환, \(M\)과 \(N\)을 \(R\)-가군이라 하자. <strong>텐서곱</strong> \(M \otimes_R N\)은 \(m \in M, n \in N\)에 대한 기호 \(m \otimes n\)으로 생성되는 \(R\)-가군으로, 다음 관계식을 만족한다:
 <ul>
  <li>\((m_1 + m_2) \otimes n = m_1 \otimes n + m_2 \otimes n\),</li>
  <li>\(m \otimes (n_1 + n_2) = m \otimes n_1 + m \otimes n_2\),</li>
@@ -123,7 +123,7 @@ $$
 </ul>
 </div>
 
-<p>tensor product(텐서곱)은 보편 성질(universal property)을 만족한다: 쌍선형 사상(bilinear map) \(M \times N \to P\)는 선형 사상 \(M \otimes_R N \to P\)와 일대일 대응한다.</p>
+<p>텐서곱은 보편 성질(universal property)을 만족한다: 쌍선형 사상(bilinear map) \(M \times N \to P\)는 선형 사상 \(M \otimes_R N \to P\)와 일대일 대응한다.</p>
 
 <div class="theorem">
 <span class="env-label">Theorem 15.5 (Properties of Tensor Products)</span>
@@ -134,7 +134,7 @@ $$
  <li><strong>Identity</strong>: \(R \otimes_R M \cong M\).</li>
  <li><strong>Distributivity</strong>: \(M \otimes_R (N \oplus P) \cong (M \otimes_R N) \oplus (M \otimes_R P)\).</li>
  <li><strong>Free modules</strong>: \(R^m \otimes_R R^n \cong R^{mn}\).</li>
- <li><strong>Base change</strong>: \(R \to S\)가 ring(환) homomorphism(준동형)이면, \(S \otimes_R M\)은 \(S\)-가군이다(스칼라 확장).</li>
+ <li><strong>Base change</strong>: \(R \to S\)가 환 준동형이면, \(S \otimes_R M\)은 \(S\)-가군이다(스칼라 확장).</li>
 </ul>
 </div>
 
@@ -149,7 +149,7 @@ $$
 
 <div class="theorem">
 <span class="env-label">Theorem 15.6 (Right Exactness of Tensor)</span>
-함자 \(M \otimes_R -\)는 우완전(right exact)이다: \(0 \to A \to B \to C \to 0\)이 short exact sequence(짧은 완전열)이면,
+함자 \(M \otimes_R -\)는 우완전(right exact)이다: \(0 \to A \to B \to C \to 0\)이 짧은 완전열이면,
 $$
 M \otimes_R A \to M \otimes_R B \to M \otimes_R C \to 0
 $$
@@ -184,4 +184,3 @@ $$
 <li>Roman, <em>Advanced Linear Algebra</em> — GTM 135, 모듈 이론과 다중선형대수</li>
 </ul>
 </details>
-

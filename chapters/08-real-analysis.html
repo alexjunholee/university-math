@@ -7,7 +7,7 @@
 
 <p>실해석학은 실수 위에서 정의된 함수의 성질을 엄밀하게 연구한다. 미적분학 수업에서 '당연하다'고 넘겼던 것들 — 연속함수가 중간값을 가진다, 닫힌 구간에서 최댓값이 존재한다 — 을 증명하는 것이 이 분야의 목표이다.</p>
 
-<p>공학에서 실해석학이 왜 필요한가? 수치해석(numerical analysis)에서 반복 알고리즘이 올바른 해로 수렴하는지, 그 오차 한계가 얼마인지를 보장하려면 ε-δ 논법이 필수이다. 푸리에 급수(Fourier series)로 신호를 복원할 때 급수가 원래 함수로 수렴하려면 균등수렴(uniform convergence) 조건이 필요하다. 최적화 문제에서 최적해가 존재함을 보장하는 것은 컴팩트성(compactness)과 연속 함수의 최댓값 정리이다.</p>
+<p>수치해석(numerical analysis)에서 반복 알고리즘의 수렴과 오차 한계를 증명할 때 실해석학을 쓴다. 푸리에 급수(Fourier series)로 신호를 복원할 때는 급수가 원래 함수로 수렴하는 조건을 따져야 하고, 최적화 문제에서는 컴팩트성(compactness)과 연속 함수의 최댓값 정리로 최적해의 존재를 보인다.</p>
 
 <!-- 8.1 Sequences and Limits -->
 <h3 id="sequences-limits">8.1 Sequences and Limits</h3>
@@ -17,7 +17,7 @@
 <p>수열이 수렴한다는 것을 엄밀하게 정의하는 것이 첫 번째 과제이다.</p>
 
 <div class="definition"><span class="env-label">Definition 8.1 (Convergence of a Sequence)</span>
-\(\mathbb{R}\)에서의 수열 \((a_n)\)이 \(L \in \mathbb{R}\)로 <em>convergence(수렴)</em>한다는 것은, 모든 \(\varepsilon > 0\)에 대해 \(N \in \mathbb{N}\)이 존재하여
+\(\mathbb{R}\)에서의 수열 \((a_n)\)이 \(L \in \mathbb{R}\)로 <em>수렴(convergence)</em>한다는 것은, 모든 \(\varepsilon > 0\)에 대해 \(N \in \mathbb{N}\)이 존재하여
 $$ n \geq N \implies |a_n - L| < \varepsilon $$
 을 만족하는 것을 말한다. 이를 \(\lim_{n\to\infty} a_n = L\) 또는 \(a_n \to L\)로 표기한다.
 </div>
@@ -25,7 +25,7 @@ $$ n \geq N \implies |a_n - L| < \varepsilon $$
 <p>수렴의 정의는 극한값 \(L\)을 미리 알아야 적용할 수 있다. 그런데 극한값을 모르는 상태에서 수열이 수렴하는지 판별할 수는 없을까? Cauchy 수열의 개념이 이 질문에 답한다.</p>
 
 <div class="definition"><span class="env-label">Definition 8.2 (Cauchy Sequence)</span>
-\(\mathbb{R}\)에서의 수열 \((a_n)\)이 <em>Cauchy sequence(코시 수열)</em>이라 함은, 모든 \(\varepsilon > 0\)에 대해 \(N \in \mathbb{N}\)이 존재하여
+\(\mathbb{R}\)에서의 수열 \((a_n)\)이 <em>코시 수열(Cauchy sequence)</em>이라 함은, 모든 \(\varepsilon > 0\)에 대해 \(N \in \mathbb{N}\)이 존재하여
 $$ m, n \geq N \implies |a_m - a_n| < \varepsilon $$
 을 만족하는 것을 말한다.
 </div>
@@ -33,7 +33,7 @@ $$ m, n \geq N \implies |a_m - a_n| < \varepsilon $$
 <p>실수의 완비성(completeness)이 해석학이 작동하는 이유이다. 유리수 체계에서는 Cauchy 수열이 수렴하지 않을 수 있지만(\(\sqrt{2}\)에 수렴하는 유리수 Cauchy 수열), 실수에서는 이런 일이 발생하지 않는다.</p>
 
 <div class="theorem"><span class="env-label">Theorem 8.1 (Completeness of \(\mathbb{R}\))</span>
-\(\mathbb{R}\)에서의 모든 Cauchy sequence(코시 수열)은 수렴한다. 동치적으로, \(\mathbb{R}\)은 표준 거리 \(d(x,y) = |x-y|\) 하에서 완비 거리 공간이다.
+\(\mathbb{R}\)에서의 모든 코시 수열은 수렴한다. 동치적으로, \(\mathbb{R}\)은 표준 거리 \(d(x,y) = |x-y|\) 하에서 완비 거리 공간이다.
 </div>
 
 <div class="theorem"><span class="env-label">Theorem 8.2 (Monotone Convergence for Sequences)</span>
@@ -311,8 +311,8 @@ $$ U(f, P_\delta) - L(f, P_\delta) = (3-1)(2\delta) = 4\delta. $$
 <div class="definition"><span class="env-label">Definition 8.8 (Pointwise and Uniform Convergence)</span>
 \(f_n: D \to \mathbb{R}\)를 함수열이라 하자.
 <ul>
-  <li>\((f_n)\)이 \(D\)에서 \(f\)로 <em>점별 convergence(수렴)</em>한다 함은, 각 \(x \in D\)에 대해 \(f_n(x) \to f(x)\)인 것이다.</li>
-  <li>\((f_n)\)이 \(D\)에서 \(f\)로 <em>균등 convergence(수렴)</em>한다 함은, \(\sup_{x \in D} |f_n(x) - f(x)| \to 0\)인 것, 즉 모든 \(\varepsilon > 0\)에 대해 (\(x\)에 무관한) \(N\)이 존재하여 \(n \geq N\)이면 모든 \(x \in D\)에 대해 \(|f_n(x) - f(x)| < \varepsilon\)인 것이다.</li>
+  <li>\((f_n)\)이 \(D\)에서 \(f\)로 <em>점별 수렴</em>한다 함은, 각 \(x \in D\)에 대해 \(f_n(x) \to f(x)\)인 것이다.</li>
+  <li>\((f_n)\)이 \(D\)에서 \(f\)로 <em>균등 수렴</em>한다 함은, \(\sup_{x \in D} |f_n(x) - f(x)| \to 0\)인 것, 즉 모든 \(\varepsilon > 0\)에 대해 (\(x\)에 무관한) \(N\)이 존재하여 \(n \geq N\)이면 모든 \(x \in D\)에 대해 \(|f_n(x) - f(x)| < \varepsilon\)인 것이다.</li>
 </ul>
 </div>
 
@@ -516,4 +516,3 @@ $$ U(f, P) = \sum_{i=1}^n 1 \cdot \Delta x_i = b - a = 1, \qquad L(f, P) = \sum_
 <li>Royden &amp; Fitzpatrick, <em>Real Analysis</em> — 르베그 적분 포함 대학원 표준</li>
 </ul>
 </details>
-

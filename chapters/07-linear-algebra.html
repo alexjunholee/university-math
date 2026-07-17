@@ -2,7 +2,7 @@
 
 <p>선형대수는 선형 연립방정식을 푸는 문제에서 출발했다. Gauss 소거법이라는 구체적 알고리즘에서 시작해, 벡터 공간이라는 추상적 구조로 발전했다. 벡터와 행렬의 연산을 먼저 정의하고, 소거법으로 연립방정식을 풀면서, 벡터 공간·부분공간·차원의 개념에 이른다.</p>
 
-<p>선형대수는 현대 공학에서 폭넓게 쓰인다. 키르히호프 법칙(Kirchhoff's law)으로 전기 회로를 해석하고, 유한요소법(FEM)으로 구조물 응력을 계산하면, 결국 대규모 연립방정식 \( A\mathbf{x} = \mathbf{b} \)를 풀게 된다. 고유값(eigenvalue)은 건축물의 고유진동 모드 분석, 양자역학의 에너지 준위 계산, Google PageRank 알고리즘에 쓰인다. 특이값 분해(SVD)는 이미지 압축, 추천 시스템, 자연어 처리의 기반 기술이며, 최소제곱법(least squares)은 GPS 위치 결정, 센서 융합(sensor fusion), 실험 데이터 회귀 분석에 매일 사용된다. 이렇게 적용 범위가 넓은 이유는, "여러 물리량을 하나의 객체(벡터)로 묶고, 그들 사이의 선형 관계를 행렬로 표현한다"는 구조가 보편적이기 때문이다.</p>
+<p>선형대수는 현대 공학에서 폭넓게 쓰인다. 키르히호프 법칙(Kirchhoff's law)으로 전기 회로를 해석하거나 유한요소법(FEM)으로 구조물 응력을 계산할 때는 대규모 연립방정식 \( A\mathbf{x} = \mathbf{b} \)를 푼다. 고유값(eigenvalue)은 건축물의 고유진동 모드 분석, 양자역학의 에너지 준위 계산, Google PageRank 알고리즘에 쓰인다. 특이값 분해(SVD)는 이미지 압축과 추천 시스템 등에, 최소제곱법(least squares)은 GPS 위치 결정, 센서 융합(sensor fusion), 실험 데이터 회귀 분석에 쓰인다. 여러 물리량을 벡터로 묶고 그 사이의 선형 관계를 행렬로 나타낼 수 있기 때문이다.</p>
 
 <p>
   선형대수학(linear algebra)은 벡터, 행렬, 선형 변환을 다루는 학문이다.
@@ -140,11 +140,11 @@ $$
 
 <h4>Determinant(행렬식)의 성질</h4>
 
-<p>정방행렬의 determinant(행렬식) \(\det A\)는 세 가지 공리로 특성화된다:</p>
+<p>정방행렬의 행렬식(determinant) \(\det A\)는 세 가지 공리로 특성화된다:</p>
 <ol>
   <li>\(\det I = 1\).</li>
   <li>두 행을 교환하면 \(\det A\)의 부호가 바뀐다.</li>
-  <li>determinant(행렬식)은 각 행에 대해 개별적으로 선형이다.</li>
+  <li>행렬식은 각 행에 대해 개별적으로 선형이다.</li>
 </ol>
 <p>주요 결과:</p>
 <ul>
@@ -377,13 +377,13 @@ $$
 
 <div class="definition">
   <span class="env-label">Definition 7.13 (Four fundamental subspaces)</span>
-  rank(계수) \(r\)인 \(m \times n\) 행렬 \(A\)에 대해:
+  계수 \(r\)인 \(m \times n\) 행렬 \(A\)에 대해:
   <ol>
-    <li><strong>Column space(열공간)</strong> \(C(A) \subseteq \mathbb{R}^m\): \(A\)의 열들의 모든 일차결합. 차원 \(r\).</li>
-    <li><strong>Null space(영공간)</strong> \(N(A) \subseteq \mathbb{R}^n\): \(A\mathbf{x} = \mathbf{0}\)의 모든 해. 차원 \(n - r\).</li>
-    <li><strong>행공간(Row space)</strong> \(C(A^T) \subseteq \mathbb{R}^n\): \(A\)의 행들의 모든 일차결합
+    <li><strong>열공간(column space)</strong> \(C(A) \subseteq \mathbb{R}^m\): \(A\)의 열들의 모든 일차결합. 차원 \(r\).</li>
+    <li><strong>영공간(null space)</strong> \(N(A) \subseteq \mathbb{R}^n\): \(A\mathbf{x} = \mathbf{0}\)의 모든 해. 차원 \(n - r\).</li>
+    <li><strong>행공간(row space)</strong> \(C(A^T) \subseteq \mathbb{R}^n\): \(A\)의 행들의 모든 일차결합
       (\(A^T\)의 열공간과 동일). 차원 \(r\).</li>
-    <li><strong>좌 null space(좌영공간, Left nullspace)</strong> \(N(A^T) \subseteq \mathbb{R}^m\): \(A^T\mathbf{y} = \mathbf{0}\)인 모든 \(\mathbf{y}\)
+    <li><strong>좌영공간(left null space)</strong> \(N(A^T) \subseteq \mathbb{R}^m\): \(A^T\mathbf{y} = \mathbf{0}\)인 모든 \(\mathbf{y}\)
       (\(\mathbf{y}^T A = \mathbf{0}^T\)와 동치). 차원 \(m - r\).</li>
   </ol>
 </div>
@@ -418,7 +418,7 @@ $$
 
 <div class="definition">
   <span class="env-label">Definition 7.14 (Rank)</span>
-  행렬 \(A\)의 <strong>rank(계수)</strong>는 사다리꼴에서의 피벗 수이다.
+  행렬 \(A\)의 <strong>계수</strong>는 사다리꼴에서의 피벗 수이다.
   동치로,
   $$\operatorname{rank}(A) = \dim C(A) = \dim C(A^T).$$
 </div>
@@ -456,7 +456,7 @@ $$
 <div class="definition">
   <span class="env-label">Definition 7.15 (Eigenvalue and eigenvector)</span>
   \(A\)를 \(n \times n\) 행렬이라 하자. 영이 아닌 벡터 \(\mathbf{x}\)가 \(A\)의 <strong>eigenvector(고유벡터)</strong>이고
-  <strong>eigenvalue(고유값)</strong>가 \(\lambda\)라 함은 다음을 만족함을 뜻한다:
+  <strong>고유값(eigenvalue)</strong>이 \(\lambda\)라 함은 다음을 만족함을 뜻한다:
   $$A\mathbf{x} = \lambda \mathbf{x}.$$
   동치로, \(\mathbf{x} \in N(A - \lambda I)\)이고 \(\mathbf{x} \neq \mathbf{0}\)이다.
 </div>
@@ -1297,7 +1297,7 @@ $$\mathbb{R}^m = C(A) \oplus N(A^T) \quad (\text{직교 직합}).$$
   확인: \(\begin{pmatrix}1\\2\end{pmatrix} \cdot \begin{pmatrix}-2\\1\end{pmatrix} = 0\). \(\checkmark\)
   <br><br>
   \(A\)의 작용: 행공간의 벡터 \(c\begin{pmatrix}1\\3\\5\end{pmatrix}\)는
-  \(A \cdot c\begin{pmatrix}1\\3\\5\end{pmatrix} = c(1+9+25)\begin{pmatrix}1\\2\end{pmatrix}/\sqrt{35}\)... 로
+  \(A \cdot c\begin{pmatrix}1\\3\\5\end{pmatrix} = c(1+9+25)\begin{pmatrix}1\\2\end{pmatrix}/\sqrt{35}\)이므로
   열공간에 대응된다.
   영공간의 벡터는 \(\mathbf{0}\)으로 보내진다.
 </div>

@@ -1,9 +1,9 @@
 <section id="complex-analysis">
 <h2>9. Complex Analysis</h2>
 
-<p>전기공학에서 교류 회로의 임피던스(impedance)는 저항과 리액턴스를 하나의 복소수 \(Z = R + jX\)로 표현한다. 이 표기가 단순한 편의가 아님을 보여주는 것이 복소해석학이다. 복소수를 함수의 정의역으로 확장하면, 실수에서는 보이지 않던 수학적 구조가 드러난다. 제어 공학에서 전달함수(transfer function)의 극점(pole)과 영점(zero)이 시스템의 안정성을 결정하고, 나이퀴스트 판별법(Nyquist stability criterion)이 복소 평면 위의 경로 적분으로 정식화되는 것도 이 구조 덕분이다.</p>
+<p>전기공학에서는 교류 회로의 임피던스(impedance)를 저항과 리액턴스를 묶은 복소수 \(Z = R + jX\)로 나타낸다. 제어 공학에서는 전달함수(transfer function)의 극점(pole)과 영점(zero)으로 시스템의 안정성을 분석하고, 나이퀴스트 판별법(Nyquist stability criterion)을 복소 평면 위의 경로로 정식화한다. 복소해석학은 이런 표현과 계산의 수학적 구조를 설명한다.</p>
 
-<p>2차원 유체역학에서 등각사상(conformal mapping)은 복잡한 형상 주위의 유동을 단순한 영역에서의 유동으로 변환한다. Joukowski 변환으로 원 주위의 유동에서 날개(airfoil) 주위의 양력을 계산하는 것이 대표적 사례이다. 신호처리에서 z-변환과 라플라스 변환의 수렴 영역(region of convergence)은 복소 평면의 구조로 기술되며, 라플라스 역변환은 본질적으로 복소 경로 적분이다. 복소해석학은 공학의 여러 분야에서 이론적 기반이 된다.</p>
+<p>2차원 유체역학에서 등각사상(conformal mapping)은 복잡한 형상 주위의 유동을 단순한 영역의 문제로 옮긴다. Joukowski 변환으로 원 주위의 유동에서 날개(airfoil) 주위의 양력을 계산하는 것이 대표적 사례다. 신호처리에서는 z-변환과 라플라스 변환의 수렴 영역(region of convergence)을 복소 평면으로 기술하고, 라플라스 역변환을 복소 경로 적분으로 표현한다. 이처럼 복소해석학은 여러 공학 문제의 이론적 기반이 된다.</p>
 
 <p>복소해석학(Complex Analysis)은 복소 변수 함수를 연구한다. 복소 미분 가능성의 요구 조건은 실수 경우보다 훨씬 제약적이며, 그 제약이 강한 결과를 낳는다. 해석함수는 수렴하는 수열 위에서의 값만으로 결정되고, 한 번 미분 가능하면 무한 번 미분 가능하며, 멱급수로 표현되고, 적분이 경로에 무관하다. 유계인 전체 함수가 상수라는 결론까지 같은 뿌리에서 따라 나오는데, 그 뿌리가 Cauchy-Riemann 방정식이다.</p>
 
@@ -287,7 +287,7 @@ $$ \lim_{R \to \infty} \int_{C_R} f(z) e^{iaz}\, dz = 0, $$
 
 <h3 id="conformal-mappings">9.4 Conformal Mappings</h3>
 
-<p>등각사상의 공학적 핵심은 라플라스 방정식의 해가 등각사상 아래서 보존된다는 점이다. 복잡한 경계 조건의 열전도·정전기 문제를 단순한 영역으로 옮겨 풀 수 있는 이유가 여기 있다. 항공공학에서는 Joukowski 변환으로 원 주위의 유동 해를 날개 단면의 양력 계산에 직접 연결한다.</p>
+<p>등각사상이 공학에서 유용한 이유는 라플라스 방정식의 해가 등각사상 아래서 보존되기 때문이다. 따라서 복잡한 경계를 가진 열전도·정전기 문제를 단순한 영역으로 옮겨 풀 수 있다. 항공공학에서는 Joukowski 변환으로 원 주위의 유동 해를 날개 단면의 양력 계산에 연결한다.</p>
 
 <div class="definition"><span class="env-label">Definition 9.6 (Conformal Map)</span>
 정칙 함수 \(f: \Omega \to \mathbb{C}\)가 \(z_0\)에서 <em>등각(conformal)</em>이라 함은 \(f'(z_0) \neq 0\)인 것이다. 등각사상은 등각인 점에서 곡선 사이의 각도와 방향을 보존한다.
@@ -360,7 +360,7 @@ $$ F(z) = \begin{cases} f_1(z), & z \in \Omega_1, \\ f_2(z), & z \in \Omega_2 \e
 
 원점을 한 바퀴 도는 경로 \(\gamma(t) = e^{2\pi i t}\) (\(0 \leq t \leq 1\))를 따라 해석적 연속을 수행하면, 시작값 \(\operatorname{Log}(1) = 0\)이 끝값 \(2\pi i\)로 바뀐다:
 $$ \operatorname{Log}(e^{2\pi i}) = 2\pi i \neq 0 = \operatorname{Log}(1). $$
-이는 \(\log z\)가 본질적으로 <em>다가 함수</em>(multi-valued function)임을 보여준다. \(z = 0\)은 <em>분지점</em>(branch point)이고, 함수를 단가(single-valued)로 만들기 위해 분지 절단선(branch cut)을 도입한다.
+이는 \(\log z\)가 <em>다가 함수</em>(multi-valued function)임을 보여준다. \(z = 0\)은 <em>분지점</em>(branch point)이고, 함수를 단가(single-valued)로 만들기 위해 분지 절단선(branch cut)을 도입한다.
 </div>
 
 <div class="definition"><span class="env-label">Definition 9.9 (Riemann Surface)</span>
@@ -380,7 +380,7 @@ $$ \text{Sheet 1: } w = |z|^{1/2} e^{i\theta/2}, \qquad \text{Sheet 2: } w = |z|
 </div>
 
 <div class="proof">
-핵심 아이디어: \(\Omega\)가 단순 연결이므로, 같은 끝점을 갖는 두 경로 \(\gamma_0, \gamma_1\)은 \(\Omega\) 내에서 호모토픽(homotopic)하다. 연속 변형 \(\gamma_t\) (\(0 \leq t \leq 1\))의 각 단계에서 해석적 연속의 유일성(항등 정리)을 적용하면, \(\gamma_0\)을 따른 연속 결과와 \(\gamma_1\)을 따른 연속 결과가 동일함을 보일 수 있다.
+\(\Omega\)가 단순 연결이므로 같은 끝점을 갖는 두 경로 \(\gamma_0, \gamma_1\)은 \(\Omega\) 안에서 호모토픽(homotopic)하다. 연속 변형 \(\gamma_t\) (\(0 \leq t \leq 1\))의 각 단계에 해석적 연속의 유일성(항등 정리)을 적용하면, \(\gamma_0\)과 \(\gamma_1\)을 따른 연속 결과가 같음을 보일 수 있다.
 </div>
 
 <div class="example"><span class="env-label">Example 9.12 (감마 함수 \(\Gamma(z)\)의 해석적 연속)</span>
@@ -453,4 +453,3 @@ $$ \zeta(s) = 2^s \pi^{s-1} \sin\!\left(\frac{\pi s}{2}\right) \Gamma(1-s) \, \z
 <li>Lang, <em>Complex Analysis</em> — GTM 103, 간결한 대학원 입문</li>
 </ul>
 </details>
-

@@ -507,6 +507,12 @@ hr { border: none; border-top: 1px solid var(--border); margin: 56px 0; }
   h2 { font-size: 28px; line-height: 1.14; }
   h3 { font-size: 21px; }
   main#main-content { padding-left: 20px; padding-right: 20px; }
+  table {
+    display: block;
+    max-width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
   .definition, .theorem, .lemma, .corollary, .proposition,
   .example, .proof, .remark { padding: 14px 16px; }
 }
@@ -735,7 +741,7 @@ hr { border: none; border-top: 1px solid var(--border); margin: 56px 0; }
 
 <p>현대 수학은 집합론을 공통 언어로 사용한다. 19세기 말 Georg Cantor가 무한 집합 연구를 시작하면서, 집합론은 수학 전체를 통일적으로 서술할 수 있는 기반이 되었다. "자기 자신을 원소로 포함하지 않는 모든 집합의 집합"이라는 Russell의 역설(1901)은, 집합 개념을 무제한으로 사용하면 모순이 발생함을 보여주었고, 이후 공리적 집합론(ZFC 등)의 발전으로 이어졌다. 공리적 세부 사항은 뒤로 두고, 집합의 기본 연산과 성질을 정립한 뒤, 수학적 명제를 다루는 논리학으로 넘어간다.</p>
 
-<p>공학에서 집합과 논리는 놀라울 정도로 직접적으로 활용된다. 디지털 회로 설계의 기초인 불 대수(Boolean algebra)는 집합 연산과 논리 연결사의 직접적인 구현이다. AND, OR, NOT 게이트는 각각 교집합, 합집합, 여집합에 대응하며, De Morgan 법칙은 NAND/NOR 게이트만으로 모든 논리 회로를 구성할 수 있는 이론적 근거가 된다. 데이터베이스 쿼리 언어인 SQL에서 WHERE 절의 조건 결합은 집합의 교집합과 합집합 연산이고, 신호 처리에서는 주파수 대역을 집합으로 표현하여 필터의 통과 대역(passband)과 차단 대역(stopband)을 기술한다. 제어 시스템의 안정성 조건을 "모든 특성근의 실수부가 음수이다"와 같은 논리식으로 기술하는 것도 이 장의 언어를 사용하는 것이다.</p>
+<p>집합과 논리는 공학에서도 직접 쓰인다. 디지털 회로 설계의 기초인 불 대수(Boolean algebra)는 집합 연산과 논리 연결사의 구현이다. AND, OR, NOT 게이트는 각각 교집합, 합집합, 여집합에 대응하며, De Morgan 법칙은 NAND/NOR 게이트만으로 모든 논리 회로를 구성할 수 있는 이론적 근거가 된다. 데이터베이스 쿼리 언어인 SQL에서 WHERE 절의 조건 결합은 집합의 교집합과 합집합 연산이고, 신호 처리에서는 주파수 대역을 집합으로 표현하여 필터의 통과 대역(passband)과 차단 대역(stopband)을 기술한다. 제어 시스템의 안정성 조건을 "모든 특성근의 실수부가 음수이다"와 같은 논리식으로 적는 일에도 같은 언어를 쓴다.</p>
 
 <p>논리학은 증명의 뼈대이다. 수학에서 어떤 주장이 참인지 판단하려면, 명제를 정확히 기술하고 추론 규칙에 따라 결론을 이끌어내야 한다. 집합론이 수학의 대상을 정의하는 언어라면, 논리학은 그 대상들에 대한 참·거짓을 따지는 방법론이다. 공학 시스템의 명세(specification)를 작성하고, 그 시스템이 명세를 만족하는지 검증(verification)하는 일도 논리적 추론이다. 엄밀한 논리 체계 없이는 "이 회로가 항상 올바른 출력을 내는가?"와 같은 질문에 답할 수 없다.</p>
 
@@ -896,7 +902,7 @@ $$
 Proof by contradiction(귀류법)을 사용한다. \(\sqrt{2} = p/q\)이고 \(p, q \in \mathbb{Z}\), \(\gcd(p, q) = 1\)이라 가정하자. 그러면 \(2q^2 = p^2\)이므로 \(p^2\)은 짝수이고, 따라서 \(p\)도 짝수이다. \(p = 2k\)로 놓으면 \(2q^2 = 4k^2\)이므로 \(q^2 = 2k^2\)이 되어 \(q\)도 짝수이다. 이는 \(\gcd(p, q) = 1\)에 모순이다. \(\square\)
 </div>
 
-<p>실수의 가장 중요한 성질은 완비성(completeness)이다. 직관적으로, 수직선에 "빈틈이 없다"는 뜻이다. 이 성질이 없으면 극한값의 존재를 보장할 수 없고, 미적분학 전체가 성립하지 않는다.</p>
+<p>실수의 완비성(completeness)은 수직선에 "빈틈이 없다"는 직관을 엄밀하게 만든다. 이 성질 덕분에 코시 수열과 단조 유계 수열의 극한이 실수 안에 존재하며, 미적분학의 여러 존재 정리를 세울 수 있다.</p>
 
 <div class="definition">
 <span class="env-label">Axiom 2.1 (Completeness Axiom)</span>
@@ -932,7 +938,6 @@ Proof by contradiction(귀류법)을 사용한다. \(\sqrt{2} = p/q\)이고 \(p,
 <!-- PART II: CALCULUS                                             -->
 <!-- ============================================================ -->
 <p>17세기 Newton과 Leibniz는 각자 독립적으로 미적분학을 개발했다. 변화율(미분)과 누적량(적분)이 서로 역관계라는 것이 미적분학의 기본정리다. Part II에서는 일변수 함수(3장)에서 다변수 함수(4장)로 범위를 넓혀간다.</p>
-
 <h2 id="single-var-calc">3. 일변수 미적분학</h2>
 
 <p>단변수 미적분은 하나의 독립변수를 가진 함수의 변화율과 누적량을 연구한다. 물리학에서 속도와 가속도, 경제학에서 한계비용과 총수익, 공학에서 신호의 변화와 에너지 축적 등 단일 입력에 대한 출력의 변화를 분석하는 문제는 모두 이 장의 범위에 속한다. 극한의 엄밀한 정의에서 출발하여, 미분과 적분의 이론을 세우고, 무한급수까지 나아간다.</p>
@@ -1380,15 +1385,15 @@ $$
 <p>기하학적으로, \(f\)의 그래프 위에서 양 끝점을 잇는 할선과 같은 기울기를 가지는 접선이 반드시 존재한다는 뜻이다. 여러 정리(예: \(f' = 0\)이면 상수함수)의 증명에 사용된다.</p>
 </div>
 
-<h4>L'Hopital's Rule(로피탈의 법칙)</h4>
+<h4>로피탈의 법칙(L'Hôpital's Rule)</h4>
 
 <div class="theorem">
-<span class="env-label">Theorem 3.9 (L'Hopital's Rule)</span>
+<span class="env-label">Theorem 3.9 (L'Hôpital's Rule)</span>
 \(\lim_{x \to a} f(x) = \lim_{x \to a} g(x) = 0\) (또는 둘 다 \(\pm\infty\))이고, \(a\) 근방에서 \(g'(x) \neq 0\)이면,
 $$
 \lim_{x \to a} \frac{f(x)}{g(x)} = \lim_{x \to a} \frac{f'(x)}{g'(x)}
 $$
-단, 우변의 limit이 존재해야 한다.
+단, 우변의 극한이 존재해야 한다.
 </div>
 
 <div class="example">
@@ -1654,7 +1659,7 @@ $$
 
 <div class="definition">
 <span class="env-label">Definition 3.9 (Convergence of Series)</span>
-무한 급수 \(\sum_{n=1}^{\infty} a_n\)은 부분합의 수열 \(S_N = \sum_{n=1}^{N} a_n\)이 \(N \to \infty\)일 때 수렴하면 <strong>convergence(수렴)</strong>한다고 한다.
+무한 급수 \(\sum_{n=1}^{\infty} a_n\)은 부분합의 수열 \(S_N = \sum_{n=1}^{N} a_n\)이 \(N \to \infty\)일 때 수렴하면 <strong>수렴</strong>한다고 한다.
 </div>
 
 <h4>Convergence(수렴) 판정법</h4>
@@ -1829,7 +1834,7 @@ $$
 <hr>
 <h2 id="multivariable-calc">4. 다변수 미적분학</h2>
 
-<p>현실 세계는 단일 변수 하나로 기술하기에 너무 복잡하다. 온도는 위치와 시간 모두에 의존하고, 지형의 높이는 경도와 위도의 함수이며, 기업의 이윤은 여러 생산 요소에 동시에 달려 있다. 3장에서 구축한 미적분학의 도구들을 다변수 함수로 확장하면, 편미분, 기울기 벡터, 다중 적분, 벡터장 위의 적분 등 새로운 개념과 기법이 등장한다. 일변수의 직관은 대부분 살아남지만, 차원이 높아지면 접근 경로가 무한히 많아져 복잡성이 커진다.</p>
+<p>온도는 위치와 시간 모두에 의존하고, 지형의 높이는 경도와 위도의 함수이며, 기업의 이윤은 여러 생산 요소에 동시에 달려 있다. 이런 양을 다루려면 3장에서 세운 미적분학을 다변수 함수로 확장해야 한다. 그러면 편미분, 기울기 벡터, 다중 적분, 벡터장 위의 적분이 등장한다. 일변수의 직관은 대체로 이어지지만, 차원이 높아지면 한 점에 접근하는 경로가 무한히 많아진다.</p>
 
 <p>편미분은 열전도 방정식에서 온도의 공간적 변화율을, 유체역학에서 속도장의 각 성분 변화를 기술한다. 그래디언트(gradient)는 경사하강법(gradient descent)에서 손실 함수를 최소화하는 방향을 결정한다. 다중적분은 3차원 물체의 질량, 무게중심, 관성 모멘트를 계산하는 데 쓰이고, 발산 정리와 Stokes 정리는 맥스웰 방정식(Maxwell's equations)과 유체역학의 연속 방정식(continuity equation)을 기술한다.</p>
 
@@ -1880,7 +1885,7 @@ $$
 
 <h3 id="partial-derivatives">4.2 Partial Derivative(편미분)과 Gradient(기울기 벡터)</h3>
 
-<p>열전도에서 "온도가 \(x\) 방향으로 얼마나 빠르게 변하는가?"를 묻는 것은 \(y\), \(z\)를 고정하고 \(x\)에 대해서만 미분하는 것이다. 이것이 편미분의 핵심 아이디어이며, 다변수 시스템에서 각 변수의 독립적 영향을 분석하는 기본 도구이다.</p>
+<p>열전도에서 "온도가 \(x\) 방향으로 얼마나 빠르게 변하는가?"를 묻는 것은 \(y\), \(z\)를 고정하고 \(x\)에 대해서만 미분하는 것이다. 편미분은 이처럼 다른 변수를 고정한 채 한 변수에 따른 변화율을 구하며, 다변수 시스템에서 각 변수의 영향을 분석하는 기본 도구이다.</p>
 
 <p>편미분들을 하나의 벡터로 모은 gradient(기울기 벡터)는 함수가 가장 빠르게 증가하는 방향과 그 크기를 알려준다.</p>
 
@@ -2259,17 +2264,11 @@ Green's Theorem, Stokes' Theorem, Divergence Theorem은 모두 <strong>일반화
 </details>
 
 <hr>
-
-<!-- Placeholder sections for remaining parts -->
-
-<!-- ============================================================ -->
-<!-- Section 5: Ordinary Differential Equations                   -->
-<!-- ============================================================ -->
 <h2 id="ode">5. Ordinary Differential Equations</h2>
 
-<p>자연 현상의 대부분은 변화율로 기술된다. 물체의 운동, 회로의 전류, 인구의 증가 — 이 모든 것이 미분방정식으로 표현된다. 미적분학에서 도함수를 배웠다면, 이제 '도함수를 포함하는 방정식'을 풀어야 한다. 주어진 함수의 도함수를 구하는 것이 미분이었다면, 미분방정식은 그 역문제다: 도함수에 대한 조건으로부터 원래 함수를 복원한다.</p>
+<p>물체의 운동, 회로의 전류, 인구의 증가처럼 변화율로 기술되는 현상은 미분방정식으로 표현할 수 있다. 미분이 주어진 함수의 도함수를 구하는 일이라면, 미분방정식은 도함수에 관한 조건에서 원래 함수를 찾는 역문제다.</p>
 
-<p>ODE(상미분방정식)는 공학 전반에 걸쳐 등장한다. RC 회로에 전압을 인가하면 커패시터 양단의 전압은 1차 ODE를 따라 지수적으로 변화하고, 스프링에 매달린 질량체의 운동은 2차 ODE로 기술되어 감쇠 진동이나 공명 현상을 예측할 수 있다. 로봇 팔의 각 관절 운동방정식이나 화학 반응조의 농도 속도론도 다르지 않다. 시간에 따라 변하는 시스템을 수학으로 기술하면 결국 ODE가 된다. 이 장의 풀이법들은 실제 시스템의 과도응답(transient response), 정상상태(steady state), 안정성(stability)을 분석하는 데 쓰인다.</p>
+<p>ODE(상미분방정식)는 공학 여러 분야에 등장한다. RC 회로에 전압을 인가하면 커패시터 양단의 전압은 1차 ODE를 따라 지수적으로 변하고, 스프링에 매달린 질량체의 운동은 2차 ODE로 나타내 감쇠 진동이나 공명을 분석한다. 로봇 팔의 관절 운동방정식과 화학 반응조의 농도 속도론도 시간에 따른 상태 변화를 ODE로 기술한다. 이 장의 풀이법은 이런 시스템의 과도응답(transient response), 정상상태(steady state), 안정성(stability)을 분석하는 데 쓰인다.</p>
 
 <p>ODE는 단일 독립변수의 함수와 그 도함수 사이의 관계식이다. 여기서는 독립변수를 \( t \), 종속변수를 \( x \), \( \dot{x} = dx/dt \), \( \ddot{x} = d^2x/dt^2 \)로 표기한다.</p>
 
@@ -2350,7 +2349,7 @@ $$ F = \int M\,dt = t^2 x + 3t + g(x), \quad F_x = t^2 + g'(x) = t^2 + 4x \impli
 <!-- 5.2 Existence and Uniqueness -->
 <h3 id="ode-existence">5.2. Existence and Uniqueness</h3>
 
-<p>풀이법을 적용하기 전에, 해가 존재하는지, 존재한다면 유일한지를 먼저 물어야 한다. 이는 단순한 이론적 호기심이 아니다. 공학 시뮬레이션에서 수치 해법이 의미 있는 결과를 내려면, 풀고 있는 초기값 문제가 유일한 해를 가져야 한다. 해가 유일하지 않다면 초기 조건의 미세한 오차가 전혀 다른 궤적으로 분기할 수 있고, 시뮬레이션 결과를 신뢰할 수 없게 된다.</p>
+<p>풀이법을 적용하기 전에 해가 존재하는지, 존재한다면 유일한지를 먼저 확인해야 한다. 공학 시뮬레이션에서 수치 해법이 의미 있는 결과를 내려면 풀고 있는 초기값 문제가 유일한 해를 가져야 한다. 해가 유일하지 않다면 초기 조건의 미세한 오차가 전혀 다른 궤적으로 분기할 수 있어 시뮬레이션 결과를 신뢰하기 어렵다.</p>
 
 <div class="theorem"><span class="env-label">Theorem 5.3 (Picard&ndash;Lindel&ouml;f / Existence and Uniqueness)</span>
 \( f(t,x) \)가 점 \( (a,b) \)를 포함하는 영역에서 연속이고, \( \partial f/\partial x \)가 그 영역에서 존재하며 연속이라고 하자. 그러면 초기값 문제
@@ -2509,7 +2508,7 @@ $$ p(D+3I)u = t^2, \quad \text{여기서 } p(s+3) = s^2 + 7s + 13. $$
 
 <h4>5.3.5. Sinusoidal Response and Frequency Analysis</h4>
 
-<p>공학에서 가장 중요한 입력은 정현파(sinusoidal signal)이다. 교류 전원, 음파, 기계적 주기 하중 등이 모두 정현파로 분해되기 때문이다. 주파수 응답(frequency response) 분석은 시스템이 각 주파수의 정현파 입력에 대해 얼마나 증폭하고 얼마나 위상을 지연시키는지를 파악하는 것이며, 이는 필터 설계, 구조물의 공명 회피, 제어 시스템의 안정성 분석의 기초가 된다.</p>
+<p>정현파(sinusoidal signal)는 공학에서 자주 쓰이는 입력이다. 교류 전원, 음파, 기계적 주기 하중을 정현파 성분으로 분해할 수 있기 때문이다. 주파수 응답(frequency response) 분석은 시스템이 각 주파수의 입력을 얼마나 증폭하고 위상을 얼마나 지연시키는지 파악하며, 필터 설계와 구조물의 공명 회피, 제어 시스템의 안정성 분석에 쓰인다.</p>
 
 <div class="remark"><span class="env-label">Remark</span>
 \( p(D)x = A\cos(\omega t) \)를 풀려면, 복소화한다: \( p(D)z = Ae^{i\omega t} \)의 해 \( z \)에 대해 \( x_p = \operatorname{Re}(z_p) \)이다. <em>전달함수(transfer function)</em>는 \( W(s) = 1/p(s) \)이고, 진동수 \( \omega \)에서의 복소 이득은 \( W(i\omega) \)이다. \( W(i\omega) = g\,e^{-i\phi} \)로 쓰면, 이득 \( g(\omega) = |W(i\omega)| \)은 진폭비를 나타내고, 위상 지연은 \( \phi(\omega) = \arg\!\bigl(p(i\omega)\bigr) \)이다.
@@ -2542,7 +2541,7 @@ $$ \dot{\mathbf{x}} = A\mathbf{x} + \mathbf{f}(t), $$
 </div>
 
 <div class="theorem"><span class="env-label">Theorem 5.11 (Solution via Eigenvalues)</span>
-\( A \)가 eigenvalue(고유값) \( \lambda_1, \ldots, \lambda_n \)에 대응하는 \( n \)개의 선형독립인 고유벡터 \( \mathbf{v}_1, \ldots, \mathbf{v}_n \)을 가지면, \( \dot{\mathbf{x}} = A\mathbf{x} \)의 일반해는
+\( A \)가 고유값 \( \lambda_1, \ldots, \lambda_n \)에 대응하는 \( n \)개의 선형독립인 고유벡터 \( \mathbf{v}_1, \ldots, \mathbf{v}_n \)을 가지면, \( \dot{\mathbf{x}} = A\mathbf{x} \)의 일반해는
 $$ \mathbf{x}(t) = c_1 e^{\lambda_1 t}\mathbf{v}_1 + c_2 e^{\lambda_2 t}\mathbf{v}_2 + \cdots + c_n e^{\lambda_n t}\mathbf{v}_n. $$
 </div>
 
@@ -2826,7 +2825,7 @@ $$ p(D)\,e^{rt} = p(r)\,e^{rt}. $$
 $$ p(D)\bigl[e^{rt}u(t)\bigr] = e^{rt}\,p(D+r)\,u(t). $$
 이 법칙을 반복 적용할 수 있다. \( r \)이 \( p(s) \)의 \( k \)중근이면 \( p(s) = (s-r)^k q(s) \)이므로:
 $$ p(D)\bigl[e^{rt}u\bigr] = e^{rt}\,(D)^k\,q(D+r)\,u. $$
-\( u = 1 \)을 대입하면 \( p(D)[t^k e^{rt}/(k!)] = e^{rt}\,q(r) \cdot (t^k/(k!)) \cdot k!/1 \)... 이런 방식으로 공명 ERF를 유도할 수 있다.
+\( u = 1 \)을 대입하면 \( p(D)[t^k e^{rt}/(k!)] = e^{rt}\,q(r) \cdot (t^k/(k!)) \cdot k!/1 \)이다. 이 관계를 이용하면 공명 ERF를 유도할 수 있다.
 </div>
 
 <div class="example"><span class="env-label">Example 5.18</span>
@@ -3042,7 +3041,7 @@ $$ \mathbf{x}(t) = c_1 e^{-t}\begin{pmatrix}1\\2\end{pmatrix} + c_2 e^{-t}\left[
 
 <p>ODE가 하나의 독립변수에 대한 미분방정식이라면, PDE는 여러 독립변수에 대한 미분방정식이다. 열의 확산이나 파동의 전파처럼, 공간과 시간을 동시에 다루는 문제들은 PDE로 기술된다. ODE에서는 해가 곡선이었지만, PDE에서는 해가 곡면 또는 장(field)이 된다. 독립변수가 늘어난 만큼 경계 조건의 역할이 커지고, 해의 존재·유일성 문제도 한층 복잡해진다.</p>
 
-<p>PDE는 공학의 거의 모든 분야에서 등장한다. 반도체 칩 위의 온도 분포를 예측하여 냉각 시스템을 설계하는 문제는 열전도 방정식(heat equation)으로 귀결되고, 건물의 내진 설계나 악기의 음향 특성은 파동방정식(wave equation)으로 분석된다. 정전기장의 전위 분포, 비행기 날개 주변의 유체 흐름, 반도체 내부의 전자 상태 — 이 모든 것이 Laplace 방정식, 나비에-스토크스(Navier-Stokes) 방정식, 슈뢰딩거(Schrodinger) 방정식이라는 PDE로 기술된다. 공간과 시간 모두에서 변하는 물리량을 다루어야 할 때, PDE가 필요하다.</p>
+<p>PDE는 여러 공학 분야에서 쓰인다. 반도체 칩의 온도 분포와 냉각 시스템은 열전도 방정식(heat equation)으로, 건물의 진동이나 악기의 음향 특성은 파동방정식(wave equation)으로 분석한다. 정전기장의 전위 분포, 비행기 날개 주변의 유체 흐름, 반도체 내부의 전자 상태에는 각각 Laplace 방정식, 나비에-스토크스(Navier-Stokes) 방정식, 슈뢰딩거(Schrödinger) 방정식이 등장한다. 이처럼 물리량이 여러 독립변수에 따라 변할 때 PDE를 쓴다.</p>
 
 <p>PDE(편미분방정식)는 두 개 이상의 독립변수를 갖는 미지 함수와 그 편도함수를 포함하는 방정식이다. 여기서는 물리학과 공학 전반에 걸쳐 등장하는 두 변수의 2차 선형 PDE에 초점을 맞춘다.</p>
 
@@ -3061,8 +3060,8 @@ $$ Au_{xx} + 2Bu_{xy} + Cu_{yy} + Du_x + Eu_y + Fu = G, $$
 2차 PDE의 유형은 판별식 \( \Delta = B^2 - AC \)에 의해 결정된다:
 <ul>
 <li><strong>타원형(Elliptic)</strong>: \( \Delta < 0 \) (예: Laplace 방정식).</li>
-<li><strong>포물형(Parabolic)</strong>: \( \Delta = 0 \) (예: heat equation(열 방정식)).</li>
-<li><strong>쌍곡형(Hyperbolic)</strong>: \( \Delta > 0 \) (예: wave equation(파동 방정식)).</li>
+<li><strong>포물형(Parabolic)</strong>: \( \Delta = 0 \) (예: 열 방정식).</li>
+<li><strong>쌍곡형(Hyperbolic)</strong>: \( \Delta > 0 \) (예: 파동 방정식).</li>
 </ul>
 이 분류는 원뿔 곡선과 대응되며, 해의 정성적 거동을 결정한다.
 </div>
@@ -3081,13 +3080,13 @@ $$ Au_{xx} + 2Bu_{xy} + Cu_{yy} + Du_x + Eu_y + Fu = G, $$
 <p>열 방정식은 온도가 공간적으로 불균일할 때 열이 고온에서 저온으로 확산되는 과정을 기술한다. CPU 칩의 열 설계, 금속 가공에서의 열처리 공정 최적화, 토양의 온도 분포 예측 등에 직접 응용된다. 열확산율(thermal diffusivity) \( \alpha^2 \)는 재료의 열전도율, 밀도, 비열로 결정되며, 같은 방정식이 물질의 확산(Fick의 법칙)이나 금융의 Black-Scholes 모델에도 등장한다.</p>
 
 <div class="definition"><span class="env-label">Definition 6.3 (Heat Equation)</span>
-1차원 heat equation(열 방정식)은 다음과 같다:
+1차원 열 방정식은 다음과 같다:
 $$ u_t = \alpha^2 u_{xx}, \qquad 0 < x < L, \quad t > 0, $$
 여기서 \( u(x,t) \)는 온도이고, \( \alpha^2 = k/(\rho c) \)는 열확산율이다 (\( k \) = 열전도율, \( \rho \) = 밀도, \( c \) = 비열).
 </div>
 
 <div class="theorem"><span class="env-label">Theorem 6.1 (Solution of the Heat Equation by Separation of Variables)</span>
-\( [0, L] \)에서 동차 Dirichlet 경계 조건 \( u(0,t) = u(L,t) = 0 \)과 초기 조건 \( u(x,0) = f(x) \)를 갖는 heat equation(열 방정식)의 해는 다음과 같다:
+\( [0, L] \)에서 동차 Dirichlet 경계 조건 \( u(0,t) = u(L,t) = 0 \)과 초기 조건 \( u(x,0) = f(x) \)를 갖는 열 방정식의 해는 다음과 같다:
 $$ u(x,t) = \sum_{n=1}^{\infty} b_n \sin\!\left(\frac{n\pi x}{L}\right) e^{-\alpha^2 n^2 \pi^2 t / L^2}, $$
 여기서 \( b_n = \frac{2}{L}\int_0^L f(x)\sin\!\left(\frac{n\pi x}{L}\right)dx \)는 초기 데이터의 Fourier 사인 계수이다.
 </div>
@@ -3095,13 +3094,13 @@ $$ u(x,t) = \sum_{n=1}^{\infty} b_n \sin\!\left(\frac{n\pi x}{L}\right) e^{-\alp
 <div class="proof"><span class="env-label">Proof</span>
 \( u(x,t) = X(x)\,T(t) \)로 가정한다. \( u_t = \alpha^2 u_{xx} \)에 대입하고 나누면:
 $$ \frac{T'}{{\alpha^2 T}} = \frac{X''}{X} = -\lambda, $$
-여기서 \( \lambda \)는 분리 상수이다. 이로부터 두 개의 ODE(상미분방정식)를 얻는다:
+여기서 \( \lambda \)는 분리 상수이다. 이로부터 두 개의 상미분방정식을 얻는다:
 $$ X'' + \lambda X = 0, \qquad T' + \alpha^2 \lambda\,T = 0. $$
-경계 조건 \( X(0) = X(L) = 0 \)은 eigenvalue(고유값) 문제를 준다. 비자명해는 \( \lambda_n = (n\pi/L)^2 \)일 때만 존재하며, 고유함수는 \( X_n(x) = \sin(n\pi x/L) \)이다. 대응하는 시간 인자는 \( T_n(t) = e^{-\alpha^2 \lambda_n t} \)이다. 중첩 원리에 의해 일반해는 위의 Fourier 급수이다. 계수 \( b_n \)은 사인 함수의 직교성을 이용하여 초기 조건으로부터 결정된다. \(\square\)
+경계 조건 \( X(0) = X(L) = 0 \)은 고유값 문제를 준다. 비자명해는 \( \lambda_n = (n\pi/L)^2 \)일 때만 존재하며, 고유함수는 \( X_n(x) = \sin(n\pi x/L) \)이다. 대응하는 시간 인자는 \( T_n(t) = e^{-\alpha^2 \lambda_n t} \)이다. 중첩 원리에 의해 일반해는 위의 Fourier 급수이다. 계수 \( b_n \)은 사인 함수의 직교성을 이용하여 초기 조건으로부터 결정된다. \(\square\)
 </div>
 
 <div class="remark"><span class="env-label">Remark</span>
-지수 감쇠 인자 \( e^{-\alpha^2 n^2\pi^2 t/L^2} \)는 높은 모드일수록 빠르게 감쇠함을 보장한다. \( t \to \infty \)일 때 해는 0에 수렴하며 (동차 경계 조건의 경우), 이는 열의 물리적 소산을 반영한다. heat equation(열 방정식)은 무한 전파 속도를 갖는다: 모든 교란은 지수적으로 작은 크기이긴 하지만 즉시 모든 곳에서 감지된다.
+지수 감쇠 인자 \( e^{-\alpha^2 n^2\pi^2 t/L^2} \)는 높은 모드일수록 빠르게 감쇠함을 보장한다. \( t \to \infty \)일 때 해는 0에 수렴하며 (동차 경계 조건의 경우), 이는 열의 물리적 소산을 반영한다. 열 방정식은 무한 전파 속도를 갖는다: 모든 교란은 지수적으로 작은 크기이긴 하지만 즉시 모든 곳에서 감지된다.
 </div>
 
 <div class="example"><span class="env-label">Example 6.1</span>
@@ -3116,7 +3115,7 @@ $$ u(x,t) = \frac{8}{\pi}\sum_{k=0}^{\infty} \frac{1}{(2k+1)^3}\sin\!\bigl((2k+1
 <p>파동 방정식은 에너지가 소산 없이 공간을 통해 전파되는 현상을 기술한다. 기타 줄의 진동, 음파의 전파, 지진파의 분석, 광섬유에서의 전자기파 전파가 모두 파동 방정식의 변형이다. 열 방정식과의 주된 차이는 에너지 보존과 유한 전파 속도이다. 열은 즉시 모든 곳에 영향을 미치지만(무한 전파 속도), 파동은 유한 속도 \( c \)로 전파되어 인과성(causality)을 보존한다.</p>
 
 <div class="definition"><span class="env-label">Definition 6.4 (Wave Equation)</span>
-1차원 wave equation(파동 방정식)은 다음과 같다:
+1차원 파동 방정식은 다음과 같다:
 $$ u_{tt} = c^2 u_{xx}, \qquad 0 < x < L, \quad t > 0, $$
 여기서 \( c \)는 파동 전파 속도이다.
 </div>
@@ -3129,14 +3128,14 @@ $$ u(x,t) = \frac{1}{2}\bigl[f(x-ct) + f(x+ct)\bigr] + \frac{1}{2c}\int_{x-ct}^{
 </div>
 
 <div class="theorem"><span class="env-label">Theorem 6.3 (Wave Equation on a Finite Interval)</span>
-\( [0, L] \)에서 \( u(0,t) = u(L,t) = 0 \), 초기 변위 \( u(x,0) = f(x) \), 초기 속도 \( u_t(x,0) = g(x) \)를 갖는 wave equation(파동 방정식)의 해는 다음과 같다:
+\( [0, L] \)에서 \( u(0,t) = u(L,t) = 0 \), 초기 변위 \( u(x,0) = f(x) \), 초기 속도 \( u_t(x,0) = g(x) \)를 갖는 파동 방정식의 해는 다음과 같다:
 $$ u(x,t) = \sum_{n=1}^{\infty} \sin\!\left(\frac{n\pi x}{L}\right)\!\left[a_n \cos\!\left(\frac{n\pi c\,t}{L}\right) + b_n \sin\!\left(\frac{n\pi c\,t}{L}\right)\right], $$
 여기서
 $$ a_n = \frac{2}{L}\int_0^L f(x)\sin\!\left(\frac{n\pi x}{L}\right)dx, \qquad b_n = \frac{2}{n\pi c}\int_0^L g(x)\sin\!\left(\frac{n\pi x}{L}\right)dx. $$
 </div>
 
 <div class="remark"><span class="env-label">Remark</span>
-heat equation(열 방정식)과 달리, wave equation(파동 방정식)은 에너지를 보존하며 소산하지 않는다. 해는 진동수 \( \omega_n = n\pi c/L \)을 갖는 정상파(고유 모드)의 중첩이다. 기본 진동수 \( \omega_1 = \pi c/L \)은 진동하는 현의 음높이를 결정한다.
+열 방정식과 달리, 파동 방정식은 에너지를 보존하며 소산하지 않는다. 해는 진동수 \( \omega_n = n\pi c/L \)을 갖는 정상파(고유 모드)의 중첩이다. 기본 진동수 \( \omega_1 = \pi c/L \)은 진동하는 현의 음높이를 결정한다.
 </div>
 
 <div class="example"><span class="env-label">Example 6.2</span>
@@ -3149,7 +3148,7 @@ $$ u(x,t) = \frac{8h}{\pi^2}\sum_{k=0}^{\infty} \frac{(-1)^k}{(2k+1)^2} \sin\!\l
 
 <h4>6.2.3. Laplace's Equation (Elliptic)</h4>
 
-<p>Laplace 방정식은 정상상태(steady-state) 문제를 기술한다. 열 방정식에서 시간이 충분히 흐른 후의 온도 분포, 전하가 없는 영역에서의 정전기 전위, 비압축성 비회전 유체의 속도 포텐셜이 모두 Laplace 방정식을 만족한다. 시간 변수가 없으므로 초기 조건 대신 경계 조건만이 해를 결정하며, 최대값 원리(maximum principle)라는 유용한 정성적 성질을 갖는다.</p>
+<p>Laplace 방정식은 정상상태(steady-state) 문제를 기술한다. 열 방정식에서 시간이 충분히 흐른 후의 온도 분포, 전하가 없는 영역에서의 정전기 전위, 비압축성 비회전 유체의 속도 포텐셜이 모두 Laplace 방정식을 만족한다. 시간 변수가 없으므로 초기 조건 대신 경계 조건만이 해를 결정하며, 최댓값 원리(maximum principle)라는 유용한 정성적 성질을 갖는다.</p>
 
 <div class="definition"><span class="env-label">Definition 6.5 (Laplace's Equation)</span>
 2차원 Laplace 방정식은 다음과 같다:
@@ -3158,11 +3157,11 @@ $$ \nabla^2 u = u_{xx} + u_{yy} = 0. $$
 </div>
 
 <div class="theorem"><span class="env-label">Theorem 6.4 (Maximum Principle)</span>
-\( u \)가 유계 영역 \( \Omega \)에서 조화이고 \( \overline{\Omega} \)에서 연속이면, \( u \)는 경계 \( \partial\Omega \)에서 최대값과 최소값을 달성한다. \( u = 0 \)이 \( \partial\Omega \)에서 성립하면, \( \Omega \) 전체에서 \( u = 0 \)이다.
+\( u \)가 유계 영역 \( \Omega \)에서 조화이고 \( \overline{\Omega} \)에서 연속이면, \( u \)는 경계 \( \partial\Omega \)에서 최댓값과 최솟값을 달성한다. \( u = 0 \)이 \( \partial\Omega \)에서 성립하면, \( \Omega \) 전체에서 \( u = 0 \)이다.
 </div>
 
 <div class="remark"><span class="env-label">Remark</span>
-최대값 원리는 Dirichlet 문제의 유일성을 즉시 함의한다: \( u_1 \)과 \( u_2 \)가 모두 \( \Omega \)에서 \( \nabla^2 u = 0 \)을 같은 경계값으로 풀면, \( w = u_1 - u_2 \)는 \( w = 0 \)인 경계 조건을 가진 조화함수이므로, \( w \equiv 0 \)이다.
+최댓값 원리는 Dirichlet 문제의 유일성을 즉시 함의한다: \( u_1 \)과 \( u_2 \)가 모두 \( \Omega \)에서 \( \nabla^2 u = 0 \)을 같은 경계값으로 풀면, \( w = u_1 - u_2 \)는 \( w = 0 \)인 경계 조건을 가진 조화함수이므로, \( w \equiv 0 \)이다.
 </div>
 
 <div class="example"><span class="env-label">Example 6.3</span>
@@ -3183,18 +3182,18 @@ $$ u(x,y) = \sum_{n=1}^{\infty} c_n \sin\!\left(\frac{n\pi x}{a}\right) \frac{\s
 <ol>
 <li>해가 곱의 형태 \( u = X(x)\,T(t) \) (또는 타원형 문제의 경우 \( u = X(x)\,Y(y) \))를 갖는다고 가정한다.</li>
 <li>PDE에 대입하고 변수를 분리하여 각 변이 하나의 변수에만 의존하도록 한다. 양변은 상수 \( -\lambda \) (분리 상수)와 같아야 한다.</li>
-<li>결과로 얻어지는 ODE(상미분방정식)를 푼다. 경계 조건이 \( \lambda \)의 허용 가능한 값 (eigenvalue(고유값))과 대응하는 고유함수를 결정한다.</li>
+<li>결과로 얻어지는 상미분방정식을 푼다. 경계 조건이 \( \lambda \)의 허용 가능한 값 (고유값)과 대응하는 고유함수를 결정한다.</li>
 <li>곱 형태 해의 중첩(무한 급수)으로 일반해를 구성하고, 직교성을 이용하여 초기 조건 또는 나머지 경계 조건으로부터 계수를 결정한다.</li>
 </ol>
 </div>
 
 <div class="theorem"><span class="env-label">Theorem 6.5 (Sturm&ndash;Liouville Eigenvalue Problem)</span>
-변수 분리법의 기저에 있는 eigenvalue(고유값) 문제는 Sturm-Liouville 유형이다:
+변수 분리법의 기저에 있는 고유값 문제는 Sturm-Liouville 유형이다:
 $$ \frac{d}{dx}\!\left[p(x)\frac{dX}{dx}\right] + q(x)X + \lambda\,w(x)\,X = 0, \qquad a < x < b, $$
 적절한 경계 조건을 갖는다. 표준 정칙성 및 부호 조건 (\( p, w > 0 \)) 하에서:
 <ul>
-<li>모든 eigenvalue(고유값)는 실수이다.</li>
-<li>서로 다른 eigenvalue(고유값)에 대응하는 고유함수는 가중함수 \( w(x) \)에 대해 직교한다.</li>
+<li>모든 고유값은 실수이다.</li>
+<li>서로 다른 고유값에 대응하는 고유함수는 가중함수 \( w(x) \)에 대해 직교한다.</li>
 <li>고유함수는 \( L^2([a,b], w) \)에서 완비 직교계를 이룬다: 임의의 제곱적분 가능한 함수는 고유함수의 일반화된 Fourier 급수로 전개할 수 있다.</li>
 </ul>
 </div>
@@ -3223,8 +3222,8 @@ $$ \frac{d}{dx}\!\left[p(x)\frac{dX}{dx}\right] + q(x)X + \lambda\,w(x)\,X = 0, 
 세 가지 정준 방정식에 대해, 자연스러운 적정 문제는 다음과 같다:
 <ul>
 <li><strong>타원형 (Laplace):</strong> 유계 영역에서 Dirichlet 또는 Neumann 경계값 문제 (초기 조건 없음). Neumann 조건에는 양립 조건 \( \int_{\partial\Omega} h\,dS = \int_\Omega f\,dV \)이 필요하다.</li>
-<li><strong>포물형 (heat equation(열 방정식)):</strong> 초기 조건과 공간 경계에서의 Dirichlet, Neumann, 또는 Robin 경계 조건.</li>
-<li><strong>쌍곡형 (wave equation(파동 방정식)):</strong> 두 개의 초기 조건 (\( t = 0 \)에서 \( u \)와 \( u_t \))과 공간 경계에서의 경계 조건.</li>
+<li><strong>포물형 (열 방정식):</strong> 초기 조건과 공간 경계에서의 Dirichlet, Neumann, 또는 Robin 경계 조건.</li>
+<li><strong>쌍곡형 (파동 방정식):</strong> 두 개의 초기 조건 (\( t = 0 \)에서 \( u \)와 \( u_t \))과 공간 경계에서의 경계 조건.</li>
 </ul>
 </div>
 
@@ -3233,7 +3232,7 @@ PDE의 유형이 적절한 경계/초기 조건을 결정한다. 잘못된 유�
 </div>
 
 <div class="example"><span class="env-label">Example 6.4</span>
-단열된 끝점을 가진 heat equation(열 방정식) (Neumann 경계 조건): \( [0, L] \)에서 \( u_t = \alpha^2 u_{xx} \), \( u_x(0,t) = u_x(L,t) = 0 \). 변수 분리법을 적용하면 고유함수 \( \cos(n\pi x/L) \)을 얻고,
+단열된 끝점을 가진 열 방정식 (Neumann 경계 조건): \( [0, L] \)에서 \( u_t = \alpha^2 u_{xx} \), \( u_x(0,t) = u_x(L,t) = 0 \). 변수 분리법을 적용하면 고유함수 \( \cos(n\pi x/L) \)을 얻고,
 $$ u(x,t) = \frac{a_0}{2} + \sum_{n=1}^{\infty} a_n \cos\!\left(\frac{n\pi x}{L}\right) e^{-\alpha^2 n^2 \pi^2 t / L^2}, $$
 여기서 \( a_n \)은 초기 온도의 Fourier 코사인 계수이다. 상수항 \( a_0/2 \)는 정상 상태 온도를 나타내며, 초기 데이터의 공간 평균과 같다 (총 열량 보존).
 </div>
@@ -3442,12 +3441,11 @@ $$ u(x,t) = \frac{1}{2\pi}\int_{-\infty}^{\infty} \frac{2}{1+k^2}\, e^{-k^2 t}\,
 <li>Folland, <em>Introduction to Partial Differential Equations</em> — 해석학 관점</li>
 </ul>
 </details>
-
 <h2 id="linear-algebra">7. Linear Algebra</h2>
 
 <p>선형대수는 선형 연립방정식을 푸는 문제에서 출발했다. Gauss 소거법이라는 구체적 알고리즘에서 시작해, 벡터 공간이라는 추상적 구조로 발전했다. 벡터와 행렬의 연산을 먼저 정의하고, 소거법으로 연립방정식을 풀면서, 벡터 공간·부분공간·차원의 개념에 이른다.</p>
 
-<p>선형대수는 현대 공학에서 폭넓게 쓰인다. 키르히호프 법칙(Kirchhoff's law)으로 전기 회로를 해석하고, 유한요소법(FEM)으로 구조물 응력을 계산하면, 결국 대규모 연립방정식 \( A\mathbf{x} = \mathbf{b} \)를 풀게 된다. 고유값(eigenvalue)은 건축물의 고유진동 모드 분석, 양자역학의 에너지 준위 계산, Google PageRank 알고리즘에 쓰인다. 특이값 분해(SVD)는 이미지 압축, 추천 시스템, 자연어 처리의 기반 기술이며, 최소제곱법(least squares)은 GPS 위치 결정, 센서 융합(sensor fusion), 실험 데이터 회귀 분석에 매일 사용된다. 이렇게 적용 범위가 넓은 이유는, "여러 물리량을 하나의 객체(벡터)로 묶고, 그들 사이의 선형 관계를 행렬로 표현한다"는 구조가 보편적이기 때문이다.</p>
+<p>선형대수는 현대 공학에서 폭넓게 쓰인다. 키르히호프 법칙(Kirchhoff's law)으로 전기 회로를 해석하거나 유한요소법(FEM)으로 구조물 응력을 계산할 때는 대규모 연립방정식 \( A\mathbf{x} = \mathbf{b} \)를 푼다. 고유값(eigenvalue)은 건축물의 고유진동 모드 분석, 양자역학의 에너지 준위 계산, Google PageRank 알고리즘에 쓰인다. 특이값 분해(SVD)는 이미지 압축과 추천 시스템 등에, 최소제곱법(least squares)은 GPS 위치 결정, 센서 융합(sensor fusion), 실험 데이터 회귀 분석에 쓰인다. 여러 물리량을 벡터로 묶고 그 사이의 선형 관계를 행렬로 나타낼 수 있기 때문이다.</p>
 
 <p>
   선형대수학(linear algebra)은 벡터, 행렬, 선형 변환을 다루는 학문이다.
@@ -3585,11 +3583,11 @@ $$
 
 <h4>Determinant(행렬식)의 성질</h4>
 
-<p>정방행렬의 determinant(행렬식) \(\det A\)는 세 가지 공리로 특성화된다:</p>
+<p>정방행렬의 행렬식(determinant) \(\det A\)는 세 가지 공리로 특성화된다:</p>
 <ol>
   <li>\(\det I = 1\).</li>
   <li>두 행을 교환하면 \(\det A\)의 부호가 바뀐다.</li>
-  <li>determinant(행렬식)은 각 행에 대해 개별적으로 선형이다.</li>
+  <li>행렬식은 각 행에 대해 개별적으로 선형이다.</li>
 </ol>
 <p>주요 결과:</p>
 <ul>
@@ -3822,13 +3820,13 @@ $$
 
 <div class="definition">
   <span class="env-label">Definition 7.13 (Four fundamental subspaces)</span>
-  rank(계수) \(r\)인 \(m \times n\) 행렬 \(A\)에 대해:
+  계수 \(r\)인 \(m \times n\) 행렬 \(A\)에 대해:
   <ol>
-    <li><strong>Column space(열공간)</strong> \(C(A) \subseteq \mathbb{R}^m\): \(A\)의 열들의 모든 일차결합. 차원 \(r\).</li>
-    <li><strong>Null space(영공간)</strong> \(N(A) \subseteq \mathbb{R}^n\): \(A\mathbf{x} = \mathbf{0}\)의 모든 해. 차원 \(n - r\).</li>
-    <li><strong>행공간(Row space)</strong> \(C(A^T) \subseteq \mathbb{R}^n\): \(A\)의 행들의 모든 일차결합
+    <li><strong>열공간(column space)</strong> \(C(A) \subseteq \mathbb{R}^m\): \(A\)의 열들의 모든 일차결합. 차원 \(r\).</li>
+    <li><strong>영공간(null space)</strong> \(N(A) \subseteq \mathbb{R}^n\): \(A\mathbf{x} = \mathbf{0}\)의 모든 해. 차원 \(n - r\).</li>
+    <li><strong>행공간(row space)</strong> \(C(A^T) \subseteq \mathbb{R}^n\): \(A\)의 행들의 모든 일차결합
       (\(A^T\)의 열공간과 동일). 차원 \(r\).</li>
-    <li><strong>좌 null space(좌영공간, Left nullspace)</strong> \(N(A^T) \subseteq \mathbb{R}^m\): \(A^T\mathbf{y} = \mathbf{0}\)인 모든 \(\mathbf{y}\)
+    <li><strong>좌영공간(left null space)</strong> \(N(A^T) \subseteq \mathbb{R}^m\): \(A^T\mathbf{y} = \mathbf{0}\)인 모든 \(\mathbf{y}\)
       (\(\mathbf{y}^T A = \mathbf{0}^T\)와 동치). 차원 \(m - r\).</li>
   </ol>
 </div>
@@ -3863,7 +3861,7 @@ $$
 
 <div class="definition">
   <span class="env-label">Definition 7.14 (Rank)</span>
-  행렬 \(A\)의 <strong>rank(계수)</strong>는 사다리꼴에서의 피벗 수이다.
+  행렬 \(A\)의 <strong>계수</strong>는 사다리꼴에서의 피벗 수이다.
   동치로,
   $$\operatorname{rank}(A) = \dim C(A) = \dim C(A^T).$$
 </div>
@@ -3901,7 +3899,7 @@ $$
 <div class="definition">
   <span class="env-label">Definition 7.15 (Eigenvalue and eigenvector)</span>
   \(A\)를 \(n \times n\) 행렬이라 하자. 영이 아닌 벡터 \(\mathbf{x}\)가 \(A\)의 <strong>eigenvector(고유벡터)</strong>이고
-  <strong>eigenvalue(고유값)</strong>가 \(\lambda\)라 함은 다음을 만족함을 뜻한다:
+  <strong>고유값(eigenvalue)</strong>이 \(\lambda\)라 함은 다음을 만족함을 뜻한다:
   $$A\mathbf{x} = \lambda \mathbf{x}.$$
   동치로, \(\mathbf{x} \in N(A - \lambda I)\)이고 \(\mathbf{x} \neq \mathbf{0}\)이다.
 </div>
@@ -4742,7 +4740,7 @@ $$\mathbb{R}^m = C(A) \oplus N(A^T) \quad (\text{직교 직합}).$$
   확인: \(\begin{pmatrix}1\\2\end{pmatrix} \cdot \begin{pmatrix}-2\\1\end{pmatrix} = 0\). \(\checkmark\)
   <br><br>
   \(A\)의 작용: 행공간의 벡터 \(c\begin{pmatrix}1\\3\\5\end{pmatrix}\)는
-  \(A \cdot c\begin{pmatrix}1\\3\\5\end{pmatrix} = c(1+9+25)\begin{pmatrix}1\\2\end{pmatrix}/\sqrt{35}\)... 로
+  \(A \cdot c\begin{pmatrix}1\\3\\5\end{pmatrix} = c(1+9+25)\begin{pmatrix}1\\2\end{pmatrix}/\sqrt{35}\)이므로
   열공간에 대응된다.
   영공간의 벡터는 \(\mathbf{0}\)으로 보내진다.
 </div>
@@ -4795,7 +4793,7 @@ $$\mathbb{R}^m = C(A) \oplus N(A^T) \quad (\text{직교 직합}).$$
 
 <p>실해석학은 실수 위에서 정의된 함수의 성질을 엄밀하게 연구한다. 미적분학 수업에서 '당연하다'고 넘겼던 것들 — 연속함수가 중간값을 가진다, 닫힌 구간에서 최댓값이 존재한다 — 을 증명하는 것이 이 분야의 목표이다.</p>
 
-<p>공학에서 실해석학이 왜 필요한가? 수치해석(numerical analysis)에서 반복 알고리즘이 올바른 해로 수렴하는지, 그 오차 한계가 얼마인지를 보장하려면 ε-δ 논법이 필수이다. 푸리에 급수(Fourier series)로 신호를 복원할 때 급수가 원래 함수로 수렴하려면 균등수렴(uniform convergence) 조건이 필요하다. 최적화 문제에서 최적해가 존재함을 보장하는 것은 컴팩트성(compactness)과 연속 함수의 최댓값 정리이다.</p>
+<p>수치해석(numerical analysis)에서 반복 알고리즘의 수렴과 오차 한계를 증명할 때 실해석학을 쓴다. 푸리에 급수(Fourier series)로 신호를 복원할 때는 급수가 원래 함수로 수렴하는 조건을 따져야 하고, 최적화 문제에서는 컴팩트성(compactness)과 연속 함수의 최댓값 정리로 최적해의 존재를 보인다.</p>
 
 <!-- 8.1 Sequences and Limits -->
 <h3 id="sequences-limits">8.1 Sequences and Limits</h3>
@@ -4805,7 +4803,7 @@ $$\mathbb{R}^m = C(A) \oplus N(A^T) \quad (\text{직교 직합}).$$
 <p>수열이 수렴한다는 것을 엄밀하게 정의하는 것이 첫 번째 과제이다.</p>
 
 <div class="definition"><span class="env-label">Definition 8.1 (Convergence of a Sequence)</span>
-\(\mathbb{R}\)에서의 수열 \((a_n)\)이 \(L \in \mathbb{R}\)로 <em>convergence(수렴)</em>한다는 것은, 모든 \(\varepsilon > 0\)에 대해 \(N \in \mathbb{N}\)이 존재하여
+\(\mathbb{R}\)에서의 수열 \((a_n)\)이 \(L \in \mathbb{R}\)로 <em>수렴(convergence)</em>한다는 것은, 모든 \(\varepsilon > 0\)에 대해 \(N \in \mathbb{N}\)이 존재하여
 $$ n \geq N \implies |a_n - L| < \varepsilon $$
 을 만족하는 것을 말한다. 이를 \(\lim_{n\to\infty} a_n = L\) 또는 \(a_n \to L\)로 표기한다.
 </div>
@@ -4813,7 +4811,7 @@ $$ n \geq N \implies |a_n - L| < \varepsilon $$
 <p>수렴의 정의는 극한값 \(L\)을 미리 알아야 적용할 수 있다. 그런데 극한값을 모르는 상태에서 수열이 수렴하는지 판별할 수는 없을까? Cauchy 수열의 개념이 이 질문에 답한다.</p>
 
 <div class="definition"><span class="env-label">Definition 8.2 (Cauchy Sequence)</span>
-\(\mathbb{R}\)에서의 수열 \((a_n)\)이 <em>Cauchy sequence(코시 수열)</em>이라 함은, 모든 \(\varepsilon > 0\)에 대해 \(N \in \mathbb{N}\)이 존재하여
+\(\mathbb{R}\)에서의 수열 \((a_n)\)이 <em>코시 수열(Cauchy sequence)</em>이라 함은, 모든 \(\varepsilon > 0\)에 대해 \(N \in \mathbb{N}\)이 존재하여
 $$ m, n \geq N \implies |a_m - a_n| < \varepsilon $$
 을 만족하는 것을 말한다.
 </div>
@@ -4821,7 +4819,7 @@ $$ m, n \geq N \implies |a_m - a_n| < \varepsilon $$
 <p>실수의 완비성(completeness)이 해석학이 작동하는 이유이다. 유리수 체계에서는 Cauchy 수열이 수렴하지 않을 수 있지만(\(\sqrt{2}\)에 수렴하는 유리수 Cauchy 수열), 실수에서는 이런 일이 발생하지 않는다.</p>
 
 <div class="theorem"><span class="env-label">Theorem 8.1 (Completeness of \(\mathbb{R}\))</span>
-\(\mathbb{R}\)에서의 모든 Cauchy sequence(코시 수열)은 수렴한다. 동치적으로, \(\mathbb{R}\)은 표준 거리 \(d(x,y) = |x-y|\) 하에서 완비 거리 공간이다.
+\(\mathbb{R}\)에서의 모든 코시 수열은 수렴한다. 동치적으로, \(\mathbb{R}\)은 표준 거리 \(d(x,y) = |x-y|\) 하에서 완비 거리 공간이다.
 </div>
 
 <div class="theorem"><span class="env-label">Theorem 8.2 (Monotone Convergence for Sequences)</span>
@@ -5099,8 +5097,8 @@ $$ U(f, P_\delta) - L(f, P_\delta) = (3-1)(2\delta) = 4\delta. $$
 <div class="definition"><span class="env-label">Definition 8.8 (Pointwise and Uniform Convergence)</span>
 \(f_n: D \to \mathbb{R}\)를 함수열이라 하자.
 <ul>
-  <li>\((f_n)\)이 \(D\)에서 \(f\)로 <em>점별 convergence(수렴)</em>한다 함은, 각 \(x \in D\)에 대해 \(f_n(x) \to f(x)\)인 것이다.</li>
-  <li>\((f_n)\)이 \(D\)에서 \(f\)로 <em>균등 convergence(수렴)</em>한다 함은, \(\sup_{x \in D} |f_n(x) - f(x)| \to 0\)인 것, 즉 모든 \(\varepsilon > 0\)에 대해 (\(x\)에 무관한) \(N\)이 존재하여 \(n \geq N\)이면 모든 \(x \in D\)에 대해 \(|f_n(x) - f(x)| < \varepsilon\)인 것이다.</li>
+  <li>\((f_n)\)이 \(D\)에서 \(f\)로 <em>점별 수렴</em>한다 함은, 각 \(x \in D\)에 대해 \(f_n(x) \to f(x)\)인 것이다.</li>
+  <li>\((f_n)\)이 \(D\)에서 \(f\)로 <em>균등 수렴</em>한다 함은, \(\sup_{x \in D} |f_n(x) - f(x)| \to 0\)인 것, 즉 모든 \(\varepsilon > 0\)에 대해 (\(x\)에 무관한) \(N\)이 존재하여 \(n \geq N\)이면 모든 \(x \in D\)에 대해 \(|f_n(x) - f(x)| < \varepsilon\)인 것이다.</li>
 </ul>
 </div>
 
@@ -5304,13 +5302,12 @@ $$ U(f, P) = \sum_{i=1}^n 1 \cdot \Delta x_i = b - a = 1, \qquad L(f, P) = \sum_
 <li>Royden &amp; Fitzpatrick, <em>Real Analysis</em> — 르베그 적분 포함 대학원 표준</li>
 </ul>
 </details>
-
 <section id="complex-analysis">
 <h2>9. Complex Analysis</h2>
 
-<p>전기공학에서 교류 회로의 임피던스(impedance)는 저항과 리액턴스를 하나의 복소수 \(Z = R + jX\)로 표현한다. 이 표기가 단순한 편의가 아님을 보여주는 것이 복소해석학이다. 복소수를 함수의 정의역으로 확장하면, 실수에서는 보이지 않던 수학적 구조가 드러난다. 제어 공학에서 전달함수(transfer function)의 극점(pole)과 영점(zero)이 시스템의 안정성을 결정하고, 나이퀴스트 판별법(Nyquist stability criterion)이 복소 평면 위의 경로 적분으로 정식화되는 것도 이 구조 덕분이다.</p>
+<p>전기공학에서는 교류 회로의 임피던스(impedance)를 저항과 리액턴스를 묶은 복소수 \(Z = R + jX\)로 나타낸다. 제어 공학에서는 전달함수(transfer function)의 극점(pole)과 영점(zero)으로 시스템의 안정성을 분석하고, 나이퀴스트 판별법(Nyquist stability criterion)을 복소 평면 위의 경로로 정식화한다. 복소해석학은 이런 표현과 계산의 수학적 구조를 설명한다.</p>
 
-<p>2차원 유체역학에서 등각사상(conformal mapping)은 복잡한 형상 주위의 유동을 단순한 영역에서의 유동으로 변환한다. Joukowski 변환으로 원 주위의 유동에서 날개(airfoil) 주위의 양력을 계산하는 것이 대표적 사례이다. 신호처리에서 z-변환과 라플라스 변환의 수렴 영역(region of convergence)은 복소 평면의 구조로 기술되며, 라플라스 역변환은 본질적으로 복소 경로 적분이다. 복소해석학은 공학의 여러 분야에서 이론적 기반이 된다.</p>
+<p>2차원 유체역학에서 등각사상(conformal mapping)은 복잡한 형상 주위의 유동을 단순한 영역의 문제로 옮긴다. Joukowski 변환으로 원 주위의 유동에서 날개(airfoil) 주위의 양력을 계산하는 것이 대표적 사례다. 신호처리에서는 z-변환과 라플라스 변환의 수렴 영역(region of convergence)을 복소 평면으로 기술하고, 라플라스 역변환을 복소 경로 적분으로 표현한다. 이처럼 복소해석학은 여러 공학 문제의 이론적 기반이 된다.</p>
 
 <p>복소해석학(Complex Analysis)은 복소 변수 함수를 연구한다. 복소 미분 가능성의 요구 조건은 실수 경우보다 훨씬 제약적이며, 그 제약이 강한 결과를 낳는다. 해석함수는 수렴하는 수열 위에서의 값만으로 결정되고, 한 번 미분 가능하면 무한 번 미분 가능하며, 멱급수로 표현되고, 적분이 경로에 무관하다. 유계인 전체 함수가 상수라는 결론까지 같은 뿌리에서 따라 나오는데, 그 뿌리가 Cauchy-Riemann 방정식이다.</p>
 
@@ -5594,7 +5591,7 @@ $$ \lim_{R \to \infty} \int_{C_R} f(z) e^{iaz}\, dz = 0, $$
 
 <h3 id="conformal-mappings">9.4 Conformal Mappings</h3>
 
-<p>등각사상의 공학적 핵심은 라플라스 방정식의 해가 등각사상 아래서 보존된다는 점이다. 복잡한 경계 조건의 열전도·정전기 문제를 단순한 영역으로 옮겨 풀 수 있는 이유가 여기 있다. 항공공학에서는 Joukowski 변환으로 원 주위의 유동 해를 날개 단면의 양력 계산에 직접 연결한다.</p>
+<p>등각사상이 공학에서 유용한 이유는 라플라스 방정식의 해가 등각사상 아래서 보존되기 때문이다. 따라서 복잡한 경계를 가진 열전도·정전기 문제를 단순한 영역으로 옮겨 풀 수 있다. 항공공학에서는 Joukowski 변환으로 원 주위의 유동 해를 날개 단면의 양력 계산에 연결한다.</p>
 
 <div class="definition"><span class="env-label">Definition 9.6 (Conformal Map)</span>
 정칙 함수 \(f: \Omega \to \mathbb{C}\)가 \(z_0\)에서 <em>등각(conformal)</em>이라 함은 \(f'(z_0) \neq 0\)인 것이다. 등각사상은 등각인 점에서 곡선 사이의 각도와 방향을 보존한다.
@@ -5667,7 +5664,7 @@ $$ F(z) = \begin{cases} f_1(z), & z \in \Omega_1, \\ f_2(z), & z \in \Omega_2 \e
 
 원점을 한 바퀴 도는 경로 \(\gamma(t) = e^{2\pi i t}\) (\(0 \leq t \leq 1\))를 따라 해석적 연속을 수행하면, 시작값 \(\operatorname{Log}(1) = 0\)이 끝값 \(2\pi i\)로 바뀐다:
 $$ \operatorname{Log}(e^{2\pi i}) = 2\pi i \neq 0 = \operatorname{Log}(1). $$
-이는 \(\log z\)가 본질적으로 <em>다가 함수</em>(multi-valued function)임을 보여준다. \(z = 0\)은 <em>분지점</em>(branch point)이고, 함수를 단가(single-valued)로 만들기 위해 분지 절단선(branch cut)을 도입한다.
+이는 \(\log z\)가 <em>다가 함수</em>(multi-valued function)임을 보여준다. \(z = 0\)은 <em>분지점</em>(branch point)이고, 함수를 단가(single-valued)로 만들기 위해 분지 절단선(branch cut)을 도입한다.
 </div>
 
 <div class="definition"><span class="env-label">Definition 9.9 (Riemann Surface)</span>
@@ -5687,7 +5684,7 @@ $$ \text{Sheet 1: } w = |z|^{1/2} e^{i\theta/2}, \qquad \text{Sheet 2: } w = |z|
 </div>
 
 <div class="proof">
-핵심 아이디어: \(\Omega\)가 단순 연결이므로, 같은 끝점을 갖는 두 경로 \(\gamma_0, \gamma_1\)은 \(\Omega\) 내에서 호모토픽(homotopic)하다. 연속 변형 \(\gamma_t\) (\(0 \leq t \leq 1\))의 각 단계에서 해석적 연속의 유일성(항등 정리)을 적용하면, \(\gamma_0\)을 따른 연속 결과와 \(\gamma_1\)을 따른 연속 결과가 동일함을 보일 수 있다.
+\(\Omega\)가 단순 연결이므로 같은 끝점을 갖는 두 경로 \(\gamma_0, \gamma_1\)은 \(\Omega\) 안에서 호모토픽(homotopic)하다. 연속 변형 \(\gamma_t\) (\(0 \leq t \leq 1\))의 각 단계에 해석적 연속의 유일성(항등 정리)을 적용하면, \(\gamma_0\)과 \(\gamma_1\)을 따른 연속 결과가 같음을 보일 수 있다.
 </div>
 
 <div class="example"><span class="env-label">Example 9.12 (감마 함수 \(\Gamma(z)\)의 해석적 연속)</span>
@@ -5760,7 +5757,6 @@ $$ \zeta(s) = 2^s \pi^{s-1} \sin\!\left(\frac{\pi s}{2}\right) \Gamma(1-s) \, \z
 <li>Lang, <em>Complex Analysis</em> — GTM 103, 간결한 대학원 입문</li>
 </ul>
 </details>
-
 <section id="functional-analysis">
 <h2>10. Functional Analysis</h2>
 
@@ -6093,11 +6089,11 @@ $$ f(x) - \int_0^1 \min(x,\xi)\, f(\xi)\, d\xi = g(x) $$
 <section id="measure-theory">
 <h2>11. Measure Theory</h2>
 
-<p>리만 적분(Riemann integral)은 공학 수학의 기본 도구이지만, 본질적인 한계가 있다. 극한과 적분의 교환이 자유롭지 않고, 디리클레 함수(Dirichlet function)처럼 "병리적인" 함수를 적분할 수 없다. 확률론을 엄밀하게 세우려면 "사건의 확률"을 체계적으로 정의해야 하는데, 이 역시 리만 적분만으로는 불가능하다. 확률 = 측도(measure)라는 통찰이 현대 확률론의 출발점이며, 이를 위한 수학적 장치가 측도론이다.</p>
+<p>리만 적분(Riemann integral)만으로는 극한과 적분을 자유롭게 바꿀 수 없고, 디리클레 함수(Dirichlet function)처럼 리만 적분 불가능한 함수도 다루지 못한다. 확률론을 엄밀하게 세우려면 사건의 확률을 일관되게 정의할 장치도 필요하다. 측도론은 길이와 넓이뿐 아니라 확률까지 측도(measure)로 다룬다.</p>
 
 <p>공학에서의 사용례를 보면, 신호의 에너지 \(\int |f(t)|^2\,dt\)와 전력 \(\lim_{T\to\infty}\frac{1}{2T}\int_{-T}^{T}|f(t)|^2\,dt\)은 르베그 적분(Lebesgue integral)으로 정의되며, 정보이론에서 섀넌 엔트로피(Shannon entropy)의 연속 확장인 미분 엔트로피(differential entropy)는 확률 밀도 함수의 르베그 적분으로 엄밀히 정의된다. 이미지 처리에서 잡음 모델이 확률 공간(probability space) 위에서 정식화되고, 베이즈 추론(Bayesian inference)에서 사전/사후 분포의 관계가 측도의 절대 연속성(absolute continuity)과 라돈-니코딤 도함수(Radon-Nikodym derivative)로 기술된다.</p>
 
-<p>측도론(Measure Theory)은 길이, 넓이, 부피, 확률 등 "크기"의 개념을 일반적인 체계로 확장한다. 이 체계 위에 구축된 Lebesgue integral(르베그 적분)은 리만 적분보다 훨씬 유연하게 적분과 극한의 교환을 다룰 수 있으며, 현대 해석학, 확률론, 응용 수학의 표준이다.</p>
+<p>측도론(Measure Theory)은 길이, 넓이, 부피, 확률 등 "크기"의 개념을 일반적인 체계로 확장한다. 이 체계 위에 구축된 르베그 적분(Lebesgue integral)은 리만 적분보다 훨씬 유연하게 적분과 극한의 교환을 다룰 수 있으며, 현대 해석학, 확률론, 응용 수학의 표준이다.</p>
 
 <!-- 11.1 Sigma-Algebras and Measures -->
 <h3 id="sigma-algebras">11.1 Sigma-Algebras and Measures</h3>
@@ -6105,7 +6101,7 @@ $$ f(x) - \int_0^1 \min(x,\xi)\, f(\xi)\, d\xi = g(x) $$
 <p>측도를 정의하기 전에, "어떤 집합들에 대해 크기를 잴 수 있는가?"를 먼저 정해야 한다. 직관적으로는 모든 부분집합에 대해 크기를 정의하고 싶지만, Vitali 구성이 보여주듯 이는 불가능하다. 시그마 대수(sigma-algebra)는 여집합과 가산 합집합에 대해 닫혀 있는 "잴 수 있는 집합들의 모임"을 규정하며, 확률론에서는 이것이 관측 가능한 사건(event)들의 모임에 해당한다.</p>
 
 <div class="definition"><span class="env-label">Definition 11.1 (Sigma-Algebra)</span>
-집합 \(\Omega\)의 부분집합들의 모임 \(\mathcal{F}\)가 <em>sigma-algebra(시그마 대수)</em>가 되려면 다음 조건을 만족해야 한다:
+집합 \(\Omega\)의 부분집합들의 모임 \(\mathcal{F}\)가 <em>시그마 대수(sigma-algebra)</em>가 되려면 다음 조건을 만족해야 한다:
 <ol>
   <li>\(\Omega \in \mathcal{F}\),</li>
   <li>\(A \in \mathcal{F} \implies A^c \in \mathcal{F}\) (여집합에 대해 닫혀 있음),</li>
@@ -6115,7 +6111,7 @@ $$ f(x) - \int_0^1 \min(x,\xi)\, f(\xi)\, d\xi = g(x) $$
 </div>
 
 <div class="definition"><span class="env-label">Definition 11.2 (Borel Sigma-Algebra)</span>
-<em>보렐 sigma-algebra(시그마 대수)</em> \(\mathcal{B}(\mathbb{R})\)는 \(\mathbb{R}\) 위의 모든 열린 집합을 포함하는 가장 작은 sigma-algebra(시그마 대수)이다. 동치적으로, 열린 구간들 또는 반직선 \((-\infty, a]\)에 의해 생성된다.
+<em>보렐 시그마 대수</em> \(\mathcal{B}(\mathbb{R})\)는 \(\mathbb{R}\) 위의 모든 열린 집합을 포함하는 가장 작은 시그마 대수이다. 동치적으로, 열린 구간들 또는 반직선 \((-\infty, a]\)에 의해 생성된다.
 </div>
 
 <p>시그마 대수 위에 "크기"를 부여하는 것이 측도이다. 가산 가법성(countable additivity)은 중심 공리로, 서로소인 사건들의 확률의 합이 합사건의 확률과 같다는 확률 공리와 정확히 대응한다.</p>
@@ -6140,7 +6136,7 @@ $$ f(x) - \int_0^1 \min(x,\xi)\, f(\xi)\, d\xi = g(x) $$
 </div>
 
 <!-- 11.2 Lebesgue Measure and Integral -->
-<p>추상적 측도의 틀을 세웠으니, 이제 가장 중요한 구체적 측도인 Lebesgue 측도를 구성하고, 그 위에서 적분을 정의한다. Lebesgue 적분은 Riemann 적분과 달리 치역을 분할하여 적분을 구성하며, 이 접근이 훨씬 넓은 클래스의 함수를 적분 가능하게 만든다.</p>
+<p>추상적 측도의 틀 위에서 Lebesgue 측도를 구성하고 적분을 정의한다. Lebesgue 적분은 Riemann 적분과 달리 치역을 분할하여 적분을 구성하므로 더 넓은 함수의 부류를 다룰 수 있다.</p>
 
 <h3 id="lebesgue-measure">11.2 Lebesgue Measure and the Lebesgue Integral</h3>
 
@@ -6184,7 +6180,7 @@ $$ \sum_{n=0}^\infty \frac{2^n}{3^{n+1}} = \frac{1/3}{1 - 2/3} = 1 $$
 <p>리만 적분은 정의역을 분할하고 각 구간에서 함수값의 범위를 보지만, 르베그 적분은 치역을 분할하고 각 값에 대응하는 정의역의 크기(측도)를 본다. 이 관점 전환 덕분에 훨씬 넓은 함수 클래스를 적분할 수 있다.</p>
 
 <div class="definition"><span class="env-label">Definition 11.6 (Lebesgue Integral)</span>
-Lebesgue integral(르베그 적분)은 다음 단계를 거쳐 구성된다:
+르베그 적분은 다음 단계를 거쳐 구성된다:
 <ol>
   <li><strong>단순 함수.</strong> \(c_i \geq 0\)이고 \(A_i\)가 가측인 \(\varphi = \sum_{i=1}^n c_i \mathbf{1}_{A_i}\)에 대해, \(\int \varphi\, d\mu = \sum c_i \mu(A_i)\)로 정의한다.</li>
   <li><strong>비음 가측 함수.</strong> \(\int f\, d\mu = \sup\{\int \varphi\, d\mu : 0 \leq \varphi \leq f,\; \varphi \text{ simple}\}\).</li>
@@ -6193,7 +6189,7 @@ Lebesgue integral(르베그 적분)은 다음 단계를 거쳐 구성된다:
 </div>
 
 <div class="example"><span class="env-label">Example 11.2</span>
-디리클레 함수 \(\mathbf{1}_\mathbb{Q}\)는 가측이며(\(\mathbb{Q}\)가 보렐 집합이므로), \(\int_{[0,1]} \mathbf{1}_\mathbb{Q}\, dm = m(\mathbb{Q} \cap [0,1]) = 0\)이다. 유리수 집합의 측도가 0이기 때문이다. 리만 적분으로는 처리할 수 없는 이 함수를 Lebesgue integral(르베그 적분)은 다룰 수 있다.
+디리클레 함수 \(\mathbf{1}_\mathbb{Q}\)는 가측이며(\(\mathbb{Q}\)가 보렐 집합이므로), \(\int_{[0,1]} \mathbf{1}_\mathbb{Q}\, dm = m(\mathbb{Q} \cap [0,1]) = 0\)이다. 유리수 집합의 측도가 0이기 때문이다. 리만 적분으로는 처리할 수 없는 이 함수를 르베그 적분은 다룰 수 있다.
 </div>
 
 <div class="example"><span class="env-label">Example 11.2a (Lebesgue 적분 구성의 단계별 예)</span>
@@ -6215,7 +6211,7 @@ $$
 
 <h3 id="convergence-theorems">11.3 Convergence Theorems</h3>
 
-<p>Lebesgue integral(르베그 적분)의 강점은 수렴 정리에 있다. 약한 조건만으로 극한과 적분을 교환할 수 있다.</p>
+<p>르베그 적분의 강점은 수렴 정리에 있다. 약한 조건만으로 극한과 적분을 교환할 수 있다.</p>
 
 <div class="theorem"><span class="env-label">Theorem 11.2 (Monotone Convergence Theorem, MCT)</span>
 \(f_n: \Omega \to [0, \infty]\)가 가측이고 \(f_1 \leq f_2 \leq \cdots\) (거의 어디서나)이면,
@@ -6280,7 +6276,7 @@ $$ F'(t) = -\int_0^\infty e^{-tx} \sin x\, dx. $$
 <p>결합 확률 분포(joint probability distribution)에서 주변 확률(marginal probability)을 구하는 것은 적분 순서를 바꾸는 일이다. 곱 측도와 Fubini 정리는 이 교환이 언제 가능한지를 엄밀히 규정한다.</p>
 
 <div class="definition"><span class="env-label">Definition 11.7 (Product Measure)</span>
-sigma-유한 측도 공간 \((X, \mathcal{A}, \mu)\)와 \((Y, \mathcal{B}, \nu)\)가 주어졌을 때, <em>곱 sigma-algebra(시그마 대수)</em> \(\mathcal{A} \otimes \mathcal{B}\)는 가측 직사각형 \(A \times B\) (\(A \in \mathcal{A}\), \(B \in \mathcal{B}\))에 의해 생성된다. <em>곱 측도(product measure)</em> \(\mu \otimes \nu\)는 \((\mu \otimes \nu)(A \times B) = \mu(A) \cdot \nu(B)\)를 만족하는 \(\mathcal{A} \otimes \mathcal{B}\) 위의 유일한 측도이다.
+sigma-유한 측도 공간 \((X, \mathcal{A}, \mu)\)와 \((Y, \mathcal{B}, \nu)\)가 주어졌을 때, <em>곱 시그마 대수</em> \(\mathcal{A} \otimes \mathcal{B}\)는 가측 직사각형 \(A \times B\) (\(A \in \mathcal{A}\), \(B \in \mathcal{B}\))에 의해 생성된다. <em>곱 측도(product measure)</em> \(\mu \otimes \nu\)는 \((\mu \otimes \nu)(A \times B) = \mu(A) \cdot \nu(B)\)를 만족하는 \(\mathcal{A} \otimes \mathcal{B}\) 위의 유일한 측도이다.
 </div>
 
 <div class="theorem"><span class="env-label">Theorem 11.5 (Tonelli's Theorem)</span>
@@ -6307,7 +6303,7 @@ $$ \int_0^1 \int_0^1 \frac{|x^2 - y^2|}{(x^2 + y^2)^2}\, dx\, dy = +\infty $$
 $$
 \int_0^1 \int_x^1 e^{y^2}\, dy\, dx = \int_0^1 \int_0^y e^{y^2}\, dx\, dy = \int_0^1 y \, e^{y^2}\, dy = \left[\frac{1}{2}e^{y^2}\right]_0^1 = \frac{e - 1}{2}.
 $$
-<p>핵심은 적분 영역의 그림을 그려 \(x\)와 \(y\)의 범위를 재설정하는 것이다. 이 기법은 초등함수로 닫히지 않는 적분을 다룰 때 빈번하게 사용된다.</p>
+<p>적분 순서를 바꾸려면 먼저 적분 영역을 그린 뒤 \(x\)와 \(y\)의 범위를 다시 정한다. 이 기법은 초등함수로 닫히지 않는 적분을 다룰 때 자주 쓰인다.</p>
 </div>
 
 <div class="example"><span class="env-label">Example 11.8 (Fubini/Tonelli를 이용한 기댓값 공식)</span>
@@ -6371,15 +6367,12 @@ $$
 <li>Bartle, <em>The Elements of Integration and Lebesgue Measure</em> — 간결한 입문</li>
 </ul>
 </details>
-
 <section id="fourier-analysis">
 <h2>12. Fourier Analysis</h2>
 
-<p>임의의 신호를 사인(sine)과 코사인(cosine)의 합으로 분해한다 -- 이 아이디어가 공학에서 가장 중요한 관점 전환인 "시간 영역(time domain) vs 주파수 영역(frequency domain)"을 만들어냈다. 음향 신호의 스펙트럼 분석, JPEG 이미지 압축의 핵심인 DCT(Discrete Cosine Transform), 통신 시스템의 변조/복조(modulation/demodulation)와 대역폭(bandwidth) 할당, 구조물의 진동 해석에서 고유진동수(natural frequency) 추출, 안테나 방사 패턴(radiation pattern)과 개구면(aperture) 분포 사이의 푸리에 변환 관계 -- 이 모든 것이 푸리에 해석의 응용이다.</p>
+<p>푸리에 해석은 신호를 사인(sine)과 코사인(cosine)의 합으로 분해해 시간 영역(time domain)의 문제를 주파수 영역(frequency domain)에서 살펴보게 한다. 음향 신호의 스펙트럼 분석, JPEG 이미지 압축의 DCT(Discrete Cosine Transform), 통신 시스템의 변조·복조(modulation/demodulation)와 대역폭(bandwidth) 할당, 구조물의 고유진동수(natural frequency) 추출, 안테나 방사 패턴(radiation pattern)과 개구면(aperture) 분포의 관계가 모두 이 관점을 이용한다.</p>
 
-<p>시간 영역에서 복잡한 합성곱(convolution)이 주파수 영역에서 단순한 곱셈이 된다는 사실은, 필터 설계를 주파수 응답(frequency response)의 관점에서 직관적으로 수행할 수 있게 한다. 불확정성 원리(uncertainty principle)는 신호가 시간과 주파수에서 동시에 좁게 국소화될 수 없음을 정량적으로 보여주며, 이는 레이더 펄스 설계, 통신 대역폭 설계, 양자역학의 하이젠베르크 부등식에까지 연결된다. 이 장은 푸리에 급수, 푸리에 변환, 합성곱, 이산 푸리에 변환(DFT)과 FFT를 순서대로 전개한다.</p>
-
-<p>Fourier analysis(푸리에 해석)는 함수를 정현파 성분으로 분해하고, 주파수 데이터로부터 재구성한다. 수학(편미분방정식, 정수론), 공학(신호 처리, 제어), 응용 과학(영상, 양자역학) 전반에 쓰인다.</p>
+<p>시간 영역에서 복잡한 합성곱(convolution)이 주파수 영역에서 단순한 곱셈이 된다는 사실은, 필터 설계를 주파수 응답(frequency response)의 관점에서 직관적으로 수행할 수 있게 한다. 불확정성 원리(uncertainty principle)는 신호가 시간과 주파수에서 동시에 좁게 국소화될 수 없음을 정량적으로 보여주며, 이는 레이더 펄스 설계, 통신 대역폭 설계, 양자역학의 하이젠베르크 부등식에까지 연결된다.</p>
 
 <!-- 12.1 Fourier Series -->
 <h3 id="fourier-series">12.1 Fourier Series</h3>
@@ -6459,7 +6452,7 @@ $$ \sum_{k=0}^{\infty} \frac{1}{(2k+1)^2} = 1 + \frac{1}{9} + \frac{1}{25} + \cd
 <p>푸리에 급수에서 주기를 무한대로 보내면, 이산적인 주파수 \(n\)이 연속 변수 \(\xi\)가 되고, 계수의 합이 적분으로 바뀐다. 이것이 푸리에 변환이며, 비주기 신호의 주파수 분석을 가능하게 한다. 레이더 신호 설계, 통신 채널의 대역폭 분석, 의료 영상(MRI)의 k-공간(k-space) 데이터 처리가 모두 푸리에 변환에 기반한다.</p>
 
 <div class="definition"><span class="env-label">Definition 12.2 (Fourier Transform)</span>
-\(f \in L^1(\mathbb{R})\)에 대해, <em>Fourier transform(푸리에 변환)</em>은 다음과 같이 정의된다:
+\(f \in L^1(\mathbb{R})\)에 대해, <em>푸리에 변환(Fourier transform)</em>은 다음과 같이 정의된다:
 $$ \hat{f}(\xi) = \int_{-\infty}^{\infty} f(x)\, e^{-2\pi i \xi x}\, dx, \quad \xi \in \mathbb{R}. $$
 <em>역 Fourier transform(역 푸리에 변환)</em>은 (적용 가능할 때) 다음과 같다:
 $$ f(x) = \int_{-\infty}^{\infty} \hat{f}(\xi)\, e^{2\pi i \xi x}\, d\xi. $$
@@ -6467,7 +6460,7 @@ $$ f(x) = \int_{-\infty}^{\infty} \hat{f}(\xi)\, e^{2\pi i \xi x}\, d\xi. $$
 </div>
 
 <div class="theorem"><span class="env-label">Theorem 12.4 (Properties of the Fourier Transform)</span>
-\(f, g \in L^1(\mathbb{R})\)에 대해, Fourier transform(푸리에 변환)은 다음 성질을 만족한다:
+\(f, g \in L^1(\mathbb{R})\)에 대해, 푸리에 변환은 다음 성질을 만족한다:
 <ul>
  <li><strong>선형성:</strong> \(\widehat{af + bg} = a\hat{f} + b\hat{g}\).</li>
  <li><strong>시간 이동:</strong> \(g(x) = f(x - x_0)\)이면, \(\hat{g}(\xi) = e^{-2\pi i \xi x_0} \hat{f}(\xi)\).</li>
@@ -6532,13 +6525,13 @@ $$ f(x) = \int_{-\infty}^{\infty} \hat{f}(\xi)\, e^{2\pi i \xi x}\, d\xi \quad \
 </div>
 
 <div class="theorem"><span class="env-label">Theorem 12.6 (Plancherel Theorem)</span>
-Fourier transform(푸리에 변환)은 \(L^2(\mathbb{R})\) 위의 유니타리 작용소로 확장된다:
+푸리에 변환은 \(L^2(\mathbb{R})\) 위의 유니타리 작용소로 확장된다:
 $$ \int_{-\infty}^{\infty} |f(x)|^2\, dx = \int_{-\infty}^{\infty} |\hat{f}(\xi)|^2\, d\xi. $$
 시간 영역과 주파수 영역 사이에서 에너지가 보존된다. 이 등식은 통신 공학에서 신호의 총 전력을 주파수 성분별 전력의 합으로 분해할 수 있음을 보장한다.
 </div>
 
 <div class="example"><span class="env-label">Example 12.2</span>
-가우시안 \(f(x) = e^{-\pi x^2}\)은 자기 자신의 Fourier transform(푸리에 변환)이다: \(\hat{f}(\xi) = e^{-\pi \xi^2}\). 보다 일반적으로, \(f(x) = e^{-ax^2}\)의 경우 \(\hat{f}(\xi) = \sqrt{\pi/a}\, e^{-\pi^2 \xi^2/a}\)이다. 가우시안이 중심적 역할을 하는 이유는, 시간과 주파수 양쪽에서 동시에 퍼짐을 최소화하기 때문이다(불확정성 원리의 등호 조건을 충족한다).
+가우시안 \(f(x) = e^{-\pi x^2}\)은 자기 자신의 푸리에 변환이다: \(\hat{f}(\xi) = e^{-\pi \xi^2}\). 보다 일반적으로, \(f(x) = e^{-ax^2}\)의 경우 \(\hat{f}(\xi) = \sqrt{\pi/a}\, e^{-\pi^2 \xi^2/a}\)이다. 가우시안이 중심적 역할을 하는 이유는, 시간과 주파수 양쪽에서 동시에 퍼짐을 최소화하기 때문이다(불확정성 원리의 등호 조건을 충족한다).
 </div>
 
 <!-- 12.3 Convolution -->
@@ -6549,22 +6542,22 @@ $$ \int_{-\infty}^{\infty} |f(x)|^2\, dx = \int_{-\infty}^{\infty} |\hat{f}(\xi)
 <p>선형 시불변(LTI, Linear Time-Invariant) 시스템에서 입력 신호 \(x(t)\)에 대한 출력은 임펄스 응답 \(h(t)\)와의 합성곱 \(y = h * x\)로 주어진다. 합성곱은 또한 두 독립 확률변수의 합의 분포, 이미지에 블러(blur) 필터를 적용하는 연산, 다항식 곱셈 등을 통합적으로 기술하는 연산이다.</p>
 
 <div class="definition"><span class="env-label">Definition 12.3 (Convolution)</span>
-\(f, g \in L^1(\mathbb{R})\)의 <em>convolution(합성곱)</em>은 다음과 같이 정의된다:
+\(f, g \in L^1(\mathbb{R})\)의 <em>합성곱</em>은 다음과 같이 정의된다:
 $$ (f * g)(x) = \int_{-\infty}^{\infty} f(t)\, g(x - t)\, dt. $$
-Convolution(합성곱)은 교환 법칙, 결합 법칙을 만족하며, 덧셈에 대해 분배 법칙이 성립한다. \(f \in L^1\)이고 \(g \in L^p\) (\(1 \leq p \leq \infty\))이면, \(f * g \in L^p\)이고 \(\|f * g\|_p \leq \|f\|_1 \|g\|_p\) (Young 부등식)이 성립한다.
+합성곱은 교환 법칙, 결합 법칙을 만족하며, 덧셈에 대해 분배 법칙이 성립한다. \(f \in L^1\)이고 \(g \in L^p\) (\(1 \leq p \leq \infty\))이면, \(f * g \in L^p\)이고 \(\|f * g\|_p \leq \|f\|_1 \|g\|_p\) (Young 부등식)이 성립한다.
 </div>
 
 <div class="theorem"><span class="env-label">Theorem 12.7 (Convolution Theorem)</span>
 \(f, g \in L^1(\mathbb{R})\)에 대해:
 $$ \widehat{f * g}(\xi) = \hat{f}(\xi) \cdot \hat{g}(\xi). $$
-시간 영역에서의 convolution(합성곱)은 주파수 영역에서의 점별 곱셈에 대응하며, 그 역도 성립한다:
+시간 영역에서의 합성곱은 주파수 영역에서의 점별 곱셈에 대응하며, 그 역도 성립한다:
 $$ \widehat{f \cdot g}(\xi) = (\hat{f} * \hat{g})(\xi). $$
 </div>
 
 <p>합성곱 정리는 시간 영역에서의 \(O(N^2)\) 합성곱 연산을 주파수 영역에서의 \(O(N)\) 점별 곱셈으로 대체할 수 있음을 의미한다. FFT를 활용하면 전체 과정이 \(O(N \log N)\)에 수행된다. 디지털 필터링, 이미지 처리, 다항식/큰 수의 곱셈이 대표적인 응용이다.</p>
 
 <div class="example"><span class="env-label">Example 12.3</span>
-\(f = \mathbf{1}_{[-1/2, 1/2]}\)(직사각형 함수)로 놓고 \(h = f * f\)라 하자. 그러면 \(\hat{f}(\xi) = \operatorname{sinc}(\xi)\)이고, \(\hat{h}(\xi) = \operatorname{sinc}^2(\xi)\)이다. Convolution(합성곱)을 직접 계산하면 삼각형 함수 \(h(x) = \max(1 - |x|, 0)\)을 얻으며, 삼각형 함수의 Fourier transform(푸리에 변환)이 \(\operatorname{sinc}^2\)임을 확인할 수 있다.
+\(f = \mathbf{1}_{[-1/2, 1/2]}\)(직사각형 함수)로 놓고 \(h = f * f\)라 하자. 그러면 \(\hat{f}(\xi) = \operatorname{sinc}(\xi)\)이고, \(\hat{h}(\xi) = \operatorname{sinc}^2(\xi)\)이다. 합성곱을 직접 계산하면 삼각형 함수 \(h(x) = \max(1 - |x|, 0)\)을 얻으며, 삼각형 함수의 푸리에 변환이 \(\operatorname{sinc}^2\)임을 확인할 수 있다.
 </div>
 
 <div class="example"><span class="env-label">Example 12.3a (합성곱 정리 활용: LTI 시스템 출력 계산)</span>
@@ -6598,7 +6591,7 @@ $$ \int_{-\infty}^{\infty} \operatorname{sinc}^2(\xi)\, d\xi = 1, $$
 <h3 id="fourier-applications">12.4 Applications</h3>
 
 <h4>Signal Processing</h4>
-<p>Fourier transform(푸리에 변환)은 신호 처리의 이론적 근간이다. 임펄스 응답 \(h(t)\)를 갖는 선형 시불변(LTI) 시스템은 입력 신호 \(x(t)\)에 convolution(합성곱)으로 작용한다: \(y = h * x\). 주파수 영역에서 이는 \(\hat{y} = \hat{h} \cdot \hat{x}\)가 되며, 여기서 \(\hat{h}\)가 <em>전달 함수(transfer function)</em>이다. 필터 설계란 원하는 주파수 대역을 증폭 또는 억제하도록 \(\hat{h}\)를 선택하는 것이다.</p>
+<p>푸리에 변환은 신호 처리의 이론적 근간이다. 임펄스 응답 \(h(t)\)를 갖는 선형 시불변(LTI) 시스템은 입력 신호 \(x(t)\)에 합성곱으로 작용한다: \(y = h * x\). 주파수 영역에서 이는 \(\hat{y} = \hat{h} \cdot \hat{x}\)가 되며, 여기서 \(\hat{h}\)가 <em>전달 함수(transfer function)</em>이다. 필터 설계란 원하는 주파수 대역을 증폭 또는 억제하도록 \(\hat{h}\)를 선택하는 것이다.</p>
 
 <div class="theorem"><span class="env-label">Theorem 12.8 (Shannon-Nyquist Sampling Theorem)</span>
 \(f \in L^2(\mathbb{R})\)가 대역 제한 함수로서 \(|\xi| > B\)일 때 \(\hat{f}(\xi) = 0\)이면, \(f\)는 \(1/(2B)\) 간격의 표본값으로부터 완전히 결정된다:
@@ -6618,12 +6611,12 @@ $$\begin{aligned}
 </div>
 
 <h4>Partial Differential Equations</h4>
-<p>Fourier transform(푸리에 변환)은 상수 계수 선형 편미분방정식을 대수 방정식으로 변환한다. \(\mathbb{R}\) 위의 열 방정식 \(u_t = k\, u_{xx}\)에 초기 조건 \(u(x,0) = f(x)\)가 주어졌을 때, \(x\)에 대해 Fourier transform(푸리에 변환)을 취하면 \(\hat{u}_t = -4\pi^2 k \xi^2 \hat{u}\)를 얻고, 이를 풀면 \(\hat{u}(\xi, t) = \hat{f}(\xi) e^{-4\pi^2 k \xi^2 t}\)이다. 역변환하면:</p>
+<p>푸리에 변환은 상수 계수 선형 편미분방정식을 대수 방정식으로 변환한다. \(\mathbb{R}\) 위의 열 방정식 \(u_t = k\, u_{xx}\)에 초기 조건 \(u(x,0) = f(x)\)가 주어졌을 때, \(x\)에 대해 푸리에 변환을 취하면 \(\hat{u}_t = -4\pi^2 k \xi^2 \hat{u}\)를 얻고, 이를 풀면 \(\hat{u}(\xi, t) = \hat{f}(\xi) e^{-4\pi^2 k \xi^2 t}\)이다. 역변환하면:</p>
 $$ u(x,t) = f * G_t(x), \qquad G_t(x) = \frac{1}{\sqrt{4\pi k t}}\, e^{-x^2/(4kt)}, $$
 <p>여기서 \(G_t\)는 열 핵(heat kernel)으로, 시간이 지남에 따라 넓어지는 가우시안이다.</p>
 
 <div class="example"><span class="env-label">Example 12.4</span>
-\(\mathbb{R}\) 위의 파동 방정식 \(u_{tt} = c^2 u_{xx}\)에 대해, \(x\)에 대한 Fourier transform(푸리에 변환)을 취하면 \(\hat{u}_{tt} = -4\pi^2 c^2 \xi^2 \hat{u}\)이고, 해는 \(\hat{u}(\xi,t) = A(\xi)\cos(2\pi c\xi t) + B(\xi)\sin(2\pi c\xi t)\)이다. 초기 데이터 \(u(x,0) = f(x)\), \(u_t(x,0) = g(x)\)로 역변환하면 달랑베르 공식 \(u(x,t) = \frac{1}{2}[f(x+ct) + f(x-ct)] + \frac{1}{2c}\int_{x-ct}^{x+ct} g(s)\, ds\)을 얻는다.
+\(\mathbb{R}\) 위의 파동 방정식 \(u_{tt} = c^2 u_{xx}\)에 대해, \(x\)에 대한 푸리에 변환을 취하면 \(\hat{u}_{tt} = -4\pi^2 c^2 \xi^2 \hat{u}\)이고, 해는 \(\hat{u}(\xi,t) = A(\xi)\cos(2\pi c\xi t) + B(\xi)\sin(2\pi c\xi t)\)이다. 초기 데이터 \(u(x,0) = f(x)\), \(u_t(x,0) = g(x)\)로 역변환하면 달랑베르 공식 \(u(x,t) = \frac{1}{2}[f(x+ct) + f(x-ct)] + \frac{1}{2c}\int_{x-ct}^{x+ct} g(s)\, ds\)을 얻는다.
 </div>
 
 <!-- 12.5 Discrete Fourier Transform and FFT -->
@@ -6707,7 +6700,7 @@ IDFT: \(y_n = \frac{1}{4}\sum_{k} Y_k \omega_4^{-kn} = \frac{4}{4} = 1\) (모든
 <div class="example"><span class="env-label">Example 12.9 (Gibbs 현상의 정량적 분석)</span>
 구형파 (Example 12.1a)의 부분합 \(S_N(x) = \frac{4}{\pi}\sum_{k=0}^{N-1}\frac{\sin((2k+1)x)}{2k+1}\)에서 Gibbs 현상을 정량적으로 분석하자.
 
-\(N\)이 클 때, \(S_N\)의 최대값은 \(x \approx \frac{\pi}{2N+1}\) 부근에서 나타나며, 그 크기는:
+\(N\)이 클 때, \(S_N\)의 최댓값은 \(x \approx \frac{\pi}{2N+1}\) 부근에서 나타나며, 그 크기는:
 $$ \max S_N \approx \frac{2}{\pi}\int_0^{\pi} \frac{\sin t}{t}\, dt \approx \frac{2}{\pi} \cdot \text{Si}(\pi) \approx \frac{2}{\pi} \cdot 1.8519 \approx 1.1790. $$
 이는 목표값 1에 비해 약 \(8.95\%\) 초과한다. 이 초과량은 \(N \to \infty\)에서도 사라지지 않으며, 급수의 항수와 무관하게 약 \(9\%\)로 일정하다. 이는 \(L^2\) 수렴과 점별 수렴의 본질적 차이를 보여주는 현상이다.
 </div>
@@ -6770,12 +6763,11 @@ $$ \Delta x \cdot \Delta \xi \geq \frac{1}{4\pi} $$
 <li>Folland, <em>Fourier Analysis and Its Applications</em> — PDE와의 연결 강조</li>
 </ul>
 </details>
-
 <h2 id="group-theory">13. Group Theory</h2>
 
-<p class="chapter-intro">군(group)은 대칭성을 수학적으로 포착하는 구조이다. 정다각형의 대칭, 루빅 큐브의 조작, 물리학의 보존법칙 -- 이 모든 것을 군론의 언어로 기술한다. 군의 정의에서 출발해 부분군, 잉여류, 동형 정리, 군 작용, Sylow 정리까지 전개한다.</p>
+<p class="chapter-intro">군(group)은 대칭성을 수학적으로 포착하는 구조이다. 정다각형의 대칭, 루빅 큐브의 조작, 물리학의 보존법칙을 군론의 언어로 기술할 수 있다. 군의 정의에서 출발해 부분군, 잉여류, 동형 정리, 군 작용, Sylow 정리로 나아간다.</p>
 
-<p>대칭(symmetry)이 존재하는 곳에는 반드시 군이 있다. 결정학(crystallography)에서 230개의 공간군(space group)은 결정 구조의 가능한 대칭성을 완전히 분류하며, 이는 재료과학과 고체물리학의 기초가 된다. 화학공학에서 분자의 점군(point group)을 알면 적외선/라만 분광법에서 활성화되는 진동 모드(vibrational mode)를 군론적으로 예측할 수 있다. 로봇공학에서 3차원 회전은 특수직교군 \(\operatorname{SO}(3)\)으로, 강체의 자세와 운동은 특수유클리드군 \(\operatorname{SE}(3)\)으로 기술되며, 이 군들의 구조를 이해하는 것이 로봇 운동학(kinematics)의 핵심이다.</p>
+<p>한 대상의 대칭 변환들은 합성 연산 아래 군을 이룬다. 결정학(crystallography)에서는 230개의 공간군(space group)으로 결정 구조의 가능한 대칭성을 분류한다. 화학공학에서는 분자의 점군(point group)으로 적외선·라만 분광법에서 활성화되는 진동 모드(vibrational mode)를 예측한다. 로봇공학에서는 3차원 회전을 특수직교군 \(\operatorname{SO}(3)\)으로, 강체의 자세와 운동을 특수유클리드군 \(\operatorname{SE}(3)\)으로 나타낸다.</p>
 
 <p>정보공학에서도 군은 자주 등장한다. 오류정정 부호(error-correcting code)의 자기동형군(automorphism group)은 부호의 대칭 구조를 결정하고 복호(decoding) 알고리즘의 효율에 직결된다. 양자 컴퓨팅(quantum computing)에서 양자 게이트(quantum gate)는 유니터리군 \(\operatorname{U}(2^n)\)의 원소이며, Clifford 군과 Pauli 군 같은 유한군이 양자 오류정정의 토대를 이룬다. 같은 군 구조를 공유하는 서로 다른 시스템은 하나의 틀로 분석할 수 있다.</p>
 
@@ -6787,7 +6779,7 @@ $$ \Delta x \cdot \Delta \xi \geq \frac{1}{4\pi} $$
 
 <div class="definition">
 <span class="env-label">Definition 13.1 (Group)</span>
-<strong>group(군)</strong>은 집합 \(G\)와 이항연산 \(\cdot : G \times G \to G\)의 쌍으로, 다음 조건을 만족한다:
+<strong>군</strong>은 집합 \(G\)와 이항연산 \(\cdot : G \times G \to G\)의 쌍으로, 다음 조건을 만족한다:
 <ul>
  <li><strong>Associativity</strong>: 모든 \(a, b, c \in G\)에 대해 \((ab)c = a(bc)\).</li>
  <li><strong>Identity</strong>: 모든 \(a \in G\)에 대해 \(ea = ae = a\)인 \(e \in G\)가 존재한다.</li>
@@ -6800,16 +6792,16 @@ $$ \Delta x \cdot \Delta \xi \geq \frac{1}{4\pi} $$
 
 <div class="definition">
 <span class="env-label">Definition 13.2 (Order)</span>
-group(군) \(G\)의 <strong>위수(order)</strong>는 \(|G|\)로 표기하며, 바탕 집합의 기수(cardinality)이다. 원소 \(g \in G\)의 <strong>위수(order)</strong>는 \(\operatorname{ord}(g)\)로 표기하며, \(g^n = e\)를 만족하는 가장 작은 양의 정수 \(n\)이다. 그러한 \(n\)이 존재하지 않으면 \(\infty\)로 정의한다.
+군 \(G\)의 <strong>위수(order)</strong>는 \(|G|\)로 표기하며, 바탕 집합의 기수(cardinality)이다. 원소 \(g \in G\)의 <strong>위수(order)</strong>는 \(\operatorname{ord}(g)\)로 표기하며, \(g^n = e\)를 만족하는 가장 작은 양의 정수 \(n\)이다. 그러한 \(n\)이 존재하지 않으면 \(\infty\)로 정의한다.
 </div>
 
 <div class="example">
 <span class="env-label">Example 13.1</span>
 <ul>
- <li>\((\mathbb{Z}, +)\): 덧셈에 대한 정수 group(군)으로, 항등원은 \(0\)이고 각 \(n\)의 역원은 \(-n\)이다.</li>
- <li>\((\mathbb{Z}/n\mathbb{Z}, +)\): 정수 모듈로 \(n\), 위수 \(n\)인 유한 아벨 group(군)이다.</li>
+ <li>\((\mathbb{Z}, +)\): 덧셈에 대한 정수 군으로, 항등원은 \(0\)이고 각 \(n\)의 역원은 \(-n\)이다.</li>
+ <li>\((\mathbb{Z}/n\mathbb{Z}, +)\): 정수 모듈로 \(n\), 위수 \(n\)인 유한 아벨 군이다.</li>
  <li>\((S_n, \circ)\): \(n\)개 원소 위의 대칭군(symmetric group), 즉 \(\{1, \ldots, n\}\)의 모든 치환으로 이루어지며, 위수는 \(n!\)이다. \(n \geq 3\)이면 비가환이다.</li>
- <li>\((\operatorname{GL}_n(\mathbb{R}), \cdot)\): 가역인 \(n \times n\) 실수 행렬의 group(군)으로, 행렬 곱셈을 연산으로 갖는다.</li>
+ <li>\((\operatorname{GL}_n(\mathbb{R}), \cdot)\): 가역인 \(n \times n\) 실수 행렬의 군으로, 행렬 곱셈을 연산으로 갖는다.</li>
  <li>\((\mathbb{Z}/n\mathbb{Z})^\times\): 모듈로 \(n\) 단원군(group of units)으로, 위수는 \(\varphi(n)\)이다.</li>
 </ul>
 </div>
@@ -6818,16 +6810,16 @@ group(군) \(G\)의 <strong>위수(order)</strong>는 \(|G|\)로 표기하며, �
 
 <div class="definition">
 <span class="env-label">Definition 13.2a (Symmetric Group \(S_n\))</span>
-<strong>대칭군(symmetric group)</strong> \(S_n\)은 집합 \(\{1, 2, \ldots, n\}\)의 모든 치환(전단사 함수)의 group(군)이며, 연산은 함수 합성이다. \(|S_n| = n!\)이다. 각 치환은 <strong>순환(cycle)</strong>의 곱으로 유일하게(순서 제외) 분해된다. 길이 \(k\)인 순환 \((a_1\, a_2\, \cdots\, a_k)\)는 \(a_1 \mapsto a_2 \mapsto \cdots \mapsto a_k \mapsto a_1\)을 수행한다. 길이 2인 순환을 <strong>호환(transposition)</strong>이라 한다. 모든 치환은 호환의 곱으로 쓸 수 있으며, 필요한 호환의 수의 홀짝성은 치환에 의해 결정된다. 짝수 개의 호환으로 표현되는 치환을 <strong>짝치환(even permutation)</strong>이라 하고, 이들의 모임이 <strong>교대군(alternating group)</strong> \(A_n\)이며 \(|A_n| = n!/2\)이다.
+<strong>대칭군(symmetric group)</strong> \(S_n\)은 집합 \(\{1, 2, \ldots, n\}\)의 모든 치환(전단사 함수)의 군이며, 연산은 함수 합성이다. \(|S_n| = n!\)이다. 각 치환은 서로소인 <strong>순환(cycle)</strong>의 곱으로 분해되며, 순환들의 순서와 각 순환 안의 순환적 표기를 제외하면 유일하다. 길이 \(k\)인 순환 \((a_1\, a_2\, \cdots\, a_k)\)는 \(a_1 \mapsto a_2 \mapsto \cdots \mapsto a_k \mapsto a_1\)을 수행한다. 길이 2인 순환을 <strong>전치(transposition)</strong>라 한다. 모든 치환은 전치의 곱으로 쓸 수 있으며, 필요한 전치의 수의 홀짝성은 치환에 의해 결정된다. 짝수 개의 전치로 표현되는 치환을 <strong>짝치환(even permutation)</strong>이라 하고, 이들의 모임이 <strong>교대군(alternating group)</strong> \(A_n\)이며 \(|A_n| = n!/2\)이다.
 </div>
 
 <div class="example">
 <span class="env-label">Example 13.1a (\(S_3\)의 구조)</span>
-\(S_3\)은 위수 6인 가장 작은 비가환 group(군)이다. 원소를 나열하면:
+\(S_3\)은 위수 6인 가장 작은 비가환 군이다. 원소를 나열하면:
 $$
 S_3 = \{e,\; (12),\; (13),\; (23),\; (123),\; (132)\}.
 $$
-순환 구조별로 분류하면: 항등원 \(e\), 호환 3개 \((12), (13), (23)\), 3-순환 2개 \((123), (132)\)이다. 위수별로 보면: \(\operatorname{ord}(e) = 1\), 호환의 위수는 2, 3-순환의 위수는 3이다. \(S_3\)의 켤레류는 \(\{e\}\), \(\{(12),(13),(23)\}\), \(\{(123),(132)\}\)의 세 개이다. \(S_3\)은 이면체군 \(D_3\)과 동형이다.
+순환 구조별로 분류하면: 항등원 \(e\), 전치 3개 \((12), (13), (23)\), 3-순환 2개 \((123), (132)\)이다. 위수별로 보면: \(\operatorname{ord}(e) = 1\), 전치의 위수는 2, 3-순환의 위수는 3이다. \(S_3\)의 켤레류는 \(\{e\}\), \(\{(12),(13),(23)\}\), \(\{(123),(132)\}\)의 세 개이다. \(S_3\)은 이면체군 \(D_3\)과 동형이다.
 </div>
 
 <div class="definition">
@@ -6841,7 +6833,7 @@ $$
 
 <div class="example">
 <span class="env-label">Example 13.1b (\(D_4\): 정사각형의 대칭)</span>
-\(D_4\)는 정사각형의 대칭군으로, 위수 8이다. 회전 4개: \(e, r, r^2, r^3\) (각각 \(0^\circ, 90^\circ, 180^\circ, 270^\circ\)). 반사 4개: \(s, sr, sr^2, sr^3\) (두 축 대칭과 두 대각선 대칭). 중심은 \(Z(D_4) = \{e, r^2\}\)이다. 정규 subgroup(부분군)은 \(\{e\}\), \(\{e, r^2\}\), \(\{e, r, r^2, r^3\}\), \(\{e, r^2, s, sr^2\}\), \(\{e, r^2, sr, sr^3\}\), \(D_4\) 자체이다.
+\(D_4\)는 정사각형의 대칭군으로, 위수 8이다. 회전 4개: \(e, r, r^2, r^3\) (각각 \(0^\circ, 90^\circ, 180^\circ, 270^\circ\)). 반사 4개: \(s, sr, sr^2, sr^3\) (두 축 대칭과 두 대각선 대칭). 중심은 \(Z(D_4) = \{e, r^2\}\)이다. 정규 부분군은 \(\{e\}\), \(\{e, r^2\}\), \(\{e, r, r^2, r^3\}\), \(\{e, r^2, s, sr^2\}\), \(\{e, r^2, sr, sr^3\}\), \(D_4\) 자체이다.
 </div>
 
 <div class="definition">
@@ -6849,7 +6841,7 @@ $$
 실수체 \(\mathbb{R}\)(또는 일반 체 \(F\)) 위의 주요 행렬군은 다음과 같다:
 <ul>
  <li><strong>일반선형군(general linear group)</strong> \(\operatorname{GL}_n(F) = \{A \in M_{n \times n}(F) : \det A \neq 0\}\): 가역 \(n \times n\) 행렬 전체, 행렬곱 연산.</li>
- <li><strong>특수선형군(special linear group)</strong> \(\operatorname{SL}_n(F) = \{A \in \operatorname{GL}_n(F) : \det A = 1\}\): \(\operatorname{GL}_n(F)\)의 정규 subgroup(부분군)이다.</li>
+ <li><strong>특수선형군(special linear group)</strong> \(\operatorname{SL}_n(F) = \{A \in \operatorname{GL}_n(F) : \det A = 1\}\): \(\operatorname{GL}_n(F)\)의 정규 부분군이다.</li>
  <li><strong>직교군(orthogonal group)</strong> \(\operatorname{O}(n) = \{A \in \operatorname{GL}_n(\mathbb{R}) : A^T A = I\}\): 내적(유클리드 거리)을 보존하는 행렬.</li>
  <li><strong>특수직교군(special orthogonal group)</strong> \(\operatorname{SO}(n) = \{A \in \operatorname{O}(n) : \det A = 1\}\): 회전만을 나타내는 행렬. \(\operatorname{SO}(n) \trianglelefteq \operatorname{O}(n)\)이며 \([\operatorname{O}(n) : \operatorname{SO}(n)] = 2\)이다.</li>
 </ul>
@@ -6865,12 +6857,12 @@ $$
 \operatorname{SO}(n) \leq \operatorname{O}(n) \leq \operatorname{GL}_n(\mathbb{R}), \qquad
 \operatorname{SO}(n) \leq \operatorname{SL}_n(\mathbb{R}) \leq \operatorname{GL}_n(\mathbb{R}).
 $$
-사상 \(\det : \operatorname{GL}_n(\mathbb{R}) \to \mathbb{R}^*\)는 group homomorphism(준동형)이며, \(\ker(\det) = \operatorname{SL}_n(\mathbb{R})\)이다. 제1동형정리에 의해 \(\operatorname{GL}_n(\mathbb{R})/\operatorname{SL}_n(\mathbb{R}) \cong \mathbb{R}^*\)이다. 마찬가지로 \(\operatorname{O}(n)/\operatorname{SO}(n) \cong \mathbb{Z}/2\mathbb{Z}\)이다.
+사상 \(\det : \operatorname{GL}_n(\mathbb{R}) \to \mathbb{R}^*\)는 군 준동형이며, \(\ker(\det) = \operatorname{SL}_n(\mathbb{R})\)이다. 제1동형정리에 의해 \(\operatorname{GL}_n(\mathbb{R})/\operatorname{SL}_n(\mathbb{R}) \cong \mathbb{R}^*\)이다. 마찬가지로 \(\operatorname{O}(n)/\operatorname{SO}(n) \cong \mathbb{Z}/2\mathbb{Z}\)이다.
 </div>
 
 <div class="definition">
 <span class="env-label">Definition 13.3 (Subgroup)</span>
-부분집합 \(H \subseteq G\)가 \(G\)에서 물려받은 연산 아래 그 자체로 group(군)이 되면 \(H\)를 <strong>subgroup(부분군)</strong>이라 하고, \(H \leq G\)로 쓴다. 동치 조건으로, \(H\)가 subgroup(부분군)일 필요충분조건은 다음과 같다:
+부분집합 \(H \subseteq G\)가 \(G\)에서 물려받은 연산 아래 그 자체로 군이 되면 \(H\)를 <strong>부분군</strong>이라 하고, \(H \leq G\)로 쓴다. 동치 조건으로, \(H\)가 부분군일 필요충분조건은 다음과 같다:
 <ul>
  <li>\(H \neq \varnothing\) (보통, \(e \in H\)),</li>
  <li>모든 \(a, b \in H\)에 대해 \(ab \in H\), 그리고</li>
@@ -6880,12 +6872,12 @@ $$
 
 <div class="theorem">
 <span class="env-label">Theorem 13.1 (One-Step Subgroup Test)</span>
-공집합이 아닌 부분집합 \(H \subseteq G\)가 subgroup(부분군)일 필요충분조건은, 모든 \(a, b \in H\)에 대해 \(ab^{-1} \in H\)인 것이다.
+공집합이 아닌 부분집합 \(H \subseteq G\)가 부분군일 필요충분조건은, 모든 \(a, b \in H\)에 대해 \(ab^{-1} \in H\)인 것이다.
 </div>
 
 <div class="proof">
 <span class="env-label">Proof</span>
-(\(\Rightarrow\)) subgroup(부분군)은 연산과 역원에 대해 닫혀 있으므로 자명하다.
+(\(\Rightarrow\)) 부분군은 연산과 역원에 대해 닫혀 있으므로 자명하다.
 (\(\Leftarrow\)) \(H \neq \varnothing\)이므로 \(a \in H\)를 하나 택한다. 그러면 \(e = aa^{-1} \in H\)이다. 임의의 \(b \in H\)에 대해 \(b^{-1} = eb^{-1} \in H\)이다. 임의의 \(a, b \in H\)에 대해, \(b^{-1} \in H\)이므로 \(a(b^{-1})^{-1} = ab \in H\)이다. 결합법칙은 \(G\)로부터 상속된다. \(\blacksquare\)
 </div>
 
@@ -6893,7 +6885,7 @@ $$
 
 <div class="definition">
 <span class="env-label">Definition 13.4 (Cyclic Group)</span>
-group(군) \(G\)가 <strong>순환군(cyclic)</strong>이란, \(G = \langle g \rangle = \{g^n : n \in \mathbb{Z}\}\)인 \(g \in G\)가 존재하는 것이다. 이때 \(g\)를 <strong>생성원(generator)</strong>이라 한다.
+군 \(G\)가 <strong>순환군(cyclic)</strong>이란, \(G = \langle g \rangle = \{g^n : n \in \mathbb{Z}\}\)인 \(g \in G\)가 존재하는 것이다. 이때 \(g\)를 <strong>생성원(generator)</strong>이라 한다.
 </div>
 
 <div class="theorem">
@@ -6904,15 +6896,15 @@ group(군) \(G\)가 <strong>순환군(cyclic)</strong>이란, \(G = \langle g \r
 <div class="theorem">
 <span class="env-label">Theorem 13.3 (Subgroups of Cyclic Groups)</span>
 <ul>
- <li>순환군의 모든 subgroup(부분군)은 순환군이다.</li>
- <li>\(|G| = n\)이면, 각 약수 \(d \mid n\)에 대해 위수 \(d\)인 subgroup(부분군)이 정확히 하나 존재하며, 그것은 \(\langle g^{n/d} \rangle\)이다.</li>
+ <li>순환군의 모든 부분군은 순환군이다.</li>
+ <li>\(|G| = n\)이면, 각 약수 \(d \mid n\)에 대해 위수 \(d\)인 부분군이 정확히 하나 존재하며, 그것은 \(\langle g^{n/d} \rangle\)이다.</li>
  <li>\(\mathbb{Z}/n\mathbb{Z}\)의 생성원의 개수는 \(\varphi(n)\)이다. 여기서 \(\varphi\)는 오일러 토션트 함수이다.</li>
 </ul>
 </div>
 
 <div class="example">
 <span class="env-label">Example 13.2</span>
-\(\mathbb{Z}/12\mathbb{Z}\)에서, subgroup(부분군)은 \(\langle 0 \rangle, \langle 6 \rangle, \langle 4 \rangle, \langle 3 \rangle, \langle 2 \rangle, \langle 1 \rangle\)이며, 위수는 각각 \(1, 2, 3, 4, 6, 12\)로, \(12\)의 각 약수에 하나씩 대응한다.
+\(\mathbb{Z}/12\mathbb{Z}\)에서, 부분군은 \(\langle 0 \rangle, \langle 6 \rangle, \langle 4 \rangle, \langle 3 \rangle, \langle 2 \rangle, \langle 1 \rangle\)이며, 위수는 각각 \(1, 2, 3, 4, 6, 12\)로, \(12\)의 각 약수에 하나씩 대응한다.
 </div>
 
 <h3 id="cosets-lagrange">13.2 Cosets and Lagrange's Theorem</h3>
@@ -6946,15 +6938,15 @@ $$
 <div class="corollary">
 <span class="env-label">Corollary 13.1</span>
 <ul>
- <li>모든 원소의 위수는 group(군)의 위수를 나눈다: \(\operatorname{ord}(g) \mid |G|\).</li>
+ <li>모든 원소의 위수는 군의 위수를 나눈다: \(\operatorname{ord}(g) \mid |G|\).</li>
  <li>임의의 \(g \in G\)에 대해 \(g^{|G|} = e\).</li>
- <li>소수 위수를 갖는 모든 group(군)은 순환군이다.</li>
+ <li>소수 위수를 갖는 모든 군은 순환군이다.</li>
 </ul>
 </div>
 
 <div class="example">
 <span class="env-label">Example 13.3</span>
-\(S_3\)(위수 6)에서, 가능한 subgroup(부분군) 위수는 1, 2, 3, 6이다. subgroup(부분군) \(\langle (123) \rangle = \{e, (123), (132)\}\)는 위수 3, 지표 2이다. 이 subgroup(부분군)의 잉여류는 \(\{e, (123), (132)\}\)와 \(\{(12), (13), (23)\}\)이다.
+\(S_3\)(위수 6)에서, 가능한 부분군 위수는 1, 2, 3, 6이다. 부분군 \(\langle (123) \rangle = \{e, (123), (132)\}\)는 위수 3, 지표 2이다. 이 부분군의 잉여류는 \(\{e, (123), (132)\}\)와 \(\{(12), (13), (23)\}\)이다.
 </div>
 
 <h3 id="normal-subgroups-quotients">13.3 Normal Subgroups and Quotient Groups</h3>
@@ -6965,14 +6957,14 @@ $$
 
 <div class="definition">
 <span class="env-label">Definition 13.6 (Normal Subgroup)</span>
-subgroup(부분군) \(N \leq G\)가 <strong>정규(normal)</strong>라 함은, 모든 \(g \in G\)에 대해 \(gNg^{-1} = N\)인 것이며, \(N \trianglelefteq G\)로 표기한다. 모든 \(g\)에 대해 \(gN = Ng\)이다. 동치 조건으로, 좌잉여류와 우잉여류가 일치한다.
+부분군 \(N \leq G\)가 <strong>정규(normal)</strong>라 함은, 모든 \(g \in G\)에 대해 \(gNg^{-1} = N\)인 것이며, \(N \trianglelefteq G\)로 표기한다. 모든 \(g\)에 대해 \(gN = Ng\)이다. 동치 조건으로, 좌잉여류와 우잉여류가 일치한다.
 </div>
 
-<p>아벨 group(군)의 모든 subgroup(부분군)은 정규이다. 지표 2인 모든 subgroup(부분군)은 정규이다(잉여류가 두 개뿐이고, 그중 하나가 subgroup(부분군) 자체이므로). 임의의 homomorphism(준동형)의 kernel(핵)은 정규이다.</p>
+<p>아벨 군의 모든 부분군은 정규이다. 지표 2인 모든 부분군은 정규이다(잉여류가 두 개뿐이고, 그중 하나가 부분군 자체이므로). 임의의 준동형의 핵은 정규이다.</p>
 
 <div class="definition">
 <span class="env-label">Definition 13.7 (Quotient Group)</span>
-\(N \trianglelefteq G\)이면, <strong>quotient group(상군)</strong>(또는 인자군)은
+\(N \trianglelefteq G\)이면, <strong>몫군</strong>(또는 인자군)은
 $$
 G/N = \{gN : g \in G\}
 $$
@@ -6983,12 +6975,12 @@ $$
 
 <div class="example">
 <span class="env-label">Example 13.4</span>
-subgroup(부분군) \(n\mathbb{Z} \trianglelefteq \mathbb{Z}\)이고, quotient(몫) \(\mathbb{Z}/n\mathbb{Z}\)는 익숙한 정수 모듈로 \(n\) group(군)이다. \(S_3\)에서, subgroup(부분군) \(A_3 = \{e, (123), (132)\}\)는 정규이고(지표 2), \(S_3/A_3 \cong \mathbb{Z}/2\mathbb{Z}\)이다.
+부분군 \(n\mathbb{Z} \trianglelefteq \mathbb{Z}\)이고, 몫 \(\mathbb{Z}/n\mathbb{Z}\)는 익숙한 정수 모듈로 \(n\) 군이다. \(S_3\)에서, 부분군 \(A_3 = \{e, (123), (132)\}\)는 정규이고(지표 2), \(S_3/A_3 \cong \mathbb{Z}/2\mathbb{Z}\)이다.
 </div>
 
 <div class="theorem">
 <span class="env-label">Theorem 13.5 (Simple Groups)</span>
-group(군) \(G\)가 <strong>단순(simple)</strong>이란, \(|G| > 1\)이고 정규 subgroup(부분군)이 \(\{e\}\)와 \(G\) 자신뿐인 것이다. 순환군 \(\mathbb{Z}/p\mathbb{Z}\)는 모든 소수 \(p\)에 대해 단순이다. 교대군 \(A_n\)은 \(n \geq 5\)일 때 단순이다.
+군 \(G\)가 <strong>단순(simple)</strong>이란, \(|G| > 1\)이고 정규 부분군이 \(\{e\}\)와 \(G\) 자신뿐인 것이다. 순환군 \(\mathbb{Z}/p\mathbb{Z}\)는 모든 소수 \(p\)에 대해 단순이다. 교대군 \(A_n\)은 \(n \geq 5\)일 때 단순이다.
 </div>
 
 <h3 id="homomorphisms-isomorphism-theorems">13.4 Homomorphisms and Isomorphism Theorems</h3>
@@ -6999,19 +6991,19 @@ group(군) \(G\)가 <strong>단순(simple)</strong>이란, \(|G| > 1\)이고 정
 
 <div class="definition">
 <span class="env-label">Definition 13.8 (Group Homomorphism)</span>
-group(군) 사이의 사상 \(\varphi: G \to H\)가 <strong>homomorphism(준동형)</strong>이란, 모든 \(a, b \in G\)에 대해 \(\varphi(ab) = \varphi(a)\varphi(b)\)인 것이다. 주요 파생 성질:
+군 사이의 사상 \(\varphi: G \to H\)가 <strong>준동형</strong>이란, 모든 \(a, b \in G\)에 대해 \(\varphi(ab) = \varphi(a)\varphi(b)\)인 것이다. 주요 파생 성질:
 <ul>
  <li>\(\varphi(e_G) = e_H\)</li>
  <li>\(\varphi(g^{-1}) = \varphi(g)^{-1}\)</li>
 </ul>
-<strong>kernel(핵)</strong>은 \(\ker \varphi = \{g \in G : \varphi(g) = e_H\}\)이고, <strong>image(상)</strong>는 \(\operatorname{im} \varphi = \varphi(G)\)이다.
+<strong>핵</strong>은 \(\ker \varphi = \{g \in G : \varphi(g) = e_H\}\)이고, <strong>상</strong>는 \(\operatorname{im} \varphi = \varphi(G)\)이다.
 </div>
 
-<p>homomorphism(준동형)이 단사(injective)일 필요충분조건은 \(\ker \varphi = \{e\}\)인 것이다. 전단사 homomorphism(준동형)을 <strong>동형사상(isomorphism)</strong>이라 하고, \(G \cong H\)로 쓴다. group(군)에서 자기 자신으로의 동형사상을 <strong>자기동형사상(automorphism)</strong>이라 한다.</p>
+<p>준동형이 단사(injective)일 필요충분조건은 \(\ker \varphi = \{e\}\)인 것이다. 전단사 준동형을 <strong>동형사상(isomorphism)</strong>이라 하고, \(G \cong H\)로 쓴다. 군에서 자기 자신으로의 동형사상을 <strong>자기동형사상(automorphism)</strong>이라 한다.</p>
 
 <div class="theorem">
 <span class="env-label">Theorem 13.6 (First Isomorphism Theorem)</span>
-\(\varphi: G \to H\)가 group(군) homomorphism(준동형)이면, \(\ker \varphi \trianglelefteq G\)이고
+\(\varphi: G \to H\)가 군 준동형이면, \(\ker \varphi \trianglelefteq G\)이고
 $$
 G / \ker \varphi \cong \operatorname{im} \varphi.
 $$
@@ -7020,7 +7012,7 @@ $$
 
 <div class="proof">
 <span class="env-label">Proof</span>
-\(\bar{\varphi}: G/\ker\varphi \to \operatorname{im}\varphi\)를 \(\bar{\varphi}(g\ker\varphi) = \varphi(g)\)로 정의한다. 이것은 잘 정의된다: \(g\ker\varphi = g'\ker\varphi\)이면 \(g^{-1}g' \in \ker\varphi\)이므로 \(\varphi(g) = \varphi(g')\)이다. homomorphism(준동형)이다: \(\bar{\varphi}(gK \cdot g'K) = \bar{\varphi}(gg'K) = \varphi(gg') = \varphi(g)\varphi(g')\). 단사이다: \(\bar{\varphi}(gK) = e_H\)이면 \(g \in \ker\varphi\)이므로 \(gK = K\)이다. 정의에 의해 \(\operatorname{im}\varphi\) 위로의 전사이다. \(\blacksquare\)
+\(\bar{\varphi}: G/\ker\varphi \to \operatorname{im}\varphi\)를 \(\bar{\varphi}(g\ker\varphi) = \varphi(g)\)로 정의한다. 이것은 잘 정의된다: \(g\ker\varphi = g'\ker\varphi\)이면 \(g^{-1}g' \in \ker\varphi\)이므로 \(\varphi(g) = \varphi(g')\)이다. 준동형이다: \(\bar{\varphi}(gK \cdot g'K) = \bar{\varphi}(gg'K) = \varphi(gg') = \varphi(g)\varphi(g')\). 단사이다: \(\bar{\varphi}(gK) = e_H\)이면 \(g \in \ker\varphi\)이므로 \(gK = K\)이다. 정의에 의해 \(\operatorname{im}\varphi\) 위로의 전사이다. \(\blacksquare\)
 </div>
 
 <div class="theorem">
@@ -7041,17 +7033,17 @@ $$
 
 <div class="example">
 <span class="env-label">Example 13.5</span>
-\(\varphi: \mathbb{Z} \to \mathbb{Z}/n\mathbb{Z}\)를 \(\varphi(k) = k \bmod n\)으로 정의하자. 이것은 전사 homomorphism(준동형)이며 \(\ker \varphi = n\mathbb{Z}\)이다. 제1동형정리에 의해, \(\mathbb{Z}/n\mathbb{Z} \cong \mathbb{Z}/n\mathbb{Z}\)인데, 이는 동어반복적이지만 정리의 작동 원리를 보여 준다.
+\(\varphi: \mathbb{Z} \to \mathbb{Z}/n\mathbb{Z}\)를 \(\varphi(k) = k \bmod n\)으로 정의하자. 이것은 전사 준동형이며 \(\ker \varphi = n\mathbb{Z}\)이다. 제1동형정리에 의해, \(\mathbb{Z}/n\mathbb{Z} \cong \mathbb{Z}/n\mathbb{Z}\)인데, 이는 동어반복적이지만 정리의 작동 원리를 보여 준다.
 </div>
 
 <div class="example">
 <span class="env-label">Example 13.4a (직접곱과 반직접곱)</span>
-group(군) \(G\)와 \(H\)의 <strong>직접곱(direct product)</strong>은 \(G \times H = \{(g, h) : g \in G, h \in H\}\)이며, 성분별 연산을 갖는다. 예를 들어, Klein 4-group은 \(V_4 = \mathbb{Z}/2\mathbb{Z} \times \mathbb{Z}/2\mathbb{Z}\)이며, 위수 4인 비순환 group(군)이다. 원소는 \(\{(0,0), (1,0), (0,1), (1,1)\}\)이고 모든 비항등 원소의 위수는 2이다. \(V_4\)는 \(S_4\)의 정규 subgroup(부분군)으로 나타나며, \(V_4 = \{e, (12)(34), (13)(24), (14)(23)\}\)이다.
+군 \(G\)와 \(H\)의 <strong>직접곱(direct product)</strong>은 \(G \times H = \{(g, h) : g \in G, h \in H\}\)이며, 성분별 연산을 갖는다. 예를 들어, Klein 4-group은 \(V_4 = \mathbb{Z}/2\mathbb{Z} \times \mathbb{Z}/2\mathbb{Z}\)이며, 위수 4인 비순환 군이다. 원소는 \(\{(0,0), (1,0), (0,1), (1,1)\}\)이고 모든 비항등 원소의 위수는 2이다. \(V_4\)는 \(S_4\)의 정규 부분군으로 나타나며, \(V_4 = \{e, (12)(34), (13)(24), (14)(23)\}\)이다.
 </div>
 
 <div class="example">
 <span class="env-label">Example 13.5a (부호 준동형과 교대군)</span>
-<strong>부호 사상(sign homomorphism)</strong> \(\operatorname{sgn}: S_n \to \{+1, -1\}\)는 짝치환을 \(+1\)로, 홀치환을 \(-1\)로 보낸다. 이것은 group homomorphism(준동형)이며 \(\ker(\operatorname{sgn}) = A_n\)이다. 제1동형정리에 의해 \(S_n / A_n \cong \mathbb{Z}/2\mathbb{Z}\)이다. 따라서 \(A_n \trianglelefteq S_n\)이고 \([S_n : A_n] = 2\)이다.
+<strong>부호 사상(sign homomorphism)</strong> \(\operatorname{sgn}: S_n \to \{+1, -1\}\)는 짝치환을 \(+1\)로, 홀치환을 \(-1\)로 보낸다. 이것은 군 준동형이며 \(\ker(\operatorname{sgn}) = A_n\)이다. 제1동형정리에 의해 \(S_n / A_n \cong \mathbb{Z}/2\mathbb{Z}\)이다. 따라서 \(A_n \trianglelefteq S_n\)이고 \([S_n : A_n] = 2\)이다.
 </div>
 
 <h3 id="group-actions-sylow">13.5 Group Actions and Sylow Theorems</h3>
@@ -7062,12 +7054,12 @@ group(군) \(G\)와 \(H\)의 <strong>직접곱(direct product)</strong>은 \(G \
 
 <div class="definition">
 <span class="env-label">Definition 13.9 (Group Action)</span>
-\(G\)의 집합 \(X\) 위의 <strong>group action(군 작용)</strong>이란, 사상 \(G \times X \to X\), \((g, x) \mapsto g \cdot x\)가 다음을 만족하는 것이다:
+\(G\)의 집합 \(X\) 위의 <strong>군 작용(group action)</strong>이란, 사상 \(G \times X \to X\), \((g, x) \mapsto g \cdot x\)가 다음을 만족하는 것이다:
 <ul>
  <li>모든 \(x \in X\)에 대해 \(e \cdot x = x\),</li>
  <li>모든 \(g, h \in G\)와 \(x \in X\)에 대해 \((gh) \cdot x = g \cdot (h \cdot x)\).</li>
 </ul>
-동치 조건으로, group action(군 작용)은 homomorphism(준동형) \(G \to \operatorname{Sym}(X)\)이다. 여기서 \(\operatorname{Sym}(X)\)는 \(X\)의 모든 전단사 사상의 group(군)이다.
+동치 조건으로, 군 작용은 준동형 \(G \to \operatorname{Sym}(X)\)이다. 여기서 \(\operatorname{Sym}(X)\)는 \(X\)의 모든 전단사 사상의 군이다.
 </div>
 
 <div class="definition">
@@ -7103,7 +7095,7 @@ $$
 
 <div class="example">
 <span class="env-label">Example 13.5b (목걸이 색칠 문제: 3구슬, 2색)</span>
-3개의 구슬로 이루어진 원형 목걸이를 2가지 색(흰, 검)으로 칠하는 서로 다른 목걸이의 수를 구하자. 회전 대칭만 고려하면 작용하는 group(군)은 \(\mathbb{Z}/3\mathbb{Z} = \{r^0, r^1, r^2\}\)이고, 색칠의 집합 \(X\)는 \(|X| = 2^3 = 8\)이다.
+3개의 구슬로 이루어진 원형 목걸이를 2가지 색(흰, 검)으로 칠하는 서로 다른 목걸이의 수를 구하자. 회전 대칭만 고려하면 작용하는 군은 \(\mathbb{Z}/3\mathbb{Z} = \{r^0, r^1, r^2\}\)이고, 색칠의 집합 \(X\)는 \(|X| = 2^3 = 8\)이다.
 
 <p>각 회전에 의해 고정되는 색칠의 수를 센다:</p>
 <ul>
@@ -7120,7 +7112,7 @@ $$
 
 <div class="example">
 <span class="env-label">Example 13.5c (목걸이 색칠 문제: 4구슬, 2색, 이면체군)</span>
-4개의 구슬로 이루어진 목걸이를 2가지 색으로 칠할 때, 회전과 뒤집기를 모두 대칭으로 간주하자. 작용하는 group(군)은 이면체군 \(D_4\)(위수 8)이고, \(|X| = 2^4 = 16\)이다.
+4개의 구슬로 이루어진 목걸이를 2가지 색으로 칠할 때, 회전과 뒤집기를 모두 대칭으로 간주하자. 작용하는 군은 이면체군 \(D_4\)(위수 8)이고, \(|X| = 2^4 = 16\)이다.
 
 <p>\(D_4 = \{e, r, r^2, r^3, s, sr, sr^2, sr^3\}\)의 각 원소에 대해 고정점을 센다:</p>
 <ul>
@@ -7150,27 +7142,27 @@ $$
 
 <div class="definition">
 <span class="env-label">Definition 13.11 (\(p\)-Group, Sylow Subgroup)</span>
-\(p\)를 소수라 하자. <strong>\(p\)-group(\(p\)-군)</strong>은 어떤 \(k \geq 1\)에 대해 위수가 \(p^k\)인 group(군)이다. \(|G| = p^a m\)이고 \(\gcd(p, m) = 1\), \(a \geq 1\)이면, \(G\)의 <strong>Sylow \(p\)-subgroup(\(p\)-부분군)</strong>은 위수 \(p^a\)인 subgroup(부분군)이다.
+\(p\)를 소수라 하자. <strong>\(p\)-group(\(p\)-군)</strong>은 어떤 \(k \geq 1\)에 대해 위수가 \(p^k\)인 군이다. \(|G| = p^a m\)이고 \(\gcd(p, m) = 1\), \(a \geq 1\)이면, \(G\)의 <strong>Sylow \(p\)-subgroup(\(p\)-부분군)</strong>은 위수 \(p^a\)인 부분군이다.
 </div>
 
 <div class="theorem">
 <span class="env-label">Theorem 13.12 (Sylow Theorems)</span>
-\(G\)를 \(|G| = p^a m\), \(p \nmid m\)인 유한군이라 하자. \(n_p\)를 \(G\)의 Sylow \(p\)-subgroup(부분군)의 개수라 하자.
+\(G\)를 \(|G| = p^a m\), \(p \nmid m\)인 유한군이라 하자. \(n_p\)를 \(G\)의 Sylow \(p\)-부분군의 개수라 하자.
 <ul>
- <li><strong>Sylow I (Existence)</strong>: \(G\)에 Sylow \(p\)-subgroup(부분군)이 적어도 하나 존재한다.</li>
- <li><strong>Sylow II (Conjugacy)</strong>: 임의의 두 Sylow \(p\)-subgroup(부분군)은 \(G\)에서 켤레이다. 특히, 임의의 \(p\)-subgroup(부분군)은 어떤 Sylow \(p\)-subgroup(부분군)에 포함된다.</li>
+ <li><strong>Sylow I (Existence)</strong>: \(G\)에 Sylow \(p\)-부분군이 적어도 하나 존재한다.</li>
+ <li><strong>Sylow II (Conjugacy)</strong>: 임의의 두 Sylow \(p\)-부분군은 \(G\)에서 켤레이다. 특히, 임의의 \(p\)-부분군은 어떤 Sylow \(p\)-부분군에 포함된다.</li>
  <li><strong>Sylow III (Counting)</strong>: \(n_p \equiv 1 \pmod{p}\)이고 \(n_p \mid m\)이다.</li>
 </ul>
 </div>
 
 <div class="proof">
 <span class="env-label">Proof</span>
-(Sylow I의 개요.) \(G\)에서 크기 \(p^a\)인 부분집합 전체의 집합 \(\mathcal{S}\)를 생각하자. \(G\)는 좌곱셈(left multiplication)으로 \(\mathcal{S}\)에 작용한다. 세기 논증에 의해 \(|\mathcal{S}| = \binom{p^a m}{p^a}\)은 일정 거듭제곱 이상으로는 \(p\)로 나누어지지 않으므로, 크기가 \(p\)로 나누어지지 않는 궤도가 존재해야 한다. 그러한 궤도에 속하는 집합의 안정자는 위수가 적어도 \(p^a\)이며, \(G\)의 subgroup(부분군)으로서 위수가 \(p^a m\)을 나누므로 정확히 \(p^a\)이다. Sylow II와 III는 Sylow \(p\)-subgroup(부분군)들이 켤레변환으로 서로에게 작용하는 것에서 따라 나온다. \(\blacksquare\)
+(Sylow I의 개요.) \(G\)에서 크기 \(p^a\)인 부분집합 전체의 집합 \(\mathcal{S}\)를 생각하자. \(G\)는 좌곱셈(left multiplication)으로 \(\mathcal{S}\)에 작용한다. 세기 논증에 의해 \(|\mathcal{S}| = \binom{p^a m}{p^a}\)은 일정 거듭제곱 이상으로는 \(p\)로 나누어지지 않으므로, 크기가 \(p\)로 나누어지지 않는 궤도가 존재해야 한다. 그러한 궤도에 속하는 집합의 안정자는 위수가 적어도 \(p^a\)이며, \(G\)의 부분군으로서 위수가 \(p^a m\)을 나누므로 정확히 \(p^a\)이다. Sylow II와 III는 Sylow \(p\)-부분군들이 켤레변환으로 서로에게 작용하는 것에서 따라 나온다. \(\blacksquare\)
 </div>
 
 <div class="example">
 <span class="env-label">Example 13.6</span>
-\(|G| = 12 = 2^2 \cdot 3\)이라 하자. Sylow 정리에 의해 \(n_3 \mid 4\)이고 \(n_3 \equiv 1 \pmod{3}\)이므로 \(n_3 \in \{1, 4\}\)이다. 또한, \(n_2 \mid 3\)이고 \(n_2 \equiv 1 \pmod{2}\)이므로 \(n_2 \in \{1, 3\}\)이다. \(n_3 = 1\)이면 유일한 Sylow 3-subgroup(부분군)이 정규이다. \(\mathbb{Z}/12\mathbb{Z}\), \(\mathbb{Z}/2\mathbb{Z} \times \mathbb{Z}/6\mathbb{Z}\), 이면체군 \(D_6\)가 이 경우에 해당한다. \(n_3 = 4\)이면 \(A_4\)를 얻는다.
+\(|G| = 12 = 2^2 \cdot 3\)이라 하자. Sylow 정리에 의해 \(n_3 \mid 4\)이고 \(n_3 \equiv 1 \pmod{3}\)이므로 \(n_3 \in \{1, 4\}\)이다. 또한, \(n_2 \mid 3\)이고 \(n_2 \equiv 1 \pmod{2}\)이므로 \(n_2 \in \{1, 3\}\)이다. \(n_3 = 1\)이면 유일한 Sylow 3-부분군이 정규이다. \(\mathbb{Z}/12\mathbb{Z}\), \(\mathbb{Z}/2\mathbb{Z} \times \mathbb{Z}/6\mathbb{Z}\), 이면체군 \(D_6\)가 이 경우에 해당한다. \(n_3 = 4\)이면 \(A_4\)를 얻는다.
 </div>
 
 <p>주어진 위수의 군을 분류할 때, Sylow 정리로 가능한 Sylow 수를 제한한 뒤 각 경우를 분석하는 것이 표준 전략이다.</p>
@@ -7179,7 +7171,7 @@ $$
 
 <div class="example">
 <span class="env-label">Example 13.6a (\(|G| = 12\)인 군의 완전 분류)</span>
-\(|G| = 12 = 2^2 \cdot 3\)인 group(군)을 Sylow 정리를 이용하여 분류하자.
+\(|G| = 12 = 2^2 \cdot 3\)인 군을 Sylow 정리를 이용하여 분류하자.
 
 <p><strong>Step 1: Sylow 수 결정.</strong> Sylow 정리에 의해:</p>
 <ul>
@@ -7187,34 +7179,34 @@ $$
  <li>\(n_2 \mid 3\), \(n_2 \equiv 1 \pmod{2}\) \(\Rightarrow\) \(n_2 \in \{1, 3\}\).</li>
 </ul>
 
-<p><strong>Step 2: \(n_3 = 4\)인 경우.</strong> Sylow 3-subgroup(부분군) 4개가 있고, 각각 위수 3이므로, 항등원이 아닌 위수 3의 원소가 \(4 \times 2 = 8\)개이다. 나머지 원소는 \(12 - 8 = 4\)개이며, 이들이 유일한 Sylow 2-subgroup(부분군)(위수 4)을 이루므로 \(n_2 = 1\)이다. 이 경우 \(G\)의 Sylow 3-subgroup(부분군)에 대한 켤레 작용은 homomorphism(준동형) \(G \to S_4\)를 유도하며, 상(image)이 \(A_4\)임을 보일 수 있다. 따라서 \(G \cong A_4\)이다.</p>
+<p><strong>Step 2: \(n_3 = 4\)인 경우.</strong> Sylow 3-부분군 4개가 있고, 각각 위수 3이므로, 항등원이 아닌 위수 3의 원소가 \(4 \times 2 = 8\)개이다. 나머지 원소는 \(12 - 8 = 4\)개이며, 이들이 유일한 Sylow 2-부분군(위수 4)을 이루므로 \(n_2 = 1\)이다. 이 경우 \(G\)의 Sylow 3-부분군에 대한 켤레 작용은 준동형 \(G \to S_4\)를 유도하며, 상(image)이 \(A_4\)임을 보일 수 있다. 따라서 \(G \cong A_4\)이다.</p>
 
-<p><strong>Step 3: \(n_3 = 1\)인 경우.</strong> 유일한 Sylow 3-subgroup(부분군) \(P \cong \mathbb{Z}/3\mathbb{Z}\)가 정규이다. Sylow 2-subgroup(부분군) \(Q\)는 위수 4이므로 \(Q \cong \mathbb{Z}/4\mathbb{Z}\) 또는 \(Q \cong \mathbb{Z}/2\mathbb{Z} \times \mathbb{Z}/2\mathbb{Z}\)이다. \(P \cap Q = \{e\}\)이고 \(|PQ| = |P||Q|/|P \cap Q| = 12 = |G|\)이므로 \(G = PQ\)이다. \(P \trianglelefteq G\)이므로 \(G\)는 \(P\)와 \(Q\)의 반직접곱(semidirect product)이다.</p>
+<p><strong>Step 3: \(n_3 = 1\)인 경우.</strong> 유일한 Sylow 3-부분군 \(P \cong \mathbb{Z}/3\mathbb{Z}\)가 정규이다. Sylow 2-부분군 \(Q\)는 위수 4이므로 \(Q \cong \mathbb{Z}/4\mathbb{Z}\) 또는 \(Q \cong \mathbb{Z}/2\mathbb{Z} \times \mathbb{Z}/2\mathbb{Z}\)이다. \(P \cap Q = \{e\}\)이고 \(|PQ| = |P||Q|/|P \cap Q| = 12 = |G|\)이므로 \(G = PQ\)이다. \(P \trianglelefteq G\)이므로 \(G\)는 \(P\)와 \(Q\)의 반직접곱(semidirect product)이다.</p>
 <ul>
  <li>\(Q \cong \mathbb{Z}/4\mathbb{Z}\)이고 작용이 자명하면: \(G \cong \mathbb{Z}/3\mathbb{Z} \times \mathbb{Z}/4\mathbb{Z} \cong \mathbb{Z}/12\mathbb{Z}\).</li>
- <li>\(Q \cong \mathbb{Z}/4\mathbb{Z}\)이고 작용이 비자명하면: \(G \cong \mathbb{Z}/3\mathbb{Z} \rtimes \mathbb{Z}/4\mathbb{Z}\). \(\operatorname{Aut}(\mathbb{Z}/3\mathbb{Z}) \cong \mathbb{Z}/2\mathbb{Z}\)이므로 비자명 homomorphism(준동형) \(\mathbb{Z}/4\mathbb{Z} \to \mathbb{Z}/2\mathbb{Z}\)이 하나 존재한다. 이 경우 \(G \cong \mathbb{Z}/3\mathbb{Z} \rtimes \mathbb{Z}/4\mathbb{Z}\), 즉 이분 교대군(dicyclic group) \(\operatorname{Dic}_3\)이다. 이것은 \(D_6\)와 동형이 아님에 주의한다.</li>
+ <li>\(Q \cong \mathbb{Z}/4\mathbb{Z}\)이고 작용이 비자명하면: \(G \cong \mathbb{Z}/3\mathbb{Z} \rtimes \mathbb{Z}/4\mathbb{Z}\). \(\operatorname{Aut}(\mathbb{Z}/3\mathbb{Z}) \cong \mathbb{Z}/2\mathbb{Z}\)이므로 비자명 준동형 \(\mathbb{Z}/4\mathbb{Z} \to \mathbb{Z}/2\mathbb{Z}\)이 하나 존재한다. 이 경우 \(G \cong \mathbb{Z}/3\mathbb{Z} \rtimes \mathbb{Z}/4\mathbb{Z}\), 즉 이분 교대군(dicyclic group) \(\operatorname{Dic}_3\)이다. 이것은 \(D_6\)와 동형이 아님에 주의한다.</li>
  <li>\(Q \cong \mathbb{Z}/2\mathbb{Z} \times \mathbb{Z}/2\mathbb{Z}\)이고 작용이 자명하면: \(G \cong \mathbb{Z}/3\mathbb{Z} \times \mathbb{Z}/2\mathbb{Z} \times \mathbb{Z}/2\mathbb{Z} \cong \mathbb{Z}/6\mathbb{Z} \times \mathbb{Z}/2\mathbb{Z}\).</li>
  <li>\(Q \cong \mathbb{Z}/2\mathbb{Z} \times \mathbb{Z}/2\mathbb{Z}\)이고 작용이 비자명하면: \(G \cong D_6\) (이면체군, 위수 12).</li>
 </ul>
 
-<p><strong>결론.</strong> 위수 12인 group(군)은 동형류가 5개이다: \(\mathbb{Z}/12\mathbb{Z}\), \(\mathbb{Z}/6\mathbb{Z} \times \mathbb{Z}/2\mathbb{Z}\), \(D_6\), \(\operatorname{Dic}_3\), \(A_4\).</p>
+<p><strong>결론.</strong> 위수 12인 군은 동형류가 5개이다: \(\mathbb{Z}/12\mathbb{Z}\), \(\mathbb{Z}/6\mathbb{Z} \times \mathbb{Z}/2\mathbb{Z}\), \(D_6\), \(\operatorname{Dic}_3\), \(A_4\).</p>
 </div>
 
 <div class="example">
 <span class="env-label">Example 13.6b (Sylow 정리로 위수 15인 군이 순환군임을 증명)</span>
 \(|G| = 15 = 3 \cdot 5\)라 하자. Sylow 정리에 의해:
 <ul>
- <li>\(n_3 \mid 5\), \(n_3 \equiv 1 \pmod{3}\) \(\Rightarrow\) \(n_3 \in \{1\}\). 따라서 유일한 Sylow 3-subgroup(부분군) \(P \cong \mathbb{Z}/3\mathbb{Z}\)가 정규이다.</li>
- <li>\(n_5 \mid 3\), \(n_5 \equiv 1 \pmod{5}\) \(\Rightarrow\) \(n_5 \in \{1\}\). 따라서 유일한 Sylow 5-subgroup(부분군) \(Q \cong \mathbb{Z}/5\mathbb{Z}\)가 정규이다.</li>
+ <li>\(n_3 \mid 5\), \(n_3 \equiv 1 \pmod{3}\) \(\Rightarrow\) \(n_3 \in \{1\}\). 따라서 유일한 Sylow 3-부분군 \(P \cong \mathbb{Z}/3\mathbb{Z}\)가 정규이다.</li>
+ <li>\(n_5 \mid 3\), \(n_5 \equiv 1 \pmod{5}\) \(\Rightarrow\) \(n_5 \in \{1\}\). 따라서 유일한 Sylow 5-부분군 \(Q \cong \mathbb{Z}/5\mathbb{Z}\)가 정규이다.</li>
 </ul>
-\(P \cap Q = \{e\}\)이고 \(|PQ| = 15 = |G|\)이므로, \(G \cong P \times Q \cong \mathbb{Z}/3\mathbb{Z} \times \mathbb{Z}/5\mathbb{Z} \cong \mathbb{Z}/15\mathbb{Z}\). 따라서 위수 15인 group(군)은 반드시 순환군이다. 같은 논증이 \(|G| = pq\) (\(p < q\) 소수, \(p \nmid q-1\))인 모든 경우에 적용된다.
+\(P \cap Q = \{e\}\)이고 \(|PQ| = 15 = |G|\)이므로, \(G \cong P \times Q \cong \mathbb{Z}/3\mathbb{Z} \times \mathbb{Z}/5\mathbb{Z} \cong \mathbb{Z}/15\mathbb{Z}\). 따라서 위수 15인 군은 반드시 순환군이다. 같은 논증이 \(|G| = pq\) (\(p < q\) 소수, \(p \nmid q-1\))인 모든 경우에 적용된다.
 </div>
 
 <div class="example">
 <span class="env-label">Example 13.6c (Class Equation 응용: \(p\)-군의 중심)</span>
 \(G\)가 비자명 \(p\)-군(\(|G| = p^k\), \(k \geq 1\))이면, \(Z(G) \neq \{e\}\)이다. Class equation \(|G| = |Z(G)| + \sum [G:C_G(g_i)]\)에서, 좌변은 \(p\)의 배수이고, 각 비중심 항 \([G:C_G(g_i)]\)는 \(1\)보다 큰 \(|G|\)의 약수이므로 \(p\)의 배수이다. 따라서 \(p \mid |Z(G)|\)이고, \(|Z(G)| \geq p\)이다.
 
-<p>응용: \(|G| = p^2\)이면, \(|Z(G)| \in \{p, p^2\}\)이다. \(|Z(G)| = p^2\)이면 \(G\)는 아벨이다. \(|Z(G)| = p\)이면 \(G/Z(G)\)의 위수가 \(p\)이므로 순환, 따라서 \(G\)는 아벨이다 (모순). 결론: 위수 \(p^2\)인 group(군)은 반드시 아벨이며, \(\mathbb{Z}/p^2\mathbb{Z}\) 또는 \(\mathbb{Z}/p\mathbb{Z} \times \mathbb{Z}/p\mathbb{Z}\)와 동형이다. 예를 들어, 위수 4인 group(군)은 \(\mathbb{Z}/4\mathbb{Z}\) 또는 \(V_4 = \mathbb{Z}/2\mathbb{Z} \times \mathbb{Z}/2\mathbb{Z}\)뿐이며, 위수 9인 group(군)은 \(\mathbb{Z}/9\mathbb{Z}\) 또는 \(\mathbb{Z}/3\mathbb{Z} \times \mathbb{Z}/3\mathbb{Z}\)뿐이다.</p>
+<p>응용: \(|G| = p^2\)이면, \(|Z(G)| \in \{p, p^2\}\)이다. \(|Z(G)| = p^2\)이면 \(G\)는 아벨이다. \(|Z(G)| = p\)이면 \(G/Z(G)\)의 위수가 \(p\)이므로 순환, 따라서 \(G\)는 아벨이다 (모순). 결론: 위수 \(p^2\)인 군은 반드시 아벨이며, \(\mathbb{Z}/p^2\mathbb{Z}\) 또는 \(\mathbb{Z}/p\mathbb{Z} \times \mathbb{Z}/p\mathbb{Z}\)와 동형이다. 예를 들어, 위수 4인 군은 \(\mathbb{Z}/4\mathbb{Z}\) 또는 \(V_4 = \mathbb{Z}/2\mathbb{Z} \times \mathbb{Z}/2\mathbb{Z}\)뿐이며, 위수 9인 군은 \(\mathbb{Z}/9\mathbb{Z}\) 또는 \(\mathbb{Z}/3\mathbb{Z} \times \mathbb{Z}/3\mathbb{Z}\)뿐이다.</p>
 </div>
 
 <div class="theorem">
@@ -7224,7 +7216,7 @@ $$
 
 <div class="proof">
 <span class="env-label">Proof</span>
-이것은 Sylow I로부터 바로 따라 나온다: Sylow \(p\)-subgroup(부분군) \(P\)는 위수 \(p^a \geq p\)를 가지므로, 라그랑주 정리에 의해 \(P\)는 위수 \(p\)인 subgroup(부분군)을 가진다. 이 subgroup(부분군)은 반드시 순환이며 위수 \(p\)인 원소에 의해 생성된다. 다른 직접적인 증명으로는 class equation을 사용한다: \(|G| = |Z(G)| + \sum [G:C_G(g_i)]\)에서, \(p \mid |G|\)이고 \(p\)가 모든 비중심 항을 나누면, \(p \mid |Z(G)|\)이고, 아벨의 경우(위수 \(p\)인 원소를 직접 찾을 수 있는)로 논증을 마무리한다. \(\blacksquare\)
+이것은 Sylow I로부터 바로 따라 나온다: Sylow \(p\)-부분군 \(P\)는 위수 \(p^a \geq p\)를 가지므로, 라그랑주 정리에 의해 \(P\)는 위수 \(p\)인 부분군을 가진다. 이 부분군은 반드시 순환이며 위수 \(p\)인 원소에 의해 생성된다. 다른 직접적인 증명으로는 class equation을 사용한다: \(|G| = |Z(G)| + \sum [G:C_G(g_i)]\)에서, \(p \mid |G|\)이고 \(p\)가 모든 비중심 항을 나누면, \(p \mid |Z(G)|\)이고, 아벨의 경우(위수 \(p\)인 원소를 직접 찾을 수 있는)로 논증을 마무리한다. \(\blacksquare\)
 </div>
 
 <p class="source-note"><em>Sources: Harvard Abstract Algebra, Dummit &amp; Foote (Abstract Algebra, 3rd ed.), UPenn Math371/602/603/620/702.</em></p>
@@ -7259,7 +7251,6 @@ $$
 <li>Rotman, <em>An Introduction to the Theory of Groups</em> — GTM 148, 군론 심화</li>
 </ul>
 </details>
-
 <h2 id="ring-field-theory">14. Rings and Fields</h2>
 
 <p class="chapter-intro">환(ring)은 덧셈과 곱셈 두 가지 연산을 가진 구조이다. 정수 \(\mathbb{Z}\), 다항식 환 \(R[x]\), 행렬 환 등 익숙한 대상들이 모두 환이다. 군이 하나의 연산에 대한 대칭성을 다뤘다면, 환과 체는 두 연산의 상호작용을 탐구한다. 출발점은 환과 아이디얼의 기본 이론이고, 이어서 다항식 환, 체 확장, 유한체로 넘어간다.</p>
@@ -7274,34 +7265,34 @@ $$
 
 <div class="definition">
 <span class="env-label">Definition 14.1 (Ring)</span>
-<strong>ring(환)</strong>은 두 이항연산 \(+\)와 \(\cdot\)를 갖춘 집합 \(R\)로, 다음을 만족한다:
+<strong>환</strong>은 두 이항연산 \(+\)와 \(\cdot\)를 갖춘 집합 \(R\)로, 다음을 만족한다:
 <ul>
- <li>\((R, +)\)는 아벨 group(군)이다(항등원은 \(0\)).</li>
+ <li>\((R, +)\)는 아벨 군이다(항등원은 \(0\)).</li>
  <li>곱셈은 결합적이다: \(a(bc) = (ab)c\).</li>
  <li>분배법칙이 성립한다: \(a(b + c) = ab + ac\)이고 \((a + b)c = ac + bc\).</li>
 </ul>
-모든 \(a, b\)에 대해 \(ab = ba\)이면 ring(환)을 <strong>가환(commutative)</strong>이라 한다. 모든 \(a\)에 대해 \(1 \cdot a = a \cdot 1 = a\)인 \(1 \in R\)이 존재하면, ring(환)은 <strong>항등원을 가진다(unital)</strong>고 한다. 항등원을 가진 가환 ring(환)에서 영이 아닌 원소 \(a\)가 <strong>영인자(zero divisor)</strong>란, \(ab = 0\)인 영이 아닌 \(b\)가 존재하는 것이다.
+모든 \(a, b\)에 대해 \(ab = ba\)이면 환을 <strong>가환(commutative)</strong>이라 한다. 모든 \(a\)에 대해 \(1 \cdot a = a \cdot 1 = a\)인 \(1 \in R\)이 존재하면, 환은 <strong>항등원을 가진다(unital)</strong>고 한다. 항등원을 가진 가환 환에서 영이 아닌 원소 \(a\)가 <strong>영인자(zero divisor)</strong>란, \(ab = 0\)인 영이 아닌 \(b\)가 존재하는 것이다.
 </div>
 
 <div class="definition">
 <span class="env-label">Definition 14.2 (Integral Domain, Field)</span>
-<strong>정역(integral domain)</strong>은 \(1 \neq 0\)인 항등원을 가진 가환 ring(환)으로 영인자가 없는 것이다. <strong>field(체)</strong>는 모든 영이 아닌 원소가 곱셈에 대한 역원을 갖는, 항등원을 가진 가환 ring(환)이다. \((R \setminus \{0\}, \cdot)\)가 아벨 group(군)이다. 모든 field(체)는 정역이다.
+<strong>정역(integral domain)</strong>은 \(1 \neq 0\)인 항등원을 가진 가환 환으로 영인자가 없는 것이다. <strong>체</strong>는 모든 영이 아닌 원소가 곱셈에 대한 역원을 갖는, 항등원을 가진 가환 환이다. \((R \setminus \{0\}, \cdot)\)가 아벨 군이다. 모든 체는 정역이다.
 </div>
 
 <div class="example">
 <span class="env-label">Example 14.1</span>
 <ul>
- <li>\(\mathbb{Z}\)는 정역이지만 field(체)는 아니다.</li>
- <li>\(\mathbb{Q}, \mathbb{R}, \mathbb{C}\)는 field(체)이다.</li>
- <li>\(\mathbb{Z}/n\mathbb{Z}\)가 field(체)일 필요충분조건은 \(n\)이 소수인 것이다. \(n\)이 합성수이면, 가령 \(n = ab\)이면, \(\bar{a} \cdot \bar{b} = \bar{0}\)이 영인자이다.</li>
- <li>\(M_n(\mathbb{R})\)(\(n \times n\) 행렬의 ring(환))은 \(n \geq 2\)일 때 항등원을 가진 비가환 ring(환)이다.</li>
+ <li>\(\mathbb{Z}\)는 정역이지만 체는 아니다.</li>
+ <li>\(\mathbb{Q}, \mathbb{R}, \mathbb{C}\)는 체이다.</li>
+ <li>\(\mathbb{Z}/n\mathbb{Z}\)가 체일 필요충분조건은 \(n\)이 소수인 것이다. \(n\)이 합성수이면, 가령 \(n = ab\)이면, \(\bar{a} \cdot \bar{b} = \bar{0}\)이 영인자이다.</li>
+ <li>\(M_n(\mathbb{R})\)(\(n \times n\) 행렬의 환)은 \(n \geq 2\)일 때 항등원을 가진 비가환 환이다.</li>
 </ul>
 </div>
 
 <div class="example">
 <span class="env-label">Example 14.1a (구체적 환 예제: 정수환과 다항식환)</span>
 
-<p><strong>(a) 정수환 \(\mathbb{Z}\)의 아이디얼 구조.</strong> \(\mathbb{Z}\)는 PID이므로 모든 ideal(아이디얼)은 주 아이디얼이다. 모든 ideal(아이디얼)은 어떤 정수 \(n\)에 대해 \((n) = n\mathbb{Z} = \{\ldots, -2n, -n, 0, n, 2n, \ldots\}\) 형태이다. 몫환 \(\mathbb{Z}/(n)\)은 원소가 \(n\)개인 환 \(\mathbb{Z}/n\mathbb{Z}\)이다. 아이디얼의 포함 관계는 나눗셈(divisibility)의 역순을 따른다: \((m) \supseteq (n) \iff m \mid n\). 예를 들어 \((6) \subset (3) \subset (1) = \mathbb{Z}\)이다.</p>
+<p><strong>(a) 정수환 \(\mathbb{Z}\)의 아이디얼 구조.</strong> \(\mathbb{Z}\)는 PID이므로 모든 아이디얼은 주 아이디얼이다. 모든 아이디얼은 어떤 정수 \(n\)에 대해 \((n) = n\mathbb{Z} = \{\ldots, -2n, -n, 0, n, 2n, \ldots\}\) 형태이다. 몫환 \(\mathbb{Z}/(n)\)은 원소가 \(n\)개인 환 \(\mathbb{Z}/n\mathbb{Z}\)이다. 아이디얼의 포함 관계는 나눗셈(divisibility)의 역순을 따른다: \((m) \supseteq (n) \iff m \mid n\). 예를 들어 \((6) \subset (3) \subset (1) = \mathbb{Z}\)이다.</p>
 
 <p><strong>(b) 다항식환 \(\mathbb{R}[x]\)에서의 아이디얼과 몫환.</strong> \(\mathbb{R}[x]\)는 유클리드 정역이므로 PID이다. \(f(x) = x^2 + 1\)은 \(\mathbb{R}\) 위에서 기약이다(실수 근이 없으므로). 따라서 \((x^2+1)\)은 극대 아이디얼이고, 몫환은</p>
 $$
@@ -7309,50 +7300,50 @@ $$
 $$
 <p>이다. 이 동형은 \(\bar{x} \mapsto i\)로 주어진다. 몫환의 원소는 \(a + b\bar{x}\) (\(a,b \in \mathbb{R}\))이고, \(\bar{x}^2 = -1\)이므로 복소수의 곱셈 규칙과 정확히 일치한다. 이 복소수체를 대수적으로 구성하는 표준적인 방법이다.</p>
 
-<p><strong>(c) 다항식환 \(\mathbb{Z}[x]\)의 아이디얼.</strong> \(\mathbb{Z}[x]\)는 UFD이지만 PID가 아니다. 예를 들어, 아이디얼 \((2, x) = \{f(x) \in \mathbb{Z}[x] : f(0) \text{이 짝수}\}\)는 주 아이디얼이 아니다. 만약 \((2, x) = (g(x))\)라면, \(g \mid 2\)이고 \(g \mid x\)여야 한다. \(g \mid 2\)에서 \(g\)는 상수이고, \(g \mid x\)에서 \(g = \pm 1\)이어야 하지만, 그러면 \((g) = \mathbb{Z}[x] \neq (2, x)\)이므로 모순이다. 몫환 \(\mathbb{Z}[x]/(2, x) \cong \mathbb{Z}/2\mathbb{Z} = \mathbb{F}_2\)는 field(체)이므로 \((2, x)\)는 극대 아이디얼이다.</p>
+<p><strong>(c) 다항식환 \(\mathbb{Z}[x]\)의 아이디얼.</strong> \(\mathbb{Z}[x]\)는 UFD이지만 PID가 아니다. 예를 들어, 아이디얼 \((2, x) = \{f(x) \in \mathbb{Z}[x] : f(0) \text{이 짝수}\}\)는 주 아이디얼이 아니다. 만약 \((2, x) = (g(x))\)라면, \(g \mid 2\)이고 \(g \mid x\)여야 한다. \(g \mid 2\)에서 \(g\)는 상수이고, \(g \mid x\)에서 \(g = \pm 1\)이어야 하지만, 그러면 \((g) = \mathbb{Z}[x] \neq (2, x)\)이므로 모순이다. 몫환 \(\mathbb{Z}[x]/(2, x) \cong \mathbb{Z}/2\mathbb{Z} = \mathbb{F}_2\)는 체이므로 \((2, x)\)는 극대 아이디얼이다.</p>
 </div>
 
 <div class="definition">
 <span class="env-label">Definition 14.3 (Ideal)</span>
-ring(환) \(R\)의 부분집합 \(I \subseteq R\)가 <strong>ideal(아이디얼)</strong>이란, \(I \trianglelefteq R\)로 쓰며, 다음을 만족하는 것이다:
+환 \(R\)의 부분집합 \(I \subseteq R\)가 <strong>아이디얼</strong>이란, \(I \trianglelefteq R\)로 쓰며, 다음을 만족하는 것이다:
 <ul>
- <li>\((I, +)\)는 \((R, +)\)의 subgroup(부분군)이고,</li>
+ <li>\((I, +)\)는 \((R, +)\)의 부분군이고,</li>
  <li>모든 \(r \in R\)과 \(a \in I\)에 대해 \(ra \in I\)이고 \(ar \in I\)이다(흡수 성질).</li>
 </ul>
-원소 \(a_1, \ldots, a_k\)에 의해 생성되는 ideal(아이디얼)은 \((a_1, \ldots, a_k) = \{r_1 a_1 + \cdots + r_k a_k : r_i \in R\}\)이다. <strong>주 ideal(주 아이디얼)</strong>은 단일 원소로 생성되는 것이다: \((a) = Ra\).
+원소 \(a_1, \ldots, a_k\)에 의해 생성되는 아이디얼은 \((a_1, \ldots, a_k) = \{r_1 a_1 + \cdots + r_k a_k : r_i \in R\}\)이다. <strong>주아이디얼</strong>은 단일 원소로 생성되는 것이다: \((a) = Ra\).
 </div>
 
 <div class="definition">
 <span class="env-label">Definition 14.4 (Quotient Ring)</span>
-\(I \trianglelefteq R\)이면, <strong>quotient ring(몫환)</strong> \(R/I = \{r + I : r \in R\}\)은 다음 연산을 갖는다:
+\(I \trianglelefteq R\)이면, <strong>몫환</strong> \(R/I = \{r + I : r \in R\}\)은 다음 연산을 갖는다:
 $$
 (a + I) + (b + I) = (a + b) + I, \qquad (a + I)(b + I) = ab + I.
 $$
-자연 사영 \(\pi: R \to R/I\), \(\pi(r) = r + I\)는 kernel(핵)이 \(I\)인 전사 ring(환) homomorphism(준동형)이다.
+자연 사영 \(\pi: R \to R/I\), \(\pi(r) = r + I\)는 핵이 \(I\)인 전사 환 준동형이다.
 </div>
 
 <div class="theorem">
 <span class="env-label">Theorem 14.1 (Ring Isomorphism Theorems)</span>
 <ul>
- <li><strong>First</strong>: \(\varphi: R \to S\)가 ring(환) homomorphism(준동형)이면, \(\ker \varphi \trianglelefteq R\)이고 \(R / \ker \varphi \cong \operatorname{im} \varphi\)이다.</li>
+ <li><strong>First</strong>: \(\varphi: R \to S\)가 환 준동형이면, \(\ker \varphi \trianglelefteq R\)이고 \(R / \ker \varphi \cong \operatorname{im} \varphi\)이다.</li>
  <li><strong>Second</strong>: \(S\)가 부분환(subring)이고 \(I \trianglelefteq R\)이면, \(S/(S \cap I) \cong (S + I)/I\)이다.</li>
- <li><strong>Third</strong>: \(I \subseteq J\)가 \(R\)의 ideal(아이디얼)이면, \((R/I)/(J/I) \cong R/J\)이다.</li>
+ <li><strong>Third</strong>: \(I \subseteq J\)가 \(R\)의 아이디얼이면, \((R/I)/(J/I) \cong R/J\)이다.</li>
 </ul>
 </div>
 
 <div class="theorem">
 <span class="env-label">Theorem 14.2 (Prime and Maximal Ideals)</span>
-\(R\)을 항등원을 가진 가환 ring(환)이라 하자.
+\(R\)을 항등원을 가진 가환 환이라 하자.
 <ul>
- <li>ideal(아이디얼) \(P \neq R\)가 <strong>소(prime)</strong>란, \(ab \in P\)이면 \(a \in P\)이거나 \(b \in P\)인 것이다. 동치 조건으로, \(R/P\)가 정역이다.</li>
- <li>ideal(아이디얼) \(M \neq R\)가 <strong>극대(maximal)</strong>란, \(M \subsetneq I \subsetneq R\)인 ideal(아이디얼) \(I\)가 존재하지 않는 것이다. 동치 조건으로, \(R/M\)이 field(체)이다.</li>
- <li>모든 극대 ideal(아이디얼)은 소 ideal(아이디얼)이다. 역은 PID에서는 성립하지만 일반적으로는 성립하지 않는다.</li>
+ <li>아이디얼 \(P \neq R\)가 <strong>소(prime)</strong>란, \(ab \in P\)이면 \(a \in P\)이거나 \(b \in P\)인 것이다. 동치 조건으로, \(R/P\)가 정역이다.</li>
+ <li>아이디얼 \(M \neq R\)가 <strong>극대(maximal)</strong>란, \(M \subsetneq I \subsetneq R\)인 아이디얼 \(I\)가 존재하지 않는 것이다. 동치 조건으로, \(R/M\)이 체이다.</li>
+ <li>모든 극대 아이디얼은 소 아이디얼이다. PID에서는 모든 영이 아닌 소 아이디얼이 극대이지만, 영 아이디얼은 PID가 체일 때에만 극대이다.</li>
 </ul>
 </div>
 
 <div class="example">
 <span class="env-label">Example 14.2</span>
-\(\mathbb{Z}\)에서, 각 소수 \(p\)에 대해 ideal(아이디얼) \((p)\)는 극대(이자 소)이다. \(\mathbb{Z}/(p) \cong \mathbb{F}_p\)가 field(체)이기 때문이다. ideal(아이디얼) \((0)\)은 소이지만(\(\mathbb{Z}\)가 정역이므로) 극대는 아니다. ideal(아이디얼) \((6) = (2) \cap (3)\)은 소도 극대도 아니다.
+\(\mathbb{Z}\)에서, 각 소수 \(p\)에 대해 아이디얼 \((p)\)는 극대(이자 소)이다. \(\mathbb{Z}/(p) \cong \mathbb{F}_p\)가 체이기 때문이다. 아이디얼 \((0)\)은 소이지만(\(\mathbb{Z}\)가 정역이므로) 극대는 아니다. 아이디얼 \((6) = (2) \cap (3)\)은 소도 극대도 아니다.
 </div>
 
 <h3 id="polynomial-rings-pid-ufd">14.2 Polynomial Rings, PIDs, and UFDs</h3>
@@ -7363,12 +7354,12 @@ $$
 
 <div class="definition">
 <span class="env-label">Definition 14.5 (Polynomial Ring)</span>
-가환 ring(환) \(R\)에 대해, <strong>다항식 ring(환)</strong> \(R[x]\)는 형식적 표현 \(a_n x^n + \cdots + a_1 x + a_0\) (\(a_i \in R\))으로 이루어지며, 통상적인 덧셈과 곱셈을 갖는다. \(R\)이 정역이면 \(R[x]\)도 정역이고, \(\deg(fg) = \deg f + \deg g\)이다.
+가환 환 \(R\)에 대해, <strong>다항식 환</strong> \(R[x]\)는 형식적 표현 \(a_n x^n + \cdots + a_1 x + a_0\) (\(a_i \in R\))으로 이루어지며, 통상적인 덧셈과 곱셈을 갖는다. \(R\)이 정역이면 \(R[x]\)도 정역이고, \(\deg(fg) = \deg f + \deg g\)이다.
 </div>
 
 <div class="theorem">
 <span class="env-label">Theorem 14.3 (Division Algorithm for Polynomials)</span>
-\(F\)를 field(체)라 하고, \(f, g \in F[x]\), \(g \neq 0\)이라 하자. 그러면
+\(F\)를 체라 하고, \(f, g \in F[x]\), \(g \neq 0\)이라 하자. 그러면
 $$
 f = qg + r, \quad \deg r < \deg g
 $$
@@ -7378,7 +7369,7 @@ $$
 <div class="definition">
 <span class="env-label">Definition 14.6 (PID, UFD)</span>
 <ul>
- <li><strong>주 ideal(아이디얼) 정역(principal ideal domain, PID)</strong>은 모든 ideal(아이디얼)이 주 ideal(아이디얼)인 정역이다.</li>
+ <li><strong>주 아이디얼 정역(principal ideal domain, PID)</strong>은 모든 아이디얼이 주 아이디얼인 정역이다.</li>
  <li><strong>유일 인수 분해 정역(unique factorization domain, UFD)</strong>은 모든 영이 아닌 비단원(non-unit) 원소가 기약원(irreducible)의 곱으로 분해되며, 그 분해가 순서와 동반원(associate)을 제외하면 유일한 정역이다.</li>
  <li><strong>유클리드 정역(Euclidean domain)</strong>은 나눗셈 알고리즘을 지원하는 노름 함수 \(N: R \setminus \{0\} \to \mathbb{Z}_{\geq 0}\)를 갖춘 정역이다.</li>
 </ul>
@@ -7393,7 +7384,7 @@ $$
 <ul>
  <li>\(\mathbb{Z}\)는 유클리드 정역(노름 \(N(a) = |a|\))이므로, PID이자 UFD이다.</li>
  <li>\(\mathbb{Z}[i] = \{a + bi : a, b \in \mathbb{Z}\}\)(가우스 정수)는 노름 \(N(a+bi) = a^2 + b^2\)을 갖는 유클리드 정역이다.</li>
- <li>\(\mathbb{Z}[x]\)는 UFD이지만 PID가 아니다: ideal(아이디얼) \((2, x)\)는 주 ideal(아이디얼)이 아니다.</li>
+ <li>\(\mathbb{Z}[x]\)는 UFD이지만 PID가 아니다: 아이디얼 \((2, x)\)는 주 아이디얼이 아니다.</li>
  <li>\(\mathbb{Z}[\sqrt{-5}]\)는 UFD가 아니다: \(6 = 2 \cdot 3 = (1+\sqrt{-5})(1-\sqrt{-5})\)가 두 가지 서로 다른 기약 인수 분해이다.</li>
 </ul>
 </div>
@@ -7419,12 +7410,12 @@ $$
 
 <div class="definition">
 <span class="env-label">Definition 14.7 (Field Extension)</span>
-<strong>field extension(체 확장)</strong> \(K/F\)란, field(체) \(K\)가 \(F\)를 부분체(subfield)로 포함하는 것이다. 확장의 <strong>차수(degree)</strong> \([K : F]\)는 \(K\)를 \(F\) 위의 벡터 공간으로 볼 때의 차원이다. \([K:F] < \infty\)이면 확장은 <strong>유한(finite)</strong>이다.
+<strong>field extension(체 확장)</strong> \(K/F\)란, 체 \(K\)가 \(F\)를 부분체(subfield)로 포함하는 것이다. 확장의 <strong>차수(degree)</strong> \([K : F]\)는 \(K\)를 \(F\) 위의 벡터 공간으로 볼 때의 차원이다. \([K:F] < \infty\)이면 확장은 <strong>유한(finite)</strong>이다.
 </div>
 
 <div class="theorem">
 <span class="env-label">Theorem 14.5 (Tower Law)</span>
-\(F \subseteq K \subseteq L\)이 field(체)이면,
+\(F \subseteq K \subseteq L\)이 체이면,
 $$
 [L : F] = [L : K] \cdot [K : F].
 $$
@@ -7494,7 +7485,7 @@ $$
 
 <div class="definition">
 <span class="env-label">Definition 14.10 (Algebraic Closure)</span>
-field(체) \(F\)가 <strong>대수적으로 닫혀 있다(algebraically closed)</strong>란, \(F[x]\)의 모든 비상수 다항식이 \(F\)에 근을 갖는 것이다. \(F\)의 <strong>대수적 폐포(algebraic closure)</strong> \(\overline{F}\)는 \(F\) 위에서 대수적인 대수적으로 닫힌 field(체)이다. 모든 field(체)는 동형을 제외하면 유일한 대수적 폐포를 갖는다.
+체 \(F\)가 <strong>대수적으로 닫혀 있다(algebraically closed)</strong>란, \(F[x]\)의 모든 비상수 다항식이 \(F\)에 근을 갖는 것이다. \(F\)의 <strong>대수적 폐포(algebraic closure)</strong> \(\overline{F}\)는 \(F\) 위에서 대수적인 대수적으로 닫힌 체이다. 모든 체는 동형을 제외하면 유일한 대수적 폐포를 갖는다.
 </div>
 
 <h3 id="finite-fields">14.4 Finite Fields</h3>
@@ -7506,8 +7497,8 @@ field(체) \(F\)가 <strong>대수적으로 닫혀 있다(algebraically closed)<
 <div class="theorem">
 <span class="env-label">Theorem 14.8 (Classification of Finite Fields)</span>
 <ul>
- <li>모든 유한 field(체)의 위수는 어떤 소수 \(p\)와 양의 정수 \(n\)에 대해 \(p^n\)이다. 소수 \(p\)가 field(체)의 표수(characteristic)이다.</li>
- <li>각 소수 거듭제곱 \(q = p^n\)에 대해, 위수 \(q\)인 field(체)가 동형을 제외하면 유일하게 존재하며, \(\mathbb{F}_q\) 또는 \(\operatorname{GF}(q)\)로 표기한다. 이것은 \(x^q - x\)의 \(\mathbb{F}_p\) 위의 분해체이다.</li>
+ <li>모든 유한 체의 위수는 어떤 소수 \(p\)와 양의 정수 \(n\)에 대해 \(p^n\)이다. 소수 \(p\)가 체의 표수(characteristic)이다.</li>
+ <li>각 소수 거듭제곱 \(q = p^n\)에 대해, 위수 \(q\)인 체가 동형을 제외하면 유일하게 존재하며, \(\mathbb{F}_q\) 또는 \(\operatorname{GF}(q)\)로 표기한다. 이것은 \(x^q - x\)의 \(\mathbb{F}_p\) 위의 분해체이다.</li>
  <li>곱셈군 \(\mathbb{F}_q^\times\)는 위수 \(q - 1\)인 순환군이다.</li>
 </ul>
 </div>
@@ -7519,7 +7510,7 @@ field(체) \(F\)가 <strong>대수적으로 닫혀 있다(algebraically closed)<
 
 <div class="theorem">
 <span class="env-label">Theorem 14.10 (Frobenius Endomorphism)</span>
-사상 \(\sigma: \mathbb{F}_q \to \mathbb{F}_q\)를 \(\sigma(x) = x^p\)(\(q = p^n\))로 정의하면, 이것은 field(체) 자기동형사상이며 <strong>프로베니우스 자기준동형(Frobenius endomorphism)</strong>이라 한다. 갈루아 group(군) \(\operatorname{Gal}(\mathbb{F}_{p^n}/\mathbb{F}_p)\)는 \(\sigma\)에 의해 생성되는 위수 \(n\)인 순환군이다.
+사상 \(\sigma: \mathbb{F}_q \to \mathbb{F}_q\)를 \(\sigma(x) = x^p\)(\(q = p^n\))로 정의하면, 이것은 체 자기동형사상이며 <strong>프로베니우스 자기준동형(Frobenius endomorphism)</strong>이라 한다. 갈루아 군 \(\operatorname{Gal}(\mathbb{F}_{p^n}/\mathbb{F}_p)\)는 \(\sigma\)에 의해 생성되는 위수 \(n\)인 순환군이다.
 </div>
 
 <div class="example">
@@ -7615,9 +7606,9 @@ $$
 </details>
 <h2 id="graduate-algebra">15. Graduate Algebra</h2>
 
-<p class="chapter-intro">대학원 수준의 대수학은 환 위의 가군, 갈루아 이론, 텐서곱 등 보다 정교한 도구를 도입한다. 이들은 선형대수의 표준형 이론, 방정식의 가해성 판정, 다중선형 대수 등 다양한 문제에 통일된 관점을 제공한다.</p>
+<p class="chapter-intro">대학원 수준의 대수학에서는 환 위의 가군, 갈루아 이론, 텐서곱을 배운다. 이 도구들은 선형대수의 표준형, 방정식의 가해성, 다중선형 대수처럼 서로 다른 문제를 공통된 대수 구조로 연결한다.</p>
 
-<p>학부 대수학에서 배운 군, 환, 체는 각각 독립적인 이론처럼 보일 수 있지만, 대학원 대수학은 이들을 관통하는 통일적 구조를 드러낸다. 가군(module)은 벡터 공간의 일반화이면서 동시에 아벨 군의 일반화이며, PID 위의 가군에 대한 구조 정리 하나로 유한 생성 아벨 군의 분류와 조르당 표준형(Jordan normal form)이라는 전혀 다른 두 결과를 동시에 증명할 수 있다. 갈루아 이론은 체 확장과 군론을 하나의 대응으로 연결하여, 5차 방정식의 근의 공식이 존재하지 않음이라는 수세기의 난제를 해결한다. 추상적 구조가 구체적 계산을 단순화하는 패턴이 반복된다.</p>
+<p>학부 대수학에서 배운 군, 환, 체는 각각 독립적인 이론처럼 보일 수 있지만, 대학원 대수학은 이들을 관통하는 통일적 구조를 드러낸다. 가군(module)은 벡터 공간의 일반화이면서 동시에 아벨 군의 일반화이며, PID 위의 가군에 대한 구조 정리 하나로 유한 생성 아벨 군의 분류와 조르당 표준형(Jordan normal form)이라는 전혀 다른 두 결과를 동시에 증명할 수 있다. 갈루아 이론은 체 확장과 군론을 하나의 대응으로 연결하여, 5차 방정식에는 근의 공식이 없다는 수세기의 난제를 해결한다. 추상적 구조가 구체적 계산을 단순화하는 패턴이 반복된다.</p>
 
 <p>공학에서도 이 관점이 쓰인다. 선형 시스템 이론에서 상태 공간 모델 \(\dot{x} = Ax\)는 \(F[x]\)-가군 구조로 분석하며, 가제어성(controllability)과 가관측성(observability)의 구조적 분해가 가군의 분해에 대응한다. 양자 정보(quantum information)에서 여러 큐비트(qubit)의 합성 시스템은 벡터 공간의 텐서곱 \(\mathbb{C}^2 \otimes \mathbb{C}^2 \otimes \cdots\)으로 나타내며, 양자 얽힘(entanglement)은 텐서곱에서 분해 불가능한(non-decomposable) 원소의 존재로 정의된다. 함수형 프로그래밍(functional programming)에서 모나드(monad)와 펑터(functor)는 카테고리 이론의 개념을 프로그래밍 언어에 직접 구현한 것이다.</p>
 
@@ -7627,14 +7618,14 @@ $$
 
 <div class="definition">
 <span class="env-label">Definition 15.1 (Module)</span>
-ring(환) \(R\)에 대해, <strong>(좌) \(R\)-가군(module)</strong>은 아벨 group(군) \((M, +)\)와 스칼라 곱 \(R \times M \to M\), \((r, m) \mapsto rm\)의 쌍으로, 모든 \(r, s \in R\)과 \(m, n \in M\)에 대해 다음을 만족한다:
+환 \(R\)에 대해, <strong>(좌) \(R\)-가군(module)</strong>은 아벨 군 \((M, +)\)와 스칼라 곱 \(R \times M \to M\), \((r, m) \mapsto rm\)의 쌍으로, 모든 \(r, s \in R\)과 \(m, n \in M\)에 대해 다음을 만족한다:
 <ul>
  <li>\(r(m + n) = rm + rn\),</li>
  <li>\((r + s)m = rm + sm\),</li>
  <li>\((rs)m = r(sm)\),</li>
  <li>\(1m = m\) (\(R\)이 항등원을 가질 때).</li>
 </ul>
-\(R\)이 field(체)이면, \(R\)-가군은 정확히 \(R\) 위의 벡터 공간이다. \(R = \mathbb{Z}\)이면, \(\mathbb{Z}\)-가군은 정확히 아벨 group(군)이다.
+\(R\)이 체이면, \(R\)-가군은 정확히 \(R\) 위의 벡터 공간이다. \(R = \mathbb{Z}\)이면, \(\mathbb{Z}\)-가군은 정확히 아벨 군이다.
 </div>
 
 <div class="definition">
@@ -7664,11 +7655,11 @@ $$
 
 <div class="example">
 <span class="env-label">Example 15.1</span>
-<strong>유한 생성 아벨 group(군)의 분류.</strong> \(R = \mathbb{Z}\)를 택하면, 모든 유한 생성 아벨 group(군)은 다음 형태이다:
+<strong>유한 생성 아벨 군의 분류.</strong> \(R = \mathbb{Z}\)를 택하면, 모든 유한 생성 아벨 군은 다음 형태이다:
 $$
 G \cong \mathbb{Z}^r \oplus \mathbb{Z}/d_1\mathbb{Z} \oplus \cdots \oplus \mathbb{Z}/d_k\mathbb{Z}, \quad d_1 \mid d_2 \mid \cdots \mid d_k.
 $$
-예를 들어, 위수 12인 아벨 group(군)은 \(\mathbb{Z}/12\mathbb{Z}\)(불변 인자: 12)와 \(\mathbb{Z}/2\mathbb{Z} \oplus \mathbb{Z}/6\mathbb{Z}\)(불변 인자: 2, 6)이다. 단인자 형태로는: \(\mathbb{Z}/4\mathbb{Z} \oplus \mathbb{Z}/3\mathbb{Z}\)와 \(\mathbb{Z}/2\mathbb{Z} \oplus \mathbb{Z}/2\mathbb{Z} \oplus \mathbb{Z}/3\mathbb{Z}\)이다.
+예를 들어, 위수 12인 아벨 군은 \(\mathbb{Z}/12\mathbb{Z}\)(불변 인자: 12)와 \(\mathbb{Z}/2\mathbb{Z} \oplus \mathbb{Z}/6\mathbb{Z}\)(불변 인자: 2, 6)이다. 단인자 형태로는: \(\mathbb{Z}/4\mathbb{Z} \oplus \mathbb{Z}/3\mathbb{Z}\)와 \(\mathbb{Z}/2\mathbb{Z} \oplus \mathbb{Z}/2\mathbb{Z} \oplus \mathbb{Z}/3\mathbb{Z}\)이다.
 </div>
 
 <div class="remark">
@@ -7692,7 +7683,7 @@ PID 위의 가군에 대한 구조 정리를 \(F[x]\)-가군 \(V\)에 적용하�
 
 <div class="definition">
 <span class="env-label">Definition 15.4 (Galois Extension)</span>
-유한 확장 \(K/F\)가 <strong>갈루아 확장(Galois extension)</strong>이란, 분리이면서 정규인 것이다. <strong>갈루아 group(군)(Galois group)</strong>은
+유한 확장 \(K/F\)가 <strong>갈루아 확장(Galois extension)</strong>이란, 분리이면서 정규인 것이다. <strong>갈루아 군(Galois group)</strong>은
 $$
 \operatorname{Gal}(K/F) = \{\sigma: K \to K \mid \sigma \text{ is an automorphism with } \sigma|_F = \operatorname{id}\}
 $$
@@ -7701,7 +7692,7 @@ $$
 
 <div class="theorem">
 <span class="env-label">Theorem 15.3 (Fundamental Theorem of Galois Theory)</span>
-\(K/F\)를 갈루아 group(군) \(G = \operatorname{Gal}(K/F)\)를 갖는 유한 갈루아 확장이라 하자. 포함 관계를 역전시키는 전단사 대응이 존재한다:
+\(K/F\)를 갈루아 군 \(G = \operatorname{Gal}(K/F)\)를 갖는 유한 갈루아 확장이라 하자. 포함 관계를 역전시키는 전단사 대응이 존재한다:
 $$
 \{\text{intermediate fields } F \subseteq E \subseteq K\} \longleftrightarrow \{\text{subgroups } H \leq G\}
 $$
@@ -7714,12 +7705,12 @@ $$
 
 <div class="example">
 <span class="env-label">Example 15.2</span>
-\(K = \mathbb{Q}(\sqrt{2}, \sqrt{3})\), \(F = \mathbb{Q}\)를 생각하자. 이것은 차수 4인 갈루아 확장이다. 갈루아 group(군)은 \(G = \{e, \sigma, \tau, \sigma\tau\}\)이며, \(\sigma(\sqrt{2}) = -\sqrt{2}, \sigma(\sqrt{3}) = \sqrt{3}\)이고 \(\tau(\sqrt{2}) = \sqrt{2}, \tau(\sqrt{3}) = -\sqrt{3}\)이다. 따라서 \(G \cong \mathbb{Z}/2\mathbb{Z} \times \mathbb{Z}/2\mathbb{Z}\)(클라인 4원군)이다. 세 비자명 subgroup(부분군) \(\langle\sigma\rangle, \langle\tau\rangle, \langle\sigma\tau\rangle\)는 중간체 \(\mathbb{Q}(\sqrt{3}), \mathbb{Q}(\sqrt{2}), \mathbb{Q}(\sqrt{6})\)에 대응한다.
+\(K = \mathbb{Q}(\sqrt{2}, \sqrt{3})\), \(F = \mathbb{Q}\)를 생각하자. 이것은 차수 4인 갈루아 확장이다. 갈루아 군은 \(G = \{e, \sigma, \tau, \sigma\tau\}\)이며, \(\sigma(\sqrt{2}) = -\sqrt{2}, \sigma(\sqrt{3}) = \sqrt{3}\)이고 \(\tau(\sqrt{2}) = \sqrt{2}, \tau(\sqrt{3}) = -\sqrt{3}\)이다. 따라서 \(G \cong \mathbb{Z}/2\mathbb{Z} \times \mathbb{Z}/2\mathbb{Z}\)(클라인 4원군)이다. 세 비자명 부분군 \(\langle\sigma\rangle, \langle\tau\rangle, \langle\sigma\tau\rangle\)는 중간체 \(\mathbb{Q}(\sqrt{3}), \mathbb{Q}(\sqrt{2}), \mathbb{Q}(\sqrt{6})\)에 대응한다.
 </div>
 
 <div class="theorem">
 <span class="env-label">Theorem 15.4 (Insolvability of the Quintic)</span>
-다항 방정식이 거듭제곱근으로 풀릴 필요충분조건은 그 갈루아 group(군)이 가해군(solvable group)인 것이다. 차수 \(n \geq 5\)인 일반 다항식의 갈루아 group(군)은 \(S_n\)이며, 이것은 가해가 아니다(\(A_n\)이 \(n \geq 5\)에서 단순이고 비가환이므로). 따라서, 일반 5차 방정식의 근에 대한 거듭제곱근 공식은 존재하지 않는다.
+다항 방정식이 거듭제곱근으로 풀릴 필요충분조건은 그 갈루아 군이 가해군(solvable group)인 것이다. 차수 \(n \geq 5\)인 일반 다항식의 갈루아 군은 \(S_n\)이며, 이것은 가해가 아니다(\(A_n\)이 \(n \geq 5\)에서 단순이고 비가환이므로). 따라서, 일반 5차 방정식의 근에 대한 거듭제곱근 공식은 존재하지 않는다.
 </div>
 
 <h3 id="tensor-products">15.3 Tensor Products</h3>
@@ -7730,7 +7721,7 @@ $$
 
 <div class="definition">
 <span class="env-label">Definition 15.5 (Tensor Product of Modules)</span>
-\(R\)을 가환 ring(환), \(M\)과 \(N\)을 \(R\)-가군이라 하자. <strong>tensor product(텐서곱)</strong> \(M \otimes_R N\)은 \(m \in M, n \in N\)에 대한 기호 \(m \otimes n\)으로 생성되는 \(R\)-가군으로, 다음 관계식을 만족한다:
+\(R\)을 가환 환, \(M\)과 \(N\)을 \(R\)-가군이라 하자. <strong>텐서곱</strong> \(M \otimes_R N\)은 \(m \in M, n \in N\)에 대한 기호 \(m \otimes n\)으로 생성되는 \(R\)-가군으로, 다음 관계식을 만족한다:
 <ul>
  <li>\((m_1 + m_2) \otimes n = m_1 \otimes n + m_2 \otimes n\),</li>
  <li>\(m \otimes (n_1 + n_2) = m \otimes n_1 + m \otimes n_2\),</li>
@@ -7738,7 +7729,7 @@ $$
 </ul>
 </div>
 
-<p>tensor product(텐서곱)은 보편 성질(universal property)을 만족한다: 쌍선형 사상(bilinear map) \(M \times N \to P\)는 선형 사상 \(M \otimes_R N \to P\)와 일대일 대응한다.</p>
+<p>텐서곱은 보편 성질(universal property)을 만족한다: 쌍선형 사상(bilinear map) \(M \times N \to P\)는 선형 사상 \(M \otimes_R N \to P\)와 일대일 대응한다.</p>
 
 <div class="theorem">
 <span class="env-label">Theorem 15.5 (Properties of Tensor Products)</span>
@@ -7749,7 +7740,7 @@ $$
  <li><strong>Identity</strong>: \(R \otimes_R M \cong M\).</li>
  <li><strong>Distributivity</strong>: \(M \otimes_R (N \oplus P) \cong (M \otimes_R N) \oplus (M \otimes_R P)\).</li>
  <li><strong>Free modules</strong>: \(R^m \otimes_R R^n \cong R^{mn}\).</li>
- <li><strong>Base change</strong>: \(R \to S\)가 ring(환) homomorphism(준동형)이면, \(S \otimes_R M\)은 \(S\)-가군이다(스칼라 확장).</li>
+ <li><strong>Base change</strong>: \(R \to S\)가 환 준동형이면, \(S \otimes_R M\)은 \(S\)-가군이다(스칼라 확장).</li>
 </ul>
 </div>
 
@@ -7764,7 +7755,7 @@ $$
 
 <div class="theorem">
 <span class="env-label">Theorem 15.6 (Right Exactness of Tensor)</span>
-함자 \(M \otimes_R -\)는 우완전(right exact)이다: \(0 \to A \to B \to C \to 0\)이 short exact sequence(짧은 완전열)이면,
+함자 \(M \otimes_R -\)는 우완전(right exact)이다: \(0 \to A \to B \to C \to 0\)이 짧은 완전열이면,
 $$
 M \otimes_R A \to M \otimes_R B \to M \otimes_R C \to 0
 $$
@@ -7799,10 +7790,9 @@ $$
 <li>Roman, <em>Advanced Linear Algebra</em> — GTM 135, 모듈 이론과 다중선형대수</li>
 </ul>
 </details>
-
 <h2 id="homological-algebra">16. Homological Algebra</h2>
 
-<p class="chapter-intro">호몰로지 대수는 사슬 복합체와 완전열로 대수적 구조의 '결함'을 측정한다. 텐서곱의 비완전성, 확장 문제, 위상 공간의 불변량 — 맥락은 달라도 공통 구조가 있다. 호몰로지 대수가 그 공통 구조를 잡아낸다.</p>
+<p class="chapter-intro">호몰로지 대수는 사슬 복합체와 완전열로 대수적 구조의 '결함'을 측정한다. 텐서곱의 비완전성, 확장 문제, 위상 공간의 불변량은 서로 다른 맥락에서 같은 구조를 드러낸다.</p>
 
 <p>호몰로지(homology)는 대수적 구조에서 불변량(invariant)을 체계적으로 추출하는 방법이다. 위상수학에서 출발하여 대수학, 해석학, 기하학으로 뻗어 나갔다. 완전열(exact sequence)은 정보가 손실 없이 전달되는 상태를 기술하고, 호몰로지는 완전성이 깨지는 정도, 즉 장애물(obstruction)을 측정한다.</p>
 
@@ -7818,7 +7808,7 @@ $$
 $$
 \cdots \xrightarrow{\partial_{n+2}} C_{n+1} \xrightarrow{\partial_{n+1}} C_n \xrightarrow{\partial_n} C_{n-1} \xrightarrow{\partial_{n-1}} \cdots
 $$
-여기서 각 \(\partial_n: C_n \to C_{n-1}\)은 \(R\)-가군 homomorphism(준동형)이며, 모든 \(n\)에 대해 \(\partial_n \circ \partial_{n+1} = 0\)을 만족한다. 사상 \(\partial_n\)을 <strong>경계 작용소(boundary operator)</strong>(또는 미분)라 한다.
+여기서 각 \(\partial_n: C_n \to C_{n-1}\)은 \(R\)-가군 준동형이며, 모든 \(n\)에 대해 \(\partial_n \circ \partial_{n+1} = 0\)을 만족한다. 사상 \(\partial_n\)을 <strong>경계 작용소(boundary operator)</strong>(또는 미분)라 한다.
 </div>
 
 <p><strong>쌍대사슬 복합체(cochain complex)</strong> \((C^\bullet, d)\)는 쌍대적으로 정의되며, 사상 \(d^n: C^n \to C^{n+1}\)이 \(d^{n+1} \circ d^n = 0\)을 만족한다.</p>
@@ -7836,7 +7826,7 @@ $$
 
 <div class="definition">
 <span class="env-label">Definition 16.3 (Exact Sequence)</span>
-사슬 복합체가 \(C_n\)에서 <strong>완전(exact)</strong>이란, \(H_n = 0\), 즉 \(\ker \partial_n = \operatorname{im} \partial_{n+1}\)인 것이다. 복합체가 <strong>완전</strong>이란, 모든 위치에서 완전인 것이다. <strong>short exact sequence(짧은 완전열)</strong>은 다음 형태의 완전열이다:
+사슬 복합체가 \(C_n\)에서 <strong>완전(exact)</strong>이란, \(H_n = 0\), 즉 \(\ker \partial_n = \operatorname{im} \partial_{n+1}\)인 것이다. 복합체가 <strong>완전</strong>이란, 모든 위치에서 완전인 것이다. <strong>짧은 완전열(short exact sequence)</strong>은 다음 형태의 완전열이다:
 $$
 0 \to A \xrightarrow{f} B \xrightarrow{g} C \to 0.
 $$
@@ -7845,16 +7835,16 @@ $$
 
 <div class="example">
 <span class="env-label">Example 16.1</span>
-열 \(0 \to \mathbb{Z} \xrightarrow{\times n} \mathbb{Z} \xrightarrow{\pi} \mathbb{Z}/n\mathbb{Z} \to 0\)은 short exact sequence(짧은 완전열)이다. 첫째 사상은 \(n\)배 곱이고, 둘째 사상은 몫 사상이다.
+열 \(0 \to \mathbb{Z} \xrightarrow{\times n} \mathbb{Z} \xrightarrow{\pi} \mathbb{Z}/n\mathbb{Z} \to 0\)은 짧은 완전열이다. 첫째 사상은 \(n\)배 곱이고, 둘째 사상은 몫 사상이다.
 </div>
 
 <div class="theorem">
 <span class="env-label">Theorem 16.1 (Long Exact Sequence in Homology)</span>
-사슬 복합체의 short exact sequence(짧은 완전열) \(0 \to A_\bullet \to B_\bullet \to C_\bullet \to 0\)은 호몰로지에서의 긴 완전열(long exact sequence)을 유도한다:
+사슬 복합체의 짧은 완전열 \(0 \to A_\bullet \to B_\bullet \to C_\bullet \to 0\)은 호몰로지에서의 긴 완전열(long exact sequence)을 유도한다:
 $$
 \cdots \to H_n(A) \to H_n(B) \to H_n(C) \xrightarrow{\delta} H_{n-1}(A) \to H_{n-1}(B) \to \cdots
 $$
-사상 \(\delta: H_n(C) \to H_{n-1}(A)\)를 <strong>연결 homomorphism(준동형)(connecting homomorphism)</strong>이라 하며, 다이어그램 추적(diagram chasing), 즉 뱀 보조정리(Snake Lemma)를 통해 구성된다.
+사상 \(\delta: H_n(C) \to H_{n-1}(A)\)를 <strong>연결 준동형(connecting homomorphism)</strong>이라 하며, 다이어그램 추적(diagram chasing), 즉 뱀 보조정리(Snake Lemma)를 통해 구성된다.
 </div>
 
 <div class="theorem">
@@ -7875,7 +7865,7 @@ $$
 
 <div class="definition">
 <span class="env-label">Definition 16.4 (Split Exact Sequence)</span>
-short exact sequence(짧은 완전열) \(0 \to A \xrightarrow{f} B \xrightarrow{g} C \to 0\)이 <strong>분열(split)</strong>한다 함은, 다음 동치 조건 중 하나가 성립하는 것이다:
+짧은 완전열 \(0 \to A \xrightarrow{f} B \xrightarrow{g} C \to 0\)이 <strong>분열(split)</strong>한다 함은, 다음 동치 조건 중 하나가 성립하는 것이다:
 <ul>
  <li>\(g \circ s = \operatorname{id}_C\)인 \(s: C \to B\)가 존재한다(단면, section).</li>
  <li>\(r \circ f = \operatorname{id}_A\)인 \(r: B \to A\)가 존재한다(수축, retraction).</li>
@@ -7886,8 +7876,8 @@ short exact sequence(짧은 완전열) \(0 \to A \xrightarrow{f} B \xrightarrow{
 <div class="theorem">
 <span class="env-label">Theorem 16.3 (Projective and Injective Modules)</span>
 <ul>
- <li>가군 \(P\)가 <strong>사영적(projective)</strong>이란, 모든 short exact sequence(짧은 완전열) \(0 \to A \to B \to P \to 0\)이 분열하는 것이다. 동치 조건으로, \(P\)가 자유 가군의 직합인수(direct summand)이다. 동치 조건으로, \(\operatorname{Hom}(P, -)\)가 완전이다.</li>
- <li>가군 \(Q\)가 <strong>단사적(injective)</strong>이란, 모든 short exact sequence(짧은 완전열) \(0 \to Q \to B \to C \to 0\)이 분열하는 것이다. 동치 조건으로, \(\operatorname{Hom}(-, Q)\)가 완전이다.</li>
+ <li>가군 \(P\)가 <strong>사영적(projective)</strong>이란, 모든 짧은 완전열 \(0 \to A \to B \to P \to 0\)이 분열하는 것이다. 동치 조건으로, \(P\)가 자유 가군의 직합인수(direct summand)이다. 동치 조건으로, \(\operatorname{Hom}(P, -)\)가 완전이다.</li>
+ <li>가군 \(Q\)가 <strong>단사적(injective)</strong>이란, 모든 짧은 완전열 \(0 \to Q \to B \to C \to 0\)이 분열하는 것이다. 동치 조건으로, \(\operatorname{Hom}(-, Q)\)가 완전이다.</li>
 </ul>
 PID 위에서, 가군이 사영적일 필요충분조건은 자유인 것이다. PID 위에서, 가군이 단사적일 필요충분조건은 가분(divisible)인 것이다.
 </div>
@@ -7929,7 +7919,7 @@ $$
 <ul>
  <li>\(\operatorname{Ext}_R^0(M, N) \cong \operatorname{Hom}_R(M, N)\).</li>
  <li>\(M\)이 사영적이거나 \(N\)이 단사적이면, 모든 \(n \geq 1\)에 대해 \(\operatorname{Ext}_R^n(M, N) = 0\)이다.</li>
- <li>\(\operatorname{Ext}_R^1(M, N)\)은 \(M\)을 \(N\)으로 확장하는 것, 즉 short exact sequence(짧은 완전열) \(0 \to N \to E \to M \to 0\)의 동치류를 분류한다.</li>
+ <li>\(\operatorname{Ext}_R^1(M, N)\)은 \(M\)을 \(N\)으로 확장하는 것, 즉 짧은 완전열 \(0 \to N \to E \to M \to 0\)의 동치류를 분류한다.</li>
 </ul>
 </div>
 
@@ -7945,7 +7935,7 @@ $$
 
 <div class="theorem">
 <span class="env-label">Theorem 16.4 (Universal Coefficient Theorem)</span>
-자유 아벨 group(군)의 사슬 복합체 \(C_\bullet\)와 아벨 group(군) \(G\)에 대해, 다음과 같은 (분열하는) short exact sequence(짧은 완전열)가 존재한다:
+자유 아벨 군의 사슬 복합체 \(C_\bullet\)와 아벨 군 \(G\)에 대해, 다음과 같은 (분열하는) 짧은 완전열이 존재한다:
 $$
 0 \to H_n(C) \otimes G \to H_n(C \otimes G) \to \operatorname{Tor}_1^{\mathbb{Z}}(H_{n-1}(C), G) \to 0,
 $$
@@ -7982,12 +7972,11 @@ $$
 <li>Gelfand &amp; Manin, <em>Methods of Homological Algebra</em> — 도래 범주 포함 현대적 접근</li>
 </ul>
 </details>
-
 <h2 id="elementary-number-theory">17. Elementary Number Theory</h2>
 
 <p class="chapter-intro">초등 정수론은 정수의 나눗셈, 소인수분해, 합동식 등을 다루는 분야이다. '초등'이라는 이름과 달리 이 분야의 결과들은 암호학(RSA), 해시 함수, 난수 생성 등 현대 응용의 토대이다.</p>
 
-<p>인터넷 보안의 근간인 RSA 암호 체계(RSA cryptosystem)는 전적으로 정수론에 기반한다. 두 큰 소수의 곱은 쉽게 계산할 수 있지만, 그 곱을 다시 소인수분해(prime factorization)하는 것은 현재 알려진 어떤 고전 알고리즘으로도 다항 시간 내에 해결할 수 없다. 이 비대칭성이 공개키 암호의 안전성을 보장한다. 디지털 통신에서 데이터 무결성을 검증하는 CRC(Cyclic Redundancy Check)는 다항식의 모듈러 나눗셈(modular division)에 기초하며, 의사난수 생성기(pseudorandom number generator)에 널리 쓰이는 선형 합동식(linear congruential generator) \(x_{n+1} \equiv ax_n + c \pmod{m}\)은 합동 산술의 직접적인 응용이다.</p>
+<p>RSA 암호 체계(RSA cryptosystem)는 정수론에 기반한다. 두 큰 소수의 곱은 쉽게 계산할 수 있지만, 그 곱의 소인수분해(prime factorization)를 고전 컴퓨터에서 효율적으로 푸는 방법은 알려져 있지 않다. RSA는 이 계산 난이도의 차이를 이용한다. 디지털 통신에서 데이터 무결성을 검증하는 CRC(Cyclic Redundancy Check)는 다항식의 모듈러 나눗셈(modular division)에 기초하며, 의사난수 생성기에 쓰이는 선형 합동식(linear congruential generator) \(x_{n+1} \equiv ax_n + c \pmod{m}\)은 합동 산술의 직접적인 응용이다.</p>
 
 <p>해시 함수(hash function)의 설계에서도 모듈러 연산은 핵심 도구이다. 예를 들어 해시 테이블의 주소 계산, 체크섬(checksum) 생성, 블룸 필터(Bloom filter) 등은 모두 정수를 특정 범위로 축소하는 나머지 연산에 의존한다. 나눗셈 정리, 유클리드 호제법, 페르마 소정리, 이차상호법칙 — 이 장에서 다루는 결과들이 그 수학적 바탕이다.</p>
 
@@ -8357,12 +8346,11 @@ $$
 <li>Burton, <em>Elementary Number Theory</em> — 접근성 좋은 입문서</li>
 </ul>
 </details>
-
 <h2 id="algebraic-number-theory">18. Algebraic Number Theory</h2>
 
 <p class="chapter-intro">대수적 정수론은 정수의 성질을 수체(number field)로 확장하여 연구하는 분야이다. 유일 인수분해의 실패를 아이디얼의 유일 분해로 복원하는 데데킨트의 아이디어가 이 이론의 출발점이며, 류군과 단원 정리는 수체의 산술적 구조를 정밀하게 기술한다.</p>
 
-<p>대수적 정수론의 구조는 현대 암호학과 부호 이론(coding theory)에서 점점 더 중요해지고 있다. 양자 컴퓨터의 등장 가능성에 대비한 포스트 양자 암호(post-quantum cryptography)에서 가장 유력한 후보 중 하나인 격자 기반 암호(lattice-based cryptography)는 대수적 수체의 정수환 위에 정의된 이상 격자(ideal lattice)의 구조를 활용한다. Shor의 양자 알고리즘(Shor's algorithm)이 RSA를 깨뜨릴 수 있는 이유 역시, 정수의 위수 찾기(order finding) 문제를 양자 푸리에 변환으로 효율적으로 풀 수 있다는 수론적 구조에 기인한다. 부호 이론에서는 대수적 수체의 아이디얼(ideal)이 갖는 유일 인수분해 성질이 오류 정정 부호(error-correcting code)의 구성에 활용된다.</p>
+<p>대수적 정수론의 구조는 암호학과 부호 이론(coding theory)에도 쓰인다. 포스트 양자 암호(post-quantum cryptography)의 한 갈래인 격자 기반 암호(lattice-based cryptography)는 대수적 수체의 정수환 위에 정의된 아이디얼 격자(ideal lattice)를 활용한다. Shor의 양자 알고리즘(Shor's algorithm)은 정수의 위수 찾기(order finding) 문제를 양자 푸리에 변환으로 효율적으로 푼다. 부호 이론에서는 대수적 수체의 아이디얼(ideal)이 갖는 유일 인수분해 성질을 오류 정정 부호(error-correcting code)의 구성에 활용한다.</p>
 
 <p>이 장은 "정수" 개념을 일반화한다. 일반적인 수체에서는 원소의 유일 인수분해(unique factorization)가 성립하지 않을 수 있다. 데데킨트(Dedekind)는 원소 대신 아이디얼(ideal)을 인수분해의 기본 단위로 삼으면 유일성이 복원된다는 것을 보였다. "왜 '수' 대신 '아이디얼'로 인수분해하는가?"가 이 장이 답하는 질문이다.</p>
 
@@ -8543,7 +8531,11 @@ $$
 
 <div class="proof">
 <span class="env-label">Proof</span>
-(개요.) 대수적 매장 \(\ell: \mathcal{O}_K^\times \to \mathbb{R}^{r_1 + r_2}\)를 \(\ell(u) = (\log|\sigma_1(u)|, \ldots, \log|\sigma_{r_1}(u)|, 2\log|\sigma_{r_1+1}(u)|, \ldots, 2\log|\sigma_{r_1+r_2}(u)|)\)로 정의한다. 상은 초평면 \(\sum x_i = 0\) 위에 놓인다 (단원에 대해 \(\sum = \log|N(u)| = 0\)이므로). \(\ell\)의 핵은 정확히 \(\mu_K\)이다. 격자 논법 (민코프스키의 볼록체 정리를 사용)에 의해, 상은 이 초평면에서 계수 \(r_1 + r_2 - 1\)인 격자이다. \(\blacksquare\)
+(개요.) 대수적 매장 \(\ell: \mathcal{O}_K^\times \to \mathbb{R}^{r_1 + r_2}\)를
+\[
+\ell(u) = (\log|\sigma_1(u)|, \ldots, \log|\sigma_{r_1}(u)|, 2\log|\sigma_{r_1+1}(u)|, \ldots, 2\log|\sigma_{r_1+r_2}(u)|)
+\]
+로 정의한다. 상은 초평면 \(\sum x_i = 0\) 위에 놓인다 (단원에 대해 \(\sum = \log|N(u)| = 0\)이므로). \(\ell\)의 핵은 정확히 \(\mu_K\)이다. 격자 논법 (민코프스키의 볼록체 정리를 사용)에 의해, 상은 이 초평면에서 계수 \(r_1 + r_2 - 1\)인 격자이다. \(\blacksquare\)
 </div>
 
 <div class="example">
@@ -8611,11 +8603,10 @@ $$
 <!-- ============================================================== -->
 <!--  PART VII: TOPOLOGY & GEOMETRY                                  -->
 <!-- ============================================================== -->
-
 <h2 class="part-title">Part VII &mdash; 위상수학 &amp; 기하학</h2>
 
 <div class="part-intro">
-<p>위상수학과 기하학은 공간의 성질을 연구한다. 위상수학은 '늘이고 구부려도 변하지 않는' 성질을, 기하학은 거리와 곡률 같은 계량적 성질을 다룬다. 이 두 분야는 서로 보완적이다: 위상수학이 공간의 정성적 구조를 포착한다면, 기하학은 정량적으로 잰다. Part VII에서는 일반 위상수학, 미분기하학, 대수기하학, 대수적 위상수학을 차례로 살펴본다.</p>
+<p>위상수학은 공간을 연속적으로 변형해도 보존되는 성질을, 기하학은 거리와 곡률 같은 계량적 성질을 연구한다. Part VII는 일반 위상수학에서 출발해 미분기하학, 대수기하학, 대수적 위상수학으로 이어진다.</p>
 </div>
 
 <!-- ============================================================== -->
@@ -8799,7 +8790,7 @@ $$ s = \sup\{x \in [0,1] : [0, x] \text{가 } \mathcal{U}\text{의 유한 부분
 
 <p>미분기하학(differential geometry)은 "곡면이 얼마나 휘어져 있는가"를 정량화하는 학문이다. 이 질문은 공학 여러 분야에서 직접 등장한다. GPS와 관성항법장치(INS)에서 지구 표면 위의 최단 경로를 계산하는 것은 구면 위의 측지선(geodesic) 문제이며, 로봇 팔의 운동학(kinematics)에서 관절 각도의 공간은 유클리드 공간이 아닌 매니폴드(manifold)를 이룬다. 컴퓨터 비전(computer vision)에서 3D 스캔 데이터로부터 곡면을 재구성하고 곡률을 추정하는 작업, 일반상대론(general relativity)에서 시공간(spacetime)의 기하학을 기술하는 것, 기계학습(machine learning)에서 확률 분포의 공간 위에 기하학적 구조를 부여하는 정보 기하학(information geometry) 등이 모두 미분기하학에 기반한다.</p>
 
-<p>곡선의 곡률(curvature)과 비틀림(torsion)에서 출발하여, 곡면의 제1/제2 기본형식(fundamental form), 가우스 곡률(Gaussian curvature)을 거쳐, 국소적 곡률과 대역적 위상을 연결하는 가우스-보네 정리(Gauss-Bonnet theorem)까지 이어진다. 평평한 유클리드 공간의 기하학만으로는 현실 세계의 곡면과 공간을 기술할 수 없다. 핵심은 "내재적 기하학(intrinsic geometry)"이다.</p>
+<p>곡선의 곡률(curvature)과 비틀림(torsion)에서 출발하여, 곡면의 제1·제2 기본형식(fundamental form)과 가우스 곡률(Gaussian curvature)을 거쳐 국소적 곡률과 대역적 위상을 연결하는 가우스-보네 정리(Gauss-Bonnet theorem)까지 나아간다. 평평한 유클리드 공간의 기하학만으로는 곡면 위에서 측정되는 거리와 곡률을 기술할 수 없다. 이를 곡면 자체의 정보로 다루는 관점이 내재적 기하학(intrinsic geometry)이다.</p>
 
 <p>곡선의 "굽은 정도"를 정량화하는 것이 미분기하학의 첫 번째 과제이다. 도로 설계에서 곡률은 차량의 안전 속도를 결정하고, CNC 가공에서 공구 경로의 곡률은 가공 정밀도와 직결된다.</p>
 
@@ -8959,15 +8950,14 @@ $$ \int_S K\, dA = 2\pi(-2) = -4\pi. $$
 <li>Spivak, <em>A Comprehensive Introduction to Differential Geometry</em> (5 vols) — 백과사전적 참고서</li>
 </ul>
 </details>
-
 <section id="algebraic-geometry">
 <h3>21. 대수기하</h3>
 
 <p class="chapter-intro">대수기하학은 다항 방정식의 해집합(다양체)을 기하학적 대상으로 연구한다. 대수와 기하의 사전(힐베르트 영점정리)을 통해, 아이디얼의 대수적 성질이 다양체의 기하학적 성질에 대응한다.</p>
 
-<p>공학에서 다항식 연립방정식의 해집합은 예상보다 자주 등장한다. 로봇 운동학(robot kinematics)에서 관절 각도 조건은 다항식 제약(polynomial constraint)으로 표현되며, 로봇 팔의 역기구학(inverse kinematics) 문제는 결국 다항식 연립방정식의 해집합, 즉 아핀 다양체(affine variety)를 구하는 문제이다. 컴퓨터 비전(computer vision)에서 다시점 기하학(multi-view geometry)의 에피폴라 제약(epipolar constraint)은 기본 행렬(fundamental matrix)에 대한 다항식 조건으로 기술되며, 사영 다양체(projective variety)의 언어가 자연스럽게 적용된다.</p>
+<p>공학에서도 다항식 연립방정식의 해집합이 등장한다. 로봇 운동학(robot kinematics)에서 관절 각도 조건은 다항식 제약(polynomial constraint)으로 표현되며, 로봇 팔의 역기구학(inverse kinematics)은 다항식 연립방정식의 해집합, 즉 아핀 다양체(affine variety)를 구하는 문제로 나타낼 수 있다. 컴퓨터 비전(computer vision)에서 다시점 기하학(multi-view geometry)의 에피폴라 제약(epipolar constraint)은 기본 행렬(fundamental matrix)에 대한 다항식 조건으로 기술되며, 사영 다양체(projective variety)의 언어로 다룰 수 있다.</p>
 
-<p>코딩 이론(coding theory)에서는 대수기하 부호(algebraic geometry code, Goppa code)가 유한체 위의 대수 곡선의 유리점(rational point)을 이용하여 오류 정정 능력이 뛰어난 부호를 설계한다. 현대 암호학(cryptography)의 핵심인 타원곡선 암호(ECC)는 타원곡선 위의 이산 로그 문제(discrete logarithm problem)에 의존하며, 이 장의 종수(genus) 1 곡선이 가진 군 구조(group law)가 그 수학적 토대이다. 대수기하학은 다항식 방정식의 해집합을 곡선, 곡면, 그리고 그 위의 대수적 구조로 다루는 언어다.</p>
+<p>코딩 이론(coding theory)에서는 Goppa가 도입한 대수기하 부호(algebraic geometry code)가 유한체 위 대수 곡선의 유리점(rational point)에서 함수를 평가해 오류정정 부호를 구성하고, 곡선과 인자(divisor)의 조건으로 최소거리의 하한을 얻는다. 타원곡선 암호(ECC)는 타원곡선 위의 이산 로그 문제(discrete logarithm problem)에 의존하며, 종수(genus) 1 곡선의 군 구조(group law)가 그 수학적 토대이다. 대수기하학은 다항식 방정식의 해집합과 그 위의 대수 구조를 함께 다루는 언어다.</p>
 
 <p>대수기하학의 출발점은 다항식의 해집합을 기하학적 대상으로 보는 관점이다. 하나의 다항식 \(f(x, y) = 0\)의 해집합은 평면 위의 곡선이고, 여러 다항식의 공통 영점 집합은 더 복잡한 기하학적 형태를 가진다. 이 해집합을 체계적으로 연구하기 위해 아핀 다양체(affine variety)라는 개념을 도입한다.</p>
 
@@ -9115,13 +9105,12 @@ $$ g = \frac{(d-1)(d-2)}{2}. $$
 <li>Gathmann, <a href="https://agag-gathmann.math.rptu.de/class/alggeom-2021/alggeom-2021.pdf" target="_blank">Algebraic Geometry (강의노트)</a></li>
 </ul>
 </details>
-
 <section id="algebraic-topology">
 <h3>22. 대수적 위상수학</h3>
 
 <p class="chapter-intro">대수적 위상수학은 위상 공간에 군, 환 등의 대수적 불변량을 대응시켜 공간을 분류한다. 기본군, 호몰로지, 코호몰로지가 주요 도구이며, 이들로 '구멍의 개수' 같은 직관을 엄밀하게 정량화한다.</p>
 
-<p>위상적 성질을 대수적 불변량(숫자, 군, 환)으로 변환하면 계산할 수 있다. "이 공간에 구멍이 있는가?"라는 기하학적 질문을 "이 군이 자명한가?"라는 대수적 질문으로 바꾸면, 컴퓨터로 답을 구할 수 있다.</p>
+<p>위상적 성질을 숫자, 군, 환 같은 대수적 불변량으로 옮기면 공간을 계산을 통해 비교할 수 있다. 예컨대 "이 공간에 구멍이 있는가?"라는 기하학적 질문은 대응하는 호몰로지군이 자명한지를 묻는 대수적 질문으로 바뀐다.</p>
 
 <p>센서 네트워크(sensor network)에서 커버리지 구멍(coverage hole)을 탐지하는 문제는 호몰로지(homology)로 정식화된다. 각 센서의 감지 범위가 중첩되어 만드는 공간의 호몰로지군을 계산하면, 좌표 정보 없이도 커버리지에 빈틈이 있는지 알 수 있다. 위상적 데이터 분석(Topological Data Analysis, TDA)의 persistent homology는 재료과학에서 미세구조(microstructure)의 기공(pore) 분포를 분석하거나, 단백질 구조의 형태학적 특징을 추출하는 데 사용된다. 로봇 모션 플래닝(robot motion planning)에서는 configuration space의 기본군이 로봇이 장애물을 피해 갈 수 있는 경로의 위상적 분류를 결정하며, 전산유체역학(CFD)에서 메쉬(mesh)의 위상적 일관성은 오일러 지표(Euler characteristic)로 검증된다.</p>
 
@@ -9268,11 +9257,10 @@ $$ H_0(K) \cong \mathbb{Z}, \quad H_1(K) \cong \mathbb{Z}\langle a, b \rangle / 
 <li>tom Dieck, <em>Algebraic Topology</em> — EMS, 현대적 관점</li>
 </ul>
 </details>
-
 <h2 class="part-title">Part VIII &mdash; Probability &amp; Statistics</h2>
 
 <div class="part-intro">
-<p>확률과 통계는 불확실성을 다루는 수학이다. 도박 문제에서 출발한 확률론은 이제 물리학, 금융, 기계학습의 핵심 도구이다. 콜모고로프가 1933년 확률을 측도론 위에 올려놓으면서, 확률론은 엄밀한 수학의 한 분과가 되었다. Part VIII는 확률론의 기초, 통계적 추론, 확률과정을 순서대로 다룬다.</p>
+<p>확률과 통계는 불확실성을 다루는 수학이다. 도박 문제에서 출발한 확률론은 물리학, 금융, 기계학습으로 응용 범위를 넓혔다. 콜모고로프는 1933년 확률론을 측도론 위에 공리화했다. Part VIII는 확률론의 기초에서 통계적 추론과 확률과정으로 이어진다.</p>
 </div>
 
 <!-- ============================================================== -->
@@ -9293,7 +9281,7 @@ $$ H_0(K) \cong \mathbb{Z}, \quad H_1(K) \cong \mathbb{Z}\langle a, b \rangle / 
 <p>확률론의 공리적 체계는 콜모고로프(Kolmogorov)가 1933년에 확립했다. 표본공간, 시그마-대수, 확률측도의 삼중쌍이 그 골격이다.</p>
 
 <div class="definition"><span class="env-label">Definition 23.1 (Probability Space)</span>
-<strong>probability(확률) space</strong>는 삼중쌍 \((\Omega, \mathcal{F}, P)\)으로 구성되며, 각 요소는 다음과 같다:
+<strong>확률공간(probability space)</strong>은 삼중쌍 \((\Omega, \mathcal{F}, P)\)으로 구성되며, 각 요소는 다음과 같다:
 <ul>
   <li>\(\Omega\)는 <strong>sample space(표본공간)</strong>으로, 가능한 결과들의 집합이다 (상호 배타적이며 전체를 포괄한다).</li>
   <li>\(\mathcal{F}\)는 \(\Omega\)의 부분집합들로 이루어진 \(\sigma\)-algebra(사건들의 모임)이다.</li>
@@ -9383,16 +9371,16 @@ Pairwise independence는 mutual independence를 함의하지 않는다. 공정�
 <h4 id="random-variables">23.2 확률변수와 기본 성질</h4>
 
 <div class="definition"><span class="env-label">Definition 23.6 (Random Variable)</span>
-<strong>random variable(확률변수)</strong> \(X\)는 가측함수 \(X : \Omega \to \mathbb{R}\)이다. 이산 \(X\)의 경우, <strong>probability mass function(확률질량함수)</strong> (PMF)는 \(p_X(x) = P(X = x)\)이다. 연속 \(X\)의 경우, <strong>probability density function(확률밀도함수)</strong> (PDF) \(f_X(x)\)는 \(P(a \leq X \leq b) = \int_a^b f_X(x)\, dx\)를 만족한다. <strong>cumulative distribution function(누적분포함수)</strong> (CDF)는 \(F_X(x) = P(X \leq x)\)이다.
+<strong>확률변수(random variable)</strong> \(X\)는 가측함수 \(X : \Omega \to \mathbb{R}\)이다. 이산 \(X\)의 경우, <strong>확률질량함수(probability mass function)</strong> (PMF)는 \(p_X(x) = P(X = x)\)이다. 연속 \(X\)의 경우, <strong>확률밀도함수(probability density function)</strong> (PDF) \(f_X(x)\)는 \(P(a \leq X \leq b) = \int_a^b f_X(x)\, dx\)를 만족한다. <strong>누적분포함수(cumulative distribution function)</strong> (CDF)는 \(F_X(x) = P(X \leq x)\)이다.
 </div>
 
 <div class="definition"><span class="env-label">Definition 23.7 (Expectation and Variance)</span>
-random variable(확률변수) \(X\)의 <strong>expectation(기댓값)</strong> (평균)은 다음과 같다:
+확률변수 \(X\)의 <strong>기댓값(expectation)</strong>은 다음과 같다:
 $$ E[X] = \begin{cases} \sum_x x\, p_X(x) & \text{(discrete)}, \\ \int_{-\infty}^{\infty} x\, f_X(x)\, dx & \text{(continuous)}. \end{cases} $$
-<strong>variance(분산)</strong>는 \(\text{Var}(X) = E[(X - E[X])^2] = E[X^2] - (E[X])^2\)이다. <strong>standard deviation(표준편차)</strong>는 \(\sigma_X = \sqrt{\text{Var}(X)}\)이다.
+<strong>분산(variance)</strong>은 \(\text{Var}(X) = E[(X - E[X])^2] = E[X^2] - (E[X])^2\)이다. <strong>표준편차(standard deviation)</strong>는 \(\sigma_X = \sqrt{\text{Var}(X)}\)이다.
 </div>
 
-<p><strong>핵심 성질:</strong> expectation(기댓값)의 선형성: \(E[aX + bY] = aE[X] + bE[Y]\) (종속 여부에 관계없이 항상 성립). 독립인 \(X, Y\)에 대해: \(\text{Var}(X + Y) = \text{Var}(X) + \text{Var}(Y)\).</p>
+<p>기댓값은 선형이므로 \(E[aX + bY] = aE[X] + bE[Y]\)가 종속 여부와 관계없이 성립한다. \(X\)와 \(Y\)가 독립이면 \(\text{Var}(X + Y) = \text{Var}(X) + \text{Var}(Y)\)이다.</p>
 
 <div class="definition"><span class="env-label">Definition 23.8 (Conditional Expectation)</span>
 이산 확률변수 \(X\)에 대해, 사건 \(A\)가 주어졌을 때의 <strong>conditional expectation(조건부 기댓값)</strong>은:
@@ -9565,7 +9553,7 @@ $$ P(X \geq a) \leq \frac{E[X]}{a}. $$
 </div>
 
 <div class="theorem"><span class="env-label">Theorem 23.6 (Chebyshev's Inequality)</span>
-유한한 평균 \(\mu\)와 variance(분산) \(\sigma^2\)를 가지는 임의의 random variable(확률변수) \(X\)에 대해, 임의의 \(k > 0\)에 대해:
+유한한 평균 \(\mu\)와 분산 \(\sigma^2\)를 가지는 임의의 확률변수 \(X\)에 대해, 임의의 \(k > 0\)에 대해:
 $$ P(|X - \mu| \geq k\sigma) \leq \frac{1}{k^2}. $$
 동치 형태: 임의의 \(a > 0\)에 대해 \(P(|X - \mu| \geq a) \leq \frac{\sigma^2}{a^2}\).
 </div>
@@ -9583,7 +9571,7 @@ $$ P(|X - 100| \geq 15) = P(|X - \mu| \geq 3\sigma) \leq \frac{1}{3^2} = \frac{1
 <h4 id="lln-clt">23.7 대수의 법칙과 중심극한정리</h4>
 
 <div class="theorem"><span class="env-label">Theorem 23.7 (Law of Large Numbers)</span>
-\(X_1, X_2, \ldots\)가 평균 \(\mu\)와 유한한 variance(분산)를 가지는 i.i.d. random variable(확률변수)이라 하자. 그러면 표본평균 \(\bar{X}_n = \frac{1}{n}\sum_{i=1}^n X_i\)는 \(\mu\)로 수렴한다:
+\(X_1, X_2, \ldots\)가 평균 \(\mu\)와 유한한 분산을 가지는 i.i.d. 확률변수라 하자. 그러면 표본평균 \(\bar{X}_n = \frac{1}{n}\sum_{i=1}^n X_i\)는 \(\mu\)로 수렴한다:
 <ul>
   <li><strong>Weak LLN:</strong> \(\bar{X}_n \xrightarrow{P} \mu\) (확률수렴). 임의의 \(\epsilon > 0\)에 대해 \(P(|\bar{X}_n - \mu| \geq \epsilon) \to 0\).</li>
   <li><strong>Strong LLN:</strong> \(\bar{X}_n \xrightarrow{\text{a.s.}} \mu\) (거의 확실한 수렴).</li>
@@ -9601,7 +9589,7 @@ $$ P(|\bar{X}_n - \mu| \geq \epsilon) \leq \frac{\sigma^2}{n\epsilon^2} \to 0 \q
 </div>
 
 <div class="theorem"><span class="env-label">Theorem 23.8 (Central Limit Theorem)</span>
-\(X_1, X_2, \ldots\)가 평균 \(\mu\)와 variance(분산) \(\sigma^2 < \infty\)를 가지는 i.i.d.라 하자. 그러면
+\(X_1, X_2, \ldots\)가 평균 \(\mu\)와 분산 \(\sigma^2 < \infty\)를 가지는 i.i.d.라 하자. 그러면
 $$ \frac{\bar{X}_n - \mu}{\sigma / \sqrt{n}} \xrightarrow{d} N(0, 1) \quad \text{as } n \to \infty. $$
 즉, 정규화된 합은 분포 수렴의 의미에서 표준정규분포로 수렴한다.
 </div>
@@ -9688,7 +9676,6 @@ $$ M_Z(t) = M_X(t) M_Y(t) = e^{(\lambda_1 + \lambda_2)(e^t - 1)}. $$
 <li>Grimmett &amp; Stirzaker, <em>Probability and Random Processes</em> — Oxford, 풍부한 연습문제</li>
 </ul>
 </details>
-
 <section id="statistics">
 <h3>24. Statistics</h3>
 
@@ -9701,24 +9688,24 @@ $$ M_Z(t) = M_X(t) M_Y(t) = e^{(\lambda_1 + \lambda_2)(e^t - 1)}. $$
 <p>통계적 추론의 출발점은 데이터를 요약하는 통계량(statistic)과, 미지의 모수를 근사하는 추정량(estimator)이다. 추정량의 불편성(unbiasedness), 일치성(consistency), 효율성(efficiency)이 추정론(estimation theory)의 기본 판단 기준이다.</p>
 
 <div class="definition"><span class="env-label">Definition 24.1 (Statistic and Estimator)</span>
-<strong>statistic(통계량)</strong>은 관측 데이터의 임의의 함수 \(T = T(X_1, \ldots, X_n)\)이다. 모수 \(\theta\)의 <strong>estimator(추정량)</strong> \(\hat{\theta}\)는 \(\theta\)를 근사하기 위한 통계량이다.
+<strong>통계량</strong>은 관측 데이터의 임의의 함수 \(T = T(X_1, \ldots, X_n)\)이다. 모수 \(\theta\)의 <strong>추정량</strong> \(\hat{\theta}\)는 \(\theta\)를 근사하기 위한 통계량이다.
 </div>
 
 <div class="definition"><span class="env-label">Definition 24.2 (Bias, Variance, MSE)</span>
-\(\theta\)의 estimator(추정량) \(\hat{\theta}\)에 대해:
+\(\theta\)의 추정량 \(\hat{\theta}\)에 대해:
 <ul>
-  <li><strong>Bias:</strong> \(\operatorname{Bias}(\hat{\theta}) = E[\hat{\theta}] - \theta\). 편향이 0이면 <strong>unbiased(불편)</strong> estimator(추정량)라 한다.</li>
+  <li><strong>Bias:</strong> \(\operatorname{Bias}(\hat{\theta}) = E[\hat{\theta}] - \theta\). 편향이 0이면 <strong>불편</strong> 추정량이라 한다.</li>
   <li><strong>Mean squared error:</strong> \(\operatorname{MSE}(\hat{\theta}) = E[(\hat{\theta} - \theta)^2] = \operatorname{Var}(\hat{\theta}) + (\operatorname{Bias})^2\).</li>
-  <li>\(n \to \infty\)일 때 \(\hat{\theta}_n \xrightarrow{P} \theta\)이면 estimator(추정량)는 <strong>consistent(일치)</strong>라 한다.</li>
+  <li>\(n \to \infty\)일 때 \(\hat{\theta}_n \xrightarrow{P} \theta\)이면 추정량은 <strong>일치</strong>한다고 한다.</li>
 </ul>
 </div>
 
 <p>최대우도추정(Maximum Likelihood Estimation, MLE)은 가장 널리 사용되는 점추정 방법이다. 관측된 데이터를 가장 잘 설명하는 모수값을 선택한다는 원리이며, 기계학습에서 모형 훈련의 목적함수(로그우도 최대화)가 이에 해당한다.</p>
 
 <div class="definition"><span class="env-label">Definition 24.3 (Maximum Likelihood Estimation)</span>
-데이터 \(x_1, \ldots, x_n\)과 모수적 모형 \(f(x \mid \theta)\)가 주어졌을 때, <strong>likelihood function(우도함수)</strong>은
+데이터 \(x_1, \ldots, x_n\)과 모수적 모형 \(f(x \mid \theta)\)가 주어졌을 때, <strong>우도함수</strong>는
 $$ L(\theta) = \prod_{i=1}^n f(x_i \mid \theta). $$
-<strong>maximum likelihood estimator(최대우도추정량)</strong> (MLE)는 \(\hat{\theta}_{\text{MLE}} = \arg\max_\theta L(\theta)\)이다. 실제로는 <strong>log-likelihood(로그우도)</strong> \(\ell(\theta) = \sum_{i=1}^n \log f(x_i \mid \theta)\)를 최대화한다.
+<strong>최대우도추정량</strong> (MLE)는 \(\hat{\theta}_{\text{MLE}} = \arg\max_\theta L(\theta)\)이다. 실제로는 <strong>로그우도</strong> \(\ell(\theta) = \sum_{i=1}^n \log f(x_i \mid \theta)\)를 최대화한다.
 </div>
 
 <div class="theorem"><span class="env-label">Theorem 24.1 (Properties of MLE)</span>
@@ -9738,7 +9725,7 @@ $$ I(\theta) = E\!\left[\left(\frac{\partial}{\partial \theta} \log f(X \mid \th
 </div>
 
 <div class="theorem"><span class="env-label">Theorem 24.2 (Cram&eacute;r&ndash;Rao Lower Bound)</span>
-\(\theta\)의 임의의 unbiased(불편) estimator(추정량) \(\hat{\theta}\)에 대해,
+\(\theta\)의 임의의 불편 추정량 \(\hat{\theta}\)에 대해,
 $$ \operatorname{Var}(\hat{\theta}) \geq \frac{1}{n I(\theta)}. $$
 어떤 불편 추정량도 이 하한 아래로 분산을 줄일 수 없다. 이 하한을 달성하는 추정량을 효율적(efficient) 추정량이라 한다.
 </div>
@@ -9746,7 +9733,7 @@ $$ \operatorname{Var}(\hat{\theta}) \geq \frac{1}{n I(\theta)}. $$
 <p>점추정만으로는 추정의 정밀도를 알 수 없다. 신뢰구간(confidence interval)은 추정값 주위에 불확실성의 범위를 부여한다.</p>
 
 <div class="definition"><span class="env-label">Definition 24.5 (Confidence Interval)</span>
-\(\theta\)에 대한 <strong>\((1-\alpha)\) confidence interval(신뢰구간)</strong>은 \(P(\theta \in [L, U]) \geq 1 - \alpha\)를 만족하는 확률구간 \([L(X), U(X)]\)이다. variance(분산) \(\sigma^2\)가 알려진 정규모집단의 경우:
+\(\theta\)에 대한 <strong>\((1-\alpha)\) 신뢰구간</strong>은 \(P(\theta \in [L, U]) \geq 1 - \alpha\)를 만족하는 확률구간 \([L(X), U(X)]\)이다. 분산 \(\sigma^2\)가 알려진 정규모집단의 경우:
 $$ \bar{X} \pm z_{\alpha/2} \frac{\sigma}{\sqrt{n}}, $$
 여기서 \(z_{\alpha/2}\)는 \(N(0,1)\)의 상위 \(\alpha/2\) 분위수이다.
 </div>
@@ -9754,17 +9741,17 @@ $$ \bar{X} \pm z_{\alpha/2} \frac{\sigma}{\sqrt{n}}, $$
 <p>가설검정(hypothesis testing)은 데이터에 기반하여 주장의 타당성을 판단하는 체계이다. 레이더의 목표물 탐지, 임상시험의 신약 효과 판정, A/B 테스트 등이 모두 가설검정으로 정식화된다. 1종 오류(위양성)와 2종 오류(위음성) 사이의 트레이드오프를 관리하는 것이 실무적으로 중요하다.</p>
 
 <div class="definition"><span class="env-label">Definition 24.6 (Hypothesis Testing)</span>
-<strong>hypothesis testing(가설검정)</strong>은 귀무가설 \(H_0\)을 대립가설 \(H_1\)에 대해 평가한다.
+<strong>가설검정</strong>은 귀무가설 \(H_0\)을 대립가설 \(H_1\)에 대해 평가한다.
 <ul>
-  <li><strong>Type I error</strong> (위양성): \(H_0\)이 참일 때 \(H_0\)을 기각하는 오류. 그 확률은 <strong>significance level(유의수준)</strong> \(\alpha\)로 상한이 정해진다.</li>
+  <li><strong>Type I error</strong> (위양성): \(H_0\)이 참일 때 \(H_0\)을 기각하는 오류. 그 확률은 <strong>유의수준</strong> \(\alpha\)로 상한이 정해진다.</li>
   <li><strong>Type II error</strong> (위음성): \(H_1\)이 참일 때 \(H_0\)을 기각하지 못하는 오류. 그 확률은 \(\beta\)이다.</li>
-  <li><strong>Power(검정력)</strong> \(= 1 - \beta\): \(H_0\)을 올바르게 기각할 확률.</li>
-  <li><strong>p-value(유의확률):</strong> 관측된 데이터가 주어졌을 때 \(H_0\)을 기각할 수 있는 가장 작은 유의수준.</li>
+  <li><strong>검정력</strong> \(= 1 - \beta\): \(H_0\)을 올바르게 기각할 확률.</li>
+  <li><strong>유의확률:</strong> 관측된 데이터가 주어졌을 때 \(H_0\)을 기각할 수 있는 가장 작은 유의수준.</li>
 </ul>
 </div>
 
 <div class="theorem"><span class="env-label">Theorem 24.3 (Neyman&ndash;Pearson Lemma)</span>
-단순가설 \(H_0: \theta = \theta_0\) 대 \(H_1: \theta = \theta_1\)의 검정에서, 크기 \(\alpha\)의 가장 검정력이 높은 검정은 likelihood ratio test(우도비검정)이다: 다음 조건일 때 \(H_0\)을 기각한다.
+단순가설 \(H_0: \theta = \theta_0\) 대 \(H_1: \theta = \theta_1\)의 검정에서, 크기 \(\alpha\)의 가장 검정력이 높은 검정은 우도비검정이다: 다음 조건일 때 \(H_0\)을 기각한다.
 $$ \frac{L(\theta_1)}{L(\theta_0)} > c, $$
 여기서 \(c\)는 \(H_0\) 하에서 기각 확률이 \(\alpha\)가 되도록 선택한다.
 </div>
@@ -9787,12 +9774,12 @@ $$ 50.3 \pm 1.96 \times 0.8 = 50.3 \pm 1.568 = (48.732, 51.868). $$
 <p>선형회귀(linear regression)는 변수 간의 관계를 모형화하는 기본 방법이다. 센서 교정에서 출력과 참값의 선형 관계를 추정하거나, 재료 시험에서 응력-변형률 기울기(영률)를 결정하는 것이 전형적인 응용이다.</p>
 
 <div class="definition"><span class="env-label">Definition 24.7 (Linear Regression)</span>
-<strong>linear regression(선형회귀) model</strong>은 \(Y = X\beta + \varepsilon\)이며, 여기서 \(Y \in \mathbb{R}^n\)은 반응변수, \(X \in \mathbb{R}^{n \times p}\)은 설계행렬, \(\beta \in \mathbb{R}^p\)은 계수, \(\varepsilon \sim N(0, \sigma^2 I)\)이다. <strong>ordinary least squares(최소제곱)</strong> (OLS) estimator(추정량)는
+<strong>선형회귀 모형</strong>은 \(Y = X\beta + \varepsilon\)이며, 여기서 \(Y \in \mathbb{R}^n\)은 반응변수, \(X \in \mathbb{R}^{n \times p}\)은 설계행렬, \(\beta \in \mathbb{R}^p\)은 계수, \(\varepsilon \sim N(0, \sigma^2 I)\)이다. <strong>최소제곱(ordinary least squares)</strong> (OLS) 추정량은
 $$ \hat{\beta} = (X^T X)^{-1} X^T Y. $$
 </div>
 
 <div class="theorem"><span class="env-label">Theorem 24.4 (Gauss&ndash;Markov)</span>
-\(E[\varepsilon] = 0\)이고 \(\operatorname{Cov}(\varepsilon) = \sigma^2 I\)라는 가정 하에서, OLS estimator(추정량) \(\hat{\beta}\)는 Best Linear Unbiased Estimator (BLUE)이다: 모든 선형 불편 추정량 중에서 가장 작은 variance(분산)를 가진다.
+\(E[\varepsilon] = 0\)이고 \(\operatorname{Cov}(\varepsilon) = \sigma^2 I\)라는 가정 하에서, OLS 추정량 \(\hat{\beta}\)는 Best Linear Unbiased Estimator (BLUE)이다: 모든 선형 불편 추정량 중에서 가장 작은 분산을 가진다.
 </div>
 
 <div class="example"><span class="env-label">Example 24.3 (MLE &mdash; 정규분포 모수 추정)</span>
@@ -9841,28 +9828,27 @@ $$ Z = \frac{\bar{x} - \mu_0}{\sigma/\sqrt{n}} = \frac{10.5 - 10}{2/6} = \frac{0
 <li>Schervish, <em>Theory of Statistics</em> — Bayesian/Frequentist 통합적 접근</li>
 </ul>
 </details>
-
 <section id="stochastic-processes">
 <h3>25. Stochastic Processes</h3>
 
 <p class="chapter-intro">확률과정은 시간에 따라 진화하는 확률 현상을 모형화한다. 마르코프 체인, 포아송 과정, 브라운 운동이 대표적이며, 이들은 대기행렬 이론, 금융수학, 물리학의 확산 모형 등에 직접 적용된다.</p>
 
-<p>공학에서 마주하는 많은 시스템은 시간에 따라 무작위로 변한다. 통신 채널의 백색 가우스 잡음(AWGN)은 Gaussian process(가우스 과정)로 모델링되고, 주가의 변동은 geometric Brownian motion(기하 브라운 운동)으로 기술되어 Black-Scholes 옵션 가격 모형의 기초가 된다. 네트워크 서버에 도착하는 패킷은 Poisson process(포아송 과정)로 모형화하여 큐잉 이론(queueing theory)으로 분석하며, 로봇이나 항공기의 상태 추정에 쓰이는 칼만 필터(Kalman filter)는 확률과정 위에서 정의된 최적 추정 문제이다. 신뢰성 공학에서는 시스템의 정상/고장/수리 상태 전이를 Markov chain(마르코프 체인)으로 모델링하여 가용성(availability)을 계산한다.</p>
+<p>공학에서 마주하는 많은 시스템은 시간에 따라 무작위로 변한다. 통신 채널의 백색 가우스 잡음(AWGN)은 가우스 과정(Gaussian process)으로 모델링되고, 주가의 변동은 기하 브라운 운동(geometric Brownian motion)으로 기술되어 Black-Scholes 옵션 가격 모형의 기초가 된다. 네트워크 서버에 도착하는 패킷은 포아송 과정(Poisson process)으로 모형화하여 큐잉 이론(queueing theory)으로 분석하며, 로봇이나 항공기의 상태 추정에 쓰이는 칼만 필터(Kalman filter)는 확률과정 위에서 정의된 최적 추정 문제이다. 신뢰성 공학에서는 시스템의 정상/고장/수리 상태 전이를 마르코프 체인(Markov chain)으로 모델링하여 가용성(availability)을 계산한다.</p>
 
 <p>확률과정론은 "입력 자체가 무작위이거나 시스템 내부에 불확실성이 존재하는" 상황을 다루는 수학적 틀이다. 결정론적 미분방정식(ODE/PDE)이 입력에서 출력이 하나로 결정되는 시스템을 다루는 데 비해, 여기서는 표본 경로 자체가 확률적이다.</p>
 
 <p>먼저 "각 시점에 확률변수가 하나씩 대응된다"는 개념을 엄밀하게 정의한다.</p>
 
 <div class="definition"><span class="env-label">Definition 25.1 (Stochastic Process)</span>
-<strong>stochastic process(확률과정)</strong>는 공통의 probability(확률) space 위에 정의된 random variable(확률변수)들의 모임 \(\{X_t\}_{t \in T}\)으로, 집합 \(T\)(주로 시간)에 의해 색인된다. \(T\)가 가산이면 <strong>discrete-time(이산시간)</strong> 과정이고, \(T = [0,\infty)\)이면 <strong>continuous-time(연속시간)</strong> 과정이다.
+<strong>확률과정(stochastic process)</strong>은 공통의 확률공간 위에 정의된 확률변수들의 모임 \(\{X_t\}_{t \in T}\)으로, 집합 \(T\)(주로 시간)에 의해 색인된다. \(T\)가 가산이면 <strong>이산시간</strong> 과정이고, \(T = [0,\infty)\)이면 <strong>연속시간</strong> 과정이다.
 </div>
 
-<p>확률과정 중에서 가장 다루기 쉬우면서도 응용 범위가 넓은 것이 Markov chain(마르코프 체인)이다. "미래는 현재 상태에만 의존하고 과거 이력에는 의존하지 않는다"는 무기억 성질(memorylessness) 덕분에, 전이행렬 하나로 시스템의 장기 거동을 완전히 분석할 수 있다.</p>
+<p>확률과정 중에서 가장 다루기 쉬우면서도 응용 범위가 넓은 것이 마르코프 체인이다. "미래는 현재 상태에만 의존하고 과거 이력에는 의존하지 않는다"는 무기억 성질(memorylessness) 덕분에, 전이행렬 하나로 시스템의 장기 거동을 완전히 분석할 수 있다.</p>
 
 <div class="definition"><span class="env-label">Definition 25.2 (Discrete-Time Markov Chain)</span>
-가산 상태공간 \(S\)에서 값을 취하는 random variable(확률변수) 열 \(\{X_n\}_{n \geq 0}\)이 <strong>Markov property(마르코프 성질)</strong>을 만족하면 <strong>Markov chain(마르코프 연쇄)</strong>이라 한다:
+가산 상태공간 \(S\)에서 값을 취하는 확률변수 열 \(\{X_n\}_{n \geq 0}\)이 <strong>마르코프 성질(Markov property)</strong>을 만족하면 <strong>마르코프 체인</strong>이라 한다:
 $$ P(X_{n+1} = j \mid X_n = i, X_{n-1} = i_{n-1}, \ldots, X_0 = i_0) = P(X_{n+1} = j \mid X_n = i) = p_{ij}. $$
-행렬 \(P = (p_{ij})\)는 <strong>transition matrix(전이행렬)</strong>이다 (각 행의 합은 1).
+행렬 \(P = (p_{ij})\)는 <strong>전이행렬</strong>이다 (각 행의 합은 1).
 </div>
 
 <p>마르코프 체인의 장기 거동을 이해하려면 각 상태의 성격을 분류해야 한다. 어떤 상태에는 반복적으로 돌아오고(recurrent), 어떤 상태는 한 번 떠나면 다시 방문하지 않는다(transient). 이러한 분류가 정상분포의 존재 여부를 결정한다.</p>
@@ -9870,37 +9856,37 @@ $$ P(X_{n+1} = j \mid X_n = i, X_{n-1} = i_{n-1}, \ldots, X_0 = i_0) = P(X_{n+1}
 <div class="definition"><span class="env-label">Definition 25.3 (Classification of States)</span>
 상태 \(i\)는 다음과 같이 분류된다:
 <ul>
-  <li>연쇄가 확률 1로 \(i\)에 되돌아오면 <strong>recurrent(재귀적)</strong>, 그렇지 않으면 <strong>transient(일시적)</strong>이다.</li>
-  <li>기대 복귀 시간이 유한하면 <strong>positive recurrent(양재귀적)</strong>이다.</li>
-  <li>\(p_{ii} = 1\)이면 <strong>absorbing(흡수)</strong> 상태이다.</li>
-  <li>\(i\)의 <strong>period(주기)</strong>는 \(d(i) = \gcd\{n \geq 1 : p_{ii}^{(n)} > 0\}\)이다. \(d(i) = 1\)이면 <strong>aperiodic(비주기적)</strong>이라 한다.</li>
+  <li>연쇄가 확률 1로 \(i\)에 되돌아오면 <strong>재귀적(recurrent)</strong>, 그렇지 않으면 <strong>일시적(transient)</strong>이다.</li>
+  <li>기대 복귀 시간이 유한하면 <strong>양재귀적(positive recurrent)</strong>이다.</li>
+  <li>\(p_{ii} = 1\)이면 <strong>흡수(absorbing)</strong> 상태이다.</li>
+  <li>\(i\)의 <strong>주기(period)</strong>는 \(d(i) = \gcd\{n \geq 1 : p_{ii}^{(n)} > 0\}\)이다. \(d(i) = 1\)이면 <strong>비주기적(aperiodic)</strong>이라 한다.</li>
 </ul>
-연쇄가 <strong>irreducible(기약)</strong>이란 모든 상태가 다른 모든 상태로부터 도달 가능함을 뜻한다. 기약이고 비주기적이며 양재귀적인 연쇄를 <strong>ergodic(에르고딕)</strong>이라 한다.
+연쇄가 <strong>기약(irreducible)</strong>이란 모든 상태가 다른 모든 상태로부터 도달 가능함을 뜻한다. 기약이고 비주기적이며 양재귀적인 연쇄를 <strong>에르고딕(ergodic)</strong>이라 한다.
 </div>
 
 <p>에르고딕 마르코프 체인은 초기 상태에 무관하게 장기적으로 동일한 분포에 수렴한다. 이 극한 분포가 정상분포(stationary distribution)이다. 신뢰성 공학의 시스템 가용률 계산이나 Google의 PageRank 알고리즘이 대표적 응용이다.</p>
 
 <div class="theorem"><span class="env-label">Theorem 25.1 (Stationary Distribution)</span>
-에르고딕 Markov chain(마르코프 연쇄)은 \(\pi P = \pi\)와 \(\sum_i \pi_i = 1\)을 만족하는 유일한 <strong>stationary distribution(정상분포)</strong> \(\pi\)를 가진다. 나아가, 초기 분포에 관계없이 \(n \to \infty\)일 때 \(p_{ij}^{(n)} \to \pi_j\)이다.
+에르고딕 마르코프 체인은 \(\pi P = \pi\)와 \(\sum_i \pi_i = 1\)을 만족하는 유일한 <strong>정상분포</strong> \(\pi\)를 가진다. 나아가, 초기 분포에 관계없이 \(n \to \infty\)일 때 \(p_{ij}^{(n)} \to \pi_j\)이다.
 </div>
 
-<div class="example"><span class="env-label">Example 25.1 (2-상태 Markov Chain)</span>
-상태 \(\{0, 1\}\)에서 전이행렬이 다음과 같은 Markov chain을 고려하자:
+<div class="example"><span class="env-label">Example 25.1 (2-상태 마르코프 체인)</span>
+상태 \(\{0, 1\}\)에서 전이행렬이 다음과 같은 마르코프 체인을 고려하자:
 $$ P = \begin{pmatrix} 0.7 & 0.3 \\ 0.4 & 0.6 \end{pmatrix}. $$
 정상분포를 구하라.<br>
 <strong>풀이.</strong> \(\pi P = \pi\)에서 \(\pi_0 \cdot 0.7 + \pi_1 \cdot 0.4 = \pi_0\)이고, \(\pi_0 + \pi_1 = 1\). 첫 식을 정리하면 \(0.4\pi_1 = 0.3\pi_0\), 즉 \(\pi_1 = \frac{3}{4}\pi_0\). \(\pi_0 + \frac{3}{4}\pi_0 = 1\)에서 \(\pi_0 = 4/7, \pi_1 = 3/7\). 장기적으로 상태 0에 있을 비율은 \(4/7 \approx 0.571\)이다.
 </div>
 
-<div class="example"><span class="env-label">Example 25.2 (Gambler's Ruin as Markov Chain)</span>
+<div class="example"><span class="env-label">Example 25.2 (Gambler's Ruin as a Markov Chain)</span>
 도박사가 \(i\)원 (\(0 < i < N\))을 가지고 시작한다. 매 판마다 확률 \(p\)로 1원을 얻고 \(q = 1-p\)로 1원을 잃는다. 0원이나 \(N\)원에 도달하면 게임이 끝난다. 상태 0과 \(N\)은 흡수 상태이다. \(p \neq q\)일 때 상태 \(i\)에서 시작하여 파산할 (상태 0에 도달할) 확률은:
 $$ P_i(\text{ruin}) = \frac{(q/p)^i - (q/p)^N}{1 - (q/p)^N}. $$
 공정한 게임 (\(p = q = 1/2\))일 때는 \(P_i(\text{ruin}) = 1 - i/N\)이다.
 </div>
 
-<p>연속시간에서 가장 기본적인 모형은 "사건이 무작위로 도착하는" 계수과정이다. 콜센터에 걸려오는 전화, 웹 서버에 도착하는 HTTP 요청, 방사성 물질의 붕괴 이벤트 등이 Poisson process(포아송 과정)로 모형화된다.</p>
+<p>연속시간에서 가장 기본적인 모형은 "사건이 무작위로 도착하는" 계수과정이다. 콜센터에 걸려오는 전화, 웹 서버에 도착하는 HTTP 요청, 방사성 물질의 붕괴 이벤트 등이 포아송 과정(Poisson process)으로 모형화된다.</p>
 
 <div class="definition"><span class="env-label">Definition 25.4 (Poisson Process)</span>
-rate \(\lambda > 0\)인 <strong>Poisson process(포아송 과정)</strong>는 다음을 만족하는 연속시간 계수과정 \(\{N(t)\}_{t \geq 0}\)이다:
+발생률이 \(\lambda > 0\)인 <strong>포아송 과정</strong>은 다음을 만족하는 연속시간 계수과정 \(\{N(t)\}_{t \geq 0}\)이다:
 <ol>
   <li>\(N(0) = 0\).</li>
   <li>독립 증분.</li>
@@ -9909,10 +9895,10 @@ rate \(\lambda > 0\)인 <strong>Poisson process(포아송 과정)</strong>는 �
 도착간 시간은 i.i.d. \(\text{Exponential}(\lambda)\)를 따른다.
 </div>
 
-<p>Poisson process가 이산적 사건의 도착을 모형화한다면, Brownian motion(브라운 운동)은 연속적으로 변하는 무작위 경로를 모형화한다. 1827년 식물학자 Robert Brown이 관찰한 꽃가루 입자의 불규칙 운동에서 이름이 유래했으며, 오늘날 금융공학의 주가 모형, 통계역학의 확산 방정식, 확률미분방정식의 구동력(driving noise)으로 쓰인다.</p>
+<p>포아송 과정이 이산적 사건의 도착을 모형화한다면, 브라운 운동(Brownian motion)은 연속적으로 변하는 무작위 경로를 모형화한다. 1827년 식물학자 Robert Brown이 관찰한 꽃가루 입자의 불규칙 운동에서 이름이 유래했으며, 오늘날 금융공학의 주가 모형, 통계역학의 확산 방정식, 확률미분방정식의 구동력(driving noise)으로 쓰인다.</p>
 
 <div class="definition"><span class="env-label">Definition 25.5 (Brownian Motion / Wiener Process)</span>
-<strong>standard Brownian motion(표준 브라운 운동)</strong> \(\{W(t)\}_{t \geq 0}\)은 다음을 만족하는 연속시간 stochastic process(확률과정)이다:
+<strong>표준 브라운 운동</strong> \(\{W(t)\}_{t \geq 0}\)은 다음을 만족하는 연속시간 확률과정이다:
 <ol>
   <li>\(W(0) = 0\).</li>
   <li>독립 증분: \(0 \leq t_1 < t_2 < \cdots < t_n\)에 대해 증분 \(W(t_2) - W(t_1), \ldots, W(t_n) - W(t_{n-1})\)은 독립이다.</li>
@@ -9924,7 +9910,7 @@ rate \(\lambda > 0\)인 <strong>Poisson process(포아송 과정)</strong>는 �
 <p>브라운 운동의 표본 경로는 직관적으로 "매우 거칠다". 연속이지만 어디서도 미분 불가능하다. 바로 이 때문에 고전 미적분과는 다른 확률 미적분(stochastic calculus)이 필요하다.</p>
 
 <div class="theorem"><span class="env-label">Theorem 25.2 (Properties of Brownian Motion)</span>
-표준 Brownian motion \(W(t)\)는 다음 성질을 만족한다:
+표준 브라운 운동 \(W(t)\)은 다음 성질을 만족한다:
 <ul>
   <li>\(E[W(t)] = 0\), \(\operatorname{Cov}(W(s), W(t)) = \min(s,t)\).</li>
   <li>표본 경로는 거의 확실하게 연속이지만 어디서도 미분 불가능하다.</li>
@@ -9933,7 +9919,7 @@ rate \(\lambda > 0\)인 <strong>Poisson process(포아송 과정)</strong>는 �
 </ul>
 </div>
 
-<div class="example"><span class="env-label">Example 25.3 (Markov Chain — 날씨 모형)</span>
+<div class="example"><span class="env-label">Example 25.3 (마르코프 체인 — 날씨 모형)</span>
 날씨를 맑음(S)과 비(R) 두 상태로 모형화한다. 전이 확률이 \(P(S \to S) = 0.8\), \(P(S \to R) = 0.2\), \(P(R \to S) = 0.6\), \(P(R \to R) = 0.4\)라 하자.
 <ul>
   <li><strong>2일 후 전이 확률:</strong> \(P^2 = \begin{pmatrix} 0.76 & 0.24 \\ 0.72 & 0.28 \end{pmatrix}\). 오늘 비가 오면 이틀 후 맑을 확률은 0.72.</li>
@@ -9948,26 +9934,26 @@ rate \(\lambda_1 = 3\)과 \(\lambda_2 = 5\)인 두 독립 Poisson 과정의 합�
 
 <h4>마팅게일 (Martingales)</h4>
 
-<p>마팅게일은 "공정한 게임"을 수학적으로 포착하는 개념이다. 현재까지의 정보가 주어졌을 때, 미래의 기대값이 현재값과 같으면 그 과정은 마팅게일이다. 도박 이론에서 출발했지만, 현대에는 금융 파생상품 가격 결정(risk-neutral pricing), 통계적 순차 검정(sequential testing), 확률적 수렴 이론에서 폭넓게 쓰인다. Optional Stopping Theorem을 쓰면 복잡한 정지 문제가 기대값 계산으로 줄어든다.</p>
+<p>마팅게일은 "공정한 게임"을 수학적으로 포착하는 개념이다. 현재까지의 정보가 주어졌을 때, 미래의 기댓값이 현재값과 같으면 그 과정은 마팅게일이다. 도박 이론에서 출발했지만, 현대에는 금융 파생상품 가격 결정(risk-neutral pricing), 통계적 순차 검정(sequential testing), 확률적 수렴 이론에서 폭넓게 쓰인다. Optional Stopping Theorem을 쓰면 복잡한 정지 문제가 기댓값 계산으로 줄어든다.</p>
 
-<p>"시간 \(n\)까지 축적된 정보"를 수학적으로 표현하는 도구가 filtration(여과)이다.</p>
+<p>"시간 \(n\)까지 축적된 정보"를 수학적으로 표현하는 도구가 여과(filtration)이다.</p>
 
 <div class="definition"><span class="env-label">Definition 25.6 (Filtration과 적합 과정)</span>
-확률 공간 \((\Omega, \mathcal{F}, P)\) 위의 \(\sigma\)-algebra(시그마 대수)들의 증가열
+확률공간 \((\Omega, \mathcal{F}, P)\) 위의 시그마 대수(\(\sigma\)-algebra)들의 증가열
 $$ \mathcal{F}_0 \subseteq \mathcal{F}_1 \subseteq \mathcal{F}_2 \subseteq \cdots \subseteq \mathcal{F} $$
-를 <strong>filtration(여과)</strong>이라 한다. \(\mathcal{F}_n\)은 시간 \(n\)까지 축적된 정보를 나타낸다. 확률과정 \(\{X_n\}\)이 filtration \(\{\mathcal{F}_n\}\)에 <strong>adapted(적합)</strong>하다 함은 각 \(n\)에 대해 \(X_n\)이 \(\mathcal{F}_n\)-measurable(\(\mathcal{F}_n\)-가측)임을 뜻한다.
+를 <strong>여과</strong>라 한다. \(\mathcal{F}_n\)은 시간 \(n\)까지 축적된 정보를 나타낸다. 확률과정 \(\{X_n\}\)이 여과 \(\{\mathcal{F}_n\}\)에 <strong>적합(adapted)</strong>하다 함은 각 \(n\)에 대해 \(X_n\)이 \(\mathcal{F}_n\)-가측임을 뜻한다.
 </div>
 
 <div class="definition"><span class="env-label">Definition 25.7 (Martingale)</span>
-filtration \(\{\mathcal{F}_n\}\)에 적합한 확률과정 \(\{X_n\}\)이 <strong>martingale(마팅게일)</strong>이라 함은 다음 두 조건을 만족함을 뜻한다:
+여과 \(\{\mathcal{F}_n\}\)에 적합한 확률과정 \(\{X_n\}\)이 <strong>마팅게일</strong>이라 함은 다음 두 조건을 만족함을 뜻한다:
 <ol>
   <li>\(E[|X_n|] < \infty\) (모든 \(n\)에 대해 integrable).</li>
   <li>\(E[X_{n+1} \mid \mathcal{F}_n] = X_n\) a.s.</li>
 </ol>
 조건 2에서 등호를 부등호로 바꾸면:
 <ul>
-  <li>\(E[X_{n+1} \mid \mathcal{F}_n] \geq X_n\) a.s. \(\Rightarrow\) <strong>submartingale(서브마팅게일)</strong> (평균적으로 증가).</li>
-  <li>\(E[X_{n+1} \mid \mathcal{F}_n] \leq X_n\) a.s. \(\Rightarrow\) <strong>supermartingale(슈퍼마팅게일)</strong> (평균적으로 감소).</li>
+  <li>\(E[X_{n+1} \mid \mathcal{F}_n] \geq X_n\) a.s. \(\Rightarrow\) <strong>서브마팅게일</strong> (평균적으로 증가).</li>
+  <li>\(E[X_{n+1} \mid \mathcal{F}_n] \leq X_n\) a.s. \(\Rightarrow\) <strong>슈퍼마팅게일</strong> (평균적으로 감소).</li>
 </ul>
 </div>
 
@@ -9980,13 +9966,13 @@ $$ E[S_{n+1} \mid \mathcal{F}_n] = E[S_n + Y_{n+1} \mid \mathcal{F}_n] = S_n + E
 <div class="example"><span class="env-label">Example 25.6 (조건부 기댓값 마팅게일)</span>
 integrable한 확률변수 \(Y\) (\(E[|Y|] < \infty\))와 filtration \(\{\mathcal{F}_n\}\)에 대해
 $$ X_n = E[Y \mid \mathcal{F}_n] $$
-으로 정의하면, tower property(반복 기댓값의 법칙)에 의해:
+으로 정의하면, 반복 기댓값의 법칙에 의해:
 $$ E[X_{n+1} \mid \mathcal{F}_n] = E\bigl[E[Y \mid \mathcal{F}_{n+1}] \mid \mathcal{F}_n\bigr] = E[Y \mid \mathcal{F}_n] = X_n. $$
 따라서 \(\{X_n\}\)은 martingale이다. 조건부 기댓값으로 마팅게일을 만드는 이 방법이 가장 일반적인 구성이다.
 </div>
 
 <div class="theorem"><span class="env-label">Theorem 25.3 (Optional Stopping Theorem)</span>
-\(\{X_n\}\)이 filtration \(\{\mathcal{F}_n\}\)에 대한 martingale이고, \(\tau\)가 <strong>bounded stopping time(유계 정지시간)</strong>이면 (즉, 어떤 \(N\)이 존재하여 \(\tau \leq N\) a.s.), 다음이 성립한다:
+\(\{X_n\}\)이 filtration \(\{\mathcal{F}_n\}\)에 대한 martingale이고, \(\tau\)가 <strong>유계 정지시간</strong>이면 (즉, 어떤 \(N\)이 존재하여 \(\tau \leq N\) a.s.), 다음이 성립한다:
 $$ E[X_\tau] = E[X_0]. $$
 </div>
 
@@ -10003,8 +9989,9 @@ $$ 0 \cdot P(\text{ruin}) + N \cdot P(\text{win}) = i \quad \Longrightarrow \qua
 <p>결정론적 ODE \(dx = f(x)\,dt\)에 무작위 구동력을 더하면 \(dX = f(X)\,dt + \sigma(X)\,dW\)가 되고, 이것이 확률미분방정식(SDE)이다. 브라운 운동의 표본 경로는 어디서도 미분 불가능하므로 고전적인 Riemann-Stieltjes 적분으로는 \(\int f\,dW\)를 정의할 수 없다. 이토 미적분(Itô calculus)은 이 문제를 해결하기 위해 개발된 확률 적분 이론으로, 금융공학의 파생상품 가격 결정, 확률 제어(stochastic control), 필터링 이론(Kalman filter의 연속시간 확장) 등에 쓰인다.</p>
 
 <div class="definition"><span class="env-label">Definition 25.8 (Itô Integral)</span>
-adapted process(적합 과정) \(f\)가 \(E\!\left[\int_0^t f(s)^2 \, ds\right] < \infty\)를 만족할 때, <strong>Itô integral(이토 적분)</strong>은 왼쪽 끝점을 사용하는 Riemann sum의 \(L^2\) 극한으로 정의된다:
-$$ \int_0^t f(s) \, dW(s) = \lim_{n \to \infty} \sum_{k=0}^{n-1} f(t_k)\bigl(W(t_{k+1}) - W(t_k)\bigr). $$
+먼저 \(\xi_k\)가 \(\mathcal F_{t_k}\)-가측인 단순 적합 과정 \(f(s)=\sum_k \xi_k\mathbf 1_{(t_k,t_{k+1}]}(s)\)에 대해 <strong>이토 적분</strong>을
+$$ \int_0^t f(s) \, dW(s) = \sum_k \xi_k\bigl(W(t_{k+1}) - W(t_k)\bigr) $$
+로 정의한다. 일반적인 예측 가능(predictable) 과정 \(f\)가 \(E\!\left[\int_0^t f(s)^2 \, ds\right] < \infty\)를 만족하면, 단순 적합 과정으로 근사한 적분들의 \(L^2\) 극한으로 정의한다.
 핵심 성질:
 <ul>
   <li><strong>Martingale 성질</strong>: \(E\!\left[\int_0^t f(s) \, dW(s)\right] = 0\).</li>
@@ -10017,7 +10004,7 @@ $$ \int_0^t f(s) \, dW(s) = \lim_{n \to \infty} \sum_{k=0}^{n-1} f(t_k)\bigl(W(t
 $$ df(W_t) = f'(W_t) \, dW_t + \tfrac{1}{2} f''(W_t) \, dt. $$
 더 일반적으로, Itô process \(X_t = X_0 + \int_0^t \mu(s) \, ds + \int_0^t \sigma(s) \, dW_s\)에 대해:
 $$ df(X_t) = f'(X_t)\bigl(\mu \, dt + \sigma \, dW_t\bigr) + \tfrac{1}{2} f''(X_t) \, \sigma^2 \, dt. $$
-\(\tfrac{1}{2} f''\) 항은 고전 미적분에는 없는 항이다. Brownian motion의 quadratic variation(이차변동) \(\langle W \rangle_t = t\)가 이 항을 만든다.
+\(\tfrac{1}{2} f''\) 항은 고전 미적분에는 없는 항이다. Brownian motion의 이차변동 \(\langle W \rangle_t = t\)가 이 항을 만든다.
 </div>
 
 <div class="example"><span class="env-label">Example 25.8 (\(W_t^2\)의 Itô 미분)</span>
@@ -10030,41 +10017,41 @@ $$ \int_0^t W_s \, dW_s = \frac{W_t^2 - t}{2}. $$
 고전 미적분에서는 \(\int x \, dx = x^2/2\)이지만, 확률 미적분에서는 \(-t/2\) 보정항이 추가된다.
 </div>
 
-<p>SDE는 결정론적 ODE의 확률 버전이다. drift(추세) 항이 시스템의 평균적 경향을, diffusion(확산) 항이 무작위 변동의 크기를 나타낸다.</p>
+<p>SDE는 결정론적 ODE의 확률 버전이다. 추세 항이 시스템의 평균적 경향을, 확산 항이 무작위 변동의 크기를 나타낸다.</p>
 
 <div class="definition"><span class="env-label">Definition 25.9 (Stochastic Differential Equation)</span>
-<strong>stochastic differential equation(확률미분방정식, SDE)</strong>은 다음과 같은 형태의 미분방정식이다:
+<strong>확률미분방정식(SDE)</strong>은 다음과 같은 형태의 미분방정식이다:
 $$ dX_t = \mu(X_t, t) \, dt + \sigma(X_t, t) \, dW_t. $$
-여기서 \(\mu(X_t, t)\)는 <strong>drift(추세) 계수</strong>, \(\sigma(X_t, t)\)는 <strong>diffusion(확산) 계수</strong>이다. 적분형으로 표현하면:
+여기서 \(\mu(X_t, t)\)는 <strong>추세 계수</strong>, \(\sigma(X_t, t)\)는 <strong>확산 계수</strong>이다. 적분형으로 표현하면:
 $$ X_t = X_0 + \int_0^t \mu(X_s, s) \, ds + \int_0^t \sigma(X_s, s) \, dW_s. $$
 </div>
 
 <div class="example"><span class="env-label">Example 25.9 (Geometric Brownian Motion)</span>
-주가 모형에 널리 사용되는 <strong>geometric Brownian motion(기하 브라운 운동)</strong>은 다음 SDE를 따른다:
+주가 모형에 널리 사용되는 <strong>기하 브라운 운동</strong>은 다음 SDE를 따른다:
 $$ dS_t = \mu S_t \, dt + \sigma S_t \, dW_t. $$
 해를 구하기 위해 \(f(S) = \ln S\)에 Itô's Lemma를 적용한다. \(f'(S) = 1/S\), \(f''(S) = -1/S^2\)이므로:
 $$ d(\ln S_t) = \frac{1}{S_t}(\mu S_t \, dt + \sigma S_t \, dW_t) + \frac{1}{2}\left(-\frac{1}{S_t^2}\right)\sigma^2 S_t^2 \, dt = \left(\mu - \frac{\sigma^2}{2}\right) dt + \sigma \, dW_t. $$
 양변을 적분하면 \(\ln S_t - \ln S_0 = \left(\mu - \frac{\sigma^2}{2}\right)t + \sigma W_t\)이므로:
 $$ S_t = S_0 \exp\!\left[\left(\mu - \frac{\sigma^2}{2}\right)t + \sigma W_t\right]. $$
-이것이 <strong>Black-Scholes model(블랙-숄즈 모형)</strong>의 기초가 되는 주가 모형이다. drift 보정항 \(-\sigma^2/2\)는 Itô's Lemma에서 자연스럽게 나온다.
+이것이 <strong>블랙–숄즈 모형</strong>의 기초가 되는 주가 모형이다. drift 보정항 \(-\sigma^2/2\)는 Itô's Lemma에서 자연스럽게 나온다.
 </div>
 
 <h4>에르고딕 정리 (Ergodic Theorem)</h4>
 
-<p>실무에서 확률과정의 기대값을 알고 싶을 때, 동일한 시스템을 수천 개 복제하여 앙상블 평균(ensemble average)을 구하기는 어렵다. 대신 하나의 시스템을 오래 관측하여 시간 평균(time average)을 구한다. 에르고딕 정리는 "충분히 잘 섞이는" 확률과정에서 시간 평균이 앙상블 평균에 수렴함을 보장하며, Monte Carlo simulation과 MCMC의 이론적 근거가 된다.</p>
+<p>실무에서 확률과정의 기댓값을 알고 싶을 때, 동일한 시스템을 수천 개 복제하여 앙상블 평균(ensemble average)을 구하기는 어렵다. 대신 하나의 시스템을 오래 관측하여 시간 평균(time average)을 구한다. 에르고딕 정리는 "충분히 잘 섞이는" 확률과정에서 시간 평균이 앙상블 평균에 수렴함을 보장하며, Monte Carlo simulation과 MCMC의 이론적 근거가 된다.</p>
 
 <div class="theorem"><span class="env-label">Theorem 25.5 (Birkhoff's Ergodic Theorem)</span>
-<strong>stationary ergodic process(정상 에르고딕 과정)</strong> \(\{X_n\}\)에 대해, 시간 평균(time average)은 거의 확실하게 앙상블 평균(ensemble average)으로 수렴한다:
+\(E[|X_0|] < \infty\)인 <strong>정상 에르고딕 과정</strong> \(\{X_n\}\)에 대해, 시간 평균(time average)은 거의 확실하게 앙상블 평균(ensemble average)으로 수렴한다:
 $$ \frac{1}{n}\sum_{k=0}^{n-1} X_k \xrightarrow{\text{a.s.}} E[X_0] \quad (n \to \infty). $$
 이는 강대수의 법칙(Strong LLN)의 일반화이다. 강대수의 법칙은 i.i.d. 가정을 요구하지만, Birkhoff의 에르고딕 정리는 이를 정상성(stationarity)과 에르고딕성(ergodicity)으로 대체한다.
 </div>
 
 <div class="example"><span class="env-label">Example 25.10 (에르고딕 마르코프 연쇄의 시간 평균)</span>
-에르고딕 Markov chain(마르코프 연쇄) \(\{X_n\}\)이 stationary distribution(정상분포) \(\pi\)를 가지고, 상태 공간 위의 함수 \(g\)에 대해 Birkhoff의 에르고딕 정리를 적용하면:
+에르고딕 마르코프 체인 \(\{X_n\}\)이 정상분포 \(\pi\)를 가지고, 상태 공간 위의 함수 \(g\)에 대해 Birkhoff의 에르고딕 정리를 적용하면:
 $$ \frac{1}{n}\sum_{k=0}^{n-1} g(X_k) \xrightarrow{\text{a.s.}} \sum_{i} \pi_i \, g(i) \quad (n \to \infty). $$
 특히, \(g = \mathbf{1}_{\{j\}}\) (상태 \(j\)의 indicator function)로 놓으면:
 $$ \frac{1}{n}\sum_{k=0}^{n-1} \mathbf{1}_{\{X_k = j\}} \xrightarrow{\text{a.s.}} \pi_j. $$
-즉, 상태 \(j\)에 머무는 시간의 비율은 정상분포 \(\pi_j\)로 수렴한다. Monte Carlo simulation(몬테카를로 시뮬레이션)이 작동하는 이론적 근거가 여기에 있다.
+즉, 상태 \(j\)에 머무는 시간의 비율은 정상분포 \(\pi_j\)로 수렴한다. 몬테카를로 시뮬레이션이 작동하는 이론적 근거가 여기에 있다.
 </div>
 
 <div class="remark"><span class="env-label">Remark (확률론의 핵심 관계 요약)</span>
@@ -10128,7 +10115,7 @@ $$ \frac{1}{n}\sum_{k=0}^{n-1} \mathbf{1}_{\{X_k = j\}} \xrightarrow{\text{a.s.}
 <p>볼록 최적화는 "볼록 집합" 위에서 "볼록 함수"를 최소화하는 구조이다.</p>
 
 <div class="definition"><span class="env-label">Definition 26.1 (Convex Set)</span>
-집합 \(C \subseteq \mathbb{R}^n\)이 <strong>convex(볼록)</strong>하다 함은, 모든 \(x, y \in C\)와 \(\theta \in [0,1]\)에 대해 다음이 성립하는 것을 말한다:
+집합 \(C \subseteq \mathbb{R}^n\)이 <strong>볼록(convex)</strong>하다 함은, 모든 \(x, y \in C\)와 \(\theta \in [0,1]\)에 대해 다음이 성립하는 것을 말한다:
 $$ \theta x + (1 - \theta) y \in C. $$
 즉, \(C\) 내의 임의의 두 점을 잇는 선분이 전부 \(C\) 안에 포함된다.
 </div>
@@ -10147,18 +10134,18 @@ $$ \theta x + (1 - \theta) y \in C. $$
 <p class="subsection-transition">볼록 함수는 그래프 위의 임의의 두 점을 잇는 선분이 항상 그래프 위에 놓이는 함수이다. 이 성질이 전역 최적해의 존재를 보장한다.</p>
 
 <div class="definition"><span class="env-label">Definition 26.3 (Convex Function)</span>
-함수 \(f : \mathbb{R}^n \to \mathbb{R} \cup \{+\infty\}\)가 <strong>convex(볼록)</strong>하다 함은, \(\operatorname{dom} f\)가 convex(볼록)이고 모든 \(x, y \in \operatorname{dom} f\), \(\theta \in [0,1]\)에 대해 다음이 성립하는 것을 말한다:
+함수 \(f : \mathbb{R}^n \to \mathbb{R} \cup \{+\infty\}\)가 <strong>볼록</strong>하다 함은, \(\operatorname{dom} f\)가 볼록이고 모든 \(x, y \in \operatorname{dom} f\), \(\theta \in [0,1]\)에 대해 다음이 성립하는 것을 말한다:
 $$ f(\theta x + (1-\theta) y) \leq \theta f(x) + (1-\theta) f(y). $$
-동치 조건(두 번 미분 가능한 \(f\)의 경우): \(f\)가 convex(볼록)할 필요충분조건은 모든 \(x \in \operatorname{dom} f\)에서 \(\nabla^2 f(x) \succeq 0\)인 것이다.
+동치 조건(두 번 미분 가능한 \(f\)의 경우): \(f\)가 볼록할 필요충분조건은 모든 \(x \in \operatorname{dom} f\)에서 \(\nabla^2 f(x) \succeq 0\)인 것이다.
 </div>
 
 <div class="definition"><span class="env-label">Definition 26.4 (First- and Second-Order Conditions)</span>
-convex(볼록) 정의역 위에서 미분 가능한 \(f\)에 대해:
+볼록 정의역 위에서 미분 가능한 \(f\)에 대해:
 <ul>
-  <li><strong>First-order condition:</strong> \(f\)가 convex(볼록)할 필요충분조건은
+  <li><strong>First-order condition:</strong> \(f\)가 볼록할 필요충분조건은
   $$ f(y) \geq f(x) + \nabla f(x)^T (y - x) \quad \forall\, x, y \in \operatorname{dom} f $$
   인 것이다. (접선 초평면이 전역적 하한이 된다.)</li>
-  <li><strong>Second-order condition:</strong> \(f\)가 convex(볼록)할 필요충분조건은 모든 \(x\)에서 \(\nabla^2 f(x) \succeq 0\)인 것이다.</li>
+  <li><strong>Second-order condition:</strong> \(f\)가 볼록할 필요충분조건은 모든 \(x\)에서 \(\nabla^2 f(x) \succeq 0\)인 것이다.</li>
 </ul>
 </div>
 
@@ -10167,8 +10154,8 @@ convex(볼록) 정의역 위에서 미분 가능한 \(f\)에 대해:
 <div class="theorem"><span class="env-label">Theorem 26.1 (Hessian Criterion for Convexity)</span>
 두 번 미분 가능한 함수 \(f: \mathbb{R}^n \to \mathbb{R}\)에 대해:
 <ul>
-  <li>\(f\)가 convex(볼록) \(\iff\) 모든 \(x \in \operatorname{dom} f\)에서 Hessian \(\nabla^2 f(x) \succeq 0\) (양반정치, positive semidefinite).</li>
-  <li>\(f\)가 <strong>strictly convex(순볼록)</strong> \(\Leftarrow\) 모든 \(x\)에서 \(\nabla^2 f(x) \succ 0\) (양정치). 역은 일반적으로 성립하지 않는다 (\(f(x) = x^4\)는 순볼록이지만 \(f''(0) = 0\)).</li>
+  <li>\(f\)가 볼록 \(\iff\) 모든 \(x \in \operatorname{dom} f\)에서 Hessian \(\nabla^2 f(x) \succeq 0\) (양반정치, positive semidefinite).</li>
+  <li>\(f\)가 <strong>순볼록</strong> \(\Leftarrow\) 모든 \(x\)에서 \(\nabla^2 f(x) \succ 0\) (양정치). 역은 일반적으로 성립하지 않는다 (\(f(x) = x^4\)는 순볼록이지만 \(f''(0) = 0\)).</li>
   <li>\(f\)가 <strong>strongly convex(강볼록)</strong> with parameter \(m > 0\) \(\iff\) \(\nabla^2 f(x) \succeq mI\) for all \(x\). 이 조건은 수렴 분석에서 중요하다.</li>
 </ul>
 </div>
@@ -10184,22 +10171,22 @@ $$ \nabla^2 g = \begin{pmatrix} 2 & -1 \\ -1 & 2 \end{pmatrix} $$
 </div>
 
 <div class="theorem"><span class="env-label">Theorem 26.2 (Jensen's Inequality)</span>
-\(f\)가 convex(볼록) 함수이고 \(X\)가 확률변수이면,
+\(f\)가 볼록 함수이고 \(X\)가 확률변수이면,
 $$ f(\mathbb{E}[X]) \leq \mathbb{E}[f(X)], $$
-단, \(\mathbb{E}[X] \in \operatorname{dom} f\)이다. \(f\)가 strictly convex(순볼록)이면 등호 조건은 \(X\)가 상수(a.s.)인 것이다. \(f\)가 concave(오목)이면 부등호가 뒤집힌다.
+단, \(\mathbb{E}[X] \in \operatorname{dom} f\)이다. \(f\)가 순볼록이면 등호 조건은 \(X\)가 상수(a.s.)인 것이다. \(f\)가 오목이면 부등호가 뒤집힌다.
 </div>
 
 <div class="example"><span class="env-label">Example 26.2 (Jensen 부등식의 응용)</span>
 <ul>
-  <li><strong>AM-GM 부등식:</strong> \(f(x) = -\log x\)는 \(\mathbb{R}_{++}\)에서 convex(볼록)이다. 양수 \(a_1, \ldots, a_n\)에 대해 Jensen 부등식을 적용하면
+  <li><strong>AM-GM 부등식:</strong> \(f(x) = -\log x\)는 \(\mathbb{R}_{++}\)에서 볼록이다. 양수 \(a_1, \ldots, a_n\)에 대해 Jensen 부등식을 적용하면
   $$ -\log\!\left(\frac{a_1 + \cdots + a_n}{n}\right) \leq \frac{-\log a_1 + \cdots + (-\log a_n)}{n}, $$
   즉 \(\frac{a_1 + \cdots + a_n}{n} \geq (a_1 \cdots a_n)^{1/n}\) (산술-기하 평균 부등식).</li>
-  <li><strong>분산의 비음수성:</strong> \(f(x) = x^2\)는 convex(볼록)이므로, \(\mathbb{E}[X^2] \geq (\mathbb{E}[X])^2\). 따라서 \(\operatorname{Var}(X) = \mathbb{E}[X^2] - (\mathbb{E}[X])^2 \geq 0\).</li>
+  <li><strong>분산의 비음수성:</strong> \(f(x) = x^2\)는 볼록이므로, \(\mathbb{E}[X^2] \geq (\mathbb{E}[X])^2\). 따라서 \(\operatorname{Var}(X) = \mathbb{E}[X^2] - (\mathbb{E}[X])^2 \geq 0\).</li>
 </ul>
 </div>
 
 <div class="example"><span class="env-label">Example 26.3 (주요 Convex/Concave 함수 목록)</span>
-중요한 convex(볼록) 함수: \(e^{ax}\), \(\mathbb{R}_{++}\) 위에서 \(p \geq 1\) 또는 \(p \leq 0\)일 때 \(x^p\), 임의의 노름 \(\|x\|\), \(A \succeq 0\)일 때 \(x^T A x\), \(\mathbb{S}^n_{++}\) 위에서 \(\log\det(X^{-1})\). 중요한 concave(오목) 함수: \(\log x\), \(\sqrt{x}\), \(\mathbb{R}_{++}\) 위에서 \(0 \leq p \leq 1\)일 때 \(x^p\).
+중요한 볼록 함수: \(e^{ax}\), \(\mathbb{R}_{++}\) 위에서 \(p \geq 1\) 또는 \(p \leq 0\)일 때 \(x^p\), 임의의 노름 \(\|x\|\), \(A \succeq 0\)일 때 \(x^T A x\), \(\mathbb{S}^n_{++}\) 위에서 \(\log\det(X^{-1})\). 중요한 오목 함수: \(\log x\), \(\sqrt{x}\), \(\mathbb{R}_{++}\) 위에서 \(0 \leq p \leq 1\)일 때 \(x^p\).
 </div>
 
 <p>볼록 최적화 문제에서는 목적함수와 부등식 제약이 모두 볼록이고, 등식 제약이 아핀이다.</p>
@@ -10211,7 +10198,7 @@ $$ \begin{aligned}
 \text{subject to} \quad & f_i(x) \leq 0, \quad i = 1, \ldots, m, \\
 & a_j^T x = b_j, \quad j = 1, \ldots, p,
 \end{aligned} $$
-여기서 \(f_0, f_1, \ldots, f_m\)은 convex(볼록) 함수이고 등식 제약은 아핀이다. Convex(볼록) 문제의 모든 지역 최적해는 전역 최적해이다.
+여기서 \(f_0, f_1, \ldots, f_m\)은 볼록 함수이고 등식 제약은 아핀이다. 볼록 문제의 모든 지역 최적해는 전역 최적해이다.
 </div>
 
 <div class="definition"><span class="env-label">Definition 26.6 (Lagrangian and Dual Function)</span>
@@ -10219,7 +10206,7 @@ $$ \begin{aligned}
 $$ L(x, \lambda, \nu) = f_0(x) + \sum_{i=1}^m \lambda_i f_i(x) + \sum_{j=1}^p \nu_j (a_j^T x - b_j), $$
 여기서 \(\lambda_i \geq 0\)이다. <strong>Lagrange dual function</strong>은
 $$ g(\lambda, \nu) = \inf_x L(x, \lambda, \nu) $$
-이다. 임의의 \(\lambda \geq 0\)과 임의의 \(\nu\)에 대해 \(g(\lambda, \nu) \leq p^*\) (최적 원시 값)이다. Dual function은 항상 concave(오목)이다.
+이다. 임의의 \(\lambda \geq 0\)과 임의의 \(\nu\)에 대해 \(g(\lambda, \nu) \leq p^*\) (최적 원시 값)이다. Dual function은 항상 오목이다.
 </div>
 
 <p class="subsection-transition">쌍대 문제는 원래 문제에 대한 하한을 제공하며, 특정 조건 하에서 원래 문제와 동일한 최적값을 갖는다. 이 관계가 최적성 조건(KKT)과 알고리즘 설계의 기반이 된다.</p>
@@ -10232,22 +10219,22 @@ $$ \begin{aligned}
 \operatorname{maximize} \quad & g(\lambda, \nu) \\
 \text{subject to} \quad & \lambda \geq 0.
 \end{aligned} $$
-최적 dual 값 \(d^*\)는 <strong>weak duality(약한 쌍대성)</strong>을 만족한다: \(d^* \leq p^*\). \(d^* = p^*\)이면 <strong>strong duality(강한 쌍대성)</strong>가 성립한다. <strong>Slater's condition</strong> 하에서 strong duality(강한 쌍대성)가 성립한다: 모든 \(i = 1, \ldots, m\)에 대해 \(f_i(x) < 0\)인 strictly feasible point \(x\)가 존재하면 된다.
+최적 쌍대값 \(d^*\)는 <strong>약한 쌍대성(weak duality)</strong>을 만족한다: \(d^* \leq p^*\). \(d^* = p^*\)이면 <strong>강한 쌍대성</strong>이 성립한다. <strong>Slater 조건(Slater's condition)</strong> 아래에서 강한 쌍대성이 성립한다: 모든 \(i = 1, \ldots, m\)에 대해 \(f_i(x) < 0\)인 순수 실행 가능점(strictly feasible point) \(x\)가 존재하면 된다.
 </div>
 
 <p><strong>쌍대성의 직관적 이해.</strong> Lagrangian \(L(x, \lambda, \nu)\)는 제약 조건 위반에 "벌금"을 매기는 구조로 이해할 수 있다. \(\lambda_i\)는 제약 \(f_i(x) \leq 0\)의 위반에 대한 단위 벌금(가격)이다. Dual function \(g(\lambda, \nu) = \inf_x L(x, \lambda, \nu)\)는 벌금 가격이 \((\lambda, \nu)\)로 고정되었을 때, 최적의 \(x\)가 달성하는 비용의 하한이다. Dual 문제는 이 하한을 가능한 한 높이는 벌금 가격을 찾는 것이다. 따라서 dual 문제의 최적값 \(d^*\)는 원시 최적값 \(p^*\)에 대한 최선의 하한이며, weak duality \(d^* \leq p^*\)는 항상 성립한다.</p>
 
-<p><strong>Strong duality와 Slater 조건.</strong> Weak duality만으로는 \(d^* < p^*\)(쌍대 갭)일 수 있다. Convex(볼록) 문제에서 Slater 조건이 성립하면, 즉 모든 부등식 제약을 순수하게(strictly) 만족하는 점이 존재하면, 강한 쌍대성 \(d^* = p^*\)가 보장된다. 아핀 부등식 제약 \(f_i(x) = a_i^T x - b_i\)에 대해서는 순수 실행 가능성 대신 단순 실행 가능성으로 충분하다. LP, QP, SDP 등 대부분의 실용적 convex(볼록) 문제에서 Slater 조건은 성립한다.</p>
+<p><strong>Strong duality와 Slater 조건.</strong> Weak duality만으로는 \(d^* < p^*\)(쌍대 갭)일 수 있다. 볼록 문제에서 Slater 조건이 성립하면, 즉 모든 부등식 제약을 순수하게(strictly) 만족하는 점이 존재하면, 강한 쌍대성 \(d^* = p^*\)가 보장된다. 아핀 부등식 제약 \(f_i(x) = a_i^T x - b_i\)에 대해서는 순수 실행 가능성 대신 단순 실행 가능성으로 충분하다. LP, QP, SDP 등 대부분의 실용적 볼록 문제에서 Slater 조건은 성립한다.</p>
 
 <div class="theorem"><span class="env-label">Theorem 26.3 (KKT Conditions)</span>
-Strong duality(강한 쌍대성) 하에서, primal-dual 최적점 \((x^*, \lambda^*, \nu^*)\)는 <strong>Karush&ndash;Kuhn&ndash;Tucker (KKT 조건)</strong>을 만족한다:
+강한 쌍대성 하에서, primal-dual 최적점 \((x^*, \lambda^*, \nu^*)\)는 <strong>Karush&ndash;Kuhn&ndash;Tucker (KKT 조건)</strong>을 만족한다:
 <ol>
   <li><strong>Primal feasibility:</strong> \(f_i(x^*) \leq 0\), \(a_j^T x^* = b_j\).</li>
   <li><strong>Dual feasibility:</strong> \(\lambda_i^* \geq 0\).</li>
   <li><strong>Complementary slackness:</strong> 모든 \(i\)에 대해 \(\lambda_i^* f_i(x^*) = 0\).</li>
   <li><strong>Stationarity:</strong> \(\nabla f_0(x^*) + \sum_{i} \lambda_i^* \nabla f_i(x^*) + \sum_{j} \nu_j^* a_j = 0\).</li>
 </ol>
-Strong duality(강한 쌍대성)를 갖는 convex(볼록) 문제에서 KKT conditions(KKT 조건)은 최적성의 필요충분조건이다.
+강한 쌍대성을 갖는 볼록 문제에서 KKT 조건은 최적성의 필요충분조건이다.
 </div>
 
 <h4>KKT Conditions: Worked Examples</h4>
@@ -10294,7 +10281,7 @@ Stationarity: \(-\frac{1}{\alpha_i + x_i} - \lambda_i + \nu = 0\), 즉 \(\frac{1
 </div>
 
 <div class="example"><span class="env-label">Example 26.7 (Convex 문제로서의 최소제곱법)</span>
- \(\|Ax - b\|_2^2\)를 최소화하는 것은 제약 조건 없는 convex(볼록) 문제이다 (\(\nabla^2 f = 2A^TA \succeq 0\)). 최적성 조건 \(\nabla f = 2A^T(Ax - b) = 0\)으로부터 정규방정식 \(A^TAx = A^Tb\)를 얻는다. \(\ell_1\) 벌칙항 \(\|x\|_1\)을 추가하면 Lasso가 되며, 여전히 convex(볼록)이지만 모든 곳에서 미분 가능하지는 않다.
+ \(\|Ax - b\|_2^2\)를 최소화하는 것은 제약 조건 없는 볼록 문제이다 (\(\nabla^2 f = 2A^TA \succeq 0\)). 최적성 조건 \(\nabla f = 2A^T(Ax - b) = 0\)으로부터 정규방정식 \(A^TAx = A^Tb\)를 얻는다. \(\ell_1\) 벌칙항 \(\|x\|_1\)을 추가하면 Lasso가 되며, 여전히 볼록이지만 모든 곳에서 미분 가능하지는 않다.
 </div>
 
 <p class="subsection-transition">경사하강법, Newton 방법, 내부점 방법은 각각 정확도와 계산 비용의 절충이 다르다.</p>
@@ -10321,7 +10308,7 @@ $$ x^{(k+1)} = x^{(k)} - t_k \nabla f(x^{(k)}). $$
 </div>
 
 <div class="theorem"><span class="env-label">Theorem 26.4 (Gradient Descent Convergence)</span>
-\(f\)가 convex(볼록)이고, \(\nabla f\)가 Lipschitz 상수 \(L\)을 가지며, 고정 스텝 크기 \(t = 1/L\)을 사용하면:
+\(f\)가 볼록이고, \(\nabla f\)가 Lipschitz 상수 \(L\)을 가지며, 고정 스텝 크기 \(t = 1/L\)을 사용하면:
 $$ f(x^{(k)}) - f^* \leq \frac{L \|x^{(0)} - x^*\|^2}{2k}. $$
 즉, \(\epsilon\)-최적해를 얻으려면 \(O(1/\epsilon)\)회 반복이 필요하다 (sublinear convergence).
 
@@ -10374,7 +10361,7 @@ for some \(C > 0\). 실용적으로, 이차 수렴 단계에 진입하면 5--6�
 $$ f(\beta) = -\sum_{i=1}^N \bigl[ y_i \log \sigma(x_i^T \beta) + (1-y_i) \log(1-\sigma(x_i^T \beta)) \bigr], $$
 여기서 \(\sigma(z) = 1/(1+e^{-z})\)이다. Gradient와 Hessian은:
 $$ \nabla f = X^T (\sigma(X\beta) - y), \qquad \nabla^2 f = X^T W X, $$
-여기서 \(W = \operatorname{diag}(\sigma_i(1-\sigma_i))\), \(\sigma_i = \sigma(x_i^T \beta)\)이다. \(W \succ 0\)이므로 \(\nabla^2 f \succeq 0\)이고, \(X\)가 full column rank이면 \(\nabla^2 f \succ 0\)이다. \(f\)는 (strictly) convex(볼록)이며, Newton 방법은 이차 수렴한다. 통계학에서는 이 알고리즘을 <strong>IRLS(iteratively reweighted least squares)</strong>라 부른다.
+여기서 \(W = \operatorname{diag}(\sigma_i(1-\sigma_i))\), \(\sigma_i = \sigma(x_i^T \beta)\)이다. \(W \succ 0\)이므로 \(\nabla^2 f \succeq 0\)이고, \(X\)가 full column rank이면 \(\nabla^2 f \succ 0\)이다. \(f\)는 (strictly) 볼록이며, Newton 방법은 이차 수렴한다. 통계학에서는 이 알고리즘을 <strong>IRLS(iteratively reweighted least squares)</strong>라 부른다.
 </div>
 
 <div class="example"><span class="env-label">Example 26.11 (Log-barrier를 이용한 부등식 제약 처리)</span>
@@ -10442,7 +10429,6 @@ $$ \operatorname{minimize} \quad w^T \Sigma w \qquad \text{subject to} \quad \mu
 <li>Ben-Tal &amp; Nemirovski, <em>Lectures on Modern Convex Optimization</em> — SIAM, 응용 중심</li>
 </ul>
 </details>
-
 <section id="linear-programming">
 <h3>27. Linear Programming</h3>
 
@@ -10666,7 +10652,7 @@ $$ \frac{3+\delta}{4} \geq 0 \implies \delta \geq -3, \qquad \frac{1-\delta}{2} 
 <!-- ============================================================== -->
 <h2 class="part-title">Part X &mdash; Numerical &amp; Computational Methods</h2>
 
-<p class="part-intro">수치해석은 '정확한 해를 구할 수 없을 때 어떻게 할 것인가'에 답하는 분야이다. 대부분의 실제 문제는 닫힌 형태의 해가 없다. 수치해석은 근사해를 효율적으로, 그리고 오차를 통제하면서 구하는 방법을 연구한다.</p>
+<p class="part-intro">수치해석은 닫힌 형태의 해를 구하기 어려운 문제에서 근사해를 계산하는 방법을 연구한다. 계산 효율뿐 아니라 근사 오차와 수렴도 함께 다룬다.</p>
 
 <!-- ============================================================== -->
 <!--  SECTION 28: NUMERICAL ANALYSIS                                 -->
@@ -10882,7 +10868,6 @@ Backward Euler는 \(y_{n+1} = y_n/(1 + 100h)\)이므로 모든 \(h > 0\)에 대�
 <li>Higham, <em>Accuracy and Stability of Numerical Algorithms</em> — SIAM, 오차 분석 심화</li>
 </ul>
 </details>
-
 <section id="computational-methods">
 <h3>29. Computational Methods</h3>
 
@@ -11156,7 +11141,7 @@ $$ E(h) \approx \frac{h^2}{6}|f'''(x)| + \frac{\epsilon_{\text{mach}}}{h}|f(x)|.
 
 <h2 class="part-title">Part XI &mdash; Applied Mathematics &amp; Discrete</h2>
 
-<p class="part-intro">마지막 Part에서는 여러 응용 분야를 간략히 본다. 동역학 시스템은 시간에 따른 상태의 변화를, 이산수학은 연속이 아닌 구조를 이야기한다. 수학사를 통해 이 모든 것이 어떻게 발전해 왔는지도 짚는다.</p>
+<p class="part-intro">동역학 시스템은 시간에 따른 상태의 변화를, 이산수학은 연속이 아닌 구조를 이야기한다. 수학사는 이 개념들이 어떤 문제에서 태어나 서로 이어졌는지 보여준다.</p>
 
 <!-- ============================================================== -->
 <!--  SECTION 30: DYNAMICAL SYSTEMS                                  -->
@@ -11174,7 +11159,7 @@ $$ E(h) \approx \frac{h^2}{6}|f'''(x)| + \frac{\epsilon_{\text{mach}}}{h}|f(x)|.
 <p>분석의 출발점은 자율 시스템(autonomous system)과 평형점(equilibrium point)의 정의이다. 평형에 있다는 것은 외부 입력 없이 상태가 변하지 않는다는 뜻이고, 공학에서는 '정상 상태(steady state)'라 부른다.</p>
 
 <div class="definition"><span class="env-label">Definition 30.1 (Autonomous System)</span>
-<strong>Autonomous system(자율 시스템)</strong>은 ODE \(\dot{\mathbf{x}} = \mathbf{f}(\mathbf{x})\)이며, 여기서 \(\mathbf{x} \in \mathbb{R}^n\)이고 \(\mathbf{f} : \mathbb{R}^n \to \mathbb{R}^n\)이다. <strong>Equilibrium point</strong>(평형점, 고정점)은 \(\mathbf{f}(\mathbf{x}^*) = 0\)을 만족하는 \(\mathbf{x}^*\)이다.
+<strong>자율 시스템(autonomous system)</strong>은 ODE \(\dot{\mathbf{x}} = \mathbf{f}(\mathbf{x})\)이며, 여기서 \(\mathbf{x} \in \mathbb{R}^n\)이고 \(\mathbf{f} : \mathbb{R}^n \to \mathbb{R}^n\)이다. <strong>평형점(equilibrium point)</strong> 또는 고정점은 \(\mathbf{f}(\mathbf{x}^*) = 0\)을 만족하는 \(\mathbf{x}^*\)이다.
 </div>
 
 <div class="definition"><span class="env-label">Definition 30.2 (Phase Portrait, 2D Linear Systems)</span>
@@ -11207,7 +11192,7 @@ $$ \det(A - \lambda I) = (-1-\lambda)(-3-\lambda) = 0 \implies \lambda_1 = -1, \
 <ul>
   <li><strong>Stable (Lyapunov 안정)</strong>이라 함은, 모든 \(\epsilon > 0\)에 대해 \(\delta > 0\)이 존재하여 \(\|\mathbf{x}(0) - \mathbf{x}^*\| < \delta\)이면 모든 \(t \geq 0\)에서 \(\|\mathbf{x}(t) - \mathbf{x}^*\| < \epsilon\)이 성립하는 것이다.</li>
   <li><strong>Asymptotically stable(점근 안정)</strong>이라 함은, 안정이면서 추가로 \(t \to \infty\)일 때 \(\mathbf{x}(t) \to \mathbf{x}^*\)인 것이다.</li>
-  <li><strong>Unstable(불안정)</strong>이라 함은, 안정이 아닌 것이다.</li>
+  <li><strong>불안정(unstable)</strong>이라 함은 안정 조건을 만족하지 않는 경우를 말한다.</li>
 </ul>
 </div>
 
@@ -11312,7 +11297,7 @@ $$ \dot{V} \leq -2(x^2 + y^2) + 2r^2(x^2 + y^2) = -(2 - 2r^2)(x^2 + y^2). $$
 
 <p class="section-intro">이산수학은 셀 수 있는 구조를 다룬다. 조합론은 경우의 수를 세고, 그래프 이론은 연결 관계를 추상화하며, 점화식은 이산적 변화를 잡는 도구다. 알고리즘 분석, 네트워크 설계, 암호학 등 컴퓨터과학 전반의 수학적 기반이 된다.</p>
 
-<p>이산수학(discrete mathematics)은 컴퓨터 과학의 언어이다. 컴퓨터는 데이터를 비트의 유한 수열로 처리하고, 알고리즘은 유한 단계의 이산적 연산을 밟는다.</p>
+<p>이산수학(discrete mathematics)은 컴퓨터 과학의 여러 문제를 표현한다. 컴퓨터는 데이터를 비트의 유한 수열로 처리하고, 알고리즘은 유한 단계의 이산적 연산을 밟는다.</p>
 
 <p>그래프 이론은 라우팅 프로토콜, VLSI 회로 배치, 소셜 네트워크 분석에 쓰이고, 조합론은 실험 설계나 오류 정정 부호에 쓰인다. 부울 대수는 디지털 논리 회로의 수학적 기초이고, 알고리즘의 시간 복잡도 분석도 이산수학의 영역이다.</p>
 
@@ -11362,7 +11347,7 @@ $$ = 60 - (30 + 20 + 12) + (10 + 6 + 4) - 2 = 16. $$
 <p>라우터 간 연결, 도로망의 경로, 칩의 배선, 분자의 결합 등 겉보기에 다른 문제들이 모두 정점과 간선의 그래프로 모델링된다. 이 추상화가 있어 하나의 정리로 여러 분야의 문제를 동시에 다룰 수 있다.</p>
 
 <div class="definition"><span class="env-label">Definition 31.2 (Graph)</span>
-<strong>Graph(그래프)</strong> \(G = (V, E)\)는 정점 집합 \(V\)와 간선 집합 \(E\)로 구성된다. <strong>Simple graph</strong>에서 간선은 서로 다른 정점의 비순서쌍이다 (루프나 다중 간선 없음). <strong>Degree</strong> \(\deg(v)\)는 \(v\)에 인접한 간선의 수이다.
+<strong>그래프(graph)</strong> \(G = (V, E)\)는 정점 집합 \(V\)와 간선 집합 \(E\)로 구성된다. <strong>단순 그래프(simple graph)</strong>에서 간선은 서로 다른 정점의 비순서쌍이다(루프나 다중 간선은 없다). <strong>차수(degree)</strong> \(\deg(v)\)는 \(v\)에 인접한 간선의 수이다.
 </div>
 
 <div class="theorem"><span class="env-label">Theorem 31.4 (Handshaking Lemma)</span>
@@ -11372,10 +11357,10 @@ $$ \sum_{v \in V} \deg(v) = 2|E|. $$
 
 <div class="definition"><span class="env-label">Definition 31.3 (Graph Properties)</span>
 <ul>
-  <li>Graph(그래프)가 <strong>connected(연결)</strong>이라 함은, 모든 정점 쌍 사이에 경로가 존재하는 것이다.</li>
+  <li>그래프가 <strong>connected(연결)</strong>이라 함은, 모든 정점 쌍 사이에 경로가 존재하는 것이다.</li>
   <li><strong>Tree(트리)</strong>는 연결된 비순환 그래프이다. \(n\)개 정점을 가진 tree는 정확히 \(n-1\)개의 간선을 가진다.</li>
-  <li>Graph(그래프)가 <strong>bipartite(이분)</strong>이라 함은, \(V\)를 \(V_1, V_2\)로 분할하여 모든 간선이 \(V_1\)의 정점과 \(V_2\)의 정점을 연결하도록 할 수 있는 것이다. 동치 조건: 그래프가 bipartite일 필요충분조건은 홀수 길이의 순환을 포함하지 않는 것이다.</li>
-  <li>Graph(그래프)가 <strong>planar(평면)</strong>이라 함은, 간선 교차 없이 평면에 그릴 수 있는 것이다.</li>
+  <li>그래프가 <strong>bipartite(이분)</strong>이라 함은, \(V\)를 \(V_1, V_2\)로 분할하여 모든 간선이 \(V_1\)의 정점과 \(V_2\)의 정점을 연결하도록 할 수 있는 것이다. 동치 조건: 그래프가 bipartite일 필요충분조건은 홀수 길이의 순환을 포함하지 않는 것이다.</li>
+  <li>그래프가 <strong>planar(평면)</strong>이라 함은, 간선 교차 없이 평면에 그릴 수 있는 것이다.</li>
 </ul>
 </div>
 
@@ -11404,7 +11389,7 @@ $$ \sum_{v \in V} \deg(v) = 2|E|. $$
 </div>
 
 <div class="theorem"><span class="env-label">Theorem 31.6 (Kuratowski's Theorem)</span>
-Graph(그래프)가 planar(평면적)일 필요충분조건은 \(K_5\) 또는 \(K_{3,3}\)의 세분을 부분 그래프로 포함하지 않는 것이다.
+그래프가 planar(평면적)일 필요충분조건은 \(K_5\) 또는 \(K_{3,3}\)의 세분을 부분 그래프로 포함하지 않는 것이다.
 </div>
 
 <div class="example"><span class="env-label">Example 31.5 (Euler 공식 적용)</span>
@@ -11507,7 +11492,6 @@ $$ T(n) = \begin{cases} \Theta(n^d) & \text{if } d > \log_b a, \\ \Theta(n^d \lo
 <li>West, <em>Introduction to Graph Theory</em> — 그래프 이론 표준 교재</li>
 </ul>
 </details>
-
 <section id="math-history">
 <h3>32. History of Mathematics</h3>
 

@@ -12,34 +12,34 @@
 
 <div class="definition">
 <span class="env-label">Definition 14.1 (Ring)</span>
-<strong>ring(환)</strong>은 두 이항연산 \(+\)와 \(\cdot\)를 갖춘 집합 \(R\)로, 다음을 만족한다:
+<strong>환</strong>은 두 이항연산 \(+\)와 \(\cdot\)를 갖춘 집합 \(R\)로, 다음을 만족한다:
 <ul>
- <li>\((R, +)\)는 아벨 group(군)이다(항등원은 \(0\)).</li>
+ <li>\((R, +)\)는 아벨 군이다(항등원은 \(0\)).</li>
  <li>곱셈은 결합적이다: \(a(bc) = (ab)c\).</li>
  <li>분배법칙이 성립한다: \(a(b + c) = ab + ac\)이고 \((a + b)c = ac + bc\).</li>
 </ul>
-모든 \(a, b\)에 대해 \(ab = ba\)이면 ring(환)을 <strong>가환(commutative)</strong>이라 한다. 모든 \(a\)에 대해 \(1 \cdot a = a \cdot 1 = a\)인 \(1 \in R\)이 존재하면, ring(환)은 <strong>항등원을 가진다(unital)</strong>고 한다. 항등원을 가진 가환 ring(환)에서 영이 아닌 원소 \(a\)가 <strong>영인자(zero divisor)</strong>란, \(ab = 0\)인 영이 아닌 \(b\)가 존재하는 것이다.
+모든 \(a, b\)에 대해 \(ab = ba\)이면 환을 <strong>가환(commutative)</strong>이라 한다. 모든 \(a\)에 대해 \(1 \cdot a = a \cdot 1 = a\)인 \(1 \in R\)이 존재하면, 환은 <strong>항등원을 가진다(unital)</strong>고 한다. 항등원을 가진 가환 환에서 영이 아닌 원소 \(a\)가 <strong>영인자(zero divisor)</strong>란, \(ab = 0\)인 영이 아닌 \(b\)가 존재하는 것이다.
 </div>
 
 <div class="definition">
 <span class="env-label">Definition 14.2 (Integral Domain, Field)</span>
-<strong>정역(integral domain)</strong>은 \(1 \neq 0\)인 항등원을 가진 가환 ring(환)으로 영인자가 없는 것이다. <strong>field(체)</strong>는 모든 영이 아닌 원소가 곱셈에 대한 역원을 갖는, 항등원을 가진 가환 ring(환)이다. \((R \setminus \{0\}, \cdot)\)가 아벨 group(군)이다. 모든 field(체)는 정역이다.
+<strong>정역(integral domain)</strong>은 \(1 \neq 0\)인 항등원을 가진 가환 환으로 영인자가 없는 것이다. <strong>체</strong>는 모든 영이 아닌 원소가 곱셈에 대한 역원을 갖는, 항등원을 가진 가환 환이다. \((R \setminus \{0\}, \cdot)\)가 아벨 군이다. 모든 체는 정역이다.
 </div>
 
 <div class="example">
 <span class="env-label">Example 14.1</span>
 <ul>
- <li>\(\mathbb{Z}\)는 정역이지만 field(체)는 아니다.</li>
- <li>\(\mathbb{Q}, \mathbb{R}, \mathbb{C}\)는 field(체)이다.</li>
- <li>\(\mathbb{Z}/n\mathbb{Z}\)가 field(체)일 필요충분조건은 \(n\)이 소수인 것이다. \(n\)이 합성수이면, 가령 \(n = ab\)이면, \(\bar{a} \cdot \bar{b} = \bar{0}\)이 영인자이다.</li>
- <li>\(M_n(\mathbb{R})\)(\(n \times n\) 행렬의 ring(환))은 \(n \geq 2\)일 때 항등원을 가진 비가환 ring(환)이다.</li>
+ <li>\(\mathbb{Z}\)는 정역이지만 체는 아니다.</li>
+ <li>\(\mathbb{Q}, \mathbb{R}, \mathbb{C}\)는 체이다.</li>
+ <li>\(\mathbb{Z}/n\mathbb{Z}\)가 체일 필요충분조건은 \(n\)이 소수인 것이다. \(n\)이 합성수이면, 가령 \(n = ab\)이면, \(\bar{a} \cdot \bar{b} = \bar{0}\)이 영인자이다.</li>
+ <li>\(M_n(\mathbb{R})\)(\(n \times n\) 행렬의 환)은 \(n \geq 2\)일 때 항등원을 가진 비가환 환이다.</li>
 </ul>
 </div>
 
 <div class="example">
 <span class="env-label">Example 14.1a (구체적 환 예제: 정수환과 다항식환)</span>
 
-<p><strong>(a) 정수환 \(\mathbb{Z}\)의 아이디얼 구조.</strong> \(\mathbb{Z}\)는 PID이므로 모든 ideal(아이디얼)은 주 아이디얼이다. 모든 ideal(아이디얼)은 어떤 정수 \(n\)에 대해 \((n) = n\mathbb{Z} = \{\ldots, -2n, -n, 0, n, 2n, \ldots\}\) 형태이다. 몫환 \(\mathbb{Z}/(n)\)은 원소가 \(n\)개인 환 \(\mathbb{Z}/n\mathbb{Z}\)이다. 아이디얼의 포함 관계는 나눗셈(divisibility)의 역순을 따른다: \((m) \supseteq (n) \iff m \mid n\). 예를 들어 \((6) \subset (3) \subset (1) = \mathbb{Z}\)이다.</p>
+<p><strong>(a) 정수환 \(\mathbb{Z}\)의 아이디얼 구조.</strong> \(\mathbb{Z}\)는 PID이므로 모든 아이디얼은 주 아이디얼이다. 모든 아이디얼은 어떤 정수 \(n\)에 대해 \((n) = n\mathbb{Z} = \{\ldots, -2n, -n, 0, n, 2n, \ldots\}\) 형태이다. 몫환 \(\mathbb{Z}/(n)\)은 원소가 \(n\)개인 환 \(\mathbb{Z}/n\mathbb{Z}\)이다. 아이디얼의 포함 관계는 나눗셈(divisibility)의 역순을 따른다: \((m) \supseteq (n) \iff m \mid n\). 예를 들어 \((6) \subset (3) \subset (1) = \mathbb{Z}\)이다.</p>
 
 <p><strong>(b) 다항식환 \(\mathbb{R}[x]\)에서의 아이디얼과 몫환.</strong> \(\mathbb{R}[x]\)는 유클리드 정역이므로 PID이다. \(f(x) = x^2 + 1\)은 \(\mathbb{R}\) 위에서 기약이다(실수 근이 없으므로). 따라서 \((x^2+1)\)은 극대 아이디얼이고, 몫환은</p>
 $$
@@ -47,50 +47,50 @@ $$
 $$
 <p>이다. 이 동형은 \(\bar{x} \mapsto i\)로 주어진다. 몫환의 원소는 \(a + b\bar{x}\) (\(a,b \in \mathbb{R}\))이고, \(\bar{x}^2 = -1\)이므로 복소수의 곱셈 규칙과 정확히 일치한다. 이 복소수체를 대수적으로 구성하는 표준적인 방법이다.</p>
 
-<p><strong>(c) 다항식환 \(\mathbb{Z}[x]\)의 아이디얼.</strong> \(\mathbb{Z}[x]\)는 UFD이지만 PID가 아니다. 예를 들어, 아이디얼 \((2, x) = \{f(x) \in \mathbb{Z}[x] : f(0) \text{이 짝수}\}\)는 주 아이디얼이 아니다. 만약 \((2, x) = (g(x))\)라면, \(g \mid 2\)이고 \(g \mid x\)여야 한다. \(g \mid 2\)에서 \(g\)는 상수이고, \(g \mid x\)에서 \(g = \pm 1\)이어야 하지만, 그러면 \((g) = \mathbb{Z}[x] \neq (2, x)\)이므로 모순이다. 몫환 \(\mathbb{Z}[x]/(2, x) \cong \mathbb{Z}/2\mathbb{Z} = \mathbb{F}_2\)는 field(체)이므로 \((2, x)\)는 극대 아이디얼이다.</p>
+<p><strong>(c) 다항식환 \(\mathbb{Z}[x]\)의 아이디얼.</strong> \(\mathbb{Z}[x]\)는 UFD이지만 PID가 아니다. 예를 들어, 아이디얼 \((2, x) = \{f(x) \in \mathbb{Z}[x] : f(0) \text{이 짝수}\}\)는 주 아이디얼이 아니다. 만약 \((2, x) = (g(x))\)라면, \(g \mid 2\)이고 \(g \mid x\)여야 한다. \(g \mid 2\)에서 \(g\)는 상수이고, \(g \mid x\)에서 \(g = \pm 1\)이어야 하지만, 그러면 \((g) = \mathbb{Z}[x] \neq (2, x)\)이므로 모순이다. 몫환 \(\mathbb{Z}[x]/(2, x) \cong \mathbb{Z}/2\mathbb{Z} = \mathbb{F}_2\)는 체이므로 \((2, x)\)는 극대 아이디얼이다.</p>
 </div>
 
 <div class="definition">
 <span class="env-label">Definition 14.3 (Ideal)</span>
-ring(환) \(R\)의 부분집합 \(I \subseteq R\)가 <strong>ideal(아이디얼)</strong>이란, \(I \trianglelefteq R\)로 쓰며, 다음을 만족하는 것이다:
+환 \(R\)의 부분집합 \(I \subseteq R\)가 <strong>아이디얼</strong>이란, \(I \trianglelefteq R\)로 쓰며, 다음을 만족하는 것이다:
 <ul>
- <li>\((I, +)\)는 \((R, +)\)의 subgroup(부분군)이고,</li>
+ <li>\((I, +)\)는 \((R, +)\)의 부분군이고,</li>
  <li>모든 \(r \in R\)과 \(a \in I\)에 대해 \(ra \in I\)이고 \(ar \in I\)이다(흡수 성질).</li>
 </ul>
-원소 \(a_1, \ldots, a_k\)에 의해 생성되는 ideal(아이디얼)은 \((a_1, \ldots, a_k) = \{r_1 a_1 + \cdots + r_k a_k : r_i \in R\}\)이다. <strong>주 ideal(주 아이디얼)</strong>은 단일 원소로 생성되는 것이다: \((a) = Ra\).
+원소 \(a_1, \ldots, a_k\)에 의해 생성되는 아이디얼은 \((a_1, \ldots, a_k) = \{r_1 a_1 + \cdots + r_k a_k : r_i \in R\}\)이다. <strong>주아이디얼</strong>은 단일 원소로 생성되는 것이다: \((a) = Ra\).
 </div>
 
 <div class="definition">
 <span class="env-label">Definition 14.4 (Quotient Ring)</span>
-\(I \trianglelefteq R\)이면, <strong>quotient ring(몫환)</strong> \(R/I = \{r + I : r \in R\}\)은 다음 연산을 갖는다:
+\(I \trianglelefteq R\)이면, <strong>몫환</strong> \(R/I = \{r + I : r \in R\}\)은 다음 연산을 갖는다:
 $$
 (a + I) + (b + I) = (a + b) + I, \qquad (a + I)(b + I) = ab + I.
 $$
-자연 사영 \(\pi: R \to R/I\), \(\pi(r) = r + I\)는 kernel(핵)이 \(I\)인 전사 ring(환) homomorphism(준동형)이다.
+자연 사영 \(\pi: R \to R/I\), \(\pi(r) = r + I\)는 핵이 \(I\)인 전사 환 준동형이다.
 </div>
 
 <div class="theorem">
 <span class="env-label">Theorem 14.1 (Ring Isomorphism Theorems)</span>
 <ul>
- <li><strong>First</strong>: \(\varphi: R \to S\)가 ring(환) homomorphism(준동형)이면, \(\ker \varphi \trianglelefteq R\)이고 \(R / \ker \varphi \cong \operatorname{im} \varphi\)이다.</li>
+ <li><strong>First</strong>: \(\varphi: R \to S\)가 환 준동형이면, \(\ker \varphi \trianglelefteq R\)이고 \(R / \ker \varphi \cong \operatorname{im} \varphi\)이다.</li>
  <li><strong>Second</strong>: \(S\)가 부분환(subring)이고 \(I \trianglelefteq R\)이면, \(S/(S \cap I) \cong (S + I)/I\)이다.</li>
- <li><strong>Third</strong>: \(I \subseteq J\)가 \(R\)의 ideal(아이디얼)이면, \((R/I)/(J/I) \cong R/J\)이다.</li>
+ <li><strong>Third</strong>: \(I \subseteq J\)가 \(R\)의 아이디얼이면, \((R/I)/(J/I) \cong R/J\)이다.</li>
 </ul>
 </div>
 
 <div class="theorem">
 <span class="env-label">Theorem 14.2 (Prime and Maximal Ideals)</span>
-\(R\)을 항등원을 가진 가환 ring(환)이라 하자.
+\(R\)을 항등원을 가진 가환 환이라 하자.
 <ul>
- <li>ideal(아이디얼) \(P \neq R\)가 <strong>소(prime)</strong>란, \(ab \in P\)이면 \(a \in P\)이거나 \(b \in P\)인 것이다. 동치 조건으로, \(R/P\)가 정역이다.</li>
- <li>ideal(아이디얼) \(M \neq R\)가 <strong>극대(maximal)</strong>란, \(M \subsetneq I \subsetneq R\)인 ideal(아이디얼) \(I\)가 존재하지 않는 것이다. 동치 조건으로, \(R/M\)이 field(체)이다.</li>
- <li>모든 극대 ideal(아이디얼)은 소 ideal(아이디얼)이다. 역은 PID에서는 성립하지만 일반적으로는 성립하지 않는다.</li>
+ <li>아이디얼 \(P \neq R\)가 <strong>소(prime)</strong>란, \(ab \in P\)이면 \(a \in P\)이거나 \(b \in P\)인 것이다. 동치 조건으로, \(R/P\)가 정역이다.</li>
+ <li>아이디얼 \(M \neq R\)가 <strong>극대(maximal)</strong>란, \(M \subsetneq I \subsetneq R\)인 아이디얼 \(I\)가 존재하지 않는 것이다. 동치 조건으로, \(R/M\)이 체이다.</li>
+ <li>모든 극대 아이디얼은 소 아이디얼이다. PID에서는 모든 영이 아닌 소 아이디얼이 극대이지만, 영 아이디얼은 PID가 체일 때에만 극대이다.</li>
 </ul>
 </div>
 
 <div class="example">
 <span class="env-label">Example 14.2</span>
-\(\mathbb{Z}\)에서, 각 소수 \(p\)에 대해 ideal(아이디얼) \((p)\)는 극대(이자 소)이다. \(\mathbb{Z}/(p) \cong \mathbb{F}_p\)가 field(체)이기 때문이다. ideal(아이디얼) \((0)\)은 소이지만(\(\mathbb{Z}\)가 정역이므로) 극대는 아니다. ideal(아이디얼) \((6) = (2) \cap (3)\)은 소도 극대도 아니다.
+\(\mathbb{Z}\)에서, 각 소수 \(p\)에 대해 아이디얼 \((p)\)는 극대(이자 소)이다. \(\mathbb{Z}/(p) \cong \mathbb{F}_p\)가 체이기 때문이다. 아이디얼 \((0)\)은 소이지만(\(\mathbb{Z}\)가 정역이므로) 극대는 아니다. 아이디얼 \((6) = (2) \cap (3)\)은 소도 극대도 아니다.
 </div>
 
 <h3 id="polynomial-rings-pid-ufd">14.2 Polynomial Rings, PIDs, and UFDs</h3>
@@ -101,12 +101,12 @@ $$
 
 <div class="definition">
 <span class="env-label">Definition 14.5 (Polynomial Ring)</span>
-가환 ring(환) \(R\)에 대해, <strong>다항식 ring(환)</strong> \(R[x]\)는 형식적 표현 \(a_n x^n + \cdots + a_1 x + a_0\) (\(a_i \in R\))으로 이루어지며, 통상적인 덧셈과 곱셈을 갖는다. \(R\)이 정역이면 \(R[x]\)도 정역이고, \(\deg(fg) = \deg f + \deg g\)이다.
+가환 환 \(R\)에 대해, <strong>다항식 환</strong> \(R[x]\)는 형식적 표현 \(a_n x^n + \cdots + a_1 x + a_0\) (\(a_i \in R\))으로 이루어지며, 통상적인 덧셈과 곱셈을 갖는다. \(R\)이 정역이면 \(R[x]\)도 정역이고, \(\deg(fg) = \deg f + \deg g\)이다.
 </div>
 
 <div class="theorem">
 <span class="env-label">Theorem 14.3 (Division Algorithm for Polynomials)</span>
-\(F\)를 field(체)라 하고, \(f, g \in F[x]\), \(g \neq 0\)이라 하자. 그러면
+\(F\)를 체라 하고, \(f, g \in F[x]\), \(g \neq 0\)이라 하자. 그러면
 $$
 f = qg + r, \quad \deg r < \deg g
 $$
@@ -116,7 +116,7 @@ $$
 <div class="definition">
 <span class="env-label">Definition 14.6 (PID, UFD)</span>
 <ul>
- <li><strong>주 ideal(아이디얼) 정역(principal ideal domain, PID)</strong>은 모든 ideal(아이디얼)이 주 ideal(아이디얼)인 정역이다.</li>
+ <li><strong>주 아이디얼 정역(principal ideal domain, PID)</strong>은 모든 아이디얼이 주 아이디얼인 정역이다.</li>
  <li><strong>유일 인수 분해 정역(unique factorization domain, UFD)</strong>은 모든 영이 아닌 비단원(non-unit) 원소가 기약원(irreducible)의 곱으로 분해되며, 그 분해가 순서와 동반원(associate)을 제외하면 유일한 정역이다.</li>
  <li><strong>유클리드 정역(Euclidean domain)</strong>은 나눗셈 알고리즘을 지원하는 노름 함수 \(N: R \setminus \{0\} \to \mathbb{Z}_{\geq 0}\)를 갖춘 정역이다.</li>
 </ul>
@@ -131,7 +131,7 @@ $$
 <ul>
  <li>\(\mathbb{Z}\)는 유클리드 정역(노름 \(N(a) = |a|\))이므로, PID이자 UFD이다.</li>
  <li>\(\mathbb{Z}[i] = \{a + bi : a, b \in \mathbb{Z}\}\)(가우스 정수)는 노름 \(N(a+bi) = a^2 + b^2\)을 갖는 유클리드 정역이다.</li>
- <li>\(\mathbb{Z}[x]\)는 UFD이지만 PID가 아니다: ideal(아이디얼) \((2, x)\)는 주 ideal(아이디얼)이 아니다.</li>
+ <li>\(\mathbb{Z}[x]\)는 UFD이지만 PID가 아니다: 아이디얼 \((2, x)\)는 주 아이디얼이 아니다.</li>
  <li>\(\mathbb{Z}[\sqrt{-5}]\)는 UFD가 아니다: \(6 = 2 \cdot 3 = (1+\sqrt{-5})(1-\sqrt{-5})\)가 두 가지 서로 다른 기약 인수 분해이다.</li>
 </ul>
 </div>
@@ -157,12 +157,12 @@ $$
 
 <div class="definition">
 <span class="env-label">Definition 14.7 (Field Extension)</span>
-<strong>field extension(체 확장)</strong> \(K/F\)란, field(체) \(K\)가 \(F\)를 부분체(subfield)로 포함하는 것이다. 확장의 <strong>차수(degree)</strong> \([K : F]\)는 \(K\)를 \(F\) 위의 벡터 공간으로 볼 때의 차원이다. \([K:F] < \infty\)이면 확장은 <strong>유한(finite)</strong>이다.
+<strong>field extension(체 확장)</strong> \(K/F\)란, 체 \(K\)가 \(F\)를 부분체(subfield)로 포함하는 것이다. 확장의 <strong>차수(degree)</strong> \([K : F]\)는 \(K\)를 \(F\) 위의 벡터 공간으로 볼 때의 차원이다. \([K:F] < \infty\)이면 확장은 <strong>유한(finite)</strong>이다.
 </div>
 
 <div class="theorem">
 <span class="env-label">Theorem 14.5 (Tower Law)</span>
-\(F \subseteq K \subseteq L\)이 field(체)이면,
+\(F \subseteq K \subseteq L\)이 체이면,
 $$
 [L : F] = [L : K] \cdot [K : F].
 $$
@@ -232,7 +232,7 @@ $$
 
 <div class="definition">
 <span class="env-label">Definition 14.10 (Algebraic Closure)</span>
-field(체) \(F\)가 <strong>대수적으로 닫혀 있다(algebraically closed)</strong>란, \(F[x]\)의 모든 비상수 다항식이 \(F\)에 근을 갖는 것이다. \(F\)의 <strong>대수적 폐포(algebraic closure)</strong> \(\overline{F}\)는 \(F\) 위에서 대수적인 대수적으로 닫힌 field(체)이다. 모든 field(체)는 동형을 제외하면 유일한 대수적 폐포를 갖는다.
+체 \(F\)가 <strong>대수적으로 닫혀 있다(algebraically closed)</strong>란, \(F[x]\)의 모든 비상수 다항식이 \(F\)에 근을 갖는 것이다. \(F\)의 <strong>대수적 폐포(algebraic closure)</strong> \(\overline{F}\)는 \(F\) 위에서 대수적인 대수적으로 닫힌 체이다. 모든 체는 동형을 제외하면 유일한 대수적 폐포를 갖는다.
 </div>
 
 <h3 id="finite-fields">14.4 Finite Fields</h3>
@@ -244,8 +244,8 @@ field(체) \(F\)가 <strong>대수적으로 닫혀 있다(algebraically closed)<
 <div class="theorem">
 <span class="env-label">Theorem 14.8 (Classification of Finite Fields)</span>
 <ul>
- <li>모든 유한 field(체)의 위수는 어떤 소수 \(p\)와 양의 정수 \(n\)에 대해 \(p^n\)이다. 소수 \(p\)가 field(체)의 표수(characteristic)이다.</li>
- <li>각 소수 거듭제곱 \(q = p^n\)에 대해, 위수 \(q\)인 field(체)가 동형을 제외하면 유일하게 존재하며, \(\mathbb{F}_q\) 또는 \(\operatorname{GF}(q)\)로 표기한다. 이것은 \(x^q - x\)의 \(\mathbb{F}_p\) 위의 분해체이다.</li>
+ <li>모든 유한 체의 위수는 어떤 소수 \(p\)와 양의 정수 \(n\)에 대해 \(p^n\)이다. 소수 \(p\)가 체의 표수(characteristic)이다.</li>
+ <li>각 소수 거듭제곱 \(q = p^n\)에 대해, 위수 \(q\)인 체가 동형을 제외하면 유일하게 존재하며, \(\mathbb{F}_q\) 또는 \(\operatorname{GF}(q)\)로 표기한다. 이것은 \(x^q - x\)의 \(\mathbb{F}_p\) 위의 분해체이다.</li>
  <li>곱셈군 \(\mathbb{F}_q^\times\)는 위수 \(q - 1\)인 순환군이다.</li>
 </ul>
 </div>
@@ -257,7 +257,7 @@ field(체) \(F\)가 <strong>대수적으로 닫혀 있다(algebraically closed)<
 
 <div class="theorem">
 <span class="env-label">Theorem 14.10 (Frobenius Endomorphism)</span>
-사상 \(\sigma: \mathbb{F}_q \to \mathbb{F}_q\)를 \(\sigma(x) = x^p\)(\(q = p^n\))로 정의하면, 이것은 field(체) 자기동형사상이며 <strong>프로베니우스 자기준동형(Frobenius endomorphism)</strong>이라 한다. 갈루아 group(군) \(\operatorname{Gal}(\mathbb{F}_{p^n}/\mathbb{F}_p)\)는 \(\sigma\)에 의해 생성되는 위수 \(n\)인 순환군이다.
+사상 \(\sigma: \mathbb{F}_q \to \mathbb{F}_q\)를 \(\sigma(x) = x^p\)(\(q = p^n\))로 정의하면, 이것은 체 자기동형사상이며 <strong>프로베니우스 자기준동형(Frobenius endomorphism)</strong>이라 한다. 갈루아 군 \(\operatorname{Gal}(\mathbb{F}_{p^n}/\mathbb{F}_p)\)는 \(\sigma\)에 의해 생성되는 위수 \(n\)인 순환군이다.
 </div>
 
 <div class="example">

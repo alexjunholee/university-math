@@ -1,11 +1,11 @@
 <section id="measure-theory">
 <h2>11. Measure Theory</h2>
 
-<p>리만 적분(Riemann integral)은 공학 수학의 기본 도구이지만, 본질적인 한계가 있다. 극한과 적분의 교환이 자유롭지 않고, 디리클레 함수(Dirichlet function)처럼 "병리적인" 함수를 적분할 수 없다. 확률론을 엄밀하게 세우려면 "사건의 확률"을 체계적으로 정의해야 하는데, 이 역시 리만 적분만으로는 불가능하다. 확률 = 측도(measure)라는 통찰이 현대 확률론의 출발점이며, 이를 위한 수학적 장치가 측도론이다.</p>
+<p>리만 적분(Riemann integral)만으로는 극한과 적분을 자유롭게 바꿀 수 없고, 디리클레 함수(Dirichlet function)처럼 리만 적분 불가능한 함수도 다루지 못한다. 확률론을 엄밀하게 세우려면 사건의 확률을 일관되게 정의할 장치도 필요하다. 측도론은 길이와 넓이뿐 아니라 확률까지 측도(measure)로 다룬다.</p>
 
 <p>공학에서의 사용례를 보면, 신호의 에너지 \(\int |f(t)|^2\,dt\)와 전력 \(\lim_{T\to\infty}\frac{1}{2T}\int_{-T}^{T}|f(t)|^2\,dt\)은 르베그 적분(Lebesgue integral)으로 정의되며, 정보이론에서 섀넌 엔트로피(Shannon entropy)의 연속 확장인 미분 엔트로피(differential entropy)는 확률 밀도 함수의 르베그 적분으로 엄밀히 정의된다. 이미지 처리에서 잡음 모델이 확률 공간(probability space) 위에서 정식화되고, 베이즈 추론(Bayesian inference)에서 사전/사후 분포의 관계가 측도의 절대 연속성(absolute continuity)과 라돈-니코딤 도함수(Radon-Nikodym derivative)로 기술된다.</p>
 
-<p>측도론(Measure Theory)은 길이, 넓이, 부피, 확률 등 "크기"의 개념을 일반적인 체계로 확장한다. 이 체계 위에 구축된 Lebesgue integral(르베그 적분)은 리만 적분보다 훨씬 유연하게 적분과 극한의 교환을 다룰 수 있으며, 현대 해석학, 확률론, 응용 수학의 표준이다.</p>
+<p>측도론(Measure Theory)은 길이, 넓이, 부피, 확률 등 "크기"의 개념을 일반적인 체계로 확장한다. 이 체계 위에 구축된 르베그 적분(Lebesgue integral)은 리만 적분보다 훨씬 유연하게 적분과 극한의 교환을 다룰 수 있으며, 현대 해석학, 확률론, 응용 수학의 표준이다.</p>
 
 <!-- 11.1 Sigma-Algebras and Measures -->
 <h3 id="sigma-algebras">11.1 Sigma-Algebras and Measures</h3>
@@ -13,7 +13,7 @@
 <p>측도를 정의하기 전에, "어떤 집합들에 대해 크기를 잴 수 있는가?"를 먼저 정해야 한다. 직관적으로는 모든 부분집합에 대해 크기를 정의하고 싶지만, Vitali 구성이 보여주듯 이는 불가능하다. 시그마 대수(sigma-algebra)는 여집합과 가산 합집합에 대해 닫혀 있는 "잴 수 있는 집합들의 모임"을 규정하며, 확률론에서는 이것이 관측 가능한 사건(event)들의 모임에 해당한다.</p>
 
 <div class="definition"><span class="env-label">Definition 11.1 (Sigma-Algebra)</span>
-집합 \(\Omega\)의 부분집합들의 모임 \(\mathcal{F}\)가 <em>sigma-algebra(시그마 대수)</em>가 되려면 다음 조건을 만족해야 한다:
+집합 \(\Omega\)의 부분집합들의 모임 \(\mathcal{F}\)가 <em>시그마 대수(sigma-algebra)</em>가 되려면 다음 조건을 만족해야 한다:
 <ol>
   <li>\(\Omega \in \mathcal{F}\),</li>
   <li>\(A \in \mathcal{F} \implies A^c \in \mathcal{F}\) (여집합에 대해 닫혀 있음),</li>
@@ -23,7 +23,7 @@
 </div>
 
 <div class="definition"><span class="env-label">Definition 11.2 (Borel Sigma-Algebra)</span>
-<em>보렐 sigma-algebra(시그마 대수)</em> \(\mathcal{B}(\mathbb{R})\)는 \(\mathbb{R}\) 위의 모든 열린 집합을 포함하는 가장 작은 sigma-algebra(시그마 대수)이다. 동치적으로, 열린 구간들 또는 반직선 \((-\infty, a]\)에 의해 생성된다.
+<em>보렐 시그마 대수</em> \(\mathcal{B}(\mathbb{R})\)는 \(\mathbb{R}\) 위의 모든 열린 집합을 포함하는 가장 작은 시그마 대수이다. 동치적으로, 열린 구간들 또는 반직선 \((-\infty, a]\)에 의해 생성된다.
 </div>
 
 <p>시그마 대수 위에 "크기"를 부여하는 것이 측도이다. 가산 가법성(countable additivity)은 중심 공리로, 서로소인 사건들의 확률의 합이 합사건의 확률과 같다는 확률 공리와 정확히 대응한다.</p>
@@ -48,7 +48,7 @@
 </div>
 
 <!-- 11.2 Lebesgue Measure and Integral -->
-<p>추상적 측도의 틀을 세웠으니, 이제 가장 중요한 구체적 측도인 Lebesgue 측도를 구성하고, 그 위에서 적분을 정의한다. Lebesgue 적분은 Riemann 적분과 달리 치역을 분할하여 적분을 구성하며, 이 접근이 훨씬 넓은 클래스의 함수를 적분 가능하게 만든다.</p>
+<p>추상적 측도의 틀 위에서 Lebesgue 측도를 구성하고 적분을 정의한다. Lebesgue 적분은 Riemann 적분과 달리 치역을 분할하여 적분을 구성하므로 더 넓은 함수의 부류를 다룰 수 있다.</p>
 
 <h3 id="lebesgue-measure">11.2 Lebesgue Measure and the Lebesgue Integral</h3>
 
@@ -92,7 +92,7 @@ $$ \sum_{n=0}^\infty \frac{2^n}{3^{n+1}} = \frac{1/3}{1 - 2/3} = 1 $$
 <p>리만 적분은 정의역을 분할하고 각 구간에서 함수값의 범위를 보지만, 르베그 적분은 치역을 분할하고 각 값에 대응하는 정의역의 크기(측도)를 본다. 이 관점 전환 덕분에 훨씬 넓은 함수 클래스를 적분할 수 있다.</p>
 
 <div class="definition"><span class="env-label">Definition 11.6 (Lebesgue Integral)</span>
-Lebesgue integral(르베그 적분)은 다음 단계를 거쳐 구성된다:
+르베그 적분은 다음 단계를 거쳐 구성된다:
 <ol>
   <li><strong>단순 함수.</strong> \(c_i \geq 0\)이고 \(A_i\)가 가측인 \(\varphi = \sum_{i=1}^n c_i \mathbf{1}_{A_i}\)에 대해, \(\int \varphi\, d\mu = \sum c_i \mu(A_i)\)로 정의한다.</li>
   <li><strong>비음 가측 함수.</strong> \(\int f\, d\mu = \sup\{\int \varphi\, d\mu : 0 \leq \varphi \leq f,\; \varphi \text{ simple}\}\).</li>
@@ -101,7 +101,7 @@ Lebesgue integral(르베그 적분)은 다음 단계를 거쳐 구성된다:
 </div>
 
 <div class="example"><span class="env-label">Example 11.2</span>
-디리클레 함수 \(\mathbf{1}_\mathbb{Q}\)는 가측이며(\(\mathbb{Q}\)가 보렐 집합이므로), \(\int_{[0,1]} \mathbf{1}_\mathbb{Q}\, dm = m(\mathbb{Q} \cap [0,1]) = 0\)이다. 유리수 집합의 측도가 0이기 때문이다. 리만 적분으로는 처리할 수 없는 이 함수를 Lebesgue integral(르베그 적분)은 다룰 수 있다.
+디리클레 함수 \(\mathbf{1}_\mathbb{Q}\)는 가측이며(\(\mathbb{Q}\)가 보렐 집합이므로), \(\int_{[0,1]} \mathbf{1}_\mathbb{Q}\, dm = m(\mathbb{Q} \cap [0,1]) = 0\)이다. 유리수 집합의 측도가 0이기 때문이다. 리만 적분으로는 처리할 수 없는 이 함수를 르베그 적분은 다룰 수 있다.
 </div>
 
 <div class="example"><span class="env-label">Example 11.2a (Lebesgue 적분 구성의 단계별 예)</span>
@@ -123,7 +123,7 @@ $$
 
 <h3 id="convergence-theorems">11.3 Convergence Theorems</h3>
 
-<p>Lebesgue integral(르베그 적분)의 강점은 수렴 정리에 있다. 약한 조건만으로 극한과 적분을 교환할 수 있다.</p>
+<p>르베그 적분의 강점은 수렴 정리에 있다. 약한 조건만으로 극한과 적분을 교환할 수 있다.</p>
 
 <div class="theorem"><span class="env-label">Theorem 11.2 (Monotone Convergence Theorem, MCT)</span>
 \(f_n: \Omega \to [0, \infty]\)가 가측이고 \(f_1 \leq f_2 \leq \cdots\) (거의 어디서나)이면,
@@ -188,7 +188,7 @@ $$ F'(t) = -\int_0^\infty e^{-tx} \sin x\, dx. $$
 <p>결합 확률 분포(joint probability distribution)에서 주변 확률(marginal probability)을 구하는 것은 적분 순서를 바꾸는 일이다. 곱 측도와 Fubini 정리는 이 교환이 언제 가능한지를 엄밀히 규정한다.</p>
 
 <div class="definition"><span class="env-label">Definition 11.7 (Product Measure)</span>
-sigma-유한 측도 공간 \((X, \mathcal{A}, \mu)\)와 \((Y, \mathcal{B}, \nu)\)가 주어졌을 때, <em>곱 sigma-algebra(시그마 대수)</em> \(\mathcal{A} \otimes \mathcal{B}\)는 가측 직사각형 \(A \times B\) (\(A \in \mathcal{A}\), \(B \in \mathcal{B}\))에 의해 생성된다. <em>곱 측도(product measure)</em> \(\mu \otimes \nu\)는 \((\mu \otimes \nu)(A \times B) = \mu(A) \cdot \nu(B)\)를 만족하는 \(\mathcal{A} \otimes \mathcal{B}\) 위의 유일한 측도이다.
+sigma-유한 측도 공간 \((X, \mathcal{A}, \mu)\)와 \((Y, \mathcal{B}, \nu)\)가 주어졌을 때, <em>곱 시그마 대수</em> \(\mathcal{A} \otimes \mathcal{B}\)는 가측 직사각형 \(A \times B\) (\(A \in \mathcal{A}\), \(B \in \mathcal{B}\))에 의해 생성된다. <em>곱 측도(product measure)</em> \(\mu \otimes \nu\)는 \((\mu \otimes \nu)(A \times B) = \mu(A) \cdot \nu(B)\)를 만족하는 \(\mathcal{A} \otimes \mathcal{B}\) 위의 유일한 측도이다.
 </div>
 
 <div class="theorem"><span class="env-label">Theorem 11.5 (Tonelli's Theorem)</span>
@@ -215,7 +215,7 @@ $$ \int_0^1 \int_0^1 \frac{|x^2 - y^2|}{(x^2 + y^2)^2}\, dx\, dy = +\infty $$
 $$
 \int_0^1 \int_x^1 e^{y^2}\, dy\, dx = \int_0^1 \int_0^y e^{y^2}\, dx\, dy = \int_0^1 y \, e^{y^2}\, dy = \left[\frac{1}{2}e^{y^2}\right]_0^1 = \frac{e - 1}{2}.
 $$
-<p>핵심은 적분 영역의 그림을 그려 \(x\)와 \(y\)의 범위를 재설정하는 것이다. 이 기법은 초등함수로 닫히지 않는 적분을 다룰 때 빈번하게 사용된다.</p>
+<p>적분 순서를 바꾸려면 먼저 적분 영역을 그린 뒤 \(x\)와 \(y\)의 범위를 다시 정한다. 이 기법은 초등함수로 닫히지 않는 적분을 다룰 때 자주 쓰인다.</p>
 </div>
 
 <div class="example"><span class="env-label">Example 11.8 (Fubini/Tonelli를 이용한 기댓값 공식)</span>
@@ -279,4 +279,3 @@ $$
 <li>Bartle, <em>The Elements of Integration and Lebesgue Measure</em> — 간결한 입문</li>
 </ul>
 </details>
-

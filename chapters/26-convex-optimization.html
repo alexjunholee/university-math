@@ -20,7 +20,7 @@
 <p>볼록 최적화는 "볼록 집합" 위에서 "볼록 함수"를 최소화하는 구조이다.</p>
 
 <div class="definition"><span class="env-label">Definition 26.1 (Convex Set)</span>
-집합 \(C \subseteq \mathbb{R}^n\)이 <strong>convex(볼록)</strong>하다 함은, 모든 \(x, y \in C\)와 \(\theta \in [0,1]\)에 대해 다음이 성립하는 것을 말한다:
+집합 \(C \subseteq \mathbb{R}^n\)이 <strong>볼록(convex)</strong>하다 함은, 모든 \(x, y \in C\)와 \(\theta \in [0,1]\)에 대해 다음이 성립하는 것을 말한다:
 $$ \theta x + (1 - \theta) y \in C. $$
 즉, \(C\) 내의 임의의 두 점을 잇는 선분이 전부 \(C\) 안에 포함된다.
 </div>
@@ -39,18 +39,18 @@ $$ \theta x + (1 - \theta) y \in C. $$
 <p class="subsection-transition">볼록 함수는 그래프 위의 임의의 두 점을 잇는 선분이 항상 그래프 위에 놓이는 함수이다. 이 성질이 전역 최적해의 존재를 보장한다.</p>
 
 <div class="definition"><span class="env-label">Definition 26.3 (Convex Function)</span>
-함수 \(f : \mathbb{R}^n \to \mathbb{R} \cup \{+\infty\}\)가 <strong>convex(볼록)</strong>하다 함은, \(\operatorname{dom} f\)가 convex(볼록)이고 모든 \(x, y \in \operatorname{dom} f\), \(\theta \in [0,1]\)에 대해 다음이 성립하는 것을 말한다:
+함수 \(f : \mathbb{R}^n \to \mathbb{R} \cup \{+\infty\}\)가 <strong>볼록</strong>하다 함은, \(\operatorname{dom} f\)가 볼록이고 모든 \(x, y \in \operatorname{dom} f\), \(\theta \in [0,1]\)에 대해 다음이 성립하는 것을 말한다:
 $$ f(\theta x + (1-\theta) y) \leq \theta f(x) + (1-\theta) f(y). $$
-동치 조건(두 번 미분 가능한 \(f\)의 경우): \(f\)가 convex(볼록)할 필요충분조건은 모든 \(x \in \operatorname{dom} f\)에서 \(\nabla^2 f(x) \succeq 0\)인 것이다.
+동치 조건(두 번 미분 가능한 \(f\)의 경우): \(f\)가 볼록할 필요충분조건은 모든 \(x \in \operatorname{dom} f\)에서 \(\nabla^2 f(x) \succeq 0\)인 것이다.
 </div>
 
 <div class="definition"><span class="env-label">Definition 26.4 (First- and Second-Order Conditions)</span>
-convex(볼록) 정의역 위에서 미분 가능한 \(f\)에 대해:
+볼록 정의역 위에서 미분 가능한 \(f\)에 대해:
 <ul>
-  <li><strong>First-order condition:</strong> \(f\)가 convex(볼록)할 필요충분조건은
+  <li><strong>First-order condition:</strong> \(f\)가 볼록할 필요충분조건은
   $$ f(y) \geq f(x) + \nabla f(x)^T (y - x) \quad \forall\, x, y \in \operatorname{dom} f $$
   인 것이다. (접선 초평면이 전역적 하한이 된다.)</li>
-  <li><strong>Second-order condition:</strong> \(f\)가 convex(볼록)할 필요충분조건은 모든 \(x\)에서 \(\nabla^2 f(x) \succeq 0\)인 것이다.</li>
+  <li><strong>Second-order condition:</strong> \(f\)가 볼록할 필요충분조건은 모든 \(x\)에서 \(\nabla^2 f(x) \succeq 0\)인 것이다.</li>
 </ul>
 </div>
 
@@ -59,8 +59,8 @@ convex(볼록) 정의역 위에서 미분 가능한 \(f\)에 대해:
 <div class="theorem"><span class="env-label">Theorem 26.1 (Hessian Criterion for Convexity)</span>
 두 번 미분 가능한 함수 \(f: \mathbb{R}^n \to \mathbb{R}\)에 대해:
 <ul>
-  <li>\(f\)가 convex(볼록) \(\iff\) 모든 \(x \in \operatorname{dom} f\)에서 Hessian \(\nabla^2 f(x) \succeq 0\) (양반정치, positive semidefinite).</li>
-  <li>\(f\)가 <strong>strictly convex(순볼록)</strong> \(\Leftarrow\) 모든 \(x\)에서 \(\nabla^2 f(x) \succ 0\) (양정치). 역은 일반적으로 성립하지 않는다 (\(f(x) = x^4\)는 순볼록이지만 \(f''(0) = 0\)).</li>
+  <li>\(f\)가 볼록 \(\iff\) 모든 \(x \in \operatorname{dom} f\)에서 Hessian \(\nabla^2 f(x) \succeq 0\) (양반정치, positive semidefinite).</li>
+  <li>\(f\)가 <strong>순볼록</strong> \(\Leftarrow\) 모든 \(x\)에서 \(\nabla^2 f(x) \succ 0\) (양정치). 역은 일반적으로 성립하지 않는다 (\(f(x) = x^4\)는 순볼록이지만 \(f''(0) = 0\)).</li>
   <li>\(f\)가 <strong>strongly convex(강볼록)</strong> with parameter \(m > 0\) \(\iff\) \(\nabla^2 f(x) \succeq mI\) for all \(x\). 이 조건은 수렴 분석에서 중요하다.</li>
 </ul>
 </div>
@@ -76,22 +76,22 @@ $$ \nabla^2 g = \begin{pmatrix} 2 & -1 \\ -1 & 2 \end{pmatrix} $$
 </div>
 
 <div class="theorem"><span class="env-label">Theorem 26.2 (Jensen's Inequality)</span>
-\(f\)가 convex(볼록) 함수이고 \(X\)가 확률변수이면,
+\(f\)가 볼록 함수이고 \(X\)가 확률변수이면,
 $$ f(\mathbb{E}[X]) \leq \mathbb{E}[f(X)], $$
-단, \(\mathbb{E}[X] \in \operatorname{dom} f\)이다. \(f\)가 strictly convex(순볼록)이면 등호 조건은 \(X\)가 상수(a.s.)인 것이다. \(f\)가 concave(오목)이면 부등호가 뒤집힌다.
+단, \(\mathbb{E}[X] \in \operatorname{dom} f\)이다. \(f\)가 순볼록이면 등호 조건은 \(X\)가 상수(a.s.)인 것이다. \(f\)가 오목이면 부등호가 뒤집힌다.
 </div>
 
 <div class="example"><span class="env-label">Example 26.2 (Jensen 부등식의 응용)</span>
 <ul>
-  <li><strong>AM-GM 부등식:</strong> \(f(x) = -\log x\)는 \(\mathbb{R}_{++}\)에서 convex(볼록)이다. 양수 \(a_1, \ldots, a_n\)에 대해 Jensen 부등식을 적용하면
+  <li><strong>AM-GM 부등식:</strong> \(f(x) = -\log x\)는 \(\mathbb{R}_{++}\)에서 볼록이다. 양수 \(a_1, \ldots, a_n\)에 대해 Jensen 부등식을 적용하면
   $$ -\log\!\left(\frac{a_1 + \cdots + a_n}{n}\right) \leq \frac{-\log a_1 + \cdots + (-\log a_n)}{n}, $$
   즉 \(\frac{a_1 + \cdots + a_n}{n} \geq (a_1 \cdots a_n)^{1/n}\) (산술-기하 평균 부등식).</li>
-  <li><strong>분산의 비음수성:</strong> \(f(x) = x^2\)는 convex(볼록)이므로, \(\mathbb{E}[X^2] \geq (\mathbb{E}[X])^2\). 따라서 \(\operatorname{Var}(X) = \mathbb{E}[X^2] - (\mathbb{E}[X])^2 \geq 0\).</li>
+  <li><strong>분산의 비음수성:</strong> \(f(x) = x^2\)는 볼록이므로, \(\mathbb{E}[X^2] \geq (\mathbb{E}[X])^2\). 따라서 \(\operatorname{Var}(X) = \mathbb{E}[X^2] - (\mathbb{E}[X])^2 \geq 0\).</li>
 </ul>
 </div>
 
 <div class="example"><span class="env-label">Example 26.3 (주요 Convex/Concave 함수 목록)</span>
-중요한 convex(볼록) 함수: \(e^{ax}\), \(\mathbb{R}_{++}\) 위에서 \(p \geq 1\) 또는 \(p \leq 0\)일 때 \(x^p\), 임의의 노름 \(\|x\|\), \(A \succeq 0\)일 때 \(x^T A x\), \(\mathbb{S}^n_{++}\) 위에서 \(\log\det(X^{-1})\). 중요한 concave(오목) 함수: \(\log x\), \(\sqrt{x}\), \(\mathbb{R}_{++}\) 위에서 \(0 \leq p \leq 1\)일 때 \(x^p\).
+중요한 볼록 함수: \(e^{ax}\), \(\mathbb{R}_{++}\) 위에서 \(p \geq 1\) 또는 \(p \leq 0\)일 때 \(x^p\), 임의의 노름 \(\|x\|\), \(A \succeq 0\)일 때 \(x^T A x\), \(\mathbb{S}^n_{++}\) 위에서 \(\log\det(X^{-1})\). 중요한 오목 함수: \(\log x\), \(\sqrt{x}\), \(\mathbb{R}_{++}\) 위에서 \(0 \leq p \leq 1\)일 때 \(x^p\).
 </div>
 
 <p>볼록 최적화 문제에서는 목적함수와 부등식 제약이 모두 볼록이고, 등식 제약이 아핀이다.</p>
@@ -103,7 +103,7 @@ $$ \begin{aligned}
 \text{subject to} \quad & f_i(x) \leq 0, \quad i = 1, \ldots, m, \\
 & a_j^T x = b_j, \quad j = 1, \ldots, p,
 \end{aligned} $$
-여기서 \(f_0, f_1, \ldots, f_m\)은 convex(볼록) 함수이고 등식 제약은 아핀이다. Convex(볼록) 문제의 모든 지역 최적해는 전역 최적해이다.
+여기서 \(f_0, f_1, \ldots, f_m\)은 볼록 함수이고 등식 제약은 아핀이다. 볼록 문제의 모든 지역 최적해는 전역 최적해이다.
 </div>
 
 <div class="definition"><span class="env-label">Definition 26.6 (Lagrangian and Dual Function)</span>
@@ -111,7 +111,7 @@ $$ \begin{aligned}
 $$ L(x, \lambda, \nu) = f_0(x) + \sum_{i=1}^m \lambda_i f_i(x) + \sum_{j=1}^p \nu_j (a_j^T x - b_j), $$
 여기서 \(\lambda_i \geq 0\)이다. <strong>Lagrange dual function</strong>은
 $$ g(\lambda, \nu) = \inf_x L(x, \lambda, \nu) $$
-이다. 임의의 \(\lambda \geq 0\)과 임의의 \(\nu\)에 대해 \(g(\lambda, \nu) \leq p^*\) (최적 원시 값)이다. Dual function은 항상 concave(오목)이다.
+이다. 임의의 \(\lambda \geq 0\)과 임의의 \(\nu\)에 대해 \(g(\lambda, \nu) \leq p^*\) (최적 원시 값)이다. Dual function은 항상 오목이다.
 </div>
 
 <p class="subsection-transition">쌍대 문제는 원래 문제에 대한 하한을 제공하며, 특정 조건 하에서 원래 문제와 동일한 최적값을 갖는다. 이 관계가 최적성 조건(KKT)과 알고리즘 설계의 기반이 된다.</p>
@@ -124,22 +124,22 @@ $$ \begin{aligned}
 \operatorname{maximize} \quad & g(\lambda, \nu) \\
 \text{subject to} \quad & \lambda \geq 0.
 \end{aligned} $$
-최적 dual 값 \(d^*\)는 <strong>weak duality(약한 쌍대성)</strong>을 만족한다: \(d^* \leq p^*\). \(d^* = p^*\)이면 <strong>strong duality(강한 쌍대성)</strong>가 성립한다. <strong>Slater's condition</strong> 하에서 strong duality(강한 쌍대성)가 성립한다: 모든 \(i = 1, \ldots, m\)에 대해 \(f_i(x) < 0\)인 strictly feasible point \(x\)가 존재하면 된다.
+최적 쌍대값 \(d^*\)는 <strong>약한 쌍대성(weak duality)</strong>을 만족한다: \(d^* \leq p^*\). \(d^* = p^*\)이면 <strong>강한 쌍대성</strong>이 성립한다. <strong>Slater 조건(Slater's condition)</strong> 아래에서 강한 쌍대성이 성립한다: 모든 \(i = 1, \ldots, m\)에 대해 \(f_i(x) < 0\)인 순수 실행 가능점(strictly feasible point) \(x\)가 존재하면 된다.
 </div>
 
 <p><strong>쌍대성의 직관적 이해.</strong> Lagrangian \(L(x, \lambda, \nu)\)는 제약 조건 위반에 "벌금"을 매기는 구조로 이해할 수 있다. \(\lambda_i\)는 제약 \(f_i(x) \leq 0\)의 위반에 대한 단위 벌금(가격)이다. Dual function \(g(\lambda, \nu) = \inf_x L(x, \lambda, \nu)\)는 벌금 가격이 \((\lambda, \nu)\)로 고정되었을 때, 최적의 \(x\)가 달성하는 비용의 하한이다. Dual 문제는 이 하한을 가능한 한 높이는 벌금 가격을 찾는 것이다. 따라서 dual 문제의 최적값 \(d^*\)는 원시 최적값 \(p^*\)에 대한 최선의 하한이며, weak duality \(d^* \leq p^*\)는 항상 성립한다.</p>
 
-<p><strong>Strong duality와 Slater 조건.</strong> Weak duality만으로는 \(d^* < p^*\)(쌍대 갭)일 수 있다. Convex(볼록) 문제에서 Slater 조건이 성립하면, 즉 모든 부등식 제약을 순수하게(strictly) 만족하는 점이 존재하면, 강한 쌍대성 \(d^* = p^*\)가 보장된다. 아핀 부등식 제약 \(f_i(x) = a_i^T x - b_i\)에 대해서는 순수 실행 가능성 대신 단순 실행 가능성으로 충분하다. LP, QP, SDP 등 대부분의 실용적 convex(볼록) 문제에서 Slater 조건은 성립한다.</p>
+<p><strong>Strong duality와 Slater 조건.</strong> Weak duality만으로는 \(d^* < p^*\)(쌍대 갭)일 수 있다. 볼록 문제에서 Slater 조건이 성립하면, 즉 모든 부등식 제약을 순수하게(strictly) 만족하는 점이 존재하면, 강한 쌍대성 \(d^* = p^*\)가 보장된다. 아핀 부등식 제약 \(f_i(x) = a_i^T x - b_i\)에 대해서는 순수 실행 가능성 대신 단순 실행 가능성으로 충분하다. LP, QP, SDP 등 대부분의 실용적 볼록 문제에서 Slater 조건은 성립한다.</p>
 
 <div class="theorem"><span class="env-label">Theorem 26.3 (KKT Conditions)</span>
-Strong duality(강한 쌍대성) 하에서, primal-dual 최적점 \((x^*, \lambda^*, \nu^*)\)는 <strong>Karush&ndash;Kuhn&ndash;Tucker (KKT 조건)</strong>을 만족한다:
+강한 쌍대성 하에서, primal-dual 최적점 \((x^*, \lambda^*, \nu^*)\)는 <strong>Karush&ndash;Kuhn&ndash;Tucker (KKT 조건)</strong>을 만족한다:
 <ol>
   <li><strong>Primal feasibility:</strong> \(f_i(x^*) \leq 0\), \(a_j^T x^* = b_j\).</li>
   <li><strong>Dual feasibility:</strong> \(\lambda_i^* \geq 0\).</li>
   <li><strong>Complementary slackness:</strong> 모든 \(i\)에 대해 \(\lambda_i^* f_i(x^*) = 0\).</li>
   <li><strong>Stationarity:</strong> \(\nabla f_0(x^*) + \sum_{i} \lambda_i^* \nabla f_i(x^*) + \sum_{j} \nu_j^* a_j = 0\).</li>
 </ol>
-Strong duality(강한 쌍대성)를 갖는 convex(볼록) 문제에서 KKT conditions(KKT 조건)은 최적성의 필요충분조건이다.
+강한 쌍대성을 갖는 볼록 문제에서 KKT 조건은 최적성의 필요충분조건이다.
 </div>
 
 <h4>KKT Conditions: Worked Examples</h4>
@@ -186,7 +186,7 @@ Stationarity: \(-\frac{1}{\alpha_i + x_i} - \lambda_i + \nu = 0\), 즉 \(\frac{1
 </div>
 
 <div class="example"><span class="env-label">Example 26.7 (Convex 문제로서의 최소제곱법)</span>
- \(\|Ax - b\|_2^2\)를 최소화하는 것은 제약 조건 없는 convex(볼록) 문제이다 (\(\nabla^2 f = 2A^TA \succeq 0\)). 최적성 조건 \(\nabla f = 2A^T(Ax - b) = 0\)으로부터 정규방정식 \(A^TAx = A^Tb\)를 얻는다. \(\ell_1\) 벌칙항 \(\|x\|_1\)을 추가하면 Lasso가 되며, 여전히 convex(볼록)이지만 모든 곳에서 미분 가능하지는 않다.
+ \(\|Ax - b\|_2^2\)를 최소화하는 것은 제약 조건 없는 볼록 문제이다 (\(\nabla^2 f = 2A^TA \succeq 0\)). 최적성 조건 \(\nabla f = 2A^T(Ax - b) = 0\)으로부터 정규방정식 \(A^TAx = A^Tb\)를 얻는다. \(\ell_1\) 벌칙항 \(\|x\|_1\)을 추가하면 Lasso가 되며, 여전히 볼록이지만 모든 곳에서 미분 가능하지는 않다.
 </div>
 
 <p class="subsection-transition">경사하강법, Newton 방법, 내부점 방법은 각각 정확도와 계산 비용의 절충이 다르다.</p>
@@ -213,7 +213,7 @@ $$ x^{(k+1)} = x^{(k)} - t_k \nabla f(x^{(k)}). $$
 </div>
 
 <div class="theorem"><span class="env-label">Theorem 26.4 (Gradient Descent Convergence)</span>
-\(f\)가 convex(볼록)이고, \(\nabla f\)가 Lipschitz 상수 \(L\)을 가지며, 고정 스텝 크기 \(t = 1/L\)을 사용하면:
+\(f\)가 볼록이고, \(\nabla f\)가 Lipschitz 상수 \(L\)을 가지며, 고정 스텝 크기 \(t = 1/L\)을 사용하면:
 $$ f(x^{(k)}) - f^* \leq \frac{L \|x^{(0)} - x^*\|^2}{2k}. $$
 즉, \(\epsilon\)-최적해를 얻으려면 \(O(1/\epsilon)\)회 반복이 필요하다 (sublinear convergence).
 
@@ -266,7 +266,7 @@ for some \(C > 0\). 실용적으로, 이차 수렴 단계에 진입하면 5--6�
 $$ f(\beta) = -\sum_{i=1}^N \bigl[ y_i \log \sigma(x_i^T \beta) + (1-y_i) \log(1-\sigma(x_i^T \beta)) \bigr], $$
 여기서 \(\sigma(z) = 1/(1+e^{-z})\)이다. Gradient와 Hessian은:
 $$ \nabla f = X^T (\sigma(X\beta) - y), \qquad \nabla^2 f = X^T W X, $$
-여기서 \(W = \operatorname{diag}(\sigma_i(1-\sigma_i))\), \(\sigma_i = \sigma(x_i^T \beta)\)이다. \(W \succ 0\)이므로 \(\nabla^2 f \succeq 0\)이고, \(X\)가 full column rank이면 \(\nabla^2 f \succ 0\)이다. \(f\)는 (strictly) convex(볼록)이며, Newton 방법은 이차 수렴한다. 통계학에서는 이 알고리즘을 <strong>IRLS(iteratively reweighted least squares)</strong>라 부른다.
+여기서 \(W = \operatorname{diag}(\sigma_i(1-\sigma_i))\), \(\sigma_i = \sigma(x_i^T \beta)\)이다. \(W \succ 0\)이므로 \(\nabla^2 f \succeq 0\)이고, \(X\)가 full column rank이면 \(\nabla^2 f \succ 0\)이다. \(f\)는 (strictly) 볼록이며, Newton 방법은 이차 수렴한다. 통계학에서는 이 알고리즘을 <strong>IRLS(iteratively reweighted least squares)</strong>라 부른다.
 </div>
 
 <div class="example"><span class="env-label">Example 26.11 (Log-barrier를 이용한 부등식 제약 처리)</span>
@@ -334,4 +334,3 @@ $$ \operatorname{minimize} \quad w^T \Sigma w \qquad \text{subject to} \quad \mu
 <li>Ben-Tal &amp; Nemirovski, <em>Lectures on Modern Convex Optimization</em> — SIAM, 응용 중심</li>
 </ul>
 </details>
-

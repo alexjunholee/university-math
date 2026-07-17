@@ -20,8 +20,7 @@ parts = [head]
 for filename in manifest:
     filepath = CHAPTERS / filename.strip()
     if not filepath.exists():
-        print(f"WARNING: {filepath} not found, skipping")
-        continue
+        raise FileNotFoundError(f"manifest entry is missing: {filepath}")
     parts.append(filepath.read_text(encoding="utf-8"))
 
 parts.append(footer)

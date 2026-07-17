@@ -3,7 +3,7 @@
 
 <p class="section-intro">이산수학은 셀 수 있는 구조를 다룬다. 조합론은 경우의 수를 세고, 그래프 이론은 연결 관계를 추상화하며, 점화식은 이산적 변화를 잡는 도구다. 알고리즘 분석, 네트워크 설계, 암호학 등 컴퓨터과학 전반의 수학적 기반이 된다.</p>
 
-<p>이산수학(discrete mathematics)은 컴퓨터 과학의 언어이다. 컴퓨터는 데이터를 비트의 유한 수열로 처리하고, 알고리즘은 유한 단계의 이산적 연산을 밟는다.</p>
+<p>이산수학(discrete mathematics)은 컴퓨터 과학의 여러 문제를 표현한다. 컴퓨터는 데이터를 비트의 유한 수열로 처리하고, 알고리즘은 유한 단계의 이산적 연산을 밟는다.</p>
 
 <p>그래프 이론은 라우팅 프로토콜, VLSI 회로 배치, 소셜 네트워크 분석에 쓰이고, 조합론은 실험 설계나 오류 정정 부호에 쓰인다. 부울 대수는 디지털 논리 회로의 수학적 기초이고, 알고리즘의 시간 복잡도 분석도 이산수학의 영역이다.</p>
 
@@ -53,7 +53,7 @@ $$ = 60 - (30 + 20 + 12) + (10 + 6 + 4) - 2 = 16. $$
 <p>라우터 간 연결, 도로망의 경로, 칩의 배선, 분자의 결합 등 겉보기에 다른 문제들이 모두 정점과 간선의 그래프로 모델링된다. 이 추상화가 있어 하나의 정리로 여러 분야의 문제를 동시에 다룰 수 있다.</p>
 
 <div class="definition"><span class="env-label">Definition 31.2 (Graph)</span>
-<strong>Graph(그래프)</strong> \(G = (V, E)\)는 정점 집합 \(V\)와 간선 집합 \(E\)로 구성된다. <strong>Simple graph</strong>에서 간선은 서로 다른 정점의 비순서쌍이다 (루프나 다중 간선 없음). <strong>Degree</strong> \(\deg(v)\)는 \(v\)에 인접한 간선의 수이다.
+<strong>그래프(graph)</strong> \(G = (V, E)\)는 정점 집합 \(V\)와 간선 집합 \(E\)로 구성된다. <strong>단순 그래프(simple graph)</strong>에서 간선은 서로 다른 정점의 비순서쌍이다(루프나 다중 간선은 없다). <strong>차수(degree)</strong> \(\deg(v)\)는 \(v\)에 인접한 간선의 수이다.
 </div>
 
 <div class="theorem"><span class="env-label">Theorem 31.4 (Handshaking Lemma)</span>
@@ -63,10 +63,10 @@ $$ \sum_{v \in V} \deg(v) = 2|E|. $$
 
 <div class="definition"><span class="env-label">Definition 31.3 (Graph Properties)</span>
 <ul>
-  <li>Graph(그래프)가 <strong>connected(연결)</strong>이라 함은, 모든 정점 쌍 사이에 경로가 존재하는 것이다.</li>
+  <li>그래프가 <strong>connected(연결)</strong>이라 함은, 모든 정점 쌍 사이에 경로가 존재하는 것이다.</li>
   <li><strong>Tree(트리)</strong>는 연결된 비순환 그래프이다. \(n\)개 정점을 가진 tree는 정확히 \(n-1\)개의 간선을 가진다.</li>
-  <li>Graph(그래프)가 <strong>bipartite(이분)</strong>이라 함은, \(V\)를 \(V_1, V_2\)로 분할하여 모든 간선이 \(V_1\)의 정점과 \(V_2\)의 정점을 연결하도록 할 수 있는 것이다. 동치 조건: 그래프가 bipartite일 필요충분조건은 홀수 길이의 순환을 포함하지 않는 것이다.</li>
-  <li>Graph(그래프)가 <strong>planar(평면)</strong>이라 함은, 간선 교차 없이 평면에 그릴 수 있는 것이다.</li>
+  <li>그래프가 <strong>bipartite(이분)</strong>이라 함은, \(V\)를 \(V_1, V_2\)로 분할하여 모든 간선이 \(V_1\)의 정점과 \(V_2\)의 정점을 연결하도록 할 수 있는 것이다. 동치 조건: 그래프가 bipartite일 필요충분조건은 홀수 길이의 순환을 포함하지 않는 것이다.</li>
+  <li>그래프가 <strong>planar(평면)</strong>이라 함은, 간선 교차 없이 평면에 그릴 수 있는 것이다.</li>
 </ul>
 </div>
 
@@ -95,7 +95,7 @@ $$ \sum_{v \in V} \deg(v) = 2|E|. $$
 </div>
 
 <div class="theorem"><span class="env-label">Theorem 31.6 (Kuratowski's Theorem)</span>
-Graph(그래프)가 planar(평면적)일 필요충분조건은 \(K_5\) 또는 \(K_{3,3}\)의 세분을 부분 그래프로 포함하지 않는 것이다.
+그래프가 planar(평면적)일 필요충분조건은 \(K_5\) 또는 \(K_{3,3}\)의 세분을 부분 그래프로 포함하지 않는 것이다.
 </div>
 
 <div class="example"><span class="env-label">Example 31.5 (Euler 공식 적용)</span>
@@ -198,4 +198,3 @@ $$ T(n) = \begin{cases} \Theta(n^d) & \text{if } d > \log_b a, \\ \Theta(n^d \lo
 <li>West, <em>Introduction to Graph Theory</em> — 그래프 이론 표준 교재</li>
 </ul>
 </details>
-

@@ -1,7 +1,7 @@
 <h2 class="part-title">Part VIII &mdash; Probability &amp; Statistics</h2>
 
 <div class="part-intro">
-<p>확률과 통계는 불확실성을 다루는 수학이다. 도박 문제에서 출발한 확률론은 이제 물리학, 금융, 기계학습의 핵심 도구이다. 콜모고로프가 1933년 확률을 측도론 위에 올려놓으면서, 확률론은 엄밀한 수학의 한 분과가 되었다. Part VIII는 확률론의 기초, 통계적 추론, 확률과정을 순서대로 다룬다.</p>
+<p>확률과 통계는 불확실성을 다루는 수학이다. 도박 문제에서 출발한 확률론은 물리학, 금융, 기계학습으로 응용 범위를 넓혔다. 콜모고로프는 1933년 확률론을 측도론 위에 공리화했다. Part VIII는 확률론의 기초에서 통계적 추론과 확률과정으로 이어진다.</p>
 </div>
 
 <!-- ============================================================== -->
@@ -22,7 +22,7 @@
 <p>확률론의 공리적 체계는 콜모고로프(Kolmogorov)가 1933년에 확립했다. 표본공간, 시그마-대수, 확률측도의 삼중쌍이 그 골격이다.</p>
 
 <div class="definition"><span class="env-label">Definition 23.1 (Probability Space)</span>
-<strong>probability(확률) space</strong>는 삼중쌍 \((\Omega, \mathcal{F}, P)\)으로 구성되며, 각 요소는 다음과 같다:
+<strong>확률공간(probability space)</strong>은 삼중쌍 \((\Omega, \mathcal{F}, P)\)으로 구성되며, 각 요소는 다음과 같다:
 <ul>
   <li>\(\Omega\)는 <strong>sample space(표본공간)</strong>으로, 가능한 결과들의 집합이다 (상호 배타적이며 전체를 포괄한다).</li>
   <li>\(\mathcal{F}\)는 \(\Omega\)의 부분집합들로 이루어진 \(\sigma\)-algebra(사건들의 모임)이다.</li>
@@ -112,16 +112,16 @@ Pairwise independence는 mutual independence를 함의하지 않는다. 공정�
 <h4 id="random-variables">23.2 확률변수와 기본 성질</h4>
 
 <div class="definition"><span class="env-label">Definition 23.6 (Random Variable)</span>
-<strong>random variable(확률변수)</strong> \(X\)는 가측함수 \(X : \Omega \to \mathbb{R}\)이다. 이산 \(X\)의 경우, <strong>probability mass function(확률질량함수)</strong> (PMF)는 \(p_X(x) = P(X = x)\)이다. 연속 \(X\)의 경우, <strong>probability density function(확률밀도함수)</strong> (PDF) \(f_X(x)\)는 \(P(a \leq X \leq b) = \int_a^b f_X(x)\, dx\)를 만족한다. <strong>cumulative distribution function(누적분포함수)</strong> (CDF)는 \(F_X(x) = P(X \leq x)\)이다.
+<strong>확률변수(random variable)</strong> \(X\)는 가측함수 \(X : \Omega \to \mathbb{R}\)이다. 이산 \(X\)의 경우, <strong>확률질량함수(probability mass function)</strong> (PMF)는 \(p_X(x) = P(X = x)\)이다. 연속 \(X\)의 경우, <strong>확률밀도함수(probability density function)</strong> (PDF) \(f_X(x)\)는 \(P(a \leq X \leq b) = \int_a^b f_X(x)\, dx\)를 만족한다. <strong>누적분포함수(cumulative distribution function)</strong> (CDF)는 \(F_X(x) = P(X \leq x)\)이다.
 </div>
 
 <div class="definition"><span class="env-label">Definition 23.7 (Expectation and Variance)</span>
-random variable(확률변수) \(X\)의 <strong>expectation(기댓값)</strong> (평균)은 다음과 같다:
+확률변수 \(X\)의 <strong>기댓값(expectation)</strong>은 다음과 같다:
 $$ E[X] = \begin{cases} \sum_x x\, p_X(x) & \text{(discrete)}, \\ \int_{-\infty}^{\infty} x\, f_X(x)\, dx & \text{(continuous)}. \end{cases} $$
-<strong>variance(분산)</strong>는 \(\text{Var}(X) = E[(X - E[X])^2] = E[X^2] - (E[X])^2\)이다. <strong>standard deviation(표준편차)</strong>는 \(\sigma_X = \sqrt{\text{Var}(X)}\)이다.
+<strong>분산(variance)</strong>은 \(\text{Var}(X) = E[(X - E[X])^2] = E[X^2] - (E[X])^2\)이다. <strong>표준편차(standard deviation)</strong>는 \(\sigma_X = \sqrt{\text{Var}(X)}\)이다.
 </div>
 
-<p><strong>핵심 성질:</strong> expectation(기댓값)의 선형성: \(E[aX + bY] = aE[X] + bE[Y]\) (종속 여부에 관계없이 항상 성립). 독립인 \(X, Y\)에 대해: \(\text{Var}(X + Y) = \text{Var}(X) + \text{Var}(Y)\).</p>
+<p>기댓값은 선형이므로 \(E[aX + bY] = aE[X] + bE[Y]\)가 종속 여부와 관계없이 성립한다. \(X\)와 \(Y\)가 독립이면 \(\text{Var}(X + Y) = \text{Var}(X) + \text{Var}(Y)\)이다.</p>
 
 <div class="definition"><span class="env-label">Definition 23.8 (Conditional Expectation)</span>
 이산 확률변수 \(X\)에 대해, 사건 \(A\)가 주어졌을 때의 <strong>conditional expectation(조건부 기댓값)</strong>은:
@@ -294,7 +294,7 @@ $$ P(X \geq a) \leq \frac{E[X]}{a}. $$
 </div>
 
 <div class="theorem"><span class="env-label">Theorem 23.6 (Chebyshev's Inequality)</span>
-유한한 평균 \(\mu\)와 variance(분산) \(\sigma^2\)를 가지는 임의의 random variable(확률변수) \(X\)에 대해, 임의의 \(k > 0\)에 대해:
+유한한 평균 \(\mu\)와 분산 \(\sigma^2\)를 가지는 임의의 확률변수 \(X\)에 대해, 임의의 \(k > 0\)에 대해:
 $$ P(|X - \mu| \geq k\sigma) \leq \frac{1}{k^2}. $$
 동치 형태: 임의의 \(a > 0\)에 대해 \(P(|X - \mu| \geq a) \leq \frac{\sigma^2}{a^2}\).
 </div>
@@ -312,7 +312,7 @@ $$ P(|X - 100| \geq 15) = P(|X - \mu| \geq 3\sigma) \leq \frac{1}{3^2} = \frac{1
 <h4 id="lln-clt">23.7 대수의 법칙과 중심극한정리</h4>
 
 <div class="theorem"><span class="env-label">Theorem 23.7 (Law of Large Numbers)</span>
-\(X_1, X_2, \ldots\)가 평균 \(\mu\)와 유한한 variance(분산)를 가지는 i.i.d. random variable(확률변수)이라 하자. 그러면 표본평균 \(\bar{X}_n = \frac{1}{n}\sum_{i=1}^n X_i\)는 \(\mu\)로 수렴한다:
+\(X_1, X_2, \ldots\)가 평균 \(\mu\)와 유한한 분산을 가지는 i.i.d. 확률변수라 하자. 그러면 표본평균 \(\bar{X}_n = \frac{1}{n}\sum_{i=1}^n X_i\)는 \(\mu\)로 수렴한다:
 <ul>
   <li><strong>Weak LLN:</strong> \(\bar{X}_n \xrightarrow{P} \mu\) (확률수렴). 임의의 \(\epsilon > 0\)에 대해 \(P(|\bar{X}_n - \mu| \geq \epsilon) \to 0\).</li>
   <li><strong>Strong LLN:</strong> \(\bar{X}_n \xrightarrow{\text{a.s.}} \mu\) (거의 확실한 수렴).</li>
@@ -330,7 +330,7 @@ $$ P(|\bar{X}_n - \mu| \geq \epsilon) \leq \frac{\sigma^2}{n\epsilon^2} \to 0 \q
 </div>
 
 <div class="theorem"><span class="env-label">Theorem 23.8 (Central Limit Theorem)</span>
-\(X_1, X_2, \ldots\)가 평균 \(\mu\)와 variance(분산) \(\sigma^2 < \infty\)를 가지는 i.i.d.라 하자. 그러면
+\(X_1, X_2, \ldots\)가 평균 \(\mu\)와 분산 \(\sigma^2 < \infty\)를 가지는 i.i.d.라 하자. 그러면
 $$ \frac{\bar{X}_n - \mu}{\sigma / \sqrt{n}} \xrightarrow{d} N(0, 1) \quad \text{as } n \to \infty. $$
 즉, 정규화된 합은 분포 수렴의 의미에서 표준정규분포로 수렴한다.
 </div>
@@ -417,4 +417,3 @@ $$ M_Z(t) = M_X(t) M_Y(t) = e^{(\lambda_1 + \lambda_2)(e^t - 1)}. $$
 <li>Grimmett &amp; Stirzaker, <em>Probability and Random Processes</em> — Oxford, 풍부한 연습문제</li>
 </ul>
 </details>
-

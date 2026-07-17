@@ -1,11 +1,9 @@
 <section id="fourier-analysis">
 <h2>12. Fourier Analysis</h2>
 
-<p>임의의 신호를 사인(sine)과 코사인(cosine)의 합으로 분해한다 -- 이 아이디어가 공학에서 가장 중요한 관점 전환인 "시간 영역(time domain) vs 주파수 영역(frequency domain)"을 만들어냈다. 음향 신호의 스펙트럼 분석, JPEG 이미지 압축의 핵심인 DCT(Discrete Cosine Transform), 통신 시스템의 변조/복조(modulation/demodulation)와 대역폭(bandwidth) 할당, 구조물의 진동 해석에서 고유진동수(natural frequency) 추출, 안테나 방사 패턴(radiation pattern)과 개구면(aperture) 분포 사이의 푸리에 변환 관계 -- 이 모든 것이 푸리에 해석의 응용이다.</p>
+<p>푸리에 해석은 신호를 사인(sine)과 코사인(cosine)의 합으로 분해해 시간 영역(time domain)의 문제를 주파수 영역(frequency domain)에서 살펴보게 한다. 음향 신호의 스펙트럼 분석, JPEG 이미지 압축의 DCT(Discrete Cosine Transform), 통신 시스템의 변조·복조(modulation/demodulation)와 대역폭(bandwidth) 할당, 구조물의 고유진동수(natural frequency) 추출, 안테나 방사 패턴(radiation pattern)과 개구면(aperture) 분포의 관계가 모두 이 관점을 이용한다.</p>
 
-<p>시간 영역에서 복잡한 합성곱(convolution)이 주파수 영역에서 단순한 곱셈이 된다는 사실은, 필터 설계를 주파수 응답(frequency response)의 관점에서 직관적으로 수행할 수 있게 한다. 불확정성 원리(uncertainty principle)는 신호가 시간과 주파수에서 동시에 좁게 국소화될 수 없음을 정량적으로 보여주며, 이는 레이더 펄스 설계, 통신 대역폭 설계, 양자역학의 하이젠베르크 부등식에까지 연결된다. 이 장은 푸리에 급수, 푸리에 변환, 합성곱, 이산 푸리에 변환(DFT)과 FFT를 순서대로 전개한다.</p>
-
-<p>Fourier analysis(푸리에 해석)는 함수를 정현파 성분으로 분해하고, 주파수 데이터로부터 재구성한다. 수학(편미분방정식, 정수론), 공학(신호 처리, 제어), 응용 과학(영상, 양자역학) 전반에 쓰인다.</p>
+<p>시간 영역에서 복잡한 합성곱(convolution)이 주파수 영역에서 단순한 곱셈이 된다는 사실은, 필터 설계를 주파수 응답(frequency response)의 관점에서 직관적으로 수행할 수 있게 한다. 불확정성 원리(uncertainty principle)는 신호가 시간과 주파수에서 동시에 좁게 국소화될 수 없음을 정량적으로 보여주며, 이는 레이더 펄스 설계, 통신 대역폭 설계, 양자역학의 하이젠베르크 부등식에까지 연결된다.</p>
 
 <!-- 12.1 Fourier Series -->
 <h3 id="fourier-series">12.1 Fourier Series</h3>
@@ -85,7 +83,7 @@ $$ \sum_{k=0}^{\infty} \frac{1}{(2k+1)^2} = 1 + \frac{1}{9} + \frac{1}{25} + \cd
 <p>푸리에 급수에서 주기를 무한대로 보내면, 이산적인 주파수 \(n\)이 연속 변수 \(\xi\)가 되고, 계수의 합이 적분으로 바뀐다. 이것이 푸리에 변환이며, 비주기 신호의 주파수 분석을 가능하게 한다. 레이더 신호 설계, 통신 채널의 대역폭 분석, 의료 영상(MRI)의 k-공간(k-space) 데이터 처리가 모두 푸리에 변환에 기반한다.</p>
 
 <div class="definition"><span class="env-label">Definition 12.2 (Fourier Transform)</span>
-\(f \in L^1(\mathbb{R})\)에 대해, <em>Fourier transform(푸리에 변환)</em>은 다음과 같이 정의된다:
+\(f \in L^1(\mathbb{R})\)에 대해, <em>푸리에 변환(Fourier transform)</em>은 다음과 같이 정의된다:
 $$ \hat{f}(\xi) = \int_{-\infty}^{\infty} f(x)\, e^{-2\pi i \xi x}\, dx, \quad \xi \in \mathbb{R}. $$
 <em>역 Fourier transform(역 푸리에 변환)</em>은 (적용 가능할 때) 다음과 같다:
 $$ f(x) = \int_{-\infty}^{\infty} \hat{f}(\xi)\, e^{2\pi i \xi x}\, d\xi. $$
@@ -93,7 +91,7 @@ $$ f(x) = \int_{-\infty}^{\infty} \hat{f}(\xi)\, e^{2\pi i \xi x}\, d\xi. $$
 </div>
 
 <div class="theorem"><span class="env-label">Theorem 12.4 (Properties of the Fourier Transform)</span>
-\(f, g \in L^1(\mathbb{R})\)에 대해, Fourier transform(푸리에 변환)은 다음 성질을 만족한다:
+\(f, g \in L^1(\mathbb{R})\)에 대해, 푸리에 변환은 다음 성질을 만족한다:
 <ul>
  <li><strong>선형성:</strong> \(\widehat{af + bg} = a\hat{f} + b\hat{g}\).</li>
  <li><strong>시간 이동:</strong> \(g(x) = f(x - x_0)\)이면, \(\hat{g}(\xi) = e^{-2\pi i \xi x_0} \hat{f}(\xi)\).</li>
@@ -158,13 +156,13 @@ $$ f(x) = \int_{-\infty}^{\infty} \hat{f}(\xi)\, e^{2\pi i \xi x}\, d\xi \quad \
 </div>
 
 <div class="theorem"><span class="env-label">Theorem 12.6 (Plancherel Theorem)</span>
-Fourier transform(푸리에 변환)은 \(L^2(\mathbb{R})\) 위의 유니타리 작용소로 확장된다:
+푸리에 변환은 \(L^2(\mathbb{R})\) 위의 유니타리 작용소로 확장된다:
 $$ \int_{-\infty}^{\infty} |f(x)|^2\, dx = \int_{-\infty}^{\infty} |\hat{f}(\xi)|^2\, d\xi. $$
 시간 영역과 주파수 영역 사이에서 에너지가 보존된다. 이 등식은 통신 공학에서 신호의 총 전력을 주파수 성분별 전력의 합으로 분해할 수 있음을 보장한다.
 </div>
 
 <div class="example"><span class="env-label">Example 12.2</span>
-가우시안 \(f(x) = e^{-\pi x^2}\)은 자기 자신의 Fourier transform(푸리에 변환)이다: \(\hat{f}(\xi) = e^{-\pi \xi^2}\). 보다 일반적으로, \(f(x) = e^{-ax^2}\)의 경우 \(\hat{f}(\xi) = \sqrt{\pi/a}\, e^{-\pi^2 \xi^2/a}\)이다. 가우시안이 중심적 역할을 하는 이유는, 시간과 주파수 양쪽에서 동시에 퍼짐을 최소화하기 때문이다(불확정성 원리의 등호 조건을 충족한다).
+가우시안 \(f(x) = e^{-\pi x^2}\)은 자기 자신의 푸리에 변환이다: \(\hat{f}(\xi) = e^{-\pi \xi^2}\). 보다 일반적으로, \(f(x) = e^{-ax^2}\)의 경우 \(\hat{f}(\xi) = \sqrt{\pi/a}\, e^{-\pi^2 \xi^2/a}\)이다. 가우시안이 중심적 역할을 하는 이유는, 시간과 주파수 양쪽에서 동시에 퍼짐을 최소화하기 때문이다(불확정성 원리의 등호 조건을 충족한다).
 </div>
 
 <!-- 12.3 Convolution -->
@@ -175,22 +173,22 @@ $$ \int_{-\infty}^{\infty} |f(x)|^2\, dx = \int_{-\infty}^{\infty} |\hat{f}(\xi)
 <p>선형 시불변(LTI, Linear Time-Invariant) 시스템에서 입력 신호 \(x(t)\)에 대한 출력은 임펄스 응답 \(h(t)\)와의 합성곱 \(y = h * x\)로 주어진다. 합성곱은 또한 두 독립 확률변수의 합의 분포, 이미지에 블러(blur) 필터를 적용하는 연산, 다항식 곱셈 등을 통합적으로 기술하는 연산이다.</p>
 
 <div class="definition"><span class="env-label">Definition 12.3 (Convolution)</span>
-\(f, g \in L^1(\mathbb{R})\)의 <em>convolution(합성곱)</em>은 다음과 같이 정의된다:
+\(f, g \in L^1(\mathbb{R})\)의 <em>합성곱</em>은 다음과 같이 정의된다:
 $$ (f * g)(x) = \int_{-\infty}^{\infty} f(t)\, g(x - t)\, dt. $$
-Convolution(합성곱)은 교환 법칙, 결합 법칙을 만족하며, 덧셈에 대해 분배 법칙이 성립한다. \(f \in L^1\)이고 \(g \in L^p\) (\(1 \leq p \leq \infty\))이면, \(f * g \in L^p\)이고 \(\|f * g\|_p \leq \|f\|_1 \|g\|_p\) (Young 부등식)이 성립한다.
+합성곱은 교환 법칙, 결합 법칙을 만족하며, 덧셈에 대해 분배 법칙이 성립한다. \(f \in L^1\)이고 \(g \in L^p\) (\(1 \leq p \leq \infty\))이면, \(f * g \in L^p\)이고 \(\|f * g\|_p \leq \|f\|_1 \|g\|_p\) (Young 부등식)이 성립한다.
 </div>
 
 <div class="theorem"><span class="env-label">Theorem 12.7 (Convolution Theorem)</span>
 \(f, g \in L^1(\mathbb{R})\)에 대해:
 $$ \widehat{f * g}(\xi) = \hat{f}(\xi) \cdot \hat{g}(\xi). $$
-시간 영역에서의 convolution(합성곱)은 주파수 영역에서의 점별 곱셈에 대응하며, 그 역도 성립한다:
+시간 영역에서의 합성곱은 주파수 영역에서의 점별 곱셈에 대응하며, 그 역도 성립한다:
 $$ \widehat{f \cdot g}(\xi) = (\hat{f} * \hat{g})(\xi). $$
 </div>
 
 <p>합성곱 정리는 시간 영역에서의 \(O(N^2)\) 합성곱 연산을 주파수 영역에서의 \(O(N)\) 점별 곱셈으로 대체할 수 있음을 의미한다. FFT를 활용하면 전체 과정이 \(O(N \log N)\)에 수행된다. 디지털 필터링, 이미지 처리, 다항식/큰 수의 곱셈이 대표적인 응용이다.</p>
 
 <div class="example"><span class="env-label">Example 12.3</span>
-\(f = \mathbf{1}_{[-1/2, 1/2]}\)(직사각형 함수)로 놓고 \(h = f * f\)라 하자. 그러면 \(\hat{f}(\xi) = \operatorname{sinc}(\xi)\)이고, \(\hat{h}(\xi) = \operatorname{sinc}^2(\xi)\)이다. Convolution(합성곱)을 직접 계산하면 삼각형 함수 \(h(x) = \max(1 - |x|, 0)\)을 얻으며, 삼각형 함수의 Fourier transform(푸리에 변환)이 \(\operatorname{sinc}^2\)임을 확인할 수 있다.
+\(f = \mathbf{1}_{[-1/2, 1/2]}\)(직사각형 함수)로 놓고 \(h = f * f\)라 하자. 그러면 \(\hat{f}(\xi) = \operatorname{sinc}(\xi)\)이고, \(\hat{h}(\xi) = \operatorname{sinc}^2(\xi)\)이다. 합성곱을 직접 계산하면 삼각형 함수 \(h(x) = \max(1 - |x|, 0)\)을 얻으며, 삼각형 함수의 푸리에 변환이 \(\operatorname{sinc}^2\)임을 확인할 수 있다.
 </div>
 
 <div class="example"><span class="env-label">Example 12.3a (합성곱 정리 활용: LTI 시스템 출력 계산)</span>
@@ -224,7 +222,7 @@ $$ \int_{-\infty}^{\infty} \operatorname{sinc}^2(\xi)\, d\xi = 1, $$
 <h3 id="fourier-applications">12.4 Applications</h3>
 
 <h4>Signal Processing</h4>
-<p>Fourier transform(푸리에 변환)은 신호 처리의 이론적 근간이다. 임펄스 응답 \(h(t)\)를 갖는 선형 시불변(LTI) 시스템은 입력 신호 \(x(t)\)에 convolution(합성곱)으로 작용한다: \(y = h * x\). 주파수 영역에서 이는 \(\hat{y} = \hat{h} \cdot \hat{x}\)가 되며, 여기서 \(\hat{h}\)가 <em>전달 함수(transfer function)</em>이다. 필터 설계란 원하는 주파수 대역을 증폭 또는 억제하도록 \(\hat{h}\)를 선택하는 것이다.</p>
+<p>푸리에 변환은 신호 처리의 이론적 근간이다. 임펄스 응답 \(h(t)\)를 갖는 선형 시불변(LTI) 시스템은 입력 신호 \(x(t)\)에 합성곱으로 작용한다: \(y = h * x\). 주파수 영역에서 이는 \(\hat{y} = \hat{h} \cdot \hat{x}\)가 되며, 여기서 \(\hat{h}\)가 <em>전달 함수(transfer function)</em>이다. 필터 설계란 원하는 주파수 대역을 증폭 또는 억제하도록 \(\hat{h}\)를 선택하는 것이다.</p>
 
 <div class="theorem"><span class="env-label">Theorem 12.8 (Shannon-Nyquist Sampling Theorem)</span>
 \(f \in L^2(\mathbb{R})\)가 대역 제한 함수로서 \(|\xi| > B\)일 때 \(\hat{f}(\xi) = 0\)이면, \(f\)는 \(1/(2B)\) 간격의 표본값으로부터 완전히 결정된다:
@@ -244,12 +242,12 @@ $$\begin{aligned}
 </div>
 
 <h4>Partial Differential Equations</h4>
-<p>Fourier transform(푸리에 변환)은 상수 계수 선형 편미분방정식을 대수 방정식으로 변환한다. \(\mathbb{R}\) 위의 열 방정식 \(u_t = k\, u_{xx}\)에 초기 조건 \(u(x,0) = f(x)\)가 주어졌을 때, \(x\)에 대해 Fourier transform(푸리에 변환)을 취하면 \(\hat{u}_t = -4\pi^2 k \xi^2 \hat{u}\)를 얻고, 이를 풀면 \(\hat{u}(\xi, t) = \hat{f}(\xi) e^{-4\pi^2 k \xi^2 t}\)이다. 역변환하면:</p>
+<p>푸리에 변환은 상수 계수 선형 편미분방정식을 대수 방정식으로 변환한다. \(\mathbb{R}\) 위의 열 방정식 \(u_t = k\, u_{xx}\)에 초기 조건 \(u(x,0) = f(x)\)가 주어졌을 때, \(x\)에 대해 푸리에 변환을 취하면 \(\hat{u}_t = -4\pi^2 k \xi^2 \hat{u}\)를 얻고, 이를 풀면 \(\hat{u}(\xi, t) = \hat{f}(\xi) e^{-4\pi^2 k \xi^2 t}\)이다. 역변환하면:</p>
 $$ u(x,t) = f * G_t(x), \qquad G_t(x) = \frac{1}{\sqrt{4\pi k t}}\, e^{-x^2/(4kt)}, $$
 <p>여기서 \(G_t\)는 열 핵(heat kernel)으로, 시간이 지남에 따라 넓어지는 가우시안이다.</p>
 
 <div class="example"><span class="env-label">Example 12.4</span>
-\(\mathbb{R}\) 위의 파동 방정식 \(u_{tt} = c^2 u_{xx}\)에 대해, \(x\)에 대한 Fourier transform(푸리에 변환)을 취하면 \(\hat{u}_{tt} = -4\pi^2 c^2 \xi^2 \hat{u}\)이고, 해는 \(\hat{u}(\xi,t) = A(\xi)\cos(2\pi c\xi t) + B(\xi)\sin(2\pi c\xi t)\)이다. 초기 데이터 \(u(x,0) = f(x)\), \(u_t(x,0) = g(x)\)로 역변환하면 달랑베르 공식 \(u(x,t) = \frac{1}{2}[f(x+ct) + f(x-ct)] + \frac{1}{2c}\int_{x-ct}^{x+ct} g(s)\, ds\)을 얻는다.
+\(\mathbb{R}\) 위의 파동 방정식 \(u_{tt} = c^2 u_{xx}\)에 대해, \(x\)에 대한 푸리에 변환을 취하면 \(\hat{u}_{tt} = -4\pi^2 c^2 \xi^2 \hat{u}\)이고, 해는 \(\hat{u}(\xi,t) = A(\xi)\cos(2\pi c\xi t) + B(\xi)\sin(2\pi c\xi t)\)이다. 초기 데이터 \(u(x,0) = f(x)\), \(u_t(x,0) = g(x)\)로 역변환하면 달랑베르 공식 \(u(x,t) = \frac{1}{2}[f(x+ct) + f(x-ct)] + \frac{1}{2c}\int_{x-ct}^{x+ct} g(s)\, ds\)을 얻는다.
 </div>
 
 <!-- 12.5 Discrete Fourier Transform and FFT -->
@@ -333,7 +331,7 @@ IDFT: \(y_n = \frac{1}{4}\sum_{k} Y_k \omega_4^{-kn} = \frac{4}{4} = 1\) (모든
 <div class="example"><span class="env-label">Example 12.9 (Gibbs 현상의 정량적 분석)</span>
 구형파 (Example 12.1a)의 부분합 \(S_N(x) = \frac{4}{\pi}\sum_{k=0}^{N-1}\frac{\sin((2k+1)x)}{2k+1}\)에서 Gibbs 현상을 정량적으로 분석하자.
 
-\(N\)이 클 때, \(S_N\)의 최대값은 \(x \approx \frac{\pi}{2N+1}\) 부근에서 나타나며, 그 크기는:
+\(N\)이 클 때, \(S_N\)의 최댓값은 \(x \approx \frac{\pi}{2N+1}\) 부근에서 나타나며, 그 크기는:
 $$ \max S_N \approx \frac{2}{\pi}\int_0^{\pi} \frac{\sin t}{t}\, dt \approx \frac{2}{\pi} \cdot \text{Si}(\pi) \approx \frac{2}{\pi} \cdot 1.8519 \approx 1.1790. $$
 이는 목표값 1에 비해 약 \(8.95\%\) 초과한다. 이 초과량은 \(N \to \infty\)에서도 사라지지 않으며, 급수의 항수와 무관하게 약 \(9\%\)로 일정하다. 이는 \(L^2\) 수렴과 점별 수렴의 본질적 차이를 보여주는 현상이다.
 </div>
@@ -396,4 +394,3 @@ $$ \Delta x \cdot \Delta \xi \geq \frac{1}{4\pi} $$
 <li>Folland, <em>Fourier Analysis and Its Applications</em> — PDE와의 연결 강조</li>
 </ul>
 </details>
-
