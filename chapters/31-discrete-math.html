@@ -1,5 +1,5 @@
 <section id="discrete-math">
-<h3>31. Discrete Mathematics</h3>
+<h3>31. 이산수학 (Discrete Mathematics)</h3>
 
 <p class="section-intro">이산수학은 셀 수 있는 구조를 다룬다. 조합론은 경우의 수를 세고, 그래프 이론은 연결 관계를 추상화하며, 점화식은 이산적 변화를 잡는 도구다. 알고리즘 분석, 네트워크 설계, 암호학 등 컴퓨터과학 전반의 수학적 기반이 된다.</p>
 
@@ -7,14 +7,14 @@
 
 <p>그래프 이론은 라우팅 프로토콜, VLSI 회로 배치, 소셜 네트워크 분석에 쓰이고, 조합론은 실험 설계나 오류 정정 부호에 쓰인다. 부울 대수는 디지털 논리 회로의 수학적 기초이고, 알고리즘의 시간 복잡도 분석도 이산수학의 영역이다.</p>
 
-<h4 id="combinatorics">31.1 Combinatorics</h4>
+<h4 id="combinatorics">31.1 조합론 (Combinatorics)</h4>
 
 <p>조합론은 '경우의 수가 몇 가지인가'를 묻는다. 암호의 강도 평가, 알고리즘 탐색 공간의 크기, 통계적 검정의 확률 계산 등이 모두 이 질문에 해당한다.</p>
 
 <div class="definition"><span class="env-label">Definition 31.1 (Counting Principles)</span>
 <ul>
-  <li><strong>Product rule:</strong> 과제 A가 \(m\)가지 결과를, 과제 B가 \(n\)가지 결과를 가지면, A 다음에 B를 수행할 때의 결과 수는 \(mn\)이다.</li>
-  <li><strong>Sum rule:</strong> 과제 A와 B가 서로소이면, 전체 결과 수는 \(m + n\)이다.</li>
+  <li><strong>Product rule:</strong> 과제 A의 결과가 \(m\)가지이고 각 결과 뒤에 수행하는 과제 B의 선택지가 항상 \(n\)가지이면, 두 과제를 잇는 결과 수는 \(mn\)이다.</li>
+  <li><strong>Sum rule:</strong> 서로 겹치지 않는 두 결과 부류의 크기가 각각 \(m\)과 \(n\)이면, 둘 중 하나를 택하는 전체 결과 수는 \(m+n\)이다.</li>
   <li><strong>Permutations:</strong> \(n\)개의 서로 다른 대상에서 \(k\)개를 순서 있게 선택: \(P(n,k) = \frac{n!}{(n-k)!}\).</li>
   <li><strong>Combinations:</strong> 순서 없는 선택: \(\binom{n}{k} = \frac{n!}{k!(n-k)!}\).</li>
 </ul>
@@ -48,7 +48,7 @@ $$ = 60 - (30 + 20 + 12) + (10 + 6 + 4) - 2 = 16. $$
 
 <p class="subsection-transition">그래프 이론은 대상들 사이의 연결 관계를 다룬다.</p>
 
-<h4 id="graph-theory">31.2 Graph Theory</h4>
+<h4 id="graph-theory">31.2 그래프 이론 (Graph Theory)</h4>
 
 <p>라우터 간 연결, 도로망의 경로, 칩의 배선, 분자의 결합 등 겉보기에 다른 문제들이 모두 정점과 간선의 그래프로 모델링된다. 이 추상화가 있어 하나의 정리로 여러 분야의 문제를 동시에 다룰 수 있다.</p>
 
@@ -85,13 +85,13 @@ $$ \sum_{v \in V} \deg(v) = 2|E|. $$
   <li>\(\chi(K_n) = n\) (완전 그래프: 모든 정점이 서로 인접하므로 모두 다른 색이 필요).</li>
   <li>\(\chi(C_{2k}) = 2\), \(\chi(C_{2k+1}) = 3\) (짝수 순환은 2색, 홀수 순환은 3색).</li>
   <li>모든 planar graph에 대해 \(\chi(G) \leq 4\) (사색 정리, Appel &amp; Haken, 1976).</li>
-  <li>모든 그래프에 대해 \(\chi(G) \leq \Delta(G) + 1\) (여기서 \(\Delta(G)\)는 최대 차수). Brooks 정리에 의해 완전 그래프와 홀수 순환을 제외하면 \(\chi(G) \leq \Delta(G)\).</li>
+  <li>모든 그래프에 대해 \(\chi(G) \leq \Delta(G) + 1\) (여기서 \(\Delta(G)\)는 최대 차수). Brooks 정리에 의해 연결된 단순 그래프가 완전 그래프나 홀수 순환이 아니면 \(\chi(G) \leq \Delta(G)\).</li>
 </ul>
 <strong>Petersen 그래프</strong>는 정규 3-그래프 (모든 정점의 차수가 3)이며 \(\chi = 3\)이다. 이는 2색으로는 홀수 순환을 포함하므로 불가능하고, 3색이면 충분하기 때문이다.
 </div>
 
 <div class="theorem"><span class="env-label">Theorem 31.5 (Euler's Formula for Planar Graphs)</span>
-\(V\)개 정점, \(E\)개 간선, \(F\)개 면을 가진 연결 평면 그래프에 대해: \(V - E + F = 2\). 이로부터 \(E \leq 3V - 6\) (\(V \geq 3\)일 때)이 유도되며, 이로부터 \(K_5\)와 \(K_{3,3}\)이 평면적이 아님을 보일 수 있다.
+\(V\)개 정점, \(E\)개 간선, \(F\)개 면을 가진 연결 평면 그래프에 대해 \(V-E+F=2\)이다. 단순 평면 그래프이고 \(V\geq3\)이면 \(E\leq3V-6\)이므로 \(K_5\)가 평면적이지 않음을 알 수 있다. 삼각형이 없는 단순 평면 그래프에는 더 강한 \(E\leq2V-4\)가 성립하고, 이를 \(K_{3,3}\)에 적용하면 \(9>2\cdot6-4=8\)이어서 역시 평면적이지 않다.
 </div>
 
 <div class="theorem"><span class="env-label">Theorem 31.6 (Kuratowski's Theorem)</span>
@@ -107,18 +107,18 @@ $$ \sum_{v \in V} \deg(v) = 2|E|. $$
 
 <p class="subsection-transition">이산 구조에서 자연스럽게 등장하는 것이 점화식(recurrence relation)이다. 피보나치 수열처럼 이전 항으로부터 다음 항이 결정되는 관계를 닫힌 형태로 풀면, 알고리즘의 시간 복잡도를 분석하는 데 직접 쓸 수 있다.</p>
 
-<h4 id="recurrence-relations">31.3 Recurrence Relations</h4>
+<h4 id="recurrence-relations">31.3 점화식 (Recurrence Relations)</h4>
 
 <p>분할 정복(divide and conquer) 알고리즘의 시간 복잡도는 점화식으로 쓴다. 병합 정렬의 \(T(n) = 2T(n/2) + O(n)\)이 대표적이다. 점화식을 닫힌 형태로 풀면 알고리즘의 점근적 성능을 예측할 수 있다.</p>
 
 <div class="definition"><span class="env-label">Definition 31.4 (Linear Recurrence)</span>
-<strong>상수 계수 선형 점화식</strong>은 다음의 형태를 갖는다:
+<strong>상수 계수 동차 선형 점화식</strong>은 다음의 형태를 갖는다:
 $$ a_n = c_1 a_{n-1} + c_2 a_{n-2} + \cdots + c_k a_{n-k}. $$
 대응하는 <strong>characteristic equation(특성 방정식)</strong>은 \(r^k - c_1 r^{k-1} - \cdots - c_k = 0\)이다. 근 \(r_1, \ldots, r_k\)가 서로 다르면, 일반해는 \(a_n = \alpha_1 r_1^n + \cdots + \alpha_k r_k^n\)이다. 중복근에는 다항식 인자가 곱해진다.
 </div>
 
 <div class="example"><span class="env-label">Example 31.6 (피보나치 수열)</span>
-피보나치 수열 \(F_n = F_{n-1} + F_{n-2}\)의 특성 방정식은 \(r^2 - r - 1 = 0\)이며, 근은 \(\phi = \frac{1+\sqrt{5}}{2}\)와 \(\hat{\phi} = \frac{1-\sqrt{5}}{2}\)이다. 닫힌 형식은
+\(F_0=0\), \(F_1=1\)인 피보나치 수열 \(F_n = F_{n-1} + F_{n-2}\)의 특성 방정식은 \(r^2 - r - 1 = 0\)이며, 근은 \(\phi = \frac{1+\sqrt{5}}{2}\)와 \(\hat{\phi} = \frac{1-\sqrt{5}}{2}\)이다. 닫힌 형식은
 $$ F_n = \frac{\phi^n - \hat{\phi}^n}{\sqrt{5}} $$
 이다.
 </div>

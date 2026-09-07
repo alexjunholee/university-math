@@ -1,14 +1,14 @@
-<h2 id="elementary-number-theory">17. Elementary Number Theory</h2>
+<h2 id="elementary-number-theory">17. 초등 정수론 (Elementary Number Theory)</h2>
 
 <p class="chapter-intro">초등 정수론은 정수의 나눗셈, 소인수분해, 합동식 등을 다루는 분야이다. '초등'이라는 이름과 달리 이 분야의 결과들은 암호학(RSA), 해시 함수, 난수 생성 등 현대 응용의 토대이다.</p>
 
-<p>RSA 암호 체계(RSA cryptosystem)는 정수론에 기반한다. 두 큰 소수의 곱은 쉽게 계산할 수 있지만, 그 곱의 소인수분해(prime factorization)를 고전 컴퓨터에서 효율적으로 푸는 방법은 알려져 있지 않다. RSA는 이 계산 난이도의 차이를 이용한다. 디지털 통신에서 데이터 무결성을 검증하는 CRC(Cyclic Redundancy Check)는 다항식의 모듈러 나눗셈(modular division)에 기초하며, 의사난수 생성기에 쓰이는 선형 합동식(linear congruential generator) \(x_{n+1} \equiv ax_n + c \pmod{m}\)은 합동 산술의 직접적인 응용이다.</p>
+<p>RSA 암호 체계(RSA cryptosystem)는 정수론에 기반한다. 두 큰 소수의 곱은 쉽게 계산할 수 있지만, 그 곱의 소인수분해(prime factorization)를 고전 컴퓨터에서 효율적으로 푸는 방법은 알려져 있지 않다. RSA는 이 계산 난이도의 차이를 이용한다. 디지털 통신에서 데이터 무결성을 검증하는 CRC(Cyclic Redundancy Check)는 다항식의 모듈러 나눗셈(modular division)에 기초하며, 의사난수 생성기에 쓰이는 선형 합동 생성기(linear congruential generator) \(x_{n+1} \equiv ax_n + c \pmod{m}\)는 합동 산술의 직접적인 응용이다.</p>
 
 <p>해시 함수(hash function)의 설계에서도 모듈러 연산은 핵심 도구이다. 예를 들어 해시 테이블의 주소 계산, 체크섬(checksum) 생성, 블룸 필터(Bloom filter) 등은 모두 정수를 특정 범위로 축소하는 나머지 연산에 의존한다. 나눗셈 정리, 유클리드 호제법, 페르마 소정리, 이차상호법칙 — 이 장에서 다루는 결과들이 그 수학적 바탕이다.</p>
 
-<h3 id="divisibility-primes">17.1 Divisibility and Primes</h3>
+<h3 id="divisibility-primes">17.1 나눗셈과 소수 (Divisibility and Primes)</h3>
 
-<p>정수의 나눗셈 성질(divisibility)은 현대 암호학의 가장 기초적인 구성 요소이다. 두 수가 공통 인수를 갖는지, 어떤 수가 소수인지를 판정하는 문제는 단순해 보이지만, 이 판정의 계산 복잡도(computational complexity) 차이가 RSA와 같은 암호 체계의 안전성을 결정한다. 유클리드 호제법(Euclidean algorithm)은 최대공약수를 효율적으로 계산하는 알고리즘이자, 확장 형태에서는 모듈러 역원 계산과 키 생성(key generation)에 직접 쓰인다.</p>
+<p>정수의 나눗셈 성질(divisibility)은 현대 암호학의 가장 기초적인 구성 요소이다. 최대공약수와 소수 여부는 효율적으로 판정할 수 있지만, 큰 합성수를 소인수분해하는 문제는 이와 계산 난도가 다르다. RSA와 같은 암호 체계는 이 차이를 이용한다. 유클리드 호제법(Euclidean algorithm)은 최대공약수를 효율적으로 계산하는 알고리즘이자, 확장 형태에서는 모듈러 역원 계산과 키 생성(key generation)에 직접 쓰인다.</p>
 
 <div class="definition">
 <span class="env-label">Definition 17.1 (Divisibility)</span>
@@ -30,16 +30,16 @@ $$
 
 <div class="definition">
 <span class="env-label">Definition 17.2 (GCD and LCM)</span>
-<strong>최대공약수(greatest common divisor)</strong> \(\gcd(a, b)\)는 \(a\)와 \(b\)를 모두 나누는 가장 큰 양의 정수이다. <strong>최소공배수(least common multiple)</strong> \(\operatorname{lcm}(a, b)\)는 \(a\)와 \(b\)로 모두 나누어지는 가장 작은 양의 정수이다. 이 둘의 관계는 다음과 같다:
+\(a,b\)가 동시에 0이 아닌 정수일 때, <strong>최대공약수(greatest common divisor)</strong> \(\gcd(a, b)\)는 \(a\)와 \(b\)를 모두 나누는 가장 큰 양의 정수이다. \(a,b\)가 모두 0이 아니면 <strong>최소공배수(least common multiple)</strong> \(\operatorname{lcm}(a, b)\)는 \(a\)와 \(b\)의 양의 공배수 가운데 가장 작은 수이며, 한 수가 0이면 최소공배수를 0으로 정의한다. 이 둘의 관계는 다음과 같다:
 $$
 \gcd(a, b) \cdot \operatorname{lcm}(a, b) = |ab|.
 $$
-\(\gcd(a, b) = 1\)일 때 \(a\)와 \(b\)는 <strong>서로소(coprime)</strong>라 한다.
+이 등식은 \(a,b\)가 동시에 0이 아닐 때 성립한다. \(\gcd(a, b) = 1\)일 때 \(a\)와 \(b\)는 <strong>서로소(coprime)</strong>라 한다.
 </div>
 
 <div class="theorem">
 <span class="env-label">Theorem 17.2 (Euclidean Algorithm and Bezout's Identity)</span>
-유클리드 호제법은 반복적인 나눗셈(divisibility)을 통해 \(\gcd(a, b)\)를 계산한다: \(\gcd(a, b) = \gcd(b, a \bmod b)\). 이 알고리즘은 \(O(\log(\min(a,b)))\) 단계 내에 종료된다. 또한 다음을 만족하는 \(x, y \in \mathbb{Z}\)가 존재한다:
+동시에 0이 아닌 정수 \(a,b\)에 대해 유클리드 호제법은 반복적인 나눗셈으로 \(\gcd(a, b)\)를 계산한다. \(A=|a|\), \(B=|b|\)로 놓자. \(B>0\)이면 \(\gcd(a,b)=\gcd(B,A\bmod B)\)이고, \(B=0\)이면 \(\gcd(a,0)=|a|\)이다. 처음 주어진 \(a,b\)가 모두 0이 아닐 때 이 알고리즘은 \(O(\log(\min(|a|,|b|)))\) 단계 안에 종료된다. 또한 다음을 만족하는 \(x, y \in \mathbb{Z}\)가 존재한다:
 $$
 \gcd(a, b) = ax + by.
 $$
@@ -57,12 +57,12 @@ $$
 
 <div class="definition">
 <span class="env-label">Definition 17.3 (Prime Number)</span>
-정수 \(p > 1\)의 양의 약수가 1과 \(p\)뿐일 때, \(p\)를 <strong>소수(prime)</strong>라 한다. 소수(prime)가 아닌 정수 \(n > 1\)을 <strong>합성수(composite)</strong>라 한다. 관례적으로 1은 소수(prime)도 합성수도 아니다.
+정수 \(p > 1\)의 양의 약수가 1과 \(p\)뿐일 때, \(p\)를 <strong>소수(prime)</strong>라 한다. 소수가 아닌 정수 \(n > 1\)을 <strong>합성수(composite)</strong>라 한다. 관례적으로 1은 소수도 합성수도 아니다.
 </div>
 
 <div class="theorem">
 <span class="env-label">Theorem 17.3 (Fundamental Theorem of Arithmetic)</span>
-모든 정수 \(n > 1\)은 소수(prime)들의 곱으로 유일하게 (순서를 제외하고) 표현된다:
+모든 정수 \(n > 1\)은 소수들의 곱으로 유일하게(순서를 제외하고) 표현된다:
 $$
 n = p_1^{a_1} p_2^{a_2} \cdots p_k^{a_k}, \quad p_1 < p_2 < \cdots < p_k, \quad a_i \geq 1.
 $$
@@ -70,44 +70,44 @@ $$
 
 <div class="theorem">
 <span class="env-label">Theorem 17.4 (Infinitude of Primes)</span>
-소수(prime)는 무한히 많다.
+소수는 무한히 많다.
 </div>
 
 <div class="proof">
 <span class="env-label">Proof</span>
-(유클리드.) 소수(prime)가 유한하게 \(p_1, \ldots, p_n\)만 존재한다고 가정하자. \(N = p_1 p_2 \cdots p_n + 1\)을 생각하면, \(N > 1\)이므로 \(N\)은 어떤 소인수(prime divisor) \(p\)를 가진다. 그런데 \(p \neq p_i\)인데, 이는 \(p \mid N\)이고 \(p_i \mid (N - 1)\)이면 \(p_i \mid 1\)이 되어 모순이기 때문이다. \(\blacksquare\)
+(유클리드.) 소수가 유한하게 \(p_1, \ldots, p_n\)만 존재한다고 가정하자. \(N = p_1 p_2 \cdots p_n + 1\)을 생각하면, \(N > 1\)이므로 \(N\)은 어떤 소인수 \(p\)를 가진다. 한편 각 \(p_i\)는 \(N-1\)을 나눈다. 만약 \(p=p_i\)라면 \(p_i\)가 \(N\)과 \(N-1\)을 모두 나누므로 1도 나누게 되어 모순이다. 따라서 \(p\)는 목록에 없는 소수이다. \(\blacksquare\)
 </div>
 
 <div class="theorem">
 <span class="env-label">Theorem 17.5 (Prime Number Theorem)</span>
-\(\pi(x)\)를 \(x\) 이하의 소수(prime)의 개수라 하면,
+\(\pi(x)\)를 \(x\) 이하의 소수의 개수라 하면,
 $$
 \pi(x) \sim \frac{x}{\ln x}, \quad \text{i.e., } \lim_{x \to \infty} \frac{\pi(x)}{x / \ln x} = 1.
 $$
 소수의 분포는 점점 희박해지지만, 그 속도를 로그 함수가 정량적으로 잡아낸다. \(x\) 근방의 정수가 소수일 "확률"은 대략 \(1/\ln x\)이다.
 </div>
 
-<h3 id="modular-arithmetic">17.2 Modular Arithmetic</h3>
+<h3 id="modular-arithmetic">17.2 모듈러 산술 (Modular Arithmetic)</h3>
 
 <p class="section-transition">나눗셈과 소수를 쥐었으면, 다음은 합동식이다. 모듈러 산술은 정수를 나머지에 따라 분류하며, 암호 체계의 수학적 바탕이다.</p>
 
-<p>모듈러 산술(modular arithmetic)은 공학에서 가장 직접적으로 활용되는 정수론의 도구이다. 컴퓨터의 고정 크기 정수 연산은 본질적으로 \(2^{32}\) 또는 \(2^{64}\)를 법으로 하는 합동 산술이며, 네트워크 프로토콜의 시퀀스 번호 관리, 디지털 시계의 시간 계산 등 순환적(cyclic) 구조가 나타나는 모든 곳에 모듈러 산술이 깔려 있다. 중국인의 나머지 정리(Chinese Remainder Theorem)는 큰 수의 연산을 여러 작은 법에서의 병렬 연산으로 분해하는 원리를 제공하며, 실제로 큰 정수 곱셈 하드웨어와 RSA 복호화 가속에 활용된다.</p>
+<p>모듈러 산술(modular arithmetic)은 공학에서 가장 직접적으로 활용되는 정수론의 도구이다. 컴퓨터의 고정 크기 부호 없는 정수 연산은 본질적으로 \(2^{32}\) 또는 \(2^{64}\)를 법으로 하는 합동 산술이며, 네트워크 프로토콜의 시퀀스 번호 관리, 디지털 시계의 시간 계산 등 순환적(cyclic) 구조가 나타나는 모든 곳에 모듈러 산술이 깔려 있다. 중국인의 나머지 정리(Chinese Remainder Theorem)는 큰 수의 연산을 여러 작은 법에서의 병렬 연산으로 분해하는 원리를 제공하며, 실제로 큰 정수 곱셈 하드웨어와 RSA 복호화 가속에 활용된다.</p>
 
 <p>합동 관계는 정수 전체를 나머지에 따라 분류하는 동치관계(equivalence relation)이며, 이로부터 만들어지는 잉여류 환(quotient ring) \(\mathbb{Z}/n\mathbb{Z}\)은 추상대수학과 정수론을 연결하는 가장 자연스러운 다리이다.</p>
 
 <div class="definition">
 <span class="env-label">Definition 17.4 (Congruence)</span>
-정수 \(n > 0\)에 대해, \(n \mid (a - b)\)일 때 \(a \equiv b \pmod{n}\)이라 쓴다. 법 \(n\)에 대한 합동(congruence)은 \(\mathbb{Z}\) 위의 동치관계로, \(\mathbb{Z}\)를 \(n\)개의 잉여류 \(\bar{0}, \bar{1}, \ldots, \overline{n-1}\)로 분할한다. 잉여류의 집합은 환 \(\mathbb{Z}/n\mathbb{Z}\)를 이룬다.
+정수 \(n > 0\)에 대해, \(n \mid (a - b)\)일 때 \(a \equiv b \pmod{n}\)이라 쓴다. 법 \(n\)에 대한 <strong>합동(congruence)</strong>은 \(\mathbb{Z}\) 위의 동치관계로, \(\mathbb{Z}\)를 \(n\)개의 잉여류 \(\bar{0}, \bar{1}, \ldots, \overline{n-1}\)로 분할한다. 잉여류의 집합은 환 \(\mathbb{Z}/n\mathbb{Z}\)를 이룬다.
 </div>
 
 <div class="theorem">
 <span class="env-label">Theorem 17.6 (Linear Congruences)</span>
-합동식(congruence) \(ax \equiv b \pmod{n}\)이 해를 가질 필요충분조건은 \(\gcd(a, n) \mid b\)이다. 해가 존재할 때, 법 \(n\)에 대한 해는 정확히 \(\gcd(a, n)\)개이다. 특히 \(\gcd(a, n) = 1\)이면, \(a\)는 법 \(n\)에 대한 유일한 곱셈 역원을 가진다.
+\(n>0\)일 때 합동식 \(ax \equiv b \pmod{n}\)이 해를 가질 필요충분조건은 \(\gcd(a, n) \mid b\)이다. 해가 존재할 때, 법 \(n\)에 대한 해는 정확히 \(\gcd(a, n)\)개이다. 특히 \(\gcd(a, n) = 1\)이면, \(a\)는 법 \(n\)에 대한 유일한 곱셈 역원을 가진다.
 </div>
 
 <div class="theorem">
 <span class="env-label">Theorem 17.7 (Chinese Remainder Theorem)</span>
-\(n_1, n_2, \ldots, n_k\)가 쌍마다 서로소인 양의 정수이면, 연립 합동식(congruence)
+\(n_1, n_2, \ldots, n_k\)가 쌍마다 서로소인 양의 정수이면, 연립 합동식
 $$
 x \equiv a_1 \pmod{n_1}, \quad x \equiv a_2 \pmod{n_2}, \quad \ldots, \quad x \equiv a_k \pmod{n_k}
 $$
@@ -124,7 +124,7 @@ $$
 $$
 x = \sum_{i=1}^k a_i N_i y_i
 $$
-은 모든 합동식(congruence)을 만족한다: 각 \(j\)에 대해 항 \(a_j N_j y_j \equiv a_j \pmod{n_j}\)이고 나머지 항들은 법 \(n_j\)에 대해 사라진다. 법 \(N\)에 대한 유일성은, 두 해의 차이가 각 \(n_i\)의 배수이므로 \(N\)의 배수가 되는 것으로부터 따른다. \(\blacksquare\)
+은 모든 합동식을 만족한다. 각 \(j\)에 대해 항 \(a_j N_j y_j \equiv a_j \pmod{n_j}\)이고 나머지 항들은 법 \(n_j\)에 대해 사라진다. 법 \(N\)에 대한 유일성은 두 해의 차이가 각 \(n_i\)의 배수이고, 따라서 \(N\)의 배수라는 사실에서 따른다. \(\blacksquare\)
 </div>
 
 <div class="example">
@@ -159,20 +159,20 @@ CRT의 환 동형사상 \(\mathbb{Z}/12\mathbb{Z} \cong \mathbb{Z}/3\mathbb{Z} \
 <tr><td style="padding: 2px 12px;">\(\bar{8} \mapsto (2,0)\)</td><td style="padding: 2px 12px;">\(\bar{9} \mapsto (0,1)\)</td><td style="padding: 2px 12px;">\(\overline{10} \mapsto (1,2)\)</td><td style="padding: 2px 12px;">\(\overline{11} \mapsto (2,3)\)</td></tr>
 </table>
 
-<p>이 사상이 전단사이고 덧셈과 곱셈을 보존함을 확인할 수 있다. 응용: \((\mathbb{Z}/12\mathbb{Z})^\times\)의 구조를 파악할 때 유용하다. \((\mathbb{Z}/3\mathbb{Z})^\times \times (\mathbb{Z}/4\mathbb{Z})^\times \cong \mathbb{Z}/2\mathbb{Z} \times \mathbb{Z}/2\mathbb{Z}\)이므로, \((\mathbb{Z}/12\mathbb{Z})^\times\)는 클라인 4-군이다. 원소는 \(\{1, 5, 7, 11\}\)이며, 모든 원소의 위수가 2이다(\(5^2 = 25 \equiv 1\), \(7^2 = 49 \equiv 1\), \(11^2 = 121 \equiv 1\)).</p>
+<p>이 사상이 전단사이고 덧셈과 곱셈을 보존함을 확인할 수 있다. 이 관점은 \((\mathbb{Z}/12\mathbb{Z})^\times\)의 구조를 파악할 때 유용하다. \((\mathbb{Z}/3\mathbb{Z})^\times \times (\mathbb{Z}/4\mathbb{Z})^\times \cong \mathbb{Z}/2\mathbb{Z} \times \mathbb{Z}/2\mathbb{Z}\)이므로, \((\mathbb{Z}/12\mathbb{Z})^\times\)는 클라인 4-군이다. 원소는 \(\{1, 5, 7, 11\}\)이며, 항등원이 아닌 세 원소의 위수는 모두 2이다(\(5^2 = 25 \equiv 1\), \(7^2 = 49 \equiv 1\), \(11^2 = 121 \equiv 1\)).</p>
 </div>
 
-<h3 id="euler-fermat">17.3 Euler's Totient and Fermat's Little Theorem</h3>
+<h3 id="euler-fermat">17.3 오일러 토션트 함수와 페르마 소정리 (Euler's Totient and Fermat's Little Theorem)</h3>
 
 <p class="section-transition">오일러 토션트 함수와 페르마 소정리는 모듈러 산술에서 거듭제곱의 행동을 지배하는 결과이다. RSA 암호의 정당성이 바로 이 정리들에 기반한다.</p>
 
-<p>RSA 암호에서 메시지 \(m\)을 공개키 \(e\)로 암호화한 뒤 비밀키 \(d\)로 복호화하면 원래 메시지가 복원되는 이유는, 정확히 오일러 정리(Euler's theorem)의 결과이다: \(m^{ed} \equiv m^{1 + k\varphi(n)} \equiv m \pmod{n}\). 이 절에서 다루는 오일러 토션트 함수(Euler's totient function) \(\varphi(n)\)은 법 \(n\)에 대한 가역원의 개수를 세는 함수로, 거듭제곱 연산의 주기(period)를 결정하며, RSA에서 키 쌍 \((e, d)\)의 관계식 \(ed \equiv 1 \pmod{\varphi(n)}\)에 직접 등장한다.</p>
+<p>RSA에서 서로 다른 소수 \(p,q\)에 대해 \(n=pq\)로 놓고, \(ed\equiv1\pmod{\varphi(n)}\)가 되도록 키를 잡는다. \(\gcd(m,n)=1\)인 메시지에 대해서는 오일러 정리(Euler's theorem)가 \(m^{ed}\equiv m\pmod n\)을 바로 보장한다. \(p\)나 \(q\)의 배수인 나머지까지 포함한 일반적인 복호화의 정당성은 각 소수 법에서 페르마 소정리를 적용한 뒤 중국인의 나머지 정리로 합치면 얻는다. 이 절에서 다루는 오일러 토션트 함수(Euler's totient function) \(\varphi(n)\)은 법 \(n\)에 대한 가역원의 개수를 센다.</p>
 
 <p>오일러 토션트 함수는 \(\mathbb{Z}/n\mathbb{Z}\)에서 곱셈에 대해 역원을 갖는 원소, 즉 가역원군(group of units) \((\mathbb{Z}/n\mathbb{Z})^\times\)의 크기를 측정한다.</p>
 
 <div class="definition">
 <span class="env-label">Definition 17.5 (Euler's Totient Function)</span>
-<strong>오일러 토션트 함수</strong> \(\varphi(n)\)은 \(1 \leq k \leq n\)인 정수 중 \(\gcd(k, n) = 1\)인 것의 개수를 센다. 동치적으로, \(\varphi(n) = |(\mathbb{Z}/n\mathbb{Z})^\times|\)이다. 소인수분해에 대해:
+양의 정수 \(n\)에 대해 <strong>오일러 토션트 함수</strong> \(\varphi(n)\)은 \(1 \leq k \leq n\)인 정수 중 \(\gcd(k, n) = 1\)인 것의 개수를 센다. 동치적으로, \(\varphi(n) = |(\mathbb{Z}/n\mathbb{Z})^\times|\)이다. 소인수분해에 대해:
 $$
 \varphi(n) = n \prod_{p \mid n} \left(1 - \frac{1}{p}\right).
 $$
@@ -207,7 +207,7 @@ $$
 
 <div class="theorem">
 <span class="env-label">Theorem 17.8 (Euler's Theorem)</span>
-\(\gcd(a, n) = 1\)이면,
+\(n>0\)이고 \(\gcd(a, n) = 1\)이면,
 $$
 a^{\varphi(n)} \equiv 1 \pmod{n}.
 $$
@@ -220,7 +220,7 @@ $$
 
 <div class="theorem">
 <span class="env-label">Theorem 17.9 (Fermat's Little Theorem)</span>
-\(p\)가 소수(prime)이고 \(p \nmid a\)이면,
+\(p\)가 소수이고 \(p \nmid a\)이면,
 $$
 a^{p-1} \equiv 1 \pmod{p}.
 $$
@@ -229,12 +229,12 @@ $$
 
 <div class="example">
 <span class="env-label">Example 17.3</span>
-\(2^{100} \bmod 13\)을 계산하자. \(13\)은 소수(prime)이고 \(\gcd(2, 13) = 1\)이므로, 페르마의 정리에 의해 \(2^{12} \equiv 1 \pmod{13}\)이다. \(100 = 12 \cdot 8 + 4\)이므로, \(2^{100} = (2^{12})^8 \cdot 2^4 \equiv 1^8 \cdot 16 \equiv 3 \pmod{13}\)이다.
+\(2^{100} \bmod 13\)을 계산하자. \(13\)은 소수이고 \(\gcd(2, 13) = 1\)이므로, 페르마의 정리에 의해 \(2^{12} \equiv 1 \pmod{13}\)이다. \(100 = 12 \cdot 8 + 4\)이므로, \(2^{100} = (2^{12})^8 \cdot 2^4 \equiv 1^8 \cdot 16 \equiv 3 \pmod{13}\)이다.
 </div>
 
 <div class="theorem">
 <span class="env-label">Theorem 17.10 (Wilson's Theorem)</span>
-정수 \(p > 1\)이 소수(prime)일 필요충분조건은 \((p-1)! \equiv -1 \pmod{p}\)이다.
+정수 \(p > 1\)이 소수일 필요충분조건은 \((p-1)! \equiv -1 \pmod{p}\)이다.
 </div>
 
 <div class="remark">
@@ -246,20 +246,20 @@ $$
 이는 \(\{1, 2, \ldots, n\}\)을 \(\gcd(k, n)\)의 값에 따라 분할하면 얻어진다.
 </div>
 
-<h3 id="quadratic-residues">17.4 Quadratic Residues and the Legendre Symbol</h3>
+<h3 id="quadratic-residues">17.4 이차잉여와 르장드르 기호 (Quadratic Residues and the Legendre Symbol)</h3>
 
 <p class="section-transition">이차잉여 이론의 핵심 질문은 하나다: 합동 방정식 \(x^2 \equiv a \pmod{p}\)가 해를 갖는가? 이차 상호법칙은 가우스가 "산술의 보석"이라 부른 결과이다.</p>
 
-<p>이차잉여(quadratic residue) 이론은 타원 곡선 암호(elliptic curve cryptography, ECC)와 이차 체(quadratic sieve) 소인수분해 알고리즘에 직접 사용된다. 타원 곡선 위의 점을 찾으려면 유한체에서 제곱근의 존재 여부를 판정해야 하며, 이것이 바로 이차잉여 판정 문제이다. 더 넓게 보면, 소수가 가우스 정수환 \(\mathbb{Z}[i]\)이나 다른 수체(number field)에서 어떻게 분해되는지를 결정하는 것도 이차잉여 이론과 직결된다. 이차 상호법칙(quadratic reciprocity)은 서로 다른 두 소수에 대한 이차잉여 관계를 대칭적으로 연결하며, 유클리드 호제법과 유사한 재귀적 축소를 통해 효율적인 판정 알고리즘을 제공한다.</p>
+<p>이차잉여(quadratic residue) 이론은 타원 곡선 암호(elliptic curve cryptography, ECC)와 이차 체법(quadratic sieve) 소인수분해 알고리즘에 직접 사용된다. 타원 곡선 위의 점을 찾으려면 유한체에서 제곱근의 존재 여부를 판정해야 하며, 이것이 바로 이차잉여 판정 문제이다. 더 넓게 보면, 소수가 가우스 정수환 \(\mathbb{Z}[i]\)이나 다른 수체(number field)에서 어떻게 분해되는지를 결정하는 것도 이차잉여 이론과 직결된다. 이차 상호법칙(quadratic reciprocity)은 서로 다른 두 소수에 대한 이차잉여 관계를 대칭적으로 연결하며, 유클리드 호제법과 유사한 재귀적 축소를 통해 효율적인 판정 알고리즘을 제공한다.</p>
 
 <div class="definition">
 <span class="env-label">Definition 17.6 (Quadratic Residue)</span>
-\(p\)를 홀수 소수(prime)라 하자. \(p \nmid a\)인 정수 \(a\)에 대해, \(x^2 \equiv a \pmod{p}\)가 해를 가지면 \(a\)를 법 \(p\)에 대한 <strong>이차잉여(quadratic residue)</strong>라 하고, 그렇지 않으면 <strong>이차비잉여(quadratic nonresidue)</strong>라 한다. 법 \(p\)에 대한 이차잉여(quadratic residue)는 정확히 \((p-1)/2\)개이고, 이차비잉여도 \((p-1)/2\)개이다.
+\(p\)를 홀수 소수라 하자. \(p \nmid a\)인 정수 \(a\)에 대해, \(x^2 \equiv a \pmod{p}\)가 해를 가지면 \(a\)를 법 \(p\)에 대한 <strong>이차잉여(quadratic residue)</strong>라 하고, 그렇지 않으면 <strong>이차비잉여(quadratic nonresidue)</strong>라 한다. 법 \(p\)에 대한 이차잉여는 정확히 \((p-1)/2\)개이고, 이차비잉여도 \((p-1)/2\)개이다.
 </div>
 
 <div class="definition">
 <span class="env-label">Definition 17.7 (Legendre Symbol)</span>
-홀수 소수(prime) \(p\)와 \(p \nmid a\)인 정수 \(a\)에 대해, <strong>르장드르 기호(Legendre symbol)</strong>는 다음과 같이 정의된다:
+홀수 소수 \(p\)와 \(p \nmid a\)인 정수 \(a\)에 대해, <strong>르장드르 기호(Legendre symbol)</strong>는 다음과 같이 정의된다:
 $$
 \left(\frac{a}{p}\right) = \begin{cases} 1 & \text{if } a \text{ is a quadratic residue mod } p, \\ -1 & \text{if } a \text{ is a quadratic nonresidue mod } p. \end{cases}
 $$
@@ -267,7 +267,7 @@ $$
 
 <div class="theorem">
 <span class="env-label">Theorem 17.11 (Euler's Criterion)</span>
-홀수 소수(prime) \(p\)와 \(p \nmid a\)에 대해:
+홀수 소수 \(p\)와 \(p \nmid a\)에 대해:
 $$
 \left(\frac{a}{p}\right) \equiv a^{(p-1)/2} \pmod{p}.
 $$
@@ -275,34 +275,35 @@ $$
 
 <div class="proof">
 <span class="env-label">Proof</span>
-페르마 정리에 의해 \(a^{p-1} \equiv 1 \pmod{p}\)이므로, \(a^{(p-1)/2}\)는 \(x^2 - 1 \equiv 0\)의 근이다. 따라서 \(a^{(p-1)/2} \equiv \pm 1\)이다. \(a = b^2\)이면 \(a^{(p-1)/2} = b^{p-1} \equiv 1\)이다. \(a\)가 이차비잉여(nonresidue)이면, 다항식 \(x^{(p-1)/2} - 1\)이 이미 \((p-1)/2\)개의 근(이차잉여(quadratic residue)들)을 가지므로 \(a^{(p-1)/2}\)는 \(-1\)이어야 한다. \(\blacksquare\)
+페르마 정리에 의해 \(a^{p-1} \equiv 1 \pmod{p}\)이므로, \(a^{(p-1)/2}\)는 \(x^2 - 1 \equiv 0\)의 근이다. 따라서 \(a^{(p-1)/2} \equiv \pm 1\)이다. \(a\equiv b^2\pmod p\)이면 \(a^{(p-1)/2} \equiv b^{p-1} \equiv 1\pmod p\)이다. \(a\)가 이차비잉여이면, 다항식 \(x^{(p-1)/2} - 1\)이 이미 \((p-1)/2\)개의 근인 이차잉여들을 가지므로 \(a^{(p-1)/2}\)는 \(-1\)이어야 한다. \(\blacksquare\)
 </div>
 
 <div class="theorem">
 <span class="env-label">Theorem 17.12 (Properties of the Legendre Symbol)</span>
+다음에서 \(p\)는 홀수 소수이고 \(p\nmid ab\)라 하자.
 <ul>
-  <li><strong>Multiplicativity</strong>: \(\left(\frac{ab}{p}\right) = \left(\frac{a}{p}\right)\left(\frac{b}{p}\right)\).</li>
-  <li>\(\left(\frac{-1}{p}\right) = (-1)^{(p-1)/2}\)이므로, \(-1\)이 법 \(p\)에 대한 이차잉여(quadratic residue)일 필요충분조건은 \(p \equiv 1 \pmod{4}\)이다.</li>
-  <li>\(\left(\frac{2}{p}\right) = (-1)^{(p^2-1)/8}\)이므로, \(2\)가 법 \(p\)에 대한 이차잉여(quadratic residue)일 필요충분조건은 \(p \equiv \pm 1 \pmod{8}\)이다.</li>
+  <li><strong>곱셈성(Multiplicativity)</strong>: \(\left(\frac{ab}{p}\right) = \left(\frac{a}{p}\right)\left(\frac{b}{p}\right)\).</li>
+  <li>\(\left(\frac{-1}{p}\right) = (-1)^{(p-1)/2}\)이므로, \(-1\)이 법 \(p\)에 대한 이차잉여일 필요충분조건은 \(p \equiv 1 \pmod{4}\)이다.</li>
+  <li>\(\left(\frac{2}{p}\right) = (-1)^{(p^2-1)/8}\)이므로, \(2\)가 법 \(p\)에 대한 이차잉여일 필요충분조건은 \(p \equiv \pm 1 \pmod{8}\)이다.</li>
 </ul>
 </div>
 
 <div class="theorem">
 <span class="env-label">Theorem 17.13 (Quadratic Reciprocity)</span>
-\(p\)와 \(q\)를 서로 다른 홀수 소수(prime)라 하자. 그러면
+\(p\)와 \(q\)를 서로 다른 홀수 소수라 하자. 그러면
 $$
 \left(\frac{p}{q}\right)\left(\frac{q}{p}\right) = (-1)^{\frac{p-1}{2} \cdot \frac{q-1}{2}}.
 $$
-즉, \(p \equiv q \equiv 3 \pmod{4}\)인 경우를 제외하면 \(\left(\frac{p}{q}\right) = \left(\frac{q}{p}\right)\)이고, 두 소수(prime) 모두 \(3 \pmod{4}\)와 합동(congruence)이면 \(\left(\frac{p}{q}\right) = -\left(\frac{q}{p}\right)\)이다.
+즉, \(p \equiv q \equiv 3 \pmod{4}\)인 경우를 제외하면 \(\left(\frac{p}{q}\right) = \left(\frac{q}{p}\right)\)이고, 두 소수가 모두 \(3 \pmod{4}\)와 합동이면 \(\left(\frac{p}{q}\right) = -\left(\frac{q}{p}\right)\)이다.
 </div>
 
 <div class="example">
 <span class="env-label">Example 17.4</span>
-7은 법 11에 대한 이차잉여(quadratic residue)인가? 이차상호법칙에 의해 (\(7, 11 \equiv 3 \pmod{4}\)이므로):
+7은 법 11에 대한 이차잉여인가? 이차상호법칙에 의해(\(7, 11 \equiv 3 \pmod{4}\)이므로):
 $$
 \left(\frac{7}{11}\right) = -\left(\frac{11}{7}\right) = -\left(\frac{4}{7}\right) = -(1) = -1.
 $$
-따라서 7은 법 11에 대한 이차비잉여이다. 검증: 법 11에 대한 이차잉여(quadratic residue)는 \(1^2, 2^2, 3^2, 4^2, 5^2 \equiv 1, 4, 9, 5, 3 \pmod{11}\)이며, \(7\)이 포함되지 않음을 확인할 수 있다.
+따라서 7은 법 11에 대한 이차비잉여이다. 법 11에 대한 이차잉여는 \(1^2, 2^2, 3^2, 4^2, 5^2 \equiv 1, 4, 9, 5, 3 \pmod{11}\)이며, 여기에 \(7\)이 포함되지 않음을 확인할 수 있다.
 </div>
 
 <div class="example">
@@ -337,12 +338,12 @@ $$
 </div>
 
 <div class="example">
-<span class="env-label">Example 17.4b (이차잉여의 응용: 소수의 합으로 표현)</span>
+<span class="env-label">Example 17.4b (이차잉여의 응용: 두 제곱수의 합으로 표현)</span>
 이차잉여 이론의 고전적 응용으로, 어떤 소수가 두 정수의 제곱합으로 표현되는지 판정하는 문제가 있다.
 
 <p><strong>정리 (페르마).</strong> 홀수 소수 \(p\)가 \(p = a^2 + b^2\) 형태로 쓸 수 있을 필요충분조건은 \(p \equiv 1 \pmod{4}\)이다.</p>
 
-<p>핵심 관찰: \(p \equiv 1 \pmod{4}\)이면 \(\left(\frac{-1}{p}\right) = 1\)이므로 \(x^2 \equiv -1 \pmod{p}\)를 만족하는 \(x\)가 존재한다. 이는 \(p \mid x^2 + 1\), 즉 가우스 정수환 \(\mathbb{Z}[i]\)에서 \(p \mid (x+i)(x-i)\)를 의미한다. 만약 \(p\)가 \(\mathbb{Z}[i]\)에서 기약이라면 \(p \mid (x+i)\) 또는 \(p \mid (x-i)\)여야 하는데, 둘 다 불가능하다(\(1/p \notin \mathbb{Z}\)). 따라서 \(p\)는 \(\mathbb{Z}[i]\)에서 분해되고, \(p = (a + bi)(a - bi) = a^2 + b^2\)이다.</p>
+<p>핵심 관찰: \(p \equiv 1 \pmod{4}\)이면 \(\left(\frac{-1}{p}\right) = 1\)이므로 \(x^2 \equiv -1 \pmod{p}\)를 만족하는 \(x\)가 존재한다. 이는 \(p \mid x^2 + 1\), 즉 가우스 정수환 \(\mathbb{Z}[i]\)에서 \(p \mid (x+i)(x-i)\)를 의미한다. \(\mathbb Z[i]\)는 유클리드 정역이므로 기약원은 소원소이다. 만약 \(p\)가 \(\mathbb{Z}[i]\)에서 기약이라면 \(p \mid (x+i)\) 또는 \(p \mid (x-i)\)여야 하는데, 둘 다 불가능하다. 따라서 \(p\)는 \(\mathbb{Z}[i]\)에서 비단원 \(\alpha\beta\)로 분해된다. 노름을 취하면 \(p^2=N(\alpha)N(\beta)\)이고 두 노름은 1보다 큰 정수이므로 \(N(\alpha)=N(\beta)=p\)이다. \(\alpha=a+bi\)로 쓰면 \(p=N(\alpha)=a^2+b^2\)를 얻는다. 반대로 홀수 소수 \(p=a^2+b^2\)라면 제곱수의 법 4 나머지가 0 또는 1이므로 \(p\not\equiv3\pmod4\)이고, 따라서 \(p\equiv1\pmod4\)이다.</p>
 
 <p>예: \(p = 13 \equiv 1 \pmod{4}\). \(5^2 = 25 \equiv -1 \pmod{13}\)이므로 \(-1\)은 이차잉여이다. 실제로 \(13 = 4 + 9 = 2^2 + 3^2\)이다. 반면 \(p = 7 \equiv 3 \pmod{4}\)이면 \(-1\)은 이차비잉여이고, 7은 두 제곱합으로 표현할 수 없다.</p>
 </div>

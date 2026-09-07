@@ -1,6 +1,6 @@
-<h2 id="single-var-calc">3. 일변수 미적분학</h2>
+<h2 id="single-var-calc">3. 일변수 미적분학 (Single-Variable Calculus)</h2>
 
-<p>단변수 미적분은 하나의 독립변수를 가진 함수의 변화율과 누적량을 연구한다. 물리학에서 속도와 가속도, 경제학에서 한계비용과 총수익, 공학에서 신호의 변화와 에너지 축적 등 단일 입력에 대한 출력의 변화를 분석하는 문제는 모두 이 장의 범위에 속한다. 극한의 엄밀한 정의에서 출발하여, 미분과 적분의 이론을 세우고, 무한급수까지 나아간다.</p>
+<p>일변수 미적분은 하나의 독립변수를 가진 함수의 변화율과 누적량을 연구한다. 물리학의 속도와 가속도, 경제학의 한계비용과 총수익, 공학의 신호 변화와 에너지 축적처럼 단일 입력에 따른 출력의 변화를 분석하는 문제가 이 장의 범위에 속한다. 극한을 엄밀하게 정의한 뒤 미분과 적분의 이론을 세우고, 무한급수까지 나아간다.</p>
 
 <p>공학에서 미분은 회로의 순간 전류 변화율, 열전달의 온도 구배, 제어 시스템의 오차 변화 속도를 계산한다. 적분은 힘이 한 일(work), 커패시터에 저장된 에너지, 확률밀도함수의 누적분포를 구한다. 급수 전개는 비선형 시스템을 동작점 근방에서 선형화하거나 신호를 다항식으로 근사하는 상황에서 등장한다.</p>
 
@@ -10,7 +10,7 @@
 
 <h4>극한의 엄밀한 정의</h4>
 
-<p>극한(limit)은 미적분학의 토대를 이루는 개념이다. 직관적으로, \(\lim_{x \to a} f(x) = L\)은 \(x\)가 \(a\)에 충분히 가까워지면 \(f(x)\)가 \(L\)에 얼마든지 가까워진다는 뜻이다. 이를 엄밀하게 표현한 것이 epsilon-delta 정의이다.</p>
+<p>극한(limit)은 미적분학의 토대를 이루는 개념이다. 직관적으로, \(\lim_{x \to a} f(x) = L\)은 \(x\)가 \(a\)에 충분히 가까워지면 \(f(x)\)가 \(L\)에 얼마든지 가까워진다는 뜻이다. 이를 엄밀하게 표현한 것이 \(\varepsilon\)-\(\delta\) 정의이다.</p>
 
 <div class="definition">
 <span class="env-label">Definition 3.1 (Limit의 ε-δ 정의)</span>
@@ -124,7 +124,7 @@ $$
 \(\lim_{x \to 0} x^2 \sin(1/x) = 0\)임을 보이자. \(-1 \leq \sin(1/x) \leq 1\)이므로, \(-x^2 \leq x^2 \sin(1/x) \leq x^2\)이다. \(\lim_{x \to 0} (-x^2) = \lim_{x \to 0} x^2 = 0\)이므로, 압축 정리에 의해 극한값은 0이다.
 </div>
 
-<h3 id="derivatives">3.2 Derivative(도함수)</h3>
+<h3 id="derivatives">3.2 도함수 (Derivative)</h3>
 
 <p>공학에서 가장 빈번하게 묻는 질문 중 하나는 "이 양이 얼마나 빠르게 변하는가?"이다. RC 회로에서 커패시터 전압의 시간 변화율, 로봇 팔의 순간 각속도, 화학 반응에서 농도의 변화 속도는 모두 도함수로 나타낸다.</p>
 
@@ -132,18 +132,18 @@ $$
 
 <h4>기하학적 및 해석학적 정의</h4>
 
-<p>Derivative(도함수)는 함수의 순간 변화율을 측정한다. 기하학적으로는 그래프 위 한 점에서의 접선의 기울기에 해당한다.</p>
+<p>도함수(derivative)는 함수의 순간 변화율을 측정한다. 기하학적으로는 그래프 위 한 점에서의 접선의 기울기에 해당한다.</p>
 
 <div class="definition">
 <span class="env-label">Definition 3.5 (Derivative)</span>
-\(x_0\)에서 \(f\)의 <strong>derivative(도함수)</strong>는 다음과 같이 정의된다.
+\(x_0\)에서 \(f\)의 <strong>도함수(derivative)</strong>는 다음과 같이 정의된다.
 $$
 f'(x_0) = \lim_{\Delta x \to 0} \frac{f(x_0 + \Delta x) - f(x_0)}{\Delta x} = \lim_{\Delta x \to 0} \frac{\Delta f}{\Delta x}
 $$
-단, 이 limit(극한)이 존재해야 한다. 비율 \(\frac{\Delta f}{\Delta x}\)를 <strong>difference quotient(차분 몫)</strong>이라 한다.
+단, 이 극한이 존재해야 한다. 비율 \(\frac{\Delta f}{\Delta x}\)를 <strong>차분 몫(difference quotient)</strong>이라 한다.
 </div>
 
-<p>Derivative는 \(f'(x)\), \(\frac{df}{dx}\), \(\frac{dy}{dx}\) (Leibniz 표기법), 또는 \(Df\) 등 다양하게 표기한다. 기하학적으로 difference quotient은 두 점을 지나는 secant line(할선)의 기울기이고, 극한을 취하면 tangent line(접선)의 기울기가 된다.</p>
+<p>도함수는 \(f'(x)\), \(\frac{df}{dx}\), \(\frac{dy}{dx}\)(Leibniz 표기법), \(Df\) 등으로 표기한다. 기하학적으로 차분 몫은 두 점을 지나는 할선(secant line)의 기울기이고, 극한을 취하면 접선(tangent line)의 기울기가 된다.</p>
 
 <div class="example">
 <span class="env-label">Example 3.6</span>
@@ -160,7 +160,7 @@ $$
 $$
 \frac{d}{dx} x^n = n x^{n-1}
 $$
-더 일반적으로, 임의의 실수 \(\alpha\)에 대해: \(\frac{d}{dx} x^\alpha = \alpha x^{\alpha - 1}\).
+더 일반적으로, \(x>0\)에서 임의의 실수 \(\alpha\)에 대해 \(\frac{d}{dx} x^\alpha = \alpha x^{\alpha - 1}\)이다.
 </div>
 
 <div class="proof">
@@ -169,7 +169,7 @@ $$
 $$
 \frac{(x + \Delta x)^n - x^n}{\Delta x} = \frac{n(\Delta x)x^{n-1} + O((\Delta x)^2)}{\Delta x} = nx^{n-1} + O(\Delta x) \to nx^{n-1}
 $$
-\(\Delta x \to 0\)일 때 성립한다. 임의의 실수 지수에 대해서는, \(x^\alpha = e^{\alpha \ln x}\)로 쓴 뒤 chain rule을 적용하면:
+\(\Delta x \to 0\)일 때 성립한다. \(x>0\)에서 임의의 실수 지수에 대해서는 \(x^\alpha = e^{\alpha \ln x}\)로 쓴 뒤 연쇄 법칙을 적용하면:
 $$
 \frac{d}{dx} x^\alpha = \frac{d}{dx} e^{\alpha \ln x} = e^{\alpha \ln x} \cdot \frac{\alpha}{x} = x^\alpha \cdot \frac{\alpha}{x} = \alpha x^{\alpha - 1}
 $$
@@ -218,7 +218,7 @@ $$
 </ul>
 </div>
 
-<p>Chain rule은 Leibniz 표기법으로 직관적이다: \(\frac{dy}{dx} = \frac{dy}{du} \cdot \frac{du}{dx}\). 분수처럼 \(du\)가 약분되는 형태인데, 이는 극한 과정에서 \(\frac{\Delta y}{\Delta x} = \frac{\Delta y}{\Delta u} \cdot \frac{\Delta u}{\Delta x}\)라는 관계에서 비롯된다.</p>
+<p>연쇄 법칙은 Leibniz 표기법으로 \(\frac{dy}{dx} = \frac{dy}{du} \cdot \frac{du}{dx}\)처럼 적을 수 있다. \(du\)가 분수에서 약분되는 모양이지만, 이 표기를 단순한 분수 연산으로 보아서는 안 된다.</p>
 
 <div class="example">
 <span class="env-label">Example 3.9 (Chain Rule)</span>
@@ -236,10 +236,10 @@ $$
 $$
 </div>
 
-<h4>초등 함수의 derivative</h4>
+<h4>초등 함수의 도함수</h4>
 
 <table>
-<tr><th>함수 \(f(x)\)</th><th>Derivative \(f'(x)\)</th></tr>
+<tr><th>함수 \(f(x)\)</th><th>도함수 \(f'(x)\)</th></tr>
 <tr><td>\(x^n\)</td><td>\(nx^{n-1}\)</td></tr>
 <tr><td>\(e^x\)</td><td>\(e^x\)</td></tr>
 <tr><td>\(a^x\)</td><td>\((\ln a) \cdot a^x\)</td></tr>
@@ -254,9 +254,9 @@ $$
 <tr><td>\(\cosh x\)</td><td>\(\sinh x\)</td></tr>
 </table>
 
-<p>여기서 쌍곡선 함수(hyperbolic functions)는 \(\sinh x = \frac{e^x - e^{-x}}{2}\), \(\cosh x = \frac{e^x + e^{-x}}{2}\)로 정의되며, 항등식 \(\cosh^2 x - \sinh^2 x = 1\)을 만족한다. 이 관계는 원 위의 삼각함수 항등식 \(\cos^2 x + \sin^2 x = 1\)에 대응한다.</p>
+<p>표의 공식은 각 함수와 우변이 정의되는 범위에서 성립하며, \(a^x\)에서는 \(a>0\), \(\ln x\)에서는 \(x>0\), \(\arcsin x\)의 도함수에서는 \(|x|<1\)을 가정한다. 쌍곡선 함수(hyperbolic functions)는 \(\sinh x = \frac{e^x - e^{-x}}{2}\), \(\cosh x = \frac{e^x + e^{-x}}{2}\)로 정의되며, 항등식 \(\cosh^2 x - \sinh^2 x = 1\)을 만족한다. 이 관계는 원 위의 삼각함수 항등식 \(\cos^2 x + \sin^2 x = 1\)에 대응한다.</p>
 
-<h4>Implicit Differentiation(음함수 미분법)</h4>
+<h4>음함수 미분법 (Implicit Differentiation)</h4>
 
 <p>\(x\)와 \(y\) 사이의 관계가 방정식 \(F(x, y) = 0\)으로 음함수적으로 주어질 때, \(y\)를 \(x\)의 함수로 취급하고 양변을 \(x\)에 대해 미분한다.</p>
 
@@ -274,13 +274,13 @@ $$
 정리하면 \((3y^2 + 6xy)y' = -3y^2\), 따라서 \(y' = \frac{-3y^2}{3y^2 + 6xy} = \frac{-y}{y + 2x}\).
 </div>
 
-<h4>역함수의 미분(Derivative of Inverse Functions)</h4>
+<h4>역함수의 미분 (Derivative of Inverse Functions)</h4>
 
 <p>음함수 미분법은 역함수(inverse function)의 도함수를 구할 때 유용하다.</p>
 
 <div class="theorem">
 <span class="env-label">Theorem 3.6 (Inverse Function Theorem, 일변수)</span>
-\(f\)가 미분 가능하고 \(f'(x) \neq 0\)이면, 역함수 \(f^{-1}\)도 미분 가능하며:
+\(f\)가 구간 \(I\)에서 일대일이고 연속이며, \(x\in I\)에서 미분 가능하고 \(f'(x) \neq 0\)이라 하자. 그러면 역함수 \(f^{-1}\)는 \(y=f(x)\)에서 미분 가능하며:
 $$
 (f^{-1})'(y) = \frac{1}{f'(x)}, \quad \text{여기서 } y = f(x)
 $$
@@ -307,9 +307,9 @@ $$
 따라서 \(\frac{d}{dx} \ln x = \frac{1}{x}\).
 </div>
 
-<h4>Logarithmic Differentiation(로그 미분법)</h4>
+<h4>로그 미분법 (Logarithmic Differentiation)</h4>
 
-<p>밑과 지수가 모두 변수인 함수나, 여러 인수의 곱/몫으로 이루어진 함수를 미분할 때, 양변에 자연로그를 취한 뒤 미분하면 편리하다. 핵심 공식은 다음과 같다:</p>
+<p>밑과 지수가 모두 변수인 함수나 여러 인수의 곱·몫으로 이루어진 함수를 미분할 때, 양변에 자연로그를 취한 뒤 미분하면 편리하다. \(f>0\)인 구간에서 핵심 공식은 다음과 같다. \(f\neq0\)인 구간에서는 \(\ln|f|\)를 사용해도 같은 공식을 얻는다.</p>
 
 $$
 (\ln f)' = \frac{f'}{f} \quad \Longleftrightarrow \quad f' = f \cdot (\ln f)'
@@ -317,7 +317,7 @@ $$
 
 <div class="example">
 <span class="env-label">Example 3.15 (Logarithmic Differentiation)</span>
-\(f(x) = x^x\)를 미분하자. 양변에 로그를 취하면:
+\(x>0\)에서 \(f(x) = x^x\)를 미분하자. 양변에 로그를 취하면:
 $$
 \ln f = x \ln x
 $$
@@ -330,16 +330,16 @@ $$
 
 <div class="example">
 <span class="env-label">Example 3.16</span>
-\(\frac{d}{dx} a^x\)를 로그 미분법으로 구하자. \(f(x) = a^x\)로 놓으면 \(\ln f = x \ln a\). 미분하면:
+\(a>0\)일 때 \(\frac{d}{dx} a^x\)를 로그 미분법으로 구하자. \(f(x) = a^x\)로 놓으면 \(\ln f = x \ln a\). 미분하면:
 $$
 \frac{f'}{f} = \ln a \implies f' = a^x \ln a
 $$
 같은 결과를 base \(e\)를 이용해서도 얻을 수 있다: \(a^x = e^{x \ln a}\)이므로 \(\frac{d}{dx} a^x = e^{x \ln a} \cdot \ln a = (\ln a) \cdot a^x\).
 </div>
 
-<h4>Related Rates(관련 변화율)</h4>
+<h4>관련 변화율 (Related Rates)</h4>
 
-<p>두 개 이상의 변수가 시간 \(t\)에 대해 변하고 서로 방정식으로 연결되어 있을 때, chain rule을 이용하여 한 변수의 변화율로부터 다른 변수의 변화율을 구할 수 있다.</p>
+<p>두 개 이상의 변수가 시간 \(t\)에 따라 변하고 서로 방정식으로 연결되어 있을 때는, 연쇄 법칙으로 한 변수의 변화율에서 다른 변수의 변화율을 구할 수 있다.</p>
 
 <div class="example">
 <span class="env-label">Example 3.17 (Related Rates - 팽창하는 풍선)</span>
@@ -381,7 +381,7 @@ $$
 $$
 </div>
 
-<h3 id="applications-derivatives">3.4 Derivative의 응용</h3>
+<h3 id="applications-derivatives">3.4 도함수의 응용</h3>
 
 <p>도함수의 대표적 응용은 최적화이다. 안테나의 최대 이득 방향, 구조물의 최대 응력 위치, 전력 전송 효율을 극대화하는 부하 임피던스를 구하는 문제 모두 도함수가 0인 점을 찾는 것에서 시작한다.</p>
 
@@ -399,17 +399,17 @@ $$
 
 <p>곡선 스케치의 절차는 다음과 같다:</p>
 <ol>
-  <li>불연속점(수직 점근선)을 찾는다</li>
+  <li>불연속점과 수직 점근선을 찾는다</li>
   <li>Critical point를 구한다: \(f'(x) = 0\) 또는 \(f'\)이 존재하지 않는 점</li>
   <li>Critical point 사이의 구간에서 \(f'\)의 부호를 판정한다</li>
   <li>영점(zero): \(f(x) = 0\)인 점을 찾는다</li>
   <li>\(x \to \pm\infty\)에서의 행동을 파악한다</li>
-  <li>\(f'' = 0\)인 변곡점(inflection point)을 구하여 오목/볼록 정보를 추가한다</li>
+  <li>\(f'' = 0\)이거나 \(f''\)이 존재하지 않는 후보에서 오목성이 바뀌는지 확인해 변곡점(inflection point)을 찾는다</li>
 </ol>
 
 <div class="definition">
 <span class="env-label">Definition 3.6 (Critical Point)</span>
-\(f'(x_0) = 0\)이거나 \(f'(x_0)\)이 존재하지 않는 점 \(x_0\)를 \(f\)의 <strong>critical point(임계점)</strong>이라 한다.
+\(x_0\)가 \(f\)의 정의역에 속하고, \(f'(x_0) = 0\)이거나 \(f'(x_0)\)이 존재하지 않으면 \(x_0\)를 \(f\)의 <strong>임계점(critical point)</strong>이라 한다.
 </div>
 
 <div class="example">
@@ -427,7 +427,7 @@ $$
 
 <div class="theorem">
 <span class="env-label">Theorem 3.7 (Second Derivative Test)</span>
-\(f'(c) = 0\)일 때:
+\(f\)가 \(c\) 근방에서 두 번 미분 가능하고 \(f'(c) = 0\)일 때:
 <ul>
   <li>\(f''(c) > 0 \Rightarrow\) \(c\)는 극소(local minimum)</li>
   <li>\(f''(c) < 0 \Rightarrow\) \(c\)는 극대(local maximum)</li>
@@ -449,16 +449,16 @@ $$
 
 <div class="theorem">
 <span class="env-label">Theorem 3.9 (L'Hôpital's Rule)</span>
-\(\lim_{x \to a} f(x) = \lim_{x \to a} g(x) = 0\) (또는 둘 다 \(\pm\infty\))이고, \(a\) 근방에서 \(g'(x) \neq 0\)이면,
+\(f\)와 \(g\)가 \(a\)의 삭제된 근방에서 미분 가능하고 \(g'(x) \neq 0\)이며, \(\lim_{x \to a} f(x)\)와 \(\lim_{x \to a} g(x)\)가 둘 다 0이거나 둘 다 무한대일 때,
 $$
 \lim_{x \to a} \frac{f(x)}{g(x)} = \lim_{x \to a} \frac{f'(x)}{g'(x)}
 $$
-단, 우변의 극한이 존재해야 한다.
+단, 우변의 극한이 유한값 또는 무한대로 존재해야 한다.
 </div>
 
 <div class="example">
 <span class="env-label">Example 3.21</span>
-\(\lim_{x \to 0} \frac{\sin x}{x}\)를 구하자. \(x \to 0\)일 때 \(\frac{0}{0}\) 꼴이므로 L'Hopital 법칙을 적용하면:
+\(\lim_{x \to 0} \frac{\sin x}{x}\)를 구하자. \(x \to 0\)일 때 \(\frac{0}{0}\) 꼴이므로 로피탈의 법칙을 적용하면:
 $$
 \lim_{x \to 0} \frac{\sin x}{x} = \lim_{x \to 0} \frac{\cos x}{1} = 1
 $$
@@ -466,14 +466,14 @@ $$
 
 <h4>최적화</h4>
 
-<p>\([a, b]\)에서 \(f\)의 절대 최댓값/최솟값을 구하려면:</p>
+<p>\(f\)가 \([a, b]\)에서 연속일 때 절대 최댓값과 최솟값을 구하려면:</p>
 <ol>
   <li>\(f'(c) = 0\)이거나 \(f'(c)\)가 존재하지 않는 모든 critical point \(c\)를 찾는다</li>
   <li>각 critical point와 양 끝점 \(a, b\)에서 \(f\)의 값을 구한다</li>
   <li>가장 큰 값이 절대 최댓값이고, 가장 작은 값이 절대 최솟값이다</li>
 </ol>
 
-<h3 id="integration">3.5 Integration(적분)</h3>
+<h3 id="integration">3.5 적분</h3>
 
 <p>적분은 미분의 역방향 질문에 답한다. 변화율이 주어졌을 때 원래 양을 어떻게 복원하는가? 곡선 아래의 넓이처럼 무한히 많은 미소량의 합을 어떻게 정의하는가? 공학에서 힘의 일(work), 에너지, 확률 등 총량을 구하는 문제는 적분으로 풀린다.</p>
 
@@ -483,16 +483,16 @@ $$
 
 <div class="definition">
 <span class="env-label">Definition 3.7 (Definite Integral)</span>
-\(a\)에서 \(b\)까지 \(f\)의 <strong>definite integral(정적분)</strong>은 다음과 같이 정의된다:
+\(a\)에서 \(b\)까지 \(f\)의 <strong>정적분(definite integral)</strong>은 다음과 같이 정의된다:
 $$
 \int_a^b f(x)\,dx = \lim_{n \to \infty} \sum_{i=1}^{n} f(x_i^*) \Delta x
 $$
-여기서 \(\Delta x = \frac{b-a}{n}\)이고 \(x_i^*\)는 \(i\)번째 소구간의 표본점이다. 이 합 \(\sum_{i=1}^n f(x_i^*)\Delta x\)를 <strong>Riemann sum(리만 합)</strong>이라 한다.
+여기서 \(\Delta x = \frac{b-a}{n}\)이고 \(x_i^*\)는 \(i\)번째 소구간의 표본점이다. 이 합 \(\sum_{i=1}^n f(x_i^*)\Delta x\)를 <strong>리만 합(Riemann sum)</strong>이라 한다. 모든 표본점 선택에 대해 극한이 존재하고 같은 값이 될 때 \(f\)는 이 구간에서 리만 적분 가능하며, 그 공통값을 정적분으로 정의한다.
 </div>
 
 <div class="example">
 <span class="env-label">Example 3.22</span>
-\(\int_0^b x^2\,dx\)를 Riemann 합으로부터 구하자. 구간 \([0, b]\)를 \(n\)등분하면 \(\Delta x = b/n\)이고, 표본점으로 오른쪽 끝점 \(x_i = ib/n\)을 선택하면:
+\(b>0\)일 때 \(\int_0^b x^2\,dx\)를 리만 합으로부터 구하자. 구간 \([0, b]\)를 \(n\)등분하면 \(\Delta x = b/n\)이고, 표본점으로 오른쪽 끝점 \(x_i = ib/n\)을 선택하면:
 $$
 \sum_{i=1}^n \left(\frac{ib}{n}\right)^2 \cdot \frac{b}{n} = \frac{b^3}{n^3}(1^2 + 2^2 + \cdots + n^2) = \frac{b^3}{n^3} \cdot \frac{n(n+1)(2n+1)}{6}
 $$
@@ -501,20 +501,20 @@ $$
 
 <div class="theorem">
 <span class="env-label">Theorem 3.10 (Fundamental Theorem of Calculus)</span>
-<strong>Part I</strong>: \(f\)가 \([a, b]\)에서 연속이고 \(F(x) = \int_a^x f(t)\,dt\)이면, \(F'(x) = f(x)\).<br><br>
-<strong>Part II</strong>: \(f\)가 \([a, b]\)에서 연속이고 \(F\)가 \(f\)의 임의의 antiderivative(역도함수)이면,
+<strong>I부</strong>: \(f\)가 \([a, b]\)에서 연속이고 \(F(x) = \int_a^x f(t)\,dt\)이면, \(F'(x) = f(x)\).<br><br>
+<strong>II부</strong>: \(f\)가 \([a, b]\)에서 연속이고 \(F\)가 \(f\)의 임의의 역도함수(antiderivative)이면,
 $$
 \int_a^b f(x)\,dx = F(b) - F(a)
 $$
 </div>
 
-<p>미분과 적분은 서로 역연산이다. Part I은 적분 후 미분하면 원래 함수로 돌아온다는 뜻이고, Part II는 역도함수를 알면 정적분을 끝점 값의 차로 계산할 수 있다는 뜻이다. 리만 합을 직접 구할 필요 없이 역도함수만 찾으면 되므로, 이 정리가 미적분학을 실용적 계산 도구로 만든다.</p>
+<p>미분과 적분은 서로 역연산이다. I부는 적분한 함수를 다시 미분하면 원래 함수를 얻는다는 뜻이고, II부는 역도함수를 알면 정적분을 끝점 값의 차로 계산할 수 있다는 뜻이다. 리만 합을 직접 구하지 않고도 역도함수만 찾으면 되므로, 이 정리가 미적분학을 실용적인 계산 도구로 만든다.</p>
 
 <h3 id="techniques-integration">3.6 적분 기법</h3>
 
 <p>미적분학의 기본정리는 정적분을 역도함수로 계산할 수 있음을 보장하지만, 역도함수를 실제로 구하는 것은 별개의 문제이다. 회로 해석의 \(\int e^{-t}\sin t\,dt\)나 유체역학의 포텐셜 함수 등은 체계적인 기법 없이는 계산할 수 없다. 여기서는 치환, 부분적분, 부분분수, 삼각치환을 본다.</p>
 
-<h4>Substitution(치환 적분법)</h4>
+<h4>치환 적분법 (Substitution)</h4>
 
 <div class="theorem">
 <span class="env-label">Theorem 3.11 (Substitution Rule)</span>
@@ -533,7 +533,7 @@ $$
 $$
 </div>
 
-<h4>Integration by Parts(부분 적분법)</h4>
+<h4>부분 적분법 (Integration by Parts)</h4>
 
 <div class="theorem">
 <span class="env-label">Theorem 3.12 (Integration by Parts)</span>
@@ -551,7 +551,7 @@ $$
 $$
 </div>
 
-<h4>Partial Fractions(부분 분수 분해)</h4>
+<h4>부분 분수 분해 (Partial Fractions)</h4>
 <p>\(\deg P < \deg Q\)인 유리함수 \(\frac{P(x)}{Q(x)}\)는 더 간단한 분수들로 분해할 수 있다. 예를 들어:</p>
 $$
 \frac{1}{(x-1)(x+2)} = \frac{A}{x-1} + \frac{B}{x+2}
@@ -569,7 +569,7 @@ $$
 $$
 </div>
 
-<h4>Trigonometric Substitution(삼각 치환법)</h4>
+<h4>삼각 치환법 (Trigonometric Substitution)</h4>
 <table>
 <tr><th>식</th><th>치환</th><th>사용되는 항등식</th></tr>
 <tr><td>\(\sqrt{a^2 - x^2}\)</td><td>\(x = a\sin\theta\)</td><td>\(1 - \sin^2\theta = \cos^2\theta\)</td></tr>
@@ -583,7 +583,7 @@ $$
 
 <h4>넓이(Area)</h4>
 
-<p>두 곡선 \(y = f(x)\)와 \(y = g(x)\) 사이의 넓이는 (단, \(f(x) \geq g(x)\) on \([a, b]\)):</p>
+<p>구간 \([a,b]\)에서 \(f(x) \geq g(x)\)일 때, 두 곡선 \(y = f(x)\)와 \(y = g(x)\) 사이의 넓이는:</p>
 $$
 A = \int_a^b [f(x) - g(x)]\,dx
 $$
@@ -596,7 +596,7 @@ A = \int_0^1 (x - x^2)\,dx = \left[\frac{x^2}{2} - \frac{x^3}{3}\right]_0^1 = \f
 $$
 </div>
 
-<h4>부피 - Disk/Washer Method</h4>
+<h4>원판·와셔법 (Disk/Washer Method)</h4>
 
 <p>곡선 \(y = f(x)\)를 \(x\)-축 주위로 회전시켜 얻는 <strong>회전체(solid of revolution)</strong>의 부피를 구하는 방법이다.</p>
 
@@ -634,7 +634,7 @@ V = \int_0^1 \pi(x^2 - x^4)\,dx = \pi\left[\frac{x^3}{3} - \frac{x^5}{5}\right]_
 $$
 </div>
 
-<h4>부피 - Shell Method(원통 껍질법)</h4>
+<h4>원통 껍질법 (Shell Method)</h4>
 
 <div class="theorem">
 <span class="env-label">Theorem 3.15 (Shell Method)</span>
@@ -653,7 +653,7 @@ V = \int_0^1 2\pi x \cdot x^2\,dx = 2\pi \int_0^1 x^3\,dx = 2\pi \cdot \frac{1}{
 $$
 </div>
 
-<h4>Arc Length(호의 길이)</h4>
+<h4>호의 길이 (Arc Length)</h4>
 
 <div class="theorem">
 <span class="env-label">Theorem 3.16 (Arc Length)</span>
@@ -672,7 +672,7 @@ L = \int_0^3 \sqrt{1 + x}\,dx = \left[\frac{2}{3}(1+x)^{3/2}\right]_0^3 = \frac{
 $$
 </div>
 
-<h4>Improper Integrals(이상적분)</h4>
+<h4>이상적분 (Improper Integrals)</h4>
 
 <p>적분 구간이 무한이거나, 피적분함수가 적분 구간 내에서 무한대로 발산하는 경우를 <strong>이상적분(improper integral)</strong>이라 한다.</p>
 
@@ -687,6 +687,7 @@ $$
 $$
 \int_a^b f(x)\,dx = \lim_{\varepsilon \to 0^+} \int_{a+\varepsilon}^b f(x)\,dx
 $$
+특이점이 \(c\in(a,b)\)에 있으면 적분을 \(\int_a^c f+\int_c^b f\)로 나누고 두 이상적분이 각각 수렴할 때만 전체 적분이 수렴한다고 한다.
 </div>
 
 <div class="example">
@@ -722,13 +723,13 @@ $$
 무한 급수 \(\sum_{n=1}^{\infty} a_n\)은 부분합의 수열 \(S_N = \sum_{n=1}^{N} a_n\)이 \(N \to \infty\)일 때 수렴하면 <strong>수렴</strong>한다고 한다.
 </div>
 
-<h4>Convergence(수렴) 판정법</h4>
+<h4>수렴 판정법 (Convergence Tests)</h4>
 
 <table>
 <tr><th>판정법</th><th>내용</th></tr>
 <tr><td>Comparison(비교 판정법)</td><td>\(0 \leq a_n \leq b_n\)이고 \(\sum b_n\)이 수렴하면, \(\sum a_n\)도 수렴한다</td></tr>
-<tr><td>Ratio Test(비율 판정법)</td><td>\(L = \lim \frac{a_{n+1}}{a_n}\): \(L < 1\)이면 수렴, \(L > 1\)이면 발산</td></tr>
-<tr><td>Root Test(거듭제곱근 판정법)</td><td>\(L = \lim \sqrt[n]{|a_n|}\): \(L < 1\)이면 수렴, \(L > 1\)이면 발산</td></tr>
+<tr><td>Ratio Test(비율 판정법)</td><td>\(L = \lim \left|\frac{a_{n+1}}{a_n}\right|\): \(L < 1\)이면 절대 수렴하고, \(L > 1\)이면 발산한다. \(L=1\)이면 이 판정만으로 결론을 내릴 수 없다</td></tr>
+<tr><td>Root Test(거듭제곱근 판정법)</td><td>\(L = \lim \sqrt[n]{|a_n|}\): \(L < 1\)이면 절대 수렴하고, \(L > 1\)이면 발산한다. \(L=1\)이면 이 판정만으로 결론을 내릴 수 없다</td></tr>
 <tr><td>Integral Test(적분 판정법)</td><td>\(f\)가 \([1, \infty)\)에서 양수, 연속, 감소이고 \(f(n) = a_n\)이면, \(\sum a_n\)과 \(\int_1^\infty f(x)\,dx\)는 동시에 수렴하거나 발산한다</td></tr>
 <tr><td>Alternating Series(교대 급수 판정법)</td><td>\(b_n \downarrow 0\)이면 \(\sum (-1)^n b_n\)은 수렴한다</td></tr>
 </table>
@@ -751,7 +752,7 @@ $$
 교대 조화 급수 \(\sum_{n=1}^\infty \frac{(-1)^{n+1}}{n} = 1 - \frac{1}{2} + \frac{1}{3} - \frac{1}{4} + \cdots\)는 교대 급수 판정법에 의해 수렴한다 (값은 \(\ln 2\)). 그러나 \(\sum \frac{1}{n}\)은 발산하므로, 이 급수는 조건부 수렴한다.
 </div>
 
-<h4>Power Series(멱급수)와 수렴 반경</h4>
+<h4>멱급수와 수렴 반경 (Power Series)</h4>
 
 <div class="definition">
 <span class="env-label">Definition 3.11 (Power Series)</span>
@@ -772,9 +773,9 @@ $$
 </ol>
 이 \(R\)을 <strong>수렴 반경(radius of convergence)</strong>이라 하며, 비율 판정법 또는 거듭제곱근 판정법으로 구할 수 있다:
 $$
-R = \lim_{n \to \infty} \left|\frac{c_n}{c_{n+1}}\right| = \frac{1}{\limsup_{n \to \infty} |c_n|^{1/n}}
+R = \frac{1}{\limsup_{n \to \infty} |c_n|^{1/n}}.
 $$
-(극한이 존재하는 경우.) 끝점 \(x = a \pm R\)에서의 수렴 여부는 별도로 검사해야 한다.
+비율의 극한이 존재하면 \(R = \lim_{n \to \infty} \left|\frac{c_n}{c_{n+1}}\right|\)로도 계산할 수 있다. 끝점 \(x = a \pm R\)에서의 수렴 여부는 별도로 검사해야 한다.
 </div>
 
 <div class="example">
@@ -786,11 +787,11 @@ $$
 \(|x| < 1\)이면 수렴, \(|x| > 1\)이면 발산. 따라서 \(R = 1\). 끝점 검사: \(x = 1\)이면 \(\sum \frac{1}{n}\) (발산), \(x = -1\)이면 \(\sum \frac{(-1)^n}{n}\) (수렴). 수렴 구간은 \([-1, 1)\).
 </div>
 
-<h4>Taylor Series(테일러 급수)</h4>
+<h4>테일러 급수 (Taylor Series)</h4>
 
 <div class="theorem">
 <span class="env-label">Theorem 3.18 (Taylor's Theorem)</span>
-\(f\)가 \(a\)에서 모든 차수의 derivative를 가지면, \(a\)에서의 \(f\)의 <strong>Taylor series(테일러 급수)</strong>는 다음과 같이 정의된다:
+\(f\)가 \(a\)에서 모든 차수의 도함수를 가지면, \(a\)에서의 \(f\)의 <strong>Taylor series(테일러 급수)</strong>는 다음과 같이 정의된다:
 $$
 \sum_{n=0}^{\infty} \frac{f^{(n)}(a)}{n!}(x-a)^n = f(a) + f'(a)(x-a) + \frac{f''(a)}{2!}(x-a)^2 + \cdots
 $$
@@ -799,7 +800,7 @@ $$
 주의: Taylor 급수가 \(f(x)\)로 수렴하려면, 나머지(remainder) \(R_n(x) \to 0\) (\(n \to \infty\))이어야 한다. 모든 차수의 도함수가 존재하더라도 Taylor 급수가 \(f\)와 일치하지 않을 수 있다 (예: \(f(x) = e^{-1/x^2}\), \(f(0) = 0\)). 수렴이 보장되는 경우에만 \(f(x) = \sum_{n=0}^{\infty} \frac{f^{(n)}(a)}{n!}(x-a)^n\)이 성립한다.
 </div>
 
-<h4>Taylor 다항식과 나머지(Remainder)</h4>
+<h4>테일러 다항식과 나머지 (Remainder)</h4>
 
 <div class="definition">
 <span class="env-label">Definition 3.12 (Taylor Polynomial)</span>
@@ -839,7 +840,7 @@ $$
 수렴 반경 내에서 멱급수의 항별 미분이 허용되므로, 이 과정은 정당하다.
 </div>
 
-<h4>주요 Taylor Series</h4>
+<h4>주요 테일러 급수 (Taylor Series)</h4>
 $$
 e^x = \sum_{n=0}^\infty \frac{x^n}{n!}, \quad
 \sin x = \sum_{n=0}^\infty \frac{(-1)^n x^{2n+1}}{(2n+1)!}, \quad

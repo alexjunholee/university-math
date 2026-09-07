@@ -1,13 +1,13 @@
-<h2 id="ode">5. Ordinary Differential Equations</h2>
+<h2 id="ode">5. 상미분방정식 (Ordinary Differential Equations)</h2>
 
 <p>물체의 운동, 회로의 전류, 인구의 증가처럼 변화율로 기술되는 현상은 미분방정식으로 표현할 수 있다. 미분이 주어진 함수의 도함수를 구하는 일이라면, 미분방정식은 도함수에 관한 조건에서 원래 함수를 찾는 역문제다.</p>
 
-<p>ODE(상미분방정식)는 공학 여러 분야에 등장한다. RC 회로에 전압을 인가하면 커패시터 양단의 전압은 1차 ODE를 따라 지수적으로 변하고, 스프링에 매달린 질량체의 운동은 2차 ODE로 나타내 감쇠 진동이나 공명을 분석한다. 로봇 팔의 관절 운동방정식과 화학 반응조의 농도 속도론도 시간에 따른 상태 변화를 ODE로 기술한다. 이 장의 풀이법은 이런 시스템의 과도응답(transient response), 정상상태(steady state), 안정성(stability)을 분석하는 데 쓰인다.</p>
+<p>상미분방정식(ODE)은 공학 여러 분야에 등장한다. RC 회로에 전압을 인가하면 커패시터 양단의 전압은 1차 ODE를 따라 지수적으로 변하고, 스프링에 매달린 질량체의 운동은 2차 ODE로 나타내 감쇠 진동이나 공명을 분석한다. 로봇 팔의 관절 운동방정식과 화학 반응조의 농도 속도론도 시간에 따른 상태 변화를 ODE로 기술한다. 이 장의 풀이법은 이런 시스템의 과도응답(transient response), 정상상태(steady state), 안정성(stability)을 분석하는 데 쓰인다.</p>
 
 <p>ODE는 단일 독립변수의 함수와 그 도함수 사이의 관계식이다. 여기서는 독립변수를 \( t \), 종속변수를 \( x \), \( \dot{x} = dx/dt \), \( \ddot{x} = d^2x/dt^2 \)로 표기한다.</p>
 
 <!-- 5.1 First-Order ODEs -->
-<h3 id="ode-first-order">5.1. First-Order ODEs</h3>
+<h3 id="ode-first-order">5.1. 1차 상미분방정식</h3>
 
 <p>가장 간단한 미분방정식인 1차 ODE부터 시작한다. 1차 ODE는 뉴턴의 냉각 법칙(Newton's law of cooling)에서 물체의 온도 변화, 탱크 혼합 문제에서 용액 농도의 시간 변화, 방사성 동위원소의 붕괴, RC 회로에서 커패시터 충전 과정 등을 기술한다. 이러한 문제들의 공통점은 변화율이 현재 상태의 함수라는 것이다.</p>
 
@@ -17,12 +17,12 @@ $$ \dot{x} = f(t, x). $$
 <em>해(solution)</em>란 어떤 구간에서 정의되어 이 관계식을 만족하는 함수 \( x(t) \)이다. 정의역이 구간이어야 한다는 조건은 그래프가 연결된 곡선임을 보장한다.
 </div>
 
-<h4>5.1.1. Separable Equations</h4>
+<h4>5.1.1. 변수분리형 방정식</h4>
 
 <p>분리가능 방정식은 가장 먼저 시도할 수 있는 풀이법이다. 방사성 붕괴 \( \dot{N} = -\lambda N \)이나 1차 화학 반응 \( \dot{c} = -kc \)처럼 변화율이 종속변수만의 함수와 독립변수만의 함수의 곱으로 분해되면, 양변을 분리하여 각각 적분할 수 있다.</p>
 
 <div class="definition"><span class="env-label">Definition 5.2 (Separable Equation)</span>
-1차 ODE가 다음 형태로 쓸 수 있으면 <em>separable(분리가능)</em>하다고 한다:
+1차 ODE를 다음 형태로 쓸 수 있으면 <em>분리가능(separable)</em>하다고 한다:
 $$ \dot{x} = g(t)\,h(x). $$
 </div>
 
@@ -38,7 +38,7 @@ $$ -\frac{1}{x} = \frac{t^2}{2} + C \quad \Longrightarrow \quad x(t) = \frac{-1}
 상수해 \( x(t) = 0 \)도 존재한다.
 </div>
 
-<h4>5.1.2. First-Order Linear Equations</h4>
+<h4>5.1.2. 1차 선형 방정식</h4>
 
 <p>분리가능하지 않더라도 방정식이 선형이면 적분인자(integrating factor)라는 체계적 방법으로 풀 수 있다. RC 회로에서 시간에 따라 변하는 전압원 \( V(t) \)가 인가될 때 커패시터 전하 \( q \)는 \( \dot{q} + q/(RC) = V(t)/R \)을 만족하며, 이것이 전형적인 1차 선형 ODE이다.</p>
 
@@ -50,7 +50,7 @@ $$ \dot{x} + p(t)\,x = q(t). $$
 <div class="theorem"><span class="env-label">Theorem 5.1 (Integrating Factor)</span>
 \( \dot{x} + p(t)\,x = q(t) \)의 일반해는 다음과 같다:
 $$ x(t) = e^{-\mu(t)} \left( \int e^{\mu(t)}\,q(t)\,dt + C \right), $$
-여기서 \( \mu(t) = \int p(t)\,dt \)는 integrating factor(적분인자) 지수이다.
+여기서 \( \mu(t) = \int p(t)\,dt \)이고, \(e^{\mu(t)}\)가 적분인자(integrating factor)이다.
 </div>
 
 <div class="proof"><span class="env-label">Proof</span>
@@ -59,7 +59,7 @@ $$ \frac{d}{dt}\!\bigl[e^{\mu(t)} x\bigr] = e^{\mu(t)}\dot{x} + p(t)\,e^{\mu(t)}
 양변을 적분하면 위의 공식을 얻는다. \(\square\)
 </div>
 
-<h4>5.1.3. Exact Equations</h4>
+<h4>5.1.3. 완전미분방정식</h4>
 
 <p>완전미분방정식은 다변수 미적분의 관점에서 자연스럽게 등장한다. 어떤 물리량 \( F(t,x) \)가 보존되는 시스템(예: 보존력장에서의 에너지)에서 \( F = \text{const} \)라는 조건을 전미분하면 완전방정식이 된다. 완전성 판정 조건은 "혼합 편도함수의 순서 교환"과 같다.</p>
 
@@ -81,9 +81,9 @@ $$ F = \int M\,dt = t^2 x + 3t + g(x), \quad F_x = t^2 + g'(x) = t^2 + 4x \impli
 </div>
 
 <!-- 5.2 Existence and Uniqueness -->
-<h3 id="ode-existence">5.2. Existence and Uniqueness</h3>
+<h3 id="ode-existence">5.2. 해의 존재성과 유일성</h3>
 
-<p>풀이법을 적용하기 전에 해가 존재하는지, 존재한다면 유일한지를 먼저 확인해야 한다. 공학 시뮬레이션에서 수치 해법이 의미 있는 결과를 내려면 풀고 있는 초기값 문제가 유일한 해를 가져야 한다. 해가 유일하지 않다면 초기 조건의 미세한 오차가 전혀 다른 궤적으로 분기할 수 있어 시뮬레이션 결과를 신뢰하기 어렵다.</p>
+<p>풀이법을 적용하기 전에 해가 존재하는지, 존재한다면 유일한지를 먼저 확인해야 한다. 공학 시뮬레이션에서 수치 해법이 의미 있는 결과를 내려면 풀고 있는 초기값 문제가 유일한 해를 가져야 한다. 해가 유일하지 않다면 같은 초기 조건에서도 서로 다른 궤적이 가능하므로, 어느 해를 시뮬레이션하는지 추가로 정해야 한다.</p>
 
 <div class="theorem"><span class="env-label">Theorem 5.3 (Picard&ndash;Lindel&ouml;f / Existence and Uniqueness)</span>
 \( f(t,x) \)가 점 \( (a,b) \)를 포함하는 영역에서 연속이고, \( \partial f/\partial x \)가 그 영역에서 존재하며 연속이라고 하자. 그러면 초기값 문제
@@ -122,30 +122,32 @@ $$ \dot{x} = f(t,x), \qquad x(a) = b $$
 </ul>
 </details>
 
-<p>Picard-Lindelof 정리가 Lipschitz 조건을 요구하는 반면, Peano 정리는 연속성만으로 해의 존재(유일성은 아닌)를 보장한다. 유일성이 깨지는 상황을 알아야 비선형 시스템의 분기(bifurcation) 현상을 제대로 읽을 수 있다.</p>
+<p>Picard-Lindelof 정리가 Lipschitz 조건을 요구하는 반면, Peano 정리는 연속성만으로 해의 존재(유일성은 아닌)를 보장한다. 이러한 비유일성은 매개변수 변화에 따라 해의 정성적 거동이 달라지는 분기(bifurcation)와 구별해야 한다.</p>
 
 <div class="theorem"><span class="env-label">Theorem 5.4 (Peano Existence Theorem)</span>
-\( f(t,x) \)가 단순히 연속이기만 하면 (Lipschitz/미분가능성 조건 없이), 해가 적어도 하나 존재하지만, 유일성은 성립하지 않을 수 있다.
+\( f(t,x) \)가 초기점을 포함하는 영역에서 연속이면, 그 초기점을 포함하는 어떤 구간에서 해가 적어도 하나 존재한다. Lipschitz 조건이 없으므로 유일성은 성립하지 않을 수 있다.
 </div>
 
 <div class="example"><span class="env-label">Example 5.3</span>
-초기값 문제 \( \dot{x} = x^{2/3},\; x(0) = 0 \)은 자명한 해 \( x(t) = 0 \)과 \( t \geq 0 \)에서 \( x(t) = (t/3)^3 \)을 모두 갖는다. 여기서 \( \partial f/\partial x = \tfrac{2}{3}x^{-1/3} \)은 \( x = 0 \)에서 연속이 아니므로, 원점에서 유일성이 성립하지 않는다.
+초기값 문제 \( \dot{x} = x^{2/3},\; x(0) = 0 \)은 자명한 해 \( x(t) = 0 \)과
+$$ x(t)=\begin{cases}0,&t\leq 0,\\(t/3)^3,&t\geq 0\end{cases} $$
+를 모두 가지므로, 원점에서 유일성이 성립하지 않는다. 여기서 \( \partial f/\partial x = \tfrac{2}{3}x^{-1/3} \)은 \( x = 0 \)에서 연속이 아니어서 위 유일성 정리의 가정을 만족하지 않는다.
 </div>
 
 <!-- 5.3 Second-Order Linear ODEs -->
 <p>1차 ODE의 풀이법을 익혔으니 차수를 높여 2차 ODE를 다룬다. 2차 ODE는 진동 현상과 직결된다. 스프링에 매달린 물체나 RLC 회로가 모두 2차 ODE로 모델링된다. 1차 ODE가 지수적 성장·감쇠만을 기술했다면, 2차 ODE에서는 진동과 공명이라는 질적으로 새로운 거동이 나타난다.</p>
 
-<h3 id="ode-second-order">5.3. Second-Order Linear ODEs with Constant Coefficients</h3>
+<h3 id="ode-second-order">5.3. 상수 계수 2차 선형 상미분방정식</h3>
 
 <p>2차 ODE의 표준형 \( m\ddot{x} + b\dot{x} + kx = q(t) \)는 뉴턴의 제2법칙 그 자체이다. 질량 \( m \)인 물체에 스프링 복원력 \( -kx \), 점성 감쇠력 \( -b\dot{x} \), 외력 \( q(t) \)가 작용하는 상황을 그대로 기술한다. 전기공학에서는 RLC 직렬 회로의 전류가 동일한 형태의 방정식 \( L\ddot{q} + R\dot{q} + q/C = V(t) \)를 따르며, 기계공학의 스프링-질량-댐퍼 시스템과 수학적으로 완벽히 대응된다. 특성방정식의 근이 실수인지 복소수인지에 따라 시스템의 거동이 과감쇠, 임계감쇠, 부족감쇠로 갈라지며, 이 분류는 자동차 서스펜션 설계부터 전자 필터 설계까지 직접 적용된다.</p>
 
 <div class="definition"><span class="env-label">Definition 5.5 (Second-Order Linear ODE)</span>
-상수 계수를 갖는 2차 선형 ODE는 다음 형태이다:
+\(m\neq 0\)인 상수 계수를 갖는 2차 선형 ODE는 다음 형태이다:
 $$ m\ddot{x} + b\dot{x} + kx = q(t), $$
 또는 동치인 형태로 \( p(D)x = q(t) \), 여기서 \( D = d/dt \)는 미분 연산자이고 \( p(s) = ms^2 + bs + k \)는 <em>특성다항식(characteristic polynomial)</em>이다.
 </div>
 
-<h4>5.3.1. Homogeneous Equations</h4>
+<h4>5.3.1. 동차 방정식 (Homogeneous Equations)</h4>
 
 <div class="theorem"><span class="env-label">Theorem 5.5 (Characteristic Equation Method)</span>
 \( m\ddot{x} + b\dot{x} + kx = 0 \)의 일반해는 특성방정식 \( ms^2 + bs + k = 0 \)의 근 \( r_1, r_2 \)에 따라 결정된다:
@@ -157,24 +159,24 @@ $$ m\ddot{x} + b\dot{x} + kx = q(t), $$
 </div>
 
 <div class="definition"><span class="env-label">Definition 5.6 (Natural Frequency and Damping Ratio)</span>
-방정식 \( m\ddot{x} + b\dot{x} + kx = 0 \)에서 \( m, k > 0 \)일 때, 다음을 정의한다:
+방정식 \( m\ddot{x} + b\dot{x} + kx = 0 \)에서 \( m, k > 0 \), \(b\geq 0\)일 때 다음을 정의한다:
 $$ \omega_n = \sqrt{\frac{k}{m}} \quad (\text{고유 각진동수}), \qquad \zeta = \frac{b}{2m\omega_n} \quad (\text{감쇠비}). $$
 이 ODE는 \( \ddot{x} + 2\zeta\omega_n\dot{x} + \omega_n^2 x = 0 \)이 된다. 특성방정식의 근은
 $$ s = \omega_n\!\left(-\zeta \pm \sqrt{\zeta^2 - 1}\right). $$
-\( |\zeta| < 1 \)이면 <em>부족 감쇠(underdamped)</em>, \( \zeta = 1 \)이면 <em>임계 감쇠(critically damped)</em>, \( \zeta > 1 \)이면 <em>과감쇠(overdamped)</em>이다.
+\( 0\leq\zeta < 1 \)이면 <em>부족 감쇠(underdamped)</em>, \( \zeta = 1 \)이면 <em>임계 감쇠(critically damped)</em>, \( \zeta > 1 \)이면 <em>과감쇠(overdamped)</em>이다.
 </div>
 
 <div class="remark"><span class="env-label">Remark</span>
 부족 감쇠의 경우, 감쇠 진동수는 \( \omega_d = \omega_n\sqrt{1 - \zeta^2} \)이고, 일반해는
 $$ x(t) = A e^{-\zeta\omega_n t} \cos(\omega_d t - \phi). $$
-연속된 극대값 사이의 <em>대수 감소율(logarithmic decrement)</em> \( \delta = \ln(x_1/x_2) \)는 \( \delta = 2\pi\zeta/\sqrt{1-\zeta^2} \)을 만족한다.
+\(0<\zeta<1\)일 때 연속된 두 진폭 극댓값 \(A_1,A_2\) 사이의 <em>대수 감소율(logarithmic decrement)</em> \( \delta = \ln(A_1/A_2) \)는 \( \delta = 2\pi\zeta/\sqrt{1-\zeta^2} \)을 만족한다.
 </div>
 
 <p class="source-tag">Sources: MIT 18.03, Chapters 13&ndash;14 (Natural Frequency, Damping Ratio, Frequency Response)</p>
 
-<h4>5.3.2. Inhomogeneous Equations: Exponential Response Formula</h4>
+<h4>5.3.2. 비동차 방정식과 지수응답공식</h4>
 
-<p>동차 방정식이 자유 진동(외력 없이 초기 조건만으로 결정되는 운동)을 기술한다면, 비동차 방정식은 외부 입력에 대한 시스템의 응답을 기술한다. 엔진 진동이 차체에 전달되거나, 교류 전압원이 RLC 회로에 인가되는 상황이다. Exponential Response Formula(지수응답공식)를 쓰면 지수함수 입력에 대한 특수해를 특성다항식 한 번의 평가로 즉시 구할 수 있다.</p>
+<p>동차 방정식이 자유 진동(외력 없이 초기 조건만으로 결정되는 운동)을 기술한다면, 비동차 방정식은 외부 입력에 대한 시스템의 응답을 기술한다. 엔진 진동이 차체에 전달되거나, 교류 전압원이 RLC 회로에 인가되는 상황이다. 지수응답공식(Exponential Response Formula)을 쓰면 지수함수 입력에 대한 특수해를 특성다항식 한 번의 평가로 즉시 구할 수 있다.</p>
 
 <div class="theorem"><span class="env-label">Theorem 5.6 (Exponential Response Formula)</span>
 \( p(D) \)를 상수 계수 선형 미분 연산자라 하자. 다음 방정식의 특수해는
@@ -198,9 +200,9 @@ $$ x_h = e^{-t/4}\bigl(a\cos(\sqrt{7}\,t/4) + b\sin(\sqrt{7}\,t/4)\bigr). $$
 
 <p class="source-tag">Sources: MIT 18.03, Chapters 10 and 12 (Operators, Exponential Response Formula, Resonance)</p>
 
-<h4>5.3.3. Exponential Shift Law</h4>
+<h4>5.3.3. 지수이동법칙</h4>
 
-<p>Exponential Shift Law(지수이동법칙)는 \( e^{rt} \)로 변조된 입력을 갖는 ODE를 단순화하는 도구이다. 감쇠 정현파 \( e^{-at}\cos(\omega t) \)처럼 지수함수와 다른 함수의 곱으로 이루어진 입력이 공학에서 빈번히 등장하며, 이 법칙은 그러한 입력에 대한 특수해를 체계적으로 구하는 방법을 제공한다.</p>
+<p>지수이동법칙(Exponential Shift Law)은 \( e^{rt} \)로 변조된 입력을 갖는 ODE를 단순화하는 도구이다. 감쇠 정현파 \( e^{-at}\cos(\omega t) \)처럼 지수함수와 다른 함수의 곱으로 이루어진 입력이 공학에서 빈번히 등장하며, 이 법칙은 그러한 입력에 대한 특수해를 체계적으로 구하는 방법을 제공한다.</p>
 
 <div class="theorem"><span class="env-label">Theorem 5.8 (Exponential Shift Law)</span>
 임의의 상수 계수 연산자 \( p(D) \)와 임의의 함수 \( u(t) \)에 대해,
@@ -216,7 +218,7 @@ $$ p(D+3I)u = t^2, \quad \text{여기서 } p(s+3) = s^2 + 7s + 13. $$
 
 <p class="source-tag">Sources: MIT 18.03, Chapter 12 (Exponential Shift Law)</p>
 
-<h4>5.3.4. Undetermined Coefficients</h4>
+<h4>5.3.4. 미정계수법</h4>
 
 <p>다항식 입력에 대한 비동차 ODE의 특수해를 구할 때 미정계수법(undetermined coefficients)이 가장 직접적인 방법이다. 해를 동일 차수의 다항식으로 가정하고 계수를 결정하는 이 접근법은, 기계적으로 적용 가능하여 계산 실수의 위험이 적다.</p>
 
@@ -240,7 +242,7 @@ $$ p(D+3I)u = t^2, \quad \text{여기서 } p(s+3) = s^2 + 7s + 13. $$
 
 <p class="source-tag">Sources: MIT 18.03, Chapter 11 (Undetermined Coefficients)</p>
 
-<h4>5.3.5. Sinusoidal Response and Frequency Analysis</h4>
+<h4>5.3.5. 정현파 응답과 주파수 분석</h4>
 
 <p>정현파(sinusoidal signal)는 공학에서 자주 쓰이는 입력이다. 교류 전원, 음파, 기계적 주기 하중을 정현파 성분으로 분해할 수 있기 때문이다. 주파수 응답(frequency response) 분석은 시스템이 각 주파수의 입력을 얼마나 증폭하고 위상을 얼마나 지연시키는지 파악하며, 필터 설계와 구조물의 공명 회피, 제어 시스템의 안정성 분석에 쓰인다.</p>
 
@@ -251,7 +253,7 @@ $$ p(D+3I)u = t^2, \quad \text{여기서 } p(s+3) = s^2 + 7s + 13. $$
 <div class="theorem"><span class="env-label">Theorem 5.10 (Frequency Response of a Second-Order System)</span>
 정규화된 방정식 \( \ddot{x} + 2\zeta\omega_n\dot{x} + \omega_n^2 x = a\cos(\omega t) \)에서, 정상 상태 응답은 \( x_p = ga\cos(\omega t - \phi) \)이며, 여기서
 $$ g(\omega) = \frac{1}{\sqrt{(\omega_n^2 - \omega^2)^2 + 4\zeta^2\omega_n^2\omega^2}}, \qquad \tan\phi = \frac{2\zeta\omega_n\omega}{\omega_n^2 - \omega^2}. $$
-<em>실용적 공명(practical resonance)</em>(최대 이득)은 공명 진동수 \( \omega_r = \omega_n\sqrt{1 - 2\zeta^2} \)에서 발생하며, 이는 \( \zeta < 1/\sqrt{2} \)일 때 성립한다.
+위상 \(\phi\)는 분자와 분모의 부호를 함께 반영하도록 정한다. <em>실용적 공명(practical resonance)</em>(최대 이득)은 공명 진동수 \( \omega_r = \omega_n\sqrt{1 - 2\zeta^2} \)에서 발생하며, 이는 \( \zeta < 1/\sqrt{2} \)일 때 성립한다.
 </div>
 
 <div class="example"><span class="env-label">Example 5.7</span>
@@ -264,7 +266,7 @@ $$ x_p = \frac{A}{2\omega_n}\,t\sin(\omega_n t). $$
 <p class="source-tag">Sources: MIT 18.03, Chapters 10, 12, 13, 14 (Sinusoidal Signals, Resonance, Natural Frequency, Frequency Response)</p>
 
 <!-- 5.4 Systems of ODEs -->
-<h3 id="ode-systems">5.4. Systems of ODEs</h3>
+<h3 id="ode-systems">5.4. 상미분방정식 연립계</h3>
 
 <p>실제 공학 시스템은 하나의 변수로 기술되는 경우가 드물다. 다자유도 진동계(multi-DOF vibration system)에서 각 질량의 변위와 전기 회로 네트워크에서 각 루프의 전류는 서로 결합된 연립 ODE로 기술된다. 연립 ODE를 행렬 형태 \( \dot{\mathbf{x}} = A\mathbf{x} \)로 쓰면 선형대수의 도구, 특히 고유값과 고유벡터가 해의 구조를 완전히 결정한다. 여기서 ODE와 선형대수가 만난다.</p>
 
@@ -298,12 +300,12 @@ $$ \mathbf{x}(t) = c_1 e^{t}\begin{pmatrix}1\\0\end{pmatrix} + c_2 e^{-2t}\begin
 </div>
 
 <!-- 5.5 Laplace Transform -->
-<h3 id="ode-laplace">5.5. Laplace Transform Method</h3>
+<h3 id="ode-laplace">5.5. 라플라스 변환법</h3>
 
-<p>Laplace 변환은 미분방정식을 대수방정식으로 바꿔주는 도구이다. 초기값 문제를 풀 때, 시간 영역(time domain)에서 미분과 적분을 반복하는 대신 주파수 영역(s-domain)에서 다항식의 사칙연산만으로 해를 구할 수 있다. 제어공학에서 전달함수(transfer function) \( H(s) \)를 통해 시스템의 입출력 관계를 기술하고, 극점(pole)의 위치로 안정성을 판별하는 것이 대표적인 응용이다. 또한 불연속 입력(스위치 온/오프)이나 충격 입력(해머 타격)처럼, 고전적 방법으로는 다루기 번거로운 문제를 자연스럽게 처리할 수 있다.</p>
+<p>라플라스 변환은 미분방정식을 대수방정식으로 바꿔주는 도구이다. 초기값 문제를 풀 때, 시간 영역(time domain)에서 미분과 적분을 반복하는 대신 복소 주파수 영역(s-domain)에서 다항식의 사칙연산만으로 해를 구할 수 있다. 제어공학에서 전달함수(transfer function) \( H(s) \)를 통해 시스템의 입출력 관계를 기술하고, 극점(pole)의 위치로 안정성을 판별하는 것이 대표적인 응용이다. 또한 불연속 입력(스위치 온/오프)이나 충격 입력(해머 타격)처럼, 고전적 방법으로는 다루기 번거로운 문제를 자연스럽게 처리할 수 있다.</p>
 
 <div class="definition"><span class="env-label">Definition 5.8 (Laplace Transform)</span>
-\( t \geq 0 \)에서 정의된 함수 \( f(t) \)의 Laplace transform(라플라스 변환)은 다음과 같다:
+\( t \geq 0 \)에서 정의된 함수 \( f(t) \)의 라플라스 변환(Laplace transform)은 다음과 같다:
 $$ \mathcal{L}\{f\}(s) = F(s) = \int_0^\infty e^{-st} f(t)\,dt, $$
 단, 이 적분이 수렴해야 한다.
 </div>
@@ -323,7 +325,7 @@ $$ p(s)\,X(s) = Q(s) + (\text{초기 조건으로부터의 항}), $$
 <div class="theorem"><span class="env-label">Theorem 5.14 (Key Laplace Transform Pairs)</span>
 <ul>
 <li>\( \mathcal{L}\{1\} = 1/s \), \( s > 0 \)일 때.</li>
-<li>\( \mathcal{L}\{e^{at}\} = 1/(s-a) \), \( s > \operatorname{Re}(a) \)일 때.</li>
+<li>\( \mathcal{L}\{e^{at}\} = 1/(s-a) \), \( \operatorname{Re}(s) > \operatorname{Re}(a) \)일 때.</li>
 <li>\( \mathcal{L}\{t^n\} = n!/s^{n+1} \), \( s > 0 \)일 때.</li>
 <li>\( \mathcal{L}\{\cos(\omega t)\} = s/(s^2+\omega^2) \).</li>
 <li>\( \mathcal{L}\{\sin(\omega t)\} = \omega/(s^2+\omega^2) \).</li>
@@ -341,16 +343,16 @@ $$ x(t) = \frac{1}{8}\bigl(\sin 2t - 2t\cos 2t\bigr). $$
 </div>
 
 <!-- 5.6 Series Solutions -->
-<h3 id="ode-series">5.6. Series Solutions</h3>
+<h3 id="ode-series">5.6. 급수해법</h3>
 
-<p>앞에서 다룬 상수 계수 ODE는 지수함수와 삼각함수의 조합으로 닫힌 형태(closed-form)의 해를 갖는다. 그러나 계수가 변수에 의존하는 ODE — 예를 들어 양자역학의 수소 원자 슈뢰딩거 방정식이나 원통 좌표계에서의 파동 방정식 — 에서는 닫힌 형태의 해가 존재하지 않는 경우가 많다. 이때 해를 거듭제곱 급수(power series)로 가정하고 계수를 결정하는 급수해법이 필요하며, Bessel 함수, Legendre 다항식 등 공학에서 빈번히 등장하는 특수함수(special functions)가 이 방법으로부터 탄생한다.</p>
+<p>앞에서 다룬 동차 상수 계수 ODE는 지수함수와 삼각함수의 조합으로 해를 나타낼 수 있다. 그러나 계수가 변수에 의존하는 ODE — 예를 들어 양자역학의 수소 원자 슈뢰딩거 방정식이나 원통 좌표계에서의 파동 방정식 — 에서는 익숙한 초등함수만으로 해를 나타내기 어려운 경우가 많다. 이때 해를 거듭제곱 급수(power series)로 가정하고 계수를 결정하는 급수해법이 필요하다. Bessel 함수와 Legendre 다항식처럼 공학에서 자주 쓰이는 특수함수(special functions)도 이 과정에서 나타난다.</p>
 
 <div class="definition"><span class="env-label">Definition 5.9 (Ordinary Point)</span>
-ODE \( \ddot{x} + p(t)\dot{x} + q(t)x = 0 \)을 생각하자. 점 \( t_0 \)에서 \( p(t) \)와 \( q(t) \)가 해석적이면 \( t_0 \)는 <em>정칙점(ordinary point)</em>이다. 그렇지 않으면 \( t_0 \)는 <em>특이점(singular point)</em>이다.
+ODE \( \ddot{x} + p(t)\dot{x} + q(t)x = 0 \)을 생각하자. 점 \( t_0 \)에서 \( p(t) \)와 \( q(t) \)가 해석적이면 \( t_0 \)는 <em>보통점(ordinary point)</em>이다. 그렇지 않으면 \( t_0 \)는 <em>특이점(singular point)</em>이다.
 </div>
 
 <div class="theorem"><span class="env-label">Theorem 5.15 (Power Series Solutions at an Ordinary Point)</span>
-\( t_0 \)가 정칙점이면, 모든 해는 거듭제곱 급수로 표현할 수 있다:
+\( t_0 \)가 보통점이면, 모든 해는 거듭제곱 급수로 표현할 수 있다:
 $$ x(t) = \sum_{n=0}^{\infty} a_n (t - t_0)^n $$
 이 급수는 적어도 \( |t - t_0| < R \) 구간에서 수렴하며, 여기서 \( R \)은 복소 평면에서 \( t_0 \)로부터 가장 가까운 특이점까지의 거리이다. 계수 \( a_n \)은 급수를 ODE에 대입하고 \( (t - t_0) \)의 거듭제곱을 비교하여 결정한다.
 </div>
@@ -372,11 +374,11 @@ $$ t^2 \ddot{x} + t\dot{x} + (t^2 - \nu^2)x = 0. $$
 </div>
 
 <!-- 5.7 Additional First-Order ODE Methods -->
-<h3 id="ode-first-order-additional">5.7. Additional First-Order ODE Methods</h3>
+<h3 id="ode-first-order-additional">5.7. 1차 상미분방정식의 추가 풀이법</h3>
 
 <p>5.1절에서 다룬 분리가능, 선형, 완전 방정식이 1차 ODE의 기본 유형이라면, 여기서는 적절한 치환(substitution)을 통해 기본 유형으로 환원할 수 있는 방정식들을 다룬다. 기본 전략은 "알려진 형태로 변환하라"이다.</p>
 
-<h4>5.7.1. Bernoulli Equations</h4>
+<h4>5.7.1. 베르누이 방정식 (Bernoulli Equations)</h4>
 
 <p>Bernoulli 방정식은 비선형이지만, 적절한 변수 치환 한 번으로 선형 ODE로 변환된다. 인구 역학의 로지스틱 모델(logistic model) \( \dot{P} = rP - aP^2 \)이 대표적인 Bernoulli 방정식(\( n = 2 \))이다.</p>
 
@@ -401,6 +403,7 @@ $$ \dot{v} - 2v = -2. $$
 $$ e^{-2t}v = e^{-2t} + C \implies v = 1 + Ce^{2t}. $$
 \( v = x^{-2} \)이므로:
 $$ x(t) = \pm\frac{1}{\sqrt{1 + Ce^{2t}}}. $$
+치환 과정에서 나누어 제외된 상수해 \(x(t)=0\)도 원래 방정식의 해이다.
 </div>
 
 <div class="example"><span class="env-label">Example 5.12</span>
@@ -410,10 +413,10 @@ $$ x(t) = \pm\frac{1}{\sqrt{1 + Ce^{2t}}}. $$
 $$ \dot{v} + \frac{2}{t}\,v = t^2. $$
 적분인자 \( \mu = e^{\int 2/t\,dt} = t^2 \)를 사용한다. \( \frac{d}{dt}[t^2 v] = t^4 \)를 적분하면:
 $$ t^2 v = \frac{t^5}{5} + C \implies v = \frac{t^3}{5} + \frac{C}{t^2}. $$
-따라서 \( x(t) = \dfrac{1}{\frac{t^3}{5} + C t^{-2}} = \dfrac{5t^2}{t^5 + 5C} \)이다.
+따라서 \(t\neq0\)인 구간에서 \( x(t) = \dfrac{1}{\frac{t^3}{5} + C t^{-2}} = \dfrac{5t^2}{t^5 + 5C} \)이다. 상수해 \(x(t)=0\)도 따로 존재한다.
 </div>
 
-<h4>5.7.2. Homogeneous Equations (동차 방정식)</h4>
+<h4>5.7.2. 동차 방정식 (Homogeneous Equations)</h4>
 
 <div class="definition"><span class="env-label">Definition 5.12 (Homogeneous First-Order ODE)</span>
 1차 ODE \( \dot{x} = f(t, x) \)에서 \( f(t, x) \)가 \( x/t \)만의 함수, 즉
@@ -434,7 +437,7 @@ $$ v + t\dot{v} = F(v) \implies t\dot{v} = F(v) - v. $$
 $$ t\dot{v} = v^2 + v - v = v^2 \implies \frac{dv}{v^2} = \frac{dt}{t}. $$
 적분하면:
 $$ -\frac{1}{v} = \ln|t| + C \implies v = \frac{-1}{\ln|t| + C}. $$
-따라서 \( x(t) = tv = \dfrac{-t}{\ln|t| + C} \)이다.
+따라서 \(t\neq0\)인 구간에서 \( x(t) = tv = \dfrac{-t}{\ln|t| + C} \)이다. 나누는 과정에서 제외된 해 \(x(t)=0\)도 있다.
 </div>
 
 <!-- 5.8 Second-Order ODE: Variation of Parameters and Strategies -->
@@ -442,12 +445,12 @@ $$ -\frac{1}{v} = \ln|t| + C \implies v = \frac{-1}{\ln|t| + C}. $$
 
 <p>5.3절의 미정계수법과 ERF는 입력이 지수함수, 다항식, 정현파일 때 효과적이지만, 입력이 \( \sec t \)나 \( e^t/t^2 \)처럼 이런 범주에 속하지 않으면 적용할 수 없다. 매개변수 변환법(variation of parameters)은 입력의 형태에 무관하게 적용 가능한 일반적 방법이며, 동차해를 이미 알고 있다는 전제 하에 비동차 특수해를 적분으로 구한다.</p>
 
-<h4>5.8.1. Variation of Parameters (매개변수 변환법)</h4>
+<h4>5.8.1. 매개변수 변환법</h4>
 
 <div class="theorem"><span class="env-label">Theorem 5.17 (Variation of Parameters)</span>
 2차 선형 ODE \( \ddot{x} + p(t)\dot{x} + q(t)x = g(t) \)에서, 동차 방정식의 기본해를 \( x_1(t) \), \( x_2(t) \)라 하자. 비동차 방정식의 특수해는 다음과 같다:
 $$ x_p(t) = -x_1(t)\int \frac{x_2(t)\,g(t)}{W(t)}\,dt + x_2(t)\int \frac{x_1(t)\,g(t)}{W(t)}\,dt, $$
-여기서 \( W(t) = x_1 \dot{x}_2 - \dot{x}_1 x_2 \)는 <em>Wronskian(론스키안)</em>이다.
+여기서 \( W(t) = x_1 \dot{x}_2 - \dot{x}_1 x_2 \)는 <em>론스키안(Wronskian)</em>이다.
 </div>
 
 <div class="proof"><span class="env-label">Proof</span>
@@ -499,12 +502,12 @@ $$ x_p = -e^t \ln|t| + te^t \cdot \left(-\frac{1}{t}\right) = -e^t \ln|t| - e^t 
 </ul>
 </div>
 
-<h4>5.8.3. Forced Oscillations (강제 진동)</h4>
+<h4>5.8.3. 강제 진동</h4>
 
 <div class="remark"><span class="env-label">Remark (강제 진동 시스템)</span>
 질량-스프링-감쇠기 시스템의 강제 진동은 다음과 같이 모델링된다:
 $$ m\ddot{x} + b\dot{x} + kx = F_0 \cos(\omega t). $$
-일반해는 과도 응답(transient) \( x_h \)와 정상 상태 응답(steady-state) \( x_p \)의 합이다. 감쇠가 있으면 (\( b > 0 \)), \( x_h \to 0 \) as \( t \to \infty \)이므로 장기 거동은 \( x_p \)가 지배한다.
+\(m,k>0\)일 때 일반해는 과도 응답(transient) \( x_h \)와 정상 상태 응답(steady-state) \( x_p \)의 합이다. 감쇠가 있으면(\( b > 0 \)) \( t \to \infty \)일 때 \( x_h \to 0 \)이므로 장기 거동은 \( x_p \)가 지배한다.
 </div>
 
 <div class="example"><span class="env-label">Example 5.16 (감쇠 강제 진동)</span>
@@ -534,7 +537,7 @@ $$ x_p = \operatorname{Re}\!\left(\frac{3t}{4i}(\cos 2t + i\sin 2t)\right) = \op
 </div>
 
 <!-- 5.9 Operator Method -->
-<h3 id="ode-operator">5.9. Operator Method (연산자 방법)</h3>
+<h3 id="ode-operator">5.9. 연산자 방법</h3>
 
 <p>연산자 방법은 상수 계수 ODE를 다항식의 대수적 조작으로 다룰 수 있게 해주는 관점의 전환이다. 미분을 연산자 \( D \)로, ODE를 다항식 \( p(D) \)로 표현하면, ERF와 Exponential Shift Law가 왜 성립하는지 통일적으로 이해할 수 있다. 이 관점은 나아가 제어공학에서 시스템을 전달함수 \( 1/p(s) \)로 기술하고 블록 다이어그램으로 분석하는 방법론의 수학적 기초가 된다.</p>
 
@@ -559,7 +562,9 @@ $$ p(D)\,e^{rt} = p(r)\,e^{rt}. $$
 $$ p(D)\bigl[e^{rt}u(t)\bigr] = e^{rt}\,p(D+r)\,u(t). $$
 이 법칙을 반복 적용할 수 있다. \( r \)이 \( p(s) \)의 \( k \)중근이면 \( p(s) = (s-r)^k q(s) \)이므로:
 $$ p(D)\bigl[e^{rt}u\bigr] = e^{rt}\,(D)^k\,q(D+r)\,u. $$
-\( u = 1 \)을 대입하면 \( p(D)[t^k e^{rt}/(k!)] = e^{rt}\,q(r) \cdot (t^k/(k!)) \cdot k!/1 \)이다. 이 관계를 이용하면 공명 ERF를 유도할 수 있다.
+\(u=t^k\)로 두면 \(q(D+r)t^k\)의 최고차항은 \(q(r)t^k\)이고, 여기에 \(D^k\)를 적용한 값은 \(k!q(r)=p^{(k)}(r)\)이다. 따라서
+$$ p(D)[t^k e^{rt}] = p^{(k)}(r)e^{rt}, $$
+이며, 이 관계에서 공명 지수응답공식(Theorem 5.7)이 나온다.
 </div>
 
 <div class="example"><span class="env-label">Example 5.18</span>
@@ -581,11 +586,11 @@ $$ p(D) = (D - r_1 I)(D - r_2 I). $$
 </div>
 
 <!-- 5.10 Laplace Transform: Extended -->
-<h3 id="ode-laplace-extended">5.10. Laplace Transform: Extended Topics</h3>
+<h3 id="ode-laplace-extended">5.10. 라플라스 변환의 확장</h3>
 
 <p>5.5절에서 Laplace 변환의 기본 원리를 다루었다. 이제 실제 공학 문제에서 빈번히 등장하는 불연속 입력(Heaviside 계단 함수), 순간 충격(Dirac 델타 함수), 그리고 전달함수(transfer function)를 통한 시스템 분석으로 확장한다. 이 도구들은 디지털 제어 시스템에서 샘플링 스위치의 동작, 구조물에 가해지는 충격 하중, 전자 회로의 펄스 응답 등을 모델링하는 데 필수적이다.</p>
 
-<h4>5.10.1. Extended Transform Table</h4>
+<h4>5.10.1. 확장 변환표</h4>
 
 <div class="theorem"><span class="env-label">Theorem 5.20 (확장 Laplace 변환표)</span>
 기본 변환쌍(Theorem 5.14)에 추가하여:
@@ -599,7 +604,7 @@ $$ p(D) = (D - r_1 I)(D - r_2 I). $$
 </ul>
 </div>
 
-<h4>5.10.2. Unit Step Function (단위 계단 함수)</h4>
+<h4>5.10.2. 단위 계단 함수</h4>
 
 <div class="definition"><span class="env-label">Definition 5.14 (Heaviside Step Function)</span>
 <em>Heaviside 단위 계단 함수(unit step function)</em>는 다음과 같이 정의된다:
@@ -623,12 +628,12 @@ $$ X(s) = \frac{1}{s^2 + 1} + \frac{e^{-\pi s}}{s(s^2+1)}. $$
 $$ x(t) = \sin t + u(t-\pi)\bigl[1 - \cos(t-\pi)\bigr] = \sin t + u(t-\pi)(1 + \cos t). $$
 </div>
 
-<h4>5.10.3. Dirac Delta Function (디랙 델타 함수)</h4>
+<h4>5.10.3. 디랙 델타 함수</h4>
 
 <div class="definition"><span class="env-label">Definition 5.15 (Dirac Delta Function)</span>
 <em>디랙 델타 함수</em> \( \delta(t-a) \)는 다음 성질로 정의되는 일반화된 함수(generalized function)이다:
 <ul>
-<li>\( \delta(t-a) = 0 \) for \( t \neq a \).</li>
+<li>\( t \neq a \)이면 \( \delta(t-a) = 0 \)이다.</li>
 <li>\( \displaystyle\int_{-\infty}^{\infty} \delta(t-a)\,f(t)\,dt = f(a) \) (선별 성질, sifting property).</li>
 </ul>
 Laplace 변환은:
@@ -651,14 +656,14 @@ $$ X(s) = \frac{e^{-s}}{(s+1)(s+3)}. $$
 $$ x(t) = \frac{1}{2}\,u(t-1)\bigl[e^{-(t-1)} - e^{-3(t-1)}\bigr]. $$
 </div>
 
-<h4>5.10.4. Transfer Function (전달함수)</h4>
+<h4>5.10.4. 전달함수</h4>
 
 <div class="definition"><span class="env-label">Definition 5.16 (Transfer Function)</span>
 상수 계수 선형 시스템 \( p(D)x = q(t) \)의 <em>전달함수(transfer function)</em>는
 $$ W(s) = H(s) = \frac{1}{p(s)} $$
 이다. Laplace 변환 영역에서 입출력 관계는:
 $$ X(s) = W(s) \cdot Q(s) + (\text{초기 조건 항}). $$
-초기 조건이 모두 0인 경우(rest initial conditions), \( X(s) = W(s)\,Q(s) \)이고 시간 영역에서는 합성곱으로 표현된다:
+초기 조건이 모두 0인 경우(zero initial conditions), \( X(s) = W(s)\,Q(s) \)이고 시간 영역에서는 합성곱으로 표현된다:
 $$ x(t) = (w * q)(t) = \int_0^t w(t - \tau)\,q(\tau)\,d\tau. $$
 </div>
 
@@ -680,7 +685,7 @@ $$ x(t) = \frac{1}{2}e^{-t} - e^{-2t} + \frac{1}{2}e^{-3t}. $$
 </div>
 
 <!-- 5.11 Phase Plane Analysis -->
-<h3 id="ode-phase-plane">5.11. Phase Plane Analysis (위상 평면 분석)</h3>
+<h3 id="ode-phase-plane">5.11. 위상 평면 분석</h3>
 
 <p>2차원 자율 시스템(autonomous system)의 해를 시간의 함수로 구하는 대신, 상태 변수들의 관계를 위상 평면(phase plane)에 직접 그려 시스템의 정성적 거동을 파악하는 방법이다. 비선형 시스템의 경우 닫힌 형태의 해를 구하는 것이 불가능하더라도, 평형점 근방에서 선형화하여 안정성을 판단할 수 있다. 로봇 제어에서 관절의 위치-속도 평면 분석이나 생태학의 포식자-피식자 모델(Lotka-Volterra) 분석이 대표적인 응용이다.</p>
 
@@ -692,16 +697,16 @@ $$ x(t) = \frac{1}{2}e^{-t} - e^{-2t} + \frac{1}{2}e^{-3t}. $$
 \( \mathbf{F}(\mathbf{x}_0) = \mathbf{0} \)을 만족하는 점 \( \mathbf{x}_0 \)를 <em>임계점(critical point)</em> 또는 <em>평형점(equilibrium point)</em>이라 한다. 임계점은 상수해 \( \mathbf{x}(t) = \mathbf{x}_0 \)에 대응한다.
 </div>
 
-<h4>5.11.1. 2x2 선형 시스템의 분류</h4>
+<h4>5.11.1. \(2\times2\) 선형 시스템의 분류</h4>
 
-<div class="theorem"><span class="env-label">Theorem 5.22 (2x2 선형 시스템의 위상 초상 분류)</span>
+<div class="theorem"><span class="env-label">Theorem 5.22 (\(2\times2\) 선형 시스템의 위상 초상 분류)</span>
 선형 시스템 \( \dot{\mathbf{x}} = A\mathbf{x} \)에서 \( A \)가 \( 2 \times 2 \) 실수 행렬이고, 고유값이 \( \lambda_1, \lambda_2 \)일 때, 원점의 임계점 유형은 다음과 같이 분류된다:
 <br><br>
 <strong>(1) 실수 고유값, 같은 부호 (Node)</strong>
 <ul>
-<li>\( \lambda_1, \lambda_2 < 0 \) (서로 다른 값): <em>안정 결절점(stable node)</em>. 모든 궤도가 원점으로 수렴한다. 더 작은 \( |\lambda| \)에 대응하는 고유벡터 방향으로 접선 진입한다.</li>
+<li>\( \lambda_1, \lambda_2 < 0 \) (서로 다른 값): <em>안정 결절점(stable node)</em>. 모든 궤도가 원점으로 수렴한다. 더 작은 \( |\lambda| \)에 대응하는 고유벡터 성분이 0이 아닌 궤도는 그 방향으로 접선 진입한다.</li>
 <li>\( \lambda_1, \lambda_2 > 0 \) (서로 다른 값): <em>불안정 결절점(unstable node)</em>. 모든 궤도가 원점에서 발산한다.</li>
-<li>\( \lambda_1 = \lambda_2 = \lambda \), 고유벡터 2개: <em>항성 결절점(star node)</em>. 모든 직선이 궤도이다.</li>
+<li>\( \lambda_1 = \lambda_2 = \lambda \), 고유벡터 2개: <em>항성 결절점(star node)</em>. 원점은 평형점이고, 나머지 궤도는 원점을 제외한 방사형 반직선이다.</li>
 <li>\( \lambda_1 = \lambda_2 = \lambda \), 고유벡터 1개: <em>부적절 결절점(improper/degenerate node)</em>. 모든 궤도가 유일한 고유벡터 방향에 접하며 진입(또는 발산)한다.</li>
 </ul>
 
@@ -758,16 +763,11 @@ $$ \mathbf{x}(t) = c_1 \begin{pmatrix} 5\cos t \\ 2\cos t + \sin t \end{pmatrix}
 <br>
 고유값: \( \lambda = -1 \) (중근). 고유벡터: \( (A + I)\mathbf{v} = 0 \implies \begin{pmatrix} 2 & -1 \\ 4 & -2 \end{pmatrix}\mathbf{v} = 0 \implies \mathbf{v}_1 = (1, 2)^\top \).
 <br>
-고유벡터가 하나뿐이므로 일반화 고유벡터 \( \mathbf{w} \)를 \( (A + I)\mathbf{w} = \mathbf{v}_1 \)에서 구한다: \( \mathbf{w} = (1, 0)^\top \).
+고유벡터가 하나뿐이므로 일반화 고유벡터 \( \mathbf{w} \)를 \( (A + I)\mathbf{w} = \mathbf{v}_1 \)에서 구한다. 한 가지 선택은 \( \mathbf{w} = (1, 1)^\top \)이다.
 <br><br>
 일반해:
-$$ \mathbf{x}(t) = c_1 e^{-t}\begin{pmatrix}1\\2\end{pmatrix} + c_2 e^{-t}\left[\begin{pmatrix}1\\0\end{pmatrix} + t\begin{pmatrix}1\\2\end{pmatrix}\right]. $$
+$$ \mathbf{x}(t) = c_1 e^{-t}\begin{pmatrix}1\\2\end{pmatrix} + c_2 e^{-t}\left[\begin{pmatrix}1\\1\end{pmatrix} + t\begin{pmatrix}1\\2\end{pmatrix}\right]. $$
 원점은 <em>안정 부적절 결절점(stable improper node)</em>이다. 모든 궤도가 \( (1,2)^\top \) 방향에 접하며 원점에 수렴한다.
 </div>
 
 <p class="source-tag">Sources: MIT 18.03, Chapters 10&ndash;11 (Operators, Exponential Response Formula, Undetermined Coefficients); standard ODE references (Bernoulli, Variation of Parameters, Phase Plane Classification)</p>
-
-
-<!-- ============================================================ -->
-<!-- Section 6: Partial Differential Equations                    -->
-<!-- ============================================================ -->

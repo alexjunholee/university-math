@@ -1,14 +1,14 @@
-<h2 id="graduate-algebra">15. Graduate Algebra</h2>
+<h2 id="graduate-algebra">15. 대학원 대수학 (Graduate Algebra)</h2>
 
 <p class="chapter-intro">대학원 수준의 대수학에서는 환 위의 가군, 갈루아 이론, 텐서곱을 배운다. 이 도구들은 선형대수의 표준형, 방정식의 가해성, 다중선형 대수처럼 서로 다른 문제를 공통된 대수 구조로 연결한다.</p>
 
-<p>학부 대수학에서 배운 군, 환, 체는 각각 독립적인 이론처럼 보일 수 있지만, 대학원 대수학은 이들을 관통하는 통일적 구조를 드러낸다. 가군(module)은 벡터 공간의 일반화이면서 동시에 아벨 군의 일반화이며, PID 위의 가군에 대한 구조 정리 하나로 유한 생성 아벨 군의 분류와 조르당 표준형(Jordan normal form)이라는 전혀 다른 두 결과를 동시에 증명할 수 있다. 갈루아 이론은 체 확장과 군론을 하나의 대응으로 연결하여, 5차 방정식에는 근의 공식이 없다는 수세기의 난제를 해결한다. 추상적 구조가 구체적 계산을 단순화하는 패턴이 반복된다.</p>
+<p>학부 대수학에서 배운 군, 환, 체는 각각 독립적인 이론처럼 보일 수 있지만, 대학원 대수학은 이들을 관통하는 통일적 구조를 드러낸다. 가군(module)은 벡터 공간의 일반화이면서 동시에 아벨 군의 일반화이며, PID 위의 가군에 대한 구조 정리 하나로 유한 생성 아벨 군의 분류와 조르당 표준형(Jordan normal form)이라는 전혀 다른 두 결과를 동시에 증명할 수 있다. 갈루아 이론은 체 확장과 군론을 하나의 대응으로 연결하여, 일반 5차 방정식에는 보편적인 근의 공식이 없다는 수세기의 난제를 해결한다. 추상적 구조가 구체적 계산을 단순화하는 패턴이 반복된다.</p>
 
-<p>공학에서도 이 관점이 쓰인다. 선형 시스템 이론에서 상태 공간 모델 \(\dot{x} = Ax\)는 \(F[x]\)-가군 구조로 분석하며, 가제어성(controllability)과 가관측성(observability)의 구조적 분해가 가군의 분해에 대응한다. 양자 정보(quantum information)에서 여러 큐비트(qubit)의 합성 시스템은 벡터 공간의 텐서곱 \(\mathbb{C}^2 \otimes \mathbb{C}^2 \otimes \cdots\)으로 나타내며, 양자 얽힘(entanglement)은 텐서곱에서 분해 불가능한(non-decomposable) 원소의 존재로 정의된다. 함수형 프로그래밍(functional programming)에서 모나드(monad)와 펑터(functor)는 카테고리 이론의 개념을 프로그래밍 언어에 직접 구현한 것이다.</p>
+<p>공학에서도 이 관점이 쓰인다. 선형 시스템 이론에서 상태 공간 모델 \(\dot{x} = Ax\)는 \(F[x]\)-가군 구조로 분석하며, 가제어성(controllability)과 가관측성(observability)의 구조적 분해가 가군의 분해에 대응한다. 양자 정보(quantum information)에서 여러 큐비트(qubit)의 합성 시스템은 벡터 공간의 텐서곱 \(\mathbb{C}^2 \otimes \mathbb{C}^2 \otimes \cdots\)으로 나타낸다. 순수 상태의 양자 얽힘(entanglement)은 이 텐서곱에서 단순 텐서로 분해되지 않는 상태로 드러난다. 함수형 프로그래밍(functional programming)에서 모나드(monad)와 펑터(functor)는 범주론의 개념을 프로그래밍 언어에 구현한 것이다.</p>
 
-<h3 id="modules-over-pids">15.1 Modules over PIDs</h3>
+<h3 id="modules-over-pids">15.1 PID 위의 가군 (Modules over PIDs)</h3>
 
-<p>가군(module)은 "스칼라가 체가 아닌 환에서 오는 벡터 공간"이다. 스칼라가 체일 때 우리는 벡터 공간의 풍부한 이론 -- 기저, 차원, 선형 사상의 행렬 표현 등 -- 을 자유롭게 사용하지만, 스칼라가 환일 때는 이들 중 일부가 무너진다. 예를 들어, 모든 가군이 기저를 갖는 것은 아니며, 비틀림(torsion)이라는 새로운 현상이 등장한다. 그러나 스칼라 환이 PID(주아이디얼 정역)라는 좋은 성질을 가지면, 유한 생성 가군의 구조를 완전히 분류할 수 있으며, 이 분류 정리가 선형대수의 표준형 이론과 아벨 군의 기본 정리를 하나로 통합한다.</p>
+<p>가군(module)은 "스칼라가 체가 아닌 환에서 오는 벡터 공간"이다. 스칼라가 체일 때는 기저, 차원, 선형 사상의 행렬 표현 등 벡터 공간의 풍부한 이론을 자유롭게 사용하지만, 스칼라가 환일 때는 이들 중 일부가 무너진다. 예를 들어, 모든 가군이 기저를 갖는 것은 아니며, 비틀림(torsion)이라는 새로운 현상이 등장한다. 그러나 스칼라 환이 PID(주아이디얼 정역)라는 좋은 성질을 가지면, 유한 생성 가군의 구조를 완전히 분류할 수 있으며, 이 분류 정리가 선형대수의 표준형 이론과 아벨 군의 기본 정리를 하나로 통합한다.</p>
 
 <div class="definition">
 <span class="env-label">Definition 15.1 (Module)</span>
@@ -24,7 +24,7 @@
 
 <div class="definition">
 <span class="env-label">Definition 15.2 (Free Module, Torsion)</span>
-가군 \(M\)이 <strong>자유(free)</strong>란 기저를 갖는 것, 즉 \(M \cong R^n\)인 것이다. 원소 \(m \in M\)이 <strong>비틀림 원소(torsion element)</strong>란, 어떤 영이 아닌 \(r \in R\)에 대해 \(rm = 0\)인 것이다. 모든 비틀림 원소의 집합은 <strong>비틀림 부분가군(torsion submodule)</strong> \(T(M)\)을 이룬다. \(T(M) = 0\)이면 가군은 <strong>비틀림 없는(torsion-free)</strong> 것이다.
+가군 \(M\)이 <strong>자유(free)</strong>란 기저를 갖는 것이다. 즉 어떤 지표집합 \(I\)에 대해 \(M\cong R^{(I)}\)이며, 기저가 \(n\)개인 경우에는 \(M\cong R^n\)이다. 이제 \(R\)을 정역이라 하자. 원소 \(m \in M\)이 <strong>비틀림 원소(torsion element)</strong>란, 어떤 영이 아닌 \(r \in R\)에 대해 \(rm = 0\)인 것이다. 모든 비틀림 원소의 집합은 <strong>비틀림 부분가군(torsion submodule)</strong> \(T(M)\)을 이룬다. \(T(M) = 0\)이면 가군은 <strong>비틀림 없는(torsion-free)</strong> 것이다.
 </div>
 
 <div class="theorem">
@@ -33,7 +33,7 @@
 $$
 M \cong R^r \oplus R/(d_1) \oplus R/(d_2) \oplus \cdots \oplus R/(d_k),
 $$
-여기서 \(r \geq 0\)이고 \(d_1 \mid d_2 \mid \cdots \mid d_k\)는 \(R\)의 영이 아닌 비단원 원소이다. 정수 \(r\)은 <strong>자유 계수(free rank)</strong>이고, \(d_i\)는 <strong>불변 인자(invariant factor)</strong>이며, 둘 다 유일하게 결정된다.
+여기서 \(r \geq 0\)이고 \(d_1 \mid d_2 \mid \cdots \mid d_k\)는 \(R\)의 영이 아닌 비단원 원소이다. 정수 \(r\)은 <strong>자유 계수(free rank)</strong>이고, \(d_i\)는 <strong>불변 인자(invariant factor)</strong>이다. \(r\)은 유일하며, 각 \(d_i\)는 단원을 곱하는 차이를 제외하면 유일하다.
 </div>
 
 <p>동치 조건으로, 중국인의 나머지 정리를 사용하여 각 \(R/(d_i)\)를 소수 거듭제곱 성분으로 분해하면:</p>
@@ -44,7 +44,7 @@ $$
 $$
 M \cong R^r \oplus R/(p_1^{a_1}) \oplus R/(p_2^{a_2}) \oplus \cdots \oplus R/(p_s^{a_s}),
 $$
-여기서 \(p_i\)는 (반드시 서로 다를 필요 없는) \(R\)의 소원소이고 \(a_i \geq 1\)이다. 다중집합 \(\{p_1^{a_1}, \ldots, p_s^{a_s}\}\)는 유일하게 결정되며, 이들을 <strong>단인자(elementary divisor)</strong>라 한다.
+여기서 \(p_i\)는 (반드시 서로 다를 필요 없는) \(R\)의 소원소이고 \(a_i \geq 1\)이다. 다중집합 \(\{p_1^{a_1}, \ldots, p_s^{a_s}\}\)는 순서와 동반원 선택을 제외하면 유일하며, 이들을 <strong>단인자(elementary divisor)</strong>라 한다.
 </div>
 
 <div class="example">
@@ -61,7 +61,7 @@ $$
 PID 위의 가군에 대한 구조 정리를 \(F[x]\)-가군 \(V\)에 적용하면(여기서 \(T: V \to V\)는 선형 작용소이고 \(x\)는 \(T\)로 작용한다), 작용소 \(T\)의 <strong>유리 표준형(rational canonical form)</strong>(불변 인자를 통해)과, 특성다항식이 분해될 때 <strong>조르당 표준형(Jordan normal form)</strong>(단인자를 통해)을 얻는다.
 </div>
 
-<h3 id="galois-theory">15.2 Galois Theory</h3>
+<h3 id="galois-theory">15.2 갈루아 이론 (Galois Theory)</h3>
 
 <p>"방정식을 근의 공식으로 풀 수 있는가?"라는 질문은 수천 년 된 문제이다. 2차는 고대에, 3차·4차는 16세기 이탈리아 수학자들이 근의 공식을 찾아냈지만, 5차 이상에서는 아벨(Abel)과 갈루아(Galois)가 일반적인 근의 공식이 없음을 증명했다. 갈루아의 통찰은, 근들이 서로 뒤바뀌는 방식(근의 대칭성)을 군으로 포착하고, 이 군의 구조가 방정식의 가해성(solvability)을 결정한다는 것이다. 부호 이론에서 순환 부호의 구조 분석이나, 체 확장의 차수 계산에도 이 이론이 쓰인다.</p>
 
@@ -104,10 +104,10 @@ $$
 
 <div class="theorem">
 <span class="env-label">Theorem 15.4 (Insolvability of the Quintic)</span>
-다항 방정식이 거듭제곱근으로 풀릴 필요충분조건은 그 갈루아 군이 가해군(solvable group)인 것이다. 차수 \(n \geq 5\)인 일반 다항식의 갈루아 군은 \(S_n\)이며, 이것은 가해가 아니다(\(A_n\)이 \(n \geq 5\)에서 단순이고 비가환이므로). 따라서, 일반 5차 방정식의 근에 대한 거듭제곱근 공식은 존재하지 않는다.
+표수 0인 체 \(F\) 위의 다항식 \(f\)가 거듭제곱근으로 풀릴 필요충분조건은 그 분해체의 갈루아 군이 가해군(solvable group)인 것이다. 차수 \(n \geq 5\)인 일반 다항식의 갈루아 군은 \(S_n\)이며, 이것은 가해군이 아니다(\(A_n\)이 \(n \geq 5\)에서 단순이고 비가환이므로). 따라서 일반 5차 방정식의 근을 나타내는 보편적인 거듭제곱근 공식은 존재하지 않는다.
 </div>
 
-<h3 id="tensor-products">15.3 Tensor Products</h3>
+<h3 id="tensor-products">15.3 텐서곱 (Tensor Products)</h3>
 
 <p>텐서곱(tensor product)은 두 독립 시스템을 합성하는 구조이다. 양자 컴퓨팅에서 \(n\)개 큐비트의 상태 공간은 \((\mathbb{C}^2)^{\otimes n}\)이고, 기계학습에서 텐서 분해(tensor decomposition)는 고차원 데이터의 잠재 구조를 추출하는 데 쓰인다. 미분기하학의 곡률 텐서, 응력 텐서도 이 구조 위에 있다.</p>
 
@@ -123,25 +123,25 @@ $$
 </ul>
 </div>
 
-<p>텐서곱은 보편 성질(universal property)을 만족한다: 쌍선형 사상(bilinear map) \(M \times N \to P\)는 선형 사상 \(M \otimes_R N \to P\)와 일대일 대응한다.</p>
+<p>텐서곱은 보편 성질(universal property)을 만족한다. 임의의 \(R\)-가군 \(P\)에 대해 쌍선형 사상(bilinear map) \(M \times N \to P\)는 선형 사상 \(M \otimes_R N \to P\)와 일대일 대응한다.</p>
 
 <div class="theorem">
 <span class="env-label">Theorem 15.5 (Properties of Tensor Products)</span>
 \(M, N, P\)를 \(R\)-가군이라 하자.
 <ul>
- <li><strong>Commutativity</strong>: \(M \otimes_R N \cong N \otimes_R M\).</li>
- <li><strong>Associativity</strong>: \((M \otimes_R N) \otimes_R P \cong M \otimes_R (N \otimes_R P)\).</li>
- <li><strong>Identity</strong>: \(R \otimes_R M \cong M\).</li>
- <li><strong>Distributivity</strong>: \(M \otimes_R (N \oplus P) \cong (M \otimes_R N) \oplus (M \otimes_R P)\).</li>
- <li><strong>Free modules</strong>: \(R^m \otimes_R R^n \cong R^{mn}\).</li>
- <li><strong>Base change</strong>: \(R \to S\)가 환 준동형이면, \(S \otimes_R M\)은 \(S\)-가군이다(스칼라 확장).</li>
+ <li><strong>교환법칙(Commutativity)</strong>: \(M \otimes_R N \cong N \otimes_R M\).</li>
+ <li><strong>결합법칙(Associativity)</strong>: \((M \otimes_R N) \otimes_R P \cong M \otimes_R (N \otimes_R P)\).</li>
+ <li><strong>항등원(Identity)</strong>: \(R \otimes_R M \cong M\).</li>
+ <li><strong>분배법칙(Distributivity)</strong>: \(M \otimes_R (N \oplus P) \cong (M \otimes_R N) \oplus (M \otimes_R P)\).</li>
+ <li><strong>자유 가군(Free modules)</strong>: \(R^m \otimes_R R^n \cong R^{mn}\).</li>
+ <li><strong>밑환 변환(Base change)</strong>: 가환 환 사이의 준동형 \(R \to S\)가 주어지면, \(S \otimes_R M\)은 \(S\)-가군이다(스칼라 확장).</li>
 </ul>
 </div>
 
 <div class="example">
 <span class="env-label">Example 15.3</span>
 <ul>
- <li>\(\mathbb{Z}/m\mathbb{Z} \otimes_{\mathbb{Z}} \mathbb{Z}/n\mathbb{Z} \cong \mathbb{Z}/\gcd(m,n)\mathbb{Z}\). 특히, \(\mathbb{Z}/2\mathbb{Z} \otimes_{\mathbb{Z}} \mathbb{Z}/3\mathbb{Z} = 0\)이다.</li>
+ <li>양의 정수 \(m,n\)에 대해 \(\mathbb{Z}/m\mathbb{Z} \otimes_{\mathbb{Z}} \mathbb{Z}/n\mathbb{Z} \cong \mathbb{Z}/\gcd(m,n)\mathbb{Z}\)이다. 특히, \(\mathbb{Z}/2\mathbb{Z} \otimes_{\mathbb{Z}} \mathbb{Z}/3\mathbb{Z} = 0\)이다.</li>
  <li>모든 \(n \geq 1\)에 대해 \(\mathbb{Q} \otimes_{\mathbb{Z}} \mathbb{Z}/n\mathbb{Z} = 0\)이다. \(1 \otimes \bar{k} = \frac{1}{n} \otimes n\bar{k} = \frac{1}{n} \otimes 0 = 0\)이기 때문이다.</li>
  <li>벡터 공간의 경우: \(V \otimes_F W\)의 차원은 \(\dim V \cdot \dim W\)이고, \(\{v_i\}\)와 \(\{w_j\}\)가 기저이면 \(\{v_i \otimes w_j\}\)가 \(V \otimes_F W\)의 기저이다.</li>
 </ul>

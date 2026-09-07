@@ -1,14 +1,14 @@
 <section id="measure-theory">
-<h2>11. Measure Theory</h2>
+<h2>11. 측도론 (Measure Theory)</h2>
 
 <p>리만 적분(Riemann integral)만으로는 극한과 적분을 자유롭게 바꿀 수 없고, 디리클레 함수(Dirichlet function)처럼 리만 적분 불가능한 함수도 다루지 못한다. 확률론을 엄밀하게 세우려면 사건의 확률을 일관되게 정의할 장치도 필요하다. 측도론은 길이와 넓이뿐 아니라 확률까지 측도(measure)로 다룬다.</p>
 
-<p>공학에서의 사용례를 보면, 신호의 에너지 \(\int |f(t)|^2\,dt\)와 전력 \(\lim_{T\to\infty}\frac{1}{2T}\int_{-T}^{T}|f(t)|^2\,dt\)은 르베그 적분(Lebesgue integral)으로 정의되며, 정보이론에서 섀넌 엔트로피(Shannon entropy)의 연속 확장인 미분 엔트로피(differential entropy)는 확률 밀도 함수의 르베그 적분으로 엄밀히 정의된다. 이미지 처리에서 잡음 모델이 확률 공간(probability space) 위에서 정식화되고, 베이즈 추론(Bayesian inference)에서 사전/사후 분포의 관계가 측도의 절대 연속성(absolute continuity)과 라돈-니코딤 도함수(Radon-Nikodym derivative)로 기술된다.</p>
+<p>공학에서의 사용례를 보면, 신호의 에너지 \(\int |f(t)|^2\,dt\)와 전력 \(\lim_{T\to\infty}\frac{1}{2T}\int_{-T}^{T}|f(t)|^2\,dt\)은 르베그 적분(Lebesgue integral)으로 정의되며, 정보이론에서 섀넌 엔트로피(Shannon entropy)의 연속 확장인 미분 엔트로피(differential entropy)는 확률 밀도 함수 \(p\)에 대해, 적분이 정의되는 경우 \(-\int p(x)\log p(x)\,dx\)라는 르베그 적분으로 엄밀히 정의된다. 이미지 처리에서 잡음 모델이 확률 공간(probability space) 위에서 정식화되고, 베이즈 추론(Bayesian inference)에서 사전/사후 분포의 관계가 측도의 절대 연속성(absolute continuity)과 라돈-니코딤 도함수(Radon-Nikodym derivative)로 기술된다.</p>
 
 <p>측도론(Measure Theory)은 길이, 넓이, 부피, 확률 등 "크기"의 개념을 일반적인 체계로 확장한다. 이 체계 위에 구축된 르베그 적분(Lebesgue integral)은 리만 적분보다 훨씬 유연하게 적분과 극한의 교환을 다룰 수 있으며, 현대 해석학, 확률론, 응용 수학의 표준이다.</p>
 
 <!-- 11.1 Sigma-Algebras and Measures -->
-<h3 id="sigma-algebras">11.1 Sigma-Algebras and Measures</h3>
+<h3 id="sigma-algebras">11.1 시그마 대수와 측도 (Sigma-Algebras and Measures)</h3>
 
 <p>측도를 정의하기 전에, "어떤 집합들에 대해 크기를 잴 수 있는가?"를 먼저 정해야 한다. 직관적으로는 모든 부분집합에 대해 크기를 정의하고 싶지만, Vitali 구성이 보여주듯 이는 불가능하다. 시그마 대수(sigma-algebra)는 여집합과 가산 합집합에 대해 닫혀 있는 "잴 수 있는 집합들의 모임"을 규정하며, 확률론에서는 이것이 관측 가능한 사건(event)들의 모임에 해당한다.</p>
 
@@ -43,14 +43,14 @@
   <li><strong>단조성:</strong> \(A \subseteq B \implies \mu(A) \leq \mu(B)\).</li>
   <li><strong>아래로부터의 연속성:</strong> \(A_1 \subseteq A_2 \subseteq \cdots \implies \mu(\bigcup A_n) = \lim \mu(A_n)\).</li>
   <li><strong>위로부터의 연속성:</strong> \(A_1 \supseteq A_2 \supseteq \cdots\)이고 \(\mu(A_1) < \infty\)이면 \(\mu(\bigcap A_n) = \lim \mu(A_n)\).</li>
-  <li><strong>가산 열가법성:</strong> \(\mu(\bigcup_{n=1}^\infty A_n) \leq \sum_{n=1}^\infty \mu(A_n)\).</li>
+  <li><strong>가산 준가법성:</strong> \(\mu(\bigcup_{n=1}^\infty A_n) \leq \sum_{n=1}^\infty \mu(A_n)\).</li>
 </ul>
 </div>
 
 <!-- 11.2 Lebesgue Measure and Integral -->
 <p>추상적 측도의 틀 위에서 Lebesgue 측도를 구성하고 적분을 정의한다. Lebesgue 적분은 Riemann 적분과 달리 치역을 분할하여 적분을 구성하므로 더 넓은 함수의 부류를 다룰 수 있다.</p>
 
-<h3 id="lebesgue-measure">11.2 Lebesgue Measure and the Lebesgue Integral</h3>
+<h3 id="lebesgue-measure">11.2 르베그 측도와 르베그 적분 (Lebesgue Measure and the Lebesgue Integral)</h3>
 
 <div class="definition"><span class="env-label">Definition 11.4 (Lebesgue Outer Measure)</span>
 \(A \subseteq \mathbb{R}\)의 <em>르베그 외측도(Lebesgue outer measure)</em>는 다음과 같이 정의된다:
@@ -64,8 +64,8 @@ $$ m^*(E) = m^*(E \cap A) + m^*(E \cap A^c) \qquad \text{(Caratheodory criterion
 \(\mathbb{R}^n\) 위의 Lebesgue 측도 \(m\)은 다음 성질을 만족한다:
 <ul>
   <li><strong>평행이동 불변성:</strong> 모든 가측 집합 \(A\)와 \(x \in \mathbb{R}^n\)에 대해 \(m(A + x) = m(A)\).</li>
-  <li><strong>스케일링:</strong> \(m(cA) = |c|^n m(A)\) (\(c \in \mathbb{R}\)).</li>
-  <li><strong>정규성(regularity):</strong> 가측 집합은 열린 집합으로 밖에서, 닫힌 집합으로 안에서 임의의 정밀도로 근사할 수 있다.</li>
+  <li><strong>스케일링:</strong> \(m(cA) = |c|^n m(A)\) (\(c \in \mathbb{R}\setminus\{0\}\)). \(c=0\)이면 \(cA\)는 한 점 집합이므로 측도가 0이다.</li>
+  <li><strong>정규성(regularity):</strong> 가측 집합은 열린 집합으로 밖에서 근사할 수 있고, 유한 측도인 가측 집합은 닫힌 집합으로 안에서 측도 오차를 임의로 작게 하여 근사할 수 있다.</li>
   <li><strong>완비성:</strong> 측도 0인 집합의 모든 부분집합도 가측이다(보렐 sigma-algebra에서는 성립하지 않을 수 있음).</li>
 </ul>
 Vitali 구성은 선택 공리를 사용하여 비가측 집합이 존재함을 보여준다. 즉, Lebesgue 측도는 \(\mathbb{R}\)의 모든 부분집합에 정의될 수 없다.
@@ -94,7 +94,7 @@ $$ \sum_{n=0}^\infty \frac{2^n}{3^{n+1}} = \frac{1/3}{1 - 2/3} = 1 $$
 <div class="definition"><span class="env-label">Definition 11.6 (Lebesgue Integral)</span>
 르베그 적분은 다음 단계를 거쳐 구성된다:
 <ol>
-  <li><strong>단순 함수.</strong> \(c_i \geq 0\)이고 \(A_i\)가 가측인 \(\varphi = \sum_{i=1}^n c_i \mathbf{1}_{A_i}\)에 대해, \(\int \varphi\, d\mu = \sum c_i \mu(A_i)\)로 정의한다.</li>
+  <li><strong>단순 함수.</strong> \(c_i \geq 0\)이고 \(A_i\)가 쌍마다 서로소인 가측 집합인 \(\varphi = \sum_{i=1}^n c_i \mathbf{1}_{A_i}\)에 대해, \(\int \varphi\, d\mu = \sum c_i \mu(A_i)\)로 정의한다.</li>
   <li><strong>비음 가측 함수.</strong> \(\int f\, d\mu = \sup\{\int \varphi\, d\mu : 0 \leq \varphi \leq f,\; \varphi \text{ simple}\}\).</li>
   <li><strong>일반 가측 함수.</strong> \(f^+ = \max(f,0)\), \(f^- = \max(-f,0)\)으로 놓고 \(f = f^+ - f^-\)로 쓴다. 적어도 한쪽이 유한이면 \(\int f\, d\mu = \int f^+\, d\mu - \int f^-\, d\mu\)로 정의한다. 양쪽 모두 유한이면, \(f\)는 <em>르베그 적분 가능</em>(\(f \in L^1\))하다.</li>
 </ol>
@@ -107,21 +107,21 @@ $$ \sum_{n=0}^\infty \frac{2^n}{3^{n+1}} = \frac{1/3}{1 - 2/3} = 1 $$
 <div class="example"><span class="env-label">Example 11.2a (Lebesgue 적분 구성의 단계별 예)</span>
 단순 함수에서 시작하여 Lebesgue 적분이 구성되는 과정을 구체적으로 추적하자. \(f(x) = x\)의 \([0,1]\) 위에서의 적분을 단순 함수 근사로 계산한다.
 
-<p><strong>단순 함수 근사.</strong> \(n\)을 고정하고 \([0,1]\)을 \(n\)등분하자. \(A_k = [(k-1)/n, \; k/n)\) (\(k = 1, \ldots, n\))으로 놓으면, 아래 근사 단순 함수는</p>
+<p><strong>단순 함수 근사.</strong> \(j\geq1\)에 대해 \(N=2^j\)로 놓고 \([0,1]\)을 \(N\)등분하자. \(A_{j,k} = [k/N, \; (k+1)/N)\) (\(k = 0, \ldots, N-1\))로 놓으면, 아래 근사 단순 함수는</p>
 $$
-\varphi_n(x) = \sum_{k=1}^n \frac{k-1}{n} \mathbf{1}_{A_k}(x)
+\varphi_j(x) = \sum_{k=0}^{N-1} \frac{k}{N} \mathbf{1}_{A_{j,k}}(x)+\mathbf{1}_{\{1\}}(x)
 $$
-<p>이고, \(\varphi_n \leq f\)이며 \(\varphi_n \nearrow f\)이다. 적분을 계산하면:</p>
+<p>이고, \(\varphi_j \leq f\)이며 이진 분할이 세분될 때 \(\varphi_j \nearrow f\)이다. 적분을 계산하면:</p>
 $$
-\int_{[0,1]} \varphi_n\, dm = \sum_{k=1}^n \frac{k-1}{n} \cdot \frac{1}{n} = \frac{1}{n^2}\sum_{k=0}^{n-1} k = \frac{(n-1)n}{2n^2} = \frac{n-1}{2n}.
+\int_{[0,1]} \varphi_j\, dm = \sum_{k=0}^{N-1} \frac{k}{N} \cdot \frac{1}{N} = \frac{1}{N^2}\sum_{k=0}^{N-1} k = \frac{N-1}{2N}.
 $$
-<p>정의에 의해 \(\int_{[0,1]} f\, dm = \sup_n \int \varphi_n\, dm = \lim_{n\to\infty} \frac{n-1}{2n} = \frac{1}{2}\)이다. 리만 적분과 같은 값이지만, 근사 방식이 근본적으로 다르다: 리만 적분은 정의역을 분할하고 각 구간에서 함수값의 범위를 보는 반면, Lebesgue 적분은 치역을 분할하고 각 값에 대응하는 정의역의 "크기"(측도)를 본다.</p>
+<p>정의에 의해 \(\int_{[0,1]} f\, dm = \lim_{j\to\infty} \int \varphi_j\, dm = \lim_{N\to\infty} \frac{N-1}{2N} = \frac{1}{2}\)이다. 리만 적분과 같은 값이지만, 근사 방식이 근본적으로 다르다: 리만 적분은 정의역을 분할하고 각 구간에서 함수값의 범위를 보는 반면, Lebesgue 적분은 함수값의 높이를 단계화하고 각 단계가 차지하는 정의역의 측도를 합산한다.</p>
 </div>
 
 <!-- 11.3 Convergence Theorems -->
-<p>Lebesgue 적분을 구성한 진짜 이유가 여기에 있다. 수렴 정리들은 "언제 극한과 적분을 교환할 수 있는가?"라는 해석학의 핵심 질문에 답한다. Riemann 적분에서는 균등 수렴이라는 강한 조건이 필요했지만, Lebesgue 적분에서는 훨씬 약한 조건으로 교환이 가능하다.</p>
+<p>Lebesgue 적분을 구성한 진짜 이유가 여기에 있다. 수렴 정리들은 "언제 극한과 적분을 교환할 수 있는가?"라는 해석학의 핵심 질문에 답한다. 앞 장에서는 균등 수렴을 충분조건으로 사용했지만, Lebesgue 적분에서는 단조성이나 적분 가능한 공통 우함수 같은 조건으로도 교환을 보장할 수 있다.</p>
 
-<h3 id="convergence-theorems">11.3 Convergence Theorems</h3>
+<h3 id="convergence-theorems">11.3 수렴 정리 (Convergence Theorems)</h3>
 
 <p>르베그 적분의 강점은 수렴 정리에 있다. 약한 조건만으로 극한과 적분을 교환할 수 있다.</p>
 
@@ -146,7 +146,7 @@ $$ \lim_{n\to\infty} \int f_n\, d\mu = \int f\, d\mu. $$
 <p>지배 수렴 정리(DCT)는 부호가 바뀌는 함수열에 대해서도 적분 가능한 우함수(dominating function)가 있으면 극한과 적분을 교환할 수 있다. 매개변수 적분의 미분, 적률 생성 함수(moment generating function)의 미분, 최적화에서 목적함수의 기울기와 적분의 교환 등이 모두 DCT에 의존한다.</p>
 
 <div class="example"><span class="env-label">Example 11.3</span>
-\([0, \infty)\) 위에서 \(f_n(x) = n x e^{-nx^2}\)을 생각하자. 직접 계산하면 모든 \(n\)에 대해 \(\int_0^\infty f_n\, dx = \frac{1}{2}\)이지만, 각 \(x > 0\)에서 \(f_n(x) \to 0\)이다. 적분 가능한 우함수(dominator)가 존재하지 않아 DCT가 적용되지 않으므로, 극한과 적분을 교환할 수 없다: \(\int \lim f_n = 0 \neq \frac{1}{2} = \lim \int f_n\). 이는 우세 조건의 필요성을 보여준다.
+\([0, \infty)\) 위에서 \(f_n(x) = n x e^{-nx^2}\)을 생각하자. 직접 계산하면 모든 \(n\)에 대해 \(\int_0^\infty f_n\, dx = \frac{1}{2}\)이지만, 각 \(x > 0\)에서 \(f_n(x) \to 0\)이다. 직접 구한 두 값이 다르므로 극한과 적분을 교환할 수 없다: \(\int \lim f_n = 0 \neq \frac{1}{2} = \lim \int f_n\). 이 예제에는 적분 가능한 공통 우함수(dominator)가 없어 DCT가 적용되지 않으며, DCT에서 우세 조건을 일반적으로 생략할 수 없음을 보여준다.
 </div>
 
 <div class="example"><span class="env-label">Example 11.4 (MCT 활용: 급수와 적분의 교환)</span>
@@ -169,23 +169,23 @@ $$
 
 <p><strong>우함수 찾기.</strong> \(f_n(x) = n/(1 + n^2 x^2)\)를 \(n\)에 대해 최대화하면, \(\partial f_n / \partial n = (1 - n^2 x^2)/(1 + n^2 x^2)^2\)에서 최대는 \(n = 1/x\)일 때 달성되고, 최댓값은 \(1/(2x)\)이다. 따라서 모든 \(n\)에 대해 \(|f_n(x)| \leq 1/(2x)\)이다. 그런데 \(\int_0^1 1/(2x)\, dx = +\infty\)이므로 이 bound는 적분 가능하지 않다.</p>
 
-<p><strong>올바른 접근.</strong> 직접 계산으로 확인: \(\int_0^1 f_n\, dx = \int_0^1 \frac{n}{1 + n^2 x^2}\, dx = [\arctan(nx)]_0^1 = \arctan(n) \to \pi/2\).</p>
+<p><strong>올바른 접근.</strong> 정수 \(n\)에 대한 실제 포락선도 \(x=0\) 근방에서 \(1/x\)와 같은 크기이므로 적분 가능한 공통 우함수는 존재하지 않는다. 적분은 직접 계산할 수 있다: \(\int_0^1 f_n\, dx = \int_0^1 \frac{n}{1 + n^2 x^2}\, dx = [\arctan(nx)]_0^1 = \arctan(n) \to \pi/2\).</p>
 
-<p>따라서 \(\lim \int f_n = \pi/2 \neq 0 = \int \lim f_n\)이다. 극한과 적분이 교환되지 않는 이유는, 적분 가능한 우함수가 존재하지 않아 DCT의 가정이 충족되지 않기 때문이다. 이 예제가 우세 조건의 필요성을 직접 확인시켜 준다.</p>
+<p>따라서 \(\lim \int f_n = \pi/2 \neq 0 = \int \lim f_n\)이다. 이 예제에는 적분 가능한 공통 우함수가 없어 DCT의 가정이 충족되지 않는다. 직접 계산한 결과는 DCT에서 우세 조건을 일반적으로 생략할 수 없음을 보여준다.</p>
 </div>
 
 <div class="example"><span class="env-label">Example 11.5 (DCT의 전형적 활용)</span>
 매개변수 적분의 미분에 DCT를 적용하는 예를 보자. \(F(t) = \int_0^\infty e^{-tx} \frac{\sin x}{x}\, dx\) (\(t > 0\))로 정의하면, \(F'(t)\)를 구하고 싶다. 형식적으로 적분 부호 아래에서 미분하면:
 $$ F'(t) = -\int_0^\infty e^{-tx} \sin x\, dx. $$
-이 교환의 정당화: \(t \geq t_0 > 0\)인 영역에서 \(|{-x e^{-tx} \sin x}/{x}| = |e^{-tx} \sin x| \leq e^{-t_0 x}\)이고, \(\int_0^\infty e^{-t_0 x}\, dx = 1/t_0 < \infty\)이므로, DCT에 의해 교환이 정당하다. 이제 \(F'(t) = -\int_0^\infty e^{-tx}\sin x\, dx = -1/(1+t^2)\) (부분적분 두 번)이다. \(F(t) \to 0\) (\(t \to \infty\))이므로, \(F(t) = \pi/2 - \arctan t\)를 얻고, 특히 \(\lim_{t \to 0^+} F(t) = \pi/2\)이다. 이로부터 유명한 디리클레 적분 \(\int_0^\infty \frac{\sin x}{x}\, dx = \frac{\pi}{2}\)를 복원한다.
+이 교환의 정당화: \(t \geq t_0 > 0\)인 영역에서 \(|{-x e^{-tx} \sin x}/{x}| = |e^{-tx} \sin x| \leq e^{-t_0 x}\)이고, \(\int_0^\infty e^{-t_0 x}\, dx = 1/t_0 < \infty\)이므로, DCT에 의해 교환이 정당하다. 이제 \(F'(t) = -\int_0^\infty e^{-tx}\sin x\, dx = -1/(1+t^2)\) (부분적분 두 번)이다. \(F(t) \to 0\) (\(t \to \infty\))이므로, \(F(t) = \pi/2 - \arctan t\)를 얻고, 특히 \(\lim_{t \to 0^+} F(t) = \pi/2\)이다. 이 극한이 디리클레 이상적분과 같다는 마지막 단계는 DCT가 아니라 디리클레 판정법과 Abel형 극한 논증으로 정당화하며, 그 결과 \(\int_0^\infty \frac{\sin x}{x}\, dx = \frac{\pi}{2}\)를 얻는다.
 </div>
 
 <!-- 11.4 Fubini's Theorem -->
 <p>단일 변수의 적분을 다루었으니, 이제 다변수로 확장한다. 다중 적분에서 적분 순서를 바꿀 수 있는 조건을 제시하는 것이 Fubini 정리이다.</p>
 
-<h3 id="product-measures">11.4 Product Measures and Fubini's Theorem</h3>
+<h3 id="product-measures">11.4 곱 측도와 푸비니 정리 (Product Measures and Fubini's Theorem)</h3>
 
-<p>결합 확률 분포(joint probability distribution)에서 주변 확률(marginal probability)을 구하는 것은 적분 순서를 바꾸는 일이다. 곱 측도와 Fubini 정리는 이 교환이 언제 가능한지를 엄밀히 규정한다.</p>
+<p>결합 확률 분포(joint probability distribution)에서 주변 확률(marginal probability)을 구하려면 관심 밖의 변수에 대해 적분한다. 여러 변수를 적분할 때 곱 측도와 Fubini 정리는 적분 순서의 교환이 언제 가능한지를 엄밀히 규정한다.</p>
 
 <div class="definition"><span class="env-label">Definition 11.7 (Product Measure)</span>
 sigma-유한 측도 공간 \((X, \mathcal{A}, \mu)\)와 \((Y, \mathcal{B}, \nu)\)가 주어졌을 때, <em>곱 시그마 대수</em> \(\mathcal{A} \otimes \mathcal{B}\)는 가측 직사각형 \(A \times B\) (\(A \in \mathcal{A}\), \(B \in \mathcal{B}\))에 의해 생성된다. <em>곱 측도(product measure)</em> \(\mu \otimes \nu\)는 \((\mu \otimes \nu)(A \times B) = \mu(A) \cdot \nu(B)\)를 만족하는 \(\mathcal{A} \otimes \mathcal{B}\) 위의 유일한 측도이다.

@@ -1,9 +1,9 @@
 <section id="stochastic-processes">
-<h3>25. Stochastic Processes</h3>
+<h3>25. 확률과정 (Stochastic Processes)</h3>
 
 <p class="chapter-intro">확률과정은 시간에 따라 진화하는 확률 현상을 모형화한다. 마르코프 체인, 포아송 과정, 브라운 운동이 대표적이며, 이들은 대기행렬 이론, 금융수학, 물리학의 확산 모형 등에 직접 적용된다.</p>
 
-<p>공학에서 마주하는 많은 시스템은 시간에 따라 무작위로 변한다. 통신 채널의 백색 가우스 잡음(AWGN)은 가우스 과정(Gaussian process)으로 모델링되고, 주가의 변동은 기하 브라운 운동(geometric Brownian motion)으로 기술되어 Black-Scholes 옵션 가격 모형의 기초가 된다. 네트워크 서버에 도착하는 패킷은 포아송 과정(Poisson process)으로 모형화하여 큐잉 이론(queueing theory)으로 분석하며, 로봇이나 항공기의 상태 추정에 쓰이는 칼만 필터(Kalman filter)는 확률과정 위에서 정의된 최적 추정 문제이다. 신뢰성 공학에서는 시스템의 정상/고장/수리 상태 전이를 마르코프 체인(Markov chain)으로 모델링하여 가용성(availability)을 계산한다.</p>
+<p>공학에서 마주하는 많은 시스템은 시간에 따라 무작위로 변한다. 통신 채널의 백색 가우스 잡음(AWGN)은 일반화된 가우스 과정으로 모형화되고, 주가의 변동은 기하 브라운 운동(geometric Brownian motion)으로 기술되어 Black-Scholes 옵션 가격 모형의 기초가 된다. 네트워크 서버에 도착하는 패킷은 포아송 과정(Poisson process)으로 모형화하여 대기행렬 이론(queueing theory)으로 분석한다. 로봇이나 항공기의 상태 추정에 쓰이는 칼만 필터(Kalman filter)는 선형·가우스 모형에서 확률과정 위의 최적 추정 문제를 푼다. 신뢰성 공학에서는 시스템의 정상·고장·수리 상태 전이를 마르코프 체인(Markov chain)으로 모형화하여 가용성(availability)을 계산한다.</p>
 
 <p>확률과정론은 "입력 자체가 무작위이거나 시스템 내부에 불확실성이 존재하는" 상황을 다루는 수학적 틀이다. 결정론적 미분방정식(ODE/PDE)이 입력에서 출력이 하나로 결정되는 시스템을 다루는 데 비해, 여기서는 표본 경로 자체가 확률적이다.</p>
 
@@ -13,7 +13,7 @@
 <strong>확률과정(stochastic process)</strong>은 공통의 확률공간 위에 정의된 확률변수들의 모임 \(\{X_t\}_{t \in T}\)으로, 집합 \(T\)(주로 시간)에 의해 색인된다. \(T\)가 가산이면 <strong>이산시간</strong> 과정이고, \(T = [0,\infty)\)이면 <strong>연속시간</strong> 과정이다.
 </div>
 
-<p>확률과정 중에서 가장 다루기 쉬우면서도 응용 범위가 넓은 것이 마르코프 체인이다. "미래는 현재 상태에만 의존하고 과거 이력에는 의존하지 않는다"는 무기억 성질(memorylessness) 덕분에, 전이행렬 하나로 시스템의 장기 거동을 완전히 분석할 수 있다.</p>
+<p>확률과정 중에서 가장 다루기 쉬우면서도 응용 범위가 넓은 것이 마르코프 체인이다. "미래는 현재 상태에만 의존하고 과거 이력에는 의존하지 않는다"는 마르코프 성질 덕분에, 유한한 동차 마르코프 체인의 거동을 전이행렬로 분석할 수 있다.</p>
 
 <div class="definition"><span class="env-label">Definition 25.2 (Discrete-Time Markov Chain)</span>
 가산 상태공간 \(S\)에서 값을 취하는 확률변수 열 \(\{X_n\}_{n \geq 0}\)이 <strong>마르코프 성질(Markov property)</strong>을 만족하면 <strong>마르코프 체인</strong>이라 한다:
@@ -21,7 +21,7 @@ $$ P(X_{n+1} = j \mid X_n = i, X_{n-1} = i_{n-1}, \ldots, X_0 = i_0) = P(X_{n+1}
 행렬 \(P = (p_{ij})\)는 <strong>전이행렬</strong>이다 (각 행의 합은 1).
 </div>
 
-<p>마르코프 체인의 장기 거동을 이해하려면 각 상태의 성격을 분류해야 한다. 어떤 상태에는 반복적으로 돌아오고(recurrent), 어떤 상태는 한 번 떠나면 다시 방문하지 않는다(transient). 이러한 분류가 정상분포의 존재 여부를 결정한다.</p>
+<p>마르코프 체인의 장기 거동을 이해하려면 각 상태의 성격을 분류해야 한다. 재귀 상태(recurrent state)는 확률 1로 다시 찾지만, 일시 상태(transient state)는 돌아올 확률이 1보다 작다. 이러한 분류는 정상분포의 존재와 수렴을 판단하는 데 쓰인다.</p>
 
 <div class="definition"><span class="env-label">Definition 25.3 (Classification of States)</span>
 상태 \(i\)는 다음과 같이 분류된다:
@@ -147,7 +147,7 @@ $$ E[X_\tau] = E[X_0]. $$
 </div>
 
 <div class="example"><span class="env-label">Example 25.7 (마팅게일을 이용한 Gambler's Ruin)</span>
-도박사가 초기 자금 \(i\)로 시작하고, 흡수 장벽이 0과 \(N\)인 공정한 게임을 고려하자. \(S_n\)을 시간 \(n\)에서의 재산이라 하면, \(S_n\)은 martingale이다. 정지시간 \(\tau = \min\{n : S_n = 0 \text{ or } S_n = N\}\)은 유한 상태의 recurrent random walk이므로 a.s. 유한하다 (bounded stopping time 조건을 적절히 확장 가능). Optional Stopping Theorem에 의해:
+도박사가 초기 자금 \(i\)로 시작하고, 흡수 장벽이 0과 \(N\)인 공정한 게임을 고려하자. \(S_n\)을 시간 \(n\)에서의 재산이라 하면, \(S_n\)은 martingale이다. 정지시간 \(\tau = \min\{n : S_n = 0 \text{ or } S_n = N\}\)은 거의 확실하게 유한하다. 유계 정지시간 \(\tau\wedge m\)에 정리를 적용하면 \(0\leq S_{\tau\wedge m}\leq N\)이고, \(m\to\infty\)에서 지배수렴정리를 쓸 수 있으므로
 $$ E[S_\tau] = E[S_0] = i. $$
 \(S_\tau\)는 0 또는 \(N\)만 취하므로:
 $$ 0 \cdot P(\text{ruin}) + N \cdot P(\text{win}) = i \quad \Longrightarrow \quad P(\text{win}) = \frac{i}{N}. $$
@@ -156,7 +156,7 @@ $$ 0 \cdot P(\text{ruin}) + N \cdot P(\text{win}) = i \quad \Longrightarrow \qua
 
 <h4>이토 미적분 기초 (Itô Calculus Basics)</h4>
 
-<p>결정론적 ODE \(dx = f(x)\,dt\)에 무작위 구동력을 더하면 \(dX = f(X)\,dt + \sigma(X)\,dW\)가 되고, 이것이 확률미분방정식(SDE)이다. 브라운 운동의 표본 경로는 어디서도 미분 불가능하므로 고전적인 Riemann-Stieltjes 적분으로는 \(\int f\,dW\)를 정의할 수 없다. 이토 미적분(Itô calculus)은 이 문제를 해결하기 위해 개발된 확률 적분 이론으로, 금융공학의 파생상품 가격 결정, 확률 제어(stochastic control), 필터링 이론(Kalman filter의 연속시간 확장) 등에 쓰인다.</p>
+<p>결정론적 ODE \(dx = f(x)\,dt\)에 무작위 구동력을 더하면 \(dX = f(X)\,dt + \sigma(X)\,dW\)가 되고, 이것이 확률미분방정식(SDE)이다. 브라운 운동의 표본 경로는 거의 확실하게 어디서도 미분 불가능하고 유계변동도 아니다. 따라서 일반적인 피적분 확률과정에 대해 고전적인 Riemann-Stieltjes 적분으로 \(\int f\,dW\)를 정의할 수 있는 것은 아니다. 이토 미적분(Itô calculus)은 이 문제를 해결하기 위해 개발된 확률 적분 이론으로, 금융공학의 파생상품 가격 결정, 확률 제어(stochastic control), 필터링 이론(Kalman filter의 연속시간 확장) 등에 쓰인다.</p>
 
 <div class="definition"><span class="env-label">Definition 25.8 (Itô Integral)</span>
 먼저 \(\xi_k\)가 \(\mathcal F_{t_k}\)-가측인 단순 적합 과정 \(f(s)=\sum_k \xi_k\mathbf 1_{(t_k,t_{k+1}]}(s)\)에 대해 <strong>이토 적분</strong>을
@@ -213,11 +213,11 @@ $$ S_t = S_0 \exp\!\left[\left(\mu - \frac{\sigma^2}{2}\right)t + \sigma W_t\rig
 <div class="theorem"><span class="env-label">Theorem 25.5 (Birkhoff's Ergodic Theorem)</span>
 \(E[|X_0|] < \infty\)인 <strong>정상 에르고딕 과정</strong> \(\{X_n\}\)에 대해, 시간 평균(time average)은 거의 확실하게 앙상블 평균(ensemble average)으로 수렴한다:
 $$ \frac{1}{n}\sum_{k=0}^{n-1} X_k \xrightarrow{\text{a.s.}} E[X_0] \quad (n \to \infty). $$
-이는 강대수의 법칙(Strong LLN)의 일반화이다. 강대수의 법칙은 i.i.d. 가정을 요구하지만, Birkhoff의 에르고딕 정리는 이를 정상성(stationarity)과 에르고딕성(ergodicity)으로 대체한다.
+이는 앞에서 제시한 i.i.d. 강대수의 법칙(Strong LLN)을 넓힌 결과다. Birkhoff의 에르고딕 정리는 독립성 대신 정상성(stationarity)과 에르고딕성(ergodicity)을 가정한다.
 </div>
 
 <div class="example"><span class="env-label">Example 25.10 (에르고딕 마르코프 연쇄의 시간 평균)</span>
-에르고딕 마르코프 체인 \(\{X_n\}\)이 정상분포 \(\pi\)를 가지고, 상태 공간 위의 함수 \(g\)에 대해 Birkhoff의 에르고딕 정리를 적용하면:
+정상분포 \(\pi\)에서 시작한 에르고딕 마르코프 체인 \(\{X_n\}\)과 \(\sum_i\pi_i|g(i)|<\infty\)를 만족하는 상태 공간 위의 함수 \(g\)에 대해 Birkhoff의 에르고딕 정리를 적용하면:
 $$ \frac{1}{n}\sum_{k=0}^{n-1} g(X_k) \xrightarrow{\text{a.s.}} \sum_{i} \pi_i \, g(i) \quad (n \to \infty). $$
 특히, \(g = \mathbf{1}_{\{j\}}\) (상태 \(j\)의 indicator function)로 놓으면:
 $$ \frac{1}{n}\sum_{k=0}^{n-1} \mathbf{1}_{\{X_k = j\}} \xrightarrow{\text{a.s.}} \pi_j. $$
@@ -229,7 +229,7 @@ $$ \frac{1}{n}\sum_{k=0}^{n-1} \mathbf{1}_{\{X_k = j\}} \xrightarrow{\text{a.s.}
   <li>Markov 부등식은 1차 모멘트(기댓값)만으로 꼬리 확률의 상한을 제공한다.</li>
   <li>Chebyshev 부등식은 2차 모멘트(분산)를 추가로 사용하여 더 정밀한 상한을 제공한다.</li>
   <li>Weak LLN은 Chebyshev 부등식의 직접적인 결과이다.</li>
-  <li>CLT는 LLN보다 강한 결과로, 수렴 속도와 분포의 형태까지 알려준다.</li>
+  <li>CLT는 LLN과 다른 정보를 준다. 표본평균의 수렴 자체를 넘어, 적절히 정규화한 오차의 극한분포를 알려준다.</li>
   <li>Bayesian 추론은 Bayes' rule의 적용이며, 사전분포의 선택이 결과에 영향을 준다.</li>
 </ul>
 </div>

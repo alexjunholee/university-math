@@ -1,7 +1,7 @@
-<h2 class="part-title">Part VIII &mdash; Probability &amp; Statistics</h2>
+<h2 class="part-title">제8부 &mdash; 확률과 통계 (Probability &amp; Statistics)</h2>
 
 <div class="part-intro">
-<p>확률과 통계는 불확실성을 다루는 수학이다. 도박 문제에서 출발한 확률론은 물리학, 금융, 기계학습으로 응용 범위를 넓혔다. 콜모고로프는 1933년 확률론을 측도론 위에 공리화했다. Part VIII는 확률론의 기초에서 통계적 추론과 확률과정으로 이어진다.</p>
+<p>확률과 통계는 불확실성을 다루는 수학이다. 도박 문제에서 출발한 확률론은 물리학, 금융, 기계학습으로 응용 범위를 넓혔다. 콜모고로프는 1933년 확률론을 측도론 위에 공리화했다. 제8부는 확률론의 기초에서 통계적 추론과 확률과정으로 이어진다.</p>
 </div>
 
 <!-- ============================================================== -->
@@ -9,9 +9,9 @@
 <!-- ============================================================== -->
 
 <section id="probability">
-<h3>23. Probability Theory</h3>
+<h3>23. 확률론 (Probability Theory)</h3>
 
-<p class="chapter-intro">확률론은 불확실한 현상을 수학적으로 모형화하는 이론이다. 표본공간, 사건, 확률측도의 삼중쌍이 토대가 되고, 그 위에서 확률변수, 기댓값, 분포가 정의된다. 대수의 법칙과 중심극한정리는 표본평균의 장기적 거동을 결정한다.</p>
+<p class="chapter-intro">확률론은 불확실한 현상을 수학적으로 모형화하는 이론이다. 표본공간, 사건, 확률측도의 삼중쌍이 토대가 되고, 그 위에서 확률변수, 기댓값, 분포가 정의된다. 큰 수의 법칙과 중심극한정리는 표본평균의 장기적 거동을 결정한다.</p>
 
 <p>불확실성(uncertainty)은 공학의 모든 분야에 편재한다. 통신 시스템(communication system)에서 채널 용량(channel capacity)과 비트 오류율(bit error rate)은 확률적 채널 모형 위에서 정의되며, 샤논의 채널 코딩 정리(Shannon's channel coding theorem)는 확률론 없이는 진술조차 할 수 없다. 신뢰성 공학(reliability engineering)에서 부품의 수명은 지수분포(exponential distribution)나 와이블 분포(Weibull distribution)로 모형화되고, 시스템 전체의 신뢰도는 각 부품의 고장 확률로부터 계산된다.</p>
 
@@ -24,9 +24,9 @@
 <div class="definition"><span class="env-label">Definition 23.1 (Probability Space)</span>
 <strong>확률공간(probability space)</strong>은 삼중쌍 \((\Omega, \mathcal{F}, P)\)으로 구성되며, 각 요소는 다음과 같다:
 <ul>
-  <li>\(\Omega\)는 <strong>sample space(표본공간)</strong>으로, 가능한 결과들의 집합이다 (상호 배타적이며 전체를 포괄한다).</li>
+  <li>\(\Omega\)는 <strong>표본공간(sample space)</strong>으로, 가능한 결과들의 집합이다.</li>
   <li>\(\mathcal{F}\)는 \(\Omega\)의 부분집합들로 이루어진 \(\sigma\)-algebra(사건들의 모임)이다.</li>
-  <li>\(P : \mathcal{F} \to [0,1]\)는 아래의 공리를 만족하는 <strong>probability measure(확률측도)</strong>이다.</li>
+  <li>\(P : \mathcal{F} \to [0,1]\)는 아래의 공리를 만족하는 <strong>확률측도(probability measure)</strong>이다.</li>
 </ul>
 </div>
 
@@ -56,9 +56,9 @@ $$ P(A) = \frac{|A|}{|\Omega|} = \frac{\text{number of favorable outcomes}}{\tex
 <h4 id="conditional-probability">23.1 조건부 확률과 독립</h4>
 
 <div class="definition"><span class="env-label">Definition 23.4 (Conditional Probability)</span>
-\(P(B) > 0\)인 사건 \(A, B\)에 대해, \(B\)가 주어졌을 때 \(A\)의 <strong>conditional probability(조건부확률)</strong>는
+\(P(B) > 0\)인 사건 \(A, B\)에 대해, \(B\)가 주어졌을 때 \(A\)의 <strong>조건부확률(conditional probability)</strong>은
 $$ P(A \mid B) = \frac{P(A \cap B)}{P(B)}. $$
-조건부 확률은 \(B\)라는 새로운 universe 위에서의 확률 법칙을 정의한다. \(P(\cdot \mid B)\)는 모든 확률 공리를 만족한다.
+조건부 확률은 \(B\)를 새 표본공간으로 삼는 확률 법칙을 정의한다. \(P(\cdot \mid B)\)는 모든 확률 공리를 만족한다.
 </div>
 
 <div class="theorem"><span class="env-label">Theorem 23.1 (Multiplication Rule)</span>
@@ -68,7 +68,7 @@ $$ P(A_1 \cap \cdots \cap A_n) = P(A_1)\, P(A_2 \mid A_1)\, P(A_3 \mid A_1 \cap 
 </div>
 
 <div class="theorem"><span class="env-label">Theorem 23.2 (Total Probability Theorem)</span>
-\(A_1, A_2, \ldots, A_n\)이 \(\Omega\)의 분할(쌍별 서로소이고 합집합이 \(\Omega\))을 이루면, 임의의 사건 \(B\)에 대해:
+\(A_1, A_2, \ldots, A_n\)이 \(\Omega\)의 분할(쌍별 서로소이고 합집합이 \(\Omega\))을 이루고 모든 \(i\)에 대해 \(P(A_i)>0\)이면, 임의의 사건 \(B\)에 대해:
 $$ P(B) = \sum_{i=1}^{n} P(A_i)\, P(B \mid A_i). $$
 </div>
 
@@ -93,7 +93,7 @@ $$ P(A_i \mid B) = \frac{P(A_i)\, P(B \mid A_i)}{\sum_{j} P(A_j)\, P(B \mid A_j)
 <strong>풀이.</strong>
 $$ P(D \mid +) = \frac{P(D)P(+ \mid D)}{P(D)P(+ \mid D) + P(D^c)P(+ \mid D^c)} = \frac{0.001 \times 0.99}{0.001 \times 0.99 + 0.999 \times 0.05}. $$
 $$ = \frac{0.00099}{0.00099 + 0.04995} = \frac{0.00099}{0.05094} \approx 0.0194. $$
-양성 반응이 나왔어도 실제 질병일 확률은 약 2%에 불과하다. 유병률(사전확률)이 낮기 때문이다. base rate를 빠뜨리면 직관이 크게 어긋날 수 있다.
+양성 반응이 나왔어도 실제 질병일 확률은 약 2%에 불과하다. 유병률(사전확률)이 낮기 때문이다. 기저율을 빠뜨리면 직관이 크게 어긋날 수 있다.
 </div>
 
 <div class="definition"><span class="env-label">Definition 23.5 (Independence)</span>
@@ -112,7 +112,7 @@ Pairwise independence는 mutual independence를 함의하지 않는다. 공정�
 <h4 id="random-variables">23.2 확률변수와 기본 성질</h4>
 
 <div class="definition"><span class="env-label">Definition 23.6 (Random Variable)</span>
-<strong>확률변수(random variable)</strong> \(X\)는 가측함수 \(X : \Omega \to \mathbb{R}\)이다. 이산 \(X\)의 경우, <strong>확률질량함수(probability mass function)</strong> (PMF)는 \(p_X(x) = P(X = x)\)이다. 연속 \(X\)의 경우, <strong>확률밀도함수(probability density function)</strong> (PDF) \(f_X(x)\)는 \(P(a \leq X \leq b) = \int_a^b f_X(x)\, dx\)를 만족한다. <strong>누적분포함수(cumulative distribution function)</strong> (CDF)는 \(F_X(x) = P(X \leq x)\)이다.
+<strong>확률변수(random variable)</strong> \(X\)는 가측함수 \(X : \Omega \to \mathbb{R}\)이다. 이산 \(X\)의 경우, <strong>확률질량함수(probability mass function)</strong> (PMF)는 \(p_X(x) = P(X = x)\)이다. \(X\)의 분포가 르베그 측도에 대해 절대연속이면, <strong>확률밀도함수(probability density function)</strong> (PDF) \(f_X(x)\)가 존재하여 \(P(a \leq X \leq b) = \int_a^b f_X(x)\, dx\)를 만족한다. <strong>누적분포함수(cumulative distribution function)</strong> (CDF)는 모든 확률변수에 대해 \(F_X(x) = P(X \leq x)\)로 정의된다.
 </div>
 
 <div class="definition"><span class="env-label">Definition 23.7 (Expectation and Variance)</span>
@@ -124,9 +124,9 @@ $$ E[X] = \begin{cases} \sum_x x\, p_X(x) & \text{(discrete)}, \\ \int_{-\infty}
 <p>기댓값은 선형이므로 \(E[aX + bY] = aE[X] + bE[Y]\)가 종속 여부와 관계없이 성립한다. \(X\)와 \(Y\)가 독립이면 \(\text{Var}(X + Y) = \text{Var}(X) + \text{Var}(Y)\)이다.</p>
 
 <div class="definition"><span class="env-label">Definition 23.8 (Conditional Expectation)</span>
-이산 확률변수 \(X\)에 대해, 사건 \(A\)가 주어졌을 때의 <strong>conditional expectation(조건부 기댓값)</strong>은:
+이산 확률변수 \(X\)에 대해, 사건 \(A\)가 주어졌을 때의 <strong>조건부 기댓값(conditional expectation)</strong>은:
 $$ E[X \mid A] = \sum_x x\, P(X = x \mid A). $$
-확률변수 \(Y\)가 주어졌을 때의 조건부 기댓값 \(E[X \mid Y]\)는 그 자체가 \(Y\)의 함수인 확률변수이며, <strong>Total Expectation Theorem(전체 기댓값 정리)</strong>이 성립한다:
+확률변수 \(Y\)가 주어졌을 때의 조건부 기댓값 \(E[X \mid Y]\)는 그 자체가 \(Y\)에 대해 가측인 확률변수이며, <strong>전체 기댓값 정리(Total Expectation Theorem)</strong>가 성립한다. \(Y\)가 이산 확률변수이면 다음과 같이 쓸 수 있다:
 $$ E[X] = E[E[X \mid Y]] = \sum_y E[X \mid Y = y]\, P(Y = y). $$
 </div>
 
@@ -159,7 +159,7 @@ $$ E[X^3] = \int_0^2 x^3 \cdot \frac{1}{2}\,dx = \frac{1}{2} \cdot \frac{x^4}{4}
 <div class="definition"><span class="env-label">Definition 23.10 (Covariance and Correlation)</span>
 <ul>
   <li><strong>Covariance(공분산):</strong> \(\text{Cov}(X, Y) = E[(X - E[X])(Y - E[Y])] = E[XY] - E[X]E[Y]\).</li>
-  <li><strong>Correlation coefficient(상관계수):</strong> \(\rho_{X,Y} = \frac{\text{Cov}(X,Y)}{\sigma_X \sigma_Y}\), 범위는 \([-1, 1]\).</li>
+  <li><strong>상관계수(correlation coefficient):</strong> \(0<\sigma_X,\sigma_Y<\infty\)일 때 \(\rho_{X,Y} = \frac{\text{Cov}(X,Y)}{\sigma_X \sigma_Y}\)로 정의되며, 범위는 \([-1, 1]\)이다.</li>
   <li>\(X, Y\)가 독립이면 \(\text{Cov}(X,Y) = 0\). 역은 일반적으로 성립하지 않는다.</li>
   <li><strong>분산의 합:</strong> \(\text{Var}(X + Y) = \text{Var}(X) + \text{Var}(Y) + 2\text{Cov}(X,Y)\).</li>
 </ul>
@@ -234,7 +234,7 @@ $$ = 1 - e^{-4} \cdot \frac{643}{15} \approx 1 - 0.01832 \times 42.87 \approx 1 
   <li><strong>CDF:</strong> \(F_X(x) = 1 - e^{-\lambda x}\).</li>
   <li><strong>기댓값:</strong> \(E[X] = 1/\lambda\).</li>
   <li><strong>분산:</strong> \(\text{Var}(X) = 1/\lambda^2\).</li>
-  <li><strong>무기억 성질:</strong> \(P(X > s + t \mid X > s) = P(X > t)\). Exponential 분포는 이 성질을 만족하는 유일한 연속 분포이다.</li>
+  <li><strong>무기억 성질:</strong> \(P(X > s + t \mid X > s) = P(X > t)\). 비퇴화 비음 연속분포 가운데 모든 \(s,t\geq0\)에서 이 성질을 만족하는 분포는 지수분포뿐이다.</li>
   <li><strong>Poisson 과정과의 관계:</strong> rate \(\lambda\)인 Poisson 과정에서 도착간 시간은 \(\text{Exponential}(\lambda)\)를 따른다.</li>
 </ul>
 </div>
@@ -257,7 +257,7 @@ $$ P(X > 10) = e^{-\lambda \cdot 10} = e^{-2} \approx 0.1353. $$
 $$ P(X > 10 \mid X > 3) = P(X > 7) = e^{-7/5} \approx 0.2466. $$
 </div>
 
-<h4 id="bayesian-inference">23.5 Bayesian 추론</h4>
+<h4 id="bayesian-inference">23.5 베이즈 추론</h4>
 
 <div class="remark"><span class="env-label">Remark (Bayesian 추론의 구조)</span>
 Bayesian 추론은 다음 단계를 따른다:
@@ -273,7 +273,7 @@ Bayesian 추론은 다음 단계를 따른다:
 동전의 앞면 확률 \(\theta\)가 \(\text{Uniform}(0,1)\)을 따른다고 가정하자 (사전분포). 10번 던져서 7번 앞면이 나왔을 때, \(\theta\)의 사후분포는?<br>
 <strong>풀이.</strong> 사전분포: \(f_\Theta(\theta) = 1\), \(0 \leq \theta \leq 1\). 우도: \(P(X = 7 \mid \theta) = \binom{10}{7}\theta^7(1-\theta)^3\).
 $$ f_{\Theta \mid X}(\theta \mid 7) \propto \theta^7(1-\theta)^3. $$
-이는 \(\text{Beta}(8, 4)\) 분포이다. 사후 평균은 \(\frac{8}{8+4} = \frac{2}{3} \approx 0.667\)이며, 이는 MLE 추정치 \(7/10 = 0.7\)보다 약간 \(0.5\) 쪽으로 shrink된다 (사전분포의 영향).
+이는 \(\text{Beta}(8, 4)\) 분포이다. 사후 평균은 \(\frac{8}{8+4} = \frac{2}{3} \approx 0.667\)이며, 이는 MLE 추정치 \(7/10 = 0.7\)보다 약간 \(0.5\) 쪽으로 수축된다 (사전분포의 영향).
 </div>
 
 <div class="example"><span class="env-label">Example 23.10 (Bayesian 추론 -- 정규 사전분포와 정규 우도)</span>
@@ -290,11 +290,11 @@ $$ \theta \mid X = x \sim N\!\left(\frac{\sigma^2 \mu_0 + \sigma_0^2 x}{\sigma^2
 <div class="theorem"><span class="env-label">Theorem 23.5 (Markov's Inequality)</span>
 \(X \geq 0\)인 확률변수와 \(a > 0\)에 대해:
 $$ P(X \geq a) \leq \frac{E[X]}{a}. $$
-<strong>증명 스케치:</strong> \(E[X] = \int_0^\infty x f(x)\,dx \geq \int_a^\infty x f(x)\,dx \geq a \int_a^\infty f(x)\,dx = a P(X \geq a)\).
+<strong>증명 스케치:</strong> 점별로 \(X\geq a\mathbf{1}_{\{X\geq a\}}\)이므로 기댓값을 취하면 \(E[X]\geq aP(X\geq a)\)이다.
 </div>
 
 <div class="theorem"><span class="env-label">Theorem 23.6 (Chebyshev's Inequality)</span>
-유한한 평균 \(\mu\)와 분산 \(\sigma^2\)를 가지는 임의의 확률변수 \(X\)에 대해, 임의의 \(k > 0\)에 대해:
+유한한 평균 \(\mu\)와 양의 유한한 분산 \(\sigma^2\)를 가지는 임의의 확률변수 \(X\)에 대해, 임의의 \(k > 0\)에 대해:
 $$ P(|X - \mu| \geq k\sigma) \leq \frac{1}{k^2}. $$
 동치 형태: 임의의 \(a > 0\)에 대해 \(P(|X - \mu| \geq a) \leq \frac{\sigma^2}{a^2}\).
 </div>
@@ -309,7 +309,7 @@ $$ P(|X - 100| \geq 15) = P(|X - \mu| \geq 3\sigma) \leq \frac{1}{3^2} = \frac{1
 만약 \(X \sim N(100, 25)\)이라면, 실제 확률은 \(P(|Z| \geq 3) \approx 0.0027\)이다. Chebyshev는 분포 무관하게 적용 가능하지만, 그만큼 느슨한 상한을 제공한다.
 </div>
 
-<h4 id="lln-clt">23.7 대수의 법칙과 중심극한정리</h4>
+<h4 id="lln-clt">23.7 큰 수의 법칙과 중심극한정리</h4>
 
 <div class="theorem"><span class="env-label">Theorem 23.7 (Law of Large Numbers)</span>
 \(X_1, X_2, \ldots\)가 평균 \(\mu\)와 유한한 분산을 가지는 i.i.d. 확률변수라 하자. 그러면 표본평균 \(\bar{X}_n = \frac{1}{n}\sum_{i=1}^n X_i\)는 \(\mu\)로 수렴한다:
@@ -325,18 +325,18 @@ $$ P(|\bar{X}_n - \mu| \geq \epsilon) \leq \frac{\sigma^2}{n\epsilon^2} \to 0 \q
 이것이 Weak LLN의 가장 간단한 증명이다.
 </div>
 
-<div class="remark"><span class="env-label">Remark (대수의 법칙의 직관)</span>
+<div class="remark"><span class="env-label">Remark (큰수의 법칙의 직관)</span>
 동전을 \(n\)번 던지면, \(n\)이 커질수록 앞면 비율이 \(p\)에 가까워진다. 확률의 빈도적 해석을 수학이 뒷받침하는 방식이다. 주의: "앞면이 적으면 나중에 보상받는다"는 도박사의 오류는 대수의 법칙과 무관하다.
 </div>
 
 <div class="theorem"><span class="env-label">Theorem 23.8 (Central Limit Theorem)</span>
-\(X_1, X_2, \ldots\)가 평균 \(\mu\)와 분산 \(\sigma^2 < \infty\)를 가지는 i.i.d.라 하자. 그러면
+\(X_1, X_2, \ldots\)가 평균 \(\mu\)와 분산 \(0 < \sigma^2 < \infty\)를 가지는 i.i.d.라 하자. 그러면
 $$ \frac{\bar{X}_n - \mu}{\sigma / \sqrt{n}} \xrightarrow{d} N(0, 1) \quad \text{as } n \to \infty. $$
 즉, 정규화된 합은 분포 수렴의 의미에서 표준정규분포로 수렴한다.
 </div>
 
 <div class="remark"><span class="env-label">Remark (CLT의 직관)</span>
-원래 분포가 무엇이든 — 균등, 지수, 이항 등 — 독립 확률변수를 충분히 많이 더하면 합의 분포가 정규분포에 가까워진다. 신장, 측정 오차, 금융 수익률 등에서 정규분포가 자주 보이는 이유가 여기 있다. 보통 \(n \geq 30\) 정도면 근사가 합리적이다. 단, 원래 분포의 비대칭이 심하면 더 큰 \(n\)이 필요하다.
+유한한 분산을 갖는 동일 분포의 독립 확률변수를 충분히 많이 더하면, 정규화된 합의 분포가 정규분포에 가까워진다. 측정 오차처럼 많은 작은 요인의 합에서 정규분포가 자주 나타나는 이유가 여기 있다. 필요한 표본 크기에 보편적인 기준은 없으며, 원래 분포의 비대칭도와 꼬리 두께에 따라 근사 오차가 달라진다.
 </div>
 
 <div class="example"><span class="env-label">Example 23.12 (CLT 활용)</span>
@@ -348,7 +348,7 @@ $$ P(S_{64} > 32080) = P\!\left(\frac{S_{64} - 32000}{80} > \frac{80}{80}\right)
 <div class="example"><span class="env-label">Example 23.13 (CLT -- 선거 여론조사)</span>
 지지율이 \(p = 0.52\)인 후보에 대해, \(n = 1000\)명을 무작위 조사하여 지지율이 50% 이상으로 나올 확률은?<br>
 <strong>풀이.</strong> \(\hat{p} = \bar{X}_n\)이고 \(E[\hat{p}] = 0.52\), \(\text{Var}(\hat{p}) = \frac{p(1-p)}{n} = \frac{0.52 \times 0.48}{1000} = 0.0002496\), \(\sigma_{\hat{p}} \approx 0.0158\).
-$$ P(\hat{p} > 0.5) = P\!\left(Z > \frac{0.5 - 0.52}{0.0158}\right) = P(Z > -1.27) = \Phi(1.27) \approx 0.898. $$
+$$ P(\hat{p} \geq 0.5) \approx P\!\left(Z > \frac{0.5 - 0.52}{0.0158}\right) = P(Z > -1.27) = \Phi(1.27) \approx 0.898. $$
 약 90%의 확률로 조사 결과가 50% 이상 지지를 보여준다.
 </div>
 
@@ -369,7 +369,7 @@ $$ P(\text{A} \mid D) = \frac{0.5 \times 0.729}{0.5 \times 0.729 + 0.5 \times 0.
 
 <div class="example"><span class="env-label">Example 23.16 (Moment Generating Function 활용)</span>
 \(X \sim \text{Poisson}(\lambda_1)\), \(Y \sim \text{Poisson}(\lambda_2)\)가 독립일 때, \(Z = X + Y\)의 분포를 구하라.<br>
-<strong>풀이.</strong> MGF 방법: \(M_X(t) = e^{\lambda_1(e^t - 1)}\), \(M_Y(t) = e^{\lambda_2(e^t - 1)}\). 독립이므로:
+<strong>풀이.</strong> 적률 생성 함수(MGF)는 \(M_X(t)=E[e^{tX}]\)이며, 0의 근방에서 유한하면 분포를 유일하게 결정한다. 여기서는 \(M_X(t) = e^{\lambda_1(e^t - 1)}\), \(M_Y(t) = e^{\lambda_2(e^t - 1)}\)이다. 독립이므로:
 $$ M_Z(t) = M_X(t) M_Y(t) = e^{(\lambda_1 + \lambda_2)(e^t - 1)}. $$
 이는 \(\text{Poisson}(\lambda_1 + \lambda_2)\)의 MGF이다. MGF의 유일성에 의해 \(Z \sim \text{Poisson}(\lambda_1 + \lambda_2)\).
 </div>

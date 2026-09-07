@@ -1,26 +1,26 @@
-<h2 id="group-theory">13. Group Theory</h2>
+<h2 id="group-theory">13. 군론 (Group Theory)</h2>
 
-<p class="chapter-intro">군(group)은 대칭성을 수학적으로 포착하는 구조이다. 정다각형의 대칭, 루빅 큐브의 조작, 물리학의 보존법칙을 군론의 언어로 기술할 수 있다. 군의 정의에서 출발해 부분군, 잉여류, 동형 정리, 군 작용, Sylow 정리로 나아간다.</p>
+<p class="chapter-intro">군(group)은 대칭성을 수학적으로 포착하는 구조이다. 정다각형의 대칭, 루빅 큐브의 조작, 물리학의 보존법칙을 군론의 언어로 기술할 수 있다. 군의 정의에서 출발해 부분군, 잉여류, 동형 정리, 군 작용, 실로 정리(Sylow theorems)로 나아간다.</p>
 
 <p>한 대상의 대칭 변환들은 합성 연산 아래 군을 이룬다. 결정학(crystallography)에서는 230개의 공간군(space group)으로 결정 구조의 가능한 대칭성을 분류한다. 화학공학에서는 분자의 점군(point group)으로 적외선·라만 분광법에서 활성화되는 진동 모드(vibrational mode)를 예측한다. 로봇공학에서는 3차원 회전을 특수직교군 \(\operatorname{SO}(3)\)으로, 강체의 자세와 운동을 특수유클리드군 \(\operatorname{SE}(3)\)으로 나타낸다.</p>
 
-<p>정보공학에서도 군은 자주 등장한다. 오류정정 부호(error-correcting code)의 자기동형군(automorphism group)은 부호의 대칭 구조를 결정하고 복호(decoding) 알고리즘의 효율에 직결된다. 양자 컴퓨팅(quantum computing)에서 양자 게이트(quantum gate)는 유니터리군 \(\operatorname{U}(2^n)\)의 원소이며, Clifford 군과 Pauli 군 같은 유한군이 양자 오류정정의 토대를 이룬다. 같은 군 구조를 공유하는 서로 다른 시스템은 하나의 틀로 분석할 수 있다.</p>
+<p>정보공학에서도 군은 자주 등장한다. 오류정정 부호(error-correcting code)의 자기동형군(automorphism group)은 부호의 대칭 구조를 결정하고 복호(decoding) 알고리즘의 효율에 직결된다. 양자 컴퓨팅(quantum computing)에서 양자 게이트(quantum gate)는 유니터리군 \(\operatorname{U}(2^n)\)의 원소이며, Pauli 군과 전역 위상을 몫으로 본 Clifford 군 같은 유한군이 양자 오류정정의 토대를 이룬다. 같은 군 구조를 공유하는 서로 다른 시스템은 하나의 틀로 분석할 수 있다.</p>
 
-<h3 id="groups-subgroups">13.1 Groups and Subgroups</h3>
+<h3 id="groups-subgroups">13.1 군과 부분군 (Groups and Subgroups)</h3>
 
 <p>군의 정의는 간결하다. 결합법칙, 항등원, 역원이라는 세 공리만으로 대칭성을 포착한다. 정수, 치환, 행렬 등 서로 다른 대상이 같은 군 구조를 공유한다.</p>
 
-<h4>Definition and First Examples</h4>
+<h4>정의와 첫 예 (Definition and First Examples)</h4>
 
 <div class="definition">
 <span class="env-label">Definition 13.1 (Group)</span>
 <strong>군</strong>은 집합 \(G\)와 이항연산 \(\cdot : G \times G \to G\)의 쌍으로, 다음 조건을 만족한다:
 <ul>
- <li><strong>Associativity</strong>: 모든 \(a, b, c \in G\)에 대해 \((ab)c = a(bc)\).</li>
- <li><strong>Identity</strong>: 모든 \(a \in G\)에 대해 \(ea = ae = a\)인 \(e \in G\)가 존재한다.</li>
- <li><strong>Inverses</strong>: 각 \(a \in G\)에 대해 \(aa^{-1} = a^{-1}a = e\)인 \(a^{-1} \in G\)가 존재한다.</li>
+ <li><strong>결합법칙(Associativity)</strong>: 모든 \(a, b, c \in G\)에 대해 \((ab)c = a(bc)\).</li>
+ <li><strong>항등원(Identity)</strong>: 모든 \(a \in G\)에 대해 \(ea = ae = a\)인 \(e \in G\)가 존재한다.</li>
+ <li><strong>역원(Inverses)</strong>: 각 \(a \in G\)에 대해 \(aa^{-1} = a^{-1}a = e\)인 \(a^{-1} \in G\)가 존재한다.</li>
 </ul>
-추가로, 모든 \(a, b \in G\)에 대해 \(ab = ba\)이면 \(G\)를 <strong>abelian</strong>(또는 가환)이라 한다.
+추가로, 모든 \(a, b \in G\)에 대해 \(ab = ba\)이면 \(G\)를 <strong>아벨(abelian)</strong>(또는 가환)이라 한다.
 </div>
 
 <p>항등원은 유일하다: \(e\)와 \(e'\)가 모두 항등원이면, \(e = ee' = e'\)이다. 마찬가지로, 역원도 유일하다.</p>
@@ -34,18 +34,18 @@
 <span class="env-label">Example 13.1</span>
 <ul>
  <li>\((\mathbb{Z}, +)\): 덧셈에 대한 정수 군으로, 항등원은 \(0\)이고 각 \(n\)의 역원은 \(-n\)이다.</li>
- <li>\((\mathbb{Z}/n\mathbb{Z}, +)\): 정수 모듈로 \(n\), 위수 \(n\)인 유한 아벨 군이다.</li>
+ <li>양의 정수 \(n\)에 대한 \((\mathbb{Z}/n\mathbb{Z}, +)\): 정수 모듈로 \(n\), 위수 \(n\)인 유한 아벨 군이다.</li>
  <li>\((S_n, \circ)\): \(n\)개 원소 위의 대칭군(symmetric group), 즉 \(\{1, \ldots, n\}\)의 모든 치환으로 이루어지며, 위수는 \(n!\)이다. \(n \geq 3\)이면 비가환이다.</li>
  <li>\((\operatorname{GL}_n(\mathbb{R}), \cdot)\): 가역인 \(n \times n\) 실수 행렬의 군으로, 행렬 곱셈을 연산으로 갖는다.</li>
- <li>\((\mathbb{Z}/n\mathbb{Z})^\times\): 모듈로 \(n\) 단원군(group of units)으로, 위수는 \(\varphi(n)\)이다.</li>
+ <li>양의 정수 \(n\)에 대한 \((\mathbb{Z}/n\mathbb{Z})^\times\): 모듈로 \(n\) 단원군(group of units)으로, 위수는 \(\varphi(n)\)이다.</li>
 </ul>
 </div>
 
-<h4>Concrete Group Examples</h4>
+<h4>구체적인 군의 예 (Concrete Group Examples)</h4>
 
 <div class="definition">
 <span class="env-label">Definition 13.2a (Symmetric Group \(S_n\))</span>
-<strong>대칭군(symmetric group)</strong> \(S_n\)은 집합 \(\{1, 2, \ldots, n\}\)의 모든 치환(전단사 함수)의 군이며, 연산은 함수 합성이다. \(|S_n| = n!\)이다. 각 치환은 서로소인 <strong>순환(cycle)</strong>의 곱으로 분해되며, 순환들의 순서와 각 순환 안의 순환적 표기를 제외하면 유일하다. 길이 \(k\)인 순환 \((a_1\, a_2\, \cdots\, a_k)\)는 \(a_1 \mapsto a_2 \mapsto \cdots \mapsto a_k \mapsto a_1\)을 수행한다. 길이 2인 순환을 <strong>전치(transposition)</strong>라 한다. 모든 치환은 전치의 곱으로 쓸 수 있으며, 필요한 전치의 수의 홀짝성은 치환에 의해 결정된다. 짝수 개의 전치로 표현되는 치환을 <strong>짝치환(even permutation)</strong>이라 하고, 이들의 모임이 <strong>교대군(alternating group)</strong> \(A_n\)이며 \(|A_n| = n!/2\)이다.
+<strong>대칭군(symmetric group)</strong> \(S_n\)은 집합 \(\{1, 2, \ldots, n\}\)의 모든 치환(전단사 함수)의 군이며, 연산은 함수 합성이다. \(|S_n| = n!\)이다. 각 치환은 서로소인 <strong>순환(cycle)</strong>의 곱으로 분해되며, 순환들의 순서와 각 순환 안의 순환적 표기를 제외하면 유일하다. 길이 \(k\)인 순환 \((a_1\, a_2\, \cdots\, a_k)\)는 \(a_1 \mapsto a_2 \mapsto \cdots \mapsto a_k \mapsto a_1\)을 수행한다. 길이 2인 순환을 <strong>전치(transposition)</strong>라 한다. 모든 치환은 전치의 곱으로 쓸 수 있으며, 필요한 전치의 수의 홀짝성은 치환에 의해 결정된다. 짝수 개의 전치로 표현되는 치환을 <strong>짝치환(even permutation)</strong>이라 하고, 이들의 모임이 <strong>교대군(alternating group)</strong> \(A_n\)이며, \(n\geq2\)이면 \(|A_n| = n!/2\)이다.
 </div>
 
 <div class="example">
@@ -80,7 +80,7 @@ $$
  <li><strong>직교군(orthogonal group)</strong> \(\operatorname{O}(n) = \{A \in \operatorname{GL}_n(\mathbb{R}) : A^T A = I\}\): 내적(유클리드 거리)을 보존하는 행렬.</li>
  <li><strong>특수직교군(special orthogonal group)</strong> \(\operatorname{SO}(n) = \{A \in \operatorname{O}(n) : \det A = 1\}\): 회전만을 나타내는 행렬. \(\operatorname{SO}(n) \trianglelefteq \operatorname{O}(n)\)이며 \([\operatorname{O}(n) : \operatorname{SO}(n)] = 2\)이다.</li>
 </ul>
-이들은 모두 무한군이지만, 유한체 \(\mathbb{F}_q\) 위에서 정의하면 유한군이 된다. 예를 들어 \(|\operatorname{GL}_2(\mathbb{F}_q)| = (q^2 - 1)(q^2 - q)\)이다.
+\(\mathbb{R}\)이나 \(\mathbb{C}\) 위의 이 행렬군들은 무한군이지만, 유한체 \(\mathbb{F}_q\) 위의 일반선형군과 특수선형군은 유한군이다. 예를 들어 \(|\operatorname{GL}_2(\mathbb{F}_q)| = (q^2 - 1)(q^2 - q)\)이다.
 
 <p>추가적으로, <strong>유니터리군(unitary group)</strong> \(\operatorname{U}(n) = \{A \in \operatorname{GL}_n(\mathbb{C}) : A^*A = I\}\)과 <strong>특수유니터리군</strong> \(\operatorname{SU}(n) = \{A \in \operatorname{U}(n) : \det A = 1\}\)은 양자역학과 소립자 물리에서 쓴다. \(\operatorname{SO}(3)\)은 3차원 공간의 회전군이며, 로보틱스에서 강체 자세(attitude) 표현에 쓴다.</p>
 </div>
@@ -116,7 +116,7 @@ $$
 (\(\Leftarrow\)) \(H \neq \varnothing\)이므로 \(a \in H\)를 하나 택한다. 그러면 \(e = aa^{-1} \in H\)이다. 임의의 \(b \in H\)에 대해 \(b^{-1} = eb^{-1} \in H\)이다. 임의의 \(a, b \in H\)에 대해, \(b^{-1} \in H\)이므로 \(a(b^{-1})^{-1} = ab \in H\)이다. 결합법칙은 \(G\)로부터 상속된다. \(\blacksquare\)
 </div>
 
-<h4>Cyclic Groups</h4>
+<h4>순환군 (Cyclic Groups)</h4>
 
 <div class="definition">
 <span class="env-label">Definition 13.4 (Cyclic Group)</span>
@@ -142,7 +142,7 @@ $$
 \(\mathbb{Z}/12\mathbb{Z}\)에서, 부분군은 \(\langle 0 \rangle, \langle 6 \rangle, \langle 4 \rangle, \langle 3 \rangle, \langle 2 \rangle, \langle 1 \rangle\)이며, 위수는 각각 \(1, 2, 3, 4, 6, 12\)로, \(12\)의 각 약수에 하나씩 대응한다.
 </div>
 
-<h3 id="cosets-lagrange">13.2 Cosets and Lagrange's Theorem</h3>
+<h3 id="cosets-lagrange">13.2 잉여류와 라그랑주 정리 (Cosets and Lagrange's Theorem)</h3>
 
 <p class="section-transition">잉여류는 부분군이 군을 분할하는 방식을 보여준다. 라그랑주 정리는 유한군에서 가장 기본적인 제약 조건을 준다.</p>
 
@@ -184,7 +184,7 @@ $$
 \(S_3\)(위수 6)에서, 가능한 부분군 위수는 1, 2, 3, 6이다. 부분군 \(\langle (123) \rangle = \{e, (123), (132)\}\)는 위수 3, 지표 2이다. 이 부분군의 잉여류는 \(\{e, (123), (132)\}\)와 \(\{(12), (13), (23)\}\)이다.
 </div>
 
-<h3 id="normal-subgroups-quotients">13.3 Normal Subgroups and Quotient Groups</h3>
+<h3 id="normal-subgroups-quotients">13.3 정규 부분군과 몫군 (Normal Subgroups and Quotient Groups)</h3>
 
 <p>몫군(quotient group)은 어떤 대칭을 무시하고 남은 구조를 기술한다. 결정 격자의 병진 대칭(translation symmetry)을 몫으로 취하면 점군(point group)을 얻는데, 결정학에서 공간군을 점군으로 분류할 때 이 방법을 쓴다.</p>
 
@@ -210,7 +210,7 @@ $$
 
 <div class="example">
 <span class="env-label">Example 13.4</span>
-부분군 \(n\mathbb{Z} \trianglelefteq \mathbb{Z}\)이고, 몫 \(\mathbb{Z}/n\mathbb{Z}\)는 익숙한 정수 모듈로 \(n\) 군이다. \(S_3\)에서, 부분군 \(A_3 = \{e, (123), (132)\}\)는 정규이고(지표 2), \(S_3/A_3 \cong \mathbb{Z}/2\mathbb{Z}\)이다.
+양의 정수 \(n\)에 대해 \(n\mathbb{Z} \trianglelefteq \mathbb{Z}\)이고, 몫 \(\mathbb{Z}/n\mathbb{Z}\)는 익숙한 정수 모듈로 \(n\) 군이다. \(S_3\)에서, 부분군 \(A_3 = \{e, (123), (132)\}\)는 정규이고(지표 2), \(S_3/A_3 \cong \mathbb{Z}/2\mathbb{Z}\)이다.
 </div>
 
 <div class="theorem">
@@ -218,9 +218,9 @@ $$
 군 \(G\)가 <strong>단순(simple)</strong>이란, \(|G| > 1\)이고 정규 부분군이 \(\{e\}\)와 \(G\) 자신뿐인 것이다. 순환군 \(\mathbb{Z}/p\mathbb{Z}\)는 모든 소수 \(p\)에 대해 단순이다. 교대군 \(A_n\)은 \(n \geq 5\)일 때 단순이다.
 </div>
 
-<h3 id="homomorphisms-isomorphism-theorems">13.4 Homomorphisms and Isomorphism Theorems</h3>
+<h3 id="homomorphisms-isomorphism-theorems">13.4 준동형과 동형 정리 (Homomorphisms and Isomorphism Theorems)</h3>
 
-<p>동형(isomorphic)인 군으로 기술되는 두 시스템은 한쪽에서 얻은 결과를 다른 쪽에 번역할 수 있다. 전기 회로의 임피던스 조합 법칙과 기계 시스템의 강성(stiffness) 조합 법칙이 같은 군 구조를 공유하는 것이 그 예이다.</p>
+<p>동형(isomorphic)인 군으로 표현되는 두 시스템은 한쪽에서 얻은 결과를 다른 쪽으로 옮길 수 있다. 준동형은 이보다 약한 방식으로 구조를 보존하며, 핵과 상은 사상에서 사라지는 정보와 남는 정보를 각각 보여 준다.</p>
 
 <p class="section-transition">준동형 사상은 군의 구조를 보존하며 한 군을 다른 군으로 보낸다. 동형 정리들은 핵, 상, 몫군 사이의 관계를 밝힌다.</p>
 
@@ -231,7 +231,7 @@ $$
  <li>\(\varphi(e_G) = e_H\)</li>
  <li>\(\varphi(g^{-1}) = \varphi(g)^{-1}\)</li>
 </ul>
-<strong>핵</strong>은 \(\ker \varphi = \{g \in G : \varphi(g) = e_H\}\)이고, <strong>상</strong>는 \(\operatorname{im} \varphi = \varphi(G)\)이다.
+<strong>핵</strong>은 \(\ker \varphi = \{g \in G : \varphi(g) = e_H\}\)이고, <strong>상</strong>은 \(\operatorname{im} \varphi = \varphi(G)\)이다.
 </div>
 
 <p>준동형이 단사(injective)일 필요충분조건은 \(\ker \varphi = \{e\}\)인 것이다. 전단사 준동형을 <strong>동형사상(isomorphism)</strong>이라 하고, \(G \cong H\)로 쓴다. 군에서 자기 자신으로의 동형사상을 <strong>자기동형사상(automorphism)</strong>이라 한다.</p>
@@ -247,7 +247,7 @@ $$
 
 <div class="proof">
 <span class="env-label">Proof</span>
-\(\bar{\varphi}: G/\ker\varphi \to \operatorname{im}\varphi\)를 \(\bar{\varphi}(g\ker\varphi) = \varphi(g)\)로 정의한다. 이것은 잘 정의된다: \(g\ker\varphi = g'\ker\varphi\)이면 \(g^{-1}g' \in \ker\varphi\)이므로 \(\varphi(g) = \varphi(g')\)이다. 준동형이다: \(\bar{\varphi}(gK \cdot g'K) = \bar{\varphi}(gg'K) = \varphi(gg') = \varphi(g)\varphi(g')\). 단사이다: \(\bar{\varphi}(gK) = e_H\)이면 \(g \in \ker\varphi\)이므로 \(gK = K\)이다. 정의에 의해 \(\operatorname{im}\varphi\) 위로의 전사이다. \(\blacksquare\)
+\(K=\ker\varphi\)라 두고 \(\bar{\varphi}: G/K \to \operatorname{im}\varphi\)를 \(\bar{\varphi}(gK) = \varphi(g)\)로 정의한다. 이것은 잘 정의된다: \(gK = g'K\)이면 \(g^{-1}g' \in K\)이므로 \(\varphi(g) = \varphi(g')\)이다. 준동형이다: \(\bar{\varphi}(gK \cdot g'K) = \bar{\varphi}(gg'K) = \varphi(gg') = \varphi(g)\varphi(g')\). 단사이다: \(\bar{\varphi}(gK) = e_H\)이면 \(g \in K\)이므로 \(gK = K\)이다. 정의에 의해 \(\operatorname{im}\varphi\) 위로의 전사이다. \(\blacksquare\)
 </div>
 
 <div class="theorem">
@@ -268,12 +268,12 @@ $$
 
 <div class="example">
 <span class="env-label">Example 13.5</span>
-\(\varphi: \mathbb{Z} \to \mathbb{Z}/n\mathbb{Z}\)를 \(\varphi(k) = k \bmod n\)으로 정의하자. 이것은 전사 준동형이며 \(\ker \varphi = n\mathbb{Z}\)이다. 제1동형정리에 의해, \(\mathbb{Z}/n\mathbb{Z} \cong \mathbb{Z}/n\mathbb{Z}\)인데, 이는 동어반복적이지만 정리의 작동 원리를 보여 준다.
+양의 정수 \(n\)에 대해 \(\varphi: \mathbb{Z} \to \mathbb{Z}/n\mathbb{Z}\)를 \(\varphi(k) = k \bmod n\)으로 정의하자. 이것은 전사 준동형이며 \(\ker \varphi = n\mathbb{Z}\)이다. 제1동형정리는 정의역을 핵으로 나눈 몫 \(\mathbb{Z}/n\mathbb{Z}\)를 상 \(\operatorname{im}\varphi=\mathbb{Z}/n\mathbb{Z}\)와 자연스럽게 동일시한다.
 </div>
 
 <div class="example">
 <span class="env-label">Example 13.4a (직접곱과 반직접곱)</span>
-군 \(G\)와 \(H\)의 <strong>직접곱(direct product)</strong>은 \(G \times H = \{(g, h) : g \in G, h \in H\}\)이며, 성분별 연산을 갖는다. 예를 들어, Klein 4-group은 \(V_4 = \mathbb{Z}/2\mathbb{Z} \times \mathbb{Z}/2\mathbb{Z}\)이며, 위수 4인 비순환 군이다. 원소는 \(\{(0,0), (1,0), (0,1), (1,1)\}\)이고 모든 비항등 원소의 위수는 2이다. \(V_4\)는 \(S_4\)의 정규 부분군으로 나타나며, \(V_4 = \{e, (12)(34), (13)(24), (14)(23)\}\)이다.
+군 \(G\)와 \(H\)의 <strong>직접곱(direct product)</strong>은 \(G \times H = \{(g, h) : g \in G, h \in H\}\)이며, 성분별 연산을 갖는다. 예를 들어, 클라인 4원군(Klein four-group)은 \(V_4 = \mathbb{Z}/2\mathbb{Z} \times \mathbb{Z}/2\mathbb{Z}\)이며, 위수 4인 비순환 군이다. 원소는 \(\{(0,0), (1,0), (0,1), (1,1)\}\)이고 모든 비항등 원소의 위수는 2이다. \(V_4\)는 \(S_4\)의 정규 부분군으로 나타나며, \(V_4 = \{e, (12)(34), (13)(24), (14)(23)\}\)이다.
 </div>
 
 <div class="example">
@@ -281,11 +281,11 @@ $$
 <strong>부호 사상(sign homomorphism)</strong> \(\operatorname{sgn}: S_n \to \{+1, -1\}\)는 짝치환을 \(+1\)로, 홀치환을 \(-1\)로 보낸다. 이것은 군 준동형이며 \(\ker(\operatorname{sgn}) = A_n\)이다. 제1동형정리에 의해 \(S_n / A_n \cong \mathbb{Z}/2\mathbb{Z}\)이다. 따라서 \(A_n \trianglelefteq S_n\)이고 \([S_n : A_n] = 2\)이다.
 </div>
 
-<h3 id="group-actions-sylow">13.5 Group Actions and Sylow Theorems</h3>
+<h3 id="group-actions-sylow">13.5 군 작용과 실로 정리 (Group Actions and Sylow Theorems)</h3>
 
-<p>분자 궤도 이론(molecular orbital theory)에서 분자의 대칭군이 전자 궤도 함수에 작용하면 허용 전이를 판별할 수 있다. Burnside 보조정리는 이성질체(isomer)의 수를 세거나, 대칭을 고려한 부호어(codeword)의 비동치류를 세는 데 쓰인다. Sylow 정리는 유한군의 구조를 소수 거듭제곱 단위로 분석한다.</p>
+<p>분자 궤도 이론(molecular orbital theory)에서 분자의 대칭군이 전자 궤도 함수에 작용하면 허용 전이를 판별할 수 있다. 번사이드 보조정리(Burnside's lemma)는 이성질체(isomer)의 수를 세거나, 대칭을 고려한 부호어(codeword)의 비동치류를 세는 데 쓰인다. 실로 정리는 유한군의 구조를 소수 거듭제곱 단위로 분석한다.</p>
 
-<p class="section-transition">군 작용은 군이 집합 위에 작용하는 상황을 형식화한다. 궤도-안정자 정리와 Burnside 보조정리는 조합론적 세기 문제에 쓰이고, Sylow 정리는 유한군의 소수 거듭제곱 위수 부분군의 존재와 개수를 확정한다.</p>
+<p class="section-transition">군 작용은 군이 집합 위에 작용하는 상황을 형식화한다. 궤도-안정자 정리와 번사이드 보조정리는 조합론적 세기 문제에 쓰이고, 실로 정리는 유한군의 소수 거듭제곱 위수 부분군의 존재와 개수를 확정한다.</p>
 
 <div class="definition">
 <span class="env-label">Definition 13.9 (Group Action)</span>
@@ -326,7 +326,7 @@ $$
 
 <p>Burnside 보조정리는 세기 조합론(enumerative combinatorics)에서 "서로 다른" 구조의 수를 셀 때 쓴다. 대칭군이 구성(configuration)의 집합에 작용하면, 궤도의 수가 곧 대칭을 고려한 비동치 구성의 수이다.</p>
 
-<h4>Burnside's Lemma: Applications</h4>
+<h4>번사이드 보조정리의 응용 (Applications of Burnside's Lemma)</h4>
 
 <div class="example">
 <span class="env-label">Example 13.5b (목걸이 색칠 문제: 3구슬, 2색)</span>
@@ -373,53 +373,53 @@ $$
 여기서 합은 비중심 켤레류에서 각각 하나의 대표원 \(g_i\)에 대해 취하며, \(C_G(g_i)\)는 \(g_i\)의 중심화군(centralizer)이다.
 </div>
 
-<h4>Sylow Theorems</h4>
+<h4>실로 정리 (Sylow Theorems)</h4>
 
 <div class="definition">
 <span class="env-label">Definition 13.11 (\(p\)-Group, Sylow Subgroup)</span>
-\(p\)를 소수라 하자. <strong>\(p\)-group(\(p\)-군)</strong>은 어떤 \(k \geq 1\)에 대해 위수가 \(p^k\)인 군이다. \(|G| = p^a m\)이고 \(\gcd(p, m) = 1\), \(a \geq 1\)이면, \(G\)의 <strong>Sylow \(p\)-subgroup(\(p\)-부분군)</strong>은 위수 \(p^a\)인 부분군이다.
+\(p\)를 소수라 하자. <strong>\(p\)-군(\(p\)-group)</strong>은 어떤 \(k \geq 0\)에 대해 위수가 \(p^k\)인 군이다. \(|G| = p^a m\)이고 \(\gcd(p, m) = 1\), \(a \geq 1\)이면, \(G\)의 <strong>실로 \(p\)-부분군(Sylow \(p\)-subgroup)</strong>은 위수 \(p^a\)인 부분군이다.
 </div>
 
 <div class="theorem">
 <span class="env-label">Theorem 13.12 (Sylow Theorems)</span>
-\(G\)를 \(|G| = p^a m\), \(p \nmid m\)인 유한군이라 하자. \(n_p\)를 \(G\)의 Sylow \(p\)-부분군의 개수라 하자.
+\(G\)를 \(|G| = p^a m\), \(p \nmid m\)인 유한군이라 하자. \(n_p\)를 \(G\)의 실로 \(p\)-부분군의 개수라 하자.
 <ul>
- <li><strong>Sylow I (Existence)</strong>: \(G\)에 Sylow \(p\)-부분군이 적어도 하나 존재한다.</li>
- <li><strong>Sylow II (Conjugacy)</strong>: 임의의 두 Sylow \(p\)-부분군은 \(G\)에서 켤레이다. 특히, 임의의 \(p\)-부분군은 어떤 Sylow \(p\)-부분군에 포함된다.</li>
- <li><strong>Sylow III (Counting)</strong>: \(n_p \equiv 1 \pmod{p}\)이고 \(n_p \mid m\)이다.</li>
+ <li><strong>제1 실로 정리(존재)</strong>: \(G\)에 실로 \(p\)-부분군이 적어도 하나 존재한다.</li>
+ <li><strong>제2 실로 정리(켤레성)</strong>: 임의의 두 실로 \(p\)-부분군은 \(G\)에서 켤레이다. 특히, 임의의 \(p\)-부분군은 어떤 실로 \(p\)-부분군에 포함된다.</li>
+ <li><strong>제3 실로 정리(개수)</strong>: \(n_p \equiv 1 \pmod{p}\)이고 \(n_p \mid m\)이다.</li>
 </ul>
 </div>
 
 <div class="proof">
 <span class="env-label">Proof</span>
-(Sylow I의 개요.) \(G\)에서 크기 \(p^a\)인 부분집합 전체의 집합 \(\mathcal{S}\)를 생각하자. \(G\)는 좌곱셈(left multiplication)으로 \(\mathcal{S}\)에 작용한다. 세기 논증에 의해 \(|\mathcal{S}| = \binom{p^a m}{p^a}\)은 일정 거듭제곱 이상으로는 \(p\)로 나누어지지 않으므로, 크기가 \(p\)로 나누어지지 않는 궤도가 존재해야 한다. 그러한 궤도에 속하는 집합의 안정자는 위수가 적어도 \(p^a\)이며, \(G\)의 부분군으로서 위수가 \(p^a m\)을 나누므로 정확히 \(p^a\)이다. Sylow II와 III는 Sylow \(p\)-부분군들이 켤레변환으로 서로에게 작용하는 것에서 따라 나온다. \(\blacksquare\)
+(제1 실로 정리의 개요.) \(G\)에서 크기 \(p^a\)인 부분집합 전체의 집합 \(\mathcal{S}\)를 생각하자. \(G\)는 좌곱셈(left multiplication)으로 \(\mathcal{S}\)에 작용한다. 세기 논증에 의해 \(|\mathcal{S}| = \binom{p^a m}{p^a}\)은 \(p\)로 나누어지지 않으므로, 크기가 \(p\)로 나누어지지 않는 궤도가 존재한다. 그 궤도의 한 원소를 \(A\), 안정자를 \(H\)라 하자. 궤도 크기 \([G:H]\)가 \(p\)로 나누어지지 않으므로 \(p^a\mid |H|\)이다. 한편 \(H\)는 좌곱셈으로 \(A\)에 작용하고 이 작용은 자유로우므로 모든 \(H\)-궤도의 크기는 \(|H|\)이다. 따라서 \(|H|\mid |A|=p^a\)이고, 결국 \(|H|=p^a\)이다. 제2·제3 실로 정리는 실로 \(p\)-부분군들에 대한 켤레 작용을 분석하면 얻는다. \(\blacksquare\)
 </div>
 
 <div class="example">
 <span class="env-label">Example 13.6</span>
-\(|G| = 12 = 2^2 \cdot 3\)이라 하자. Sylow 정리에 의해 \(n_3 \mid 4\)이고 \(n_3 \equiv 1 \pmod{3}\)이므로 \(n_3 \in \{1, 4\}\)이다. 또한, \(n_2 \mid 3\)이고 \(n_2 \equiv 1 \pmod{2}\)이므로 \(n_2 \in \{1, 3\}\)이다. \(n_3 = 1\)이면 유일한 Sylow 3-부분군이 정규이다. \(\mathbb{Z}/12\mathbb{Z}\), \(\mathbb{Z}/2\mathbb{Z} \times \mathbb{Z}/6\mathbb{Z}\), 이면체군 \(D_6\)가 이 경우에 해당한다. \(n_3 = 4\)이면 \(A_4\)를 얻는다.
+\(|G| = 12 = 2^2 \cdot 3\)이라 하자. 실로 정리에 의해 \(n_3 \mid 4\)이고 \(n_3 \equiv 1 \pmod{3}\)이므로 \(n_3 \in \{1, 4\}\)이다. 또한, \(n_2 \mid 3\)이고 \(n_2 \equiv 1 \pmod{2}\)이므로 \(n_2 \in \{1, 3\}\)이다. \(n_3 = 1\)이면 유일한 실로 3-부분군이 정규이다. \(\mathbb{Z}/12\mathbb{Z}\), \(\mathbb{Z}/2\mathbb{Z} \times \mathbb{Z}/6\mathbb{Z}\), 이면체군 \(D_6\)가 이 경우에 해당한다. \(n_3 = 4\)이면 \(A_4\)를 얻는다.
 </div>
 
-<p>주어진 위수의 군을 분류할 때, Sylow 정리로 가능한 Sylow 수를 제한한 뒤 각 경우를 분석하는 것이 표준 전략이다.</p>
+<p>주어진 위수의 군을 분류할 때는 실로 정리로 가능한 실로 부분군의 수를 제한한 뒤 각 경우를 분석한다.</p>
 
-<h4>Sylow Theorems: Detailed Application</h4>
+<h4>실로 정리의 상세한 응용 (Detailed Application of the Sylow Theorems)</h4>
 
 <div class="example">
 <span class="env-label">Example 13.6a (\(|G| = 12\)인 군의 완전 분류)</span>
-\(|G| = 12 = 2^2 \cdot 3\)인 군을 Sylow 정리를 이용하여 분류하자.
+\(|G| = 12 = 2^2 \cdot 3\)인 군을 실로 정리를 이용하여 분류하자.
 
-<p><strong>Step 1: Sylow 수 결정.</strong> Sylow 정리에 의해:</p>
+<p><strong>1단계: 실로 부분군의 개수.</strong> 실로 정리에 의해:</p>
 <ul>
  <li>\(n_3 \mid 4\), \(n_3 \equiv 1 \pmod{3}\) \(\Rightarrow\) \(n_3 \in \{1, 4\}\).</li>
  <li>\(n_2 \mid 3\), \(n_2 \equiv 1 \pmod{2}\) \(\Rightarrow\) \(n_2 \in \{1, 3\}\).</li>
 </ul>
 
-<p><strong>Step 2: \(n_3 = 4\)인 경우.</strong> Sylow 3-부분군 4개가 있고, 각각 위수 3이므로, 항등원이 아닌 위수 3의 원소가 \(4 \times 2 = 8\)개이다. 나머지 원소는 \(12 - 8 = 4\)개이며, 이들이 유일한 Sylow 2-부분군(위수 4)을 이루므로 \(n_2 = 1\)이다. 이 경우 \(G\)의 Sylow 3-부분군에 대한 켤레 작용은 준동형 \(G \to S_4\)를 유도하며, 상(image)이 \(A_4\)임을 보일 수 있다. 따라서 \(G \cong A_4\)이다.</p>
+<p><strong>2단계: \(n_3 = 4\)인 경우.</strong> \(G\)가 네 실로 3-부분군에 켤레변환으로 작용하면 준동형 \(\varphi:G\to S_4\)를 얻는다. 각 실로 3-부분군 \(P\)의 안정자는 \(N_G(P)\)이고, 궤도-안정자 정리에 의해 \(|N_G(P)|=12/4=3\)이므로 \(N_G(P)=P\)이다. 따라서 \(\ker\varphi\)는 네 실로 3-부분군의 교집합에 포함되고, 서로 다른 위수 3의 부분군은 항등원에서만 만나므로 \(\ker\varphi=\{e\}\)이다. 그러므로 \(G\)는 \(S_4\)의 위수 12인 부분군과 동형이며, 이 부분군은 \(S_4\)의 유일한 지표 2 부분군 \(A_4\)이다. 따라서 \(G\cong A_4\)이다.</p>
 
-<p><strong>Step 3: \(n_3 = 1\)인 경우.</strong> 유일한 Sylow 3-부분군 \(P \cong \mathbb{Z}/3\mathbb{Z}\)가 정규이다. Sylow 2-부분군 \(Q\)는 위수 4이므로 \(Q \cong \mathbb{Z}/4\mathbb{Z}\) 또는 \(Q \cong \mathbb{Z}/2\mathbb{Z} \times \mathbb{Z}/2\mathbb{Z}\)이다. \(P \cap Q = \{e\}\)이고 \(|PQ| = |P||Q|/|P \cap Q| = 12 = |G|\)이므로 \(G = PQ\)이다. \(P \trianglelefteq G\)이므로 \(G\)는 \(P\)와 \(Q\)의 반직접곱(semidirect product)이다.</p>
+<p><strong>3단계: \(n_3 = 1\)인 경우.</strong> 유일한 실로 3-부분군 \(P \cong \mathbb{Z}/3\mathbb{Z}\)가 정규이다. 실로 2-부분군 \(Q\)는 위수 4이므로 \(Q \cong \mathbb{Z}/4\mathbb{Z}\) 또는 \(Q \cong \mathbb{Z}/2\mathbb{Z} \times \mathbb{Z}/2\mathbb{Z}\)이다. \(P \cap Q = \{e\}\)이고 \(|PQ| = |P||Q|/|P \cap Q| = 12 = |G|\)이므로 \(G = PQ\)이다. \(P \trianglelefteq G\)이므로 \(G\)는 \(P\)와 \(Q\)의 반직접곱(semidirect product)이다.</p>
 <ul>
  <li>\(Q \cong \mathbb{Z}/4\mathbb{Z}\)이고 작용이 자명하면: \(G \cong \mathbb{Z}/3\mathbb{Z} \times \mathbb{Z}/4\mathbb{Z} \cong \mathbb{Z}/12\mathbb{Z}\).</li>
- <li>\(Q \cong \mathbb{Z}/4\mathbb{Z}\)이고 작용이 비자명하면: \(G \cong \mathbb{Z}/3\mathbb{Z} \rtimes \mathbb{Z}/4\mathbb{Z}\). \(\operatorname{Aut}(\mathbb{Z}/3\mathbb{Z}) \cong \mathbb{Z}/2\mathbb{Z}\)이므로 비자명 준동형 \(\mathbb{Z}/4\mathbb{Z} \to \mathbb{Z}/2\mathbb{Z}\)이 하나 존재한다. 이 경우 \(G \cong \mathbb{Z}/3\mathbb{Z} \rtimes \mathbb{Z}/4\mathbb{Z}\), 즉 이분 교대군(dicyclic group) \(\operatorname{Dic}_3\)이다. 이것은 \(D_6\)와 동형이 아님에 주의한다.</li>
+ <li>\(Q \cong \mathbb{Z}/4\mathbb{Z}\)이고 작용이 비자명하면: \(G \cong \mathbb{Z}/3\mathbb{Z} \rtimes \mathbb{Z}/4\mathbb{Z}\). \(\operatorname{Aut}(\mathbb{Z}/3\mathbb{Z}) \cong \mathbb{Z}/2\mathbb{Z}\)이므로 비자명 준동형 \(\mathbb{Z}/4\mathbb{Z} \to \mathbb{Z}/2\mathbb{Z}\)이 하나 존재한다. 이 경우 \(G \cong \mathbb{Z}/3\mathbb{Z} \rtimes \mathbb{Z}/4\mathbb{Z}\), 즉 디사이클릭 군(dicyclic group) \(\operatorname{Dic}_3\)이다. 이것은 \(D_6\)와 동형이 아님에 주의한다.</li>
  <li>\(Q \cong \mathbb{Z}/2\mathbb{Z} \times \mathbb{Z}/2\mathbb{Z}\)이고 작용이 자명하면: \(G \cong \mathbb{Z}/3\mathbb{Z} \times \mathbb{Z}/2\mathbb{Z} \times \mathbb{Z}/2\mathbb{Z} \cong \mathbb{Z}/6\mathbb{Z} \times \mathbb{Z}/2\mathbb{Z}\).</li>
  <li>\(Q \cong \mathbb{Z}/2\mathbb{Z} \times \mathbb{Z}/2\mathbb{Z}\)이고 작용이 비자명하면: \(G \cong D_6\) (이면체군, 위수 12).</li>
 </ul>
@@ -428,18 +428,18 @@ $$
 </div>
 
 <div class="example">
-<span class="env-label">Example 13.6b (Sylow 정리로 위수 15인 군이 순환군임을 증명)</span>
-\(|G| = 15 = 3 \cdot 5\)라 하자. Sylow 정리에 의해:
+<span class="env-label">Example 13.6b (실로 정리로 위수 15인 군이 순환군임을 증명)</span>
+\(|G| = 15 = 3 \cdot 5\)라 하자. 실로 정리에 의해:
 <ul>
- <li>\(n_3 \mid 5\), \(n_3 \equiv 1 \pmod{3}\) \(\Rightarrow\) \(n_3 \in \{1\}\). 따라서 유일한 Sylow 3-부분군 \(P \cong \mathbb{Z}/3\mathbb{Z}\)가 정규이다.</li>
- <li>\(n_5 \mid 3\), \(n_5 \equiv 1 \pmod{5}\) \(\Rightarrow\) \(n_5 \in \{1\}\). 따라서 유일한 Sylow 5-부분군 \(Q \cong \mathbb{Z}/5\mathbb{Z}\)가 정규이다.</li>
+ <li>\(n_3 \mid 5\), \(n_3 \equiv 1 \pmod{3}\) \(\Rightarrow\) \(n_3 \in \{1\}\). 따라서 유일한 실로 3-부분군 \(P \cong \mathbb{Z}/3\mathbb{Z}\)가 정규이다.</li>
+ <li>\(n_5 \mid 3\), \(n_5 \equiv 1 \pmod{5}\) \(\Rightarrow\) \(n_5 \in \{1\}\). 따라서 유일한 실로 5-부분군 \(Q \cong \mathbb{Z}/5\mathbb{Z}\)가 정규이다.</li>
 </ul>
 \(P \cap Q = \{e\}\)이고 \(|PQ| = 15 = |G|\)이므로, \(G \cong P \times Q \cong \mathbb{Z}/3\mathbb{Z} \times \mathbb{Z}/5\mathbb{Z} \cong \mathbb{Z}/15\mathbb{Z}\). 따라서 위수 15인 군은 반드시 순환군이다. 같은 논증이 \(|G| = pq\) (\(p < q\) 소수, \(p \nmid q-1\))인 모든 경우에 적용된다.
 </div>
 
 <div class="example">
-<span class="env-label">Example 13.6c (Class Equation 응용: \(p\)-군의 중심)</span>
-\(G\)가 비자명 \(p\)-군(\(|G| = p^k\), \(k \geq 1\))이면, \(Z(G) \neq \{e\}\)이다. Class equation \(|G| = |Z(G)| + \sum [G:C_G(g_i)]\)에서, 좌변은 \(p\)의 배수이고, 각 비중심 항 \([G:C_G(g_i)]\)는 \(1\)보다 큰 \(|G|\)의 약수이므로 \(p\)의 배수이다. 따라서 \(p \mid |Z(G)|\)이고, \(|Z(G)| \geq p\)이다.
+<span class="env-label">Example 13.6c (류 방정식의 응용: \(p\)-군의 중심)</span>
+\(G\)가 비자명 \(p\)-군(\(|G| = p^k\), \(k \geq 1\))이면, \(Z(G) \neq \{e\}\)이다. 류 방정식 \(|G| = |Z(G)| + \sum [G:C_G(g_i)]\)에서, 좌변은 \(p\)의 배수이고, 각 비중심 항 \([G:C_G(g_i)]\)는 \(1\)보다 큰 \(|G|\)의 약수이므로 \(p\)의 배수이다. 따라서 \(p \mid |Z(G)|\)이고, \(|Z(G)| \geq p\)이다.
 
 <p>응용: \(|G| = p^2\)이면, \(|Z(G)| \in \{p, p^2\}\)이다. \(|Z(G)| = p^2\)이면 \(G\)는 아벨이다. \(|Z(G)| = p\)이면 \(G/Z(G)\)의 위수가 \(p\)이므로 순환, 따라서 \(G\)는 아벨이다 (모순). 결론: 위수 \(p^2\)인 군은 반드시 아벨이며, \(\mathbb{Z}/p^2\mathbb{Z}\) 또는 \(\mathbb{Z}/p\mathbb{Z} \times \mathbb{Z}/p\mathbb{Z}\)와 동형이다. 예를 들어, 위수 4인 군은 \(\mathbb{Z}/4\mathbb{Z}\) 또는 \(V_4 = \mathbb{Z}/2\mathbb{Z} \times \mathbb{Z}/2\mathbb{Z}\)뿐이며, 위수 9인 군은 \(\mathbb{Z}/9\mathbb{Z}\) 또는 \(\mathbb{Z}/3\mathbb{Z} \times \mathbb{Z}/3\mathbb{Z}\)뿐이다.</p>
 </div>
@@ -451,13 +451,10 @@ $$
 
 <div class="proof">
 <span class="env-label">Proof</span>
-이것은 Sylow I로부터 바로 따라 나온다: Sylow \(p\)-부분군 \(P\)는 위수 \(p^a \geq p\)를 가지므로, 라그랑주 정리에 의해 \(P\)는 위수 \(p\)인 부분군을 가진다. 이 부분군은 반드시 순환이며 위수 \(p\)인 원소에 의해 생성된다. 다른 직접적인 증명으로는 class equation을 사용한다: \(|G| = |Z(G)| + \sum [G:C_G(g_i)]\)에서, \(p \mid |G|\)이고 \(p\)가 모든 비중심 항을 나누면, \(p \mid |Z(G)|\)이고, 아벨의 경우(위수 \(p\)인 원소를 직접 찾을 수 있는)로 논증을 마무리한다. \(\blacksquare\)
+제1 실로 정리에 따라 위수 \(p^a\)인 실로 \(p\)-부분군 \(P\)가 존재한다. \(P\)에서 항등원이 아닌 원소 \(x\)를 택하면, 라그랑주 정리에 의해 \(\operatorname{ord}(x)=p^k\)인 \(k\geq1\)이 존재한다. 따라서 \(x^{p^{k-1}}\)의 위수는 \(p\)이다. \(\blacksquare\)
 </div>
 
 <p class="source-note"><em>Sources: Harvard Abstract Algebra, Dummit &amp; Foote (Abstract Algebra, 3rd ed.), UPenn Math371/602/603/620/702.</em></p>
-</section>
-
-
 <hr>
 
 <!-- ============================================================

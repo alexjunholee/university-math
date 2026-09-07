@@ -1,5 +1,5 @@
 <section id="differential-geometry">
-<h3>20. 미분기하</h3>
+<h3>20. 미분기하학 (Differential Geometry)</h3>
 
 <p class="chapter-intro">미분기하학은 매끄러운 곡선과 곡면의 곡률, 측지선, 계량 등을 연구한다. 가우스-보네 정리는 곡률(국소적 성질)과 위상(대역적 성질)을 연결하며, 일반상대론과 로보틱스의 수학적 기초이다.</p>
 
@@ -37,11 +37,11 @@ $$ \kappa(t) = \frac{|(-a\sin t)(-b\sin t) - (b\cos t)(-a\cos t)|}{(a^2\sin^2 t 
 \(\gamma'(t) = (-a\sin t,\; a\cos t,\; b)\)이므로 \(\|\gamma'\| = \sqrt{a^2 + b^2}\)이다. 이 곡선은 등속이지만 단위 속력은 아니다. 일반 공식을 적용하면:
 $$ \gamma''(t) = (-a\cos t,\; -a\sin t,\; 0), \quad \gamma' \times \gamma'' = (ab\sin t,\; -ab\cos t,\; a^2), $$
 $$ \|\gamma' \times \gamma''\| = a\sqrt{a^2 + b^2}, \quad \kappa = \frac{a\sqrt{a^2+b^2}}{(a^2+b^2)^{3/2}} = \frac{a}{a^2 + b^2}. $$
-비틀림(torsion)은 \(\tau = \frac{b}{a^2 + b^2}\)이다. 곡률과 비틀림이 모두 상수이므로, 등속 나선은 \(\mathbb{R}^3\)에서 상수 곡률과 상수 비틀림을 가지는 유일한 곡선이다 (이는 곡선의 기본 정리의 직접적인 결과이다).
+비틀림(torsion)은 \(\tau = \frac{b}{a^2 + b^2}\)이다. 곡선의 기본 정리에 따르면, 양의 상수 곡률과 0이 아닌 상수 비틀림을 갖는 단위 속력 곡선은 강체 운동을 제외하면 원형 나선으로 결정된다.
 </div>
 
 <div class="definition"><span class="env-label">Definition 20.3 (Frenet&ndash;Serret Frame)</span>
-\(\mathbb{R}^3\)에서 단위 속력 곡선 \(\gamma(s)\)에 대해, <strong>접선 벡터(tangent)</strong> \(\mathbf{T} = \gamma'\), <strong>법선 벡터(normal)</strong> \(\mathbf{N} = \mathbf{T}'/\|\mathbf{T}'\|\), <strong>종법선 벡터(binormal)</strong> \(\mathbf{B} = \mathbf{T} \times \mathbf{N}\)를 정의한다. Frenet&ndash;Serret 방정식은 다음과 같다:
+\(\mathbb{R}^3\)에서 단위 속력 곡선 \(\gamma(s)\)의 곡률 \(\kappa(s)=\|\gamma''(s)\|\)이 양수인 구간에서, <strong>접선 벡터(tangent)</strong> \(\mathbf{T} = \gamma'\), <strong>법선 벡터(normal)</strong> \(\mathbf{N} = \mathbf{T}'/\|\mathbf{T}'\|\), <strong>종법선 벡터(binormal)</strong> \(\mathbf{B} = \mathbf{T} \times \mathbf{N}\)를 정의한다. Frenet&ndash;Serret 방정식은 다음과 같다:
 $$ \begin{pmatrix} \mathbf{T}' \\ \mathbf{N}' \\ \mathbf{B}' \end{pmatrix} = \begin{pmatrix} 0 & \kappa & 0 \\ -\kappa & 0 & \tau \\ 0 & -\tau & 0 \end{pmatrix} \begin{pmatrix} \mathbf{T} \\ \mathbf{N} \\ \mathbf{B} \end{pmatrix}, $$
 여기서 \(\kappa\)는 곡률(curvature)이고 \(\tau\)는 비틀림(torsion)이다.
 </div>
@@ -87,7 +87,7 @@ $$ II = L\, du^2 + 2M\, du\, dv + N\, dv^2, $$
 반지름 \(R\)인 구면을 \(\mathbf{r}(\theta, \phi) = (R\sin\theta\cos\phi,\; R\sin\theta\sin\phi,\; R\cos\theta)\)로 매개변수화하자.
 $$ \mathbf{r}_\theta = (R\cos\theta\cos\phi,\; R\cos\theta\sin\phi,\; -R\sin\theta), \quad \mathbf{r}_\phi = (-R\sin\theta\sin\phi,\; R\sin\theta\cos\phi,\; 0). $$
 제1기본형식: \(E = R^2\), \(F = 0\), \(G = R^2\sin^2\theta\). 따라서 \(ds^2 = R^2(d\theta^2 + \sin^2\theta\, d\phi^2)\)이다.
-단위 법선 \(\hat{\mathbf{n}} = (\sin\theta\cos\phi,\; \sin\theta\sin\phi,\; \cos\theta)\) (바깥쪽)이고, 제2기본형식: \(L = -R\), \(M = 0\), \(N = -R\sin^2\theta\). 형상 연산자(shape operator) \(S = -d\hat{\mathbf{n}}\)의 고유값으로 주곡률을 구하면 \(\kappa_1 = \kappa_2 = -L/E = -(-R)/R^2 = 1/R\)이므로, \(K = 1/R^2\), \(H = 1/R\)이다. (부호 관례: 형상 연산자는 \(S = -d\hat{\mathbf{n}}\)이므로, 바깥쪽 법선에 대해 볼록한 곡면의 주곡률이 양수가 된다.) 모든 방향에서 곡률이 같으므로 구면은 <em>엄빌릭(umbilic)</em> 곡면이다.
+단위 법선 \(\hat{\mathbf{n}} = (\sin\theta\cos\phi,\; \sin\theta\sin\phi,\; \cos\theta)\) (바깥쪽)이고, 제2기본형식: \(L = -R\), \(M = 0\), \(N = -R\sin^2\theta\)이다. 형상 연산자를 \(S = -d\hat{\mathbf{n}}\)로 정의한 이 장의 부호 관례에서는 \(\kappa_1 = L/E = -1/R\), \(\kappa_2 = N/G = -1/R\)이므로, \(K = 1/R^2\), \(H = -1/R\)이다. 법선의 방향을 안쪽으로 바꾸면 두 주곡률과 평균 곡률의 부호가 함께 바뀌지만 가우스 곡률은 그대로다. 모든 방향에서 곡률이 같으므로 구면은 <em>엄빌릭(umbilic)</em> 곡면이다.
 </div>
 
 <div class="example"><span class="env-label">Example 20.1d' (안장 곡면의 가우스 곡률)</span>
@@ -103,7 +103,7 @@ $$ K = \frac{LN - M^2}{EG - F^2} = \frac{-1/(1+u^2+v^2)}{(1+v^2)(1+u^2) - u^2v^2
 <p>측지선(geodesic)은 곡면 위에서 "가장 곧은 경로"이자 "최단 경로"의 후보이다. GPS 항법에서 두 지점 사이의 최단 거리는 지구를 구(sphere)로 근사할 때 대원(great circle)의 호, 즉 구면 위의 측지선이다. 매니폴드 위의 경로 계획(path planning)에서도 측지선 방정식을 쓴다.</p>
 
 <div class="definition"><span class="env-label">Definition 20.8 (Geodesic)</span>
-곡면 \(S\) 위의 곡선 \(\gamma\)가 <strong>측지선(geodesic)</strong>이라 함은, 측지 곡률이 항등적으로 소멸하는 것, 즉 가속도 \(\gamma''\)가 항상 곡면에 수직인 것을 말한다. 좌표로 표현하면, 측지선(geodesic)은 다음을 만족한다:
+곡면 \(S\) 위의 단위 속력 곡선 \(\gamma\)가 <strong>측지선(geodesic)</strong>이라 함은, 측지 곡률이 항등적으로 소멸하는 것, 즉 가속도 \(\gamma''\)가 항상 곡면에 수직인 것을 말한다. 좌표로 표현하면, 측지선(geodesic)은 다음을 만족한다:
 $$ \ddot{u}^k + \sum_{i,j} \Gamma^k_{ij}\, \dot{u}^i \dot{u}^j = 0, $$
 여기서 \(\Gamma^k_{ij}\)는 제1기본형식(first fundamental form)의 크리스토펠 기호이다.
 </div>

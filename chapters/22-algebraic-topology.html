@@ -1,22 +1,22 @@
 <section id="algebraic-topology">
-<h3>22. 대수적 위상수학</h3>
+<h3>22. 대수적 위상수학 (Algebraic Topology)</h3>
 
 <p class="chapter-intro">대수적 위상수학은 위상 공간에 군, 환 등의 대수적 불변량을 대응시켜 공간을 분류한다. 기본군, 호몰로지, 코호몰로지가 주요 도구이며, 이들로 '구멍의 개수' 같은 직관을 엄밀하게 정량화한다.</p>
 
 <p>위상적 성질을 숫자, 군, 환 같은 대수적 불변량으로 옮기면 공간을 계산을 통해 비교할 수 있다. 예컨대 "이 공간에 구멍이 있는가?"라는 기하학적 질문은 대응하는 호몰로지군이 자명한지를 묻는 대수적 질문으로 바뀐다.</p>
 
-<p>센서 네트워크(sensor network)에서 커버리지 구멍(coverage hole)을 탐지하는 문제는 호몰로지(homology)로 정식화된다. 각 센서의 감지 범위가 중첩되어 만드는 공간의 호몰로지군을 계산하면, 좌표 정보 없이도 커버리지에 빈틈이 있는지 알 수 있다. 위상적 데이터 분석(Topological Data Analysis, TDA)의 persistent homology는 재료과학에서 미세구조(microstructure)의 기공(pore) 분포를 분석하거나, 단백질 구조의 형태학적 특징을 추출하는 데 사용된다. 로봇 모션 플래닝(robot motion planning)에서는 configuration space의 기본군이 로봇이 장애물을 피해 갈 수 있는 경로의 위상적 분류를 결정하며, 전산유체역학(CFD)에서 메쉬(mesh)의 위상적 일관성은 오일러 지표(Euler characteristic)로 검증된다.</p>
+<p>센서 네트워크(sensor network)에서 커버리지 구멍(coverage hole)을 탐지하는 문제는 감지 영역과 그 중첩을 단체 복합체로 나타낸 뒤 호몰로지(homology)를 계산하는 방식으로 정식화할 수 있다. 감지 영역이 좋은 덮개를 이룬다는 조건에서는 nerve 정리가 이 복합체의 호몰로지와 실제 커버리지 영역의 호몰로지를 연결한다. 위상적 데이터 분석(Topological Data Analysis, TDA)의 persistent homology는 재료과학에서 미세구조(microstructure)의 기공(pore) 분포를 분석하거나, 단백질 구조의 형태학적 특징을 추출하는 데 사용된다. 로봇 모션 플래닝(robot motion planning)에서는 configuration space의 기본군이 로봇이 장애물을 피해 가는 경로의 호모토피류를 구분한다. 전산 메쉬에서는 오일러 지표(Euler characteristic)를 기대값과 비교해 일부 위상적 결함을 찾을 수 있다.</p>
 
 <p>대수적 위상수학의 첫 번째 도구는 호모토피(homotopy)이다. 두 연속 사상이 연속적으로 변형되어 서로 일치할 수 있는지를 판별한다.</p>
 
 <div class="definition"><span class="env-label">Definition 22.1 (Homotopy)</span>
-두 연속 사상 \(f, g : X \to Y\)가 <strong>호모토피(homotopic)</strong>라 함은 (\(f \simeq g\)로 쓴다), \(H(x,0) = f(x)\)이고 \(H(x,1) = g(x)\)인 연속 사상 \(H : X \times [0,1] \to Y\)가 존재하는 것을 말한다. \(A \subseteq X\)이고 \(H\)가 \(A\) 위에서 상수이면, 이를 \(A\)에 대한 상대적 호모토피라 한다.
+두 연속 사상 \(f, g : X \to Y\)가 <strong>호모토피(homotopic)</strong>라 함은 (\(f \simeq g\)로 쓴다), \(H(x,0) = f(x)\)이고 \(H(x,1) = g(x)\)인 연속 사상 \(H : X \times [0,1] \to Y\)가 존재하는 것을 말한다. \(A \subseteq X\)이고 모든 \(a\in A\), \(t\in[0,1]\)에 대해 \(H(a,t)=f(a)=g(a)\)이면, 이를 \(A\)에 대한 상대적 호모토피라 한다.
 </div>
 
 <p>기본군(fundamental group)은 공간에 뚫린 구멍을 "고리를 감아서" 탐지하는 불변량이다. 로봇 모션 플래닝에서 configuration space의 기본군은 장애물을 감싸는 경로들을 위상적으로 분류한다.</p>
 
 <div class="definition"><span class="env-label">Definition 22.2 (Fundamental Group)</span>
-\(x_0 \in X\)로 놓자. \(x_0\)을 기점으로 하는 <strong>고리(loop)</strong>란 \(\gamma(0) = \gamma(1) = x_0\)인 연속 사상 \(\gamma : [0,1] \to X\)이다. <strong>기본군(fundamental group)</strong> \(\pi_1(X, x_0)\)은 \(x_0\)을 기점으로 하는 고리들의 호모토피류의 집합으로, 군 연산은 이어붙이기(concatenation)로 주어진다:
+\(x_0 \in X\)로 놓자. \(x_0\)을 기점으로 하는 <strong>고리(loop)</strong>란 \(\gamma(0) = \gamma(1) = x_0\)인 연속 사상 \(\gamma : [0,1] \to X\)이다. <strong>기본군(fundamental group)</strong> \(\pi_1(X, x_0)\)은 호모토피 과정 내내 두 끝점을 \(x_0\)에 고정하는 고리 호모토피류의 집합으로, 군 연산은 이어붙이기(concatenation)로 주어진다:
 $$ [\gamma] \cdot [\delta] = [\gamma * \delta], \quad (\gamma * \delta)(t) = \begin{cases} \gamma(2t) & 0 \leq t \leq 1/2, \\ \delta(2t-1) & 1/2 \leq t \leq 1. \end{cases} $$
 </div>
 
@@ -68,7 +68,7 @@ $$ \partial_k [v_0, \ldots, v_k] = \sum_{i=0}^{k} (-1)^i [v_0, \ldots, \hat{v}_i
 $$ H_k(K) = \ker \partial_k \,/\, \operatorname{im} \partial_{k+1}. $$
 </div>
 
-<p>오일러 지표(Euler characteristic)는 가장 오래되고 계산하기 쉬운 위상적 불변량이다. 전산유체역학에서 메쉬를 생성한 뒤 \(\chi = V - E + F\)를 검증하면, 메쉬에 위상적 결함(잘못된 연결, 빠진 면 등)이 있는지 즉시 확인할 수 있다.</p>
+<p>오일러 지표(Euler characteristic)는 가장 오래되고 계산하기 쉬운 위상적 불변량이다. 메쉬를 생성한 뒤 \(\chi = V - E + F\)를 기대하는 위상과 비교하면 잘못된 연결이나 빠진 면처럼 오일러 지표를 바꾸는 결함을 탐지할 수 있다. 다만 오일러 지표가 같다는 사실만으로 메쉬의 모든 위상적 결함이 없다고 결론 내릴 수는 없다.</p>
 
 <div class="definition"><span class="env-label">Definition 22.5 (Euler Characteristic)</span>
 유한 단체 복합체 \(K\) (보다 일반적으로 유한 CW-복합체)에 대해, <strong>오일러 지표(Euler characteristic)</strong>는 다음과 같다:
@@ -114,14 +114,14 @@ $$ H_0(K) \cong \mathbb{Z}, \quad H_1(K) \cong \mathbb{Z}\langle a, b \rangle / 
 \(H_2 = 0\)인 것은 클라인 병이 비가향임을 반영하고, \(H_1\)의 비틀림 부분 \(\mathbb{Z}/2\mathbb{Z}\)도 비가향성의 표지이다. 이는 \(\mathbb{R}P^2\)의 경우와 유사하다.
 </div>
 
-<p>브라우어 고정점 정리(Brouwer fixed-point theorem)는 경제학에서 내쉬 균형(Nash equilibrium)의 존재 증명, 수치해석에서 반복법(iterative method)의 수렴 보장 등에 사용된다.</p>
+<p>브라우어 고정점 정리(Brouwer fixed-point theorem)는 경제학에서 내쉬 균형(Nash equilibrium)의 존재 증명 등에 사용된다. 이 정리는 연속 자기 사상의 고정점 존재를 보장하지만, 그 사상을 단순 반복했을 때 수열이 고정점으로 수렴한다는 것까지 보장하지는 않는다.</p>
 
 <div class="theorem"><span class="env-label">Theorem 22.4 (Brouwer Fixed-Point Theorem)</span>
 모든 연속 사상 \(f : D^n \to D^n\) (\(D^n\)은 \(\mathbb{R}^n\)의 닫힌 단위 원판)은 고정점을 가진다.
 </div>
 
 <div class="example"><span class="env-label">Example 22.5 (Brouwer 고정점 정리의 호몰로지 증명 개요)</span>
-\(n = 2\)인 경우를 호몰로지로 증명하자. 고정점이 없다고 가정하면, 각 \(x \in D^2\)에 대해 \(f(x) \neq x\)이므로, \(f(x)\)에서 \(x\)로 향하는 반직선이 \(S^1 = \partial D^2\)과 만나는 점을 \(r(x)\)로 정의하면, \(r : D^2 \to S^1\)은 연속 수축(retraction)이다. 포함 사상 \(\iota : S^1 \hookrightarrow D^2\)에 대해 \(r \circ \iota = \mathrm{id}_{S^1}\)이므로, 호몰로지에서 \(r_* \circ \iota_* = \mathrm{id}\)이다. 그러나 \(H_1(D^2) = 0\)이고 \(H_1(S^1) \cong \mathbb{Z}\)이므로, \(\iota_* : \mathbb{Z} \to 0\)을 거쳐 항등 사상을 얻을 수 없다. 이는 모순이므로 고정점이 존재한다.
+\(n = 2\)인 경우를 호몰로지로 증명하자. 고정점이 없다고 가정하면, 각 \(x \in D^2\)에 대해 \(f(x) \neq x\)이므로, \(f(x)\)에서 \(x\)로 향하는 반직선이 \(S^1 = \partial D^2\)과 만나는 점 중 \(f(x)\)에서 가장 먼 점을 \(r(x)\)로 정의하면, \(r : D^2 \to S^1\)은 연속 수축(retraction)이다. 포함 사상 \(\iota : S^1 \hookrightarrow D^2\)에 대해 \(r \circ \iota = \mathrm{id}_{S^1}\)이므로, 호몰로지에서 \(r_* \circ \iota_* = \mathrm{id}\)이다. 그러나 \(H_1(D^2) = 0\)이고 \(H_1(S^1) \cong \mathbb{Z}\)이므로, \(\iota_* : \mathbb{Z} \to 0\)을 거쳐 항등 사상을 얻을 수 없다. 이는 모순이므로 고정점이 존재한다.
 </div>
 
 </section>

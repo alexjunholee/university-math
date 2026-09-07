@@ -1,4 +1,4 @@
-<h2 id="algebraic-number-theory">18. Algebraic Number Theory</h2>
+<h2 id="algebraic-number-theory">18. 대수적 정수론 (Algebraic Number Theory)</h2>
 
 <p class="chapter-intro">대수적 정수론은 정수의 성질을 수체(number field)로 확장하여 연구하는 분야이다. 유일 인수분해의 실패를 아이디얼의 유일 분해로 복원하는 데데킨트의 아이디어가 이 이론의 출발점이며, 류군과 단원 정리는 수체의 산술적 구조를 정밀하게 기술한다.</p>
 
@@ -6,18 +6,18 @@
 
 <p>이 장은 "정수" 개념을 일반화한다. 일반적인 수체에서는 원소의 유일 인수분해(unique factorization)가 성립하지 않을 수 있다. 데데킨트(Dedekind)는 원소 대신 아이디얼(ideal)을 인수분해의 기본 단위로 삼으면 유일성이 복원된다는 것을 보였다. "왜 '수' 대신 '아이디얼'로 인수분해하는가?"가 이 장이 답하는 질문이다.</p>
 
-<h3 id="number-fields">18.1 Number Fields and Rings of Integers</h3>
+<h3 id="number-fields">18.1 수체와 정수환 (Number Fields and Rings of Integers)</h3>
 
 <p>정수론을 대수적 구조로 일반화하는 첫 단계는 유리수체 \(\mathbb{Q}\)를 확장하여 새로운 "수의 세계"를 만드는 것이다. 이 확장된 수체(number field)에서 정수 역할을 하는 원소들의 집합이 정수환(ring of integers) \(\mathcal{O}_K\)이며, 이 환의 산술적 성질을 이해하는 것이 대수적 정수론의 출발점이다. 노름(norm)과 판별식(discriminant)은 수체의 기하학적 구조를 수치로 포착한다.</p>
 
 <div class="definition">
 <span class="env-label">Definition 18.1 (Number Field)</span>
-<strong>수체(number field)</strong>는 \(\mathbb{Q}\)의 유한 확대 \(K/\mathbb{Q}\)이다. 차수 \([K:\mathbb{Q}] = n\)을 수체(number field)의 <strong>차수(degree)</strong>라 한다. 원시원소 정리에 의해, 모든 수체(number field)는 어떤 대수적 수 \(\alpha\)에 대해 \(K = \mathbb{Q}(\alpha)\) 형태를 가진다.
+<strong>수체(number field)</strong>는 \(\mathbb{Q}\)의 유한 확장 \(K/\mathbb{Q}\)이다. 차수 \([K:\mathbb{Q}] = n\)을 수체의 <strong>차수(degree)</strong>라 한다. 원시원소 정리에 의해, 모든 수체는 어떤 대수적 수 \(\alpha\)에 대해 \(K = \mathbb{Q}(\alpha)\) 형태를 가진다.
 </div>
 
 <div class="definition">
 <span class="env-label">Definition 18.2 (Algebraic Integer, Ring of Integers)</span>
-원소 \(\alpha \in K\)가 \(\mathbb{Z}[x]\) 위의 최고차 계수가 1인 다항식의 근이면 <strong>대수적 정수(algebraic integer)</strong>라 한다. \(K\) 안의 모든 대수적 정수의 집합은 환을 이루며, 이를 <strong>정수환(ring of integers)</strong> \(\mathcal{O}_K\)이라 한다. \(\mathbb{Z}\)-가군으로서 \(\mathcal{O}_K\)는 계수(rank) \(n = [K:\mathbb{Q}]\)인 자유 가군이다.
+원소 \(\alpha \in K\)가 정수 계수의 최고차 계수 1인 다항식의 근이면 <strong>대수적 정수(algebraic integer)</strong>라 한다. \(K\) 안의 모든 대수적 정수의 집합은 환을 이루며, 이를 <strong>정수환(ring of integers)</strong> \(\mathcal{O}_K\)이라 한다. \(\mathbb{Z}\)-가군으로서 \(\mathcal{O}_K\)는 계수(rank) \(n = [K:\mathbb{Q}]\)인 자유 가군이다.
 </div>
 
 <div class="example">
@@ -50,11 +50,11 @@
 \(\mathbb{Z}[i]\)에서: \(\alpha = a + bi\)에 대해 노름은 \(N(\alpha) = a^2 + b^2\)이다. 단원은 \(\{\pm 1, \pm i\}\)이며, 각각의 노름은 1이다. 판별식은 \(\Delta_{\mathbb{Q}(i)} = -4\)이다.
 </div>
 
-<h3 id="ideal-theory">18.2 Ideal Theory and Unique Factorization of Ideals</h3>
+<h3 id="ideal-theory">18.2 아이디얼 이론과 아이디얼의 유일 분해 (Ideal Theory and Unique Factorization of Ideals)</h3>
 
 <p class="section-transition">수체의 정수환에서는 원소의 유일 인수분해가 일반적으로 성립하지 않는다. 이 난점을 극복하기 위해 아이디얼 수준에서의 인수분해를 도입한다.</p>
 
-<p>유일 인수분해의 실패는 실질적인 계산 문제를 야기한다. 예를 들어, \(\mathbb{Z}[\sqrt{-5}]\)에서 \(6 = 2 \times 3 = (1+\sqrt{-5})(1-\sqrt{-5})\)이라는 두 가지 인수분해가 공존하면, 나눗셈에 기반한 알고리즘의 정당성이 무너진다. 데데킨트의 아이디얼 이론(ideal theory)은 이 문제를 "인수분해의 단위를 원소에서 아이디얼로 격상"시킴으로써 해결한다. 격자 기반 암호에서 이상 격자(ideal lattice)의 구조적 성질이 중요한 이유도, 이 아이디얼의 유일 분해가 격자의 대수적 구조를 보장하기 때문이다.</p>
+<p>유일 인수분해의 실패는 실질적인 계산 문제를 일으킨다. 예를 들어, \(\mathbb{Z}[\sqrt{-5}]\)에서 \(6 = 2 \times 3 = (1+\sqrt{-5})(1-\sqrt{-5})\)이라는 두 가지 인수분해가 공존하면 원소의 소인수분해에 기대는 논증을 그대로 쓸 수 없다. 데데킨트의 아이디얼 이론(ideal theory)은 인수분해의 단위를 원소에서 아이디얼로 옮겨 유일성을 복원한다. 격자 기반 암호에서도 정수환의 아이디얼에서 얻은 아이디얼 격자(ideal lattice)의 대수 구조를 활용한다.</p>
 
 <p>\(\mathcal{O}_K\)의 원소가 기약원소들로 유일하게 분해되지 않을 수 있지만, 아이디얼은 (데데킨트 정역에서) 항상 유일하게 분해된다. 이 관찰에서 쿠머와 데데킨트가 아이디얼 수준의 인수분해를 도입했다.</p>
 
@@ -67,21 +67,21 @@
 <span class="env-label">Theorem 18.1 (Unique Factorization of Ideals)</span>
 \(\mathcal{O}_K\)에서 모든 0이 아닌 아이디얼 \(\mathfrak{a}\)는 소 아이디얼(prime ideal)들의 곱으로 (순서를 제외하고) 유일하게 분해된다:
 $$
-\mathfrak{a} = \mathfrak{p}_1^{e_1} \mathfrak{p}_2^{e_2} \cdots \mathfrak{p}_r^{e_r}.
+\mathfrak{a} = \mathfrak{p}_1^{e_1} \mathfrak{p}_2^{e_2} \cdots \mathfrak{p}_r^{e_r}, \qquad e_i\geq1.
 $$
 이것이 원소의 유일 분해를 대체한다.
 </div>
 
 <div class="definition">
 <span class="env-label">Definition 18.5 (Ideal Norm)</span>
-0이 아닌 아이디얼 \(\mathfrak{a} \trianglelefteq \mathcal{O}_K\)의 <strong>노름(norm)</strong>은 부분군으로서의 지표 \(N(\mathfrak{a}) = |\mathcal{O}_K / \mathfrak{a}|\)이다. 단항 아이디얼에 대해 \(N((\alpha)) = |N_{K/\mathbb{Q}}(\alpha)|\)이다. 노름은 곱셈적이다: \(N(\mathfrak{a}\mathfrak{b}) = N(\mathfrak{a}) N(\mathfrak{b})\).
+0이 아닌 아이디얼 \(\mathfrak{a} \trianglelefteq \mathcal{O}_K\)의 <strong>노름(norm)</strong>은 부분군으로서의 지표 \(N(\mathfrak{a}) = |\mathcal{O}_K / \mathfrak{a}|\)이다. \(0\neq\alpha\in\mathcal O_K\)가 생성하는 주 아이디얼에 대해 \(N((\alpha)) = |N_{K/\mathbb{Q}}(\alpha)|\)이다. 노름은 곱셈적이다: \(N(\mathfrak{a}\mathfrak{b}) = N(\mathfrak{a}) N(\mathfrak{b})\).
 </div>
 
 <div class="theorem">
 <span class="env-label">Theorem 18.2 (Prime Ideal Behavior)</span>
-유리 소수(prime) \(p\)와 \(\mathcal{O}_K = \mathbb{Z}[\alpha]\), 최소다항식 \(f(x)\)를 가지는 수체(number field) \(K = \mathbb{Q}(\alpha)\)를 생각하자. \(\mathbb{F}_p[x]\)에서 \(\bar{f}(x) = \bar{g}_1(x)^{e_1} \cdots \bar{g}_r(x)^{e_r}\)로 인수분해하면, (데데킨트 정리에 의해):
+유리 소수(prime) \(p\)와 \(\mathcal{O}_K = \mathbb{Z}[\alpha]\), 최소다항식 \(f(x)\)를 가지는 수체(number field) \(K = \mathbb{Q}(\alpha)\)를 생각하자. \(\mathbb{F}_p[x]\)에서 \(\bar{f}(x) = \bar{g}_1(x)^{e_1} \cdots \bar{g}_r(x)^{e_r}\)로 인수분해하되 \(\bar g_i\)들을 서로 다른 모닉 기약 다항식으로 잡으면, 데데킨트 정리에 따라
 $$
-(p) = \mathfrak{p}_1^{e_1} \cdots \mathfrak{p}_r^{e_r}, \quad \text{where } \mathfrak{p}_i = (p, g_i(\alpha)), \quad N(\mathfrak{p}_i) = p^{\deg g_i}.
+(p) = \mathfrak{p}_1^{e_1} \cdots \mathfrak{p}_r^{e_r}, \quad \mathfrak{p}_i = (p, g_i(\alpha)), \quad N(\mathfrak{p}_i) = p^{\deg g_i}.
 $$
 소수(prime) \(p\)는 다음과 같이 분류된다:
 <ul>
@@ -104,11 +104,11 @@ $$
 </ul>
 </div>
 
-<h3 id="dedekind-domains">18.3 Dedekind Domains</h3>
+<h3 id="dedekind-domains">18.3 데데킨트 정역 (Dedekind Domains)</h3>
 
 <p class="section-transition">아이디얼의 유일 분해가 성립하는 환의 일반적 조건을 추상화한 것이 데데킨트 정역이다. 수체의 정수환은 모두 데데킨트 정역이며, 이 구조는 대수적 정수론과 대수기하학에서 공통적으로 등장한다.</p>
 
-<p>앞 절에서 수체의 정수환 \(\mathcal{O}_K\)에서 아이디얼의 유일 분해를 확인했다. 자연스러운 질문은 "어떤 환에서 아이디얼의 유일 분해가 보장되는가?"이다. 데데킨트 정역(Dedekind domain)은 이 질문에 대한 정확한 답을 제공하는 추상적 조건이다. 이 개념은 정수론뿐 아니라 대수기하학(algebraic geometry)에서 매끄러운 대수 곡선(smooth algebraic curve)의 좌표환을 기술하는 데에도 등장하며, 두 분야 사이의 유사성이 여기서 드러난다.</p>
+<p>앞 절에서 수체의 정수환 \(\mathcal{O}_K\)에서 아이디얼의 유일 분해를 확인했다. 자연스러운 질문은 "어떤 환에서 아이디얼의 유일 분해가 보장되는가?"이다. 데데킨트 정역(Dedekind domain)은 이 질문에 대한 정확한 답을 제공하는 추상적 조건이다. 이 개념은 정수론뿐 아니라 대수기하학(algebraic geometry)에서 체 위의 매끄러운 기약 아핀 대수곡선(smooth irreducible affine algebraic curve)의 좌표환을 기술하는 데에도 등장하며, 두 분야 사이의 유사성이 여기서 드러난다.</p>
 
 <div class="definition">
 <span class="env-label">Definition 18.6 (Dedekind Domain)</span>
@@ -127,7 +127,7 @@ $$
   <li>\(R\)은 데데킨트 정역이다.</li>
   <li>모든 0이 아닌 아이디얼이 소 아이디얼(prime ideal)들의 곱으로 유일하게 분해된다.</li>
   <li>모든 0이 아닌 분수 아이디얼이 가역이다 (즉, 분수 아이디얼들이 곱셈에 대해 군을 이룬다).</li>
-  <li>\(R\)은 뇌터 환이고, 모든 0이 아닌 소 아이디얼 \(\mathfrak{p}\)에 대해 \(R_{\mathfrak{p}}\)가 DVR (이산 부치환)이다.</li>
+  <li>\(R\)은 뇌터 환이고, 모든 0이 아닌 소 아이디얼 \(\mathfrak{p}\)에 대해 \(R_{\mathfrak{p}}\)가 이산 값매김환(discrete valuation ring, DVR)이다.</li>
 </ul>
 임의의 수체(number field) \(K\)의 정수환(ring of integers) \(\mathcal{O}_K\)은 데데킨트 정역이다.
 </div>
@@ -136,16 +136,16 @@ $$
 <span class="env-label">Example 18.4</span>
 <ul>
   <li>모든 PID는 데데킨트 정역이다 (역은 성립하지 않는다).</li>
-  <li>\(\mathbb{Z}[\sqrt{-5}]\)는 PID가 아닌 데데킨트 정역이다 (\((2, 1+\sqrt{-5})\)가 단항 아이디얼이 아니므로).</li>
+  <li>\(\mathbb{Z}[\sqrt{-5}]\)는 PID가 아닌 데데킨트 정역이다 (\((2, 1+\sqrt{-5})\)가 주 아이디얼이 아니므로).</li>
   <li>환 \(k[x, y]/(y^2 - x^3)\)은 데데킨트 정역이 아니다: 정수적으로 닫혀 있지 않다 (분수체의 원소 \(y/x\)가 \(t^2 - x = 0\)을 만족하지만 이 환에 속하지 않는다).</li>
 </ul>
 </div>
 
-<h3 id="class-number-units">18.4 The Class Group and Dirichlet's Unit Theorem</h3>
+<h3 id="class-number-units">18.4 류군과 디리클레 단원 정리 (The Class Group and Dirichlet's Unit Theorem)</h3>
 
 <p class="section-transition">류군은 정수환이 PID에서 얼마나 벗어나는지를 측정하는 유한군이며, 디리클레 단원 정리는 단원군의 구조를 완전히 결정한다. 이 두 불변량은 수체의 산술을 지배한다.</p>
 
-<p>류수(class number) \(h_K\)는 수체의 산술적 복잡도를 하나의 정수로 요약하는 불변량이다. \(h_K = 1\)이면 원소의 유일 인수분해가 성립하고, \(h_K > 1\)이면 그 실패의 정도를 정량적으로 측정한다. 격자 기반 암호에서 이상 격자의 안전성 분석에 류수가 등장하며, 류수의 계산 자체가 수론적 알고리즘의 주요 연구 주제이다. 디리클레 단원 정리(Dirichlet's unit theorem)는 정수환의 가역원(unit)이 어떤 구조를 갖는지를 완전히 기술하며, 이 정보는 해석적 류수 공식(analytic class number formula)을 통해 류수와 연결된다.</p>
+<p>류수(class number) \(h_K\)는 수체의 산술적 복잡도를 하나의 정수로 요약하는 불변량이다. \(h_K = 1\)이면 원소의 유일 인수분해가 성립하고, \(h_K > 1\)이면 그 실패의 정도를 정량적으로 측정한다. 격자 기반 암호에서 아이디얼 격자의 안전성 분석에 류수가 등장하며, 류수의 계산 자체가 수론적 알고리즘의 주요 연구 주제이다. 디리클레 단원 정리(Dirichlet's unit theorem)는 정수환의 가역원(unit)이 어떤 구조를 갖는지를 완전히 기술하며, 이 정보는 해석적 류수 공식(analytic class number formula)을 통해 류수와 연결된다.</p>
 
 <div class="definition">
 <span class="env-label">Definition 18.7 (Ideal Class Group)</span>
@@ -169,7 +169,7 @@ $$
 
 <div class="example">
 <span class="env-label">Example 18.5</span>
-\(K = \mathbb{Q}(\sqrt{-5})\)에서는: \(n = 2\), \(r_2 = 1\), \(\Delta_K = -20\). 민코프스키 한계는 \(M_K = \frac{2}{4} \cdot \frac{4}{\pi} \cdot \sqrt{20} = \frac{2\sqrt{20}}{\pi} \approx 2.85\)이다. 따라서 소수(prime) \(p = 2\)만 확인하면 된다. \((2) = (2, 1+\sqrt{-5})^2\)이고 \((2, 1+\sqrt{-5})\)는 단항 아이디얼이 아니므로 (노름이 2인 원소는 \(a^2 + 5b^2 = 2\)의 정수해가 없어 존재하지 않는다), 류군의 위수는 \(h_K = 2\)이다.
+\(K = \mathbb{Q}(\sqrt{-5})\)에서는 \(n = 2\), \(r_2 = 1\), \(\Delta_K = -20\)이다. 민코프스키 한계는 \(M_K = \frac{2}{4} \cdot \frac{4}{\pi} \cdot \sqrt{20} = \frac{2\sqrt{20}}{\pi} \approx 2.85\)이다. 따라서 모든 아이디얼 류는 노름이 1 또는 2인 아이디얼로 대표된다. 노름 1인 아이디얼은 단위 아이디얼이다. 노름 2인 아이디얼은 지표가 2이므로 \((2)\)를 포함하는 소 아이디얼이고, \((2)=\mathfrak p^2\), \(\mathfrak p=(2,1+\sqrt{-5})\)이므로 아이디얼의 유일 분해에 따라 \(\mathfrak p\) 하나뿐이다. 이 \(\mathfrak p\)는 주 아이디얼이 아니다. 실제로 노름이 2인 원소가 있다면 \(a^2+5b^2=2\)인 정수해가 있어야 하지만 그런 해는 없다. 또한 \((2)=\mathfrak p^2\)이므로 \([\mathfrak p]\)의 위수는 2이다. 따라서 류군은 \([\mathcal O_K]\)와 \([\mathfrak p]\) 두 원소로 이루어져 \(h_K=2\)이다.
 </div>
 
 <div class="theorem">
@@ -202,12 +202,12 @@ $$
 
 <div class="definition">
 <span class="env-label">Definition 18.8 (Regulator)</span>
-\(u_1, \ldots, u_r\)을 기본 단원 체계라 하자 (\(r = r_1 + r_2 - 1\)). 대수적 매장 \(\sigma_1, \ldots, \sigma_{r_1}\) (실수 매장)과 \(\sigma_{r_1+1}, \ldots, \sigma_{r_1+r_2}\) (복소 매장 대표)에 대해, 로그 매장(logarithmic embedding)을 \(\ell_j(u) = \log|\sigma_j(u)|\) (실수 매장) 또는 \(\ell_j(u) = 2\log|\sigma_j(u)|\) (복소 매장)으로 정의한다. <strong>조정자(regulator)</strong> \(R_K\)는 \(r \times r\) 행렬 \((\ell_j(u_i))_{1 \leq i,j \leq r}\)에서 임의의 한 행을 제거한 행렬식의 절댓값이다. 조정자는 해석적 류수 공식에 등장한다.
+\(u_1, \ldots, u_r\)을 기본 단원 체계라 하자 (\(r = r_1 + r_2 - 1\)). 대수적 매장 \(\sigma_1, \ldots, \sigma_{r_1}\) (실수 매장)과 \(\sigma_{r_1+1}, \ldots, \sigma_{r_1+r_2}\) (복소 매장 대표)에 대해, 로그 매장(logarithmic embedding)을 \(\ell_j(u) = \log|\sigma_j(u)|\) (실수 매장) 또는 \(\ell_j(u) = 2\log|\sigma_j(u)|\) (복소 매장)으로 정의한다. \(r\times(r_1+r_2)\) 행렬 \((\ell_j(u_i))\)에서 임의의 한 열을 제거하면 \(r\times r\) 행렬을 얻는다. <strong>조정자(regulator)</strong> \(R_K\)는 이 행렬식의 절댓값이다. 조정자는 해석적 류수 공식에 등장한다.
 </div>
 
 <div class="theorem">
 <span class="env-label">Theorem 18.6 (Analytic Class Number Formula)</span>
-데데킨트 제타 함수 \(\zeta_K(s) = \sum_{\mathfrak{a}} N(\mathfrak{a})^{-s}\)는 \(s = 1\)에서 단순 극을 가지며, 그 유수(residue)는 다음과 같다:
+0이 아닌 정수 아이디얼 전체에 대해 합한 데데킨트 제타 함수 \(\zeta_K(s) = \sum_{0\neq\mathfrak{a}\subseteq\mathcal O_K} N(\mathfrak{a})^{-s}\)는 \(s = 1\)에서 단순 극을 가지며, 그 유수(residue)는 다음과 같다:
 $$
 \lim_{s \to 1^+} (s - 1)\zeta_K(s) = \frac{2^{r_1} (2\pi)^{r_2} h_K R_K}{w_K \sqrt{|\Delta_K|}},
 $$

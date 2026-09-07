@@ -1,14 +1,12 @@
-<h2 id="multivariable-calc">4. 다변수 미적분학</h2>
+<h2 id="multivariable-calc">4. 다변수 미적분학 (Multivariable Calculus)</h2>
 
-<p>온도는 위치와 시간 모두에 의존하고, 지형의 높이는 경도와 위도의 함수이며, 기업의 이윤은 여러 생산 요소에 동시에 달려 있다. 이런 양을 다루려면 3장에서 세운 미적분학을 다변수 함수로 확장해야 한다. 그러면 편미분, 기울기 벡터, 다중 적분, 벡터장 위의 적분이 등장한다. 일변수의 직관은 대체로 이어지지만, 차원이 높아지면 한 점에 접근하는 경로가 무한히 많아진다.</p>
+<p>온도는 위치와 시간 모두에 의존하고, 지형의 높이는 경도와 위도의 함수이며, 기업의 이윤은 여러 생산 요소에 동시에 달려 있다. 이런 양을 다루려면 3장에서 세운 미적분학을 다변수 함수로 확장해야 한다. 여기서 편미분, 기울기 벡터, 다중 적분, 벡터장 위의 적분이 등장한다. 일변수의 직관은 대체로 이어지지만, 차원이 높아지면 한 점에 접근하는 경로가 무한히 많아진다.</p>
 
-<p>편미분은 열전도 방정식에서 온도의 공간적 변화율을, 유체역학에서 속도장의 각 성분 변화를 기술한다. 그래디언트(gradient)는 경사하강법(gradient descent)에서 손실 함수를 최소화하는 방향을 결정한다. 다중적분은 3차원 물체의 질량, 무게중심, 관성 모멘트를 계산하는 데 쓰이고, 발산 정리와 Stokes 정리는 맥스웰 방정식(Maxwell's equations)과 유체역학의 연속 방정식(continuity equation)을 기술한다.</p>
+<p>편미분은 열전도 방정식에서 온도의 공간적 변화율을, 유체역학에서 속도장의 각 성분 변화를 기술한다. 기울기 벡터(gradient)는 함수의 국소 변화율을 한데 나타내며, 그 반대 방향은 경사하강법(gradient descent)의 기본 갱신 방향이 된다. 다중적분은 3차원 물체의 질량, 무게중심, 관성 모멘트를 계산하는 데 쓰이고, 발산 정리와 Stokes 정리는 맥스웰 방정식(Maxwell's equations)과 유체역학의 연속 방정식(continuity equation)을 기술한다.</p>
 
 <h3 id="multivariable-limits">4.1 다변수 극한과 연속</h3>
 
-<p>열판(heat plate) 위의 온도 분포처럼 두 변수 이상에 의존하는 함수를 다룰 때, 한 점 근방에서의 함수 행동을 분석하려면 먼저 다변수 극한과 연속의 개념을 확립해야 한다. 일변수와 달리 접근 경로가 무한히 많다. 이 하나의 차이가 다변수 극한을 훨씬 까다롭게 만든다.</p>
-
-<p>일변수에서는 좌극한과 우극한, 두 방향만 고려하면 충분했다. 다변수에서는 한 점에 접근하는 경로가 무한히 많으므로 극한의 존재 조건이 훨씬 까다로워진다.</p>
+<p>열판(heat plate) 위의 온도 분포처럼 두 변수 이상에 의존하는 함수의 한 점 근방 거동을 분석하려면 다변수 극한과 연속을 먼저 정의해야 한다. 일변수에서는 좌우 두 방향을 살피면 되었지만, 다변수에서는 한 점에 접근하는 경로가 무한히 많다. 이 차이 때문에 극한의 존재를 확인하기가 훨씬 까다롭다.</p>
 
 <div class="definition">
 <span class="env-label">Definition 4.1 (다변수 극한)</span>
@@ -49,15 +47,15 @@ $$
 \(f: \mathbb{R}^n \to \mathbb{R}\)가 \(\mathbf{a}\)에서 연속이란 \(\displaystyle\lim_{\mathbf{x} \to \mathbf{a}} f(\mathbf{x}) = f(\mathbf{a})\)임을 뜻한다. 다항식, 지수함수, 삼각함수 등의 합성은 정의역 내에서 연속이다.
 </div>
 
-<h3 id="partial-derivatives">4.2 Partial Derivative(편미분)과 Gradient(기울기 벡터)</h3>
+<h3 id="partial-derivatives">4.2 편미분과 기울기 벡터</h3>
 
 <p>열전도에서 "온도가 \(x\) 방향으로 얼마나 빠르게 변하는가?"를 묻는 것은 \(y\), \(z\)를 고정하고 \(x\)에 대해서만 미분하는 것이다. 편미분은 이처럼 다른 변수를 고정한 채 한 변수에 따른 변화율을 구하며, 다변수 시스템에서 각 변수의 영향을 분석하는 기본 도구이다.</p>
 
-<p>편미분들을 하나의 벡터로 모은 gradient(기울기 벡터)는 함수가 가장 빠르게 증가하는 방향과 그 크기를 알려준다.</p>
+<p>편미분들을 하나의 벡터로 모은 기울기 벡터(gradient)는 함수가 가장 빠르게 증가하는 방향과 그 크기를 알려준다.</p>
 
 <div class="definition">
 <span class="env-label">Definition 4.3 (Partial Derivative)</span>
-\(f: \mathbb{R}^n \to \mathbb{R}\)에 대해, \(x_i\)에 대한 <strong>partial derivative(편미분)</strong>은 다음과 같이 정의된다:
+\(f: \mathbb{R}^n \to \mathbb{R}\)에 대해, \(x_i\)에 대한 <strong>편미분(partial derivative)</strong>은 다음과 같이 정의된다:
 $$
 \frac{\partial f}{\partial x_i} = \lim_{h \to 0} \frac{f(x_1, \ldots, x_i + h, \ldots, x_n) - f(x_1, \ldots, x_n)}{h}
 $$
@@ -65,60 +63,60 @@ $$
 
 <div class="definition">
 <span class="env-label">Definition 4.4 (Gradient)</span>
-\(f: \mathbb{R}^n \to \mathbb{R}\)의 <strong>gradient(기울기 벡터)</strong>는 다음 벡터로 정의된다:
+\(f: \mathbb{R}^n \to \mathbb{R}\)가 미분 가능할 때 <strong>기울기 벡터(gradient)</strong>는 다음 벡터로 정의된다:
 $$
 \nabla f = \left(\frac{\partial f}{\partial x_1}, \frac{\partial f}{\partial x_2}, \ldots, \frac{\partial f}{\partial x_n}\right)
 $$
-gradient는 가장 가파른 상승 방향을 가리키며, 등위면에 수직이다.
+기울기 벡터가 0이 아니면 가장 가파른 상승 방향을 가리키며, 정칙 등위면에 수직이다.
 </div>
 
-<p>그래디언트의 방향이 최대 증가 방향이라는 성질은 기계학습에서 경사하강법(gradient descent)의 수학적 근거이다. 손실 함수 \(L(\mathbf{w})\)의 파라미터 \(\mathbf{w}\)를 \(-\nabla L\) 방향으로 갱신하면 손실이 가장 빠르게 감소한다.</p>
+<p>기울기 벡터가 최대 증가 방향이라는 성질은 기계학습의 경사하강법(gradient descent)을 뒷받침한다. 손실 함수 \(L(\mathbf{w})\)의 파라미터 \(\mathbf{w}\)를 \(-\nabla L\) 방향으로 충분히 작게 움직이면, 그 점에서 손실이 가장 빠르게 감소한다.</p>
 
 <div class="theorem">
 <span class="env-label">Theorem 4.1 (Chain Rule, Multivariable)</span>
-\(f = f(x, y)\)이고 \(x = x(t), y = y(t)\)이면, 다음이 성립한다:
+\(f(x,y)\)가 미분 가능하고 \(x(t), y(t)\)가 미분 가능하면, 다음이 성립한다:
 $$
 \frac{df}{dt} = \frac{\partial f}{\partial x}\frac{dx}{dt} + \frac{\partial f}{\partial y}\frac{dy}{dt}
 $$
 </div>
 
-<h4>고차 Partial Derivative(편미분)</h4>
+<h4>고차 편미분</h4>
 
 <div class="theorem">
 <span class="env-label">Theorem 4.2 (Clairaut's Theorem)</span>
-\(f_{xy}\)와 \(f_{yx}\)가 모두 연속이면, \(f_{xy} = f_{yx}\)이다. 즉, 혼합 partial derivative(편미분)의 미분 순서를 교환할 수 있다.
+\(f_{xy}\)와 \(f_{yx}\)가 한 점을 포함하는 근방에서 모두 연속이면, 그 점에서 \(f_{xy} = f_{yx}\)이다. 즉, 이 조건 아래에서는 혼합 편미분의 순서를 교환할 수 있다.
 </div>
 
 <h4>방향 도함수</h4>
 
 <div class="definition">
 <span class="env-label">Definition 4.5 (Directional Derivative)</span>
-단위 벡터 \(\hat{\mathbf{u}}\) 방향으로 점 \(\mathbf{a}\)에서의 \(f\)의 도함수는 다음과 같다:
+\(f\)가 점 \(\mathbf{a}\)에서 미분 가능할 때, 단위 벡터 \(\hat{\mathbf{u}}\) 방향의 방향 도함수는 다음과 같다:
 $$
-D_{\hat{\mathbf{u}}} f(\mathbf{a}) = \nabla f(\mathbf{a}) \cdot \hat{\mathbf{u}} = |\nabla f(\mathbf{a})| \cos\theta
+D_{\hat{\mathbf{u}}} f(\mathbf{a}) = \nabla f(\mathbf{a}) \cdot \hat{\mathbf{u}} = \|\nabla f(\mathbf{a})\| \cos\theta
 $$
 여기서 \(\theta\)는 \(\nabla f\)와 \(\hat{\mathbf{u}}\) 사이의 각도이다.
 </div>
 
-<h3 id="taylor-expansion">4.3 Taylor 전개 (2변수)</h3>
+<h3 id="taylor-expansion">4.3 2변수 테일러 전개 (Taylor Expansion)</h3>
 
-<p>비선형 시스템의 안정성을 분석하거나 최적화 알고리즘을 설계할 때, 함수를 동작점 근방에서 2차 다항식으로 근사하는 것이 핵심 단계이다. 2차 근사의 계수를 담고 있는 것이 Hessian 행렬이며, 그 고유값의 부호가 임계점의 성질(극소, 극대, 안장점)을 결정한다. Newton 방법 기반 최적화 알고리즘은 이 2차 Taylor 전개에 기반한다.</p>
+<p>비선형 시스템의 안정성을 분석하거나 최적화 알고리즘을 설계할 때는 함수를 동작점 근방에서 2차 다항식으로 근사한다. 2차 근사의 계수를 담는 Hessian 행렬의 고유값 부호로 임계점의 성질(극소, 극대, 안장점)을 판정할 수 있다. Newton 방법을 쓰는 최적화 알고리즘도 이 2차 Taylor 전개에 기댄다.</p>
 
 
 <div class="theorem">
 <span class="env-label">Theorem 4.3 (2변수 Taylor 전개)</span>
-\(f(x,y)\)가 \((a,b)\) 근방에서 충분히 미분 가능하면, 다음이 성립한다:
+\(f(x,y)\)가 \((a,b)\) 근방에서 두 번 연속 미분 가능하면, \((x,y)\to(a,b)\)일 때 다음이 성립한다:
 $$
 f(x,y) = f(a,b) + f_x(a,b)(x-a) + f_y(a,b)(y-b)
 $$
 $$
-+ \frac{1}{2!}\left[f_{xx}(a,b)(x-a)^2 + 2f_{xy}(a,b)(x-a)(y-b) + f_{yy}(a,b)(y-b)^2\right] + \cdots
++ \frac{1}{2!}\left[f_{xx}(a,b)(x-a)^2 + 2f_{xy}(a,b)(x-a)(y-b) + f_{yy}(a,b)(y-b)^2\right] + o\!\left(\|(x-a,y-b)\|^2\right)
 $$
 여기서 2차까지의 전개를 행렬 형태로 쓰면:
 $$
-f(\mathbf{x}) \approx f(\mathbf{a}) + \nabla f(\mathbf{a})^T (\mathbf{x} - \mathbf{a}) + \frac{1}{2}(\mathbf{x} - \mathbf{a})^T H_f(\mathbf{a})(\mathbf{x} - \mathbf{a})
+f(\mathbf{x}) = f(\mathbf{a}) + \nabla f(\mathbf{a})^T (\mathbf{x} - \mathbf{a}) + \frac{1}{2}(\mathbf{x} - \mathbf{a})^T H_f(\mathbf{a})(\mathbf{x} - \mathbf{a}) + o(\|\mathbf{x}-\mathbf{a}\|^2)
 $$
-여기서 \(H_f\)는 <strong>Hessian matrix(헤시안 행렬)</strong>이다:
+여기서 \(H_f\)는 <strong>헤시안 행렬(Hessian matrix)</strong>이다:
 $$
 H_f = \begin{pmatrix} f_{xx} & f_{xy} \\ f_{yx} & f_{yy} \end{pmatrix}.
 $$
@@ -146,23 +144,23 @@ $$
 </ul>
 </div>
 
-<h3 id="lagrange-multipliers">4.4 Lagrange 승수법</h3>
+<h3 id="lagrange-multipliers">4.4 라그랑주 승수법 (Lagrange Multipliers)</h3>
 
 <p>공학 설계에서 최적화는 거의 항상 제약 조건을 동반한다. 항공기 날개의 양력을 최대화하되 무게 제한을 만족해야 하고, 통신 채널의 데이터 전송률을 최대화하되 전력 제한 내에서 운용해야 한다. 이처럼 등식 제약 조건 하의 최적화를 체계적으로 푸는 방법이 Lagrange 승수법이다.</p>
 
 
 <div class="theorem">
 <span class="env-label">Theorem 4.4 (Lagrange Multiplier Method)</span>
-\(g(\mathbf{x}) = c\)라는 제약 조건 하에서 \(f(\mathbf{x})\)를 최적화하려면, 다음 조건을 만족하는 점 \(\mathbf{x}\)와 승수 \(\lambda\)를 구한다:
+\(f\)와 \(g\)가 해당 점의 근방에서 연속적으로 미분 가능하다고 하자. \(g(\mathbf{x})=c\) 위의 국소 극값 \(\mathbf{x}\)에서 \(\nabla g(\mathbf{x})\neq\mathbf{0}\)이면, 어떤 승수 \(\lambda\)가 존재하여 다음 필요조건을 만족한다:
 $$
 \nabla f = \lambda \nabla g, \qquad g(\mathbf{x}) = c.
 $$
-기하학적으로 이는 \(f\)의 등위면과 제약 곡면이 접하는 점, 즉 두 gradient가 평행한 점에 해당한다.
+기하학적으로 이는 \(f\)의 등위면과 제약 곡면이 접하는 점, 즉 두 기울기 벡터가 평행한 점에 해당한다. 전역 극값을 구할 때는 이 조건으로 얻은 점뿐 아니라 \(\nabla g=\mathbf{0}\)인 점과 제약 집합의 경계도 따로 확인한 뒤 함수값을 비교해야 한다.
 </div>
 
 <div class="remark">
 <span class="env-label">Remark (복수 제약)</span>
-제약 조건이 \(g_1(\mathbf{x}) = c_1, \ldots, g_k(\mathbf{x}) = c_k\)인 경우:
+제약 조건이 \(g_1(\mathbf{x}) = c_1, \ldots, g_k(\mathbf{x}) = c_k\)이고 제약식들의 기울기 벡터가 해당 점에서 선형 독립인 경우, 국소 극값은 다음 필요조건을 만족한다:
 $$
 \nabla f = \lambda_1 \nabla g_1 + \lambda_2 \nabla g_2 + \cdots + \lambda_k \nabla g_k.
 $$
@@ -185,7 +183,7 @@ $$
 $$
 yz = \lambda, \quad xz = \lambda, \quad xy = \lambda.
 $$
-첫 두 식에서 \(yz = xz\), 즉 \(y = z\) (\(z \neq 0\)). 마찬가지로 \(x = y = z\)이다. \(3x = 12\)이므로 \(x = y = z = 4\)이고, 최댓값은 \(f(4,4,4) = 64\)이다.
+첫 두 식에서 \(yz = xz\), 즉 \(x = y\) (\(z \neq 0\)). 마찬가지로 \(x = y = z\)이다. \(3x = 12\)이므로 \(x = y = z = 4\)이고, 이때 \(f(4,4,4) = 64\)이다. 제약 단체의 경계로 다가가면 적어도 한 변수가 0으로 가므로 곱은 0으로 간다. 따라서 내부 임계점에서 얻은 64가 전역 최댓값이다.
 </div>
 
 <div class="example">
@@ -214,22 +212,22 @@ $$
 $$
 \iint_R f(x,y)\,dA = \lim_{\Delta A \to 0} \sum f(x_i^*, y_i^*) \Delta A_i
 $$
-반복 적분으로 계산된다: \(\int_a^b \int_{g_1(x)}^{g_2(x)} f(x,y)\,dy\,dx\).
+\(f\)가 적절한 영역에서 연속이면 반복 적분으로 계산할 수 있다: \(\int_a^b \int_{g_1(x)}^{g_2(x)} f(x,y)\,dy\,dx\).
 </div>
 
 <div class="theorem">
 <span class="env-label">Theorem 4.5 (Change of Variables)</span>
-변환 \((x, y) = T(u, v)\)에 대해:
+\(T:S\to R\)가 일대일이고 연속적으로 미분 가능하며 영역 내부에서 Jacobian이 0이 아닌 좌표변환일 때:
 $$
 \iint_R f(x, y)\,dx\,dy = \iint_S f(T(u,v)) \left|\frac{\partial(x, y)}{\partial(u, v)}\right| du\,dv
 $$
-여기서 \(\left|\frac{\partial(x,y)}{\partial(u,v)}\right|\)는 <strong>Jacobian(야코비안)</strong> 행렬식의 절댓값이다.
+여기서 \(\left|\frac{\partial(x,y)}{\partial(u,v)}\right|\)는 <strong>야코비안(Jacobian)</strong> 행렬식의 절댓값이다.
 </div>
 
 <h4>극좌표, 원통좌표, 구면좌표</h4>
 
 <table>
-<tr><th>좌표계</th><th>변환</th><th>Jacobian(야코비안)</th></tr>
+<tr><th>좌표계</th><th>변환</th><th>야코비안(Jacobian)</th></tr>
 <tr><td>극좌표</td><td>\(x = r\cos\theta,\; y = r\sin\theta\)</td><td>\(r\)</td></tr>
 <tr><td>원통좌표</td><td>\(x = r\cos\theta,\; y = r\sin\theta,\; z = z\)</td><td>\(r\)</td></tr>
 <tr><td>구면좌표</td><td>\(x = \rho\sin\phi\cos\theta,\; y = \rho\sin\phi\sin\theta,\; z = \rho\cos\phi\)</td><td>\(\rho^2 \sin\phi\)</td></tr>
@@ -244,10 +242,10 @@ $$
 <span class="env-label">Definition 4.7 (Vector Differential Operators)</span>
 스칼라장 \(f\)와 벡터장 \(\mathbf{F} = (P, Q, R)\)에 대해:
 <ul>
-  <li><strong>Gradient</strong>: \(\nabla f = \left(\frac{\partial f}{\partial x}, \frac{\partial f}{\partial y}, \frac{\partial f}{\partial z}\right)\)</li>
-  <li><strong>Divergence(발산)</strong>: \(\nabla \cdot \mathbf{F} = \frac{\partial P}{\partial x} + \frac{\partial Q}{\partial y} + \frac{\partial R}{\partial z}\)</li>
-  <li><strong>Curl(회전)</strong>: \(\nabla \times \mathbf{F} = \left(\frac{\partial R}{\partial y} - \frac{\partial Q}{\partial z},\; \frac{\partial P}{\partial z} - \frac{\partial R}{\partial x},\; \frac{\partial Q}{\partial x} - \frac{\partial P}{\partial y}\right)\)</li>
-  <li><strong>Laplacian(라플라시안)</strong>: \(\nabla^2 f = \frac{\partial^2 f}{\partial x^2} + \frac{\partial^2 f}{\partial y^2} + \frac{\partial^2 f}{\partial z^2}\)</li>
+  <li><strong>기울기 벡터(gradient)</strong>: \(\nabla f = \left(\frac{\partial f}{\partial x}, \frac{\partial f}{\partial y}, \frac{\partial f}{\partial z}\right)\)</li>
+  <li><strong>발산(divergence)</strong>: \(\nabla \cdot \mathbf{F} = \frac{\partial P}{\partial x} + \frac{\partial Q}{\partial y} + \frac{\partial R}{\partial z}\)</li>
+  <li><strong>회전(curl)</strong>: \(\nabla \times \mathbf{F} = \left(\frac{\partial R}{\partial y} - \frac{\partial Q}{\partial z},\; \frac{\partial P}{\partial z} - \frac{\partial R}{\partial x},\; \frac{\partial Q}{\partial x} - \frac{\partial P}{\partial y}\right)\)</li>
+  <li><strong>라플라시안(Laplacian)</strong>: \(\nabla^2 f = \frac{\partial^2 f}{\partial x^2} + \frac{\partial^2 f}{\partial y^2} + \frac{\partial^2 f}{\partial z^2}\)</li>
 </ul>
 </div>
 
@@ -280,9 +278,9 @@ $$
 곡면 \(S\)를 \(\mathbf{r}(u,v)\)로 매개변수화할 때:
 <ul>
   <li><strong>스칼라 면적분:</strong> \(\displaystyle\iint_S f\,dS = \iint_D f(\mathbf{r}(u,v))\,|\mathbf{r}_u \times \mathbf{r}_v|\,du\,dv\)</li>
-  <li><strong>벡터 면적분 (유량):</strong> \(\displaystyle\iint_S \mathbf{F} \cdot d\mathbf{S} = \iint_D \mathbf{F}(\mathbf{r}(u,v)) \cdot (\mathbf{r}_u \times \mathbf{r}_v)\,du\,dv\)</li>
+  <li><strong>벡터 면적분 (유량):</strong> \(\displaystyle\iint_S \mathbf{F} \cdot d\mathbf{S} = \iint_D \mathbf{F}(\mathbf{r}(u,v)) \cdot (\mathbf{r}_u \times \mathbf{r}_v)\,du\,dv\), 단 \(\mathbf{r}_u\times\mathbf{r}_v\)가 선택한 방향을 향하도록 매개변수 순서를 잡는다</li>
 </ul>
-곡면이 \(z = g(x,y)\)로 주어지면, \(d\mathbf{S} = (-g_x, -g_y, 1)\,dA\)이다.
+곡면이 \(z = g(x,y)\)로 주어지고 위쪽 방향을 택하면, \(d\mathbf{S} = (-g_x, -g_y, 1)\,dA\)이다.
 </div>
 
 <div class="example">
@@ -301,12 +299,12 @@ $$
 
 <h3 id="integral-theorems">4.7 적분 정리와 활용 예제</h3>
 
-<p>전자기학에서 가우스 법칙(Gauss's law)은 폐곡면을 통과하는 전기 선속(electric flux)이 내부 전하량에 비례한다는 것인데, 이는 발산 정리의 직접적인 적용이다. 앙페르 법칙(Ampere's law)은 Stokes 정리가 기술한다. 폐곡선을 따른 자기장의 선적분은 내부 전류에 비례한다. 이 적분 정리들은 물리 법칙의 국소적 형태(미분 방정식)와 전역적 형태(적분 방정식)를 서로 변환할 수 있게 해 준다.</p>
+<p>전자기학에서 가우스 법칙(Gauss's law)은 폐곡면을 통과하는 전기 선속(electric flux)이 내부 전하량에 비례한다는 내용이며, 발산 정리로 미분형과 적분형을 잇는다. 정자기학의 앙페르 법칙(Ampere's law)도 Stokes 정리를 통해 폐곡선을 따른 자기장의 선적분과 그 안을 지나는 전류를 연결한다. 이처럼 적분 정리는 물리 법칙의 국소적 형태(미분 방정식)와 전역적 형태(적분 방정식)를 서로 바꾸어 쓸 수 있게 해 준다.</p>
 
 
 <div class="theorem">
 <span class="env-label">Theorem 4.6 (Green's Theorem)</span>
-\(C\)가 영역 \(D\)를 둘러싸는 양의 방향, 조각적으로 매끄러운 단순 폐곡선이라 하자. 그러면 다음이 성립한다:
+\(C\)가 영역 \(D\)를 둘러싸는 양의 방향의 조각적으로 매끄러운 단순 폐곡선이고, \(P,Q\)의 1차 편도함수가 \(D\)를 포함하는 열린 영역에서 연속이라고 하자. 그러면 다음이 성립한다:
 $$
 \oint_C (P\,dx + Q\,dy) = \iint_D \left(\frac{\partial Q}{\partial x} - \frac{\partial P}{\partial y}\right) dA
 $$
@@ -336,7 +334,7 @@ $$
 
 <div class="theorem">
 <span class="env-label">Theorem 4.7 (Stokes' Theorem)</span>
-\(S\)가 곡선 \(C\)로 둘러싸인 향이 부여된 곡면이라 하자. 그러면 다음이 성립한다:
+\(S\)가 조각적으로 매끄럽고 향이 부여된 곡면이며, 경계 \(C\)의 방향은 그 향과 일치한다고 하자. \(\mathbf{F}\)의 1차 편도함수가 \(S\)를 포함하는 영역에서 연속이면 다음이 성립한다:
 $$
 \oint_C \mathbf{F} \cdot d\mathbf{r} = \iint_S (\nabla \times \mathbf{F}) \cdot d\mathbf{S}
 $$
@@ -354,7 +352,7 @@ $$
 
 <div class="example">
 <span class="env-label">Example 4.12 (Stokes' Theorem -- 곡면 선택의 자유)</span>
-\(\mathbf{F} = (-y^2, x, z^2)\)에 대해, 삼각형 \((1,0,0), (0,1,0), (0,0,1)\)의 경계 \(C\)를 따른 선적분을 구하라.<br>
+\(\mathbf{F} = (-y^2, x, z^2)\)에 대해, 삼각형 \((1,0,0), (0,1,0), (0,0,1)\)의 경계 \(C\)를 따른 선적분을 구하라. \(C\)의 방향은 법선 \((1,1,1)\)에 대한 양의 방향으로 잡는다.<br>
 <strong>풀이.</strong> \(\nabla \times \mathbf{F} = (0, 0, 1 + 2y)\). 삼각형은 평면 \(x + y + z = 1\) 위에 있고, 법선 \(\hat{\mathbf{n}} = \frac{1}{\sqrt{3}}(1,1,1)\), \(dS = \sqrt{3}\,dA\)이다. \((\nabla \times \mathbf{F}) \cdot \hat{\mathbf{n}}\,dS = (1 + 2y)\,dA\).
 $$
 \oint_C \mathbf{F} \cdot d\mathbf{r} = \iint_D (1 + 2y)\,dA,
@@ -367,7 +365,7 @@ $$
 
 <div class="theorem">
 <span class="env-label">Theorem 4.8 (Divergence Theorem / Gauss's Theorem)</span>
-\(V\)가 폐곡면 \(S\)로 둘러싸인 입체 영역이라 하자. 그러면 다음이 성립한다:
+\(V\)가 조각적으로 매끄러운 폐곡면 \(S\)로 둘러싸인 입체 영역이고, \(\mathbf{F}\)가 \(V\)를 포함하는 영역에서 연속적으로 미분 가능하다고 하자. \(S\)에 바깥쪽 방향을 주면 다음이 성립한다:
 $$
 \oiint_S \mathbf{F} \cdot d\mathbf{S} = \iiint_V (\nabla \cdot \mathbf{F})\,dV
 $$

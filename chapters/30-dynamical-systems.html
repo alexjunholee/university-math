@@ -1,4 +1,4 @@
-<h2 class="part-title">Part XI &mdash; Applied Mathematics &amp; Discrete</h2>
+<h2 class="part-title">제11부 &mdash; 응용수학과 이산수학 (Applied Mathematics &amp; Discrete)</h2>
 
 <p class="part-intro">동역학 시스템은 시간에 따른 상태의 변화를, 이산수학은 연속이 아닌 구조를 이야기한다. 수학사는 이 개념들이 어떤 문제에서 태어나 서로 이어졌는지 보여준다.</p>
 
@@ -7,7 +7,7 @@
 <!-- ============================================================== -->
 
 <section id="dynamical-systems">
-<h3>30. Dynamical Systems</h3>
+<h3>30. 동역학계 (Dynamical Systems)</h3>
 
 <p class="section-intro">동역학 시스템은 미분방정식으로 기술되는 상태의 시간 발전을 연구한다. 핵심 질문은 '시스템이 시간이 지남에 따라 어디로 향하는가'이다. 평형점의 안정성, 위상 초상의 분류, Lyapunov 이론은 이 질문에 답하기 위한 도구이며, 로보틱스의 제어 설계에서 생태계 모델링까지 폭넓게 적용된다.</p>
 
@@ -50,7 +50,7 @@ $$ \det(A - \lambda I) = (-1-\lambda)(-3-\lambda) = 0 \implies \lambda_1 = -1, \
 평형점 \(\mathbf{x}^*\)가:
 <ul>
   <li><strong>Stable (Lyapunov 안정)</strong>이라 함은, 모든 \(\epsilon > 0\)에 대해 \(\delta > 0\)이 존재하여 \(\|\mathbf{x}(0) - \mathbf{x}^*\| < \delta\)이면 모든 \(t \geq 0\)에서 \(\|\mathbf{x}(t) - \mathbf{x}^*\| < \epsilon\)이 성립하는 것이다.</li>
-  <li><strong>Asymptotically stable(점근 안정)</strong>이라 함은, 안정이면서 추가로 \(t \to \infty\)일 때 \(\mathbf{x}(t) \to \mathbf{x}^*\)인 것이다.</li>
+  <li><strong>Asymptotically stable(점근 안정)</strong>이라 함은 안정이면서, 어떤 근방에서 시작한 모든 궤적이 \(t\to\infty\)일 때 \(\mathbf{x}^*\)로 수렴하는 것이다.</li>
   <li><strong>불안정(unstable)</strong>이라 함은 안정 조건을 만족하지 않는 경우를 말한다.</li>
 </ul>
 </div>
@@ -59,7 +59,7 @@ $$ \det(A - \lambda I) = (-1-\lambda)(-3-\lambda) = 0 \implies \lambda_1 = -1, \
 비선형 시스템 \(\dot{\mathbf{x}} = \mathbf{f}(\mathbf{x})\)의 평형점 \(\mathbf{x}^*\)에서, 야코비안 \(Df(\mathbf{x}^*)\)의 모든 고유값의 실수부가 0이 아니면(쌍곡 평형점), \(\mathbf{x}^*\) 근방에서의 국소적 거동은 선형화된 시스템 \(\dot{\mathbf{y}} = Df(\mathbf{x}^*)\,\mathbf{y}\)와 위상적으로 동치이다.
 </div>
 
-<p>선형화는 쌍곡 평형점에서만 유효하다. 비선형 시스템의 안정성을 직접 판정하려면 Lyapunov 함수가 필요하다. 물리적으로 보면 Lyapunov 함수는 시스템의 '일반화된 에너지'이다. 이 에너지가 시간에 따라 감소하면 시스템이 평형으로 수렴한다는 직관을 수학적으로 정리한 것이다.</p>
+<p>쌍곡 평형점에서는 선형화로 국소 거동을 판정할 수 있다. 비선형 시스템의 안정성을 직접 판정하는 한 방법은 Lyapunov 함수를 찾는 것이다. 물리적으로 보면 Lyapunov 함수는 시스템의 '일반화된 에너지'이다. 이 에너지가 평형점 밖에서 시간에 따라 엄격히 감소하면 시스템이 평형으로 수렴한다는 직관을 수학적으로 정리한 것이다.</p>
 
 <div class="definition"><span class="env-label">Definition 30.4 (Lyapunov Function)</span>
 평형점 \(\mathbf{x}^* = 0\)에 대한 <strong>Lyapunov function</strong>은, \(0\)의 근방 \(D\)에서 정의된 연속 미분 가능 함수 \(V : D \to \mathbb{R}\)로서 다음을 만족한다:
@@ -71,7 +71,7 @@ $$ \det(A - \lambda I) = (-1-\lambda)(-3-\lambda) = 0 \implies \lambda_1 = -1, \
 </div>
 
 <div class="theorem"><span class="env-label">Theorem 30.2 (Lyapunov's Direct Method)</span>
-\(\dot{V} \leq 0\)인 Lyapunov function \(V\)가 존재하면, \(\mathbf{x}^*\)는 안정이다. \(D\) 내에서 \(\mathbf{x} \neq \mathbf{x}^*\)인 모든 점에 대해 \(\dot{V} < 0\)이면, \(\mathbf{x}^*\)는 점근 안정이다. \(V\)가 방사적으로 비유계이고 전역적으로 \(\dot{V} < 0\)이면, \(\mathbf{x}^*\)는 전역 점근 안정이다.
+\(\dot{V} \leq 0\)인 Lyapunov function \(V\)가 존재하면, \(\mathbf{x}^*\)는 안정이다. \(D\) 내에서 \(\mathbf{x} \neq \mathbf{x}^*\)인 모든 점에 대해 \(\dot{V} < 0\)이면, \(\mathbf{x}^*\)는 점근 안정이다. \(V\)가 전역적으로 양정치이고 방사적으로 비유계이며 \(\mathbf{x}\neq\mathbf{x}^*\)에서 \(\dot V<0\)이면, \(\mathbf{x}^*\)는 전역 점근 안정이다.
 </div>
 
 <div class="example"><span class="env-label">Example 30.2 (Lotka&ndash;Volterra 포식자-피식자 모형)</span>
@@ -95,7 +95,7 @@ $$ H(x,y) = \delta x - \gamma \ln x + \beta y - \alpha \ln y $$
   <li>\(x^* = 2k\pi\) (아래쪽 평형, \(\sin x^* = 0\), \(\cos x^* = 1\)): 야코비안 \(\begin{pmatrix} 0 & 1 \\ -1 & 0 \end{pmatrix}\), 고유값 \(\pm i\). 선형화에서 center, 비선형에서도 보존량 \(E = \frac{1}{2}y^2 - \cos x\)에 의해 닫힌 궤적 (center 확인).</li>
   <li>\(x^* = (2k+1)\pi\) (위쪽 평형, \(\cos x^* = -1\)): 야코비안 \(\begin{pmatrix} 0 & 1 \\ 1 & 0 \end{pmatrix}\), 고유값 \(\pm 1\). <strong>Saddle point</strong>. Separatrix(분리선)가 위상 초상의 구조를 결정한다.</li>
 </ul>
-위상 초상에서: center 주위의 닫힌 궤도 (왕복 진동)와 saddle을 잇는 homoclinic orbit (회전 운동의 경계)이 나타난다.
+위상 초상에는 center 주위의 닫힌 궤도(왕복 진동)와 회전 운동의 경계인 분리선이 나타난다. 각도를 \(2\pi\)로 식별한 위상 원통에서는 분리선이 같은 saddle로 돌아오는 homoclinic orbit이고, 각도를 실수축에 펼치면 이웃한 saddle들을 잇는 heteroclinic orbit이다.
 </div>
 
 <p class="subsection-transition">지금까지는 매개변수가 고정된 시스템을 분석했다. 하지만 매개변수가 바뀌면 거동이 질적으로 달라질 수 있다. 분기(bifurcation) 이론은 이런 변화가 언제, 어떻게 발생하는지를 분류한다.</p>
@@ -108,20 +108,22 @@ $$ H(x,y) = \delta x - \gamma \ln x + \beta y - \alpha \ln y $$
   <li><strong>Saddle-node:</strong> 두 평형점이 충돌하여 소멸한다. 정규 형식: \(\dot{x} = \mu + x^2\).</li>
   <li><strong>Transcritical:</strong> 두 평형점이 안정성을 교환한다. 정규 형식: \(\dot{x} = \mu x - x^2\).</li>
   <li><strong>Pitchfork:</strong> 대칭적 분기. 정규 형식: \(\dot{x} = \mu x - x^3\) (초임계).</li>
-  <li><strong>Hopf:</strong> 안정 평형점이 안정성을 잃고 리미트 사이클이 생겨난다. 한 쌍의 켤레 복소 고유값이 허수축을 통과할 때 발생한다.</li>
+  <li><strong>Hopf:</strong> 한 쌍의 켤레 복소 고유값이 허수축을 통과하면서 평형점의 안정성이 바뀌고 주기 궤도가 나타나거나 사라진다. 주기 궤도의 안정성과 어느 쪽 매개변수에서 생기는지는 초임계·아임계 경우에 따라 다르다.</li>
 </ul>
 </div>
 
 <div class="theorem"><span class="env-label">Theorem 30.3 (Poincar&eacute;&ndash;Bendixson)</span>
-\(\mathbb{R}^2\)에서의 연속 dynamical system(동역학 시스템)에서, 궤적이 유계이고 그 \(\omega\)-극한 집합이 평형점을 포함하지 않으면, \(\omega\)-극한 집합은 주기 궤도(리미트 사이클)이다.
+평면의 \(C^1\) 자율 벡터장에서 한 궤적의 \(\omega\)-극한 집합이 비어 있지 않은 콤팩트 집합이고 평형점을 포함하지 않으면, 그 \(\omega\)-극한 집합은 주기 궤도이다.
 </div>
 
-<p>Poincare-Bendixson 정리는 2차원에서 가능한 장기 거동이 평형점 수렴 아니면 주기 진동뿐임을 보여준다. 2차원에서는 카오스가 불가능하다는 뜻이다. 카오스적 거동에는 3차원 이상이 필요하고, 로렌츠 어트랙터(Lorenz attractor)가 3개의 변수를 갖는 것도 이 때문이다.</p>
+<p>Poincare-Bendixson 정리는 평형점을 포함하지 않는 평면 자율 흐름의 콤팩트 극한 거동을 주기 궤도로 제한한다. 평형점과 이를 잇는 궤도가 극한 집합에 들어가는 경우는 별도로 남는다. 따라서 매끄러운 연속시간 자율계의 strange attractor에는 적어도 3차원이 필요하다. 이산시간 사상이나 시간 의존 시스템에는 이 결론을 그대로 적용할 수 없다.</p>
 
 <div class="example"><span class="env-label">Example 30.4 (Lyapunov 함수를 이용한 안정성 판정)</span>
 시스템 \(\dot{x} = -x + 2x^2y\), \(\dot{y} = -y\)의 원점에서의 안정성을 조사한다. Lyapunov 후보 함수 \(V(x,y) = x^2 + y^2\)를 시도:
 $$ \dot{V} = 2x\dot{x} + 2y\dot{y} = 2x(-x + 2x^2 y) + 2y(-y) = -2x^2 + 4x^3 y - 2y^2. $$
-원점의 충분히 작은 근방 \(\|(x,y)\| < r\)에서 \(-2(x^2 + y^2) + 4x^3 y < 0\)이 성립하는지 확인한다. AM-GM 부등식에 의해 \(|4x^3 y| \leq 2(x^4 \cdot x^2 + y^2) \leq 2r^2(x^2 + y^2)\)이다 (\(|x| < r\)이므로 \(x^4 \leq r^2 x^2\)). 따라서:
+원점의 충분히 작은 근방 \(\|(x,y)\| < r\)에서 \(-2(x^2 + y^2) + 4x^3 y < 0\)이 성립하는지 확인한다. \(x^2\leq r^2\)이고 \(2|xy|\leq x^2+y^2\)이므로
+$$ |4x^3y|=4x^2|xy|\leq 2r^2(x^2+y^2). $$
+따라서
 $$ \dot{V} \leq -2(x^2 + y^2) + 2r^2(x^2 + y^2) = -(2 - 2r^2)(x^2 + y^2). $$
 \(r < 1\)이면 \(\dot{V} < 0\). 따라서 원점은 국소적으로 점근 안정이다.
 </div>

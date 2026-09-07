@@ -1,5 +1,5 @@
 <section id="statistics">
-<h3>24. Statistics</h3>
+<h3>24. 통계학 (Statistics)</h3>
 
 <p class="chapter-intro">통계학은 데이터로부터 모집단에 대한 결론을 도출하는 학문이다. 추정, 검정, 신뢰구간이 주요 도구이며, 빈도주의와 베이즈주의 두 패러다임이 상호 보완한다.</p>
 
@@ -25,13 +25,13 @@
 <p>최대우도추정(Maximum Likelihood Estimation, MLE)은 가장 널리 사용되는 점추정 방법이다. 관측된 데이터를 가장 잘 설명하는 모수값을 선택한다는 원리이며, 기계학습에서 모형 훈련의 목적함수(로그우도 최대화)가 이에 해당한다.</p>
 
 <div class="definition"><span class="env-label">Definition 24.3 (Maximum Likelihood Estimation)</span>
-데이터 \(x_1, \ldots, x_n\)과 모수적 모형 \(f(x \mid \theta)\)가 주어졌을 때, <strong>우도함수</strong>는
-$$ L(\theta) = \prod_{i=1}^n f(x_i \mid \theta). $$
-<strong>최대우도추정량</strong> (MLE)는 \(\hat{\theta}_{\text{MLE}} = \arg\max_\theta L(\theta)\)이다. 실제로는 <strong>로그우도</strong> \(\ell(\theta) = \sum_{i=1}^n \log f(x_i \mid \theta)\)를 최대화한다.
+서로 독립인 데이터 \(x_1, \ldots, x_n\)과 모수적 모형 \(f_i(x_i \mid \theta)\)가 주어졌을 때, <strong>우도함수</strong>는
+$$ L(\theta) = \prod_{i=1}^n f_i(x_i \mid \theta). $$
+여기서 \(f_i\)는 각 관측의 밀도 또는 확률질량함수다. 독립·동일분포 표본이면 모두 같은 \(f\)를 쓴다. <strong>최대우도추정량</strong> (MLE)는 \(\hat{\theta}_{\text{MLE}} = \arg\max_\theta L(\theta)\)이다. 실제로는 <strong>로그우도</strong> \(\ell(\theta) = \sum_{i=1}^n \log f_i(x_i \mid \theta)\)를 최대화한다.
 </div>
 
 <div class="theorem"><span class="env-label">Theorem 24.1 (Properties of MLE)</span>
-정칙 조건 하에서:
+독립·동일분포 표본에 대해 정칙 조건 하에서:
 <ol>
   <li><strong>Consistency:</strong> \(\hat{\theta}_{\text{MLE}} \xrightarrow{P} \theta_0\) (참 모수로 수렴).</li>
   <li><strong>Asymptotic normality:</strong> \(\sqrt{n}(\hat{\theta}_{\text{MLE}} - \theta_0) \xrightarrow{d} N(0, I(\theta_0)^{-1})\), 여기서 \(I(\theta)\)는 Fisher information이다.</li>
@@ -42,12 +42,12 @@ $$ L(\theta) = \prod_{i=1}^n f(x_i \mid \theta). $$
 <p>피셔 정보(Fisher information)는 데이터가 모수에 대해 담고 있는 정보량을 측정한다. 피셔 정보가 클수록 모수를 더 정밀하게 추정할 수 있고, Cramér–Rao 하한이 이를 정량화한다.</p>
 
 <div class="definition"><span class="env-label">Definition 24.4 (Fisher Information)</span>
-단일 관측에 대한 <strong>Fisher information</strong>:
+단일 관측에 대한 <strong>Fisher information</strong>은 다음과 같다. 두 번째 등식에는 미분과 적분을 바꿀 수 있는 정칙 조건이 필요하다.
 $$ I(\theta) = E\!\left[\left(\frac{\partial}{\partial \theta} \log f(X \mid \theta)\right)^{\!2}\right] = -E\!\left[\frac{\partial^2}{\partial \theta^2} \log f(X \mid \theta)\right]. $$
 </div>
 
 <div class="theorem"><span class="env-label">Theorem 24.2 (Cram&eacute;r&ndash;Rao Lower Bound)</span>
-\(\theta\)의 임의의 불편 추정량 \(\hat{\theta}\)에 대해,
+독립·동일분포 표본과 스칼라 모수에 대해 정칙 조건이 성립한다고 하자. 이때 \(\theta\)의 임의의 불편 추정량 \(\hat{\theta}\)는
 $$ \operatorname{Var}(\hat{\theta}) \geq \frac{1}{n I(\theta)}. $$
 어떤 불편 추정량도 이 하한 아래로 분산을 줄일 수 없다. 이 하한을 달성하는 추정량을 효율적(efficient) 추정량이라 한다.
 </div>
@@ -55,7 +55,7 @@ $$ \operatorname{Var}(\hat{\theta}) \geq \frac{1}{n I(\theta)}. $$
 <p>점추정만으로는 추정의 정밀도를 알 수 없다. 신뢰구간(confidence interval)은 추정값 주위에 불확실성의 범위를 부여한다.</p>
 
 <div class="definition"><span class="env-label">Definition 24.5 (Confidence Interval)</span>
-\(\theta\)에 대한 <strong>\((1-\alpha)\) 신뢰구간</strong>은 \(P(\theta \in [L, U]) \geq 1 - \alpha\)를 만족하는 확률구간 \([L(X), U(X)]\)이다. 분산 \(\sigma^2\)가 알려진 정규모집단의 경우:
+\(\theta\)에 대한 <strong>\((1-\alpha)\) 신뢰구간</strong>은 반복 표집에서 \(P_\theta(\theta \in [L(X), U(X)]) \geq 1 - \alpha\)를 만족하는 임의구간 \([L(X), U(X)]\)이다. 분산 \(\sigma^2\)가 알려진 정규모집단의 경우:
 $$ \bar{X} \pm z_{\alpha/2} \frac{\sigma}{\sqrt{n}}, $$
 여기서 \(z_{\alpha/2}\)는 \(N(0,1)\)의 상위 \(\alpha/2\) 분위수이다.
 </div>
@@ -75,7 +75,7 @@ $$ \bar{X} \pm z_{\alpha/2} \frac{\sigma}{\sqrt{n}}, $$
 <div class="theorem"><span class="env-label">Theorem 24.3 (Neyman&ndash;Pearson Lemma)</span>
 단순가설 \(H_0: \theta = \theta_0\) 대 \(H_1: \theta = \theta_1\)의 검정에서, 크기 \(\alpha\)의 가장 검정력이 높은 검정은 우도비검정이다: 다음 조건일 때 \(H_0\)을 기각한다.
 $$ \frac{L(\theta_1)}{L(\theta_0)} > c, $$
-여기서 \(c\)는 \(H_0\) 하에서 기각 확률이 \(\alpha\)가 되도록 선택한다.
+여기서 임계값 \(c\)를 고르고, 우도비가 \(c\)와 같을 때에는 필요에 따라 무작위로 기각하여 \(H_0\) 하의 전체 기각 확률이 \(\alpha\)가 되도록 한다.
 </div>
 
 <div class="example"><span class="env-label">Example 24.1 (MLE &mdash; Poisson)</span>
@@ -89,14 +89,14 @@ Poisson 분포의 평균이 \(\lambda\)이므로, 표본 평균이 자연스러�
 <div class="example"><span class="env-label">Example 24.2 (신뢰구간 계산)</span>
 모집단의 분산 \(\sigma^2 = 16\)이 알려진 정규모집단에서 \(n = 25\)개의 표본을 뽑아 \(\bar{x} = 50.3\)을 얻었다. 모평균 \(\mu\)의 95% 신뢰구간을 구하라.<br>
 <strong>풀이.</strong> \(z_{0.025} = 1.96\), \(\sigma/\sqrt{n} = 4/5 = 0.8\).
-$$ 50.3 \pm 1.96 \times 0.8 = 50.3 \pm 1.568 = (48.732, 51.868). $$
-95% 신뢰구간은 \((48.73, 51.87)\)이다. 이는 "이 방법으로 반복적으로 구간을 만들면 95%의 경우에 참 모수가 구간 안에 포함된다"는 뜻이다.
+$$ 50.3 \pm 1.96 \times 0.8 = 50.3 \pm 1.568 = [48.732, 51.868]. $$
+95% 신뢰구간은 \([48.73, 51.87]\)이다. 이는 "이 방법으로 반복적으로 구간을 만들면 95%의 경우에 참 모수가 구간 안에 포함된다"는 뜻이다.
 </div>
 
 <p>선형회귀(linear regression)는 변수 간의 관계를 모형화하는 기본 방법이다. 센서 교정에서 출력과 참값의 선형 관계를 추정하거나, 재료 시험에서 응력-변형률 기울기(영률)를 결정하는 것이 전형적인 응용이다.</p>
 
 <div class="definition"><span class="env-label">Definition 24.7 (Linear Regression)</span>
-<strong>선형회귀 모형</strong>은 \(Y = X\beta + \varepsilon\)이며, 여기서 \(Y \in \mathbb{R}^n\)은 반응변수, \(X \in \mathbb{R}^{n \times p}\)은 설계행렬, \(\beta \in \mathbb{R}^p\)은 계수, \(\varepsilon \sim N(0, \sigma^2 I)\)이다. <strong>최소제곱(ordinary least squares)</strong> (OLS) 추정량은
+<strong>선형회귀 모형</strong>은 \(Y = X\beta + \varepsilon\)이며, 여기서 \(Y \in \mathbb{R}^n\)은 반응변수, \(X \in \mathbb{R}^{n \times p}\)은 설계행렬, \(\beta \in \mathbb{R}^p\)은 계수, \(\varepsilon \sim N(0, \sigma^2 I)\)이다. \(X\)가 열 완전계수일 때 <strong>최소제곱(ordinary least squares)</strong> (OLS) 추정량은
 $$ \hat{\beta} = (X^T X)^{-1} X^T Y. $$
 </div>
 

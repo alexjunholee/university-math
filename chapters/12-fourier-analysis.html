@@ -1,17 +1,17 @@
 <section id="fourier-analysis">
-<h2>12. Fourier Analysis</h2>
+<h2>12. 푸리에 해석 (Fourier Analysis)</h2>
 
 <p>푸리에 해석은 신호를 사인(sine)과 코사인(cosine)의 합으로 분해해 시간 영역(time domain)의 문제를 주파수 영역(frequency domain)에서 살펴보게 한다. 음향 신호의 스펙트럼 분석, JPEG 이미지 압축의 DCT(Discrete Cosine Transform), 통신 시스템의 변조·복조(modulation/demodulation)와 대역폭(bandwidth) 할당, 구조물의 고유진동수(natural frequency) 추출, 안테나 방사 패턴(radiation pattern)과 개구면(aperture) 분포의 관계가 모두 이 관점을 이용한다.</p>
 
 <p>시간 영역에서 복잡한 합성곱(convolution)이 주파수 영역에서 단순한 곱셈이 된다는 사실은, 필터 설계를 주파수 응답(frequency response)의 관점에서 직관적으로 수행할 수 있게 한다. 불확정성 원리(uncertainty principle)는 신호가 시간과 주파수에서 동시에 좁게 국소화될 수 없음을 정량적으로 보여주며, 이는 레이더 펄스 설계, 통신 대역폭 설계, 양자역학의 하이젠베르크 부등식에까지 연결된다.</p>
 
 <!-- 12.1 Fourier Series -->
-<h3 id="fourier-series">12.1 Fourier Series</h3>
+<h3 id="fourier-series">12.1 푸리에 급수 (Fourier Series)</h3>
 
 <p>주기 함수를 사인/코사인의 합으로 표현하는 것이 푸리에 급수이다. 역사적으로 Fourier가 열전도 방정식의 해를 삼각급수로 표현한 것이 시작이었으며, 오늘날에는 전력 계통의 고조파(harmonics) 분석, 악기 음색의 배음(overtone) 구조 파악, 구조물에 가해지는 주기 하중의 주파수 분해에 직접 사용된다. 수학적으로는 Chapter 10에서 다룬 \(L^2\) 공간의 정규직교 기저 \(\{e^{inx}/\sqrt{2\pi}\}\)에 대한 좌표 전개이다.</p>
 
 <div class="definition"><span class="env-label">Definition 12.1 (Fourier Series)</span>
-\(f: [-\pi, \pi] \to \mathbb{C}\)가 적분 가능하다고 하자. \(f\)의 <em>푸리에 계수(Fourier coefficients)</em>는 다음과 같다:
+\(f \in L^1([-\pi,\pi])\)라 하자. \(f\)의 <em>푸리에 계수(Fourier coefficients)</em>는 다음과 같다:
 $$ \hat{f}(n) = c_n = \frac{1}{2\pi} \int_{-\pi}^{\pi} f(x) e^{-inx}\, dx, \quad n \in \mathbb{Z}. $$
 \(f\)의 <em>푸리에 급수(Fourier series)</em>는 형식적 급수
 $$ f(x) \sim \sum_{n=-\infty}^{\infty} c_n e^{inx} $$
@@ -26,7 +26,7 @@ $$ \frac{1}{2\pi}\int_{-\pi}^{\pi} |f(x)|^2\, dx = \sum_{n=-\infty}^{\infty} |c_
 </div>
 
 <div class="theorem"><span class="env-label">Theorem 12.2 (Pointwise Convergence -- Dirichlet Conditions)</span>
-\(f\)가 \([-\pi, \pi]\) 위에서 조각적으로 매끄러운(조각적 \(C^1\)이고 유한개의 점프 불연속을 갖는) 함수이면, 푸리에 급수는 모든 점에서 수렴한다:
+\(f\)의 \(2\pi\)-주기적 확장이 조각적으로 매끄럽고(조각적 \(C^1\)이고 유한개의 점프 불연속을 갖고), 푸리에 급수를 대칭 부분합으로 해석하면 모든 점에서 다음 값으로 수렴한다:
 $$ \sum_{n=-\infty}^{\infty} c_n e^{inx} = \frac{f(x^+) + f(x^-)}{2}. $$
 연속점에서는 급수가 \(f(x)\)로 수렴한다.
 </div>
@@ -50,7 +50,7 @@ $$ f(x) = \begin{cases} -1, & -\pi < x < 0, \\ \phantom{-}1, & 0 < x < \pi. \end
 $$ b_n = \frac{1}{\pi}\int_{-\pi}^{\pi} f(x)\sin(nx)\, dx = \frac{2}{\pi}\int_0^{\pi} \sin(nx)\, dx = \frac{2}{n\pi}(1 - \cos(n\pi)) = \begin{cases} \frac{4}{n\pi}, & n \text{ 홀수}, \\ 0, & n \text{ 짝수}. \end{cases} $$
 따라서 구형파의 푸리에 급수는:
 $$ f(x) \sim \frac{4}{\pi}\sum_{k=0}^{\infty} \frac{\sin((2k+1)x)}{2k+1} = \frac{4}{\pi}\left(\sin x + \frac{\sin 3x}{3} + \frac{\sin 5x}{5} + \cdots\right). $$
-불연속점 \(x = 0, \pm\pi\)에서 급수는 \(\frac{f(x^+)+f(x^-)}{2} = 0\)으로 수렴한다. 불연속점 근처에서 부분합이 약 9% 초과하여 진동하는 현상을 <em>Gibbs 현상</em>이라 한다.
+불연속점 \(x = 0, \pm\pi\)에서 급수는 \(\frac{f(x^+)+f(x^-)}{2} = 0\)으로 수렴한다. 불연속점 근처에서 부분합의 초과량이 점프 크기의 약 8.95%에 머무르며 진동하는 현상을 <em>Gibbs 현상</em>이라 한다.
 </div>
 
 <div class="example"><span class="env-label">Example 12.1b (톱니파의 푸리에 계수 — 복소 형태)</span>
@@ -78,14 +78,14 @@ $$ \sum_{k=0}^{\infty} \frac{1}{(2k+1)^2} = 1 + \frac{1}{9} + \frac{1}{25} + \cd
 <!-- 12.2 Fourier Transform -->
 <p>Fourier 급수는 주기 함수를 다룬다. 비주기 함수로 확장하려면 주기를 무한대로 보내야 하며, 그 결과가 Fourier 변환이다. 이산적인 Fourier 계수의 합이 연속적인 적분으로 바뀌고, 주파수도 이산 값에서 연속 변수가 된다.</p>
 
-<h3 id="fourier-transform">12.2 The Fourier Transform</h3>
+<h3 id="fourier-transform">12.2 푸리에 변환 (The Fourier Transform)</h3>
 
 <p>푸리에 급수에서 주기를 무한대로 보내면, 이산적인 주파수 \(n\)이 연속 변수 \(\xi\)가 되고, 계수의 합이 적분으로 바뀐다. 이것이 푸리에 변환이며, 비주기 신호의 주파수 분석을 가능하게 한다. 레이더 신호 설계, 통신 채널의 대역폭 분석, 의료 영상(MRI)의 k-공간(k-space) 데이터 처리가 모두 푸리에 변환에 기반한다.</p>
 
 <div class="definition"><span class="env-label">Definition 12.2 (Fourier Transform)</span>
 \(f \in L^1(\mathbb{R})\)에 대해, <em>푸리에 변환(Fourier transform)</em>은 다음과 같이 정의된다:
 $$ \hat{f}(\xi) = \int_{-\infty}^{\infty} f(x)\, e^{-2\pi i \xi x}\, dx, \quad \xi \in \mathbb{R}. $$
-<em>역 Fourier transform(역 푸리에 변환)</em>은 (적용 가능할 때) 다음과 같다:
+<em>역 푸리에 변환(inverse Fourier transform)</em>은 (적용 가능할 때) 다음과 같다:
 $$ f(x) = \int_{-\infty}^{\infty} \hat{f}(\xi)\, e^{2\pi i \xi x}\, d\xi. $$
 (일부 관례에서는 \(2\pi\)를 지수부에 다르게 배치한다; 여기서는 Stanford EE261 관례를 따른다.)
 </div>
@@ -97,7 +97,7 @@ $$ f(x) = \int_{-\infty}^{\infty} \hat{f}(\xi)\, e^{2\pi i \xi x}\, d\xi. $$
  <li><strong>시간 이동:</strong> \(g(x) = f(x - x_0)\)이면, \(\hat{g}(\xi) = e^{-2\pi i \xi x_0} \hat{f}(\xi)\).</li>
  <li><strong>변조:</strong> \(g(x) = e^{2\pi i \xi_0 x} f(x)\)이면, \(\hat{g}(\xi) = \hat{f}(\xi - \xi_0)\).</li>
  <li><strong>스케일링:</strong> \(g(x) = f(ax)\), \(a \neq 0\)이면, \(\hat{g}(\xi) = \frac{1}{|a|} \hat{f}(\xi/a)\).</li>
- <li><strong>미분:</strong> \(\widehat{f'}(\xi) = 2\pi i \xi\, \hat{f}(\xi)\) (\(f' \in L^1\)일 때).</li>
+ <li><strong>미분:</strong> \(f\)가 절대연속이고 \(f,f'\in L^1\)이면 \(\widehat{f'}(\xi) = 2\pi i \xi\, \hat{f}(\xi)\).</li>
  <li><strong>리만-르베그 보조정리:</strong> \(|\xi| \to \infty\)일 때 \(\hat{f}(\xi) \to 0\).</li>
 </ul>
 </div>
@@ -111,6 +111,7 @@ $$ \hat{f}(\xi) = \int_{-a/2}^{a/2} e^{-2\pi i \xi x}\, dx = \frac{e^{-2\pi i \x
 </div>
 
 <h4>주요 푸리에 변환 쌍 표</h4>
+<p>아래 표에서 \(L^1\) 함수가 아닌 델타 함수, 상수, 복소 지수, 부호 함수, 동차 함수가 들어간 변환쌍은 분포의 의미로 해석한다.</p>
 <table border="1" cellpadding="6" cellspacing="0" style="border-collapse: collapse; margin: 1em auto;">
 <thead>
 <tr><th>\(f(x)\)</th><th>\(\hat{f}(\xi)\)</th><th>비고</th></tr>
@@ -158,7 +159,7 @@ $$ f(x) = \int_{-\infty}^{\infty} \hat{f}(\xi)\, e^{2\pi i \xi x}\, d\xi \quad \
 <div class="theorem"><span class="env-label">Theorem 12.6 (Plancherel Theorem)</span>
 푸리에 변환은 \(L^2(\mathbb{R})\) 위의 유니타리 작용소로 확장된다:
 $$ \int_{-\infty}^{\infty} |f(x)|^2\, dx = \int_{-\infty}^{\infty} |\hat{f}(\xi)|^2\, d\xi. $$
-시간 영역과 주파수 영역 사이에서 에너지가 보존된다. 이 등식은 통신 공학에서 신호의 총 전력을 주파수 성분별 전력의 합으로 분해할 수 있음을 보장한다.
+시간 영역과 주파수 영역 사이에서 에너지가 보존된다. 이 등식은 통신 공학에서 유한 에너지 신호의 에너지를 주파수 성분별로 분해할 수 있음을 보장한다.
 </div>
 
 <div class="example"><span class="env-label">Example 12.2</span>
@@ -168,7 +169,7 @@ $$ \int_{-\infty}^{\infty} |f(x)|^2\, dx = \int_{-\infty}^{\infty} |\hat{f}(\xi)
 <!-- 12.3 Convolution -->
 <p>Fourier 변환은 합성곱(convolution)을 곱셈으로 바꾼다. 미분방정식, 필터링, 확률 분포의 합 등 합성곱이 등장하는 문제를 주파수 영역에서 곱셈으로 풀 수 있다.</p>
 
-<h3 id="convolution-theorem">12.3 Convolution Theorem</h3>
+<h3 id="convolution-theorem">12.3 합성곱 정리 (Convolution Theorem)</h3>
 
 <p>선형 시불변(LTI, Linear Time-Invariant) 시스템에서 입력 신호 \(x(t)\)에 대한 출력은 임펄스 응답 \(h(t)\)와의 합성곱 \(y = h * x\)로 주어진다. 합성곱은 또한 두 독립 확률변수의 합의 분포, 이미지에 블러(blur) 필터를 적용하는 연산, 다항식 곱셈 등을 통합적으로 기술하는 연산이다.</p>
 
@@ -181,7 +182,7 @@ $$ (f * g)(x) = \int_{-\infty}^{\infty} f(t)\, g(x - t)\, dt. $$
 <div class="theorem"><span class="env-label">Theorem 12.7 (Convolution Theorem)</span>
 \(f, g \in L^1(\mathbb{R})\)에 대해:
 $$ \widehat{f * g}(\xi) = \hat{f}(\xi) \cdot \hat{g}(\xi). $$
-시간 영역에서의 합성곱은 주파수 영역에서의 점별 곱셈에 대응하며, 그 역도 성립한다:
+시간 영역에서의 합성곱은 주파수 영역에서의 점별 곱셈에 대응한다. 또한 Schwartz 함수처럼 곱과 변환 쪽 합성곱이 모두 정의되는 조건에서는:
 $$ \widehat{f \cdot g}(\xi) = (\hat{f} * \hat{g})(\xi). $$
 </div>
 
@@ -219,9 +220,9 @@ $$ \int_{-\infty}^{\infty} \operatorname{sinc}^2(\xi)\, d\xi = 1, $$
 <!-- 12.4 Applications -->
 <p>이론적 도구가 갖춰졌으니 응용으로 넘어간다. 신호처리의 필터 설계와 편미분방정식의 풀이가 대표적이다.</p>
 
-<h3 id="fourier-applications">12.4 Applications</h3>
+<h3 id="fourier-applications">12.4 응용 (Applications)</h3>
 
-<h4>Signal Processing</h4>
+<h4>신호 처리 (Signal Processing)</h4>
 <p>푸리에 변환은 신호 처리의 이론적 근간이다. 임펄스 응답 \(h(t)\)를 갖는 선형 시불변(LTI) 시스템은 입력 신호 \(x(t)\)에 합성곱으로 작용한다: \(y = h * x\). 주파수 영역에서 이는 \(\hat{y} = \hat{h} \cdot \hat{x}\)가 되며, 여기서 \(\hat{h}\)가 <em>전달 함수(transfer function)</em>이다. 필터 설계란 원하는 주파수 대역을 증폭 또는 억제하도록 \(\hat{h}\)를 선택하는 것이다.</p>
 
 <div class="theorem"><span class="env-label">Theorem 12.8 (Shannon-Nyquist Sampling Theorem)</span>
@@ -241,7 +242,7 @@ $$\begin{aligned}
 이 결과는 로렌츠 분포(Lorentzian)의 형태이다. \(a\)가 작을수록 \(f(x)\)는 넓게 퍼지고 \(\hat{f}(\xi)\)는 좁은 피크를 가지며, \(a\)가 클수록 반대이다. 이는 불확정성 원리의 또 다른 사례이다.
 </div>
 
-<h4>Partial Differential Equations</h4>
+<h4>편미분방정식 (Partial Differential Equations)</h4>
 <p>푸리에 변환은 상수 계수 선형 편미분방정식을 대수 방정식으로 변환한다. \(\mathbb{R}\) 위의 열 방정식 \(u_t = k\, u_{xx}\)에 초기 조건 \(u(x,0) = f(x)\)가 주어졌을 때, \(x\)에 대해 푸리에 변환을 취하면 \(\hat{u}_t = -4\pi^2 k \xi^2 \hat{u}\)를 얻고, 이를 풀면 \(\hat{u}(\xi, t) = \hat{f}(\xi) e^{-4\pi^2 k \xi^2 t}\)이다. 역변환하면:</p>
 $$ u(x,t) = f * G_t(x), \qquad G_t(x) = \frac{1}{\sqrt{4\pi k t}}\, e^{-x^2/(4kt)}, $$
 <p>여기서 \(G_t\)는 열 핵(heat kernel)으로, 시간이 지남에 따라 넓어지는 가우시안이다.</p>
@@ -253,7 +254,7 @@ $$ u(x,t) = f * G_t(x), \qquad G_t(x) = \frac{1}{\sqrt{4\pi k t}}\, e^{-x^2/(4kt
 <!-- 12.5 Discrete Fourier Transform and FFT -->
 <p>연속 Fourier 변환은 이론적으로 강력하지만, 컴퓨터로 계산하려면 이산화가 필요하다. 이산 Fourier 변환(DFT)은 유한 개의 샘플로부터 주파수 성분을 추출하며, FFT 알고리즘은 이를 \(O(N \log N)\) 시간에 수행하여 대규모 데이터의 주파수 분석을 실용적으로 만든다.</p>
 
-<h3 id="dft-fft">12.5 Discrete Fourier Transform (DFT) and Fast Fourier Transform (FFT)</h3>
+<h3 id="dft-fft">12.5 이산 푸리에 변환과 고속 푸리에 변환 (DFT and FFT)</h3>
 
 <p>컴퓨터로 신호를 처리하려면 유한 개의 이산 샘플을 다루어야 한다. DFT는 연속 푸리에 변환을 유한 이산 데이터에 적용한 것으로, 디지털 오실로스코프의 스펙트럼 표시, 음성 인식의 특징 추출(MFCC), 구조물 진동 데이터의 주파수 분석에서 실제로 계산되는 것이 바로 DFT이다.</p>
 
@@ -275,7 +276,7 @@ $$ X_k = E_k + \omega_N^k O_k, \qquad X_{k+N/2} = E_k - \omega_N^k O_k. $$
 이 분할을 재귀적으로 적용하면, 총 연산량은 \(T(N) = 2T(N/2) + O(N)\)을 만족하여 \(T(N) = O(N \log N)\)이다.
 </div>
 
-<p>FFT는 디지털 신호 처리, 영상 압축(JPEG, MP3), 다항식 곱셈, 큰 수의 곱셈(Schonhage-Strassen) 등에서 핵심 알고리즘이다. 실용적으로 \(N = 10^6\)인 경우, 직접 DFT(\(\sim 10^{12}\) 연산)에 비해 FFT(\(\sim 2 \times 10^7\) 연산)는 약 \(5 \times 10^4\)배 빠르다.</p>
+<p>FFT와 같은 고속 변환 알고리즘은 디지털 신호 처리, JPEG의 DCT와 오디오 코덱의 MDCT 구현, 다항식 곱셈, 큰 수의 곱셈(Schonhage-Strassen) 등에 쓰인다. 실용적으로 \(N = 10^6\)인 경우, 직접 DFT(\(\sim 10^{12}\) 연산)에 비해 FFT(\(\sim 2 \times 10^7\) 연산)는 연산량의 차수만 비교해도 약 \(5 \times 10^4\)배 작다.</p>
 
 <div class="example"><span class="env-label">Example 12.5 (4점 DFT 수동 계산)</span>
 \(x = (1, 2, 3, 4)\)의 DFT를 구하자. \(N = 4\), \(\omega_4 = e^{-2\pi i/4} = -i\)이다.
@@ -299,7 +300,7 @@ $$ \hat{u}_t = -4\pi^2 D \xi^2 \hat{u}, \qquad \hat{u}(\xi, 0) = \hat{f}(\xi) = 
 $$ \hat{u}(\xi, t) = \frac{2}{1 + 4\pi^2\xi^2}\, e^{-4\pi^2 D \xi^2 t}. $$
 시간 영역에서 이는 초기 프로파일과 열 핵의 합성곱이다:
 $$ u(x,t) = (f * G_t)(x), \qquad G_t(x) = \frac{1}{\sqrt{4\pi D t}}\, e^{-x^2/(4Dt)}. $$
-\(t\)가 증가함에 따라 초기의 뾰족한 \(e^{-|x|}\) 프로파일이 점차 가우시안에 가까워지며 넓게 퍼진다.
+\(t\)가 증가함에 따라 초기의 뾰족한 \(e^{-|x|}\) 프로파일은 매끄러워지며 넓게 퍼진다. 전체 질량을 보존한 채 확산 길이로 다시 스케일하면 장시간 형상은 가우시안 열 핵에 가까워진다.
 </div>
 
 <div class="example"><span class="env-label">Example 12.7 (주파수 필터링)</span>
@@ -309,7 +310,7 @@ $$ \hat{h}(\xi) = \mathbf{1}_{[-B, B]}(\xi), \qquad B = 100\text{ Hz}. $$
 $$ \hat{y}(\xi) = \hat{h}(\xi) \hat{x}(\xi). $$
 \(\hat{x}(\xi)\)는 \(\pm 50\)Hz와 \(\pm 500\)Hz에 델타 함수를 가지므로, \(B = 100\)Hz 필터는 \(\pm 500\)Hz 성분을 제거하고 \(\pm 50\)Hz 성분만 통과시킨다. 따라서 \(y(t) = \cos(2\pi \cdot 50t)\)이다.
 
-시간 영역에서 이 필터링은 합성곱 \(y(t) = (h * x)(t)\)에 해당하며, \(h(t) = 2B\operatorname{sinc}(2Bt)\)이다. 이상적 저대역 필터의 임펄스 응답은 무한 지속 시간을 가지므로 인과적이지 않다는 한계가 있다.
+시간 영역에서 이 필터링은 합성곱 \(y(t) = (h * x)(t)\)에 해당하며, \(h(t) = 2B\operatorname{sinc}(2Bt)\)이다. 이상적 저대역 필터의 임펄스 응답은 음의 시간에도 0이 아니므로 인과적이지 않다는 한계가 있다.
 </div>
 
 <div class="example"><span class="env-label">Example 12.8 (이산 신호의 순환 합성곱과 DFT)</span>
@@ -317,7 +318,7 @@ $$ \hat{y}(\xi) = \hat{h}(\xi) \hat{x}(\xi). $$
 
 먼저 각 신호의 DFT를 구한다 (\(\omega_4 = -i\)):
 $$\begin{aligned}
-X &= (2, \; 1-(-i) + 1\cdot(-1) + 0\cdot(i), \; \ldots) \\
+X &= (2, \; 1+0\cdot(-i) + 1\cdot(-1) + 0\cdot i, \; \ldots) \\
  &= (2, \; 0, \; 2, \; 0), \\
 H &= (2, \; 1+(-i), \; 0, \; 1+i) = (2, \; 1-i, \; 0, \; 1+i).
 \end{aligned}$$
@@ -333,7 +334,7 @@ IDFT: \(y_n = \frac{1}{4}\sum_{k} Y_k \omega_4^{-kn} = \frac{4}{4} = 1\) (모든
 
 \(N\)이 클 때, \(S_N\)의 최댓값은 \(x \approx \frac{\pi}{2N+1}\) 부근에서 나타나며, 그 크기는:
 $$ \max S_N \approx \frac{2}{\pi}\int_0^{\pi} \frac{\sin t}{t}\, dt \approx \frac{2}{\pi} \cdot \text{Si}(\pi) \approx \frac{2}{\pi} \cdot 1.8519 \approx 1.1790. $$
-이는 목표값 1에 비해 약 \(8.95\%\) 초과한다. 이 초과량은 \(N \to \infty\)에서도 사라지지 않으며, 급수의 항수와 무관하게 약 \(9\%\)로 일정하다. 이는 \(L^2\) 수렴과 점별 수렴의 본질적 차이를 보여주는 현상이다.
+최댓값은 목표 평탄부 값 1보다 약 0.179 높다. 이는 점프 크기 2의 약 \(8.95\%\)에 해당한다. 이 초과량은 \(N \to \infty\)에서도 사라지지 않는다. 최대 초과가 나타나는 점은 불연속점으로 가까워진다. 따라서 이 현상은 \(L^2\) 수렴과 고정된 점에서의 점별 수렴이 성립해도 균등 수렴은 성립하지 않을 수 있음을 보여준다.
 </div>
 
 <p>불확정성 원리는 신호 설계의 물리적 한계를 규정한다. 레이더 공학에서 짧은 펄스(시간 분해능)와 좁은 대역폭(주파수 분해능)을 동시에 달성할 수 없다는 것, 양자역학에서 위치와 운동량의 동시 측정 정밀도에 한계가 있다는 것이 모두 같은 수학적 부등식의 서로 다른 물리적 표현이다.</p>
@@ -349,9 +350,9 @@ $$ \Delta x \cdot \Delta \xi \geq \frac{1}{4\pi} $$
 
 시간 퍼짐: \(\Delta x^2 = \int x^2 |f(x)|^2\, dx = \frac{1}{4\alpha}\)이므로 \(\Delta x = \frac{1}{2\sqrt{\alpha}}\).
 
-\(\hat{f}(\xi) = \left(\frac{2}{\pi\alpha}\right)^{1/4} \cdot \frac{1}{\sqrt{2\alpha}} \cdot \sqrt{\pi}\, e^{-\pi^2\xi^2/\alpha}\) (정규화된 가우시안의 변환)에서 주파수 퍼짐: \(\Delta \xi = \frac{\sqrt{\alpha}}{2\pi}\).
+\(\hat{f}(\xi) = \left(\frac{2\alpha}{\pi}\right)^{1/4}\sqrt{\frac{\pi}{\alpha}}\, e^{-\pi^2\xi^2/\alpha}\) (정규화된 가우시안의 변환)에서 주파수 퍼짐: \(\Delta \xi = \frac{\sqrt{\alpha}}{2\pi}\).
 
-따라서 \(\Delta x \cdot \Delta \xi = \frac{1}{2\sqrt{\alpha}} \cdot \frac{\sqrt{\alpha}}{2\pi} = \frac{1}{4\pi}\)으로, 불확정성 원리의 하한과 정확히 일치한다. 가우시안은 시간-주파수 분해능을 동시에 최적화하는 유일한 함수 형태이다.
+따라서 \(\Delta x \cdot \Delta \xi = \frac{1}{2\sqrt{\alpha}} \cdot \frac{\sqrt{\alpha}}{2\pi} = \frac{1}{4\pi}\)으로, 불확정성 원리의 하한과 정확히 일치한다. 평행이동, 변조, 스케일링, 상수 위상을 허용하면 등호를 이루는 함수들은 모두 가우시안 계열이다.
 </div>
 
 <p class="source-note"><em>Sources: Stanford EE261 (The Fourier Transform and Its Applications), MIT 18.103.</em></p>

@@ -1,5 +1,5 @@
 <section id="computational-methods">
-<h3>29. Computational Methods</h3>
+<h3>29. 계산 방법 (Computational Methods)</h3>
 
 <p class="section-intro">28장의 수치해석 기본 도구를 이어받아, 이 장은 대규모 선형계 풀이와 유한요소법(FEM)으로 나아간다. 조건수(condition number)는 수치 계산의 신뢰성을 판단하는 핵심 지표이고, 반복법은 직접법으로 감당하기 어려운 대규모 문제의 실질적 해법이다.</p>
 
@@ -25,9 +25,9 @@ $$ \|A\|_1 = \max(2, 2.0001) = 2.0001, \quad \|A^{-1}\|_1 = 10000 \cdot \max(2.0
 따라서 \(\kappa_1(A) \approx 40002\). 이는 \(b\)에 \(10^{-4}\)의 상대 오차가 있으면 \(x\)에 최대 약 4의 상대 오차가 생길 수 있음을 의미한다. 실제로:
 <ul>
   <li>\(b = (2, 2.0001)^T\)이면 \(x = (1, 1)^T\).</li>
-  <li>\(b\)를 \((2, 2.0002)^T\)로 살짝 변경하면 \(x = (0, 1)^T\).</li>
+  <li>\(b\)를 \((2, 2.0002)^T\)로 살짝 변경하면 \(x = (0, 2)^T\).</li>
 </ul>
-\(b\)의 \(0.005\%\) 변화가 \(x\)에 \(100\%\) 변화를 일으킨다.
+두 번째 성분을 약 \(0.005\%\) 바꾸었을 뿐인데 해의 상대 변화는 100%이다.
 </div>
 
 <div class="example"><span class="env-label">Example 29.2 (Hilbert 행렬의 조건수)</span>
@@ -40,7 +40,7 @@ $$ \kappa_2(H_3) \approx 524, \quad \kappa_2(H_5) \approx 4.8 \times 10^5, \quad
 
 <h4 id="direct-methods">29.2 Direct Methods: Matrix Factorizations (직접법: 행렬 분해)</h4>
 
-<p>공학 시뮬레이션에서 핵심 연산은 대부분 선형계 \(Ax = b\)를 푸는 것이다. FEM의 강성 행렬, 회로 해석의 노드 방정식, 최소제곱 회귀 모두 이 형태이다. 직접법(direct methods)은 행렬 \(A\)를 삼각 행렬이나 직교 행렬의 곱으로 분해하여, 정확한 해를 유한 단계 안에 구한다. 삼각 행렬로 분해하면 전방/후방 대입으로 빠르게 풀 수 있고, 직교 행렬로 분해하면 수치적 안정성이 좋다.</p>
+<p>공학 시뮬레이션의 핵심 연산에는 선형계 \(Ax = b\) 풀이가 자주 등장한다. FEM의 강성 행렬, 회로 해석의 노드 방정식, 최소제곱 회귀가 모두 이 형태이다. 직접법(direct methods)은 행렬 \(A\)를 삼각 행렬이나 직교 행렬의 곱으로 분해하여, 정확한 산술에서는 유한 단계 안에 해를 구한다. 실제 부동소수점 계산에는 반올림 오차가 남는다. 삼각 행렬로 분해하면 전방·후방 대입으로 빠르게 풀 수 있고, 직교 변환은 수치적으로 안정적이다.</p>
 
 <div class="definition"><span class="env-label">Definition 29.2 (LU Decomposition)</span>
 \(n \times n\) 행렬 \(A\)의 <strong>LU 분해(LU decomposition)</strong>는
@@ -56,7 +56,7 @@ $$ PA = LU $$
 </div>
 
 <div class="theorem"><span class="env-label">Theorem 29.1 (LU 분해의 존재성과 유일성)</span>
-\(A\)의 모든 선행 주소행렬식(leading principal minor)이 영이 아니면, \(A\)는 유일한 LU 분해 \(A = LU\)를 갖는다. 일반적인 비특이 행렬 \(A\)에 대해서는, 적절한 치환 행렬 \(P\)가 존재하여 \(PA = LU\) 분해가 항상 가능하다 (partial pivoting).
+\(A\)의 모든 선행 주행렬식(leading principal minor)이 영이 아니면, \(L\)의 대각을 1로 고정했을 때 \(A\)는 유일한 LU 분해 \(A = LU\)를 갖는다. 일반적인 비특이 정방행렬 \(A\)에 대해서는 적절한 치환 행렬 \(P\)가 존재하여 \(PA = LU\) 분해가 가능하다.
 </div>
 
 <div class="example"><span class="env-label">Example 29.3 (LU 분해 3&times;3)</span>
@@ -92,7 +92,7 @@ QR 분해를 계산하는 주요 방법:
   <li><strong>Householder 반사(reflections)</strong>: 수치적 안정성이 우수하여 실무에서 선호된다.</li>
   <li><strong>Givens 회전(rotations)</strong>: 희소 행렬이나 특정 구조에서 유용하다.</li>
 </ul>
-Householder 방법의 비용은 \(O(2mn^2 - 2n^3/3)\) 부동소수점 연산이다.
+Householder 방법으로 thin QR을 구할 때의 대표적인 비용은 약 \(2mn^2-2n^3/3\) flops이다.
 </div>
 
 <div class="theorem"><span class="env-label">Theorem 29.2 (QR 분해의 존재성과 유일성)</span>
@@ -128,7 +128,7 @@ $$ A = U \Sigma V^T $$
 주요 성질:
 <ul>
   <li>\(\text{rank}(A) = \)영이 아닌 특이값의 개수.</li>
-  <li>\(\kappa_2(A) = \sigma_1 / \sigma_{\min}\) (최소 양의 특이값).</li>
+  <li>열 또는 행 완전계수인 직사각 행렬에서는 \(\kappa_2(A)=\sigma_1/\sigma_p\), \(p=\min(m,n)\)이다. 계수가 부족하여 \(\sigma_p=0\)이면 표준 2-노름 조건수는 무한대다.</li>
   <li>\(\|A\|_2 = \sigma_1\), \(\|A\|_F = \sqrt{\sigma_1^2 + \cdots + \sigma_p^2}\) (\(p = \min(m, n)\)).</li>
 </ul>
 </div>
@@ -166,7 +166,7 @@ $$ \Sigma^+ = \begin{pmatrix} 1/5 & 0 \\ 0 & 1/3 \\ 0 & 0 \end{pmatrix}. $$
 <div class="remark"><span class="env-label">Remark (직접법의 응용)</span>
 세 가지 행렬 분해는 각기 다른 강점을 가진다:
 <ul>
-  <li><strong>LU 분해:</strong> 정방 비특이 시스템 \(Ax = b\)의 표준 풀이법. 같은 \(A\)에 대해 여러 우변을 효율적으로 처리한다. 행렬식 계산(\(\det A = \det U = \prod u_{ii}\))에도 유용하다.</li>
+  <li><strong>LU 분해:</strong> 정방 비특이 시스템 \(Ax = b\)의 표준 풀이법. 같은 \(A\)에 대해 여러 우변을 효율적으로 처리한다. 피벗을 쓰지 않으면 \(\det A=\prod_i u_{ii}\)이고, \(PA=LU\)이면 치환의 부호까지 반영해 행렬식을 구한다.</li>
   <li><strong>QR 분해:</strong> 최소제곱 문제의 수치적으로 안정한 풀이. 정규방정식 \(A^T A x = A^T b\)보다 조건수 면에서 유리하다 (\(\kappa(A)\) vs \(\kappa(A)^2\)).</li>
   <li><strong>SVD:</strong> 데이터 압축(상위 \(k\)개 특이값만 보존하여 이미지 압축 등), 유사역행렬(최소 노름 최소제곱), 주성분 분석(PCA &mdash; 주성분은 오른쪽 특이벡터), 수치적 랭크 결정에 쓴다.</li>
 </ul>
@@ -176,7 +176,7 @@ $$ \Sigma^+ = \begin{pmatrix} 1/5 & 0 \\ 0 & 1/3 \\ 0 & 0 \end{pmatrix}. $$
 
 <h4 id="iterative-methods">29.3 Iterative Methods for Linear Systems</h4>
 
-<p>3차원 FEM 모델이나 전력망 조류 계산처럼 수백만 자유도의 희소 선형계에서는 직접법이 너무 느리다. 반복법(iterative methods)은 초기 추정에서 출발하여 해를 점진적으로 개선하며, 매 반복에서 행렬-벡터 곱 \(Ax\)만 계산하므로 희소 구조를 그대로 활용한다.</p>
+<p>3차원 FEM 모델이나 전력망 조류 계산처럼 수백만 자유도의 희소 선형계에서는 직접법의 시간·메모리 비용이 커질 수 있다. 반복법(iterative methods)은 초기 추정에서 출발하여 해를 점진적으로 개선하며, 희소 행렬-벡터 곱이나 성분별 갱신 등을 이용해 희소 구조를 활용한다.</p>
 
 <div class="definition"><span class="env-label">Definition 29.5 (Jacobi and Gauss&ndash;Seidel)</span>
 \(Ax = b\)를 풀기 위해 (\(A = D + L + U\), 대각, 순수 하삼각, 순수 상삼각):
@@ -193,13 +193,13 @@ $$ \begin{pmatrix} 4 & -1 & 0 \\ -1 & 4 & -1 \\ 0 & -1 & 4 \end{pmatrix} \begin{
 에 Jacobi 반복을 적용한다. 초기값 \(x^{(0)} = (0, 0, 0)^T\):
 $$ x^{(1)} = \bigl(\tfrac{1}{4}, \tfrac{5}{4}, \tfrac{3}{4}\bigr)^T, \quad
 x^{(2)} = \bigl(\tfrac{1 + 5/4}{4}, \tfrac{5 + 1/4 + 3/4}{4}, \tfrac{3 + 5/4}{4}\bigr)^T = \bigl(0.5625, 1.5, 1.0625\bigr)^T. $$
-정확해는 \(x = (0.6429, 1.5714, 1.1429)^T\)이다. 행렬이 엄격히 대각 우세이므로 (\(|4| > |-1| + |0|\) 등) 수렴이 보장된다. Jacobi 반복 행렬의 스펙트럼 반경은 \(\rho = 0.5\)이므로 매 반복마다 오차가 약 반으로 줄어든다.
+정확해는 \(x = (19/28, 12/7, 33/28)^T \approx (0.6786, 1.7143, 1.1786)^T\)이다. 행렬이 엄격히 대각 우세이므로 (\(|4| > |-1| + |0|\) 등) 수렴이 보장된다. Jacobi 반복 행렬의 스펙트럼 반경은 \(\rho=\sqrt{2}/4\approx0.354\)이다.
 </div>
 
 <div class="definition"><span class="env-label">Definition 29.6 (Conjugate Gradient Method)</span>
 <strong>Conjugate gradient</strong>(CG, 켤레 기울기) 방법은 \(A \succ 0\)에 대해 \(Ax = b\)를 풀며, \(i \neq j\)일 때 \(p_i^T A p_j = 0\)을 만족하는 켤레 방향 \(p_0, p_1, \ldots\)를 생성한다. CG는 (정확한 산술에서) 최대 \(n\)회 반복으로 수렴하며, 다음의 오차 한계를 갖는다:
 $$ \|x^{(k)} - x^*\|_A \leq 2 \left(\frac{\sqrt{\kappa} - 1}{\sqrt{\kappa} + 1}\right)^k \|x^{(0)} - x^*\|_A, $$
-여기서 \(\kappa = \kappa_2(A)\)이다. Preconditioning(\(A\)를 \(M^{-1}A\)로 대체)은 \(\kappa\)를 크게 줄여 수렴을 가속할 수 있다.
+여기서 \(\kappa = \kappa_2(A)\)이다. 적절한 양정치 전처리 행렬 \(M\)으로 등가인 대칭 시스템의 유효 조건수를 줄이면 수렴을 가속할 수 있다.
 </div>
 
 <p class="subsection-transition">선형계 풀이는 여기까지다. 공학에서 실제로 만나는 문제는 편미분방정식(PDE)이 많다. 유한요소법(FEM)은 PDE를 선형계로 바꾸어 앞의 방법들로 풀 수 있게 한다.</p>
@@ -223,7 +223,7 @@ $$ \int_\Omega a\, \nabla u_h \cdot \nabla v_h \, dx = \int_\Omega f v_h \, dx \
 <div class="theorem"><span class="env-label">Theorem 29.4 (C&eacute;a's Lemma)</span>
 쌍선형 형식이 강제적(coercive)이고 연속적이면, FEM 해 \(u_h\)는 준최적 근사이다:
 $$ \|u - u_h\| \leq \frac{M}{\alpha} \inf_{v_h \in V_h} \|u - v_h\|, $$
-여기서 \(M\)은 연속성 상수이고 \(\alpha\)는 강제성 상수이다. 요소 크기 \(h\)인 준균일 메시 위의 구간별 선형 요소의 경우, \(\|u - u_h\|_{H^1} = O(h)\)이고 \(\|u - u_h\|_{L^2} = O(h^2)\)이다.
+여기서 \(M\)은 연속성 상수이고 \(\alpha\)는 강제성 상수이다. 해가 \(H^2\) 정칙성을 갖고 메시가 형상 정칙일 때, 요소 크기 \(h\)인 구간별 선형 요소는 보통 \(\|u-u_h\|_{H^1}=O(h)\)를 만족한다. 추가적인 쌍대 정칙성 아래에서는 \(\|u-u_h\|_{L^2}=O(h^2)\)도 얻는다.
 </div>
 
 <p>Cea의 보조정리에 따르면, FEM 해의 오차는 부분공간 \(V_h\) 내 최선의 근사 오차에 비례한다. 메시를 세분화하여 \(h\)를 줄이면 오차가 체계적으로 감소한다.</p>
@@ -239,7 +239,7 @@ $$ I_{\text{ext}} = \frac{4(1.7539) - 1.8591}{3} = 1.7189. $$
 <div class="example"><span class="env-label">Example 29.8 (수치 미분과 반올림 오차)</span>
 \(f'(x)\)를 중심 차분 \(\frac{f(x+h) - f(x-h)}{2h}\)로 근사할 때, 절단 오차는 \(O(h^2)\)이지만 반올림 오차는 \(O(\epsilon_{\text{mach}}/h)\)이다. 전체 오차:
 $$ E(h) \approx \frac{h^2}{6}|f'''(x)| + \frac{\epsilon_{\text{mach}}}{h}|f(x)|. $$
-최적 \(h\)는 \(\frac{dE}{dh} = 0\)에서 \(h_{\text{opt}} \sim \epsilon_{\text{mach}}^{1/3}\)이다. 배정밀도에서 \(h_{\text{opt}} \approx 6 \times 10^{-6}\)이며, 이보다 더 작은 \(h\)를 사용하면 오히려 정밀도가 나빠진다.
+이 오차 모형에서 \(|f(x)|\)와 \(|f'''(x)|\)가 모두 0이 아니면, \(\frac{dE}{dh}=0\)으로부터 \(h_{\text{opt}}=\bigl(3\epsilon_{\text{mach}}|f(x)|/|f'''(x)|\bigr)^{1/3}\)을 얻는다. 함수와 좌표의 척도를 나타내는 계수를 생략하면 \(h_{\text{opt}}\sim\epsilon_{\text{mach}}^{1/3}\)이며, 배정밀도에서 이 크기는 약 \(6\times10^{-6}\)이다. 실제 최적 간격은 함수와 좌표의 척도에 따라 달라지며, 간격을 지나치게 줄이면 반올림 오차 때문에 정밀도가 나빠질 수 있다.
 </div>
 
 </section>
@@ -268,4 +268,3 @@ $$ E(h) \approx \frac{h^2}{6}|f'''(x)| + \frac{\epsilon_{\text{mach}}}{h}|f(x)|.
 <li>LeVeque, <em>Finite Difference Methods for Ordinary and Partial Differential Equations</em> — SIAM</li>
 </ul>
 </details>
-

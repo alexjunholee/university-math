@@ -1,16 +1,16 @@
 <section id="real-analysis">
-<h2>Part IV: Analysis</h2>
+<h2>제4부 해석학 (Analysis)</h2>
 
 <p>해석학(Analysis)은 미적분학의 기초를 엄밀하게 세우고, 그 위에 도구들을 구축하는 분야이다. 미적분학에서 직관적으로 사용한 극한, 연속, 수렴 같은 개념들을 ε-δ 논법으로 정밀하게 재정의한다.</p>
 
-<h2>8. Real Analysis</h2>
+<h2>8. 실해석학 (Real Analysis)</h2>
 
 <p>실해석학은 실수 위에서 정의된 함수의 성질을 엄밀하게 연구한다. 미적분학 수업에서 '당연하다'고 넘겼던 것들 — 연속함수가 중간값을 가진다, 닫힌 구간에서 최댓값이 존재한다 — 을 증명하는 것이 이 분야의 목표이다.</p>
 
 <p>수치해석(numerical analysis)에서 반복 알고리즘의 수렴과 오차 한계를 증명할 때 실해석학을 쓴다. 푸리에 급수(Fourier series)로 신호를 복원할 때는 급수가 원래 함수로 수렴하는 조건을 따져야 하고, 최적화 문제에서는 컴팩트성(compactness)과 연속 함수의 최댓값 정리로 최적해의 존재를 보인다.</p>
 
 <!-- 8.1 Sequences and Limits -->
-<h3 id="sequences-limits">8.1 Sequences and Limits</h3>
+<h3 id="sequences-limits">8.1 수열과 극한 (Sequences and Limits)</h3>
 
 <p>수열의 수렴은 해석학 전체의 출발점이다. 수치해석에서 Newton 법이나 고정점 반복법(fixed-point iteration)이 올바른 근으로 다가가는지, 유한요소법(FEM)의 메쉬를 세밀하게 할수록 근사해가 참해에 수렴하는지 — 이 모든 문제가 수열의 수렴으로 귀결된다. ε-N 논법은 "충분히 많이 반복하면 오차를 원하는 만큼 줄일 수 있다"는 직관을 정밀한 수학적 언어로 표현한다.</p>
 
@@ -118,7 +118,7 @@ $$ \limsup_{n\to\infty} a_n = \sup\left\{ L \in \mathbb{R} : \text{부분수열 
 
 <div class="example"><span class="env-label">Example 8.1f (상극한/하극한 계산)</span>
 \(a_n = (-1)^n \dfrac{n}{n+1}\)로 정의하자. 짝수 항은 \(a_{2k} = \frac{2k}{2k+1} \to 1\)이고, 홀수 항은 \(a_{2k-1} = -\frac{2k-1}{2k} \to -1\)이다.<br />
-\(s_n = \sup_{k \geq n} a_k\)를 계산하면, 충분히 큰 \(n\)에 대해 \(s_n\)은 \(n\) 이상의 가장 가까운 짝수 항의 값이므로 \(s_n \to 1\)이다. 마찬가지로 \(i_n = \inf_{k \geq n} a_k \to -1\)이다.<br />
+\(s_n = \sup_{k \geq n} a_k\)를 계산하면, 모든 \(n\)에 대해 짝수 항이 1보다 작으면서 1에 한없이 가까워지므로 \(s_n = 1\)이다. 마찬가지로 홀수 항이 -1보다 크면서 -1에 한없이 가까워지므로 \(i_n = \inf_{k \geq n} a_k = -1\)이다.<br />
 따라서 \(\limsup a_n = 1\), \(\liminf a_n = -1\)이고, \(\limsup a_n \neq \liminf a_n\)이므로 수열은 발산한다. 수렴하는 부분수열의 극한값 집합은 \(\{-1, 1\}\)이다.
 </div>
 
@@ -130,7 +130,7 @@ $$ \limsup_{n\to\infty} a_n = \sup\left\{ L \in \mathbb{R} : \text{부분수열 
 <!-- 8.2 Continuity -->
 <p>수열의 수렴을 엄밀하게 정의했으니, 함수의 연속성으로 넘어간다. 연속성은 수열의 극한 개념을 함수에 적용한 것이며, 같은 ε-δ 언어로 정의된다.</p>
 
-<h3 id="real-continuity">8.2 Continuity</h3>
+<h3 id="real-continuity">8.2 연속성 (Continuity)</h3>
 
 <p>연속성은 "입력의 작은 변화가 출력의 작은 변화만을 유발한다"는 직관을 형식화한 것이다. 센서 측정에서 물리량의 미세한 변동이 센서 출력의 급격한 도약을 초래하지 않아야 하고, 제어 시스템에서 기준 입력의 소폭 변경이 출력의 폭발적 변화를 일으키지 않아야 한다. 균등연속성(uniform continuity)은 이 안정성이 정의역 전체에서 균일하게 성립하는 더 강한 조건이며, 수치 적분의 오차 추정과 함수 근사의 정확도 보장에 쓰인다. 극값 정리(Extreme Value Theorem)는 유계 폐구간에서 연속함수가 최대·최소를 달성함을 보장하여, 공학 최적화 문제에서 최적해의 존재를 이론적으로 뒷받침한다.</p>
 
@@ -141,7 +141,7 @@ $$ x \in D,\; |x - c| < \delta \implies |f(x) - f(c)| < \varepsilon $$
 </div>
 
 <div class="definition"><span class="env-label">Definition 8.5 (Uniform Continuity)</span>
-함수 \(f: D \to \mathbb{R}\)가 \(D\)에서 <em>uniform continuity(균등연속)</em>라 함은, 모든 \(\varepsilon > 0\)에 대해 \(\delta > 0\)이 존재하여
+함수 \(f: D \to \mathbb{R}\)가 \(D\)에서 <em>균등연속(uniformly continuous)</em>이라 함은, 모든 \(\varepsilon > 0\)에 대해 \(\delta > 0\)이 존재하여
 $$ x, y \in D,\; |x - y| < \delta \implies |f(x) - f(y)| < \varepsilon $$
 을 만족하는 것을 말한다. 점별 연속과의 차이점은, \(\delta\)가 \(\varepsilon\)에만 의존하고 특정 점에 의존하지 않는다는 것이다.
 </div>
@@ -188,7 +188,7 @@ $$ x, y \in D,\; |x - y| < \delta \implies |f(x) - f(y)| < \varepsilon $$
 
 <div class="example"><span class="env-label">Example 8.2c (균등연속: \(\sqrt{x}\))</span>
 \(f(x) = \sqrt{x}\)는 \([0, \infty)\)에서 균등연속이다.<br />
-<strong>증명.</strong> 임의의 \(\varepsilon > 0\)에 대해 \(\delta = \varepsilon^2\)으로 택한다. \(x, y \geq 0\)이고 \(|x - y| < \delta\)이면,
+<strong>증명.</strong> 임의의 \(\varepsilon > 0\)에 대해 \(\delta = \varepsilon^2\)으로 택한다. \(x=y\)이면 결론이 자명하다. \(x, y \geq 0\), \(x\neq y\)이고 \(|x - y| < \delta\)이면,
 $$ |\sqrt{x} - \sqrt{y}| = \frac{|x-y|}{\sqrt{x}+\sqrt{y}} \leq \frac{|x-y|}{\max(\sqrt{x}, \sqrt{y})} \leq \sqrt{|x-y|} < \sqrt{\delta} = \varepsilon. $$
 여기서 두 번째 부등식은 \(|\sqrt{x}-\sqrt{y}| \leq \sqrt{|x-y|}\)라는 사실을 이용한 것이다 (이 부등식은 양변을 제곱하면 확인할 수 있다). \(\delta\)가 점에 무관하므로, 균등연속이다.
 </div>
@@ -203,7 +203,7 @@ $$ |f(x_n) - f(y_n)| = |\sin(2n\pi) - \sin(2n\pi + \pi/2)| = |0 - 1| = 1 $$
 <!-- 8.3 Differentiability -->
 <p>연속성이 "함수값이 급격히 뛰지 않는다"는 성질이라면, 미분가능성은 "함수가 국소적으로 선형 근사를 허용한다"는 더 강한 조건이다. 미분가능한 함수는 반드시 연속이지만, 그 역은 성립하지 않는다.</p>
 
-<h3 id="differentiability">8.3 Differentiability</h3>
+<h3 id="differentiability">8.3 미분 가능성 (Differentiability)</h3>
 
 <p>Taylor 정리(Taylor's theorem)는 미분가능성의 대표적인 응용이다. 수치해석에서 미분방정식의 차분 근사(finite difference approximation), Newton-Raphson 법의 수렴 속도 분석, 유한요소법의 오차 추정이 모두 Taylor 전개의 나머지항(remainder term)에 의존한다. 나머지항의 크기를 평균값 정리(Mean Value Theorem)로 제어할 수 있기 때문에, "근사가 얼마나 정확한가"에 대한 정량적 답변이 가능해진다.</p>
 
@@ -240,7 +240,7 @@ $$ f(x) = \sum_{k=0}^{n} \frac{f^{(k)}(x_0)}{k!}(x - x_0)^k + \frac{f^{(n+1)}(\x
 <!-- 8.4 Riemann Integration -->
 <p>미분의 역연산으로서의 적분을 엄밀하게 구성한다. Riemann 적분은 구간을 잘게 쪼개고 각 소구간에서의 함수값으로 넓이를 근사하는 방식이다. 이 구성은 직관적이지만 한계도 있으며, 그 한계가 이후 Lebesgue 적분(11장)의 동기가 된다.</p>
 
-<h3 id="riemann-integration">8.4 Riemann Integration</h3>
+<h3 id="riemann-integration">8.4 리만 적분 (Riemann Integration)</h3>
 
 <p>Riemann 적분의 구성 자체가 수치 적분(numerical integration)의 수학적 기초이다. 사다리꼴 법칙(trapezoidal rule)이나 Simpson 법칙은 특정 분할에 대한 Riemann 합의 변형이며, Darboux 상합과 하합 사이의 간격이 수치 적분의 최대 오차를 직접 제어한다. "어떤 함수가 적분 가능한가?"라는 질문에 대한 Lebesgue 판정 기준(불연속점 집합의 측도가 0이면 적분 가능)은, 공학에서 흔히 등장하는 구간별 연속 함수(piecewise continuous function)가 항상 적분 가능하다는 사실을 보장한다.</p>
 
@@ -252,10 +252,10 @@ $$ \inf_P U(f,P) = \sup_P L(f,P) $$
 을 만족하는 것이며, 이 공통 값을 \(\int_a^b f(x)\, dx\)로 표기한다.
 </div>
 
-<p>상합의 하한 \(\overline{\int_a^b} f = \inf_P U(f,P)\)를 <em>upper Darboux integral(상 다르부 적분)</em>, 하합의 상한 \(\underline{\int_a^b} f = \sup_P L(f,P)\)를 <em>lower Darboux integral(하 다르부 적분)</em>이라 부른다. 이 두 값이 일치할 때 Riemann 적분이 존재한다.</p>
+<p>상합의 하한 \(\overline{\int_a^b} f = \inf_P U(f,P)\)를 <em>상 다르부 적분(upper Darboux integral)</em>, 하합의 상한 \(\underline{\int_a^b} f = \sup_P L(f,P)\)를 <em>하 다르부 적분(lower Darboux integral)</em>이라 부른다. 이 두 값이 일치할 때 리만 적분이 존재한다.</p>
 
 <div class="definition"><span class="env-label">Definition 8.7a (Refinement of a Partition)</span>
-분할 \(Q\)가 분할 \(P\)의 <em>세분(refinement)</em>이라 함은 \(P \subseteq Q\)인 것이다. 세분은 상합을 줄이지 않고 하합을 늘리지 않는다:
+분할 \(Q\)가 분할 \(P\)의 <em>세분(refinement)</em>이라 함은 \(P \subseteq Q\)인 것이다. 세분하면 상합은 증가하지 않고 하합은 감소하지 않는다:
 $$ P \subseteq Q \implies L(f, P) \leq L(f, Q) \leq U(f, Q) \leq U(f, P). $$
 </div>
 
@@ -290,7 +290,7 @@ $$ U(f,P_n) - L(f,P_n) = \frac{n(n+1)(2n+1) - (n-1)n(2n-1)}{6n^3} = \frac{n(6n)}
 \(f: [0,2] \to \mathbb{R}\)를 \(f(x) = 1\) (\(0 \leq x \leq 1\)), \(f(x) = 3\) (\(1 < x \leq 2\))으로 정의하자. \(f\)는 \(x=1\)에서만 불연속이다.<br />
 분할 \(P_\delta = \{0, 1-\delta, 1+\delta, 2\}\)을 택하면, \([0, 1-\delta]\)에서 \(f \equiv 1\), \([1+\delta, 2]\)에서 \(f \equiv 3\)이므로 이 구간들에서 \(U - L = 0\)이다. 문제가 되는 구간 \([1-\delta, 1+\delta]\)에서 \(M = 3\), \(m = 1\)이므로
 $$ U(f, P_\delta) - L(f, P_\delta) = (3-1)(2\delta) = 4\delta. $$
-\(\delta = \varepsilon/4\)로 택하면 \(U - L < \varepsilon\)이므로 \(f\)는 Riemann 적분 가능하다. \(\int_0^2 f = 1 \cdot 1 + 3 \cdot 1 = 4\)이다.
+\(0<\delta < \varepsilon/4\)로 택하면 \(U - L < \varepsilon\)이므로 \(f\)는 Riemann 적분 가능하다. \(\int_0^2 f = 1 \cdot 1 + 3 \cdot 1 = 4\)이다.
 </div>
 
 <div class="theorem"><span class="env-label">Theorem 8.12 (Fundamental Theorem of Calculus)</span>
@@ -304,9 +304,9 @@ $$ U(f, P_\delta) - L(f, P_\delta) = (3-1)(2\delta) = 4\delta. $$
 <!-- 8.5 Sequences and Series of Functions -->
 <p>지금까지 개별 함수의 연속성, 미분, 적분을 다루었다. 이번에는 함수열과 함수급수로 시야를 넓힌다. 질문은 "극한 함수가 원래 함수열의 성질(연속성, 미분가능성, 적분가능성)을 물려받는가?"이며, 그 답은 수렴의 종류 — 점별 수렴인지 균등 수렴인지 — 에 달려 있다.</p>
 
-<h3 id="sequences-series-functions">8.5 Sequences and Series of Functions</h3>
+<h3 id="sequences-series-functions">8.5 함수열과 함수급수 (Sequences and Series of Functions)</h3>
 
-<p>푸리에 급수로 주기 신호를 복원하거나, Taylor 급수로 함수를 다항식으로 근사할 때, 유한 항까지의 부분합이 원래 함수에 "충분히 가까운가?"라는 질문이 생긴다. 균등수렴(uniform convergence)이 이 질문에 정밀하게 답한다. 균등수렴이 보장되면 항별 적분(term-by-term integration)과 항별 미분(term-by-term differentiation)이 정당화되어, 급수 해의 미분·적분 성질이 각 항의 성질로부터 유도된다. PDE의 변수 분리법(6장)에서 구한 푸리에 급수 해가 실제로 미분 가능하고 PDE를 만족하는지 확인하는 것이 바로 이 이론의 응용이다.</p>
+<p>푸리에 급수로 주기 신호를 복원하거나, Taylor 급수로 함수를 다항식으로 근사할 때, 유한 항까지의 부분합이 원래 함수에 "충분히 가까운가?"라는 질문이 생긴다. 균등수렴(uniform convergence)이 이 질문에 정밀하게 답한다. 적분 가능한 함수의 급수가 균등수렴하면 항별 적분(term-by-term integration)이 정당화된다. 항별 미분(term-by-term differentiation)에는 도함수 급수의 균등수렴과 한 점에서 원래 급수의 수렴 같은 조건이 더 필요하다. PDE의 변수 분리법(6장)에서 구한 푸리에 급수 해가 실제로 미분 가능하고 PDE를 만족하는지 확인하는 것이 바로 이 이론의 응용이다.</p>
 
 <div class="definition"><span class="env-label">Definition 8.8 (Pointwise and Uniform Convergence)</span>
 \(f_n: D \to \mathbb{R}\)를 함수열이라 하자.
@@ -340,7 +340,7 @@ $$ |f_n(x)| = \frac{|x|}{1+nx^2} \leq \frac{|x|}{2\sqrt{n}|x|} = \frac{1}{2\sqrt
 </div>
 
 <div class="example"><span class="env-label">Example 8.4c (Weierstrass M-test: 지수 급수)</span>
-멱급수 \(\sum_{n=0}^\infty x^n/n!\)은 Weierstrass M-test에 의해 (\(M_n = R^n/n!\)로 잡으면) 임의의 유계 구간 \([-R, R]\)에서 균등 수렴한다. 항별 미분에 의해 \(f'(x) = f(x)\)이므로, \(f(x) = e^x\)임을 확인할 수 있다.
+멱급수 \(\sum_{n=0}^\infty x^n/n!\)은 Weierstrass M-test에 의해 (\(M_n = R^n/n!\)로 잡으면) 임의의 유계 구간 \([-R, R]\)에서 균등 수렴한다. 도함수 급수도 같은 방식으로 유계 구간에서 균등 수렴하므로 항별 미분이 가능하다. 따라서 합함수 \(f\)는 \(f'=f\), \(f(0)=1\)을 만족하며, 곧 \(f(x)=e^x\)이다.
 </div>
 
 <div class="example"><span class="env-label">Example 8.4d (Weierstrass M-test: 삼각급수)</span>
