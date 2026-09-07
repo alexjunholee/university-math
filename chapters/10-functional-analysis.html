@@ -8,7 +8,7 @@
 <!-- 10.1 Normed Spaces and Banach Spaces -->
 <h3 id="normed-banach">10.1 노름 공간과 바나흐 공간 (Normed Spaces and Banach Spaces)</h3>
 
-<p>함수 공간에서 "두 함수가 얼마나 가까운가?"를 측정하려면 노름(norm)이 필요하다. 신호의 에너지를 \(\|f\|_2 = (\int |f|^2\,dx)^{1/2}\)로, 최대 진폭을 \(\|f\|_\infty = \sup|f|\)로 측정하는 것이 대표적이다. 노름 공간에서 코시 수열이 반드시 수렴하는 완비성(completeness)을 갖추면 Banach space가 되며, 이 완비성은 반복법(iterative method)이나 급수 해의 수렴을 보장하는 데 필수적이다.</p>
+<p>함수 공간에서 "두 함수가 얼마나 가까운가?"를 측정하려면 노름(norm)이 필요하다. 신호 에너지의 제곱근을 \(\|f\|_2 = (\int |f|^2\,dx)^{1/2}\)로, 최대 진폭을 \(\|f\|_\infty = \sup|f|\)로 측정하는 것이 대표적이다. 노름 공간에서 코시 수열이 반드시 수렴하는 완비성(completeness)을 갖추면 Banach space가 되며, 이 완비성은 반복법(iterative method)이나 급수 해의 수렴을 보장하는 데 필수적이다.</p>
 
 <div class="definition"><span class="env-label">Definition 10.1 (Normed Space)</span>
 <em>노름 공간(normed space)</em>이란 \(\mathbb{R}\) 또는 \(\mathbb{C}\) 위의 벡터 공간 \(X\)와 다음 조건을 만족하는 함수 \(\|\cdot\|: X \to [0, \infty)\)의 쌍 \((X, \|\cdot\|)\)을 말한다:
@@ -147,7 +147,7 @@ Banach space 위의 임의의 유계 작용소 \(T\)에 대해:
 <ol>
   <li>\(\sigma(T)\)의 모든 0이 아닌 원소는 유한 중복도를 갖는 고유값이다.</li>
   <li>고유값은 0에서만 집적될 수 있다.</li>
-  <li>0이 아닌 고유값들의 고유공간에 \(\ker T\)의 정규직교 기저를 더하면 \(H\)의 정규직교 기저를 얻는다. 이에 따라 \(Tx = \sum_n \lambda_n \langle x, e_n \rangle e_n\)로 전개할 수 있으며, 영공간에 속한 기저벡터의 항은 0이다.</li>
+  <li>0이 아닌 고유값들의 각 고유공간의 정규직교 기저와 \(\ker T\)의 정규직교 기저를 합치면 \(H\)의 정규직교 기저를 얻는다. 이에 따라 \(Tx = \sum_n \lambda_n \langle x, e_n \rangle e_n\)로 전개할 수 있으며, 영공간에 속한 기저벡터의 항은 0이다.</li>
 </ol>
 </div>
 
@@ -160,8 +160,8 @@ Banach space 위의 임의의 유계 작용소 \(T\)에 대해:
 
 <h4>10.6.1. Banach space 예제</h4>
 
-<div class="example"><span class="env-label">Example 10.2 (\(L^p\) 공간의 완비성)</span>
-\( 1 \leq p < \infty \)일 때, \( L^p([0,1]) \)이 Banach space임을 보이는 핵심은 Riesz-Fischer 정리이다. 구체적 예로, 함수열 \( f_n(x) = n^{1/p}\, \mathbf{1}_{[0, 1/n]}(x) \)를 생각하자. 각 \( f_n \)에 대해 \( \|f_n\|_p = 1 \)이지만, \( \|f_n\|_q = n^{1/p - 1/q} \)이므로 \( q > p \)이면 \( \|f_n\|_q \to \infty \)이다. 각 \(f_n\) 자체는 모든 유한 \(q\)에 대해 \(L^q\)에 속하지만, 이 함수열은 \(L^p\) 노름과 \(L^q\) 노름이 서로 같은 방식으로 크기를 재지 않음을 보여준다. 실제로 \(L^p\setminus L^q\)의 원소가 필요하면 \(1/q\leq \alpha<1/p\)인 \(\alpha\)를 택해 \(f(x)=x^{-\alpha}\)로 놓으면 된다. 이 함수는 \(L^p(0,1)\)에는 속하지만 \(L^q(0,1)\)에는 속하지 않는다.
+<div class="example"><span class="env-label">Example 10.2 (\(L^p\) 노름과 공간의 비교)</span>
+\( 1 \leq p < \infty \)일 때, \( L^p([0,1]) \)이 Banach space임을 보이는 핵심은 Riesz-Fischer 정리이다. 여기서는 \(p\)에 따른 노름의 차이를 보기 위해 함수열 \( f_n(x) = n^{1/p}\, \mathbf{1}_{[0, 1/n]}(x) \)를 생각하자. 각 \( f_n \)에 대해 \( \|f_n\|_p = 1 \)이지만, \( \|f_n\|_q = n^{1/p - 1/q} \)이므로 \( q > p \)이면 \( \|f_n\|_q \to \infty \)이다. 각 \(f_n\) 자체는 모든 유한 \(q\)에 대해 \(L^q\)에 속하지만, 이 함수열은 \(L^p\) 노름과 \(L^q\) 노름이 서로 같은 방식으로 크기를 재지 않음을 보여준다. 실제로 \(L^p\setminus L^q\)의 원소가 필요하면 \(1/q\leq \alpha<1/p\)인 \(\alpha\)를 택해 \(f(x)=x^{-\alpha}\)로 놓으면 된다. 이 함수는 \(L^p(0,1)\)에는 속하지만 \(L^q(0,1)\)에는 속하지 않는다.
 <br><br>
 Minkowski 부등식 \( \|f + g\|_p \leq \|f\|_p + \|g\|_p \)이 삼각 부등식을 제공하고, H&ouml;lder 부등식 \( \|fg\|_1 \leq \|f\|_p \|g\|_q \) (\( 1/p + 1/q = 1 \))은 쌍대성 분석의 기초가 된다.
 </div>
@@ -207,9 +207,9 @@ $$ y(x) = 3x^2 + 1. $$
 </div>
 
 <div class="example"><span class="env-label">Example 10.7 (Lax-Milgram 정리)</span>
-Riesz 표현 정리의 중요한 확장인 <em>Lax-Milgram 정리</em>는 비대칭 쌍선형 형식까지 다룬다. Hilbert space \( H \) 위의 쌍선형 형식 \( a: H \times H \to \mathbb{R} \)가 연속이고 <em>강제적(coercive)</em>이면, 즉
+Riesz 표현 정리의 중요한 확장인 <em>Lax-Milgram 정리</em>는 비대칭 쌍선형 형식까지 다룬다. Hilbert space \( H \) 위의 쌍선형 형식 \( a: H \times H \to \mathbb{R} \)가 연속이고 <em>강제적(coercive)</em>이라는 조건, 즉
 $$ |a(u,v)| \leq M\|u\|\|v\|, \qquad a(u,u) \geq \gamma\|u\|^2, \qquad \gamma > 0, $$
-이면, 모든 \( F \in H^* \)에 대해 \( a(u,v) = F(v) \) (\( \forall v \in H \))를 만족하는 유일한 \( u \in H \)가 존재한다.
+을 만족하면, 모든 \( F \in H^* \)에 대해 \( a(u,v) = F(v) \) (\( \forall v \in H \))를 만족하는 유일한 \( u \in H \)가 존재한다.
 <br><br>
 적용 예: \(f\in L^2(0,1)\)이고 Sobolev 공간 \( H = H_0^1(0,1) \)에 \(\|u\|_H=\|u'\|_{L^2}\)를 부여하자. \( a(u,v) = \int_0^1 u'v'\,dx \), \( F(v) = \int_0^1 f v\,dx \)로 놓으면, Lax-Milgram 정리로부터 \( -u'' = f \), \( u(0) = u(1) = 0 \)의 약해(weak solution)가 유일하게 존재한다.
 </div>

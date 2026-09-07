@@ -136,7 +136,7 @@ $$
 
 <div class="definition">
 <span class="env-label">Definition 3.5 (Derivative)</span>
-\(x_0\)에서 \(f\)의 <strong>도함수(derivative)</strong>는 다음과 같이 정의된다.
+\(f\)의 <strong>도함수(derivative)</strong>가 \(x_0\)에서 갖는 값은 다음과 같이 정의된다.
 $$
 f'(x_0) = \lim_{\Delta x \to 0} \frac{f(x_0 + \Delta x) - f(x_0)}{\Delta x} = \lim_{\Delta x \to 0} \frac{\Delta f}{\Delta x}
 $$
@@ -357,7 +357,7 @@ $$
 <div class="example">
 <span class="env-label">Example 3.18 (Related Rates - 사다리 문제)</span>
 길이 10 m인 사다리가 벽에 기대어 있다. 사다리의 아래 끝이 벽에서 \(x\) m 떨어져 있고 초속 1 m로 벽에서 멀어지고 있다. 사다리 아래 끝이 벽에서 6 m 떨어졌을 때, 사다리 위 끝이 미끄러져 내려오는 속도를 구하라.
-<p>피타고라스 정리에 의해 \(x^2 + y^2 = 100\). 양변을 \(t\)에 대해 미분하면:</p>
+<p>사다리 위 끝의 높이를 \(y\) m라 하면, 피타고라스 정리에 의해 \(x^2 + y^2 = 100\). 양변을 \(t\)에 대해 미분하면:</p>
 $$
 2x\frac{dx}{dt} + 2y\frac{dy}{dt} = 0
 $$
@@ -701,7 +701,7 @@ $$
   <li>\(p = 1\): \(\ln R \to \infty\)이므로 발산</li>
   <li>\(p < 1\): \(R^{1-p} \to \infty\)이므로 발산</li>
 </ul>
-이 결과를 <strong>\(p\)-급수 판정(p-test)</strong>이라 하며, 급수의 적분 판정법과 직접 연결된다.
+이 이상적분의 수렴 조건은 적분 판정법을 통해 <strong>\(p\)-급수 판정(p-test)</strong>으로 이어진다.
 </div>
 
 <div class="example">
@@ -745,7 +745,7 @@ $$
 절대 수렴하면 반드시 수렴한다 (역은 성립하지 않는다).
 </div>
 
-<p>절대 수렴은 "강한" 수렴이다: 절대 수렴하는 급수는 항의 순서를 바꾸어도 같은 값으로 수렴한다. 반면, 조건부 수렴하는 급수는 항을 재배열하면 임의의 값(또는 발산)으로 수렴시킬 수 있다 (Riemann rearrangement theorem).</p>
+<p>절대 수렴은 "강한" 수렴이다: 절대 수렴하는 급수는 항의 순서를 바꾸어도 같은 값으로 수렴한다. 반면, 조건부 수렴하는 급수는 항을 재배열하면 임의의 값으로 수렴시키거나 발산시킬 수 있다 (Riemann rearrangement theorem).</p>
 
 <div class="example">
 <span class="env-label">Example 3.33</span>

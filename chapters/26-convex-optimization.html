@@ -1,6 +1,6 @@
 <h2 class="part-title">제9부 &mdash; 최적화 (Optimization)</h2>
 
-<p class="part-intro">최적화는 '최선의 선택'을 수학적으로 찾는 문제이다. 공학의 설계, 경제학의 자원배분, 기계학습의 모델 훈련이 모두 최적화 문제이다. 볼록 최적화는 전역 최적해를 보장하는 특별한 경우이다.</p>
+<p class="part-intro">최적화는 '최선의 선택'을 수학적으로 찾는 문제이다. 공학의 설계, 경제학의 자원배분, 기계학습의 모델 훈련이 모두 최적화 문제이다. 볼록 최적화는 지역 최소점이 전역 최소점이 되는 특별한 경우이다.</p>
 
 <!-- ============================================================== -->
 <!--  SECTION 26: CONVEX OPTIMIZATION                                -->
@@ -227,7 +227,7 @@ $$ f(x^{(k)}) - f^* \leq \frac{L}{2} \left(1 - \frac{m}{L}\right)^k \|x^{(0)} - 
 $$ x^{(k+1)} = x^{(k)} - t(Qx^{(k)} - b). $$
 최적해는 \(x^* = Q^{-1}b\)이다. \(Q\)의 고유값이 \(0 < m = \lambda_{\min} \leq \lambda_{\max} = L\)이면, 최적 스텝 크기 \(t = 2/(m+L)\)에서 수렴률은
 $$ \|x^{(k)} - x^*\| \leq \left(\frac{\kappa - 1}{\kappa + 1}\right)^k \|x^{(0)} - x^*\|, \quad \kappa = L/m. $$
-\(\kappa = 100\)이면 한 반복당 오차가 약 \(0.98\)배로 줄어, 정밀도 \(10^{-6}\)에 도달하려면 약 690회 반복이 필요하다.
+\(\kappa = 100\)이면 한 반복당 오차가 약 \(0.98\)배로 줄어, 오차를 초기 오차의 \(10^{-6}\)배로 줄이려면 약 690회 반복이 필요하다.
 </div>
 
 <div class="definition"><span class="env-label">Definition 26.10 (Newton's Method)</span>
@@ -235,19 +235,19 @@ $$ \|x^{(k)} - x^*\| \leq \left(\frac{\kappa - 1}{\kappa + 1}\right)^k \|x^{(0)}
 $$ \Delta x_{\text{nt}} = -[\nabla^2 f(x)]^{-1} \nabla f(x). $$
 반복:
 $$ x^{(k+1)} = x^{(k)} + t_k \Delta x_{\text{nt}}^{(k)}, $$
-여기서 \(t_k\)는 backtracking line search로 결정한다. Newton step은 \(f\)를 \(x^{(k)}\)에서 이차 근사한 뒤 그 근사의 최솟값으로 이동하는 것에 해당한다:
+여기서 \(t_k\)는 backtracking line search로 결정한다. Newton step은 \(f\)를 \(x^{(k)}\)에서 이차 근사한 뒤 그 근사를 최소화하는 점으로 이동하는 것에 해당한다:
 $$ \hat{f}(x) = f(x^{(k)}) + \nabla f(x^{(k)})^T (x - x^{(k)}) + \frac{1}{2}(x - x^{(k)})^T \nabla^2 f(x^{(k)})(x - x^{(k)}). $$
 
 <p>Newton 방법의 주요 성질:</p>
 <ul>
   <li><strong>아핀 불변성:</strong> 변수 변환 \(x = Ty\)에 대해 Newton step은 불변이다. 경사하강법은 이 성질이 없어 좌표계 선택에 민감하다.</li>
-  <li><strong>수렴 단계:</strong> (1) <em>감쇠(damped) 단계</em>: \(f^*\)에서 멀 때, backtracking을 통해 \(f\)가 일정량씩 감소한다. (2) <em>이차 수렴(quadratically convergent) 단계</em>: \(f^*\) 근처에서 \(t_k = 1\)이 채택되며 오차가 매 반복마다 제곱으로 줄어든다.</li>
+  <li><strong>수렴 단계:</strong> (1) <em>감쇠(damped) 단계</em>: \(x^*\)에서 멀 때, backtracking을 통해 \(f\)가 일정량씩 감소한다. (2) <em>이차 수렴(quadratically convergent) 단계</em>: \(x^*\) 근처에서 \(t_k = 1\)이 채택되며 오차가 매 반복마다 제곱으로 줄어든다.</li>
   <li><strong>비용:</strong> 조밀한 문제에서는 각 반복에서 Hessian의 \(O(n^2)\)개 원소를 구성하고 Newton 선형계를 대략 \(O(n^3)\)에 푼다. 희소성이나 구조가 있으면 비용은 크게 달라진다.</li>
 </ul>
 </div>
 
 <div class="theorem"><span class="env-label">Theorem 26.5 (Newton's Method: Quadratic Convergence)</span>
-\(f\)가 self-concordant이거나, \(\nabla^2 f\)가 Lipschitz 연속인 strongly convex 함수이면, Newton 방법은 \(x^*\) 충분히 근처에서 <strong>이차 수렴(quadratic convergence)</strong>을 달성한다:
+\(f\)가 self-concordant이거나, \(\nabla^2 f\)가 Lipschitz 연속인 strongly convex 함수이면, Newton 방법은 \(x^*\)에 충분히 가까운 곳에서 <strong>이차 수렴(quadratic convergence)</strong>을 달성한다:
 $$ \|x^{(k+1)} - x^*\| \leq C \|x^{(k)} - x^*\|^2 $$
 인 상수 \(C>0\)가 존재한다. 이차 수렴 구간에서는 정확한 자릿수가 매우 빠르게 늘지만, 기계 정밀도까지 필요한 반복 횟수는 문제와 시작점에 따라 달라진다.
 </div>
@@ -282,8 +282,8 @@ $$ \operatorname{minimize} \quad t \cdot c^T x - \sum_{i=1}^m \log(b_i - a_i^T x
 $$ \operatorname{minimize} \quad w^T \Sigma w \qquad \text{subject to} \quad \mu^T w \geq r_{\min},\; \mathbf{1}^T w = 1,\; w \geq 0, $$
 여기서 \(r_{\min}\)은 최소 기대 수익률이다.
 <ul>
-  <li><strong>볼록성 확인:</strong> 목적함수의 Hessian은 \(2\Sigma \succ 0\)이므로 strongly convex이다. 제약 조건은 모두 아핀이므로 볼록 집합이다.</li>
-  <li><strong>Slater 조건:</strong> \(w = \mathbf{1}/n\)이 순수 실행 가능점이면(모든 성분이 양수이고, \(\mu^T(\mathbf{1}/n) > r_{\min}\)이면) strong duality가 성립한다.</li>
+  <li><strong>볼록성 확인:</strong> 목적함수의 Hessian은 \(2\Sigma \succ 0\)이므로 strongly convex이다. 제약 조건은 모두 아핀이므로 실행 가능 집합은 볼록이다.</li>
+  <li><strong>Slater 조건:</strong> \(w = \mathbf{1}/n\)이 엄격 실행 가능점이면(모든 성분이 양수이고, \(\mu^T(\mathbf{1}/n) > r_{\min}\)이면) strong duality가 성립한다.</li>
   <li><strong>KKT 조건 적용:</strong> 수익률 제약의 승수를 \(\lambda\), 합 제약의 승수를 \(\nu\), 비음수 제약의 승수 벡터를 \(\eta\)라 하면 정상성은 \(2\Sigma w^* - \lambda^*\mu + \nu^*\mathbf 1-\eta^*=0\)이다. 최적해가 내부에 있어 \(\eta^*=0\)이면 \(w^*\)는 \(\Sigma^{-1}\mu\)와 \(\Sigma^{-1}\mathbf1\)의 선형결합이 된다.</li>
 </ul>
 </div>

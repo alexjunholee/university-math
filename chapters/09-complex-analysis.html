@@ -54,7 +54,7 @@ $$ v(x,y) = 3x^2 y - y^3 + C, $$
 
 <p>조화 함수의 중요한 성질로 <em>평균값 성질(mean value property)</em>이 있다: \(u\)가 원판 \(\overline{B(z_0, r)} \subseteq \Omega\)에서 조화이면,
 $$ u(z_0) = \frac{1}{2\pi}\int_0^{2\pi} u(z_0 + re^{i\theta})\, d\theta. $$
-즉 조화 함수의 한 점에서의 값은 그 점을 중심으로 하는 임의의 원 위에서의 평균값과 같다. 여기서 <em>최대값 원리(maximum principle)</em>가 따라온다: 연결 열린 집합에서 비상수인 조화 함수는 내부에서 최대값을 가질 수 없다.</p>
+즉 조화 함수의 한 점에서의 값은 그 점을 중심으로 하는 임의의 원 위에서의 평균값과 같다. 여기서 <em>최댓값 원리(maximum principle)</em>가 따라온다: 연결 열린 집합에서 비상수인 조화 함수는 내부에서 최댓값을 가질 수 없다.</p>
 
 <div class="theorem"><span class="env-label">Theorem 9.1a (Maximum Modulus Principle)</span>
 \(f\)가 연결 열린 집합 \(\Omega\)에서 해석적이고 비상수이면, \(|f(z)|\)는 \(\Omega\)의 내부에서 극대값을 가질 수 없다. 즉, 모든 \(z_0 \in \Omega\)의 근방에는 \(|f(z)| > |f(z_0)|\)인 점 \(z\)가 존재한다. \(\Omega\)가 유계이고 \(f\)가 \(\overline{\Omega}\)에서 연속이면, \(|f|\)는 경계 \(\partial\Omega\) 위에서 최대값을 달성한다.
@@ -198,7 +198,7 @@ $$ \oint_\gamma f(z)\, dz = 2\pi i \sum_{j=1}^k \operatorname{Res}(f, z_j). $$
 
 <p>유수 정리는 닫힌 경로를 따르는 적분을 경로 내부의 유한 개 특이점 정보로 환원한다. 라플라스 역변환의 적분 \(\frac{1}{2\pi i}\int_{c-i\infty}^{c+i\infty} F(s)e^{st}\,ds\)은 수렴 영역 안의 수직선을 따른다. 이 경로를 닫을 때 추가 경로의 적분이 사라지고 내부의 특이점이 유한 개의 극점이면, 각 극점의 유수가 시간 영역 응답의 각 모드(지수 함수, 감쇠 진동 등)에 대응한다.</p>
 
-<div class="example"><span class="env-label">Example 9.3a (유수 계산: 단순극)</span>
+<div class="example"><span class="env-label">Example 9.3a (유수 계산: 제거 가능 특이점)</span>
   \(f(z) = \frac{\sin z}{z(z - \pi)}\)에 대해 \(z = \pi\)에서의 유수를 구하자. 겉보기에는 분모가 0이지만 분자의 영점과 상쇄되는지 먼저 확인해야 한다:
 $$ \operatorname{Res}(f, \pi) = \lim_{z \to \pi} (z - \pi) \frac{\sin z}{z(z-\pi)} = \frac{\sin \pi}{\pi} = 0. $$
   이는 \(\sin z\)가 \(z = \pi\)에서 영점을 가져 특이점이 제거 가능함을 반영한다. 실제로 \(\sin z / (z-\pi) \to \cos\pi = -1\)이므로 \(\operatorname{Res}(f, \pi) = 0\)이다.
@@ -322,7 +322,7 @@ $$ w = e^{i\theta} + e^{-i\theta} = 2\cos\theta, $$
 
 \(|z| = R > 1\)인 원 위에서 \(z = Re^{i\theta}\)를 대입하면:
 $$ w = \left(R + \frac{1}{R}\right)\cos\theta + i\left(R - \frac{1}{R}\right)\sin\theta, $$
-이는 장축 \(a = R + 1/R\), 단축 \(b = R - 1/R\)인 타원이다. 따라서 Joukowski 변환은 단위원 외부의 원들을 타원으로 사상한다.
+이는 장반축 \(a = R + 1/R\), 단반축 \(b = R - 1/R\)인 타원이다. 따라서 Joukowski 변환은 단위원 외부의 원들을 타원으로 사상한다.
 </div>
 
 <div class="example"><span class="env-label">Example 9.9a (Mobius 변환의 고정점과 분류)</span>

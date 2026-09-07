@@ -73,7 +73,7 @@ $$ u(x,t) = \frac{8}{\pi}\sum_{k=0}^{\infty} \frac{1}{(2k+1)^3}\sin\!\bigl((2k+1
 
 <h4>6.2.2. 파동 방정식(쌍곡형)</h4>
 
-<p>파동 방정식은 에너지가 소산 없이 공간을 통해 전파되는 현상을 기술한다. 기타 줄의 진동, 음파의 전파, 지진파의 분석, 광섬유에서의 전자기파 전파가 모두 파동 방정식의 변형이다. 열 방정식과의 주된 차이는 에너지 보존과 유한 전파 속도이다. 열은 즉시 모든 곳에 영향을 미치지만(무한 전파 속도), 파동은 유한 속도 \( c \)로 전파되어 인과성(causality)을 보존한다.</p>
+<p>파동 방정식은 에너지가 소산 없이 공간을 통해 전파되는 현상을 기술한다. 기타 줄의 진동, 음파의 전파, 지진파의 전파, 광섬유에서의 전자기파 전파를 모두 파동 방정식이나 그 변형으로 기술할 수 있다. 열 방정식과의 주된 차이는 에너지 보존과 유한 전파 속도이다. 열은 즉시 모든 곳에 영향을 미치지만(무한 전파 속도), 파동은 유한 속도 \( c \)로 전파되어 인과성(causality)을 보존한다.</p>
 
 <div class="definition"><span class="env-label">Definition 6.4 (Wave Equation)</span>
 1차원 파동 방정식은 다음과 같다:
@@ -165,7 +165,7 @@ $$ \frac{d}{dx}\!\left[p(x)\frac{dX}{dx}\right] + q(x)X + \lambda\,w(x)\,X = 0, 
 <p>경계 조건(boundary condition)은 PDE 문제를 물리적으로 완전하게 규정한다. 막대 끝의 온도가 고정되어 있는가(Dirichlet), 단열되어 열 유속이 0인가(Neumann), 대류에 의해 주변 환경과 열 교환을 하는가(Robin) — 이러한 물리적 상황이 경계 조건의 유형을 결정한다. 잘못된 유형의 경계 조건을 설정하면 해가 존재하지 않거나, 데이터의 미세한 변동에 해가 폭발적으로 민감해지는 부적정(ill-posed) 문제가 된다.</p>
 
 <div class="definition"><span class="env-label">Definition 6.6 (Standard Boundary Conditions)</span>
-영역 \( \Omega \)에서 경계 \( \partial\Omega \)를 갖는 PDE의 표준 경계 조건 유형은 다음과 같다:
+경계 \( \partial\Omega \)를 갖는 영역 \( \Omega \)에서 정의된 PDE의 표준 경계 조건 유형은 다음과 같다:
 <ul>
 <li><strong>디리클레(Dirichlet):</strong> \( \partial\Omega \)에서 \( u = g \) (값을 지정).</li>
 <li><strong>노이만(Neumann):</strong> \( \partial\Omega \)에서 \( \partial u/\partial n = h \) (법선 도함수를 지정).</li>
@@ -201,7 +201,7 @@ $$ u(x,t) = \frac{a_0}{2} + \sum_{n=1}^{\infty} a_n \cos\!\left(\frac{n\pi x}{L}
 <div class="example"><span class="env-label">Example 6.5</span>
 반지름 \( R \)인 원판에서의 Laplace 방정식: 극좌표 \( (r, \theta) \)에서,
 $$ u_{rr} + \frac{1}{r}u_r + \frac{1}{r^2}u_{\theta\theta} = 0, \qquad r < R, $$
-경계 조건은 \( u(R, \theta) = f(\theta) \). 변수 분리 \( u = \mathcal{R}(r)\,\Theta(\theta) \)를 적용하면 <em>Poisson 적분 공식</em>을 얻는다:
+경계 조건은 \( u(R, \theta) = f(\theta) \). 변수 분리 \( u = \mathcal{R}(r)\,\Theta(\theta) \)를 적용하면 <em>Poisson 적분 공식</em>과 동등한 다음 Fourier 급수 표현을 얻는다:
 $$ u(r,\theta) = \frac{a_0}{2} + \sum_{n=1}^{\infty} \left(\frac{r}{R}\right)^n \bigl(a_n\cos n\theta + b_n\sin n\theta\bigr), $$
 여기서 \( a_n, b_n \)은 \( f(\theta) \)의 Fourier 계수이다. 중심에서 \( u(0) = a_0/2 \)이며, 이는 경계값의 평균이다 (조화함수의 평균값 성질).
 </div>
@@ -209,7 +209,7 @@ $$ u(r,\theta) = \frac{a_0}{2} + \sum_{n=1}^{\infty} \left(\frac{r}{R}\right)^n 
 <!-- 6.5 Additional Examples and Methods -->
 <h3 id="pde-additional">6.5. 추가 예제와 풀이법</h3>
 
-<p>6.2절은 유한 영역 경계값 문제를 다뤘다. 여기서는 무한 영역 초기값 문제와 직사각형이 아닌 영역으로 나아간다. 무한 영역의 열 방정식은 반도체 웨이퍼의 순간 레이저 가열, 지구 표면의 일주기 온도 변동 깊이 추정 등에 응용된다. 해에 나타나는 Gaussian 함수인 열 핵은 확산 현상의 보편적 특성을 드러낸다.</p>
+<p>6.2절에서는 유한 영역 경계값 문제와 무한 영역 파동 초기값 문제를 다뤘다. 여기서는 무한 영역의 열 방정식 초기값 문제와 직사각형이 아닌 영역으로 나아간다. 무한 영역의 열 방정식은 반도체 웨이퍼의 순간 레이저 가열, 지구 표면의 일주기 온도 변동 깊이 추정 등에 응용된다. 해에 나타나는 Gaussian 함수인 열 핵은 확산 현상의 보편적 특성을 드러낸다.</p>
 
 <h4>6.5.1. 열 방정식 초기값 문제 (무한 영역)</h4>
 
@@ -295,7 +295,7 @@ $$ u(\mathbf{x}) = \int_\Omega G(\mathbf{x}; \boldsymbol{\xi})\, f(\boldsymbol{\
 </div>
 
 <div class="remark"><span class="env-label">Remark</span>
-Green 함수는 물리적으로 점 소스(점 열원, 점 전하 등)에 의한 계의 응답을 나타낸다. 일반적 소스에 대한 해는 Green 함수를 소스 분포로 가중 평균한 것으로 해석된다. 이는 선형 시스템 이론의 임펄스 응답(impulse response)과 동일한 개념이다.
+Green 함수는 물리적으로 점 소스(점 열원, 점 전하 등)에 의한 계의 응답을 나타낸다. 일반적 소스에 대한 해는 Green 함수를 소스 분포로 가중 적분한 것으로 해석된다. 이는 선형 시스템 이론의 임펄스 응답(impulse response)과 동일한 개념이다.
 </div>
 
 <div class="theorem"><span class="env-label">Theorem 6.8 (음의 Laplace 작용소의 자유 공간 Green 함수)</span>
@@ -381,7 +381,7 @@ $$ u(x,t) = \frac{1}{2\pi}\int_{-\infty}^{\infty} \frac{2}{1+k^2}\, e^{-k^2 t}\,
 
 <h3 class="part-header">제3부: 선형대수</h3>
 
-<p>선형대수는 현대 수학과 응용의 공통 언어이다. 미분방정식, 최적화, 통계, 양자역학 등 거의 모든 분야에서 선형대수의 도구를 사용한다. 제1부와 제2부에서 다룬 미분방정식도 선형대수의 관점에서 다시 보면 구조가 명료해진다. 해 공간의 차원, 고유값에 의한 안정성 판별, 직교 분해에 의한 근사를 모두 선형대수의 언어로 기술할 수 있다.</p>
+<p>선형대수는 현대 수학과 응용의 공통 언어이다. 미분방정식, 최적화, 통계, 양자역학 등 거의 모든 분야에서 선형대수의 도구를 사용한다. 제2부에서 다룬 미분방정식도 선형대수의 관점에서 다시 보면 구조가 명료해진다. 해 공간의 차원, 고유값에 의한 안정성 판별, 직교 분해에 의한 근사를 모두 선형대수의 언어로 기술할 수 있다.</p>
 
 <details class="video-resources">
 <summary>추천 영상 강의 (원본 소스 기반)</summary>

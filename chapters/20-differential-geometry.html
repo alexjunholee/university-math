@@ -1,7 +1,7 @@
 <section id="differential-geometry">
 <h3>20. 미분기하학 (Differential Geometry)</h3>
 
-<p class="chapter-intro">미분기하학은 매끄러운 곡선과 곡면의 곡률, 측지선, 계량 등을 연구한다. 가우스-보네 정리는 곡률(국소적 성질)과 위상(대역적 성질)을 연결하며, 일반상대론과 로보틱스의 수학적 기초이다.</p>
+<p class="chapter-intro">미분기하학은 매끄러운 곡선과 곡면의 곡률, 측지선, 계량 등을 연구한다. 가우스-보네 정리는 곡률(국소적 성질)과 위상(대역적 성질)을 연결한다. 미분기하학은 일반상대론과 로보틱스의 수학적 기초이다.</p>
 
 <p>미분기하학(differential geometry)은 "곡면이 얼마나 휘어져 있는가"를 정량화하는 학문이다. 이 질문은 공학 여러 분야에서 직접 등장한다. GPS와 관성항법장치(INS)에서 지구 표면 위의 최단 경로를 계산하는 것은 구면 위의 측지선(geodesic) 문제이며, 로봇 팔의 운동학(kinematics)에서 관절 각도의 공간은 유클리드 공간이 아닌 매니폴드(manifold)를 이룬다. 컴퓨터 비전(computer vision)에서 3D 스캔 데이터로부터 곡면을 재구성하고 곡률을 추정하는 작업, 일반상대론(general relativity)에서 시공간(spacetime)의 기하학을 기술하는 것, 기계학습(machine learning)에서 확률 분포의 공간 위에 기하학적 구조를 부여하는 정보 기하학(information geometry) 등이 모두 미분기하학에 기반한다.</p>
 
@@ -100,7 +100,7 @@ $$ K = \frac{LN - M^2}{EG - F^2} = \frac{-1/(1+u^2+v^2)}{(1+v^2)(1+u^2) - u^2v^2
 가우스 곡률이 모든 곳에서 음이므로, 안장 곡면의 각 점은 쌍곡점이다. 원점에서 \(K(0,0) = -1\)이다.
 </div>
 
-<p>측지선(geodesic)은 곡면 위에서 "가장 곧은 경로"이자 "최단 경로"의 후보이다. GPS 항법에서 두 지점 사이의 최단 거리는 지구를 구(sphere)로 근사할 때 대원(great circle)의 호, 즉 구면 위의 측지선이다. 매니폴드 위의 경로 계획(path planning)에서도 측지선 방정식을 쓴다.</p>
+<p>측지선(geodesic)은 곡면 위에서 "가장 곧은 경로"이자 "최단 경로"의 후보이다. GPS 항법에서 두 지점 사이의 최단 경로는 지구를 구(sphere)로 근사할 때 대원(great circle)의 짧은 호, 즉 구면 위의 측지선이다. 매니폴드 위의 경로 계획(path planning)에서도 측지선 방정식을 쓴다.</p>
 
 <div class="definition"><span class="env-label">Definition 20.8 (Geodesic)</span>
 곡면 \(S\) 위의 단위 속력 곡선 \(\gamma\)가 <strong>측지선(geodesic)</strong>이라 함은, 측지 곡률이 항등적으로 소멸하는 것, 즉 가속도 \(\gamma''\)가 항상 곡면에 수직인 것을 말한다. 좌표로 표현하면, 측지선(geodesic)은 다음을 만족한다:

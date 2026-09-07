@@ -124,7 +124,7 @@ $$ \limsup_{n\to\infty} a_n = \sup\left\{ L \in \mathbb{R} : \text{부분수열 
 
 <div class="example"><span class="env-label">Example 8.1g (상극한/하극한이 일치하는 경우)</span>
 \(a_n = \dfrac{2n + (-1)^n}{n}\)으로 정의하자. \(a_n = 2 + (-1)^n / n\)이므로, 짝수 항은 \(2 + 1/(2k) \to 2\), 홀수 항은 \(2 - 1/(2k-1) \to 2\)이다.<br />
-\(\sup_{k \geq n} a_k = 2 + 1/n_{\text{even}} \to 2\)이고 \(\inf_{k \geq n} a_k = 2 - 1/n_{\text{odd}} \to 2\)이므로, \(\limsup a_n = \liminf a_n = 2\)이다. 따라서 \(\lim_{n\to\infty} a_n = 2\)이다.
+\(n_{\text{even}}\)과 \(n_{\text{odd}}\)를 각각 \(n\) 이상인 가장 작은 짝수와 홀수라 하자. \(\sup_{k \geq n} a_k = 2 + 1/n_{\text{even}} \to 2\)이고 \(\inf_{k \geq n} a_k = 2 - 1/n_{\text{odd}} \to 2\)이므로, \(\limsup a_n = \liminf a_n = 2\)이다. 따라서 \(\lim_{n\to\infty} a_n = 2\)이다.
 </div>
 
 <!-- 8.2 Continuity -->
@@ -208,7 +208,7 @@ $$ |f(x_n) - f(y_n)| = |\sin(2n\pi) - \sin(2n\pi + \pi/2)| = |0 - 1| = 1 $$
 <p>Taylor 정리(Taylor's theorem)는 미분가능성의 대표적인 응용이다. 수치해석에서 미분방정식의 차분 근사(finite difference approximation), Newton-Raphson 법의 수렴 속도 분석, 유한요소법의 오차 추정이 모두 Taylor 전개의 나머지항(remainder term)에 의존한다. 나머지항의 크기를 평균값 정리(Mean Value Theorem)로 제어할 수 있기 때문에, "근사가 얼마나 정확한가"에 대한 정량적 답변이 가능해진다.</p>
 
 <div class="definition"><span class="env-label">Definition 8.6 (Derivative)</span>
-\(f: (a,b) \to \mathbb{R}\)이고 \(c \in (a,b)\)라 하자. \(f\)의 \(c\)에서의 <em>도함수</em>는
+\(f: (a,b) \to \mathbb{R}\)이고 \(c \in (a,b)\)라 하자. \(f\)의 <em>도함수</em>가 \(c\)에서 갖는 값은
 $$ f'(c) = \lim_{h \to 0} \frac{f(c+h) - f(c)}{h} $$
 로 정의되며, 이 극한이 존재할 때 정의된다. \(f'(c)\)가 존재하면, \(f\)는 \(c\)에서 미분 가능하다고 한다.
 </div>
@@ -372,7 +372,7 @@ $$ \int_a^b f(x)\, dx = \sum_{n=1}^\infty \int_a^b f_n(x)\, dx. $$
 <div class="example"><span class="env-label">Example 8.4f (점별 수렴에서 적분 교환 실패)</span>
 \(f_n: [0,1] \to \mathbb{R}\)를 다음과 같이 정의하자:
 $$ f_n(x) = \begin{cases} 2n^2 x, & 0 \leq x \leq 1/(2n), \\ 2n - 2n^2 x, & 1/(2n) < x \leq 1/n, \\ 0, & 1/n < x \leq 1. \end{cases} $$
-이는 높이 \(n\), 밑변 \(1/n\)인 삼각형 모양의 함수이다. 각 \(x \in [0,1]\)에 대해 \(f_n(x) \to 0\)이므로 \(f_n \to 0\) 점별이다. 그러나
+이는 높이 \(n\), 밑변 \(1/n\)인 삼각형 모양의 함수이다. 각 \(x \in [0,1]\)에 대해 \(f_n(x) \to 0\)이므로 \(f_n\)은 0으로 점별 수렴한다. 그러나
 $$ \int_0^1 f_n(x)\, dx = \frac{1}{2} \cdot \frac{1}{n} \cdot n = \frac{1}{2} \neq 0 = \int_0^1 0\, dx. $$
 적분과 극한의 순서가 교환되지 않는다. 이는 수렴이 균등하지 않기 때문이다: \(\sup_x |f_n(x)| = n \to \infty\).
 </div>

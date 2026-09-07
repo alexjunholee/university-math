@@ -11,7 +11,7 @@
 <section id="probability">
 <h3>23. 확률론 (Probability Theory)</h3>
 
-<p class="chapter-intro">확률론은 불확실한 현상을 수학적으로 모형화하는 이론이다. 표본공간, 사건, 확률측도의 삼중쌍이 토대가 되고, 그 위에서 확률변수, 기댓값, 분포가 정의된다. 큰 수의 법칙과 중심극한정리는 표본평균의 장기적 거동을 결정한다.</p>
+<p class="chapter-intro">확률론은 불확실한 현상을 수학적으로 모형화하는 이론이다. 표본공간, 사건들의 시그마 대수, 확률측도의 삼중쌍이 토대가 되고, 그 위에서 확률변수, 기댓값, 분포가 정의된다. 큰 수의 법칙과 중심극한정리는 표본평균의 장기적 거동을 결정한다.</p>
 
 <p>불확실성(uncertainty)은 공학의 모든 분야에 편재한다. 통신 시스템(communication system)에서 채널 용량(channel capacity)과 비트 오류율(bit error rate)은 확률적 채널 모형 위에서 정의되며, 샤논의 채널 코딩 정리(Shannon's channel coding theorem)는 확률론 없이는 진술조차 할 수 없다. 신뢰성 공학(reliability engineering)에서 부품의 수명은 지수분포(exponential distribution)나 와이블 분포(Weibull distribution)로 모형화되고, 시스템 전체의 신뢰도는 각 부품의 고장 확률로부터 계산된다.</p>
 
@@ -213,7 +213,7 @@ $$ = 1 - e^{-4} \cdot \frac{643}{15} \approx 1 - 0.01832 \times 42.87 \approx 1 
 
 <h4 id="continuous-distributions">23.4 주요 연속 분포 상세</h4>
 
-<p>정규분포(normal distribution)는 중심극한정리에 의해 많은 독립적 요인의 합이 따르는 분포다. 센서 잡음(noise) 모형, 금융 수익률 모형, 칼만 필터의 상태 추정에서 기본 가정으로 쓴다.</p>
+<p>정규분포(normal distribution)는 중심극한정리에 의해 적절한 조건 아래 많은 독립적 요인의 합을 근사하는 분포다. 센서 잡음(noise) 모형, 금융 수익률 모형, 칼만 필터의 상태 추정에서 기본 가정으로 쓴다.</p>
 
 <div class="definition"><span class="env-label">Definition 23.14 (Normal / Gaussian Distribution)</span>
 \(X \sim N(\mu, \sigma^2)\):
@@ -364,7 +364,7 @@ $$ P(X \geq 20) \leq \frac{E[X]}{20} = \frac{4}{20} = 0.2. $$
 <strong>풀이.</strong> \(D = \text{HHH}\)라 하자.
 $$ P(D \mid \text{A}) = 0.9^3 = 0.729, \quad P(D \mid \text{B}) = 0.1^3 = 0.001. $$
 $$ P(\text{A} \mid D) = \frac{0.5 \times 0.729}{0.5 \times 0.729 + 0.5 \times 0.001} = \frac{0.3645}{0.365} \approx 0.9986. $$
-3번 연속 앞면이 나오면 동전 A일 확률이 99.9% 이상이다. 이는 조건부 독립의 효과를 보여준다: 각 던지기는 동전 종류를 조건으로 했을 때 독립이지만, 동전이 미지인 상태에서는 독립이 아니다 (앞선 결과가 동전 종류에 대한 정보를 제공한다).
+3번 연속 앞면이 나오면 동전 A일 확률이 약 99.9%이다. 이는 조건부 독립의 효과를 보여준다: 각 던지기는 동전 종류를 조건으로 했을 때 독립이지만, 동전이 미지인 상태에서는 독립이 아니다 (앞선 결과가 동전 종류에 대한 정보를 제공한다).
 </div>
 
 <div class="example"><span class="env-label">Example 23.16 (Moment Generating Function 활용)</span>
