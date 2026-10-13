@@ -3,7 +3,7 @@
 
 <p class="section-intro">28장의 수치해석 기본 도구를 이어받아, 이 장은 대규모 선형계 풀이와 유한요소법(FEM)으로 나아간다. 조건수(condition number)는 수치 계산의 신뢰성을 판단하는 핵심 지표이고, 반복법은 직접법으로 감당하기 어려운 대규모 문제의 실질적 해법이다.</p>
 
-<p>수치해석이 알고리즘의 수렴성과 정확도를 다루는 반면, 계산수학(computational mathematics)은 그 알고리즘을 실제 컴퓨터에서 구현할 때 생기는 문제를 다룬다. 이론적으로 수렴하는 알고리즘이라도 유한 정밀도 산술(finite-precision arithmetic)에서는 반올림 오차가 축적되고, 메모리와 연산 시간에 제약이 있으며, 행렬의 희소 구조(sparsity)를 활용하지 못하면 실용성을 잃는다.</p>
+<p>수치해석과 계산수학(computational mathematics)은 알고리즘의 수렴성과 정확도뿐 아니라 실제 컴퓨터에서의 계산도 다룬다. 대규모 문제에서는 반올림 오차와 계산 자원을 함께 고려해야 한다. 이론적으로 수렴하는 알고리즘이라도 유한 정밀도 산술(finite-precision arithmetic)에서는 반올림 오차가 축적되고, 메모리와 연산 시간에 제약이 있으며, 행렬의 희소 구조(sparsity)를 활용하지 못하면 실용성을 잃는다.</p>
 
 <p>MATLAB이나 Python(NumPy/SciPy)을 이용한 수치 시뮬레이션은 구조 해석, 유체 역학, 전자기장 계산에서 표준 도구이다. 수백만 자유도를 가진 유한요소 모델의 강성 행렬(stiffness matrix)은 대부분의 원소가 0인 희소행렬(sparse matrix)이므로, 희소행렬 저장 기법과 반복 솔버가 필수적이다. 기계학습에서 역전파(backpropagation)에 쓰이는 자동미분(automatic differentiation)도 계산수학의 산물이고, 병렬 컴퓨팅(parallel computing)은 대규모 선형계를 수천 개의 프로세서에 분산시켜 계산 시간을 크게 줄인다.</p>
 

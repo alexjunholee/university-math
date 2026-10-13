@@ -61,7 +61,7 @@ $$ \mathbf{T} = (-\sin(s/R),\; \cos(s/R),\; 0), \quad \mathbf{T}' = \frac{1}{R}(
 <div class="definition"><span class="env-label">Definition 20.5 (First Fundamental Form)</span>
 곡면 조각 \(\mathbf{r}(u,v)\)의 <strong>제1기본형식(first fundamental form)</strong>은 접평면 위의 내적이다:
 $$ I = E\, du^2 + 2F\, du\, dv + G\, dv^2, $$
-여기서 \(E = \mathbf{r}_u \cdot \mathbf{r}_u\), \(F = \mathbf{r}_u \cdot \mathbf{r}_v\), \(G = \mathbf{r}_v \cdot \mathbf{r}_v\)이다. 이것은 내재적 기하를 부호화한다: 곡면 위의 호의 길이, 각도, 넓이 등을 나타낸다.
+여기서 \(E = \mathbf{r}_u \cdot \mathbf{r}_u\), \(F = \mathbf{r}_u \cdot \mathbf{r}_v\), \(G = \mathbf{r}_v \cdot \mathbf{r}_v\)이다. 제1기본형식은 내재적 기하를 나타내며, 곡면 위의 호의 길이, 각도, 넓이 등의 정보를 담는다.
 </div>
 
 <div class="definition"><span class="env-label">Definition 20.6 (Second Fundamental Form)</span>
@@ -115,8 +115,8 @@ $$ \int_S K \, dA = 2\pi \chi(S), $$
 이 정리는 곡률이라는 국소적(local) 미분기하학적 양과 오일러 지표라는 대역적(global) 위상 불변량을 등호로 연결한다. 곡면의 형상을 아무리 변형하더라도 위상적 유형이 총 곡률의 적분을 고정한다.
 </div>
 
-<div class="example"><span class="env-label">Example 20.1</span>
-반지름 \(R\)인 구면 \(S^2\)는 모든 곳에서 \(K = 1/R^2\)이다. Gauss&ndash;Bonnet 정리에 의해, \(\int_{S^2} K\, dA = (1/R^2)(4\pi R^2) = 4\pi = 2\pi \cdot 2 = 2\pi\chi(S^2)\)이다. 토러스는 \(\chi = 0\)이므로 전체 곡률(curvature)의 적분은 0이다 (양의 곡률 영역과 음의 곡률 영역이 상쇄된다).
+<div class="example"><span class="env-label">Example 20.1 (구와 토러스의 총 곡률 비교)</span>
+구면 \(S^2\)의 오일러 지표는 2이므로 총 곡률은 \(4\pi\)이다. 토러스는 \(\chi = 0\)이므로 전체 곡률(curvature)의 적분은 0이다. 표준 토러스에서는 양의 곡률 영역과 음의 곡률 영역이 상쇄된다. 두 곡면의 차이는 각 점의 곡률만으로 설명되지 않는다. 곡률을 곡면 전체에 걸쳐 적분한 값이 오일러 지표에 따라 달라진다. 이어지는 예제에서는 구의 반지름과 넓이로 이 값을 계산하고, 토러스에서는 곡률의 부호가 바뀌는 위치를 확인한다.
 </div>
 
 <div class="example"><span class="env-label">Example 20.2 (Gauss&ndash;Bonnet: 구)</span>
