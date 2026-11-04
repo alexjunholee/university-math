@@ -1,44 +1,43 @@
 <section id="linear-programming">
 <h3>27. 선형계획법 (Linear Programming)</h3>
 
-<p class="section-intro">선형계획법은 볼록 최적화의 가장 기본적인 특수 경우이다. 목적함수와 제약 조건이 모두 선형이라는 단순한 구조이지만, 자원 배분, 생산 계획, 네트워크 흐름 등 응용 범위가 넓다. 심플렉스 방법과 쌍대성 이론은 일반 최적화 이론의 발전에도 큰 영향을 주었다.</p>
+<p class="section-intro">선형계획법은 볼록 최적화의 가장 기본적인 특수 경우이다. 목적함수와 제약 조건이 모두 선형이다. 자원 배분, 생산 계획, 네트워크 흐름에 두루 쓰인다.</p>
 
-<p>2차 세계대전기의 군사 계획 문제는 선형계획법(LP)의 형성에 중요한 배경이 되었고, George Dantzig는 1947년 심플렉스 방법을 개발했다. 오늘날 LP는 석유 정제 공정의 혼합 비율, 선형 비용을 둔 전력 시스템의 경제급전(economic dispatch), 통신 네트워크의 최대 유량(maximum flow) 계산 등에 쓰인다. 항공사 승무원 편성과 차량 경로처럼 정수 결정이 필요한 문제에서는 혼합정수계획의 하한과 하위 문제를 푸는 데 LP가 핵심 역할을 한다.</p>
+<p>선형계획법(LP)은 2차 세계대전 무렵의 군사 계획 문제에서 자랐다. George Dantzig는 미 공군의 계획 문제를 다루다가 1947년 심플렉스 방법을 만들었다. 오늘날 LP는 석유 정제 공정의 혼합 비율, 선형 비용을 둔 전력 시스템의 경제급전(economic dispatch), 통신 네트워크의 최대 유량(maximum flow) 계산 등에 쓰인다. 항공사 승무원 편성과 차량 경로처럼 정수 결정이 필요한 문제는 혼합정수계획으로 푸는데, 최소화 문제라면 정수 조건을 뺀 LP를 풀어 최적값의 하한을 얻는다.</p>
 
-<p>LP의 실행 가능 영역은 다면체(polyhedron)이다. 표준형 LP에 유한한 최적해가 있으면 꼭짓점(vertex)인 최적해를 하나 고를 수 있으므로, 유한차원 연속 공간의 문제가 다면체의 조합 구조와 연결된다. 심플렉스 방법은 꼭짓점에서 인접 꼭짓점으로 이동하며 목적함수를 개선한다. 최악의 경우 지수적으로 많은 피벗이 필요하지만, 실제 문제에서는 흔히 효율적으로 작동한다.</p>
+<p>LP의 실행 가능 영역은 다면체(polyhedron)이다. 표준형 LP에 최적해가 있으면 그중 하나는 꼭짓점(vertex)이다. 그래서 연속 공간의 문제를 유한개의 꼭짓점 가운데 하나를 고르는 문제로 바꿀 수 있다. 심플렉스 방법은 꼭짓점에서 이웃 꼭짓점으로 옮겨 가며 목적함수를 줄인다. 최악의 경우 지수적으로 많은 피벗이 필요하지만, 실제 문제에서는 흔히 효율적으로 작동한다.</p>
 
-<p>LP의 표준형은 등식 제약과 비음수 조건으로 구성된다. 부등식 형태의 제약은 슬랙 변수(slack variable)를 도입하면 표준형으로 변환할 수 있다.</p>
+<p>표준형 LP의 제약은 등식 제약과 비음수 조건뿐이다. 부등식 제약은 슬랙 변수(slack variable)를 하나씩 더해 등식으로 바꾼다.</p>
 
 <div class="definition"><span class="env-label">Definition 27.1 (Linear Program)</span>
-표준형의 <strong>linear program</strong>(LP, 선형계획법)은 다음과 같다:
+표준형의 <strong>선형계획 문제</strong>(linear program, LP)는 다음과 같다:
 $$ \begin{aligned}
 \operatorname{minimize} \quad & c^T x \\
 \text{subject to} \quad & Ax = b, \\
 & x \geq 0,
 \end{aligned} $$
-여기서 \(c \in \mathbb{R}^n\), \(A \in \mathbb{R}^{m \times n}\), \(b \in \mathbb{R}^m\)이다. 실행 가능 영역은 다면체이다. 최적해가 존재하면, 실행 가능 다면체의 꼭짓점(극점)에서 달성된다.
+여기서 \(c \in \mathbb{R}^n\), \(A \in \mathbb{R}^{m \times n}\), \(b \in \mathbb{R}^m\)이다.
 </div>
 
-<p>표준형 LP에 최적해가 존재하면 꼭짓점인 최적해를 적어도 하나 택할 수 있다. 이 꼭짓점에 대응하는 대수적 객체가 기본 실행 가능해(BFS)이다.</p>
+<p>계산에서는 꼭짓점을 기본 실행 가능해(basic feasible solution, BFS)로 나타낸다.</p>
 
 <div class="definition"><span class="env-label">Definition 27.2 (Basic Feasible Solution)</span>
-\(A\)의 행계수가 \(m\)이라고 하자. <strong>Basic feasible solution</strong>(BFS, 기본 실행 가능해)은 \(A\)의 \(m\)개 선형 독립인 열을 선택하여(기저 \(B\)), \(x_B = A_B^{-1}b\) (기본 변수)와 \(x_N = 0\) (비기본 변수)으로 놓았을 때 \(x_B \geq 0\)을 만족하는 해이다. BFS는 실행 가능 다면체의 꼭짓점에 대응한다.
+\(A\)의 행계수가 \(m\)이라고 하자. <strong>기본 실행 가능해</strong>(BFS)는 \(A\)의 \(m\)개 선형 독립인 열을 선택하여(기저 \(B\)), \(x_B = A_B^{-1}b\) (기본 변수)와 \(x_N = 0\) (비기본 변수)으로 놓았을 때 \(x_B \geq 0\)을 만족하는 해이다. BFS는 실행 가능 다면체의 꼭짓점에 대응한다.
 </div>
 
 <div class="definition"><span class="env-label">Definition 27.3 (Simplex Method)</span>
-<strong>Simplex method(심플렉스 방법)</strong>(Dantzig)는 실행 가능 다면체의 변을 따라 꼭짓점에서 꼭짓점으로 이동하며, 각 단계에서 목적함수를 증가시키지 않는다. 퇴화 피벗에서는 같은 꼭짓점에 머무를 수 있다:
+<strong>심플렉스 방법(simplex method)</strong>은 실행 가능 다면체의 변을 따라 꼭짓점에서 꼭짓점으로 옮겨 간다. 단계마다 목적함수는 늘지 않는다. 퇴화 피벗에서는 같은 꼭짓점에 머물 수 있다.
 <ol>
   <li>BFS에서 시작한다.</li>
-  <li>축소 비용 \(\bar{c}_j = c_j - c_B^T A_B^{-1} A_j\)를 계산한다. 모든 \(\bar{c}_j \geq 0\)이면 현재 BFS가 최적이다.</li>
+  <li>축소 비용(reduced cost) \(\bar{c}_j = c_j - c_B^T A_B^{-1} A_j\)를 계산한다. 모든 \(\bar{c}_j \geq 0\)이면 현재 BFS가 최적이다.</li>
   <li>그렇지 않으면, 진입 변수(\(\bar{c}_j < 0\)인 어떤 \(j\))를 선택한다. \(d=A_B^{-1}A_j\)에 양의 성분이 없으면 목적함수는 아래로 유계가 아니다. 양의 성분이 있으면 \(d_i>0\)인 성분에 대해 \(x_{B_i}/d_i\)의 최소 비율 검정으로 이탈 변수를 찾은 후 피벗한다.</li>
 </ol>
-심플렉스 방법은 최악의 경우 지수적 복잡도를 갖지만 실제로는 효율적이다.
 </div>
 
-<p>모든 LP에는 쌍대(dual) 문제가 존재한다. 쌍대 문제는 원시 문제의 최적값에 대한 하한(최대화 문제에서는 상한)을 제공하며, 쌍대 변수는 각 제약 조건의 경제적 가치를 나타내는 그림자 가격(shadow price)으로 해석된다.</p>
+<p>모든 LP에는 쌍대(dual) 문제가 있다. 쌍대 문제의 실행 가능해에서 잰 목적값은 원 문제 최적값의 하한(원 문제가 최대화 문제이면 상한)이다. 쌍대 변수는 제약 하나의 우변을 한 단위 늘릴 때 최적값이 얼마나 바뀌는지를 나타내며, 이를 그림자 가격(shadow price)이라 한다.</p>
 
 <div class="definition"><span class="env-label">Definition 27.4 (LP Dual)</span>
-표준형 LP의 dual(쌍대) 문제는 다음과 같다:
+표준형 LP의 쌍대 문제는 다음과 같다:
 $$ \begin{aligned}
 \operatorname{maximize} \quad & b^T y \\
 \text{subject to} \quad & A^T y \leq c.
@@ -47,24 +46,24 @@ $$ \begin{aligned}
 
 <div class="theorem"><span class="env-label">Theorem 27.1 (LP Duality)</span>
 <ul>
-  <li><strong>Weak duality(약한 쌍대성):</strong> 모든 실행 가능한 \(x, y\)에 대해 \(b^T y \leq c^T x\).</li>
-  <li><strong>Strong duality(강한 쌍대성):</strong> 원시 또는 쌍대 중 하나가 유한 최적값을 가지면, 둘 다 유한 최적값을 가지며 그 최적값은 같다: \(c^T x^* = b^T y^*\).</li>
+  <li><strong>약한 쌍대성(weak duality):</strong> 모든 실행 가능한 \(x, y\)에 대해 \(b^T y \leq c^T x\).</li>
+  <li><strong>강한 쌍대성(strong duality):</strong> 원 문제와 쌍대 문제 가운데 하나에 유한한 최적값이 있으면 둘 다 유한한 최적값이 있고, 두 최적값은 같다: \(c^T x^* = b^T y^*\).</li>
 </ul>
 </div>
 
-<p>상보 이완(complementary slackness) 조건은 원시 최적해와 쌍대 최적해 사이의 관계를 드러낸다. 한쪽 해를 알면 다른 쪽 해를 효율적으로 구할 수 있다.</p>
+<p>상보 여유성(complementary slackness) 조건은 원 문제의 최적해와 쌍대 최적해를 잇는다. Example 27.2처럼 원 문제의 최적해를 알면 쌍대 최적해를 연립방정식으로 구할 때가 많다.</p>
 
 <div class="theorem"><span class="env-label">Theorem 27.2 (Complementary Slackness)</span>
-Primal-feasible \(x^*\)와 dual-feasible \(y^*\)가 동시에 최적일 필요충분조건은 각 \(j\)에 대해 다음이 성립하는 것이다:
+원 문제의 실행 가능해 \(x^*\)와 쌍대 실행 가능해 \(y^*\)가 동시에 최적일 필요충분조건은 각 \(j\)에 대해 다음이 성립하는 것이다:
 $$ x_j^* (c_j - (A^T y^*)_j) = 0. $$
-원시 변수가 0이거나 대응하는 쌍대 제약이 등호로 성립하거나(또는 둘 다) 해야 한다.
+곧 각 \(j\)마다 원 문제의 변수가 0이거나 대응하는 쌍대 제약이 등호로 성립한다(둘 다일 수도 있다).
 </div>
 
 <div class="theorem"><span class="env-label">Theorem 27.3 (Fundamental Theorem of LP)</span>
-LP가 최적해를 가지면, basic feasible solution인 최적해가 존재한다.
+표준형 LP에 최적해가 있으면 기본 실행 가능해인 최적해가 있다.
 </div>
 
-<div class="example"><span class="env-label">Example 27.1 (Simplex Method — 2변수 LP)</span>
+<div class="example"><span class="env-label">Example 27.1 (심플렉스 방법 — 2변수 LP)</span>
 다음 LP를 심플렉스 방법으로 풀자:
 $$ \begin{aligned}
 \operatorname{maximize} \quad & 5x_1 + 4x_2 \\
@@ -73,8 +72,8 @@ $$ \begin{aligned}
 & x_1, x_2 \geq 0.
 \end{aligned} $$
 
-<strong>Step 1. 표준형 변환.</strong>
-Slack variable(슬랙 변수) \(s_1, s_2 \geq 0\)을 도입하고, 최대화를 최소화로 바꾸면:
+<strong>1단계. 표준형 변환.</strong>
+슬랙 변수 \(s_1, s_2 \geq 0\)을 넣고, 최대화를 최소화로 바꾸면:
 $$ \begin{aligned}
 \operatorname{minimize} \quad & -5x_1 - 4x_2 \\
 \text{subject to} \quad & 6x_1 + 4x_2 + s_1 = 24, \\
@@ -82,7 +81,7 @@ $$ \begin{aligned}
 & x_1, x_2, s_1, s_2 \geq 0.
 \end{aligned} $$
 
-<strong>Step 2. 초기 BFS.</strong>
+<strong>2단계. 초기 BFS.</strong>
 기저(basis) \(B = \{s_1, s_2\}\), 비기본 변수 \(x_1 = x_2 = 0\). 기본 변수: \(s_1 = 24\), \(s_2 = 6\). 목적함수값 \(z = 0\).
 
 초기 심플렉스 타블로:
@@ -93,12 +92,12 @@ s_2 & 1 & 2 & 0 & 1 & 6 \\ \hline
 -z & -5 & -4 & 0 & 0 & 0
 \end{array} $$
 
-<strong>Step 3. 반복 1 — 진입 변수 선택.</strong>
-축소 비용(reduced cost): \(\bar{c}_{x_1} = -5\), \(\bar{c}_{x_2} = -4\). 가장 음수인 \(\bar{c}_{x_1} = -5\)이므로 \(x_1\)이 진입 변수(entering variable).
+<strong>3단계. 반복 1 — 진입 변수 선택.</strong>
+축소 비용: \(\bar{c}_{x_1} = -5\), \(\bar{c}_{x_2} = -4\). 가장 음수인 \(\bar{c}_{x_1} = -5\)이므로 \(x_1\)이 진입 변수(entering variable)다.
 
-<strong>Step 4. 최소 비율 검정(minimum ratio test) 및 피벗.</strong>
+<strong>4단계. 최소 비율 검정과 피벗.</strong>
 $$ \frac{24}{6} = 4, \quad \frac{6}{1} = 6. $$
-최솟값 4는 \(s_1\) 행에서 달성 → \(s_1\)이 이탈 변수(leaving variable). 피벗 원소: 6.
+최솟값 4가 \(s_1\) 행에서 나오므로 \(s_1\)이 이탈 변수(leaving variable)다. 피벗 원소: 6.
 
 \(s_1\) 행을 6으로 나누고, \(s_2\) 행과 목적 행에서 소거하면:
 $$ \begin{array}{c|cccc|c}
@@ -109,12 +108,12 @@ s_2 & 0 & \frac{4}{3} & -\frac{1}{6} & 1 & 2 \\ \hline
 \end{array} $$
 현재 BFS: \(x_1 = 4\), \(x_2 = 0\), \(s_1 = 0\), \(s_2 = 2\), \(z = 20\).
 
-<strong>Step 5. 반복 2 — 진입 및 이탈 변수.</strong>
-축소 비용: \(\bar{c}_{x_2} = -\frac{2}{3} < 0\) → \(x_2\)가 진입 변수.
+<strong>5단계. 반복 2 — 진입 변수와 이탈 변수.</strong>
+축소 비용: \(\bar{c}_{x_2} = -\frac{2}{3} < 0\)이므로 \(x_2\)가 진입 변수다.
 
 최소 비율 검정:
 $$ \frac{4}{2/3} = 6, \quad \frac{2}{4/3} = \frac{3}{2}. $$
-최솟값 \(\frac{3}{2}\)은 \(s_2\) 행 → \(s_2\)가 이탈 변수. 피벗 원소: \(\frac{4}{3}\).
+최솟값 \(\frac{3}{2}\)이 \(s_2\) 행에서 나오므로 \(s_2\)가 이탈 변수다. 피벗 원소: \(\frac{4}{3}\).
 
 \(s_2\) 행을 \(\frac{4}{3}\)으로 나누고 소거:
 $$ \begin{array}{c|cccc|c}
@@ -124,13 +123,13 @@ x_2 & 0 & 1 & -\frac{1}{8} & \frac{3}{4} & \frac{3}{2} \\ \hline
 -z & 0 & 0 & \frac{3}{4} & \frac{1}{2} & 21
 \end{array} $$
 
-<strong>Step 6. 최적성 판정.</strong>
+<strong>6단계. 최적성 판정.</strong>
 모든 축소 비용이 \(\geq 0\): \(\bar{c}_{s_1} = \frac{3}{4}\), \(\bar{c}_{s_2} = \frac{1}{2}\). 따라서 현재 BFS가 최적이다:
 $$ \boxed{x_1^* = 3, \quad x_2^* = \frac{3}{2}, \quad z^* = 5 \cdot 3 + 4 \cdot \frac{3}{2} = 21.} $$
 </div>
 
 <div class="example"><span class="env-label">Example 27.2 (Dual LP and Shadow Prices)</span>
-Example 27.1의 원시(primal) 문제로부터 쌍대(dual) 문제를 구성하자. 원시 문제를 부등식 형태로 쓰면:
+Example 27.1의 원 문제에서 쌍대 문제를 만들자. 원 문제를 부등식 형태로 쓰면:
 $$ \begin{aligned}
 \operatorname{maximize} \quad & 5x_1 + 4x_2 \\
 \text{subject to} \quad & 6x_1 + 4x_2 \leq 24, \\
@@ -145,8 +144,8 @@ $$ \begin{aligned}
 & y_1, y_2 \geq 0.
 \end{aligned} $$
 
-<strong>상보 이완(complementary slackness)으로 쌍대해 결정.</strong>
-원시 최적해에서 \(x_1^* = 3 > 0\), \(x_2^* = \frac{3}{2} > 0\)이므로, 상보 이완 조건에 따라 대응하는 쌍대 제약이 모두 등호(active)로 성립해야 한다:
+<strong>상보 여유성으로 쌍대해 구하기.</strong>
+원 문제의 최적해에서 \(x_1^* = 3 > 0\), \(x_2^* = \frac{3}{2} > 0\)이므로, 상보 여유성 조건에 따라 대응하는 쌍대 제약이 모두 등호(active)로 성립해야 한다:
 $$ \begin{aligned}
 6y_1 + y_2 &= 5, \\
 4y_1 + 2y_2 &= 4.
@@ -156,32 +155,32 @@ $$ 4y_1 + 2(5 - 6y_1) = 4 \implies 4y_1 + 10 - 12y_1 = 4 \implies -8y_1 = -6 \im
 따라서 \(y_2 = 5 - 6 \cdot \frac{3}{4} = 5 - \frac{9}{2} = \frac{1}{2}\).
 
 <strong>강한 쌍대성(strong duality) 검증.</strong>
-$$ \text{Dual objective} = 24 \cdot \frac{3}{4} + 6 \cdot \frac{1}{2} = 18 + 3 = 21 = z^*. $$
-원시와 쌍대의 실행 가능한 해가 같은 목적값을 가지므로 약한 쌍대성에 의해 두 해가 모두 최적이며, 강한 쌍대성의 결론과 일치한다.
+$$ \text{쌍대 목적값} = 24 \cdot \frac{3}{4} + 6 \cdot \frac{1}{2} = 18 + 3 = 21 = z^*. $$
+원 문제와 쌍대 문제의 실행 가능해의 목적값이 같으므로 약한 쌍대성에 의해 두 해가 모두 최적이며, 강한 쌍대성의 결론과 일치한다.
 
 <strong>그림자 가격(shadow price) 해석.</strong>
-쌍대 변수 \(y_i^*\)는 \(i\)번째 제약의 우변(RHS)을 한 단위 증가시킬 때 최적값의 변화율이다:
+장 앞에서 말한 그림자 가격으로 두 쌍대 변수를 읽으면 다음과 같다:
 <ul>
   <li>\(y_1^* = \frac{3}{4}\): 현재 기저가 유지되는 범위에서 첫 번째 제약 \(6x_1 + 4x_2 \leq 24\)의 RHS를 24에서 25로 늘리면 최적값이 \(\frac{3}{4}\)만큼 증가한다.</li>
   <li>\(y_2^* = \frac{1}{2}\): 마찬가지로 현재 기저가 유지되는 범위에서 두 번째 제약 \(x_1 + 2x_2 \leq 6\)의 RHS를 6에서 7로 늘리면 최적값이 \(\frac{1}{2}\)만큼 증가한다.</li>
 </ul>
-또한 심플렉스 최종 타블로의 목적 행에서 슬랙 변수 \(s_1, s_2\)의 축소 비용이 정확히 \(\frac{3}{4}, \frac{1}{2}\)로 쌍대 변수의 값과 일치함을 확인할 수 있다.
+심플렉스 최종 타블로의 목적 행에 있는 슬랙 변수 \(s_1, s_2\)의 축소 비용도 \(\frac{3}{4}, \frac{1}{2}\)로 쌍대 변수의 값과 같다.
 </div>
 
 <div class="example"><span class="env-label">Example 27.3 (Sensitivity Analysis)</span>
-Example 27.1의 최적 기저 \(B = \{x_1, x_2\}\)를 유지하면서 RHS 및 목적 계수의 변동 허용 범위를 구한다.
+Example 27.1의 최적 기저 \(B = \{x_1, x_2\}\)가 그대로 최적으로 남도록 RHS와 목적 계수가 움직일 수 있는 범위를 구한다.
 
 <strong>(a) RHS 민감도: \(b_1 = 24\)의 허용 범위.</strong>
 현재 기저 \(B\)에 대응하는 열은 \(A_B = \begin{pmatrix} 6 & 4 \\ 1 & 2 \end{pmatrix}\)이다. 역행렬:
 $$ A_B^{-1} = \frac{1}{8}\begin{pmatrix} 2 & -4 \\ -1 & 6 \end{pmatrix} = \begin{pmatrix} \frac{1}{4} & -\frac{1}{2} \\ -\frac{1}{8} & \frac{3}{4} \end{pmatrix}. $$
-\(b_1\)을 \(24 + \Delta\)로 변경하면 기본 변수값이:
+\(b_1\)을 \(24 + \Delta\)로 바꾸면 기본 변수값은 다음과 같다.
 $$ x_B = A_B^{-1} \begin{pmatrix} 24 + \Delta \\ 6 \end{pmatrix} = \begin{pmatrix} \frac{1}{4}(24+\Delta) - \frac{1}{2} \cdot 6 \\ -\frac{1}{8}(24+\Delta) + \frac{3}{4} \cdot 6 \end{pmatrix} = \begin{pmatrix} 3 + \frac{\Delta}{4} \\ \frac{3}{2} - \frac{\Delta}{8} \end{pmatrix}. $$
 BFS 조건 \(x_B \geq 0\)을 만족하려면:
 $$ 3 + \frac{\Delta}{4} \geq 0 \implies \Delta \geq -12, \qquad \frac{3}{2} - \frac{\Delta}{8} \geq 0 \implies \Delta \leq 12. $$
 따라서 \(b_1 \in [12, 36]\) 범위에서 현재 기저가 유지되며, 이 범위 내에서 그림자 가격 \(y_1^* = \frac{3}{4}\)가 유효하다.
 
 <strong>(b) 목적 계수 민감도: \(c_1 = 5\)의 허용 범위.</strong>
-\(c_1\)을 \(5 + \delta\)로 변경하면 비기본 변수의 축소 비용이 변한다. 앞서 최대화 문제를 최소화 문제로 바꾸었으므로 기본 목적계수는 \(c_B=(-(5+\delta),-4)^T\)이다. 따라서 비기본 슬랙 변수에 대한 최소화 문제의 축소 비용은
+\(c_1\)을 \(5 + \delta\)로 바꾸면 비기본 변수의 축소 비용이 변한다. 앞서 최대화 문제를 최소화 문제로 바꾸었으므로 기본 목적계수는 \(c_B=(-(5+\delta),-4)^T\)이다. 따라서 최소화 문제에서 비기본 슬랙 변수의 축소 비용은
 $$ \bar{c}_{s_1} = 0-c_B^T A_B^{-1}e_1 = -\left[-\frac{5+\delta}{4}+\frac{1}{2}\right] = \frac{3+\delta}{4}. $$
 $$ \bar{c}_{s_2} = 0-c_B^T A_B^{-1}e_2 = -\left[\frac{5+\delta}{2}-3\right] = \frac{1-\delta}{2}. $$
 현재 기저의 최적성 조건 \(\bar{c}_{s_1} \geq 0\), \(\bar{c}_{s_2} \geq 0\)에서:
@@ -194,21 +193,20 @@ $$ \frac{3+\delta}{4} \geq 0 \implies \delta \geq -3, \qquad \frac{1-\delta}{2} 
 <details class="video-resources">
 <summary>추천 영상 강의 (원본 소스 기반)</summary>
 <ul>
-<li><a href="http://nptel.ac.in/courses/111104027/" target="_blank">Linear Programming and Extensions — NPTEL IIT Kanpur</a></li>
-<li><a href="http://nptel.ac.in/courses/111105039/" target="_blank">Optimization — NPTEL IIT Kharagpur</a></li>
+<li><a href="https://nptel.ac.in/courses/111104027" target="_blank">Linear Programming and Extensions — NPTEL IIT Kanpur</a></li>
+<li><a href="https://nptel.ac.in/courses/111105039" target="_blank">Optimization — NPTEL IIT Kharagpur</a></li>
 </ul>
 </details>
 
 <details class="video-resources">
 <summary>추천 교재 &amp; 오픈 자료</summary>
 <ul>
-<li><a href="https://vanderbei.princeton.edu/307/textbook/BertsijaTswordsitsiklis_702x1000.pdf" target="_blank">Introduction to Linear Optimization (Bertsimas &amp; Tsitsiklis)</a> — 미리보기</li>
-<li><a href="https://www.math.washington.edu/~burke/crs/407/notes/" target="_blank">Linear Programming (Burke, UW)</a> — 강의노트</li>
-<li>Bertsimas &amp; Tsitsiklis, <em>Introduction to Linear Optimization</em> — LP의 현대적 표준 교재</li>
-<li>Vanderbei, <em>Linear Programming: Foundations and Extensions</em> — 심플렉스와 내점법 모두 다룸</li>
-<li>Chvátal, <em>Linear Programming</em> — 간결하고 우아한 고전</li>
-<li>Dantzig &amp; Thapa, <em>Linear Programming</em> — LP 창시자의 저서</li>
-<li>Schrijver, <em>Theory of Linear and Integer Programming</em> — 이론적 깊이의 레퍼런스</li>
+<li><a href="https://sites.math.washington.edu/~burke/crs/407/notes/" target="_blank">Linear Programming (Burke, UW)</a> — 강의노트</li>
+<li>Bertsimas &amp; Tsitsiklis, <em>Introduction to Linear Optimization</em> — Athena Scientific</li>
+<li>Vanderbei, <em>Linear Programming: Foundations and Extensions</em> — 심플렉스와 내부점 방법 모두 다룸</li>
+<li>Chvátal, <em>Linear Programming</em> — W. H. Freeman</li>
+<li>Dantzig &amp; Thapa, <em>Linear Programming</em> — Springer, 전 2권</li>
+<li>Schrijver, <em>Theory of Linear and Integer Programming</em> — Wiley</li>
 </ul>
 </details>
 

@@ -1,21 +1,21 @@
 <section id="differential-geometry">
 <h3>20. 미분기하학 (Differential Geometry)</h3>
 
-<p class="chapter-intro">미분기하학은 매끄러운 곡선과 곡면의 곡률, 측지선, 계량 등을 연구한다. 가우스-보네 정리는 곡률(국소적 성질)과 위상(대역적 성질)을 연결한다. 미분기하학은 일반상대론과 로보틱스의 수학적 기초이다.</p>
+<p class="chapter-intro">미분기하학은 매끄러운 곡선과 곡면의 곡률, 측지선, 계량을 미적분으로 연구한다. Gauss–Bonnet 정리는 각 점의 곡률을 곡면 전체에서 적분한 값이 곡면의 위상으로 정해진다고 말한다. 일반상대론(general relativity)은 시공간(spacetime)을 로런츠 계량이 있는 4차원 매니폴드로 기술한다.</p>
 
-<p>미분기하학(differential geometry)은 "곡면이 얼마나 휘어져 있는가"를 정량화하는 학문이다. 이 질문은 공학 여러 분야에서 직접 등장한다. GPS와 관성항법장치(INS)에서 지구 표면 위의 최단 경로를 계산하는 것은 구면 위의 측지선(geodesic) 문제이며, 로봇 팔의 운동학(kinematics)에서 관절 각도의 공간은 유클리드 공간이 아닌 매니폴드(manifold)를 이룬다. 컴퓨터 비전(computer vision)에서 3D 스캔 데이터로부터 곡면을 재구성하고 곡률을 추정하는 작업, 일반상대론(general relativity)에서 시공간(spacetime)의 기하학을 기술하는 것, 기계학습(machine learning)에서 확률 분포의 공간 위에 기하학적 구조를 부여하는 정보 기하학(information geometry) 등이 모두 미분기하학에 기반한다.</p>
+<p>미분기하학(differential geometry)은 곡선과 곡면이 얼마나 휘었는지를 수로 나타낸다. 지구 표면에서 두 지점 사이의 최단 경로를 구하는 일은 측지선(geodesic) 문제다. 지구를 구로 근사하면 측지선은 대원의 호이고, 회전타원체로 보면 계산이 더 복잡해진다. 회전 관절 \(n\)개로 된 로봇 팔에서 관절 각도들이 이루는 공간은 원 \(n\)개의 곱인 토러스 \(T^n\)으로, 매니폴드(manifold)의 한 예다. 컴퓨터 비전(computer vision)에서는 3D 스캔 데이터로 곡면을 재구성하고 곡률을 추정한다. 기계학습(machine learning)에 쓰이는 정보 기하학(information geometry)은 확률 분포들의 집합을 매니폴드로 보고 그 위에 계량을 준다.</p>
 
-<p>곡선의 곡률(curvature)과 비틀림(torsion)에서 출발하여, 곡면의 제1·제2 기본형식(fundamental form)과 가우스 곡률(Gaussian curvature)을 거쳐 국소적 곡률과 대역적 위상을 연결하는 가우스-보네 정리(Gauss-Bonnet theorem)까지 나아간다. 평평한 유클리드 공간의 기하학만으로는 곡면 위에서 측정되는 거리와 곡률을 기술할 수 없다. 이를 곡면 자체의 정보로 다루는 관점이 내재적 기하학(intrinsic geometry)이다.</p>
+<p>곡면 위의 거리와 곡률 가운데 어떤 것은 곡면이 공간에 어떻게 놓였는지 몰라도, 곡면 위에서 잰 길이만으로 구할 수 있다. 이런 양만 다루는 관점을 내재적 기하학(intrinsic geometry)이라 한다.</p>
 
-<p>곡선의 "굽은 정도"를 정량화하는 것이 미분기하학의 첫 번째 과제이다. 도로 설계에서 곡률은 차량의 안전 속도를 결정하고, CNC 가공에서 공구 경로의 곡률은 가공 정밀도와 직결된다.</p>
+<p>곡선이 얼마나 굽었는지부터 재 보자. 도로 설계에서는 곡선 구간의 곡률로 차량의 안전 속도를 정한다. CNC 가공에서는 공구 경로의 곡률이 가공 정밀도에 영향을 준다.</p>
 
 <div class="definition"><span class="env-label">Definition 20.1 (Smooth Curve)</span>
-\(\mathbb{R}^n\)에서의 <strong>매끄러운 곡선(smooth curve)</strong>이란 매끄러운 사상 \(\gamma : I \to \mathbb{R}^n\) (\(I\)는 구간)으로, 모든 \(t \in I\)에서 \(\gamma'(t) \neq 0\)인 것(정칙 곡선)을 말한다. <strong>호의 길이(arc length)</strong>는 다음과 같다:
+\(I\)가 구간이고 \(\gamma : I \to \mathbb{R}^n\)이 매끄러운 사상이며 모든 \(t \in I\)에서 \(\gamma'(t) \neq 0\)이면, \(\gamma\)를 \(\mathbb{R}^n\)의 <strong>매끄러운 곡선(smooth curve)</strong>(정칙 곡선)이라 한다. <strong>호의 길이(arc length)</strong>는 다음과 같다:
 $$ s(t) = \int_{t_0}^{t} \|\gamma'(u)\| \, du. $$
 </div>
 
 <div class="definition"><span class="env-label">Definition 20.2 (Curvature of a Plane Curve)</span>
-단위 속력 평면 곡선 \(\gamma(s)\)에 대해, <strong>곡률(curvature)</strong>은 \(\kappa(s) = \|\gamma''(s)\|\)이다. \(\mathbb{R}^2\)에서 임의 속력 곡선 \(\gamma(t)\)에 대해서는 다음과 같다:
+단위 속력 평면 곡선 \(\gamma(s)\)에 대해, <strong>곡률(curvature)</strong>은 \(\kappa(s) = \|\gamma''(s)\|\)이다. \(\mathbb{R}^2\)에서 속력이 1이 아닌 곡선 \(\gamma(t)\)에 대해서는 다음과 같다:
 $$ \kappa = \frac{|x' y'' - y' x''|}{(x'^2 + y'^2)^{3/2}}. $$
 </div>
 
@@ -33,26 +33,26 @@ $$ \kappa(t) = \frac{|(-a\sin t)(-b\sin t) - (b\cos t)(-a\cos t)|}{(a^2\sin^2 t 
 </div>
 
 <div class="example"><span class="env-label">Example 20.1b (나선의 곡률과 비틀림)</span>
-등속 나선(helix) \(\gamma(t) = (a\cos t,\; a\sin t,\; bt)\) (\(a > 0\), \(b \neq 0\))을 생각하자.
+원형 나선(circular helix) \(\gamma(t) = (a\cos t,\; a\sin t,\; bt)\) (\(a > 0\), \(b \neq 0\))을 생각하자.
 \(\gamma'(t) = (-a\sin t,\; a\cos t,\; b)\)이므로 \(\|\gamma'\| = \sqrt{a^2 + b^2}\)이다. 이 곡선은 등속이지만 단위 속력은 아니다. 일반 공식을 적용하면:
 $$ \gamma''(t) = (-a\cos t,\; -a\sin t,\; 0), \quad \gamma' \times \gamma'' = (ab\sin t,\; -ab\cos t,\; a^2), $$
 $$ \|\gamma' \times \gamma''\| = a\sqrt{a^2 + b^2}, \quad \kappa = \frac{a\sqrt{a^2+b^2}}{(a^2+b^2)^{3/2}} = \frac{a}{a^2 + b^2}. $$
-비틀림(torsion)은 \(\tau = \frac{b}{a^2 + b^2}\)이다. 곡선의 기본 정리에 따르면, 양의 상수 곡률과 0이 아닌 상수 비틀림을 갖는 단위 속력 곡선은 강체 운동을 제외하면 원형 나선으로 결정된다.
+비틀림(torsion)은 \(\tau = \frac{b}{a^2 + b^2}\)이다. 곡선의 기본 정리에 따르면, 곡률이 양의 상수이고 비틀림이 0이 아닌 상수인 단위 속력 곡선은 원형 나선을 강체 운동으로 옮긴 것이다.
 </div>
 
 <div class="definition"><span class="env-label">Definition 20.3 (Frenet&ndash;Serret Frame)</span>
 \(\mathbb{R}^3\)에서 단위 속력 곡선 \(\gamma(s)\)의 곡률 \(\kappa(s)=\|\gamma''(s)\|\)이 양수인 구간에서, <strong>접선 벡터(tangent)</strong> \(\mathbf{T} = \gamma'\), <strong>법선 벡터(normal)</strong> \(\mathbf{N} = \mathbf{T}'/\|\mathbf{T}'\|\), <strong>종법선 벡터(binormal)</strong> \(\mathbf{B} = \mathbf{T} \times \mathbf{N}\)를 정의한다. Frenet&ndash;Serret 방정식은 다음과 같다:
 $$ \begin{pmatrix} \mathbf{T}' \\ \mathbf{N}' \\ \mathbf{B}' \end{pmatrix} = \begin{pmatrix} 0 & \kappa & 0 \\ -\kappa & 0 & \tau \\ 0 & -\tau & 0 \end{pmatrix} \begin{pmatrix} \mathbf{T} \\ \mathbf{N} \\ \mathbf{B} \end{pmatrix}, $$
-여기서 \(\kappa\)는 곡률(curvature)이고 \(\tau\)는 비틀림(torsion)이다.
+여기서 \(\kappa\)는 곡률이고 \(\tau\)는 비틀림이다.
 </div>
 
-<div class="example"><span class="env-label">Example 20.1c (원환선의 Frenet 틀)</span>
+<div class="example"><span class="env-label">Example 20.1c (원의 Frenet 틀)</span>
 원 \(\gamma(t) = (R\cos t,\; R\sin t,\; 0)\)의 Frenet 틀을 구하자. \(\|\gamma'\| = R\)이므로 호의 길이 매개변수는 \(s = Rt\)이다. 단위 속력 재매개변수화 후:
 $$ \mathbf{T} = (-\sin(s/R),\; \cos(s/R),\; 0), \quad \mathbf{T}' = \frac{1}{R}(-\cos(s/R),\; -\sin(s/R),\; 0). $$
 따라서 \(\kappa = \|\mathbf{T}'\| = 1/R\)이고, \(\mathbf{N} = (-\cos(s/R),\; -\sin(s/R),\; 0)\) (중심을 향한다), \(\mathbf{B} = \mathbf{T} \times \mathbf{N} = (0, 0, 1)\)이다. 평면 곡선이므로 비틀림 \(\tau = 0\)이다. 이는 Frenet&ndash;Serret 방정식에서 \(\mathbf{B}' = -\tau \mathbf{N} = 0\)인 것과 일치한다.
 </div>
 
-<p>곡선에서 곡면으로 넘어가면, "굽은 정도"는 방향에 따라 달라진다. 곡면의 기하학적 성질을 기술하기 위해 접평면 위의 내적(제1기본형식)과 법선 방향의 곡률(제2기본형식)이라는 두 가지 도구가 필요하다. 컴퓨터 그래픽스(computer graphics)에서 곡면을 렌더링하거나, CAD에서 곡면의 매끄러움을 판정하거나, 지리정보시스템(GIS)에서 지형의 경사와 곡률을 분석할 때 이 두 도구를 직접 쓴다.</p>
+<p>곡면은 방향에 따라 굽은 정도가 다르다. 곡면 위에서 길이와 각도를 재려면 접평면 위의 내적인 제1기본형식이 필요하고, 곡면이 법선 방향으로 얼마나 굽었는지 재려면 제2기본형식이 필요하다. CAD에서 곡면이 매끄러운지 판정하거나 지형의 곡률을 분석할 때도 이 두 형식으로 계산한다.</p>
 
 <div class="definition"><span class="env-label">Definition 20.4 (Regular Surface)</span>
 부분집합 \(S \subseteq \mathbb{R}^3\)이 <strong>정칙 곡면(regular surface)</strong>이라 함은, 각 \(p \in S\)에 대해 \(\mathbb{R}^3\)에서 \(p\)의 근방 \(V\)와 매끄러운 사상 \(\mathbf{r} : U \to V \cap S\) (\(U \subseteq \mathbb{R}^2\)는 열린집합(open set))이 존재하여, \(\mathbf{r}\)이 위상동형사상(homeomorphism)이고 \(U\)의 모든 점에서 \(\mathbf{r}_u \times \mathbf{r}_v \neq 0\)인 것을 말한다.
@@ -61,17 +61,17 @@ $$ \mathbf{T} = (-\sin(s/R),\; \cos(s/R),\; 0), \quad \mathbf{T}' = \frac{1}{R}(
 <div class="definition"><span class="env-label">Definition 20.5 (First Fundamental Form)</span>
 곡면 조각 \(\mathbf{r}(u,v)\)의 <strong>제1기본형식(first fundamental form)</strong>은 접평면 위의 내적이다:
 $$ I = E\, du^2 + 2F\, du\, dv + G\, dv^2, $$
-여기서 \(E = \mathbf{r}_u \cdot \mathbf{r}_u\), \(F = \mathbf{r}_u \cdot \mathbf{r}_v\), \(G = \mathbf{r}_v \cdot \mathbf{r}_v\)이다. 제1기본형식은 내재적 기하를 나타내며, 곡면 위의 호의 길이, 각도, 넓이 등의 정보를 담는다.
+여기서 \(E = \mathbf{r}_u \cdot \mathbf{r}_u\), \(F = \mathbf{r}_u \cdot \mathbf{r}_v\), \(G = \mathbf{r}_v \cdot \mathbf{r}_v\)이다. 곡면 위의 호의 길이, 각도, 넓이는 모두 제1기본형식으로 계산한다.
 </div>
 
 <div class="definition"><span class="env-label">Definition 20.6 (Second Fundamental Form)</span>
-<strong>제2기본형식(second fundamental form)</strong>은 곡면의 외재적 곡률(curvature)을 측정한다:
+<strong>제2기본형식(second fundamental form)</strong>은 곡면이 공간 안에서 휜 정도를 잰다:
 $$ II = L\, du^2 + 2M\, du\, dv + N\, dv^2, $$
 여기서 \(L = \mathbf{r}_{uu} \cdot \hat{\mathbf{n}}\), \(M = \mathbf{r}_{uv} \cdot \hat{\mathbf{n}}\), \(N = \mathbf{r}_{vv} \cdot \hat{\mathbf{n}}\)이고, \(\hat{\mathbf{n}} = \frac{\mathbf{r}_u \times \mathbf{r}_v}{\|\mathbf{r}_u \times \mathbf{r}_v\|}\)는 단위 법선 벡터이다.
 </div>
 
 <div class="definition"><span class="env-label">Definition 20.7 (Principal, Gaussian, and Mean Curvature)</span>
-<strong>주곡률(principal curvature)</strong> \(\kappa_1, \kappa_2\)는 형상 연산자의 고유값이다 (동치 조건으로, 행렬 형태에서 \(\det(II - \kappa\, I) = 0\)의 근이다). 그러면:
+<strong>주곡률(principal curvature)</strong> \(\kappa_1, \kappa_2\)는 형상 연산자의 고유값이다. 행렬로 쓰면 \(\det(II - \kappa\, I) = 0\)의 근이다. 그러면:
 <ul>
   <li><strong>가우스 곡률(Gaussian curvature):</strong> \(K = \kappa_1 \kappa_2 = \frac{LN - M^2}{EG - F^2}\).</li>
   <li><strong>평균 곡률(mean curvature):</strong> \(H = \frac{1}{2}(\kappa_1 + \kappa_2) = \frac{EN - 2FM + GL}{2(EG - F^2)}\).</li>
@@ -79,15 +79,15 @@ $$ II = L\, du^2 + 2M\, du\, dv + N\, dv^2, $$
 </div>
 
 <div class="theorem"><span class="env-label">Theorem 20.1 (Theorema Egregium, Gauss)</span>
-가우스 곡률(Gaussian curvature) \(K\)는 곡면의 내재적 불변량이다: 이는 제1기본형식(first fundamental form)과 그 도함수에만 의존하며, 곡면이 \(\mathbb{R}^3\)에 어떻게 매장되어 있는지에는 의존하지 않는다.
-직관적으로, 곡면 위에 사는 2차원 생물이 자신의 세계 안에서의 측정만으로 가우스 곡률을 알 수 있다는 뜻이다. 이것이 지도 제작에서 평면 지도가 구면을 왜곡 없이 표현할 수 없는 이유이며, 일반상대론에서 시공간의 곡률을 내부 관측만으로 측정할 수 있는 이론적 근거이다.
+가우스 곡률 \(K\)는 곡면의 내재적 불변량이다: \(K\)는 제1기본형식의 계수와 그 도함수만으로 정해지고, 곡면이 \(\mathbb{R}^3\)에 어떻게 놓였는지와는 상관없다.
+곡면 위에 사는 2차원 생물이 곡면 안에서 잰 길이만으로 가우스 곡률을 알 수 있다는 뜻이다. 구면은 \(K=1/R^2\)이고 평면은 \(K=0\)이므로, 구면의 어떤 부분도 길이를 그대로 지키며 평면에 펼칠 수 없다. 축척이 어디서나 정확한 평면 지도가 없는 이유다.
 </div>
 
 <div class="example"><span class="env-label">Example 20.1d (구면의 제1, 제2 기본형식)</span>
 반지름 \(R\)인 구면을 \(\mathbf{r}(\theta, \phi) = (R\sin\theta\cos\phi,\; R\sin\theta\sin\phi,\; R\cos\theta)\)로 매개변수화하자.
 $$ \mathbf{r}_\theta = (R\cos\theta\cos\phi,\; R\cos\theta\sin\phi,\; -R\sin\theta), \quad \mathbf{r}_\phi = (-R\sin\theta\sin\phi,\; R\sin\theta\cos\phi,\; 0). $$
 제1기본형식: \(E = R^2\), \(F = 0\), \(G = R^2\sin^2\theta\). 따라서 \(ds^2 = R^2(d\theta^2 + \sin^2\theta\, d\phi^2)\)이다.
-단위 법선 \(\hat{\mathbf{n}} = (\sin\theta\cos\phi,\; \sin\theta\sin\phi,\; \cos\theta)\) (바깥쪽)이고, 제2기본형식: \(L = -R\), \(M = 0\), \(N = -R\sin^2\theta\)이다. 형상 연산자를 \(S = -d\hat{\mathbf{n}}\)로 정의한 이 장의 부호 관례에서는 \(\kappa_1 = L/E = -1/R\), \(\kappa_2 = N/G = -1/R\)이므로, \(K = 1/R^2\), \(H = -1/R\)이다. 법선의 방향을 안쪽으로 바꾸면 두 주곡률과 평균 곡률의 부호가 함께 바뀌지만 가우스 곡률은 그대로다. 모든 방향에서 곡률이 같으므로 구면은 <em>엄빌릭(umbilic)</em> 곡면이다.
+단위 법선을 바깥쪽 \(\hat{\mathbf{n}} = (\sin\theta\cos\phi,\; \sin\theta\sin\phi,\; \cos\theta)\)으로 잡으면 제2기본형식의 계수는 \(L = -R\), \(M = 0\), \(N = -R\sin^2\theta\)이다. 형상 연산자를 \(S = -d\hat{\mathbf{n}}\)로 정의하는 부호 관례에서는 \(\kappa_1 = L/E = -1/R\), \(\kappa_2 = N/G = -1/R\)이므로, \(K = 1/R^2\), \(H = -1/R\)이다. 법선의 방향을 안쪽으로 바꾸면 두 주곡률과 평균 곡률의 부호가 함께 바뀌지만 가우스 곡률은 그대로다. 각 점에서 두 주곡률이 같으므로 구면의 모든 점은 <em>배꼽점(umbilic point)</em>이다.
 </div>
 
 <div class="example"><span class="env-label">Example 20.1d' (안장 곡면의 가우스 곡률)</span>
@@ -100,41 +100,37 @@ $$ K = \frac{LN - M^2}{EG - F^2} = \frac{-1/(1+u^2+v^2)}{(1+v^2)(1+u^2) - u^2v^2
 가우스 곡률이 모든 곳에서 음이므로, 안장 곡면의 각 점은 쌍곡점이다. 원점에서 \(K(0,0) = -1\)이다.
 </div>
 
-<p>측지선(geodesic)은 곡면 위에서 "가장 곧은 경로"이자 "최단 경로"의 후보이다. GPS 항법에서 두 지점 사이의 최단 경로는 지구를 구(sphere)로 근사할 때 대원(great circle)의 짧은 호, 즉 구면 위의 측지선이다. 매니폴드 위의 경로 계획(path planning)에서도 측지선 방정식을 쓴다.</p>
+<p>측지선은 곡면 위에서 가장 곧은 곡선이다. 곡면 위 두 점을 잇는 최단 경로는 측지선이다. 거꾸로 측지선이 최단 경로가 되려면 조건이 더 필요하다. 구면에서 두 점을 잇는 대원(great circle)의 긴 호는 측지선이면서 짧은 호보다 길다.</p>
 
 <div class="definition"><span class="env-label">Definition 20.8 (Geodesic)</span>
-곡면 \(S\) 위의 단위 속력 곡선 \(\gamma\)가 <strong>측지선(geodesic)</strong>이라 함은, 측지 곡률이 항등적으로 소멸하는 것, 즉 가속도 \(\gamma''\)가 항상 곡면에 수직인 것을 말한다. 좌표로 표현하면, 측지선(geodesic)은 다음을 만족한다:
+곡면 \(S\) 위의 단위 속력 곡선 \(\gamma\)가 <strong>측지선(geodesic)</strong>이라 함은, 측지 곡률이 어디서나 0인 것, 곧 가속도 \(\gamma''\)가 늘 곡면에 수직인 것을 말한다. 좌표로 쓰면 측지선은 다음 방정식을 만족한다:
 $$ \ddot{u}^k + \sum_{i,j} \Gamma^k_{ij}\, \dot{u}^i \dot{u}^j = 0, $$
-여기서 \(\Gamma^k_{ij}\)는 제1기본형식(first fundamental form)의 크리스토펠 기호이다.
+여기서 \(\Gamma^k_{ij}\)는 제1기본형식의 계수로 계산한 크리스토펠 기호(Christoffel symbol)이다.
 </div>
 
 <div class="theorem"><span class="env-label">Theorem 20.2 (Gauss&ndash;Bonnet)</span>
 \(S\)를 경계가 없는 콤팩트(compact) 유향 곡면이라 하자. 그러면
 $$ \int_S K \, dA = 2\pi \chi(S), $$
 여기서 \(\chi(S)\)는 오일러 지표이다. 종수(genus) \(g\)인 곡면에 대해 \(\chi = 2 - 2g\)이다.
-이 정리는 곡률이라는 국소적(local) 미분기하학적 양과 오일러 지표라는 대역적(global) 위상 불변량을 등호로 연결한다. 곡면의 형상을 아무리 변형하더라도 위상적 유형이 총 곡률의 적분을 고정한다.
-</div>
-
-<div class="example"><span class="env-label">Example 20.1 (구와 토러스의 총 곡률 비교)</span>
-구면 \(S^2\)의 오일러 지표는 2이므로 총 곡률은 \(4\pi\)이다. 토러스는 \(\chi = 0\)이므로 전체 곡률(curvature)의 적분은 0이다. 표준 토러스에서는 양의 곡률 영역과 음의 곡률 영역이 상쇄된다. 두 곡면의 차이는 각 점의 곡률만으로 설명되지 않는다. 곡률을 곡면 전체에 걸쳐 적분한 값이 오일러 지표에 따라 달라진다. 이어지는 예제에서는 구의 반지름과 넓이로 이 값을 계산하고, 토러스에서는 곡률의 부호가 바뀌는 위치를 확인한다.
+왼쪽은 각 점의 곡률을 곡면 전체에서 적분한 값이고, 오른쪽의 오일러 지표는 위상 불변량이다. 곡면을 아무리 매끄럽게 변형해도 위상이 그대로이면 곡률의 적분값은 변하지 않는다.
 </div>
 
 <div class="example"><span class="env-label">Example 20.2 (Gauss&ndash;Bonnet: 구)</span>
 반지름 \(R\)인 구 \(S^2\)는 종수 \(g = 0\)이므로 \(\chi(S^2) = 2\)이다. 구면 위의 가우스 곡률은 상수 \(K = 1/R^2\)이고, 넓이는 \(4\pi R^2\)이다. Gauss&ndash;Bonnet 정리를 직접 확인하면:
 $$ \int_{S^2} K\, dA = \frac{1}{R^2} \cdot 4\pi R^2 = 4\pi = 2\pi \cdot 2 = 2\pi\chi(S^2). $$
-경계를 가진 경우도 적용할 수 있다. 구면 위의 측지 삼각형(세 변이 대원의 호)의 내각의 합이 \(\pi + A/R^2\) (\(A\)는 삼각형의 넓이)임을 Gauss&ndash;Bonnet으로부터 유도할 수 있다.
+경계가 있는 곡면의 Gauss&ndash;Bonnet 정리를 쓰면, 구면 위의 측지 삼각형(세 변이 대원의 호)의 내각의 합이 \(\pi + A/R^2\)임을 얻는다. 여기서 \(A\)는 삼각형의 넓이다.
 </div>
 
 <div class="example"><span class="env-label">Example 20.3 (Gauss&ndash;Bonnet: 토러스)</span>
 토러스 \(T^2\)는 종수 \(g = 1\)이므로 \(\chi(T^2) = 2 - 2 \cdot 1 = 0\)이다. Gauss&ndash;Bonnet 정리에 의해:
 $$ \int_{T^2} K\, dA = 2\pi \cdot 0 = 0. $$
-토러스 위의 가우스 곡률은 양인 영역과 음인 영역이 정확히 상쇄된다. 구체적으로, 표준 매개변수화 \(\mathbf{r}(u,v) = ((R + r\cos v)\cos u,\; (R + r\cos v)\sin u,\; r\sin v)\)에서 가우스 곡률은 \(K = \frac{\cos v}{r(R + r\cos v)}\)이다. 바깥쪽(\(\cos v > 0\))에서 \(K > 0\)이고, 안쪽(\(\cos v < 0\))에서 \(K < 0\)이며, 적분하면 정확히 0이 된다.
+표준 매개변수화 \(\mathbf{r}(u,v) = ((R + r\cos v)\cos u,\; (R + r\cos v)\sin u,\; r\sin v)\)에서 가우스 곡률은 \(K = \frac{\cos v}{r(R + r\cos v)}\)이다. 바깥쪽(\(\cos v > 0\))에서 \(K > 0\)이고, 안쪽(\(\cos v < 0\))에서 \(K < 0\)이며, 적분하면 정확히 0이 된다.
 </div>
 
 <div class="example"><span class="env-label">Example 20.4 (Gauss&ndash;Bonnet: 종수 2 곡면)</span>
-종수 \(g = 2\)인 닫힌 유향 곡면(이중 토러스)의 오일러 지표는 \(\chi = 2 - 2 \cdot 2 = -2\)이다. 이 곡면에 어떤 리만 계량을 부여하더라도 Gauss&ndash;Bonnet에 의해:
+종수 \(g = 2\)인 닫힌 유향 곡면(이중 토러스)의 오일러 지표는 \(\chi = 2 - 2 \cdot 2 = -2\)이다. Gauss&ndash;Bonnet 정리에 따르면 이 곡면에 어떤 리만 계량을 주더라도 다음이 성립한다:
 $$ \int_S K\, dA = 2\pi(-2) = -4\pi. $$
-따라서 총 가우스 곡률은 항상 음이다. 이 곡면 위에 모든 곳에서 \(K \geq 0\)인 리만 계량은 존재하지 않는다. 종수 \(g \geq 2\)인 곡면에 쌍곡 기하(상수 \(K = -1\))가 나타나는 이유는 균일화 정리(uniformization theorem)가 말해 준다.
+따라서 총 가우스 곡률은 계량과 상관없이 음이고, 이 곡면에는 모든 곳에서 \(K \geq 0\)인 리만 계량이 없다. 곡률이 상수인 계량을 원한다면 그 상수는 음수여야 한다. 균일화 정리(uniformization theorem)에 따르면 실제로 종수 \(g \geq 2\)인 곡면에는 곡률이 \(-1\)로 일정한 계량이 있다.
 </div>
 
 </section>
@@ -147,8 +143,8 @@ $$ \int_S K\, dA = 2\pi(-2) = -4\pi. $$
 <summary>추천 영상 강의 (원본 소스 기반)</summary>
 <ul>
 <li><a href="https://www.youtube.com/playlist?list=PLuiPz6iU5SQ828B8vmWXrjMDGXHGH3ci6" target="_blank">Geometry — METU Math373 (CEM TEZER)</a></li>
-<li><a href="https://www.youtube.com/playlist?list=PLlXfTHzgMRULkodlIEqfgTS-H1AY_bNtq" target="_blank">Tensor Calculus and the Calculus of Moving Surfaces</a></li>
-<li><a href="http://nptel.ac.in/courses/111104095/" target="_blank">Curves and Surfaces — NPTEL IIT Kanpur</a></li>
+<li><a href="https://www.youtube.com/playlist?list=PLlXfTHzgMRULkodlIEqfgTS-H1AY_bNtq" target="_blank">An Introduction to Tensor Calculus — MathTheBeautiful</a></li>
+<li><a href="https://nptel.ac.in/courses/111104095" target="_blank">Curves and Surfaces — NPTEL IIT Kanpur</a></li>
 <li><a href="https://www.youtube.com/playlist?list=PL7RK4EsMAcJJ5XWkPJi-CyY_ABx_gIKR9" target="_blank">MATH 430 Euclidean and Non-Euclidean Geometry — U. of Maryland</a></li>
 </ul>
 </details>
@@ -156,12 +152,11 @@ $$ \int_S K\, dA = 2\pi(-2) = -4\pi. $$
 <details class="video-resources">
 <summary>추천 교재 &amp; 오픈 자료</summary>
 <ul>
-<li><a href="https://www.math.nagoya-u.ac.jp/~richard/teaching/f2021/elementary_dg.pdf" target="_blank">Elementary Differential Geometry (Pressley) — 강의노트</a></li>
-<li><a href="https://faculty.math.illinois.edu/~ruillam/Proyectos/Lee_Smooth_Manifolds.pdf" target="_blank">Introduction to Smooth Manifolds (Lee) — 발췌</a></li>
-<li>do Carmo, <em>Differential Geometry of Curves and Surfaces</em> — 곡선/곡면의 고전적 입문서</li>
-<li>Lee, <em>Introduction to Smooth Manifolds</em> — GTM 218, 매끄러운 다양체의 표준 교재</li>
-<li>Lee, <em>Introduction to Riemannian Manifolds</em> — GTM 176, 리만 기하학</li>
+<li>Pressley, <em>Elementary Differential Geometry</em> (2판, Springer, 2010) — 곡선·곡면 입문서</li>
+<li>do Carmo, <em>Differential Geometry of Curves and Surfaces</em> — 곡선·곡면 입문서</li>
+<li>Lee, <em>Introduction to Smooth Manifolds</em> — Springer, Graduate Texts in Mathematics 218, 매끄러운 매니폴드</li>
+<li>Lee, <em>Introduction to Riemannian Manifolds</em> — Springer, Graduate Texts in Mathematics 176, 리만 기하학</li>
 <li>O'Neill, <em>Semi-Riemannian Geometry</em> — 상대론 응용 포함</li>
-<li>Spivak, <em>A Comprehensive Introduction to Differential Geometry</em> (5 vols) — 백과사전적 참고서</li>
+<li>Spivak, <em>A Comprehensive Introduction to Differential Geometry</em> — 전 5권</li>
 </ul>
 </details>

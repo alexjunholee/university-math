@@ -1,14 +1,14 @@
 <h2 id="graduate-algebra">15. 대학원 대수학 (Graduate Algebra)</h2>
 
-<p class="chapter-intro">대학원 수준의 대수학에서는 환 위의 가군, 갈루아 이론, 텐서곱을 배운다. 이 도구들은 선형대수의 표준형, 방정식의 가해성, 다중선형 대수처럼 서로 다른 문제를 공통된 대수 구조로 연결한다.</p>
+<p class="chapter-intro">대학원 수준의 대수학에서는 환 위의 가군, Galois 이론, 텐서곱을 배운다. 이 도구들은 선형대수의 표준형, 방정식의 가해성, 다중선형 대수처럼 서로 다른 문제를 공통된 대수 구조로 연결한다.</p>
 
-<p>학부 대수학에서 배운 군, 환, 체는 각각 독립적인 이론처럼 보일 수 있지만, 대학원 대수학은 이들을 관통하는 통일적 구조를 드러낸다. 가군(module)은 벡터 공간의 일반화이면서 동시에 아벨 군의 일반화이며, PID 위의 가군에 대한 구조 정리 하나로 유한 생성 아벨 군의 분류와 조르당 표준형(Jordan normal form)이라는 전혀 다른 두 결과를 동시에 증명할 수 있다. 갈루아 이론은 체 확장과 군론을 하나의 대응으로 연결하여, 일반 5차 방정식에는 사칙연산과 거듭제곱근만으로 나타내는 보편적인 근의 공식이 없다는 수세기의 난제를 해결한다. 추상적 구조가 구체적 계산을 단순화하는 패턴이 반복된다.</p>
+<p>가군(module)은 벡터 공간과 아벨 군을 함께 일반화한 구조다. PID 위의 가군 구조 정리 하나에서 유한 생성 아벨 군의 분류와 Jordan 표준형(Jordan normal form)이 함께 나온다. Galois 이론은 체 확장의 중간체를 Galois 군의 부분군과 짝지어, 일반 5차 방정식에 사칙연산과 거듭제곱근만 쓰는 근의 공식이 없는 이유를 군의 성질로 설명한다.</p>
 
-<p>공학에서도 이 관점이 쓰인다. 선형 시스템 이론에서 상태 공간 모델 \(\dot{x} = Ax\)는 \(F[x]\)-가군 구조로 분석하며, 가제어성(controllability)과 가관측성(observability)의 구조적 분해가 가군의 분해에 대응한다. 양자 정보(quantum information)에서 여러 큐비트(qubit)의 합성 시스템은 벡터 공간의 텐서곱 \(\mathbb{C}^2 \otimes \mathbb{C}^2 \otimes \cdots\)으로 나타낸다. 순수 상태의 양자 얽힘(entanglement)은 이 텐서곱에서 단순 텐서로 분해되지 않는 상태로 드러난다. 함수형 프로그래밍(functional programming)에서 모나드(monad)와 펑터(functor)는 범주론의 개념을 프로그래밍 언어에 구현한 것이다.</p>
+<p>Kalman은 1965년 논문 「Algebraic Structure of Linear Dynamical Systems, I. The Module of Σ」에서 이산 시간 선형 시스템 \(x(t+1) = Fx(t) + Gu(t)\)의 상태 공간을 다항식환 \(K[z]\) 위의 가군으로 다뤘다. 여기서 \(z\)는 시간을 한 칸 미는 연산이다. 양자 정보(quantum information)에서 여러 큐비트(qubit)의 합성 시스템은 벡터 공간의 텐서곱 \(\mathbb{C}^2 \otimes \mathbb{C}^2 \otimes \cdots\)으로 나타낸다. 순수 상태의 양자 얽힘(entanglement)은 이 텐서곱에서 단순 텐서로 분해되지 않는 상태로 드러난다. 함수형 프로그래밍(functional programming)의 모나드(monad)와 펑터(functor)는 범주론에서 이름과 법칙을 가져온 개념이다.</p>
 
 <h3 id="modules-over-pids">15.1 PID 위의 가군 (Modules over PIDs)</h3>
 
-<p>가군(module)은 "스칼라가 체가 아닌 환에서 오는 벡터 공간"이다. 스칼라가 체일 때는 기저, 차원, 선형 사상의 행렬 표현 등 벡터 공간의 풍부한 이론을 자유롭게 사용하지만, 스칼라가 환일 때는 이들 중 일부가 무너진다. 예를 들어, 모든 가군이 기저를 갖는 것은 아니며, 비틀림(torsion)이라는 새로운 현상이 등장한다. 그러나 스칼라 환이 PID(주아이디얼 정역)라는 좋은 성질을 가지면, 유한 생성 가군의 구조를 완전히 분류할 수 있으며, 이 분류 정리가 선형대수의 표준형 이론과 아벨 군의 기본 정리를 하나로 통합한다.</p>
+<p>가군은 스칼라를 체 대신 환에서 가져온 벡터 공간이다. 스칼라가 환이면 벡터 공간에서 당연하던 성질 가운데 일부가 성립하지 않는다. \(\mathbb{Z}\)-가군 \(\mathbb{Z}/2\mathbb{Z}\)처럼 기저가 없는 가군이 있고, 0이 아닌 스칼라를 곱했는데 0이 되는 비틀림(torsion) 원소도 생긴다. 스칼라 환이 PID(주 아이디얼 정역)이면 유한 생성 가군을 완전히 분류할 수 있다.</p>
 
 <div class="definition">
 <span class="env-label">Definition 15.1 (Module)</span>
@@ -17,14 +17,14 @@
  <li>\(r(m + n) = rm + rn\),</li>
  <li>\((r + s)m = rm + sm\),</li>
  <li>\((rs)m = r(sm)\),</li>
- <li>\(1m = m\) (\(R\)이 항등원을 가질 때).</li>
+ <li>\(1m = m\) (\(R\)에 항등원이 있을 때).</li>
 </ul>
-\(R\)이 체이면, \(R\)-가군은 정확히 \(R\) 위의 벡터 공간이다. \(R = \mathbb{Z}\)이면, \(\mathbb{Z}\)-가군은 정확히 아벨 군이다.
+\(R\)이 체이면 \(R\)-가군은 \(R\) 위의 벡터 공간과 같다. \(R = \mathbb{Z}\)이면 \(\mathbb{Z}\)-가군은 아벨 군과 같다.
 </div>
 
 <div class="definition">
 <span class="env-label">Definition 15.2 (Free Module, Torsion)</span>
-가군 \(M\)이 <strong>자유(free)</strong>란 기저를 갖는 것이다. 즉 어떤 지표집합 \(I\)에 대해 \(M\cong R^{(I)}\)이며, 기저벡터가 \(n\)개인 경우에는 \(M\cong R^n\)이다. 이제 \(R\)을 정역이라 하자. 원소 \(m \in M\)이 <strong>비틀림 원소(torsion element)</strong>란, 어떤 영이 아닌 \(r \in R\)에 대해 \(rm = 0\)인 것이다. 모든 비틀림 원소의 집합은 <strong>비틀림 부분가군(torsion submodule)</strong> \(T(M)\)을 이룬다. \(T(M) = 0\)이면 가군은 <strong>비틀림 없는(torsion-free)</strong> 것이다.
+가군 \(M\)이 <strong>자유(free)</strong>란 기저가 있는 것이다. 즉 어떤 지표집합 \(I\)에 대해 \(M\cong R^{(I)}\)이며, 기저벡터가 \(n\)개인 경우에는 \(M\cong R^n\)이다. 이제 \(R\)을 정역이라 하자. 원소 \(m \in M\)이 <strong>비틀림 원소(torsion element)</strong>란, 어떤 영이 아닌 \(r \in R\)에 대해 \(rm = 0\)인 것이다. 모든 비틀림 원소의 집합은 <strong>비틀림 부분가군(torsion submodule)</strong> \(T(M)\)을 이룬다. \(T(M) = 0\)이면 \(M\)을 <strong>비틀림 없는(torsion-free)</strong> 가군이라 한다.
 </div>
 
 <div class="theorem">
@@ -36,7 +36,7 @@ $$
 여기서 \(r \geq 0\)이고 \(d_1 \mid d_2 \mid \cdots \mid d_k\)는 \(R\)의 영이 아닌 비단원 원소이다. 정수 \(r\)은 <strong>자유 계수(free rank)</strong>이고, \(d_i\)는 <strong>불변 인자(invariant factor)</strong>이다. \(r\)은 유일하며, 각 \(d_i\)는 단원을 곱하는 차이를 제외하면 유일하다.
 </div>
 
-<p>동치 조건으로, 중국인의 나머지 정리를 사용하여 각 \(R/(d_i)\)를 소수 거듭제곱 성분으로 분해하면:</p>
+<p>중국인의 나머지 정리로 각 \(R/(d_i)\)를 소원소 거듭제곱 성분으로 나누면 같은 가군을 다음 꼴로도 쓸 수 있다.</p>
 
 <div class="theorem">
 <span class="env-label">Theorem 15.2 (Elementary Divisor Form)</span>
@@ -58,64 +58,60 @@ $$
 
 <div class="remark">
 <span class="env-label">Remark 15.1 (Rational Canonical Form and Jordan Normal Form)</span>
-PID 위의 가군에 대한 구조 정리를 \(F[x]\)-가군 \(V\)에 적용하면(여기서 \(T: V \to V\)는 선형 작용소이고 \(x\)는 \(T\)로 작용한다), 작용소 \(T\)의 <strong>유리 표준형(rational canonical form)</strong>(불변 인자를 통해)과, 특성다항식이 분해될 때 <strong>조르당 표준형(Jordan normal form)</strong>(단인자를 통해)을 얻는다.
+PID 위의 가군에 대한 구조 정리를 \(F[x]\)-가군 \(V\)에 적용하면(여기서 \(T: V \to V\)는 선형 작용소이고 \(x\)는 \(T\)로 작용한다), 불변 인자에서 작용소 \(T\)의 <strong>유리 표준형(rational canonical form)</strong>을 얻고, 특성다항식이 일차식들로 분해되면 단인자에서 <strong>Jordan 표준형</strong>을 얻는다.
 </div>
 
-<h3 id="galois-theory">15.2 갈루아 이론 (Galois Theory)</h3>
+<h3 id="galois-theory">15.2 Galois 이론 (Galois Theory)</h3>
 
-<p>"방정식을 근의 공식으로 풀 수 있는가?"라는 질문은 수천 년 된 문제이다. 2차는 고대에, 3차·4차는 16세기 이탈리아 수학자들이 근의 공식을 찾아냈지만, 5차 이상에서는 아벨(Abel)과 갈루아(Galois)가 사칙연산과 거듭제곱근만을 사용하는 일반적인 근의 공식이 없음을 증명했다. 갈루아의 통찰은, 근들이 서로 뒤바뀌는 방식(근의 대칭성)을 군으로 포착하고, 이 군의 구조가 방정식의 가해성(solvability)을 결정한다는 것이다. 부호 이론에서 순환 부호의 구조 분석이나, 체 확장의 차수 계산에도 이 이론이 쓰인다.</p>
-
-<p class="section-transition">갈루아 이론은 체 확장과 군론을 연결하는 대응이다. 이 대응과 가해군의 성질을 이용하면, 5차 이상 일반 방정식의 근을 사칙연산과 거듭제곱근만으로 나타낼 수 없음을 보인다.</p>
+<p>2차 방정식의 근의 공식은 고대부터 알려졌고, 3차와 4차 방정식의 근의 공식은 16세기에 나왔다. 5차 이상의 일반 방정식에 사칙연산과 거듭제곱근만 쓰는 근의 공식이 없다는 증명은 Ruffini가 1799년에 불완전한 형태로 냈고, Abel이 1824년에 완성했다. Galois는 근들을 서로 바꾸는 치환이 이루는 군을 보고, 주어진 방정식이 거듭제곱근으로 풀리는지(가해성, solvability) 판정하는 조건을 찾았다. 이 결과는 Galois가 죽은 뒤인 1846년에 Liouville이 출판했다.</p>
 
 <div class="definition">
 <span class="env-label">Definition 15.3 (Separable, Normal Extension)</span>
 <ul>
- <li>다항식 \(f \in F[x]\)가 <strong>분리(separable)</strong>란, 분해체에서 중복근을 갖지 않는 것이다. 대수적 확장 \(K/F\)가 <strong>분리</strong>란, \(K\)의 모든 원소가 \(F\) 위에서 분리 최소다항식을 갖는 것이다. (표수 0에서는 모든 대수적 확장이 분리이다.)</li>
- <li>대수적 확장 \(K/F\)가 <strong>정규(normal)</strong>란, \(K\)에 하나의 근을 갖는 \(F[x]\)의 모든 기약 다항식이 \(K\)에서 완전히 분해되는 것이다. 동치 조건으로, \(K\)가 \(F\) 위의 어떤 다항식 족의 분해체이다.</li>
+ <li>다항식 \(f \in F[x]\)가 <strong>분리(separable)</strong>란, 분해체에서 중복근이 없는 것이다. 대수적 확장 \(K/F\)가 <strong>분리</strong>란, \(K\)의 모든 원소의 \(F\) 위 최소다항식이 분리 다항식인 것이다. (표수 0에서는 모든 대수적 확장이 분리이다.)</li>
+ <li>대수적 확장 \(K/F\)가 <strong>정규(normal)</strong>란, \(K\)에 근이 하나라도 있는 \(F[x]\)의 기약 다항식이 모두 \(K\)에서 완전히 분해되는 것이다. 이는 \(K\)가 \(F\) 위의 어떤 다항식 족의 분해체인 것과 같다.</li>
 </ul>
 </div>
 
 <div class="definition">
 <span class="env-label">Definition 15.4 (Galois Extension)</span>
-유한 확장 \(K/F\)가 <strong>갈루아 확장(Galois extension)</strong>이란, 분리이면서 정규인 것이다. <strong>갈루아 군(Galois group)</strong>은
+유한 확장 \(K/F\)가 <strong>Galois 확장(Galois extension)</strong>이란, 분리이면서 정규인 것이다. <strong>Galois 군(Galois group)</strong>은
 $$
 \operatorname{Gal}(K/F) = \{\sigma: K \to K \mid \sigma \text{ is an automorphism with } \sigma|_F = \operatorname{id}\}
 $$
-이다. 갈루아 확장에 대해 \(|\operatorname{Gal}(K/F)| = [K:F]\)이다.
+이다. Galois 확장에 대해 \(|\operatorname{Gal}(K/F)| = [K:F]\)이다.
 </div>
 
 <div class="theorem">
 <span class="env-label">Theorem 15.3 (Fundamental Theorem of Galois Theory)</span>
-\(K/F\)를 갈루아 군 \(G = \operatorname{Gal}(K/F)\)를 갖는 유한 갈루아 확장이라 하자. 포함 관계를 역전시키는 전단사 대응이 존재한다:
+\(K/F\)를 유한 Galois 확장, \(G = \operatorname{Gal}(K/F)\)를 그 Galois 군이라 하자. 포함 관계를 역전시키는 전단사 대응이 존재한다:
 $$
 \{\text{intermediate fields } F \subseteq E \subseteq K\} \longleftrightarrow \{\text{subgroups } H \leq G\}
 $$
 이 대응은 \(E \mapsto \operatorname{Gal}(K/E)\)와 \(H \mapsto K^H = \{x \in K : \sigma(x) = x \text{ for all } \sigma \in H\}\)로 주어진다. 또한:
 <ul>
- <li>\([K : E] = |H|\)이고 \([E : F] = [G : H]\).</li>
+ <li>중간체 \(E\)와 부분군 \(H\)가 이 대응으로 짝지어지면 \([K : E] = |H|\)이고 \([E : F] = [G : H]\)이다.</li>
  <li>\(E/F\)가 정규 확장일 필요충분조건은 \(H \trianglelefteq G\)이며, 이 경우 \(\operatorname{Gal}(E/F) \cong G/H\)이다.</li>
 </ul>
 </div>
 
 <div class="example">
 <span class="env-label">Example 15.2</span>
-\(K = \mathbb{Q}(\sqrt{2}, \sqrt{3})\), \(F = \mathbb{Q}\)를 생각하자. 이것은 차수 4인 갈루아 확장이다. 갈루아 군은 \(G = \{e, \sigma, \tau, \sigma\tau\}\)이며, \(\sigma(\sqrt{2}) = -\sqrt{2}, \sigma(\sqrt{3}) = \sqrt{3}\)이고 \(\tau(\sqrt{2}) = \sqrt{2}, \tau(\sqrt{3}) = -\sqrt{3}\)이다. 따라서 \(G \cong \mathbb{Z}/2\mathbb{Z} \times \mathbb{Z}/2\mathbb{Z}\)(클라인 4원군)이다. 세 비자명 부분군 \(\langle\sigma\rangle, \langle\tau\rangle, \langle\sigma\tau\rangle\)는 중간체 \(\mathbb{Q}(\sqrt{3}), \mathbb{Q}(\sqrt{2}), \mathbb{Q}(\sqrt{6})\)에 대응한다.
+\(K = \mathbb{Q}(\sqrt{2}, \sqrt{3})\), \(F = \mathbb{Q}\)를 생각하자. 이것은 차수 4인 Galois 확장이다. Galois 군은 \(G = \{e, \sigma, \tau, \sigma\tau\}\)이며, \(\sigma(\sqrt{2}) = -\sqrt{2}, \sigma(\sqrt{3}) = \sqrt{3}\)이고 \(\tau(\sqrt{2}) = \sqrt{2}, \tau(\sqrt{3}) = -\sqrt{3}\)이다. 따라서 \(G \cong \mathbb{Z}/2\mathbb{Z} \times \mathbb{Z}/2\mathbb{Z}\)(Klein 4원군)이다. 세 비자명 부분군 \(\langle\sigma\rangle, \langle\tau\rangle, \langle\sigma\tau\rangle\)는 중간체 \(\mathbb{Q}(\sqrt{3}), \mathbb{Q}(\sqrt{2}), \mathbb{Q}(\sqrt{6})\)에 대응한다.
 </div>
 
 <div class="theorem">
 <span class="env-label">Theorem 15.4 (Insolvability of the Quintic)</span>
-표수 0인 체 \(F\) 위의 다항식 \(f\)가 거듭제곱근으로 풀릴 필요충분조건은 그 분해체의 갈루아 군이 가해군(solvable group)인 것이다. 차수 \(n \geq 5\)인 일반 다항식의 갈루아 군은 \(S_n\)이며, 이것은 가해군이 아니다(\(A_n\)이 \(n \geq 5\)에서 단순이고 비가환이므로). 따라서 일반 5차 방정식의 근을 나타내는 보편적인 거듭제곱근 공식은 존재하지 않는다.
+표수 0인 체 \(F\) 위의 다항식 \(f\)가 거듭제곱근으로 풀릴 필요충분조건은 그 분해체의 Galois 군이 가해군(solvable group)인 것이다. 가해군은 각 \(G_{i+1}\)이 \(G_i\)의 정규 부분군이고 몫 \(G_i/G_{i+1}\)이 아벨 군인 부분군 열 \(G = G_0 \supseteq G_1 \supseteq \cdots \supseteq G_k = \{e\}\)이 있는 군이다. 차수 \(n \geq 5\)인 일반 다항식의 Galois 군은 \(S_n\)이며, 이것은 가해군이 아니다(\(A_n\)이 \(n \geq 5\)에서 단순이고 비가환이므로). 따라서 일반 5차 방정식의 근을 나타내는 보편적인 거듭제곱근 공식은 존재하지 않는다.
 </div>
 
 <h3 id="tensor-products">15.3 텐서곱 (Tensor Products)</h3>
 
-<p>텐서곱(tensor product)은 두 독립 시스템을 합성하는 구조이다. 양자 컴퓨팅에서 \(n\)개 큐비트의 상태 공간은 \((\mathbb{C}^2)^{\otimes n}\)이고, 기계학습에서 텐서 분해(tensor decomposition)는 고차원 데이터의 잠재 구조를 추출하는 데 쓰인다. 미분기하학의 곡률 텐서, 응력 텐서도 이 구조 위에 있다.</p>
-
-<p class="section-transition">텐서곱은 두 가군으로부터 쌍선형성을 선형성으로 변환하는 새 가군을 구성한다.</p>
+<p>텐서곱(tensor product)은 두 가군에서 새 가군을 만들어, 쌍선형 사상을 선형 사상으로 다룰 수 있게 한다. 양자 컴퓨팅에서 \(n\)개 큐비트의 상태 공간은 \((\mathbb{C}^2)^{\otimes n}\)이다. 연속체역학의 응력 텐서와 미분기하학의 곡률 텐서도 각 점에서 벡터 공간 텐서곱의 원소다.</p>
 
 <div class="definition">
 <span class="env-label">Definition 15.5 (Tensor Product of Modules)</span>
-\(R\)을 가환 환, \(M\)과 \(N\)을 \(R\)-가군이라 하자. <strong>텐서곱</strong> \(M \otimes_R N\)은 \(m \in M, n \in N\)에 대한 기호 \(m \otimes n\)으로 생성되는 \(R\)-가군으로, 다음 관계식을 만족한다:
+\(R\)을 가환 환, \(M\)과 \(N\)을 \(R\)-가군이라 하자. <strong>텐서곱</strong> \(M \otimes_R N\)은 \(m \in M, n \in N\)에 대한 기호 \(m \otimes n\)이 생성하는 \(R\)-가군으로, 다음 관계식을 만족한다:
 <ul>
  <li>\((m_1 + m_2) \otimes n = m_1 \otimes n + m_2 \otimes n\),</li>
  <li>\(m \otimes (n_1 + n_2) = m \otimes n_1 + m \otimes n_2\),</li>
@@ -142,21 +138,21 @@ $$
 <span class="env-label">Example 15.3</span>
 <ul>
  <li>양의 정수 \(m,n\)에 대해 \(\mathbb{Z}/m\mathbb{Z} \otimes_{\mathbb{Z}} \mathbb{Z}/n\mathbb{Z} \cong \mathbb{Z}/\gcd(m,n)\mathbb{Z}\)이다. 특히, \(\mathbb{Z}/2\mathbb{Z} \otimes_{\mathbb{Z}} \mathbb{Z}/3\mathbb{Z} = 0\)이다.</li>
- <li>모든 \(n \geq 1\)에 대해 \(\mathbb{Q} \otimes_{\mathbb{Z}} \mathbb{Z}/n\mathbb{Z} = 0\)이다. \(1 \otimes \bar{k} = \frac{1}{n} \otimes n\bar{k} = \frac{1}{n} \otimes 0 = 0\)이기 때문이다.</li>
+ <li>모든 \(n \geq 1\)에 대해 \(\mathbb{Q} \otimes_{\mathbb{Z}} \mathbb{Z}/n\mathbb{Z} = 0\)이다. 모든 \(q \in \mathbb{Q}\)에 대해 \(q \otimes \bar{k} = \frac{q}{n} \otimes n\bar{k} = \frac{q}{n} \otimes 0 = 0\)이기 때문이다.</li>
  <li>벡터 공간의 경우: \(V \otimes_F W\)의 차원은 \(\dim V \cdot \dim W\)이고, \(\{v_i\}\)와 \(\{w_j\}\)가 기저이면 \(\{v_i \otimes w_j\}\)가 \(V \otimes_F W\)의 기저이다.</li>
 </ul>
 </div>
 
 <div class="theorem">
 <span class="env-label">Theorem 15.6 (Right Exactness of Tensor)</span>
-함자 \(M \otimes_R -\)는 우완전(right exact)이다: \(0 \to A \to B \to C \to 0\)이 짧은 완전열이면,
+함자 \(M \otimes_R -\)는 우완전(right exact)이다: \(0 \to A \to B \to C \to 0\)이 짧은 완전열(16장 Definition 16.3)이면,
 $$
 M \otimes_R A \to M \otimes_R B \to M \otimes_R C \to 0
 $$
 은 완전이다. 그러나 이 함자는 일반적으로 좌완전(left exact)이 아니다. 가군 \(M\)이 <strong>평탄(flat)</strong>이란, \(M \otimes_R -\)가 완전(단사성도 보존)인 것이다.
 </div>
 
-<p>텐서곱의 우완전성은 전사 사상은 보존하지만 단사 사상은 일반적으로 보존하지 않음을 뜻한다. 이 "단사성의 손실"을 체계적으로 측정하는 것이 다음 장의 Tor 함자이다.</p>
+<p>텐서곱은 전사 사상을 보존하지만 단사 사상은 보존하지 않을 때가 있다. 예를 들어 단사 사상 \(\mathbb{Z} \xrightarrow{\,2\,} \mathbb{Z}\)에 \(\mathbb{Z}/2\mathbb{Z}\)를 텐서하면 영사상 \(\mathbb{Z}/2\mathbb{Z} \to \mathbb{Z}/2\mathbb{Z}\)가 된다. 16장의 Tor 함자가 단사성이 깨지는 정도를 잰다.</p>
 
 
 <!-- ============================================================
@@ -164,23 +160,13 @@ $$
  ============================================================ -->
 
 <details class="video-resources">
-<summary>추천 영상 강의 (원본 소스 기반)</summary>
-<ul>
-<li><a href="https://www.youtube.com/playlist?list=PLS3WLIIQXmMIbqujCLRMYL4Dqe46c_dss" target="_blank">Math 602 Graduate Algebra 1 (2011) — UPenn</a></li>
-<li><a href="https://www.youtube.com/playlist?list=PLS3WLIIQXmMITfZqYjSS5AJHIZM2lequR" target="_blank">Math 602 Graduate Algebra 1 (2013) — UPenn</a></li>
-<li><a href="https://www.youtube.com/playlist?list=PLS3WLIIQXmMKzNNgSSJqyJocKY7vIcD8o" target="_blank">Math 603 Graduate Algebra 2 (2014) — UPenn</a></li>
-<li><a href="https://www.youtube.com/playlist?list=PLelIK3uylPMG3iyQ_SJYqeyjmeNC2QC3L" target="_blank">Lie Groups — Harvard</a></li>
-</ul>
-</details>
-
-<details class="video-resources">
 <summary>추천 교재 &amp; 오픈 자료</summary>
 <ul>
 <li><a href="https://www.jmilne.org/math/CourseNotes/" target="_blank">Course Notes (Milne)</a> — Group Theory, Fields &amp; Galois Theory, Algebraic Number Theory 등 무료 강의노트</li>
-<li>Lang, <em>Algebra</em> — GTM 211, 대학원 대수학의 바이블</li>
-<li>Hungerford, <em>Algebra</em> — GTM 73, 체계적 대학원 교재</li>
-<li>Jacobson, <em>Basic Algebra I &amp; II</em> — 광범위한 주제를 다루는 고전</li>
-<li>Grillet, <em>Abstract Algebra</em> — GTM 242, 현대적 대학원 교재</li>
-<li>Roman, <em>Advanced Linear Algebra</em> — GTM 135, 모듈 이론과 다중선형대수</li>
+<li>Lang, <em>Algebra</em> — Springer, Graduate Texts in Mathematics 211, 대학원 대수학 교재</li>
+<li>Hungerford, <em>Algebra</em> — Springer, Graduate Texts in Mathematics 73, 대학원 교재</li>
+<li>Jacobson, <em>Basic Algebra I &amp; II</em> — 학부·대학원 대수학 전반을 다룬다</li>
+<li>Grillet, <em>Abstract Algebra</em> — Springer, Graduate Texts in Mathematics 242, 대학원 교재</li>
+<li>Roman, <em>Advanced Linear Algebra</em> — Springer, Graduate Texts in Mathematics 135, 가군 이론과 다중선형대수</li>
 </ul>
 </details>

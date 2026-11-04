@@ -1,15 +1,13 @@
 <h2 id="pde">6. 편미분방정식 (Partial Differential Equations)</h2>
 
-<p>ODE가 하나의 독립변수에 대한 미분방정식이라면, PDE는 여러 독립변수에 대한 미분방정식이다. 열의 확산이나 파동의 전파처럼, 공간과 시간을 동시에 다루는 문제들은 PDE로 기술된다. ODE에서는 해가 곡선이었지만, PDE에서는 해가 곡면 또는 장(field)이 된다. 독립변수가 늘어난 만큼 경계 조건의 역할이 커지고, 해의 존재·유일성 문제도 한층 복잡해진다.</p>
+<p>편미분방정식(PDE, partial differential equation)은 독립변수가 둘 이상인 함수의 미분방정식이다. 열의 확산이나 파동의 전파처럼 공간과 시간을 함께 다루는 문제는 PDE로 쓴다. 해는 공간의 각 점과 시각마다 값을 주는 함수, 곧 장(field)이다. 독립변수가 늘어나면 경계 조건이 해를 정하는 데 더 큰 몫을 하고, 해가 존재하는지와 하나뿐인지를 따지기도 훨씬 어려워진다.</p>
 
-<p>PDE는 여러 공학 분야에서 쓰인다. 반도체 칩의 온도 분포와 냉각 시스템은 열전도 방정식(heat equation)으로, 건물의 진동이나 악기의 음향 특성은 파동방정식(wave equation)으로 분석한다. 정전기장의 전위 분포, 비행기 날개 주변의 유체 흐름, 반도체 내부의 전자 상태에는 각각 Laplace 방정식, 나비에-스토크스(Navier-Stokes) 방정식, 슈뢰딩거(Schrödinger) 방정식이 등장한다. 이처럼 물리량이 여러 독립변수에 따라 변할 때 PDE를 쓴다.</p>
-
-<p>편미분방정식(PDE)은 두 개 이상의 독립변수를 갖는 미지 함수와 그 편도함수를 포함하는 방정식이다. 여기서는 물리학과 공학 전반에 걸쳐 등장하는 두 변수의 2차 선형 PDE에 초점을 맞춘다.</p>
+<p>반도체 칩의 온도 분포와 냉각은 열 방정식(heat equation)으로 분석한다. 건물의 진동과 악기의 소리는 파동 방정식(wave equation)으로 분석한다. 정전기장의 전위 분포에는 Laplace 방정식이, 비행기 날개 주변의 공기 흐름에는 Navier-Stokes 방정식이, 반도체 속 전자의 상태에는 Schrödinger 방정식이 쓰인다.</p>
 
 <!-- 6.1 Classification -->
 <h3 id="pde-classification">6.1. 2차 편미분방정식의 분류</h3>
 
-<p>2차 PDE를 타원형, 포물형, 쌍곡형으로 분류하면 해의 주요 성질과 자연스러운 데이터 유형을 가늠할 수 있다. 타원형(Laplace)은 정상상태(시간 독립) 문제에, 포물형(heat)은 확산 과정에, 쌍곡형(wave)은 파동 전파에 대응한다. 분류에 따라 적절한 경계 조건과 초기 조건이 달라지므로, 문제를 설정할 때는 먼저 PDE의 유형을 파악해야 한다.</p>
+<p>2차 PDE는 타원형, 포물형, 쌍곡형으로 나눈다. 유형을 알면 해가 어떤 성질을 띠는지, 어떤 조건을 주어야 하는지 짐작할 수 있다. 타원형의 대표는 시간이 들어가지 않는 정상상태 문제의 Laplace 방정식, 포물형의 대표는 확산을 다루는 열 방정식, 쌍곡형의 대표는 파동 방정식이다. 유형마다 알맞은 경계 조건과 초기 조건이 다르므로, 문제를 세울 때 PDE의 유형부터 확인한다.</p>
 
 <div class="definition"><span class="env-label">Definition 6.1 (General Second-Order Linear PDE)</span>
 두 변수에 대한 일반적인 2차 선형 PDE는 다음과 같다:
@@ -18,13 +16,13 @@ $$ Au_{xx} + 2Bu_{xy} + Cu_{yy} + Du_x + Eu_y + Fu = G, $$
 </div>
 
 <div class="definition"><span class="env-label">Definition 6.2 (Classification by Discriminant)</span>
-2차 PDE의 유형은 판별식 \( \Delta = B^2 - AC \)에 의해 결정된다:
+2차 PDE의 유형은 판별식 \( \Delta = B^2 - AC \)로 정한다:
 <ul>
 <li><strong>타원형(Elliptic)</strong>: \( \Delta < 0 \) (예: Laplace 방정식).</li>
 <li><strong>포물형(Parabolic)</strong>: \( \Delta = 0 \) (예: 열 방정식).</li>
 <li><strong>쌍곡형(Hyperbolic)</strong>: \( \Delta > 0 \) (예: 파동 방정식).</li>
 </ul>
-이 분류는 원뿔곡선의 분류와 같은 판별식을 쓰며, 해의 정성적 거동을 이해하는 출발점이 된다.
+이 분류는 원뿔곡선의 분류와 같은 판별식을 쓴다.
 </div>
 
 <div class="remark"><span class="env-label">Remark</span>
@@ -34,20 +32,18 @@ $$ Au_{xx} + 2Bu_{xy} + Cu_{yy} + Du_x + Eu_y + Fu = G, $$
 <!-- 6.2 The Three Canonical Equations -->
 <h3 id="pde-canonical">6.2. 세 가지 정준 방정식</h3>
 
-<p>물리학과 공학에서 반복적으로 등장하는 세 가지 정준 PDE를 다룬다. 이 세 방정식(열 방정식, 파동 방정식, Laplace 방정식)은 각각 확산, 전파, 평형이라는 서로 다른 물리적 과정을 기술하며, 2차 선형 PDE의 세 가지 유형(포물형, 쌍곡형, 타원형)을 대표한다.</p>
-
 <h4>6.2.1. 열 방정식(포물형)</h4>
 
-<p>열 방정식은 온도가 공간적으로 불균일할 때 열이 고온에서 저온으로 확산되는 과정을 기술한다. CPU 칩의 열 설계, 금속 가공의 열처리 공정 최적화, 토양의 온도 분포 예측 등에 직접 응용된다. 열확산율(thermal diffusivity) \( \alpha^2 \)는 재료의 열전도율, 밀도, 비열로 결정된다. 같은 수학적 구조가 물질 확산의 Fick 법칙에 나타나며, Black-Scholes 방정식도 변수변환을 거치면 열 방정식으로 환원된다.</p>
+<p>열 방정식은 온도가 고르지 않을 때 열이 뜨거운 곳에서 차가운 곳으로 퍼지는 과정을 나타낸다. CPU의 열 설계, 금속 열처리 공정, 땅속 온도 분포 예측에 쓴다. 열확산율(thermal diffusivity) \( \alpha^2 \)는 재료의 열전도율을 밀도와 비열의 곱으로 나눈 값이다. 물질 확산을 다루는 Fick의 제2법칙도 같은 꼴이고, 금융의 Black-Scholes 방정식도 변수를 바꾸면 열 방정식이 된다.</p>
 
 <div class="definition"><span class="env-label">Definition 6.3 (Heat Equation)</span>
 1차원 열 방정식은 다음과 같다:
 $$ u_t = \alpha^2 u_{xx}, \qquad 0 < x < L, \quad t > 0, $$
-여기서 \( u(x,t) \)는 온도이고, \( \alpha^2 = k/(\rho c) \)는 열확산율이다 (\( k \) = 열전도율, \( \rho \) = 밀도, \( c \) = 비열).
+여기서 \( u(x,t) \)는 온도다. \( \alpha^2 = k/(\rho c) \)는 열확산율이다 (\( k \) = 열전도율, \( \rho \) = 밀도, \( c \) = 비열).
 </div>
 
 <div class="theorem"><span class="env-label">Theorem 6.1 (Solution of the Heat Equation by Separation of Variables)</span>
-\(f\)가 경계 조건과 양립하고 항별 계산이 가능할 만큼 충분히 매끄럽다고 하자. \( [0, L] \)에서 동차 Dirichlet 경계 조건 \( u(0,t) = u(L,t) = 0 \)과 초기 조건 \( u(x,0) = f(x) \)를 갖는 열 방정식의 해는 다음과 같다:
+\(f\)가 경계 조건과 양립하고 항별 계산이 가능할 만큼 충분히 매끄럽다고 하자. \( [0, L] \)에서 동차 Dirichlet 경계 조건 \( u(0,t) = u(L,t) = 0 \)과 초기 조건 \( u(x,0) = f(x) \)가 주어진 열 방정식의 해는 다음과 같다:
 $$ u(x,t) = \sum_{n=1}^{\infty} b_n \sin\!\left(\frac{n\pi x}{L}\right) e^{-\alpha^2 n^2 \pi^2 t / L^2}, $$
 여기서 \( b_n = \frac{2}{L}\int_0^L f(x)\sin\!\left(\frac{n\pi x}{L}\right)dx \)는 초기 데이터의 Fourier 사인 계수이다.
 </div>
@@ -55,13 +51,13 @@ $$ u(x,t) = \sum_{n=1}^{\infty} b_n \sin\!\left(\frac{n\pi x}{L}\right) e^{-\alp
 <div class="proof"><span class="env-label">Proof</span>
 \( u(x,t) = X(x)\,T(t) \)로 가정한다. \( u_t = \alpha^2 u_{xx} \)에 대입하고 나누면:
 $$ \frac{T'}{{\alpha^2 T}} = \frac{X''}{X} = -\lambda, $$
-여기서 \( \lambda \)는 분리 상수이다. 이로부터 두 개의 상미분방정식을 얻는다:
+여기서 \( \lambda \)는 분리 상수이다. 그러면 상미분방정식 두 개를 얻는다:
 $$ X'' + \lambda X = 0, \qquad T' + \alpha^2 \lambda\,T = 0. $$
-경계 조건 \( X(0) = X(L) = 0 \)은 고유값 문제를 준다. 비자명해는 \( \lambda_n = (n\pi/L)^2 \)일 때만 존재하며, 고유함수는 \( X_n(x) = \sin(n\pi x/L) \)이다. 대응하는 시간 인자는 \( T_n(t) = e^{-\alpha^2 \lambda_n t} \)이다. 중첩 원리에 의해 일반해는 위의 Fourier 급수이다. 계수 \( b_n \)은 사인 함수의 직교성을 이용하여 초기 조건으로부터 결정된다. \(\square\)
+경계 조건 \( X(0) = X(L) = 0 \)은 고유값 문제를 준다. 비자명해는 \( \lambda_n = (n\pi/L)^2 \)일 때만 존재한다. 고유함수는 \( X_n(x) = \sin(n\pi x/L) \)이다. 대응하는 시간 인자는 \( T_n(t) = e^{-\alpha^2 \lambda_n t} \)이다. 이 해들을 중첩하면 위의 Fourier 급수가 된다. 계수 \( b_n \)은 사인 함수의 직교성으로 초기 조건에서 정한다. \(\square\)
 </div>
 
 <div class="remark"><span class="env-label">Remark</span>
-지수 감쇠 인자 \( e^{-\alpha^2 n^2\pi^2 t/L^2} \)는 높은 모드일수록 빠르게 감쇠함을 보장한다. \( t \to \infty \)일 때 해는 0에 수렴하며 (동차 경계 조건의 경우), 이는 열의 물리적 소산을 반영한다. 열 방정식은 무한 전파 속도를 갖는다: 모든 교란은 지수적으로 작은 크기이긴 하지만 즉시 모든 곳에서 감지된다.
+지수 인자 \( e^{-\alpha^2 n^2\pi^2 t/L^2} \) 때문에 \( n \)이 큰 모드일수록 빨리 사라진다. 동차 Dirichlet 경계 조건이면 \( t \to \infty \)일 때 해가 0으로 수렴한다. 양 끝을 0도로 유지하는 막대에서 열이 빠져나가는 모습 그대로다. 열 방정식에서는 교란이 무한한 속도로 퍼진다. 한 점의 교란은 아주 작은 크기로나마 즉시 모든 곳에 나타난다.
 </div>
 
 <div class="example"><span class="env-label">Example 6.1</span>
@@ -73,7 +69,7 @@ $$ u(x,t) = \frac{8}{\pi}\sum_{k=0}^{\infty} \frac{1}{(2k+1)^3}\sin\!\bigl((2k+1
 
 <h4>6.2.2. 파동 방정식(쌍곡형)</h4>
 
-<p>파동 방정식은 에너지가 소산 없이 공간을 통해 전파되는 현상을 기술한다. 기타 줄의 진동, 음파의 전파, 지진파의 전파, 광섬유에서의 전자기파 전파를 모두 파동 방정식이나 그 변형으로 기술할 수 있다. 열 방정식과의 주된 차이는 에너지 보존과 유한 전파 속도이다. 열은 즉시 모든 곳에 영향을 미치지만(무한 전파 속도), 파동은 유한 속도 \( c \)로 전파되어 인과성(causality)을 보존한다.</p>
+<p>파동 방정식은 에너지가 흩어지지 않고 공간으로 퍼져 나가는 현상을 나타낸다. 기타 줄의 진동, 음파와 지진파, 광섬유 속 전자기파를 모두 파동 방정식이나 그 변형으로 쓸 수 있다. 파동 방정식의 해는 유한한 속도 \( c \)로 퍼진다. 그래서 한 점의 교란은 거리를 \( c \)로 나눈 시간이 지나야 다른 점에 닿는다.</p>
 
 <div class="definition"><span class="env-label">Definition 6.4 (Wave Equation)</span>
 1차원 파동 방정식은 다음과 같다:
@@ -89,27 +85,27 @@ $$ u(x,t) = \frac{1}{2}\bigl[f(x-ct) + f(x+ct)\bigr] + \frac{1}{2c}\int_{x-ct}^{
 </div>
 
 <div class="theorem"><span class="env-label">Theorem 6.3 (Wave Equation on a Finite Interval)</span>
-\( [0, L] \)에서 \( u(0,t) = u(L,t) = 0 \), 초기 변위 \( u(x,0) = f(x) \), 초기 속도 \( u_t(x,0) = g(x) \)를 갖는 파동 방정식의 해는 다음과 같다:
+\( [0, L] \)에서 \( u(0,t) = u(L,t) = 0 \), 초기 변위 \( u(x,0) = f(x) \), 초기 속도 \( u_t(x,0) = g(x) \)가 주어진 파동 방정식의 해는 다음과 같다:
 $$ u(x,t) = \sum_{n=1}^{\infty} \sin\!\left(\frac{n\pi x}{L}\right)\!\left[a_n \cos\!\left(\frac{n\pi c\,t}{L}\right) + b_n \sin\!\left(\frac{n\pi c\,t}{L}\right)\right], $$
 여기서
 $$ a_n = \frac{2}{L}\int_0^L f(x)\sin\!\left(\frac{n\pi x}{L}\right)dx, \qquad b_n = \frac{2}{n\pi c}\int_0^L g(x)\sin\!\left(\frac{n\pi x}{L}\right)dx. $$
 </div>
 
 <div class="remark"><span class="env-label">Remark</span>
-열 방정식과 달리, 파동 방정식은 에너지를 보존하며 소산하지 않는다. 해는 진동수 \( \omega_n = n\pi c/L \)을 갖는 정상파(고유 모드)의 중첩이다. 기본 진동수 \( \omega_1 = \pi c/L \)은 진동하는 현의 음높이를 결정한다.
+파동 방정식의 해는 에너지를 보존한다(6.7절). 해는 진동수가 \( \omega_n = n\pi c/L \)인 정상파(고유 모드)의 중첩이다. 기본 진동수 \( \omega_1 = \pi c/L \)은 진동하는 현의 음높이를 결정한다.
 </div>
 
 <div class="example"><span class="env-label">Example 6.2</span>
 길이 \( L \)인 현의 중간점을 높이 \( h \)까지 당긴 후 정지 상태에서 놓는다 (\( g(x) = 0 \)). 초기 형태는 삼각형이다:
 $$ f(x) = \begin{cases} 2hx/L & 0 \leq x \leq L/2, \\ 2h(L-x)/L & L/2 \leq x \leq L. \end{cases} $$
-계수는 \( a_n = \frac{8h}{n^2\pi^2}\sin\!\left(\frac{n\pi}{2}\right) \)이며, 짝수 \( n \)에서 소멸한다. 해는
+계수는 \( a_n = \frac{8h}{n^2\pi^2}\sin\!\left(\frac{n\pi}{2}\right) \)이며, \( n \)이 짝수이면 0이다. 해는
 $$ u(x,t) = \frac{8h}{\pi^2}\sum_{k=0}^{\infty} \frac{(-1)^k}{(2k+1)^2} \sin\!\left(\frac{(2k+1)\pi x}{L}\right) \cos\!\left(\frac{(2k+1)\pi ct}{L}\right). $$
-홀수 고조파만 존재하며, 이는 초기 변위의 대칭성에 기인한다.
+초기 변위가 \( x = L/2 \)에 대해 대칭이므로 홀수 고조파만 남는다.
 </div>
 
 <h4>6.2.3. Laplace 방정식(타원형)</h4>
 
-<p>Laplace 방정식은 정상상태(steady-state) 문제를 기술한다. 열 방정식에서 시간이 충분히 흐른 후의 온도 분포, 전하가 없는 영역에서의 정전기 전위, 비압축성 비회전 유체의 속도 포텐셜이 모두 Laplace 방정식을 만족한다. 시간 변수가 없으므로 초기 조건 대신 경계 조건만이 해를 결정하며, 최댓값 원리(maximum principle)라는 유용한 정성적 성질을 갖는다.</p>
+<p>Laplace 방정식은 정상상태(steady-state) 문제를 나타낸다. 시간이 충분히 흐른 뒤의 온도 분포, 전하가 없는 영역의 정전기 전위, 비압축성이고 소용돌이가 없는 유체의 속도 포텐셜이 모두 Laplace 방정식을 만족한다. 시간 변수가 없으므로 해는 경계 조건만으로 정해진다. 해는 최댓값 원리(maximum principle)를 따른다. 최댓값과 최솟값을 경계에서 얻는다는 성질이다.</p>
 
 <div class="definition"><span class="env-label">Definition 6.5 (Laplace's Equation)</span>
 2차원 Laplace 방정식은 다음과 같다:
@@ -118,11 +114,11 @@ $$ \nabla^2 u = u_{xx} + u_{yy} = 0. $$
 </div>
 
 <div class="theorem"><span class="env-label">Theorem 6.4 (Maximum Principle)</span>
-\( u \)가 유계 영역 \( \Omega \)에서 조화이고 \( \overline{\Omega} \)에서 연속이면, \( u \)는 경계 \( \partial\Omega \)에서 최댓값과 최솟값을 달성한다. \( u = 0 \)이 \( \partial\Omega \)에서 성립하면, \( \Omega \) 전체에서 \( u = 0 \)이다.
+\( u \)가 유계 영역 \( \Omega \)에서 조화이고 \( \overline{\Omega} \)에서 연속이면, \( u \)는 최댓값과 최솟값을 경계 \( \partial\Omega \)에서 얻는다. \( u = 0 \)이 \( \partial\Omega \)에서 성립하면, \( \Omega \) 전체에서 \( u = 0 \)이다.
 </div>
 
 <div class="remark"><span class="env-label">Remark</span>
-최댓값 원리는 Dirichlet 문제의 유일성을 즉시 함의한다: \( u_1 \)과 \( u_2 \)가 모두 \( \Omega \)에서 \( \nabla^2 u = 0 \)을 같은 경계값으로 풀면, \( w = u_1 - u_2 \)는 \( w = 0 \)인 경계 조건을 가진 조화함수이므로, \( w \equiv 0 \)이다.
+최댓값 원리에서 Dirichlet 문제의 해가 하나뿐임이 바로 나온다: \( u_1 \)과 \( u_2 \)가 모두 \( \Omega \)에서 \( \nabla^2 u = 0 \)을 같은 경계값으로 풀면, \( w = u_1 - u_2 \)는 경계에서 0인 조화함수이므로, \( w \equiv 0 \)이다.
 </div>
 
 <div class="example"><span class="env-label">Example 6.3</span>
@@ -136,22 +132,22 @@ $$ u(x,y) = \sum_{n=1}^{\infty} c_n \sin\!\left(\frac{n\pi x}{a}\right) \frac{\s
 <!-- 6.3 Separation of Variables -->
 <h3 id="pde-separation">6.3. 변수 분리법</h3>
 
-<p>변수 분리법(separation of variables)은 PDE를 여러 개의 ODE로 분해하는 체계적 기법이다. 다변수 문제를 각 변수별 1차원 문제로 환원하여, 이미 알고 있는 ODE 풀이법을 적용할 수 있게 한다. 이 과정에서 고유값 문제(eigenvalue problem)가 자연스럽게 등장하며, 고유함수의 직교성과 완비성이 Fourier 급수 전개의 이론적 토대가 된다.</p>
+<p>변수 분리법(separation of variables)은 해를 변수마다 따로 된 함수의 곱으로 놓고 PDE를 ODE 여러 개로 나눈다. 그러면 5장의 ODE 풀이법을 그대로 쓸 수 있다. 경계 조건을 맞추다 보면 고유값 문제(eigenvalue problem)가 생기고, 고유함수가 완비 직교계를 이루므로 초기 조건을 Fourier 급수로 전개할 수 있다.</p>
 
 <div class="remark"><span class="env-label">Remark</span>
-6.2절 전반에 걸쳐 사용된 변수 분리법은 다음과 같은 체계적 절차를 따른다:
+6.2절에서 쓴 변수 분리법의 절차는 다음과 같다:
 <ol>
-<li>해가 곱의 형태 \( u = X(x)\,T(t) \) (또는 타원형 문제의 경우 \( u = X(x)\,Y(y) \))를 갖는다고 가정한다.</li>
+<li>해가 곱의 형태 \( u = X(x)\,T(t) \) (또는 타원형 문제의 경우 \( u = X(x)\,Y(y) \))라고 놓는다.</li>
 <li>PDE에 대입하고 변수를 분리하여 각 변이 하나의 변수에만 의존하도록 한다. 양변은 상수 \( -\lambda \) (분리 상수)와 같아야 한다.</li>
-<li>결과로 얻어지는 상미분방정식을 푼다. 경계 조건이 \( \lambda \)의 허용 가능한 값 (고유값)과 대응하는 고유함수를 결정한다.</li>
+<li>이렇게 얻은 상미분방정식을 푼다. 경계 조건이 \( \lambda \)의 허용 가능한 값 (고유값)과 대응하는 고유함수를 결정한다.</li>
 <li>곱 형태 해의 중첩(무한 급수)으로 일반해를 구성하고, 직교성을 이용하여 초기 조건 또는 나머지 경계 조건으로부터 계수를 결정한다.</li>
 </ol>
 </div>
 
 <div class="theorem"><span class="env-label">Theorem 6.5 (Sturm&ndash;Liouville Eigenvalue Problem)</span>
-변수 분리법의 기저에 있는 고유값 문제는 Sturm-Liouville 유형이다:
+변수 분리법에서 나오는 고유값 문제는 Sturm-Liouville 유형이다:
 $$ \frac{d}{dx}\!\left[p(x)\frac{dX}{dx}\right] + q(x)X + \lambda\,w(x)\,X = 0, \qquad a < x < b, $$
-정칙 계수와 분리된 자기수반 경계 조건을 갖고 \( p, w > 0 \)이라고 하자. 이때:
+계수가 정칙이고 경계 조건이 분리형 자기수반 조건이며 \( p, w > 0 \)이라고 하자. 이때:
 <ul>
 <li>모든 고유값은 실수이다.</li>
 <li>서로 다른 고유값에 대응하는 고유함수는 가중함수 \( w(x) \)에 대해 직교한다.</li>
@@ -162,19 +158,19 @@ $$ \frac{d}{dx}\!\left[p(x)\frac{dX}{dx}\right] + q(x)X + \lambda\,w(x)\,X = 0, 
 <!-- 6.4 Boundary Value Problems -->
 <h3 id="pde-bvp">6.4. 경계값 문제</h3>
 
-<p>경계 조건(boundary condition)은 PDE 문제를 물리적으로 완전하게 규정한다. 막대 끝의 온도가 고정되어 있는가(Dirichlet), 단열되어 열 유속이 0인가(Neumann), 대류에 의해 주변 환경과 열 교환을 하는가(Robin) — 이러한 물리적 상황이 경계 조건의 유형을 결정한다. 잘못된 유형의 경계 조건을 설정하면 해가 존재하지 않거나, 데이터의 미세한 변동에 해가 폭발적으로 민감해지는 부적정(ill-posed) 문제가 된다.</p>
+<p>PDE 문제는 경계 조건(boundary condition)까지 주어져야 완성된다. 막대 끝의 온도가 고정되어 있으면 Dirichlet 조건, 끝이 단열되어 열 유속이 0이면 Neumann 조건, 끝에서 대류로 주변과 열을 주고받으면 Robin 조건을 쓴다. 유형이 맞지 않는 경계 조건을 주면 해가 없거나, 데이터가 조금만 바뀌어도 해가 크게 달라지는 부적정(ill-posed) 문제가 된다.</p>
 
 <div class="definition"><span class="env-label">Definition 6.6 (Standard Boundary Conditions)</span>
-경계 \( \partial\Omega \)를 갖는 영역 \( \Omega \)에서 정의된 PDE의 표준 경계 조건 유형은 다음과 같다:
+영역 \( \Omega \)에서 정의된 PDE의 경계 \( \partial\Omega \)에 주는 표준 경계 조건 유형은 다음과 같다:
 <ul>
-<li><strong>디리클레(Dirichlet):</strong> \( \partial\Omega \)에서 \( u = g \) (값을 지정).</li>
-<li><strong>노이만(Neumann):</strong> \( \partial\Omega \)에서 \( \partial u/\partial n = h \) (법선 도함수를 지정).</li>
-<li><strong>로빈(Robin, 혼합):</strong> \( \partial\Omega \)에서 \( \alpha u + \beta\,\partial u/\partial n = \gamma \).</li>
+<li><strong>Dirichlet:</strong> \( \partial\Omega \)에서 \( u = g \) (값을 지정).</li>
+<li><strong>Neumann:</strong> \( \partial\Omega \)에서 \( \partial u/\partial n = h \) (법선 도함수를 지정).</li>
+<li><strong>Robin(혼합):</strong> \( \partial\Omega \)에서 \( \alpha u + \beta\,\partial u/\partial n = \gamma \).</li>
 </ul>
 </div>
 
 <div class="theorem"><span class="env-label">Theorem 6.6 (Well-Posedness &mdash; Hadamard)</span>
-경계값 문제가 <em>적정(well-posed)</em>하려면 다음을 만족해야 한다:
+다음 세 조건을 모두 만족하면 경계값 문제가 <em>적정(well-posed)</em>하다고 한다:
 <ol>
 <li><strong>존재성:</strong> 해가 존재한다.</li>
 <li><strong>유일성:</strong> 해가 유일하다.</li>
@@ -182,24 +178,24 @@ $$ \frac{d}{dx}\!\left[p(x)\frac{dX}{dx}\right] + q(x)X + \lambda\,w(x)\,X = 0, 
 </ol>
 세 가지 정준 방정식에 대해, 자연스러운 적정 문제는 다음과 같다:
 <ul>
-<li><strong>타원형 (Laplace/Poisson):</strong> 유계 영역에서 Dirichlet 또는 Neumann 경계값 문제 (초기 조건 없음). 순수 Neumann 조건에는 양립 조건 \( \int_{\partial\Omega} h\,dS = \int_\Omega f\,dV \)이 필요하고, 해는 덧셈 상수만큼만 결정되므로 정규화 조건을 하나 더 둔다.</li>
-<li><strong>포물형 (열 방정식):</strong> 초기 조건과 공간 경계에서의 Dirichlet, Neumann, 또는 Robin 경계 조건.</li>
-<li><strong>쌍곡형 (파동 방정식):</strong> 두 개의 초기 조건 (\( t = 0 \)에서 \( u \)와 \( u_t \))과 공간 경계에서의 경계 조건.</li>
+<li><strong>타원형 (Laplace/Poisson):</strong> 유계 영역에서 Dirichlet 또는 Neumann 경계값 문제 (초기 조건 없음). 순수 Neumann 조건에는 양립 조건 \( \int_{\partial\Omega} h\,dS = \int_\Omega f\,dV \)이 필요하고, 해끼리는 상수만큼만 차이 나므로 정규화 조건을 하나 더 둔다.</li>
+<li><strong>포물형 (열 방정식):</strong> 초기 조건과 공간 경계의 Dirichlet, Neumann, 또는 Robin 경계 조건.</li>
+<li><strong>쌍곡형 (파동 방정식):</strong> 두 개의 초기 조건 (\( t = 0 \)에서 \( u \)와 \( u_t \))과 공간 경계의 경계 조건.</li>
 </ul>
 </div>
 
 <div class="remark"><span class="env-label">Remark</span>
-PDE의 유형에 따라 적절한 경계 조건과 초기 조건이 달라진다. 맞지 않는 데이터를 지정하면 부적정 문제가 될 수 있다. 예를 들어, Laplace 방정식의 한 경계 부분에서 함수값과 법선 도함수를 함께 주고 내부로 해를 이어 가는 Cauchy 문제는 일반적으로 불안정하다. 작은 데이터 오차가 내부 해에서 크게 증폭될 수 있다.
+6.4 도입부에서 말한 부적정 문제의 예로, Laplace 방정식의 한 경계 부분에서 함수값과 법선 도함수를 함께 주고 내부로 해를 이어 가는 Cauchy 문제는 일반적으로 불안정하다. 작은 데이터 오차가 내부 해에서 크게 증폭될 수 있다.
 </div>
 
 <div class="example"><span class="env-label">Example 6.4</span>
-단열된 끝점을 가진 열 방정식 (Neumann 경계 조건): \( [0, L] \)에서 \( u_t = \alpha^2 u_{xx} \), \( u_x(0,t) = u_x(L,t) = 0 \). 변수 분리법을 적용하면 고유함수 \( \cos(n\pi x/L) \)을 얻고,
+양 끝이 단열된 열 방정식 (Neumann 경계 조건): \( [0, L] \)에서 \( u_t = \alpha^2 u_{xx} \), \( u_x(0,t) = u_x(L,t) = 0 \). 변수 분리법을 적용하면 고유함수 \( \cos(n\pi x/L) \)을 얻고,
 $$ u(x,t) = \frac{a_0}{2} + \sum_{n=1}^{\infty} a_n \cos\!\left(\frac{n\pi x}{L}\right) e^{-\alpha^2 n^2 \pi^2 t / L^2}, $$
 여기서 \( a_n \)은 초기 온도의 Fourier 코사인 계수이다. 상수항 \( a_0/2 \)는 정상 상태 온도를 나타내며, 초기 데이터의 공간 평균과 같다 (총 열량 보존).
 </div>
 
 <div class="example"><span class="env-label">Example 6.5</span>
-반지름 \( R \)인 원판에서의 Laplace 방정식: 극좌표 \( (r, \theta) \)에서,
+반지름 \( R \)인 원판의 Laplace 방정식: 극좌표 \( (r, \theta) \)에서,
 $$ u_{rr} + \frac{1}{r}u_r + \frac{1}{r^2}u_{\theta\theta} = 0, \qquad r < R, $$
 경계 조건은 \( u(R, \theta) = f(\theta) \). 변수 분리 \( u = \mathcal{R}(r)\,\Theta(\theta) \)를 적용하면 <em>Poisson 적분 공식</em>과 동등한 다음 Fourier 급수 표현을 얻는다:
 $$ u(r,\theta) = \frac{a_0}{2} + \sum_{n=1}^{\infty} \left(\frac{r}{R}\right)^n \bigl(a_n\cos n\theta + b_n\sin n\theta\bigr), $$
@@ -209,12 +205,12 @@ $$ u(r,\theta) = \frac{a_0}{2} + \sum_{n=1}^{\infty} \left(\frac{r}{R}\right)^n 
 <!-- 6.5 Additional Examples and Methods -->
 <h3 id="pde-additional">6.5. 추가 예제와 풀이법</h3>
 
-<p>6.2절에서는 유한 영역 경계값 문제와 무한 영역 파동 초기값 문제를 다뤘다. 여기서는 무한 영역의 열 방정식 초기값 문제와 직사각형이 아닌 영역으로 나아간다. 무한 영역의 열 방정식은 반도체 웨이퍼의 순간 레이저 가열, 지구 표면의 일주기 온도 변동 깊이 추정 등에 응용된다. 해에 나타나는 Gaussian 함수인 열 핵은 확산 현상의 보편적 특성을 드러낸다.</p>
+<p>막대가 아주 길어서 끝의 영향을 무시할 수 있으면 열 방정식을 실수 전체에서 푼다. 이때 해는 초기 온도와 Gaussian 함수인 열 핵(heat kernel)의 합성곱으로 나온다. 한 점에 모인 열은 시간이 지나며 폭이 \( \sqrt{t} \)에 비례하는 종 모양으로 퍼진다.</p>
 
 <h4>6.5.1. 열 방정식 초기값 문제 (무한 영역)</h4>
 
 <div class="theorem"><span class="env-label">Theorem 6.7 (Heat Kernel on \(\mathbb{R}\))</span>
-무한 직선 \( x \in \mathbb{R} \), \( t > 0 \)에서 열 방정식 \( u_t = \alpha^2 u_{xx} \)의 초기 조건 \( u(x,0) = f(x) \)에 대한 해는 다음과 같다:
+\(f\)가 유계 연속 함수이면, 무한 직선 \( x \in \mathbb{R} \), \( t > 0 \)에서 열 방정식 \( u_t = \alpha^2 u_{xx} \)의 초기 조건 \( u(x,0) = f(x) \)에 대한 해는 다음과 같다:
 $$ u(x,t) = \frac{1}{2\alpha\sqrt{\pi t}} \int_{-\infty}^{\infty} f(\xi)\, \exp\!\left(-\frac{(x-\xi)^2}{4\alpha^2 t}\right) d\xi. $$
 여기서 \( K(x,t) = \frac{1}{2\alpha\sqrt{\pi t}} e^{-x^2/(4\alpha^2 t)} \)를 <em>열 핵(heat kernel)</em> 또는 <em>기본해(fundamental solution)</em>라 한다.
 </div>
@@ -224,23 +220,23 @@ $$ u(x,t) = \frac{1}{2\alpha\sqrt{\pi t}} \int_{-\infty}^{\infty} f(\xi)\, \exp\
 <br><br>
 열 핵 공식에 대입하면:
 $$ u(x,t) = \frac{1}{2\sqrt{\pi t}} \int_{-\infty}^{\infty} e^{-\xi^2} \exp\!\left(-\frac{(x-\xi)^2}{4t}\right) d\xi. $$
-피적분함수를 \( \xi \)에 대해 정리하면 Gauss 적분을 얻는다. 지수부를 완전제곱식으로 변환하면:
+지수를 \( \xi \)에 대한 완전제곱식으로 바꾸면 Gauss 적분이 된다:
 $$ -\xi^2 - \frac{(x-\xi)^2}{4t} = -\frac{1+4t}{4t}\left(\xi - \frac{x}{1+4t}\right)^2 - \frac{x^2}{1+4t}. $$
 따라서
 $$ u(x,t) = \frac{1}{\sqrt{1+4t}}\, \exp\!\left(-\frac{x^2}{1+4t}\right). $$
-\( t = 0 \)에서 \( u(x,0) = e^{-x^2} \)이 복원되며, \( t \to \infty \)일 때 \( u \to 0 \)으로 감쇠한다. Gauss 함수의 폭은 \( \sqrt{1+4t} \)에 비례하여 증가하며, 이는 열 확산의 전형적 거동이다.
+\( t = 0 \)에서 \( u(x,0) = e^{-x^2} \)이 복원되며, \( t \to \infty \)일 때 \( u \to 0 \)으로 감쇠한다. Gauss 함수의 폭은 \( \sqrt{1+4t} \)에 비례하여 커진다.
 </div>
 
 <h4>6.5.2. 파동 방정식: d'Alembert 해 예제</h4>
 
-<p>d'Alembert 해는 무한 영역에서 파동이 좌행파와 우행파로 분리되어 전파되는 모습을 명시적으로 보여준다. 지진파 분석에서 P파의 전파 패턴 예측, 광섬유에서 펄스 신호의 분산 없는 전달 등이 이 형태의 해로 표현된다.</p>
+<p>d'Alembert 해를 보면 무한히 긴 줄에서 초기 파형이 왼쪽으로 가는 파와 오른쪽으로 가는 파로 나뉘어 모양을 유지한 채 속도 \( c \)로 움직인다.</p>
 
 <div class="example"><span class="env-label">Example 6.7 (d'Alembert 해 적용)</span>
 무한 현에서 \( c = 1 \), 초기 변위 \( f(x) = \frac{1}{1+x^2} \), 초기 속도 \( g(x) = 0 \)일 때 파동 방정식의 해를 구하라.
 <br><br>
-d'Alembert 공식 (Theorem 6.2)에 의해:
+d'Alembert 공식(Theorem 6.2)에 따라:
 $$ u(x,t) = \frac{1}{2}\bigl[f(x-t) + f(x+t)\bigr] + \frac{1}{2}\int_{x-t}^{x+t} g(s)\,ds. $$
-\( g = 0 \)이므로 적분항이 소멸하고:
+\( g = 0 \)이므로 적분항이 0이 되고:
 $$ u(x,t) = \frac{1}{2}\left[\frac{1}{1+(x-t)^2} + \frac{1}{1+(x+t)^2}\right]. $$
 초기의 단봉 형태가 좌행파 \( \frac{1}{2(1+(x+t)^2)} \)와 우행파 \( \frac{1}{2(1+(x-t)^2)} \)로 분리되어 각각 속도 \( c = 1 \)로 전파된다. \( t \) 시간이 경과하면 두 봉우리의 중심 사이 거리는 \( 2t \)이다.
 </div>
@@ -257,14 +253,14 @@ $$ u(x,t) = \frac{1}{2}\cos x\, \sin 2t. $$
 
 <h4>6.5.3. Laplace 방정식 극좌표 풀이</h4>
 
-<p>원형 또는 원환(annular) 영역에서의 Laplace 방정식은 동축 케이블의 전위 분포, 원통형 도체의 정상 온도장, 파이프 단면의 응력 분포 등에 직접 응용된다. 극좌표에서 변수 분리를 하면 Euler 형 ODE와 각도 방향의 경계 조건이 결합된다. 원 전체에서는 주기성이 정수 각도 모드를 만들고, 쐐기 영역에서는 꼭지각에 따라 허용되는 각도 파수가 달라진다.</p>
+<p>동축 케이블의 전위 분포나 원통형 도체의 정상상태 온도는 원판이나 원환(annular, 두 동심원 사이) 영역에서 Laplace 방정식을 풀어 구한다. 극좌표로 변수를 분리하면 반지름 방향으로는 Euler 형 ODE가 나온다. 원 전체에서는 각도 방향 해가 \( 2\pi \)마다 되풀이되어야 하므로 각도 모드가 정수로 제한된다. 쐐기 영역에서는 꼭지각의 크기에 따라 허용되는 각도 파수가 정해진다.</p>
 
 <div class="example"><span class="env-label">Example 6.9 (원환 영역에서의 Laplace 방정식)</span>
 내부 반지름 \( a \), 외부 반지름 \( b \)인 원환(annulus)에서 Laplace 방정식을 풀어라. 경계 조건은 \( u(a,\theta) = 0 \), \( u(b,\theta) = \sin 3\theta \)이다.
 <br><br>
-극좌표에서 변수 분리 \( u(r,\theta) = R(r)\Theta(\theta) \)를 적용한다. \( \Theta \) 방정식의 주기성 조건으로부터 \( \Theta_n(\theta) = A_n\cos n\theta + B_n\sin n\theta \)이다. 대응하는 \( R \) 방정식은 Euler 형이며, 원환 영역에서의 일반해는:
+극좌표에서 변수 분리 \( u(r,\theta) = R(r)\Theta(\theta) \)를 적용한다. \( \Theta \) 방정식의 주기성 조건으로부터 \( \Theta_n(\theta) = A_n\cos n\theta + B_n\sin n\theta \)이다. 대응하는 \( R \) 방정식은 Euler 형이며, 원환 영역의 일반해는:
 $$ R_0(r) = C_0 + D_0 \ln r, \qquad R_n(r) = C_n r^n + D_n r^{-n} \quad (n \geq 1). $$
-경계 조건에 의해 \( n = 3 \)인 사인 항만 남으므로:
+경계 조건 때문에 \( n = 3 \)인 사인 항만 남으므로:
 $$ u(r,\theta) = B_3\bigl(C_3 r^3 + D_3 r^{-3}\bigr)\sin 3\theta. $$
 \( u(a,\theta) = 0 \)에서 \( C_3 a^3 + D_3 a^{-3} = 0 \), 즉 \( D_3 = -C_3 a^6 \). \( u(b,\theta) = \sin 3\theta \)에서:
 $$ B_3 C_3\bigl(b^3 - a^6 b^{-3}\bigr) = 1. $$
@@ -277,7 +273,7 @@ $$ u(r,\theta) = \frac{r^3 - a^6 r^{-3}}{b^3 - a^6 b^{-3}} \sin 3\theta. $$
 <br><br>
 \( \theta \) 방향의 동차 Dirichlet 조건에서 \( \Theta(0) = \Theta(\beta) = 0 \)이므로:
 $$ \Theta_n(\theta) = \sin\!\left(\frac{n\pi\theta}{\beta}\right), \qquad n = 1, 2, 3, \ldots $$
-원점에서의 유계 조건에서 \( R_n(r) = r^{n\pi/\beta} \)만 허용된다 (음의 거듭제곱은 발산). 따라서:
+원점에서 유계여야 하므로 \( R_n(r) = r^{n\pi/\beta} \)만 허용된다 (음의 거듭제곱은 발산). 따라서:
 $$ u(r,\theta) = \sum_{n=1}^{\infty} c_n \left(\frac{r}{R}\right)^{n\pi/\beta} \sin\!\left(\frac{n\pi\theta}{\beta}\right), $$
 여기서 \( c_n = \frac{2}{\beta}\int_0^\beta f(\theta)\sin\!\left(\frac{n\pi\theta}{\beta}\right) d\theta \)이다. 각도 방향 고유값은 \( \lambda_n = (n\pi/\beta)^2 \)이며, 이에 따른 반지름 방향 지수 \(n\pi/\beta\)가 꼭지각 \(\beta\)에 맞추어 정해진다.
 </div>
@@ -285,17 +281,13 @@ $$ u(r,\theta) = \sum_{n=1}^{\infty} c_n \left(\frac{r}{R}\right)^{n\pi/\beta} \
 <!-- 6.6 Green's Functions for PDEs -->
 <h3 id="pde-green">6.6. Green 함수</h3>
 
-<p>Green 함수는 점 소스(point source)에 대한 시스템의 응답이다. 이를 한 번 구해 놓으면, 임의의 소스 분포에 대한 해를 적분(중첩)으로 구성할 수 있다. 이는 ODE에서의 충격 응답(impulse response)을 다변수로 확장한 것이며, 전자기학에서 점 전하에 의한 Coulomb 전위, 구조역학에서 집중 하중에 의한 보(beam)의 처짐이 대표적인 예이다.</p>
+<p>Green 함수는 한 점에만 있는 소스(point source)에 시스템이 내는 응답이다. Green 함수를 한 번 구하면, 소스가 어떻게 분포하든 Green 함수를 소스로 가중해 적분(중첩)해서 해를 얻는다. 5장 ODE의 충격 응답(impulse response)을 변수가 여럿인 경우로 넓힌 것이다. 점 전하가 만드는 Coulomb 전위, 보(beam)의 한 점에 집중 하중을 걸었을 때의 처짐이 그 예다.</p>
 
 <div class="definition"><span class="env-label">Definition 6.7 (Green 함수)</span>
 선형 미분 작용소 \( \mathcal{L} \)에 대한 <em>Green 함수</em> \( G(\mathbf{x}; \boldsymbol{\xi}) \)는 점 소스에 대한 응답으로, 다음을 만족한다:
 $$ \mathcal{L}\, G(\mathbf{x}; \boldsymbol{\xi}) = \delta(\mathbf{x} - \boldsymbol{\xi}), $$
-여기서 \( \delta \)는 Dirac 델타 함수이고, 경계 조건은 동차이다. Green 함수가 알려지면, 비동차 방정식 \( \mathcal{L}\, u = f \)의 해는 중첩 원리에 의해 다음과 같이 주어진다:
+여기서 \( \delta \)는 Dirac 델타 함수다. 경계 조건은 동차이다. Green 함수가 알려지면, 비동차 방정식 \( \mathcal{L}\, u = f \)의 해는 중첩 원리로 다음과 같다:
 $$ u(\mathbf{x}) = \int_\Omega G(\mathbf{x}; \boldsymbol{\xi})\, f(\boldsymbol{\xi})\, d\boldsymbol{\xi}. $$
-</div>
-
-<div class="remark"><span class="env-label">Remark</span>
-Green 함수는 물리적으로 점 소스(점 열원, 점 전하 등)에 의한 계의 응답을 나타낸다. 일반적 소스에 대한 해는 Green 함수를 소스 분포로 가중 적분한 것으로 해석된다. 이는 선형 시스템 이론의 임펄스 응답(impulse response)과 동일한 개념이다.
 </div>
 
 <div class="theorem"><span class="env-label">Theorem 6.8 (음의 Laplace 작용소의 자유 공간 Green 함수)</span>
@@ -304,67 +296,67 @@ Green 함수는 물리적으로 점 소스(점 열원, 점 전하 등)에 의한
 <li>\( n = 2 \): \( G(\mathbf{x}; \boldsymbol{\xi}) = -\frac{1}{2\pi}\ln|\mathbf{x} - \boldsymbol{\xi}| \),</li>
 <li>\( n = 3 \): \( G(\mathbf{x}; \boldsymbol{\xi}) = \frac{1}{4\pi|\mathbf{x} - \boldsymbol{\xi}|} \).</li>
 </ul>
-3차원의 경우 이는 점 전하에 의한 전위(Coulomb 전위)에 해당한다.
+3차원의 \( G \)는 점 전하가 만드는 Coulomb 전위에 비례한다.
 </div>
 
 <div class="example"><span class="env-label">Example 6.11 (1차원 열 방정식의 Green 함수)</span>
-\( [0, L] \)에서 동차 Dirichlet 경계 조건을 갖는 비동차 열 방정식 \( u_t - \alpha^2 u_{xx} = h(x,t) \)의 Green 함수를 구하라.
+\( [0, L] \)에서 동차 Dirichlet 경계 조건이 주어진 비동차 열 방정식 \( u_t - \alpha^2 u_{xx} = h(x,t) \)의 Green 함수를 구하라.
 <br><br>
-고유함수 전개법을 사용한다. 동차 문제의 고유함수 \( \phi_n(x) = \sin(n\pi x/L) \), 고유값 \( \lambda_n = (n\pi/L)^2 \)을 이용하면, Green 함수는:
+고유함수 전개법으로 푼다. 동차 문제의 고유함수 \( \phi_n(x) = \sin(n\pi x/L) \), 고유값 \( \lambda_n = (n\pi/L)^2 \)을 이용하면, Green 함수는:
 $$ G(x,t;\xi,\tau) = \frac{2}{L}\sum_{n=1}^{\infty} \sin\!\left(\frac{n\pi x}{L}\right)\sin\!\left(\frac{n\pi \xi}{L}\right) e^{-\alpha^2 \lambda_n (t-\tau)}, \qquad t > \tau. $$
 비동차 방정식의 해는:
 $$ u(x,t) = \int_0^t \int_0^L G(x,t;\xi,\tau)\, h(\xi,\tau)\, d\xi\, d\tau + \int_0^L G(x,t;\xi,0)\, f(\xi)\, d\xi, $$
-여기서 \( f(\xi) = u(\xi,0) \)는 초기 조건이다. 첫째 항은 소스 \( h \)에 의한 기여이고, 둘째 항은 초기 조건에 의한 기여이다.
+여기서 \( f(\xi) = u(\xi,0) \)는 초기 조건이다. 첫째 항은 소스 \( h \)가 만든 부분이고, 둘째 항은 초기 조건이 만든 부분이다.
 </div>
 
 <div class="example"><span class="env-label">Example 6.12 (Poisson 방정식의 Green 함수: 반평면)</span>
-상반평면 \( y > 0 \)에서 Dirichlet 경계 조건 \( u(x,0) = 0 \)을 갖는 2차원 Poisson 방정식 \( -\nabla^2 u = f \)의 Green 함수를 구하라.
+상반평면 \( y > 0 \)에서 Dirichlet 경계 조건 \( u(x,0) = 0 \)이 주어진 2차원 Poisson 방정식 \( -\nabla^2 u = f \)의 Green 함수를 구하라.
 <br><br>
-<em>상법(method of images)</em>을 사용한다. 소스점 \( \boldsymbol{\xi} = (\xi, \eta) \) (\( \eta > 0 \))에 대해, \( x \)축에 대한 상점(image point)은 \( \boldsymbol{\xi}^* = (\xi, -\eta) \)이다. Green 함수는:
+<em>영상법(method of images)</em>으로 푼다. 소스점 \( \boldsymbol{\xi} = (\xi, \eta) \) (\( \eta > 0 \))에 대해, \( x \)축에 대한 영상점(image point)은 \( \boldsymbol{\xi}^* = (\xi, -\eta) \)이다. Green 함수는:
 $$ G(\mathbf{x}; \boldsymbol{\xi}) = -\frac{1}{2\pi}\ln|\mathbf{x} - \boldsymbol{\xi}| + \frac{1}{2\pi}\ln|\mathbf{x} - \boldsymbol{\xi}^*|
 = -\frac{1}{4\pi}\ln\!\frac{(x-\xi)^2 + (y-\eta)^2}{(x-\xi)^2 + (y+\eta)^2}. $$
-\( y = 0 \)에서 \( |\mathbf{x} - \boldsymbol{\xi}| = |\mathbf{x} - \boldsymbol{\xi}^*| \)이므로 \( G = 0 \)이 성립하여 Dirichlet 경계 조건이 만족된다.
+\( y = 0 \)에서 \( |\mathbf{x} - \boldsymbol{\xi}| = |\mathbf{x} - \boldsymbol{\xi}^*| \)이므로 \( G = 0 \)이 되어 Dirichlet 경계 조건을 만족한다.
 </div>
 
 <div class="example"><span class="env-label">Example 6.13 (비동차 파동 방정식)</span>
 무한 직선에서 비동차 파동 방정식 \( u_{tt} - c^2 u_{xx} = h(x,t) \), \( u(x,0) = 0 \), \( u_t(x,0) = 0 \)의 해를 구하라.
 <br><br>
-Duhamel 원리(파동 방정식의 Green 함수 방법)에 의해:
+Duhamel 원리(파동 방정식의 Green 함수 방법)에 따르면:
 $$ u(x,t) = \frac{1}{2c}\int_0^t \int_{x-c(t-\tau)}^{x+c(t-\tau)} h(\xi, \tau)\, d\xi\, d\tau. $$
-적분 영역은 \( (x,t) \)-평면에서 꼭짓점 \( (x,t) \)을 가진 특성 삼각형(domain of dependence)이다. 예를 들어, \( h(x,t) = \delta(x)\delta(t) \) (원점에서의 순간 점 소스)이면:
+적분 영역은 \( (x,t) \)-평면에서 꼭짓점이 \( (x,t) \)인 특성 삼각형, 곧 의존 영역(domain of dependence)이다. 예를 들어, \( h(x,t) = \delta(x)\delta(t) \) (원점에서의 순간 점 소스)이면:
 $$ u(x,t) = \frac{1}{2c}\, H(ct - |x|), $$
-여기서 \( H \)는 Heaviside 함수이다. 교란은 \( |x| < ct \)인 영역에서만 감지되며, 이는 유한 전파 속도의 표현이다.
+여기서 \( H \)는 Heaviside 함수이다. 전파 속도가 유한하므로 교란은 \( |x| < ct \)인 영역에만 닿는다.
 </div>
 
 <!-- 6.7 Energy Methods and Uniqueness -->
 <h3 id="pde-energy">6.7. 에너지 방법과 유일성</h3>
 
-<p>에너지 방법(energy method)은 PDE 해의 유일성과 안정성을 증명하는 기법이다. 해를 명시적으로 구하지 않고도, 에너지 범함수의 시간 변화율을 분석하여 해의 정성적 성질을 도출할 수 있다. 파동 방정식에서는 에너지가 보존되어 해의 유일성이 따라 나오고, 열 방정식에서는 에너지가 단조 감소하여 해가 시간에 따라 평형 상태로 수렴함을 증명할 수 있다. 이 접근법은 비선형 PDE나 복잡한 영역에서도 적용 가능하여 수치 해법의 안정성 분석에도 사용된다.</p>
+<p>에너지 방법(energy method)은 해를 직접 구하지 않고 PDE 해의 유일성과 안정성을 증명한다. 해로 만든 에너지 적분이 시간에 따라 어떻게 변하는지를 본다. 파동 방정식에서는 에너지가 보존되므로 해가 하나뿐임이 나온다. 열 방정식에서는 에너지가 늘지 않으므로 해가 하나뿐임과 초기 데이터에 대한 안정성이 나온다. 비선형 PDE와 복잡한 영역에도 쓸 수 있어서 수치 해법의 안정성을 분석할 때도 쓴다.</p>
 
 <div class="theorem"><span class="env-label">Theorem 6.9 (파동 방정식의 에너지 보존)</span>
-유한 구간 \( [0,L] \)에서 동차 Dirichlet 경계 조건을 갖는 파동 방정식 \( u_{tt} = c^2 u_{xx} \)에 대해, 전체 에너지
+유한 구간 \( [0,L] \)에서 동차 Dirichlet 경계 조건이 주어진 파동 방정식 \( u_{tt} = c^2 u_{xx} \)에 대해, 전체 에너지
 $$ E(t) = \frac{1}{2}\int_0^L \bigl(u_t^2 + c^2 u_x^2\bigr)\,dx $$
-는 시간에 대해 불변이다: \( E'(t) = 0 \). 이로부터 초기 변위와 초기 속도가 주어졌을 때 해의 유일성이 따른다.
+는 시간에 대해 불변이다: \( E'(t) = 0 \). 이 사실에서 초기 변위와 초기 속도가 주어졌을 때 해가 하나뿐임이 나온다.
 </div>
 
 <div class="proof"><span class="env-label">Proof</span>
 \( E(t) \)를 미분하면:
 $$ E'(t) = \int_0^L \bigl(u_t u_{tt} + c^2 u_x u_{xt}\bigr)\,dx = \int_0^L u_t\bigl(u_{tt} - c^2 u_{xx}\bigr)\,dx + c^2\bigl[u_t u_x\bigr]_0^L. $$
-PDE에 의해 첫째 적분은 0이고, Dirichlet 경계 조건 \( u(0,t) = u(L,t) = 0 \)으로부터 \( u_t(0,t) = u_t(L,t) = 0 \)이므로 경계항도 0이다. 유일성: 같은 초기 변위와 초기 속도를 갖는 두 해의 차 \( w = u_1 - u_2 \)는 영 초기 조건을 가지므로 \( E(0) = 0 \)이고, \( E(t) = 0 \)이므로 \( w_t = w_x = 0 \)이다. 여기에 동차 경계 조건을 적용하면 \( w \equiv 0 \)이다. \(\square\)
+PDE이므로 첫째 적분은 0이고, Dirichlet 경계 조건 \( u(0,t) = u(L,t) = 0 \)으로부터 \( u_t(0,t) = u_t(L,t) = 0 \)이므로 경계항도 0이다. 유일성: 초기 변위와 초기 속도가 같은 두 해의 차 \( w = u_1 - u_2 \)는 초기 조건이 모두 0이므로 \( E(0) = 0 \)이고, \( E(t) = 0 \)이므로 \( w_t = w_x = 0 \)이다. 여기에 동차 경계 조건을 적용하면 \( w \equiv 0 \)이다. \(\square\)
 </div>
 
 <div class="example"><span class="env-label">Example 6.14 (열 방정식의 에너지 감쇠)</span>
 열 방정식에서는 에너지가 보존되지 않는다. \( u_t = \alpha^2 u_{xx} \), \( u(0,t) = u(L,t) = 0 \)에서
 $$ \frac{d}{dt}\int_0^L u^2\,dx = 2\int_0^L u\, u_t\,dx = 2\alpha^2\int_0^L u\, u_{xx}\,dx = -2\alpha^2\int_0^L u_x^2\,dx \leq 0, $$
-여기서 부분적분과 경계 조건을 사용하였다. 이는 \( \|u(\cdot,t)\|_{L^2} \)가 단조감소함을 의미하며, 열이 시간에 따라 소산됨을 정량적으로 확인해 준다.
+여기서 부분적분과 경계 조건을 사용하였다. 따라서 \( \|u(\cdot,t)\|_{L^2} \)는 시간에 따라 늘지 않는다.
 </div>
 
 <div class="example"><span class="env-label">Example 6.15 (2차원 파동 방정식: 원형 막의 진동)</span>
 반지름 \( R \)인 원형 막(drum)의 진동은 극좌표에서:
 $$ u_{tt} = c^2\!\left(u_{rr} + \frac{1}{r}u_r + \frac{1}{r^2}u_{\theta\theta}\right), \qquad u(R,\theta,t) = 0. $$
-축대칭 모드 (\( u \)가 \( \theta \)에 무관한 경우)에 대해 변수 분리 \( u = R(r)T(t) \)를 적용하면 \( R \) 방정식은 Bessel 방정식이 된다:
-$$ r^2 R'' + r R' + (\lambda r^2) R = 0. $$
-유계 조건에서 \( R(r) = J_0(\sqrt{\lambda}\, r) \)이고, \( R(R) = 0 \)에서 \( \sqrt{\lambda_n}\, R = j_{0,n} \) (\( J_0 \)의 \( n \)번째 영점)이다. 기본 진동수는 \( \omega_1 = c\, j_{0,1}/R \approx 2.405\, c/R \)이다.
+축대칭 모드 (\( u \)가 \( \theta \)에 무관한 경우)에 대해 변수 분리 \( u = \mathcal{R}(r)T(t) \)를 적용하면 \( \mathcal{R} \) 방정식은 Bessel 방정식이 된다:
+$$ r^2 \mathcal{R}'' + r \mathcal{R}' + \lambda r^2 \mathcal{R} = 0. $$
+원점에서 유계여야 하므로 \( \mathcal{R}(r) = J_0(\sqrt{\lambda}\, r) \)이고, \( \mathcal{R}(R) = 0 \)에서 \( \sqrt{\lambda_n}\, R = j_{0,n} \) (\( J_0 \)의 \( n \)번째 영점)이다. 기본 진동수는 \( \omega_1 = c\, j_{0,1}/R \approx 2.405\, c/R \)이다.
 </div>
 
 <div class="example"><span class="env-label">Example 6.16 (Fourier 변환을 이용한 열 방정식 풀이)</span>
@@ -374,19 +366,15 @@ $$ r^2 R'' + r R' + (\lambda r^2) R = 0. $$
 $$ \hat{f}(k) = \int_{-\infty}^{\infty} e^{-|x|} e^{-ikx}\,dx = \frac{2}{1+k^2}. $$
 역변환으로 해를 구하면:
 $$ u(x,t) = \frac{1}{2\pi}\int_{-\infty}^{\infty} \frac{2}{1+k^2}\, e^{-k^2 t}\, e^{ikx}\, dk. $$
-\( t = 0 \)에서 \( e^{-|x|} \)이 복원되며, \( t \) 증가에 따라 고주파 성분(\( |k| \) 큰 항)이 \( e^{-k^2 t} \) 인자에 의해 지수적으로 감쇠하여 해가 점차 평탄해진다.
+\( t = 0 \)에서 \( e^{-|x|} \)이 복원되며, \( t \)가 커지면 \( e^{-k^2 t} \) 인자 때문에 \( |k| \)가 큰 고주파 성분이 빠르게 줄어 해가 점점 평탄해진다.
 </div>
 
 <hr>
 
-<h3 class="part-header">제3부: 선형대수</h3>
-
-<p>선형대수는 현대 수학과 응용의 공통 언어이다. 미분방정식, 최적화, 통계, 양자역학 등 거의 모든 분야에서 선형대수의 도구를 사용한다. 제2부에서 다룬 미분방정식도 선형대수의 관점에서 다시 보면 구조가 명료해진다. 해 공간의 차원, 고유값에 의한 안정성 판별, 직교 분해에 의한 근사를 모두 선형대수의 언어로 기술할 수 있다.</p>
-
 <details class="video-resources">
 <summary>추천 영상 강의 (원본 소스 기반)</summary>
 <ul>
-<li><a href="http://nptel.ac.in/courses/111105093/" target="_blank">PDE for Engineers: Separation of Variables — NPTEL IIT Kharagpur</a></li>
+<li><a href="https://nptel.ac.in/courses/111105093" target="_blank">PDE for Engineers: Separation of Variables — NPTEL IIT Kharagpur</a></li>
 <li><a href="https://www.youtube.com/playlist?list=PLkfmuPOLLntjZFL7lH75U4jQeUJznduqL" target="_blank">Partial Differential Equations (Math 3150) — U. of Utah</a></li>
 </ul>
 </details>
@@ -394,11 +382,15 @@ $$ u(x,t) = \frac{1}{2\pi}\int_{-\infty}^{\infty} \frac{2}{1+k^2}\, e^{-k^2 t}\,
 <details class="video-resources">
 <summary>추천 교재 &amp; 오픈 자료</summary>
 <ul>
-<li><a href="https://faculty.washington.edu/rjl/pde1/" target="_blank">Finite Difference Methods for PDEs (LeVeque, UW)</a> — 강의노트</li>
-<li>Evans, <em>Partial Differential Equations</em> — 대학원 PDE 표준 교재 (AMS GSM 19)</li>
-<li>Strauss, <em>Partial Differential Equations: An Introduction</em> — 학부 PDE 표준 교재</li>
+<li><a href="https://faculty.washington.edu/rjl/fdmbook/" target="_blank">Finite Difference Methods for Ordinary and Partial Differential Equations (LeVeque, UW)</a> — 교재 페이지</li>
+<li>Evans, <em>Partial Differential Equations</em> — AMS, Graduate Studies in Mathematics 19, 대학원 PDE 교재</li>
+<li>Strauss, <em>Partial Differential Equations: An Introduction</em> — 학부 PDE 교재</li>
 <li>Haberman, <em>Applied Partial Differential Equations</em> — 물리/공학 응용 중심</li>
-<li>John, <em>Partial Differential Equations</em> — Springer 고전 입문서</li>
+<li>John, <em>Partial Differential Equations</em> — Springer, Applied Mathematical Sciences 1, 입문서</li>
 <li>Folland, <em>Introduction to Partial Differential Equations</em> — 해석학 관점</li>
 </ul>
 </details>
+
+<h3 class="part-header">제3부: 선형대수</h3>
+
+<p>미분방정식, 최적화, 통계, 양자역학에서 모두 선형대수를 쓴다. 5장에서 본 선형 동차 ODE의 해는 벡터 공간을 이루고, 연립 ODE의 안정성은 고유값으로 판별한다. 6장의 Fourier 급수는 직교 함수 전개다.</p>

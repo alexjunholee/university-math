@@ -1,7 +1,7 @@
 <h2 class="part-title">제7부 &mdash; 위상수학과 기하학 (Topology &amp; Geometry)</h2>
 
 <div class="part-intro">
-<p>위상수학은 공간을 연속적으로 변형해도 보존되는 성질을, 기하학은 거리와 곡률 같은 계량적 성질을 연구한다. 제7부는 일반 위상수학에서 출발해 미분기하학, 대수기하학, 대수적 위상수학으로 이어진다.</p>
+<p>위상수학은 공간을 연속적으로 변형해도 변하지 않는 성질을 연구한다. 기하학은 거리와 곡률처럼 잴 수 있는 양을 다룬다. 제7부는 일반 위상수학에서 출발해 미분기하학, 대수기하학, 대수적 위상수학으로 이어진다.</p>
 </div>
 
 <!-- ============================================================== -->
@@ -11,18 +11,16 @@
 <section id="topology">
 <h3>19. 위상수학 (Topology)</h3>
 
-<p class="chapter-intro">일반 위상수학은 열린집합, 연속 사상, 콤팩트성, 연결성 등 공간의 가장 기본적인 성질을 다룬다. 거리 공간의 개념을 일반화하여 더 넓은 범위의 공간을 통일된 틀에서 분석한다.</p>
+<p class="chapter-intro">일반 위상수학은 열린집합, 연속 사상, 콤팩트성, 연결성처럼 공간의 가장 기본적인 성질을 다룬다. 거리 공간을 일반화해서, 거리가 없는 공간에서도 수렴과 연속을 정의한다.</p>
 
-<p>위상수학(topology)은 공간의 형태를 다루는 분야이다. 연속적으로 변형(늘이기, 구부리기, 비틀기)해도 보존되는 성질(연결성, 구멍의 개수, 차원 등)을 연구한다. 공학에서 이 관점이 직접 활용되는 대표적인 분야가 위상 최적화(topology optimization)이다. 구조물의 형상을 설계할 때, 재료의 분포를 최적화하여 무게 대비 강성을 극대화하는 문제에서 구조물에 뚫릴 구멍의 개수와 위치가 위상적 변수로 등장한다. 로보틱스에서는 로봇의 모든 가능한 자세를 나타내는 배치 공간(configuration space)이 위상 공간을 이루며, 이 공간의 연결성과 장애물에 의한 위상적 구조가 경로 계획(path planning)의 가능 여부를 결정한다.</p>
+<p>위상수학(topology)이 다루는 연결성, 구멍의 개수, 차원은 늘이고 구부리고 비틀어도 변하지 않는다. 구조 설계의 위상 최적화(topology optimization)라는 이름도 여기서 왔다. 경계만 조금씩 움직이는 형상 최적화로는 처음 설계와 위상이 같은 결과만 나온다. Bendsøe와 Kikuchi(1988)는 설계 영역 안의 재료 분포를 직접 최적화해서 구멍이 새로 생길 수 있게 했다(<em>Comput. Methods Appl. Mech. Eng.</em> 71, 197–224). 로보틱스에서는 로봇이 취할 수 있는 모든 자세를 모은 배치 공간(configuration space)이 위상 공간이다. 장애물과 부딪치지 않는 자세들이 이루는 부분이 연결되어 있지 않으면, 서로 다른 성분에 있는 두 자세 사이에는 경로를 만들 수 없다.</p>
 
-<p>위상적 데이터 분석(Topological Data Analysis, TDA)은 고차원 데이터의 "형태"를 파악한다. 지속 호몰로지(persistent homology)는 점 구름 데이터에서 여러 스케일에 걸쳐 존재하는 구멍과 연결 성분을 추적한다. 물성물리학의 위상적 절연체(topological insulator)는 내부는 절연체이면서 표면에서는 전도성을 보이는 물질로, 위상 불변량이 그 성질을 지킨다. 위상수학은 "연속적으로 변형해도 보존되는 것"을 정밀하게 정의하고 분류한다.</p>
+<p>위상적 데이터 분석(Topological Data Analysis, TDA)은 고차원 데이터의 "형태"를 파악한다. 지속 호몰로지(persistent homology)는 점 구름 데이터에서 여러 스케일에 걸쳐 존재하는 구멍과 연결 성분을 추적한다. 응집물질물리학의 위상 절연체(topological insulator)는 내부에서는 전류가 흐르지 않고 표면에서만 흐르는 물질인데, 이 표면 상태는 위상 불변량으로 설명된다.</p>
 
-<p>출발점은 열린집합(open set)과 닫힌집합(closed set)이다. 여기서 수렴과 연속의 일반적 정의를 세우고, 콤팩트성(compactness)과 연결성(connectedness)이라는 두 핵심 성질로 넘어간다. 극값 정리, 중간값 정리 등 해석학의 핵심 정리들은 위상적 토대가 여기에 있다.</p>
-
-<p>위상 공간의 정의는 거리 공간(metric space)에서 "열린 공"을 통해 정의되던 열린집합의 성질을 추상화한 것이다. 거리 함수 없이도 열린집합의 세 가지 공리만으로 수렴, 연속, 콤팩트성 등의 개념을 전개할 수 있다.</p>
+<p>거리 공간(metric space)에서는 열린 공으로 열린집합을 정의했다. 위상 공간은 거리 없이 열린집합이 지켜야 할 성질만 공리로 남긴다.</p>
 
 <div class="definition"><span class="env-label">Definition 19.1 (Topological Space)</span>
-<strong>위상 공간(topological space)</strong>이란 순서쌍 \((X, \tau)\)로, 여기서 \(X\)는 집합이고 \(\tau \subseteq \mathcal{P}(X)\)는 \(X\)의 부분집합들의 모임(그 원소들을 <em>열린집합(open set)</em>이라 한다)으로서 다음 조건을 만족한다:
+집합 \(X\)와 \(X\)의 부분집합들의 모임 \(\tau \subseteq \mathcal{P}(X)\)가 다음 조건을 만족하면 순서쌍 \((X, \tau)\)를 <strong>위상 공간(topological space)</strong>이라 하고, \(\tau\)의 원소를 <em>열린집합(open set)</em>이라 한다:
 <ol>
   <li>\(\emptyset \in \tau\)이고 \(X \in \tau\)이다.</li>
   <li>임의의 합집합: 모든 \(\alpha \in I\)에 대해 \(U_\alpha \in \tau\)이면, \(\bigcup_{\alpha \in I} U_\alpha \in \tau\)이다.</li>
@@ -31,139 +29,136 @@
 </div>
 
 <div class="definition"><span class="env-label">Definition 19.2 (Closed Set)</span>
-부분집합 \(F \subseteq X\)가 <strong>닫힌집합(closed)</strong>이라 함은 그 여집합 \(X \setminus F\)가 열린집합(open set)인 것을 말한다. 동치 조건으로, \(F\)가 닫힌집합일 필요충분조건은 \(\overline F=F\)인 것이다. 특히 \(T_1\) 공간에서는 \(F\)가 모든 극한점을 포함한다는 조건과도 동치이다.
+부분집합 \(F \subseteq X\)가 <strong>닫힌집합(closed)</strong>이라 함은 그 여집합 \(X \setminus F\)가 열린집합인 것을 말한다. \(F\)가 닫힌집합일 필요충분조건은 \(\overline F=F\)(폐포는 Definition 19.4)이고, 이는 \(F\)가 자신의 극한점(모든 열린 근방이 그 점 아닌 \(F\)의 점을 포함하는 점)을 모두 포함한다는 조건과도 같다. 이 동치는 분리 공리 없이 모든 위상 공간에서 성립한다.
 </div>
 
 <div class="definition"><span class="env-label">Definition 19.3 (Basis for a Topology)</span>
-모임 \(\mathcal{B} \subseteq \tau\)가 위상(topology) \(\tau\)의 <strong>기저(basis)</strong>라 함은, \(\tau\)의 모든 열린집합(open set)이 \(\mathcal{B}\)의 원소들의 합집합으로 표현될 수 있는 것을 말한다. 동치 조건으로, 모든 \(U \in \tau\)와 모든 \(x \in U\)에 대해 \(x \in B \subseteq U\)인 \(B \in \mathcal{B}\)가 존재하면 \(\mathcal{B}\)는 기저이다.
+모임 \(\mathcal{B} \subseteq \tau\)가 위상(topology) \(\tau\)의 <strong>기저(basis)</strong>라 함은, \(\tau\)의 모든 열린집합이 \(\mathcal{B}\)의 원소들의 합집합으로 표현될 수 있는 것을 말한다. 이는 모든 \(U \in \tau\)와 모든 \(x \in U\)에 대해 \(x \in B \subseteq U\)인 \(B \in \mathcal{B}\)가 존재한다는 조건과 같다.
 </div>
 
 <div class="example"><span class="env-label">Example 19.1</span>
-열린 공 \(B(x,r) = \{y \in \mathbb{R}^n : \|y - x\| < r\}\)은 \(\mathbb{R}^n\) 위의 표준(유클리드) 위상(topology)의 기저를 이룬다.
+열린 공 \(B(x,r) = \{y \in \mathbb{R}^n : \|y - x\| < r\}\)은 \(\mathbb{R}^n\) 위의 표준(유클리드) 위상의 기저를 이룬다.
 </div>
 
 <div class="example"><span class="env-label">Example 19.1a (이산 위상)</span>
-집합 \(X = \{a, b, c\}\) 위의 <strong>이산 위상(discrete topology)</strong>은 \(\tau = \mathcal{P}(X)\), 즉 모든 부분집합이 열린집합인 위상이다. 이 경우 \(|\tau| = 2^3 = 8\)이며, 모든 부분집합이 동시에 열린집합이자 닫힌집합이다. 임의의 함수 \(f : (X, \tau_{\text{discrete}}) \to (Y, \tau_Y)\)는 연속이다. 그 이유는 \(Y\)의 임의의 열린집합 \(V\)에 대해 \(f^{-1}(V) \in \mathcal{P}(X) = \tau\)이기 때문이다.
+집합 \(X = \{a, b, c\}\) 위의 <strong>이산 위상(discrete topology)</strong>은 \(\tau = \mathcal{P}(X)\), 즉 모든 부분집합이 열린집합인 위상이다. 이 경우 \(|\tau| = 2^3 = 8\)이며, 모든 부분집합이 동시에 열린집합이자 닫힌집합이다. 임의의 함수 \(f : (X, \tau_{\text{discrete}}) \to (Y, \tau_Y)\)는 연속이다. \(Y\)의 임의의 열린집합 \(V\)에 대해 \(f^{-1}(V) \in \mathcal{P}(X) = \tau\)이기 때문이다.
 </div>
 
 <div class="example"><span class="env-label">Example 19.1b (유한여집합 위상)</span>
-무한 집합 \(X\) 위의 <strong>유한여집합 위상(cofinite topology)</strong>은 \(\tau_{\text{cof}} = \{U \subseteq X : X \setminus U \text{가 유한}\} \cup \{\emptyset\}\)으로 정의된다. 예를 들어 \(X = \mathbb{Z}\)인 경우, \(\mathbb{Z} \setminus \{0, 1, 2\}\)는 여집합이 유한이므로 열린집합이지만, 짝수 전체의 집합 \(2\mathbb{Z}\)는 여집합 \(2\mathbb{Z}+1\)이 무한이므로 열린집합이 아니다. 유한여집합 위상은 \(T_1\) 분리 공리를 만족하지만 하우스도르프(\(T_2\))가 아니다. 공집합이 아닌 열린집합 두 개의 교집합은 비어 있지 않기 때문이다. 그 교집합의 여집합은 두 유한 집합의 합집합이므로 유한하다.
+무한 집합 \(X\) 위의 <strong>유한여집합 위상(cofinite topology)</strong>은 \(\tau_{\text{cof}} = \{U \subseteq X : X \setminus U \text{가 유한}\} \cup \{\emptyset\}\)으로 정의된다. 예를 들어 \(X = \mathbb{Z}\)인 경우, \(\mathbb{Z} \setminus \{0, 1, 2\}\)는 여집합이 유한이므로 열린집합이지만, 짝수 전체의 집합 \(2\mathbb{Z}\)는 여집합 \(2\mathbb{Z}+1\)이 무한이므로 열린집합이 아니다. 유한여집합 위상은 \(T_1\) 분리 공리를 만족하지만 Hausdorff(\(T_2\))가 아니다. 공집합이 아닌 두 열린집합의 교집합은 여집합이 두 유한 집합의 합집합이어서 유한하고, \(X\)가 무한하므로 비어 있지 않다. 따라서 두 점을 서로소인 열린집합으로 떼어 놓을 수 없다.
 </div>
 
 <div class="example"><span class="env-label">Example 19.1c (부분공간 위상)</span>
-\(\mathbb{R}\)에 표준 위상을 부여하고 \(A = [0, 1]\)에 부분공간 위상을 부여하자. 그러면 \([0, 1/2)\)는 \(A\)에서 열린집합이다: 실제로 \([0, 1/2) = (-1, 1/2) \cap [0, 1]\)이고 \((-1, 1/2)\)는 \(\mathbb{R}\)에서 열린집합이기 때문이다. 반면 \([0, 1/2)\)는 \(\mathbb{R}\)에서는 열린집합이 아니다. 마찬가지로 \((1/2, 1]\)도 \(A\)에서 열린집합이다. 따라서 부분공간 위상에서 \(A\)의 열린집합과 닫힌집합의 구조는 원래 공간과 다를 수 있다.
+\(\mathbb{R}\)에 표준 위상을 부여하고 \(A = [0, 1]\)에 부분공간 위상(Definition 19.13)을 부여하자. 그러면 \([0, 1/2)\)는 \(A\)에서 열린집합이다: 실제로 \([0, 1/2) = (-1, 1/2) \cap [0, 1]\)이고 \((-1, 1/2)\)는 \(\mathbb{R}\)에서 열린집합이기 때문이다. \([0, 1/2)\)는 \(\mathbb{R}\)에서는 열린집합이 아니다. 마찬가지로 \((1/2, 1]\)도 \(A\)에서 열린집합이다. 이처럼 어떤 집합이 열린집합인지는 어느 공간 안에서 보느냐에 따라 달라진다.
 </div>
 
 <div class="definition"><span class="env-label">Definition 19.4 (Interior, Closure, Boundary)</span>
 \(A \subseteq X\)로 놓자.
 <ul>
-  <li><strong>내부(interior)</strong> \(\operatorname{int}(A)\)는 \(A\)에 포함되는 가장 큰 열린집합(open set)이다.</li>
+  <li><strong>내부(interior)</strong> \(\operatorname{int}(A)\)는 \(A\)에 포함되는 가장 큰 열린집합이다.</li>
   <li><strong>폐포(closure)</strong> \(\overline{A}\)는 \(A\)를 포함하는 가장 작은 닫힌집합이다.</li>
   <li><strong>경계(boundary)</strong> \(\partial A = \overline{A} \setminus \operatorname{int}(A)\).</li>
 </ul>
 </div>
 
 <div class="definition"><span class="env-label">Definition 19.5 (Continuity)</span>
-함수 \(f : (X, \tau_X) \to (Y, \tau_Y)\)가 <strong>연속(continuous)</strong>이라 함은, 모든 열린집합(open set) \(V \in \tau_Y\)에 대해 역상 \(f^{-1}(V) \in \tau_X\)인 것을 말한다.
+함수 \(f : (X, \tau_X) \to (Y, \tau_Y)\)가 <strong>연속(continuous)</strong>이라 함은, 모든 열린집합 \(V \in \tau_Y\)에 대해 역상 \(f^{-1}(V) \in \tau_X\)인 것을 말한다.
 </div>
 
 <div class="definition"><span class="env-label">Definition 19.6 (Homeomorphism)</span>
-전단사 함수 \(f : X \to Y\)가 <strong>위상동형사상(homeomorphism)</strong>이라 함은, \(f\)와 \(f^{-1}\)가 모두 연속인 것을 말한다. 이러한 사상이 존재하면 두 공간은 <strong>위상동형(homeomorphic)</strong>이라 하며, 위상적으로 구별할 수 없다.
+전단사 함수 \(f : X \to Y\)가 <strong>위상동형사상(homeomorphism)</strong>이라 함은, \(f\)와 \(f^{-1}\)가 모두 연속인 것을 말한다. 이런 사상이 있으면 두 공간은 <strong>위상동형(homeomorphic)</strong>이라 한다. 위상동형인 두 공간은 위상적 성질이 모두 같다.
 </div>
 
 <div class="definition"><span class="env-label">Definition 19.7 (Hausdorff Space)</span>
-위상 공간(topological space) \(X\)가 <strong>하우스도르프(Hausdorff)</strong> (또는 \(T_2\))라 함은, 서로 다른 두 점 \(x \neq y\)에 대해 \(x \in U\), \(y \in V\)인 서로소인 열린집합(open set) \(U, V\)가 존재하는 것을 말한다.
+위상 공간 \(X\)가 <strong>Hausdorff</strong> (또는 \(T_2\))라 함은, 서로 다른 두 점 \(x \neq y\)에 대해 \(x \in U\), \(y \in V\)인 서로소인 열린집합 \(U, V\)가 존재하는 것을 말한다.
 </div>
 
-<p>콤팩트성(compactness)은 "유한한 정보로 전체를 통제할 수 있는" 성질을 포착한다. 최적화 문제에서 최솟값과 최댓값의 존재를 보장하는 조건이며, 수치 해석에서도 해의 존재나 근사열의 수렴 부분열을 보일 때 콤팩트성 논증을 사용한다.</p>
+<p>콤팩트 공간에서는 어떤 열린 덮개든 유한 개만 골라 써도 전체를 덮는다. 그래서 국소적으로 얻은 정보를 유한 번 모아 전체에 대한 결론을 낼 수 있다. 연속 함수에 최댓값과 최솟값이 있다는 극값 정리(Theorem 19.2)가 대표적인 예이고, 수치 해석에서 근사해의 수열이 수렴하는 부분수열이 있다고 보일 때도 콤팩트성을 쓴다.</p>
 
 <div class="definition"><span class="env-label">Definition 19.8 (Compactness)</span>
-위상 공간(topological space) \(X\)가 <strong>콤팩트(compact)</strong>라 함은, \(X\)의 모든 열린 덮개가 유한 부분 덮개를 가지는 것을 말한다. 즉, 각 \(U_\alpha\)가 열린집합(open set)이고 \(X = \bigcup_{\alpha \in I} U_\alpha\)이면, \(X = U_{\alpha_1} \cup \cdots \cup U_{\alpha_n}\)을 만족하는 \(\alpha_1, \ldots, \alpha_n \in I\)가 존재한다.
+위상 공간 \(X\)가 <strong>콤팩트(compact)</strong>라 함은, \(X\)의 모든 열린 덮개에 유한 부분 덮개가 있는 것을 말한다. 즉, 각 \(U_\alpha\)가 열린집합이고 \(X = \bigcup_{\alpha \in I} U_\alpha\)이면, \(X = U_{\alpha_1} \cup \cdots \cup U_{\alpha_n}\)을 만족하는 \(\alpha_1, \ldots, \alpha_n \in I\)가 존재한다.
 </div>
 
 <div class="theorem"><span class="env-label">Theorem 19.1 (Heine&ndash;Borel)</span>
-\(\mathbb{R}^n\)의 부분집합이 콤팩트(compact)일 필요충분조건은 닫혀 있고 유계인 것이다.
+\(\mathbb{R}^n\)의 부분집합이 콤팩트일 필요충분조건은 닫혀 있고 유계인 것이다.
 </div>
 
 <div class="example"><span class="env-label">Example 19.2 (Heine&ndash;Borel 활용)</span>
-\(A = \{1/n : n\geq1\} \subset \mathbb{R}\)가 콤팩트인지 판정하자. \(A\)는 유계이다 (\(A \subset [0, 1]\)). 그러나 \(A\)는 닫혀 있지 않다: 극한점 \(0 \notin A\)이므로 \(A\)는 닫힌집합이 아니다. Heine&ndash;Borel 정리에 의해, \(A\)는 콤팩트가 아니다. 실제로 \(\mathcal{U} = \{(1/(n+1),2):n\geq1\}\)은 \(A\)의 열린 덮개이지만, 유한개의 원소만 택하면 지표의 최댓값보다 큰 \(k\)에 대한 점 \(1/k\)를 덮지 못한다.
+\(A = \{1/n : n\geq1\} \subset \mathbb{R}\)가 콤팩트인지 판정하자. \(A\)는 유계이다 (\(A \subset [0, 1]\)). 그러나 \(A\)는 닫혀 있지 않다: 극한점 \(0 \notin A\)이므로 \(A\)는 닫힌집합이 아니다. Heine&ndash;Borel 정리에 따라, \(A\)는 콤팩트가 아니다. 실제로 \(\mathcal{U} = \{(1/(n+1),2):n\geq1\}\)은 \(A\)의 열린 덮개이지만, 유한 개의 원소만 택하면, 택한 원소들의 지표 \(n\)의 최댓값보다 큰 \(k\)에 대해 점 \(1/k\)를 덮지 못한다.
 <br><br>
-반면, \(\overline{A} = A \cup \{0\} = \{0\} \cup \{1/n : n\geq1\}\)은 닫혀 있고 유계이므로 Heine&ndash;Borel에 의해 콤팩트이다. 따라서 \(\overline{A}\) 위의 임의의 연속 실함수는 최댓값과 최솟값을 달성한다.
+한편 \(\overline{A} = A \cup \{0\} = \{0\} \cup \{1/n : n\geq1\}\)은 닫혀 있고 유계이므로 Heine&ndash;Borel에 따라 콤팩트이다. 따라서 \(\overline{A}\) 위의 임의의 연속 실함수에는 최댓값과 최솟값이 있다.
 </div>
 
 <div class="theorem"><span class="env-label">Theorem 19.2 (Extreme Value Theorem)</span>
-\(f : X \to \mathbb{R}\)가 연속이고 \(X\)가 공집합이 아닌 콤팩트(compact) 공간이면, \(f\)는 최댓값과 최솟값을 달성한다.
+\(f : X \to \mathbb{R}\)가 연속이고 \(X\)가 공집합이 아닌 콤팩트 공간이면, \(f\)에는 최댓값과 최솟값이 있다.
 </div>
 
 <div class="example"><span class="env-label">Example 19.3 (콤팩트성의 열린 덮개 논증)</span>
-닫힌 구간 \([0,1]\)이 콤팩트임을 열린 덮개로부터 직접 보이자. \(\mathcal{U} = \{U_\alpha\}\)를 \([0,1]\)의 임의의 열린 덮개라 하고,
-$$ s = \sup\{x \in [0,1] : [0, x] \text{가 } \mathcal{U}\text{의 유한 부분 덮개를 가진다}\} $$
-로 놓자. \(0\)을 덮는 한 열린집합이 \([0,\delta]\) 꼴의 작은 구간도 덮으므로 위 집합은 비어 있지 않다. \(s\)를 포함하는 \(U_{\alpha_0} \in \mathcal{U}\)를 택하자. \(U_{\alpha_0}\)가 열린집합이므로 \((s - \varepsilon, s + \varepsilon) \cap [0,1] \subseteq U_{\alpha_0}\)인 \(\varepsilon > 0\)이 존재한다. 상한의 정의에 따라 \(s-\varepsilon/2&lt;x\leq s\)이고 \([0,x]\)가 유한 부분 덮개를 갖는 \(x\)를 택할 수 있다. 그 유한 부분 덮개에 \(U_{\alpha_0}\)를 더하면 \([0, \min(s + \varepsilon/2, 1)]\)을 덮는다. \(s < 1\)이면 모순이므로 \(s = 1\)이고, \([0,1]\)은 유한 부분 덮개를 가진다.
+닫힌 구간 \([0,1]\)이 콤팩트임을 열린 덮개로 직접 보이자. \(\mathcal{U} = \{U_\alpha\}\)를 \([0,1]\)의 임의의 열린 덮개라 하고,
+$$ s = \sup\{x \in [0,1] : [0, x] \text{를 덮는 } \mathcal{U}\text{의 유한 부분 덮개가 있다}\} $$
+로 놓자. \([0,0]=\{0\}\)은 열린집합 하나로 덮이므로 위 집합은 비어 있지 않다. \(s\)를 포함하는 \(U_{\alpha_0} \in \mathcal{U}\)를 택하자. \(U_{\alpha_0}\)가 열린집합이므로 \((s - \varepsilon, s + \varepsilon) \cap [0,1] \subseteq U_{\alpha_0}\)인 \(\varepsilon > 0\)이 존재한다. 상한의 정의에 따라 \(s-\varepsilon/2&lt;x\leq s\)이고 \([0,x]\)를 덮는 유한 부분 덮개가 있는 \(x\)를 택할 수 있다. 그 유한 부분 덮개에 \(U_{\alpha_0}\)를 더하면 \([0, \min(s + \varepsilon/2, 1)]\)을 덮는다. \(s < 1\)이면 \(\min(s + \varepsilon/2, 1) > s\)이므로 \(s\)보다 큰 점까지 유한 부분 덮개로 덮이게 되어 \(s\)가 상한이라는 데 모순이다. 따라서 \(s = 1\)이고, 이때 \(\min(s + \varepsilon/2, 1) = 1\)이므로 \([0,1]\)을 덮는 유한 부분 덮개가 있다.
 </div>
 
-<div class="example"><span class="env-label">Example 19.4 (유한여집합 위상에서의 콤팩트성)</span>
-무한 집합 \(X\)에 유한여집합 위상을 부여하면, \(X\)는 항상 콤팩트이다. \(\{U_\alpha\}_{\alpha \in I}\)를 \(X\)의 열린 덮개라 하자. 공집합이 아닌 \(U_{\alpha_0}\)를 하나 택하면, \(X \setminus U_{\alpha_0}\)는 유한 집합 \(\{x_1, \ldots, x_m\}\)이다. 각 \(x_i\)에 대해 \(x_i \in U_{\alpha_i}\)인 \(\alpha_i\)를 택하면, \(\{U_{\alpha_0}, U_{\alpha_1}, \ldots, U_{\alpha_m}\}\)이 유한 부분 덮개이다. 다만 이 공간은 하우스도르프가 아니다. 서로 다른 두 점은 각각 닫힌 한 원소 집합을 이루지만, 이 두 닫힌집합을 서로소인 열린집합으로 분리할 수 없으므로 정규 공간도 아니다.
+<div class="example"><span class="env-label">Example 19.4 (유한여집합 위상의 콤팩트성)</span>
+무한 집합 \(X\)에 유한여집합 위상을 부여하면, \(X\)는 항상 콤팩트이다. \(\{U_\alpha\}_{\alpha \in I}\)를 \(X\)의 열린 덮개라 하자. 공집합이 아닌 \(U_{\alpha_0}\)를 하나 택하면, \(X \setminus U_{\alpha_0}\)는 유한 집합 \(\{x_1, \ldots, x_m\}\)이다. 각 \(x_i\)에 대해 \(x_i \in U_{\alpha_i}\)인 \(\alpha_i\)를 택하면, \(\{U_{\alpha_0}, U_{\alpha_1}, \ldots, U_{\alpha_m}\}\)이 유한 부분 덮개이다. 다만 이 공간은 Hausdorff가 아니다(Example 19.1b). 한 점 집합은 닫힌집합이므로, 서로 다른 두 점 \(\{x\}\), \(\{y\}\)는 서로소인 닫힌집합이다. 이 둘을 서로소인 열린집합으로 떼어 놓을 수 없으므로 정규 공간(Theorem 19.4에서 정의)도 아니다.
 </div>
 
-<p>연결성(connectedness)은 공간이 "한 덩어리"인지를 판별하는 성질이다. 네트워크 이론에서 그래프의 연결성, 로봇 배치 공간에서 두 자세 사이에 연속 경로가 존재하는지의 문제가 모두 이 개념에 기반한다. 해석학에서 중간값 정리(intermediate value theorem)는 연결성의 귀결이다.</p>
+<p>연결성(connectedness)은 공간이 한 덩어리인지를 따진다. 해석학의 중간값 정리(intermediate value theorem)는 구간이 연결되어 있고 연속 함수가 연결 집합을 연결 집합으로 보낸다는 사실에서 나온다.</p>
 
 <div class="definition"><span class="env-label">Definition 19.9 (Connectedness)</span>
-위상 공간(topological space) \(X\)가 <strong>연결(connected)</strong>이라 함은, \(X\)를 두 개의 공집합이 아닌 서로소인 열린집합(open set)의 합집합으로 나타낼 수 없는 것을 말한다. 동치 조건으로, \(X\)에서 열린집합이면서 동시에 닫힌집합인 부분집합은 \(\emptyset\)과 \(X\) 뿐이다.
+위상 공간 \(X\)가 <strong>연결(connected)</strong>이라 함은, \(X\)를 두 개의 공집합이 아닌 서로소인 열린집합의 합집합으로 나타낼 수 없는 것을 말한다. 이는 \(X\)에서 열린집합이면서 동시에 닫힌집합인 부분집합이 \(\emptyset\)과 \(X\)뿐이라는 조건과 같다.
 </div>
 
 <div class="definition"><span class="env-label">Definition 19.10 (Path-Connectedness)</span>
-공간 \(X\)가 <strong>경로 연결(path-connected)</strong>이라 함은, 모든 \(x, y \in X\)에 대해 \(\gamma(0) = x\), \(\gamma(1) = y\)인 연속 사상 \(\gamma : [0,1] \to X\)가 존재하는 것을 말한다. 경로 연결은 연결(connected)을 함의하지만, 일반적으로 그 역은 성립하지 않는다.
+공간 \(X\)가 <strong>경로 연결(path-connected)</strong>이라 함은, 모든 \(x, y \in X\)에 대해 \(\gamma(0) = x\), \(\gamma(1) = y\)인 연속 사상 \(\gamma : [0,1] \to X\)가 존재하는 것을 말한다. 경로 연결은 연결을 함의하지만, 일반적으로 그 역은 성립하지 않는다.
 </div>
 
 <div class="definition"><span class="env-label">Definition 19.11 (Product Topology)</span>
-공간 \((X, \tau_X)\)와 \((Y, \tau_Y)\)가 주어질 때, \(X \times Y\) 위의 <strong>곱위상(product topology)</strong>은 모임 \(\{U \times V : U \in \tau_X,\, V \in \tau_Y\}\)을 기저로 가진다.
+공간 \((X, \tau_X)\)와 \((Y, \tau_Y)\)가 주어질 때, \(X \times Y\) 위의 <strong>곱위상(product topology)</strong>은 모임 \(\{U \times V : U \in \tau_X,\, V \in \tau_Y\}\)을 기저로 하는 위상이다.
 </div>
 
 <div class="theorem"><span class="env-label">Theorem 19.3 (Tychonoff)</span>
-콤팩트(compact) 공간들의 임의의 곱은 곱위상(product topology)에서 콤팩트이다. 이 형태의 정리는 통상 선택공리를 가정한다.
+콤팩트 공간들의 임의의 곱은 곱위상에서 콤팩트이다. ZF에서 이 정리는 선택공리와 동치이다. Tychonoff 정리가 선택공리를 함의한다는 방향은 Kelley가 1950년에 보였다.
 </div>
 
 <div class="example"><span class="env-label">Example 19.5 (곱위상과 콤팩트성)</span>
-\([0,1]\)은 Heine&ndash;Borel에 의해 콤팩트이다. 따라서 Tychonoff 정리에 의해 \([0,1]^n\)은 임의의 \(n\)에 대해 곱위상에서 콤팩트이다. 비가산 곱 \([0,1]^{\mathbb{R}}\) (점별 수렴 위상)도 콤팩트이다. 바나흐–앨러오글루 정리의 증명도 이 정리에 기댄다. 실수 노름 공간 \(X\)의 쌍대 공간에서 단위 공의 약*-콤팩트성은 적절한 곱 공간 \(\prod_{x \in B_X} [-\|x\|, \|x\|]\)의 닫힌 부분집합으로 단위 공을 매장하고 Tychonoff 정리를 적용하면 얻는다.
+\([0,1]\)은 Heine&ndash;Borel에 따라 콤팩트이다. 따라서 Tychonoff 정리에 따라 \([0,1]^n\)은 임의의 \(n\)에 대해 곱위상에서 콤팩트이다. 비가산 곱 \([0,1]^{\mathbb{R}}\) (점별 수렴 위상)도 콤팩트이다. Banach–Alaoglu 정리도 이 정리로 증명한다. 실수 노름 공간 \(X\)의 쌍대 공간에서 단위 공의 약*-콤팩트성은 적절한 곱 공간 \(\prod_{x \in B_X} [-\|x\|, \|x\|]\)의 닫힌 부분집합으로 단위 공을 매장하고 Tychonoff 정리를 적용하면 얻는다.
 </div>
 
 <div class="example"><span class="env-label">Example 19.6 (연결성 판별)</span>
-\(\mathbb{R}\)에서 유리수 집합 \(\mathbb{Q}\)에 부분공간 위상을 부여하면, \(\mathbb{Q}\)는 연결이 아니다. 임의의 무리수 \(\alpha\)에 대해 \(\mathbb{Q} = (\mathbb{Q} \cap (-\infty, \alpha)) \cup (\mathbb{Q} \cap (\alpha, \infty))\)는 공집합이 아닌 서로소인 열린집합 두 개의 합집합이다. 실제로 \(\mathbb{Q}\)는 <em>전불연결(totally disconnected)</em>이다. 두 개 이상의 점을 포함하는 연결 부분집합이 존재하지 않는다. 반면 \(\mathbb{R}\)은 연결이다. 이는 실수의 순서 완비성, 곧 최소상계 성질에서 따라오며 중간값 정리의 위상적 토대이기도 하다.
+\(\mathbb{R}\)에서 유리수 집합 \(\mathbb{Q}\)에 부분공간 위상을 부여하면, \(\mathbb{Q}\)는 연결이 아니다. 임의의 무리수 \(\alpha\)에 대해 \(\mathbb{Q} = (\mathbb{Q} \cap (-\infty, \alpha)) \cup (\mathbb{Q} \cap (\alpha, \infty))\)는 공집합이 아닌 서로소인 열린집합 두 개의 합집합이다. 실제로 \(\mathbb{Q}\)는 <em>전불연결(totally disconnected)</em>이다. 두 개 이상의 점을 포함하는 연결 부분집합이 존재하지 않는다. 반면 \(\mathbb{R}\)은 연결이다. 이는 실수의 최소상계 성질에서 나오며, 중간값 정리도 이 사실에 기댄다.
 </div>
 
-<p>몫공간(quotient space)은 "점들을 붙이는" 연산을 정밀하게 정의하는 도구이다. 직사각형의 변을 동일시하여 토러스, 뫼비우스 띠, 클라인 병 등을 만드는 것이 대표적인 예이며, 대칭군에 의한 궤도 공간(orbit space)도 몫공간의 틀로 이해된다.</p>
+<p>몫공간(quotient space)은 공간의 점들을 서로 붙여 만든 새 공간이다. 정사각형의 변을 붙여 토러스, Möbius 띠, Klein 병을 만들 수 있고, 군이 공간에 작용할 때 생기는 궤도 공간(orbit space)도 몫공간이다.</p>
 
 <div class="definition"><span class="env-label">Definition 19.12 (Quotient Space)</span>
-\(X\)를 위상 공간(topological space)이라 하고 \(\sim\)을 \(X\) 위의 동치관계라 하자. <strong>몫공간(quotient space)</strong> \(X/{\sim}\)은 동치류들의 집합에 몫위상을 부여한 것이다: 부분집합 \(U \subseteq X/{\sim}\)이 열린집합(open set)일 필요충분조건은 \(\pi^{-1}(U)\)가 \(X\)에서 열린집합인 것이며, 여기서 \(\pi : X \to X/{\sim}\)은 자연스러운 사영이다.
+\(X\)를 위상 공간이라 하고 \(\sim\)을 \(X\) 위의 동치관계라 하자. <strong>몫공간</strong> \(X/{\sim}\)은 동치류들의 집합에 몫위상을 부여한 것이다: 부분집합 \(U \subseteq X/{\sim}\)이 열린집합일 필요충분조건은 \(\pi^{-1}(U)\)가 \(X\)에서 열린집합인 것이다. 여기서 \(\pi : X \to X/{\sim}\)는 각 점을 그 동치류로 보내는 사영이다.
 </div>
 
 <div class="example"><span class="env-label">Example 19.7</span>
-토러스 \(T^2\)는 \([0,1]^2\)에서 \((x,0) \sim (x,1)\)과 \((0,y) \sim (1,y)\)를 동일시하여 얻는 몫공간(quotient space)이다. 실사영평면 \(\mathbb{R}P^2\)는 \(S^2\) 위의 대척점들을 동일시하여 얻는다.
+토러스 \(T^2\)는 \([0,1]^2\)에서 \((x,0) \sim (x,1)\)과 \((0,y) \sim (1,y)\)를 동일시하여 얻는 몫공간이다. 실사영평면 \(\mathbb{R}P^2\)는 \(S^2\) 위의 대척점들을 동일시하여 얻는다.
 </div>
 
-<div class="example"><span class="env-label">Example 19.7a (몫공간: 뫼비우스 띠와 클라인 병)</span>
-\([0,1]^2\)에서 \((0, y) \sim (1, 1-y)\)만 동일시하면 뫼비우스 띠(Möbius strip)를 얻는다. 뫼비우스 띠는 비가향 곡면이며 경계 \(\partial M \cong S^1\)을 가진다. 여기에 추가로 \((x, 0) \sim (x, 1)\)도 동일시하면 클라인 병을 얻는다. 클라인 병은 \(\mathbb{R}^3\)에 자기교차 없이 매장할 수 없지만, \(\mathbb{R}^4\)에는 매장 가능하다. 이러한 차이는 가향성과 관련된 위상적 장애물이다.
+<div class="example"><span class="env-label">Example 19.7a (몫공간: Möbius 띠와 Klein 병)</span>
+\([0,1]^2\)에서 \((0, y) \sim (1, 1-y)\)만 동일시하면 Möbius 띠를 얻는다. Möbius 띠는 비가향 곡면이고, 경계 \(\partial M\)은 \(S^1\)과 위상동형이다. 여기에 추가로 \((x, 0) \sim (x, 1)\)도 동일시하면 Klein 병을 얻는다. Klein 병은 \(\mathbb{R}^4\)에는 매장할 수 있지만 \(\mathbb{R}^3\)에는 자기교차 없이 매장할 수 없다. 경계가 없는 콤팩트 곡면을 \(\mathbb{R}^3\)에 매장하면 반드시 가향이 되기 때문이다.
 </div>
 
 <div class="definition"><span class="env-label">Definition 19.13 (Subspace Topology)</span>
-\(A \subseteq X\)일 때, \(A\) 위의 <strong>부분공간 위상(subspace topology)</strong>은 \(X\)에서 열린집합(open set)인 \(U\)에 대해 \(U \cap A\) 꼴의 모든 집합으로 이루어진다.
+\(A \subseteq X\)일 때, \(A\) 위의 <strong>부분공간 위상(subspace topology)</strong>은 \(X\)에서 열린집합인 \(U\)에 대해 \(U \cap A\) 꼴의 모든 집합으로 이루어진다.
 </div>
 
 <div class="theorem"><span class="env-label">Theorem 19.4 (Urysohn's Lemma)</span>
-\(X\)가 정규 공간(모든 서로소인 닫힌집합 쌍을 서로소인 열린집합(open set)으로 분리할 수 있는 공간)이고 \(A, B \subseteq X\)가 서로소인 닫힌집합이면, \(f(A) \subseteq \{0\}\)이고 \(f(B) \subseteq \{1\}\)인 연속 함수 \(f : X \to [0,1]\)가 존재한다.
+\(X\)가 정규 공간(모든 서로소인 닫힌집합 쌍을 서로소인 열린집합으로 분리할 수 있는 공간)이고 \(A, B \subseteq X\)가 서로소인 닫힌집합이면, \(f(A) \subseteq \{0\}\)이고 \(f(B) \subseteq \{1\}\)인 연속 함수 \(f : X \to [0,1]\)가 존재한다.
 </div>
 
 </section>
 
-<!-- ============================================================== -->
-<!--  SECTION 20: DIFFERENTIAL GEOMETRY                              -->
-<!-- ============================================================== -->
 
 <details class="video-resources">
 <summary>추천 영상 강의 (원본 소스 기반)</summary>
 <ul>
 <li><a href="https://www.youtube.com/playlist?list=PLTBqohhFNBE_09L0i-lf3fYXF5woAbrzJ" target="_blank">Topology & Geometry — Tadashi Tokieda</a></li>
-<li><a href="https://www.youtube.com/playlist?list=PLF94A6F65866F3F31" target="_blank">Topology — ThoughtSpaceZero</a></li>
+<li><a href="https://www.youtube.com/playlist?list=PLF94A6F65866F3F31" target="_blank">Topology — Daniel Firth</a></li>
 </ul>
 </details>
 
@@ -172,9 +167,13 @@ $$ s = \sup\{x \in [0,1] : [0, x] \text{가 } \mathcal{U}\text{의 유한 부분
 <ul>
 <li><a href="https://topology.mitpress.mit.edu/" target="_blank">Topology: A Categorical Approach (Bradley, Bryson, Terilla)</a> — MIT Press 무료 교재</li>
 <li><a href="https://www.topologywithouttears.net/" target="_blank">Topology Without Tears (Morris)</a> — 무료 온라인 교재</li>
-<li>Munkres, <em>Topology</em> — 점집합 위상수학의 바이블</li>
-<li>Armstrong, <em>Basic Topology</em> — UTM, 직관적 입문서</li>
-<li>Willard, <em>General Topology</em> — Dover, 포괄적 레퍼런스</li>
-<li>Kelley, <em>General Topology</em> — GTM, 고전적 참고서</li>
+<li>Munkres, <em>Topology</em> — 점집합 위상수학 교재</li>
+<li>Armstrong, <em>Basic Topology</em> — Springer, Undergraduate Texts in Mathematics, 입문서</li>
+<li>Willard, <em>General Topology</em> — Dover, 참고서</li>
+<li>Kelley, <em>General Topology</em> — Springer, Graduate Texts in Mathematics 27, 참고서</li>
 </ul>
 </details>
+
+<!-- ============================================================== -->
+<!--  SECTION 20: DIFFERENTIAL GEOMETRY                              -->
+<!-- ============================================================== -->

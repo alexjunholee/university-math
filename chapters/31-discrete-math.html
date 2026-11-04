@@ -1,11 +1,11 @@
 <section id="discrete-math">
 <h3>31. 이산수학 (Discrete Mathematics)</h3>
 
-<p class="section-intro">이산수학은 셀 수 있는 구조를 다룬다. 조합론은 경우의 수를 세고, 그래프 이론은 연결 관계를 추상화하며, 점화식은 이산적 변화를 잡는 도구다. 알고리즘 분석, 네트워크 설계, 암호학 등 컴퓨터과학 전반의 수학적 기반이 된다.</p>
+<p class="section-intro">이산수학은 정수나 유한 집합처럼 셀 수 있는 구조를 다룬다. 조합론은 경우의 수를 세고, 그래프 이론은 대상 사이의 연결 관계를 다루며, 점화식은 한 단계씩 변하는 양을 다룬다.</p>
 
-<p>이산수학(discrete mathematics)은 컴퓨터 과학의 여러 문제를 표현한다. 컴퓨터는 데이터를 비트의 유한 수열로 처리하고, 알고리즘은 유한 단계의 이산적 연산을 밟는다.</p>
+<p>컴퓨터 과학에서는 여러 문제를 이산수학의 언어로 나타낸다. 컴퓨터는 데이터를 유한한 비트열로 처리하고, 알고리즘은 유한한 단계를 거쳐 끝나기 때문이다.</p>
 
-<p>그래프 이론은 라우팅 프로토콜, VLSI 회로 배치, 소셜 네트워크 분석에 쓰이고, 조합론은 실험 설계나 오류 정정 부호에 쓰인다. 부울 대수는 디지털 논리 회로의 수학적 기초이고, 알고리즘의 시간 복잡도 분석도 이산수학의 영역이다.</p>
+<p>그래프 이론은 라우팅 프로토콜, VLSI 회로 배치, 소셜 네트워크 분석에 쓰인다. 조합론은 실험 설계나 오류 정정 부호에 쓰인다. 부울 대수는 디지털 논리 회로의 수학적 기초이고, 알고리즘의 시간 복잡도 분석도 이산수학의 영역이다.</p>
 
 <h4 id="combinatorics">31.1 조합론 (Combinatorics)</h4>
 
@@ -13,117 +13,113 @@
 
 <div class="definition"><span class="env-label">Definition 31.1 (Counting Principles)</span>
 <ul>
-  <li><strong>Product rule:</strong> 과제 A의 결과가 \(m\)가지이고 각 결과 뒤에 수행하는 과제 B의 선택지가 항상 \(n\)가지이면, 두 과제를 잇는 결과 수는 \(mn\)이다.</li>
-  <li><strong>Sum rule:</strong> 서로 겹치지 않는 두 결과 부류의 크기가 각각 \(m\)과 \(n\)이면, 둘 중 하나를 택하는 전체 결과 수는 \(m+n\)이다.</li>
-  <li><strong>Permutations:</strong> \(n\)개의 서로 다른 대상에서 \(k\)개를 순서 있게 선택: \(P(n,k) = \frac{n!}{(n-k)!}\).</li>
-  <li><strong>Combinations:</strong> 순서 없는 선택: \(\binom{n}{k} = \frac{n!}{k!(n-k)!}\).</li>
+  <li><strong>곱의 법칙(product rule):</strong> 과제 A의 결과가 \(m\)가지이고 각 결과 뒤에 하는 과제 B의 선택지가 항상 \(n\)가지이면, 두 과제를 잇는 결과 수는 \(mn\)이다.</li>
+  <li><strong>합의 법칙(sum rule):</strong> 서로 겹치지 않는 두 결과 부류의 크기가 각각 \(m\)과 \(n\)이면, 둘 중 하나를 택하는 전체 결과 수는 \(m+n\)이다.</li>
+  <li><strong>순열(permutation):</strong> 서로 다른 대상 \(n\)개에서 \(k\)개를 순서 있게 고르는 경우의 수는 \(P(n,k) = \frac{n!}{(n-k)!}\)이다.</li>
+  <li><strong>조합(combination):</strong> 순서 없이 고르는 경우의 수는 \(\binom{n}{k} = \frac{n!}{k!(n-k)!}\)이다.</li>
 </ul>
 </div>
 
 <div class="theorem"><span class="env-label">Theorem 31.1 (Binomial Theorem)</span>
+음이 아닌 정수 \(n\)에 대해
 $$ (x + y)^n = \sum_{k=0}^{n} \binom{n}{k} x^k y^{n-k}. $$
 </div>
 
 <div class="theorem"><span class="env-label">Theorem 31.2 (Inclusion&ndash;Exclusion)</span>
+유한 집합 \(A_1, \ldots, A_n\)에 대해
 $$ \left|\bigcup_{i=1}^n A_i\right| = \sum_{i} |A_i| - \sum_{i\lt j} |A_i \cap A_j| + \sum_{i\lt j\lt k} |A_i \cap A_j \cap A_k| - \cdots + (-1)^{n+1} |A_1 \cap \cdots \cap A_n|. $$
 </div>
 
 <div class="example"><span class="env-label">Example 31.1 (포함-배제 원리: 교란 순열)</span>
-\(\{1, 2, 3, 4\}\)의 순열 중 어떤 원소도 원래 위치에 있지 않은 것(교란 순열, derangement)의 수를 구한다. \(A_i\)를 \(i\)가 원래 위치에 고정된 순열의 집합이라 하면:
+\(\{1, 2, 3, 4\}\)의 순열 가운데 어떤 원소도 원래 위치에 있지 않은 순열, 곧 교란 순열(derangement)의 수를 구한다. \(A_i\)를 \(i\)가 원래 위치에 고정된 순열의 집합이라 하면:
 $$ D_4 = 4! - \left|\bigcup_{i=1}^{4} A_i\right| = 4! - \binom{4}{1}3! + \binom{4}{2}2! - \binom{4}{3}1! + \binom{4}{4}0! $$
 $$ = 24 - 24 + 12 - 4 + 1 = 9. $$
-일반 공식: \(D_n = n! \sum_{k=0}^{n} \frac{(-1)^k}{k!}\). \(n\)이 커지면 \(D_n / n! \to 1/e \approx 0.368\)에 수렴한다.
+일반 공식: \(D_n = n! \sum_{k=0}^{n} \frac{(-1)^k}{k!}\). \(n \to \infty\)이면 \(D_n / n! \to 1/e \approx 0.368\)이다.
 </div>
 
 <div class="example"><span class="env-label">Example 31.2 (포함-배제 원리: Euler \(\varphi\) 함수)</span>
-\(n = 60\)에 대해 \(\varphi(60)\) (1부터 60까지의 정수 중 60과 서로소인 것의 개수)를 포함-배제 원리로 구한다. \(60 = 2^2 \cdot 3 \cdot 5\)이므로 소인수는 2, 3, 5이다. \(A_p = \{1 \leq k \leq 60 : p \mid k\}\)로 놓으면:
+\(n = 60\)에 대해 \(\varphi(60)\) (17장 Definition 17.5)를 포함-배제 원리로 구한다. \(60 = 2^2 \cdot 3 \cdot 5\)이므로 소인수는 2, 3, 5이다. \(A_p = \{1 \leq k \leq 60 : p \mid k\}\)로 놓으면:
 $$ \varphi(60) = 60 - \left(\frac{60}{2} + \frac{60}{3} + \frac{60}{5}\right) + \left(\frac{60}{6} + \frac{60}{10} + \frac{60}{15}\right) - \frac{60}{30} $$
 $$ = 60 - (30 + 20 + 12) + (10 + 6 + 4) - 2 = 16. $$
-이는 공식 \(\varphi(n) = n \prod_{p \mid n}(1 - 1/p) = 60 \cdot \frac{1}{2} \cdot \frac{2}{3} \cdot \frac{4}{5} = 16\)과 일치한다.
+이는 17장 Definition 17.5의 곱 공식으로 구한 \(60 \cdot \frac{1}{2} \cdot \frac{2}{3} \cdot \frac{4}{5} = 16\)과 일치한다.
 </div>
 
 <div class="theorem"><span class="env-label">Theorem 31.3 (Pigeonhole Principle)</span>
-\(n\)개의 물건을 \(m\)개의 상자에 넣을 때 \(n > m\)이면, 적어도 하나의 상자에 둘 이상의 물건이 들어간다. 일반화: 어떤 상자에는 적어도 \(\lceil n/m \rceil\)개의 물건이 들어간다.
+\(n\)개의 물건을 \(m\)개의 상자에 넣을 때 \(n > m\)이면, 적어도 하나의 상자에 둘 이상의 물건이 들어간다. 더 일반적으로, 어떤 상자에는 적어도 \(\lceil n/m \rceil\)개의 물건이 들어간다.
 </div>
-
-<p class="subsection-transition">그래프 이론은 대상들 사이의 연결 관계를 다룬다.</p>
 
 <h4 id="graph-theory">31.2 그래프 이론 (Graph Theory)</h4>
 
-<p>라우터 간 연결, 도로망의 경로, 칩의 배선, 분자의 결합 등 겉보기에 다른 문제들이 모두 정점과 간선의 그래프로 모델링된다. 이 추상화가 있어 하나의 정리로 여러 분야의 문제를 동시에 다룰 수 있다.</p>
+<p>라우터 간 연결, 도로망의 경로, 칩의 배선, 분자의 결합 등 겉보기에 다른 문제들을 모두 정점과 간선의 그래프로 나타낸다. 그래서 그래프 이론의 정리 하나를 여러 분야의 문제에 똑같이 적용할 수 있다.</p>
 
 <div class="definition"><span class="env-label">Definition 31.2 (Graph)</span>
-<strong>그래프(graph)</strong> \(G = (V, E)\)는 정점 집합 \(V\)와 간선 집합 \(E\)로 구성된다. <strong>단순 그래프(simple graph)</strong>에서 간선은 서로 다른 정점의 비순서쌍이다(루프나 다중 간선은 없다). <strong>차수(degree)</strong> \(\deg(v)\)는 \(v\)에 인접한 간선의 수이다.
+<strong>그래프(graph)</strong> \(G = (V, E)\)는 정점 집합 \(V\)와 간선 집합 \(E\)로 구성된다. <strong>단순 그래프(simple graph)</strong>에서 간선은 서로 다른 정점의 비순서쌍이다(루프나 다중 간선은 없다). <strong>차수(degree)</strong> \(\deg(v)\)는 \(v\)에 연결된 간선의 수이다.
 </div>
 
 <div class="theorem"><span class="env-label">Theorem 31.4 (Handshaking Lemma)</span>
 $$ \sum_{v \in V} \deg(v) = 2|E|. $$
-따라서 홀수 차수를 갖는 정점의 수는 짝수이다.
+따라서 차수가 홀수인 정점의 수는 짝수이다.
 </div>
 
 <div class="definition"><span class="env-label">Definition 31.3 (Graph Properties)</span>
 <ul>
-  <li>그래프가 <strong>connected(연결)</strong>이라 함은, 모든 정점 쌍 사이에 경로가 존재하는 것이다.</li>
-  <li><strong>Tree(트리)</strong>는 연결된 비순환 그래프이다. \(n\)개 정점을 가진 tree는 정확히 \(n-1\)개의 간선을 가진다.</li>
-  <li>그래프가 <strong>bipartite(이분)</strong>이라 함은, \(V\)를 \(V_1, V_2\)로 분할하여 모든 간선이 \(V_1\)의 정점과 \(V_2\)의 정점을 연결하도록 할 수 있는 것이다. 동치 조건: 그래프가 bipartite일 필요충분조건은 홀수 길이의 순환을 포함하지 않는 것이다.</li>
-  <li>그래프가 <strong>planar(평면)</strong>이라 함은, 간선 교차 없이 평면에 그릴 수 있는 것이다.</li>
+  <li>그래프가 <strong>연결(connected)</strong>되어 있다 함은, 모든 정점 쌍 사이에 경로가 존재하는 것이다.</li>
+  <li><strong>트리(tree)</strong>는 연결된 비순환 그래프이다. 정점이 \(n\)개인 트리는 간선이 정확히 \(n-1\)개다.</li>
+  <li>그래프가 <strong>이분 그래프(bipartite graph)</strong>라 함은, \(V\)를 \(V_1, V_2\)로 분할하여 모든 간선이 \(V_1\)의 정점과 \(V_2\)의 정점을 연결하도록 할 수 있는 것이다. 그래프가 이분 그래프일 필요충분조건은 홀수 길이의 순환이 없는 것이다.</li>
+  <li>그래프가 <strong>평면적(planar)</strong>이라 함은, 간선 교차 없이 평면에 그릴 수 있는 것이다.</li>
 </ul>
 </div>
 
 <div class="example"><span class="env-label">Example 31.3 (Euler 경로와 Euler 회로)</span>
-<strong>Euler path(오일러 경로)</strong>는 그래프의 모든 간선을 정확히 한 번씩 지나는 경로이다. <strong>Euler circuit(오일러 회로)</strong>는 시작점으로 돌아오는 Euler path이다.
+<strong>Euler 경로(Euler path)</strong>는 그래프의 모든 간선을 정확히 한 번씩 지나는 경로이다. <strong>Euler 회로(Euler circuit)</strong>는 시작점으로 돌아오는 Euler 경로이다.
 <ul>
   <li><strong>Euler 회로 존재 조건:</strong> 연결 그래프에서 모든 정점의 차수가 짝수.</li>
   <li><strong>Euler 경로 존재 조건:</strong> 연결 그래프에서 홀수 차수 정점이 정확히 0개 또는 2개.</li>
 </ul>
-<strong>쾨니히스베르크 다리 문제:</strong> 4개 지역(정점)과 7개 다리(간선)로 이루어진 그래프에서 각 정점의 차수는 3, 3, 3, 5이다. 홀수 차수 정점이 4개이므로 Euler 경로도 존재하지 않는다. 이것이 Euler가 1736년에 증명한 고전적 결과이다.
+<strong>쾨니히스베르크 다리 문제:</strong> 4개 지역(정점)과 7개 다리(간선)로 이루어진 그래프에서 각 정점의 차수는 3, 3, 3, 5이다. 홀수 차수 정점이 4개이므로 모든 다리를 한 번씩 건너는 산책길은 없다. Euler는 이 결과를 1735년 상트페테르부르크 학술원에 발표했고, 논문(E53)은 1741년 학술원 논문집(Commentarii) 제8권에 실렸다.
 </div>
 
 <div class="example"><span class="env-label">Example 31.4 (그래프 색칠 문제)</span>
-그래프 \(G\)의 <strong>chromatic number</strong> \(\chi(G)\)는 인접한 정점이 같은 색을 갖지 않도록 \(G\)의 정점을 칠하는 데 필요한 최소 색 수이다.
+그래프 \(G\)의 <strong>채색수(chromatic number)</strong> \(\chi(G)\)는 인접한 정점이 같은 색이 되지 않도록 \(G\)의 정점을 칠하는 데 필요한 최소 색 수이다.
 <ul>
   <li>\(\chi(K_n) = n\) (완전 그래프: 모든 정점이 서로 인접하므로 모두 다른 색이 필요).</li>
   <li>\(\chi(C_{2k}) = 2\), \(\chi(C_{2k+1}) = 3\) (짝수 순환은 2색, 홀수 순환은 3색).</li>
-  <li>모든 planar graph에 대해 \(\chi(G) \leq 4\) (사색 정리, Appel &amp; Haken, 1976).</li>
-  <li>모든 그래프에 대해 \(\chi(G) \leq \Delta(G) + 1\) (여기서 \(\Delta(G)\)는 최대 차수). Brooks 정리에 의해 연결된 단순 그래프가 완전 그래프나 홀수 순환이 아니면 \(\chi(G) \leq \Delta(G)\).</li>
+  <li>모든 평면 그래프에서 \(\chi(G) \leq 4\) (사색 정리, Appel &amp; Haken, 1976).</li>
+  <li>모든 그래프에 대해 \(\chi(G) \leq \Delta(G) + 1\) (여기서 \(\Delta(G)\)는 최대 차수). Brooks 정리에 따르면 연결된 단순 그래프가 완전 그래프나 홀수 순환이 아니면 \(\chi(G) \leq \Delta(G)\).</li>
 </ul>
-<strong>Petersen 그래프</strong>는 정규 3-그래프 (모든 정점의 차수가 3)이며 \(\chi = 3\)이다. 홀수 순환을 포함하므로 2색 색칠은 불가능하고, 3색이면 충분하기 때문이다.
+<strong>Petersen 그래프</strong>는 3-정규 그래프(3-regular graph, 모든 정점의 차수가 3)이고 \(\chi = 3\)이다. 길이 5인 순환이 있어 2색으로는 칠할 수 없고, 완전 그래프도 홀수 순환도 아니므로 Brooks 정리에 따라 3색이면 된다.
 </div>
 
 <div class="theorem"><span class="env-label">Theorem 31.5 (Euler's Formula for Planar Graphs)</span>
-\(V\)개 정점, \(E\)개 간선, \(F\)개 면을 가진 연결 평면 그래프에 대해 \(V-E+F=2\)이다. 단순 평면 그래프이고 \(V\geq3\)이면 \(E\leq3V-6\)이므로 \(K_5\)가 평면적이지 않음을 알 수 있다. 삼각형이 없는 단순 평면 그래프에는 더 강한 \(E\leq2V-4\)가 성립하고, 이를 \(K_{3,3}\)에 적용하면 \(9>2\cdot6-4=8\)이어서 역시 평면적이지 않다.
+정점이 \(V\)개, 간선이 \(E\)개, 면이 \(F\)개인 연결 평면 그래프에서 \(V-E+F=2\)이다. 단순 평면 그래프이고 \(V\geq3\)이면 \(E\leq3V-6\)이므로 \(K_5\)가 평면적이지 않음을 알 수 있다. 삼각형이 없는 단순 평면 그래프에는 더 강한 \(E\leq2V-4\)가 성립하고, 이를 \(K_{3,3}\)에 적용하면 \(9>2\cdot6-4=8\)이어서 역시 평면적이지 않다.
 </div>
 
 <div class="theorem"><span class="env-label">Theorem 31.6 (Kuratowski's Theorem)</span>
-그래프가 planar(평면적)일 필요충분조건은 \(K_5\) 또는 \(K_{3,3}\)의 세분을 부분 그래프로 포함하지 않는 것이다.
+그래프가 평면적일 필요충분조건은 \(K_5\) 또는 \(K_{3,3}\)의 세분을 부분 그래프로 포함하지 않는 것이다.
 </div>
 
 <div class="example"><span class="env-label">Example 31.5 (Euler 공식 적용)</span>
-\(K_4\) (4개 정점의 완전 그래프)가 평면적인지 확인한다. \(V = 4\), \(E = \binom{4}{2} = 6\). \(E = 6 \leq 3(4) - 6 = 6\). 부등식이 성립하므로 Euler 공식과 모순되지 않는다. 실제로 \(K_4\)는 사면체의 그래프로 평면에 그릴 수 있으며, \(F = 2 - V + E = 2 - 4 + 6 = 4\)개의 면을 갖는다.
+\(K_4\) (4개 정점의 완전 그래프)가 평면적인지 확인한다. \(V = 4\), \(E = \binom{4}{2} = 6\). \(E = 6 \leq 3(4) - 6 = 6\)이라 필요조건은 만족한다. 이 부등식만으로 평면성이 정해지지는 않으므로 직접 그려 확인한다. \(K_4\)는 사면체의 그래프로 평면에 그릴 수 있으며, \(F = 2 - V + E = 2 - 4 + 6 = 4\)개의 면이 생긴다.
 <br>
 <br>
-반면 \(K_5\): \(V = 5\), \(E = 10\). \(E = 10 > 3(5) - 6 = 9\). Euler 공식의 결과에 의해 \(K_5\)는 평면적이 아니다.
+한편 \(K_5\): \(V = 5\), \(E = 10\). \(E = 10 > 3(5) - 6 = 9\). 평면 그래프가 만족해야 하는 부등식 \(E \leq 3V-6\)을 어기므로 \(K_5\)는 평면적이지 않다.
 </div>
-
-<p class="subsection-transition">이산 구조에서 자연스럽게 등장하는 것이 점화식(recurrence relation)이다. 피보나치 수열처럼 이전 항으로부터 다음 항이 결정되는 관계를 닫힌 형태로 풀면, 알고리즘의 시간 복잡도를 분석하는 데 직접 쓸 수 있다.</p>
 
 <h4 id="recurrence-relations">31.3 점화식 (Recurrence Relations)</h4>
 
-<p>분할 정복(divide and conquer) 알고리즘의 시간 복잡도는 점화식으로 쓴다. 병합 정렬의 \(T(n) = 2T(n/2) + O(n)\)이 대표적이다. 점화식을 닫힌 형태로 풀면 알고리즘의 점근적 성능을 예측할 수 있다.</p>
+<p>점화식(recurrence relation)은 피보나치 수열처럼 앞의 항들로 다음 항을 정하는 관계식이다. 분할 정복(divide and conquer) 알고리즘의 시간 복잡도는 점화식으로 쓴다. 병합 정렬의 \(T(n) = 2T(n/2) + O(n)\)이 대표적이다. 점화식을 닫힌 형태로 풀면 알고리즘의 점근적 성능을 예측할 수 있다.</p>
 
 <div class="definition"><span class="env-label">Definition 31.4 (Linear Recurrence)</span>
-<strong>상수 계수 동차 선형 점화식</strong>은 다음의 형태를 갖는다:
+<strong>상수 계수 동차 선형 점화식</strong>은 다음 꼴이다.
 $$ a_n = c_1 a_{n-1} + c_2 a_{n-2} + \cdots + c_k a_{n-k}. $$
-대응하는 <strong>characteristic equation(특성 방정식)</strong>은 \(r^k - c_1 r^{k-1} - \cdots - c_k = 0\)이다. 근 \(r_1, \ldots, r_k\)가 서로 다르면, 일반해는 \(a_n = \alpha_1 r_1^n + \cdots + \alpha_k r_k^n\)이다. 중복근에는 다항식 인자가 곱해진다.
+대응하는 <strong>특성 방정식(characteristic equation)</strong>은 \(r^k - c_1 r^{k-1} - \cdots - c_k = 0\)이다. 근 \(r_1, \ldots, r_k\)가 서로 다르면, 일반해는 \(a_n = \alpha_1 r_1^n + \cdots + \alpha_k r_k^n\)이다. 근 \(r\)이 \(m\)중근이면 \(r^n, n r^n, \ldots, n^{m-1} r^n\)이 일반해에 들어간다.
 </div>
 
 <div class="example"><span class="env-label">Example 31.6 (피보나치 수열)</span>
-\(F_0=0\), \(F_1=1\)인 피보나치 수열 \(F_n = F_{n-1} + F_{n-2}\)의 특성 방정식은 \(r^2 - r - 1 = 0\)이며, 근은 \(\phi = \frac{1+\sqrt{5}}{2}\)와 \(\hat{\phi} = \frac{1-\sqrt{5}}{2}\)이다. 닫힌 형식은
-$$ F_n = \frac{\phi^n - \hat{\phi}^n}{\sqrt{5}} $$
-이다.
+\(F_0=0\), \(F_1=1\)인 피보나치 수열 \(F_n = F_{n-1} + F_{n-2}\)의 특성 방정식은 \(r^2 - r - 1 = 0\)이며, 근은 \(\phi = \frac{1+\sqrt{5}}{2}\)와 \(\hat{\phi} = \frac{1-\sqrt{5}}{2}\)이다. 닫힌 형식은 7장 Example 7.15에서 행렬의 고유값으로 구한 \(F_n = \frac{\phi^n - \hat{\phi}^n}{\sqrt{5}}\)이다.
 </div>
 
-<div class="example"><span class="env-label">Example 31.7 (2차 점화식 풀이: 특성방정식)</span>
+<div class="example"><span class="env-label">Example 31.7 (2차 점화식 풀이: 특성 방정식)</span>
 점화식 \(a_n = 5a_{n-1} - 6a_{n-2}\), 초기조건 \(a_0 = 1\), \(a_1 = 4\)를 풀어라.
 <br>
 <br>
@@ -180,8 +176,8 @@ $$ T(n) = \begin{cases} \Theta(n^d) & \text{if } d > \log_b a, \\ \Theta(n^d \lo
 <details class="video-resources">
 <summary>추천 영상 강의 (원본 소스 기반)</summary>
 <ul>
-<li><a href="http://nptel.ac.in/courses/111107058/" target="_blank">Discrete Mathematics — NPTEL IIT Roorkee</a></li>
-<li><a href="http://nptel.ac.in/courses/111106086/" target="_blank">Discrete Mathematics — NPTEL IIT Madras</a></li>
+<li><a href="https://nptel.ac.in/courses/111107058" target="_blank">Discrete Mathematics — NPTEL IIT Roorkee</a></li>
+<li><a href="https://nptel.ac.in/courses/111106086" target="_blank">Discrete Mathematics — NPTEL Chennai Mathematical Institute</a></li>
 <li><a href="https://www.youtube.com/playlist?list=PLtxJg53s2o0Mk87lsAQyx9ObyJN6O6jfH" target="_blank">Math 151 Finite Mathematics — U. of Victoria (Noel, Fall 2023)</a></li>
 </ul>
 </details>
@@ -191,10 +187,10 @@ $$ T(n) = \begin{cases} \Theta(n^d) & \text{if } d > \log_b a, \\ \Theta(n^d \lo
 <ul>
 <li><a href="https://discrete.openmathbooks.org/dmoi3.html" target="_blank">Discrete Mathematics: An Open Introduction (Levin)</a> — 무료 오픈 교재</li>
 <li><a href="https://ocw.mit.edu/courses/6-042j-mathematics-for-computer-science-fall-2010/pages/readings/" target="_blank">Mathematics for Computer Science (Lehman, Leighton, Meyer — MIT 6.042J)</a> — 무료 교재</li>
-<li>Rosen, <em>Discrete Mathematics and Its Applications</em> — 가장 널리 쓰이는 이산수학 교재</li>
-<li>Graham, Knuth &amp; Patashnik, <em>Concrete Mathematics</em> — 조합론과 이산수학의 명저</li>
-<li>Lovász, Pelikán &amp; Vesztergombi, <em>Discrete Mathematics: Elementary and Beyond</em> — UTM, 우아한 입문</li>
-<li>van Lint &amp; Wilson, <em>A Course in Combinatorics</em> — 조합론 심화</li>
-<li>West, <em>Introduction to Graph Theory</em> — 그래프 이론 표준 교재</li>
+<li>Rosen, <em>Discrete Mathematics and Its Applications</em> — McGraw-Hill</li>
+<li>Graham, Knuth &amp; Patashnik, <em>Concrete Mathematics</em> — Addison-Wesley</li>
+<li>Lovász, Pelikán &amp; Vesztergombi, <em>Discrete Mathematics: Elementary and Beyond</em> — Springer, Undergraduate Texts in Mathematics</li>
+<li>van Lint &amp; Wilson, <em>A Course in Combinatorics</em> — Cambridge</li>
+<li>West, <em>Introduction to Graph Theory</em> — Prentice Hall</li>
 </ul>
 </details>

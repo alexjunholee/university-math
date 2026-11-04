@@ -1,19 +1,17 @@
 <section id="stochastic-processes">
 <h3>25. 확률과정 (Stochastic Processes)</h3>
 
-<p class="chapter-intro">확률과정은 시간에 따라 진화하는 확률 현상을 모형화한다. 마르코프 체인, 포아송 과정, 브라운 운동이 대표적이며, 이들은 대기행렬 이론, 금융수학, 물리학의 확산 모형 등에 직접 적용된다.</p>
+<p class="chapter-intro">확률과정은 시간에 따라 무작위로 변하는 현상을 모형화한다. 대표적인 예가 마르코프 체인, 포아송 과정, 브라운 운동이고, 대기행렬 이론, 금융수학, 물리학의 확산 모형에 쓰인다.</p>
 
-<p>공학에서 마주하는 많은 시스템은 시간에 따라 무작위로 변한다. 통신 채널의 백색 가우스 잡음(AWGN)은 일반화된 가우스 과정으로 모형화되고, 주가의 변동은 기하 브라운 운동(geometric Brownian motion)으로 기술되어 Black-Scholes 옵션 가격 모형의 기초가 된다. 네트워크 서버에 도착하는 패킷은 포아송 과정(Poisson process)으로 모형화하여 대기행렬 이론(queueing theory)으로 분석한다. 로봇이나 항공기의 상태 추정에 쓰이는 칼만 필터(Kalman filter)는 선형·가우스 모형에서 확률과정 위의 최적 추정 문제를 푼다. 신뢰성 공학에서는 시스템의 정상·고장·수리 상태 전이를 마르코프 체인(Markov chain)으로 모형화하여 가용성(availability)을 계산한다.</p>
+<p>공학에서 마주하는 많은 시스템은 시간에 따라 무작위로 변한다. 통신 채널의 백색 가우스 잡음(AWGN)은 일반화된 가우스 과정으로 모형화한다. Black&ndash;Scholes 옵션 가격 모형은 주가가 기하 브라운 운동(geometric Brownian motion)을 따른다고 가정한다. 네트워크 서버에 도착하는 패킷을 포아송 과정(Poisson process)으로 모형화하면 대기행렬 이론(queueing theory)으로 분석할 수 있다. 로봇이나 항공기의 상태 추정에 쓰는 칼만 필터(Kalman filter)는 선형·가우스 모형에서 확률과정의 상태를 최적으로 추정한다. 신뢰성 공학에서는 시스템이 정상, 고장, 수리 상태를 오가는 과정을 마르코프 체인(Markov chain)으로 모형화해 가용성(availability)을 계산한다.</p>
 
-<p>확률과정론은 "입력 자체가 무작위이거나 시스템 내부에 불확실성이 존재하는" 상황을 다루는 수학적 틀이다. 결정론적 미분방정식(ODE/PDE)이 입력에서 출력이 하나로 결정되는 시스템을 다루는 데 비해, 여기서는 표본 경로 자체가 확률적이다.</p>
-
-<p>먼저 "각 시점에 확률변수가 하나씩 대응된다"는 개념을 엄밀하게 정의한다.</p>
+<p>확률과정론은 입력이 무작위이거나 시스템 안에 불확실성이 있는 상황을 다룬다. 이런 시스템에서는 같은 초기 조건에서 출발해도 시간에 따른 궤적, 곧 표본 경로가 매번 달라진다. 확률과정은 각 시점에 확률변수를 하나씩 대응시킨 것이다.</p>
 
 <div class="definition"><span class="env-label">Definition 25.1 (Stochastic Process)</span>
-<strong>확률과정(stochastic process)</strong>은 공통의 확률공간 위에 정의된 확률변수들의 모임 \(\{X_t\}_{t \in T}\)으로, 집합 \(T\)(주로 시간)에 의해 색인된다. \(T\)가 가산이면 <strong>이산시간</strong> 과정이고, \(T = [0,\infty)\)이면 <strong>연속시간</strong> 과정이다.
+<strong>확률과정(stochastic process)</strong>은 공통의 확률공간 위에 정의된 확률변수들의 모임 \(\{X_t\}_{t \in T}\)으로, 집합 \(T\)(주로 시간)의 원소를 첨자로 쓴다. \(T\)가 가산이면 <strong>이산시간</strong> 과정이고, \(T = [0,\infty)\)이면 <strong>연속시간</strong> 과정이다.
 </div>
 
-<p>확률과정 중에서 가장 다루기 쉬우면서도 응용 범위가 넓은 것이 마르코프 체인이다. "미래는 현재 상태에만 의존하고 과거 이력에는 의존하지 않는다"는 마르코프 성질 덕분에, 유한한 동차 마르코프 체인의 거동을 전이행렬로 분석할 수 있다.</p>
+<p>마르코프 체인은 다루기 쉽고 쓰임새가 넓다. 현재 상태를 알면 미래는 과거 이력과 상관없다는 마르코프 성질 덕분에, 상태가 유한하고 전이확률이 시간에 따라 변하지 않는 체인은 전이행렬 하나로 분석한다.</p>
 
 <div class="definition"><span class="env-label">Definition 25.2 (Discrete-Time Markov Chain)</span>
 가산 상태공간 \(S\)에서 값을 취하는 확률변수 열 \(\{X_n\}_{n \geq 0}\)이 <strong>마르코프 성질(Markov property)</strong>을 만족하면 <strong>마르코프 체인</strong>이라 한다:
@@ -21,39 +19,39 @@ $$ P(X_{n+1} = j \mid X_n = i, X_{n-1} = i_{n-1}, \ldots, X_0 = i_0) = P(X_{n+1}
 행렬 \(P = (p_{ij})\)는 <strong>전이행렬</strong>이다 (각 행의 합은 1).
 </div>
 
-<p>마르코프 체인의 장기 거동을 이해하려면 각 상태의 성격을 분류해야 한다. 재귀 상태(recurrent state)는 확률 1로 다시 찾지만, 일시 상태(transient state)는 돌아올 확률이 1보다 작다. 이러한 분류는 정상분포의 존재와 수렴을 판단하는 데 쓰인다.</p>
+<p>마르코프 체인이 오랜 시간 뒤 어떻게 움직이는지 알려면 상태를 분류해야 한다. 체인이 확률 1로 다시 돌아오는 상태를 재귀 상태(recurrent state), 돌아올 확률이 1보다 작은 상태를 일시 상태(transient state)라 한다. 이 분류로 정상분포가 있는지, 체인이 그 분포로 수렴하는지 판단한다.</p>
 
 <div class="definition"><span class="env-label">Definition 25.3 (Classification of States)</span>
 상태 \(i\)는 다음과 같이 분류된다:
 <ul>
-  <li>연쇄가 확률 1로 \(i\)에 되돌아오면 <strong>재귀적(recurrent)</strong>, 그렇지 않으면 <strong>일시적(transient)</strong>이다.</li>
+  <li>체인이 확률 1로 \(i\)에 되돌아오면 <strong>재귀적(recurrent)</strong>, 그렇지 않으면 <strong>일시적(transient)</strong>이다.</li>
   <li>기대 복귀 시간이 유한하면 <strong>양재귀적(positive recurrent)</strong>이다.</li>
   <li>\(p_{ii} = 1\)이면 <strong>흡수(absorbing)</strong> 상태이다.</li>
   <li>\(i\)의 <strong>주기(period)</strong>는 \(d(i) = \gcd\{n \geq 1 : p_{ii}^{(n)} > 0\}\)이다. \(d(i) = 1\)이면 <strong>비주기적(aperiodic)</strong>이라 한다.</li>
 </ul>
-연쇄가 <strong>기약(irreducible)</strong>이란 모든 상태가 다른 모든 상태로부터 도달 가능함을 뜻한다. 기약이고 비주기적이며 양재귀적인 연쇄를 <strong>에르고딕(ergodic)</strong>이라 한다.
+모든 상태가 다른 모든 상태에서 도달 가능하면 체인을 <strong>기약(irreducible)</strong>이라 한다. 기약이고 비주기적이며 양재귀적인 체인을 <strong>에르고딕(ergodic)</strong>이라 한다.
 </div>
 
-<p>에르고딕 마르코프 체인은 초기 상태에 무관하게 장기적으로 동일한 분포에 수렴한다. 이 극한 분포가 정상분포(stationary distribution)이다. 신뢰성 공학의 시스템 가용률 계산이나 Google의 PageRank 알고리즘이 대표적 응용이다.</p>
+<p>에르고딕 마르코프 체인은 어느 상태에서 출발하든 시간이 지나면 같은 분포로 수렴하고, 이 극한 분포가 정상분포(stationary distribution)이다. 신뢰성 공학의 가용성 계산과 Google의 PageRank가 정상분포를 구하는 문제다.</p>
 
 <div class="theorem"><span class="env-label">Theorem 25.1 (Stationary Distribution)</span>
-에르고딕 마르코프 체인은 \(\pi P = \pi\)와 \(\sum_i \pi_i = 1\)을 만족하는 유일한 <strong>정상분포</strong> \(\pi\)를 가진다. 나아가, 초기 분포에 관계없이 \(n \to \infty\)일 때 \(p_{ij}^{(n)} \to \pi_j\)이다.
+에르고딕 마르코프 체인은 \(\pi P = \pi\)와 \(\sum_i \pi_i = 1\)을 만족하는 <strong>정상분포</strong> \(\pi\)가 유일하게 존재한다. 나아가 출발 상태 \(i\)에 관계없이 \(n \to \infty\)일 때 \(p_{ij}^{(n)} \to \pi_j\)이다.
 </div>
 
 <div class="example"><span class="env-label">Example 25.1 (2-상태 마르코프 체인)</span>
-상태 \(\{0, 1\}\)에서 전이행렬이 다음과 같은 마르코프 체인을 고려하자:
+상태가 \(\{0, 1\}\)이고 전이행렬이 다음과 같은 마르코프 체인을 보자:
 $$ P = \begin{pmatrix} 0.7 & 0.3 \\ 0.4 & 0.6 \end{pmatrix}. $$
 정상분포를 구하라.<br>
 <strong>풀이.</strong> \(\pi P = \pi\)에서 \(\pi_0 \cdot 0.7 + \pi_1 \cdot 0.4 = \pi_0\)이고, \(\pi_0 + \pi_1 = 1\). 첫 식을 정리하면 \(0.4\pi_1 = 0.3\pi_0\), 즉 \(\pi_1 = \frac{3}{4}\pi_0\). \(\pi_0 + \frac{3}{4}\pi_0 = 1\)에서 \(\pi_0 = 4/7, \pi_1 = 3/7\). 장기적으로 상태 0에 있을 비율은 \(4/7 \approx 0.571\)이다.
 </div>
 
 <div class="example"><span class="env-label">Example 25.2 (Gambler's Ruin as a Markov Chain)</span>
-도박사가 \(i\)원 (\(0 < i < N\))을 가지고 시작한다. 매 판마다 확률 \(p\)로 1원을 얻고 \(q = 1-p\)로 1원을 잃는다. 0원이나 \(N\)원에 도달하면 게임이 끝난다. 상태 0과 \(N\)은 흡수 상태이다. \(p \neq q\)일 때 상태 \(i\)에서 시작하여 파산할 (상태 0에 도달할) 확률은:
+도박사가 \(i\)원 (\(0 < i < N\))으로 게임을 시작한다. 매 판마다 확률 \(p\)로 1원을 얻고 \(q = 1-p\)로 1원을 잃는다. 0원이나 \(N\)원에 도달하면 게임이 끝난다. 상태 0과 \(N\)은 흡수 상태이다. \(p \neq q\)일 때 상태 \(i\)에서 시작하여 파산할 (상태 0에 도달할) 확률은:
 $$ P_i(\text{ruin}) = \frac{(q/p)^i - (q/p)^N}{1 - (q/p)^N}. $$
 공정한 게임 (\(p = q = 1/2\))일 때는 \(P_i(\text{ruin}) = 1 - i/N\)이다.
 </div>
 
-<p>연속시간에서 가장 기본적인 모형은 "사건이 무작위로 도착하는" 계수과정이다. 콜센터에 걸려오는 전화, 웹 서버에 도착하는 HTTP 요청, 방사성 물질의 붕괴 이벤트 등이 포아송 과정(Poisson process)으로 모형화된다.</p>
+<p>연속시간에서 가장 기본적인 모형은 무작위로 일어나는 사건의 횟수를 세는 계수과정이다. 콜센터에 걸려 오는 전화, 웹 서버에 도착하는 HTTP 요청, 방사성 원자의 붕괴를 포아송 과정(Poisson process)으로 모형화한다.</p>
 
 <div class="definition"><span class="env-label">Definition 25.4 (Poisson Process)</span>
 발생률이 \(\lambda > 0\)인 <strong>포아송 과정</strong>은 다음을 만족하는 연속시간 계수과정 \(\{N(t)\}_{t \geq 0}\)이다:
@@ -65,26 +63,26 @@ $$ P_i(\text{ruin}) = \frac{(q/p)^i - (q/p)^N}{1 - (q/p)^N}. $$
 도착간 시간은 i.i.d. \(\text{Exponential}(\lambda)\)를 따른다.
 </div>
 
-<p>포아송 과정이 이산적 사건의 도착을 모형화한다면, 브라운 운동(Brownian motion)은 연속적으로 변하는 무작위 경로를 모형화한다. 1827년 식물학자 Robert Brown이 관찰한 꽃가루 입자의 불규칙 운동에서 이름이 유래했으며, 오늘날 금융공학의 주가 모형, 통계역학의 확산 방정식, 확률미분방정식의 구동력(driving noise)으로 쓰인다.</p>
+<p>브라운 운동(Brownian motion)은 연속으로 변하는 무작위 경로의 모형이다. 이름은 식물학자 Robert Brown에게서 왔다. Brown은 1827년 여름 물에 담근 꽃가루(<em>Clarkia pulchella</em>) 알갱이에서 나온 작은 입자들이 쉬지 않고 움직이는 것을 관찰해 1828년에 보고했다. 브라운 운동은 금융공학의 주가 모형, 통계역학의 확산, 확률미분방정식의 구동 잡음(driving noise)에 쓰인다.</p>
 
 <div class="definition"><span class="env-label">Definition 25.5 (Brownian Motion / Wiener Process)</span>
 <strong>표준 브라운 운동</strong> \(\{W(t)\}_{t \geq 0}\)은 다음을 만족하는 연속시간 확률과정이다:
 <ol>
   <li>\(W(0) = 0\).</li>
-  <li>독립 증분: \(0 \leq t_1 < t_2 < \cdots < t_n\)에 대해 증분 \(W(t_2) - W(t_1), \ldots, W(t_n) - W(t_{n-1})\)은 독립이다.</li>
+  <li>독립 증분: 모든 \(n\)과 \(0 \leq t_1 < t_2 < \cdots < t_n\)에 대해 증분 \(W(t_2) - W(t_1), \ldots, W(t_n) - W(t_{n-1})\)은 독립이다.</li>
   <li>정규 증분: \(t > s\)에 대해 \(W(t) - W(s) \sim N(0, t - s)\).</li>
-  <li>거의 확실하게 연속인 표본 경로를 가진다.</li>
+  <li>표본 경로가 거의 확실하게 연속이다.</li>
 </ol>
 </div>
 
-<p>브라운 운동의 표본 경로는 직관적으로 "매우 거칠다". 연속이지만 어디서도 미분 불가능하다. 바로 이 때문에 고전 미적분과는 다른 확률 미적분(stochastic calculus)이 필요하다.</p>
+<p>브라운 운동의 표본 경로는 거의 확실하게 연속이지만 어느 점에서도 미분할 수 없다. 그래서 이 경로에 대한 적분에는 고전 미적분 대신 확률 미적분(stochastic calculus)이 필요하다.</p>
 
 <div class="theorem"><span class="env-label">Theorem 25.2 (Properties of Brownian Motion)</span>
 표준 브라운 운동 \(W(t)\)은 다음 성질을 만족한다:
 <ul>
   <li>\(E[W(t)] = 0\), \(\operatorname{Cov}(W(s), W(t)) = \min(s,t)\).</li>
   <li>표본 경로는 거의 확실하게 연속이지만 어디서도 미분 불가능하다.</li>
-  <li>\([0,t]\) 위에서의 이차변동은 거의 확실하게 \(t\)이다.</li>
+  <li>\([0,t]\) 위의 이차변동은 거의 확실하게 \(t\)이다.</li>
   <li>자기유사성: 임의의 \(c > 0\)에 대해 \(\{W(ct)\}_{t \geq 0} \overset{d}{=} \{\sqrt{c}\, W(t)\}_{t \geq 0}\).</li>
 </ul>
 </div>
@@ -98,17 +96,15 @@ $$ P_i(\text{ruin}) = \frac{(q/p)^i - (q/p)^N}{1 - (q/p)^N}. $$
 </ul>
 </div>
 
-<div class="example"><span class="env-label">Example 25.4 (Poisson Process — 합류와 분할)</span>
-rate \(\lambda_1 = 3\)과 \(\lambda_2 = 5\)인 두 독립 Poisson 과정의 합류(superposition)는 rate \(\lambda_1 + \lambda_2 = 8\)인 Poisson 과정이다. 반대로, rate \(\lambda\)인 Poisson 과정에서 각 도착이 독립적으로 확률 \(p\)로 type I, \(1-p\)로 type II로 분류되면, type I 도착은 rate \(\lambda p\), type II 도착은 rate \(\lambda(1-p)\)인 독립 Poisson 과정을 형성한다.
+<div class="example"><span class="env-label">Example 25.4 (Poisson 과정 — 합류와 분할)</span>
+발생률이 \(\lambda_1 = 3\)과 \(\lambda_2 = 5\)인 두 독립 포아송 과정을 합류(superposition)하면 발생률 \(\lambda_1 + \lambda_2 = 8\)인 포아송 과정이 된다. 거꾸로 발생률 \(\lambda\)인 포아송 과정의 각 도착을 독립적으로 확률 \(p\)로 1유형, \(1-p\)로 2유형에 나누면, 1유형 도착은 발생률 \(\lambda p\), 2유형 도착은 발생률 \(\lambda(1-p)\)인 서로 독립인 포아송 과정을 이룬다.
 </div>
 
 <h4>마팅게일 (Martingales)</h4>
 
-<p>마팅게일은 "공정한 게임"을 수학적으로 포착하는 개념이다. 현재까지의 정보가 주어졌을 때, 미래의 기댓값이 현재값과 같으면 그 과정은 마팅게일이다. 도박 이론에서 출발했지만, 현대에는 금융 파생상품 가격 결정(risk-neutral pricing), 통계적 순차 검정(sequential testing), 확률적 수렴 이론에서 폭넓게 쓰인다. Optional Stopping Theorem을 쓰면 복잡한 정지 문제가 기댓값 계산으로 줄어든다.</p>
+<p>마팅게일은 공정한 게임을 수학으로 옮긴 개념이다. 지금까지의 정보가 주어졌을 때 다음 값의 조건부 기댓값이 현재값과 같으면 그 과정을 마팅게일이라 한다. 도박 이론에서 나왔고, 지금은 파생상품 가격 결정(risk-neutral pricing), 순차 검정(sequential testing), 확률 수렴 이론에 쓰인다. 시간 \(n\)까지 쌓인 정보는 여과(filtration)로 나타낸다.</p>
 
-<p>"시간 \(n\)까지 축적된 정보"를 수학적으로 표현하는 도구가 여과(filtration)이다.</p>
-
-<div class="definition"><span class="env-label">Definition 25.6 (Filtration과 적합 과정)</span>
+<div class="definition"><span class="env-label">Definition 25.6 (Filtration and Adapted Process)</span>
 확률공간 \((\Omega, \mathcal{F}, P)\) 위의 시그마 대수(\(\sigma\)-algebra)들의 증가열
 $$ \mathcal{F}_0 \subseteq \mathcal{F}_1 \subseteq \mathcal{F}_2 \subseteq \cdots \subseteq \mathcal{F} $$
 를 <strong>여과</strong>라 한다. \(\mathcal{F}_n\)은 시간 \(n\)까지 축적된 정보를 나타낸다. 확률과정 \(\{X_n\}\)이 여과 \(\{\mathcal{F}_n\}\)에 <strong>적합(adapted)</strong>하다 함은 각 \(n\)에 대해 \(X_n\)이 \(\mathcal{F}_n\)-가측임을 뜻한다.
@@ -117,46 +113,46 @@ $$ \mathcal{F}_0 \subseteq \mathcal{F}_1 \subseteq \mathcal{F}_2 \subseteq \cdot
 <div class="definition"><span class="env-label">Definition 25.7 (Martingale)</span>
 여과 \(\{\mathcal{F}_n\}\)에 적합한 확률과정 \(\{X_n\}\)이 <strong>마팅게일</strong>이라 함은 다음 두 조건을 만족함을 뜻한다:
 <ol>
-  <li>\(E[|X_n|] < \infty\) (모든 \(n\)에 대해 integrable).</li>
+  <li>\(E[|X_n|] < \infty\) (모든 \(n\)에서 적분 가능).</li>
   <li>\(E[X_{n+1} \mid \mathcal{F}_n] = X_n\) a.s.</li>
 </ol>
 조건 2에서 등호를 부등호로 바꾸면:
 <ul>
-  <li>\(E[X_{n+1} \mid \mathcal{F}_n] \geq X_n\) a.s. \(\Rightarrow\) <strong>서브마팅게일</strong> (평균적으로 증가).</li>
-  <li>\(E[X_{n+1} \mid \mathcal{F}_n] \leq X_n\) a.s. \(\Rightarrow\) <strong>슈퍼마팅게일</strong> (평균적으로 감소).</li>
+  <li>\(E[X_{n+1} \mid \mathcal{F}_n] \geq X_n\) a.s.이면 <strong>서브마팅게일</strong>이다(평균적으로 증가).</li>
+  <li>\(E[X_{n+1} \mid \mathcal{F}_n] \leq X_n\) a.s.이면 <strong>슈퍼마팅게일</strong>이다(평균적으로 감소).</li>
 </ul>
 </div>
 
 <div class="example"><span class="env-label">Example 25.5 (공정한 게임)</span>
 i.i.d. 확률변수 \(Y_1, Y_2, \ldots\)가 \(E[Y_i] = 0\)을 만족한다고 하자. 누적 상금을 \(S_n = \sum_{i=1}^{n} Y_i\)로 정의하면, \(\mathcal{F}_n = \sigma(Y_1, \ldots, Y_n)\)에 대해:
 $$ E[S_{n+1} \mid \mathcal{F}_n] = E[S_n + Y_{n+1} \mid \mathcal{F}_n] = S_n + E[Y_{n+1}] = S_n. $$
-따라서 \(\{S_n\}\)은 martingale이다. 공정한 게임의 누적 상금은 평균적으로 변하지 않는다.
+따라서 \(\{S_n\}\)은 마팅게일이다. 지금까지의 결과를 알 때 한 판 뒤 누적 상금의 기댓값은 지금 상금과 같다.
 </div>
 
 <div class="example"><span class="env-label">Example 25.6 (조건부 기댓값 마팅게일)</span>
-integrable한 확률변수 \(Y\) (\(E[|Y|] < \infty\))와 filtration \(\{\mathcal{F}_n\}\)에 대해
+적분 가능한 확률변수 \(Y\) (\(E[|Y|] < \infty\))와 여과 \(\{\mathcal{F}_n\}\)가 있을 때
 $$ X_n = E[Y \mid \mathcal{F}_n] $$
 으로 정의하면, 반복 기댓값의 법칙에 의해:
 $$ E[X_{n+1} \mid \mathcal{F}_n] = E\bigl[E[Y \mid \mathcal{F}_{n+1}] \mid \mathcal{F}_n\bigr] = E[Y \mid \mathcal{F}_n] = X_n. $$
-따라서 \(\{X_n\}\)은 martingale이다. 조건부 기댓값으로 마팅게일을 만드는 이 방법이 가장 일반적인 구성이다.
+따라서 \(\{X_n\}\)은 마팅게일이다. 이렇게 만든 마팅게일을 Doob 마팅게일이라 한다.
 </div>
 
 <div class="theorem"><span class="env-label">Theorem 25.3 (Optional Stopping Theorem)</span>
-\(\{X_n\}\)이 filtration \(\{\mathcal{F}_n\}\)에 대한 martingale이고, \(\tau\)가 <strong>유계 정지시간</strong>이면 (즉, 어떤 \(N\)이 존재하여 \(\tau \leq N\) a.s.), 다음이 성립한다:
+\(\{X_n\}\)이 여과 \(\{\mathcal{F}_n\}\)에 관한 마팅게일이고, \(\tau\)가 <strong>유계 정지시간</strong>이면 (즉, 어떤 \(N\)이 존재하여 \(\tau \leq N\) a.s.), 다음이 성립한다:
 $$ E[X_\tau] = E[X_0]. $$
 </div>
 
 <div class="example"><span class="env-label">Example 25.7 (마팅게일을 이용한 Gambler's Ruin)</span>
-도박사가 초기 자금 \(i\)로 시작하고, 흡수 장벽이 0과 \(N\)인 공정한 게임을 고려하자. \(S_n\)을 시간 \(n\)에서의 재산이라 하면, \(S_n\)은 martingale이다. 정지시간 \(\tau = \min\{n : S_n = 0 \text{ or } S_n = N\}\)은 거의 확실하게 유한하다. 유계 정지시간 \(\tau\wedge m\)에 정리를 적용하면 \(0\leq S_{\tau\wedge m}\leq N\)이고, \(m\to\infty\)에서 지배수렴정리를 쓸 수 있으므로
+도박사가 초기 자금 \(i\)로 시작하고, 흡수 장벽이 0과 \(N\)인 공정한 게임을 한다고 하자. 시간 \(n\)의 재산을 \(S_n\)이라 하면 \(S_n\)은 마팅게일이다. 정지시간 \(\tau = \min\{n : S_n = 0 \text{ or } S_n = N\}\)은 거의 확실하게 유한하다. 유계 정지시간 \(\tau\wedge m\)에 정리를 적용하면 \(E[S_{\tau\wedge m}] = i\)이다. \(0\leq S_{\tau\wedge m}\leq N\)이므로 \(m\to\infty\)에서 지배수렴정리를 쓰면
 $$ E[S_\tau] = E[S_0] = i. $$
 \(S_\tau\)는 0 또는 \(N\)만 취하므로:
 $$ 0 \cdot P(\text{ruin}) + N \cdot P(\text{win}) = i \quad \Longrightarrow \quad P(\text{win}) = \frac{i}{N}. $$
-따라서 공정한 게임에서 초기 자금 \(i\)로 \(N\)원을 달성할 확률은 \(i/N\)이다.
+따라서 공정한 게임에서 초기 자금 \(i\)로 \(N\)원에 도달할 확률은 \(i/N\)이다.
 </div>
 
 <h4>이토 미적분 기초 (Itô Calculus Basics)</h4>
 
-<p>결정론적 ODE \(dx = f(x)\,dt\)에 무작위 구동력을 더하면 \(dX = f(X)\,dt + \sigma(X)\,dW\)가 되고, 이것이 확률미분방정식(SDE)이다. 브라운 운동의 표본 경로는 거의 확실하게 어디서도 미분 불가능하고 유계변동도 아니다. 따라서 일반적인 피적분 확률과정에 대해 고전적인 Riemann-Stieltjes 적분으로 \(\int f\,dW\)를 정의할 수 있는 것은 아니다. 이토 미적분(Itô calculus)은 이 문제를 해결하기 위해 개발된 확률 적분 이론으로, 금융공학의 파생상품 가격 결정, 확률 제어(stochastic control), 필터링 이론(Kalman filter의 연속시간 확장) 등에 쓰인다.</p>
+<p>ODE \(dx = f(x)\,dt\)에 무작위 구동항을 더한 \(dX = f(X)\,dt + \sigma(X)\,dW\)를 확률미분방정식(SDE)이라 한다. 브라운 운동의 표본 경로는 거의 확실하게 어디서도 미분할 수 없고 유계변동도 아니어서, 일반적인 피적분 과정에 대해서는 \(\int f\,dW\)를 Riemann&ndash;Stieltjes 적분으로 정의할 수 없다. 이토 미적분(Itô calculus)은 이 적분을 정의하는 이론으로, 파생상품 가격 결정, 확률 제어(stochastic control), 필터링 이론(연속시간 칼만 필터인 Kalman-Bucy 필터 등)에 쓰인다.</p>
 
 <div class="definition"><span class="env-label">Definition 25.8 (Itô Integral)</span>
 먼저 \(\xi_k\)가 \(\mathcal F_{t_k}\)-가측인 단순 적합 과정 \(f(s)=\sum_k \xi_k\mathbf 1_{(t_k,t_{k+1}]}(s)\)에 대해 <strong>이토 적분</strong>을
@@ -164,17 +160,17 @@ $$ \int_0^t f(s) \, dW(s) = \sum_k \xi_k\bigl(W(t_{k+1}) - W(t_k)\bigr) $$
 로 정의한다. 일반적인 예측 가능(predictable) 과정 \(f\)가 \(E\!\left[\int_0^t f(s)^2 \, ds\right] < \infty\)를 만족하면, 단순 적합 과정으로 근사한 적분들의 \(L^2\) 극한으로 정의한다.
 핵심 성질:
 <ul>
-  <li><strong>Martingale 성질</strong>: \(E\!\left[\int_0^t f(s) \, dW(s)\right] = 0\).</li>
+  <li><strong>평균 0</strong>: \(E\!\left[\int_0^t f(s) \, dW(s)\right] = 0\). 나아가 \(t\)의 함수로서 이토 적분은 마팅게일이다.</li>
   <li><strong>Itô isometry</strong>: \(E\!\left[\left(\int_0^t f(s) \, dW(s)\right)^{\!2}\right] = E\!\left[\int_0^t f(s)^2 \, ds\right]\).</li>
 </ul>
 </div>
 
 <div class="theorem"><span class="env-label">Theorem 25.4 (Itô's Lemma)</span>
-\(f \in C^2(\mathbb{R})\)이고 \(W_t\)가 standard Brownian motion일 때:
+\(f \in C^2(\mathbb{R})\)이고 \(W_t\)가 표준 브라운 운동일 때:
 $$ df(W_t) = f'(W_t) \, dW_t + \tfrac{1}{2} f''(W_t) \, dt. $$
-더 일반적으로, Itô process \(X_t = X_0 + \int_0^t \mu(s) \, ds + \int_0^t \sigma(s) \, dW_s\)에 대해:
+더 일반적으로, 이토 과정(Itô process) \(X_t = X_0 + \int_0^t \mu(s) \, ds + \int_0^t \sigma(s) \, dW_s\)에 대해:
 $$ df(X_t) = f'(X_t)\bigl(\mu \, dt + \sigma \, dW_t\bigr) + \tfrac{1}{2} f''(X_t) \, \sigma^2 \, dt. $$
-\(\tfrac{1}{2} f''\) 항은 고전 미적분에는 없는 항이다. Brownian motion의 이차변동 \(\langle W \rangle_t = t\)가 이 항을 만든다.
+고전 미적분의 연쇄법칙에는 \(\tfrac{1}{2} f''\) 항이 없다. 이 항은 브라운 운동의 이차변동이 \(\langle W \rangle_t = t\)이어서 생긴다.
 </div>
 
 <div class="example"><span class="env-label">Example 25.8 (\(W_t^2\)의 Itô 미분)</span>
@@ -182,12 +178,12 @@ $$ df(X_t) = f'(X_t)\bigl(\mu \, dt + \sigma \, dW_t\bigr) + \tfrac{1}{2} f''(X_
 $$ d(W_t^2) = 2W_t \, dW_t + \tfrac{1}{2} \cdot 2 \, dt = 2W_t \, dW_t + dt. $$
 양변을 \([0, t]\)에서 적분하면:
 $$ W_t^2 = 2\int_0^t W_s \, dW_s + t. $$
-따라서 Itô 적분을 명시적으로 계산할 수 있다:
+따라서 이토 적분을 명시적으로 계산할 수 있다:
 $$ \int_0^t W_s \, dW_s = \frac{W_t^2 - t}{2}. $$
-고전 미적분에서는 \(\int x \, dx = x^2/2\)이지만, 확률 미적분에서는 \(-t/2\) 보정항이 추가된다.
+고전 미적분의 \(\int x \, dx = x^2/2\)에 \(-t/2\) 보정항이 붙은 꼴이다.
 </div>
 
-<p>SDE는 결정론적 ODE의 확률 버전이다. 추세 항이 시스템의 평균적 경향을, 확산 항이 무작위 변동의 크기를 나타낸다.</p>
+<p>SDE에서 추세(drift) 항은 시스템이 평균적으로 움직이는 방향을, 확산(diffusion) 항은 무작위 변동의 크기를 정한다.</p>
 
 <div class="definition"><span class="env-label">Definition 25.9 (Stochastic Differential Equation)</span>
 <strong>확률미분방정식(SDE)</strong>은 다음과 같은 형태의 미분방정식이다:
@@ -197,41 +193,31 @@ $$ X_t = X_0 + \int_0^t \mu(X_s, s) \, ds + \int_0^t \sigma(X_s, s) \, dW_s. $$
 </div>
 
 <div class="example"><span class="env-label">Example 25.9 (Geometric Brownian Motion)</span>
-주가 모형에 널리 사용되는 <strong>기하 브라운 운동</strong>은 다음 SDE를 따른다:
+주가 모형에 널리 쓰이는 <strong>기하 브라운 운동</strong>은 다음 SDE를 따른다:
 $$ dS_t = \mu S_t \, dt + \sigma S_t \, dW_t. $$
 해를 구하기 위해 \(f(S) = \ln S\)에 Itô's Lemma를 적용한다. \(f'(S) = 1/S\), \(f''(S) = -1/S^2\)이므로:
 $$ d(\ln S_t) = \frac{1}{S_t}(\mu S_t \, dt + \sigma S_t \, dW_t) + \frac{1}{2}\left(-\frac{1}{S_t^2}\right)\sigma^2 S_t^2 \, dt = \left(\mu - \frac{\sigma^2}{2}\right) dt + \sigma \, dW_t. $$
 양변을 적분하면 \(\ln S_t - \ln S_0 = \left(\mu - \frac{\sigma^2}{2}\right)t + \sigma W_t\)이므로:
 $$ S_t = S_0 \exp\!\left[\left(\mu - \frac{\sigma^2}{2}\right)t + \sigma W_t\right]. $$
-이것이 <strong>블랙–숄즈 모형</strong>의 기초가 되는 주가 모형이다. drift 보정항 \(-\sigma^2/2\)는 Itô's Lemma에서 자연스럽게 나온다.
+<strong>Black&ndash;Scholes 모형</strong>은 주가가 이 식을 따른다고 가정한다. 지수 안의 \(-\sigma^2/2\)는 Itô's Lemma의 \(\tfrac12 f''\) 항에서 나온다.
 </div>
 
 <h4>에르고딕 정리 (Ergodic Theorem)</h4>
 
-<p>실무에서 확률과정의 기댓값을 알고 싶을 때, 동일한 시스템을 수천 개 복제하여 앙상블 평균(ensemble average)을 구하기는 어렵다. 대신 하나의 시스템을 오래 관측하여 시간 평균(time average)을 구한다. 에르고딕 정리는 "충분히 잘 섞이는" 확률과정에서 시간 평균이 앙상블 평균에 수렴함을 보장하며, Monte Carlo simulation과 MCMC의 이론적 근거가 된다.</p>
+<p>확률과정의 기댓값을 알고 싶어도 같은 시스템을 수천 개 만들어 앙상블 평균(ensemble average)을 내기는 어렵다. 대신 시스템 하나를 오래 관측해 시간 평균(time average)을 낸다. 에르고딕 정리는 정상이고 에르고딕한 과정에서 시간 평균이 앙상블 평균으로 수렴함을 보장한다. 마르코프 체인 몬테카를로(MCMC)가 체인 하나의 표본 평균으로 기댓값을 어림하는 근거가 이 정리다.</p>
 
 <div class="theorem"><span class="env-label">Theorem 25.5 (Birkhoff's Ergodic Theorem)</span>
 \(E[|X_0|] < \infty\)인 <strong>정상 에르고딕 과정</strong> \(\{X_n\}\)에 대해, 시간 평균(time average)은 거의 확실하게 앙상블 평균(ensemble average)으로 수렴한다:
 $$ \frac{1}{n}\sum_{k=0}^{n-1} X_k \xrightarrow{\text{a.s.}} E[X_0] \quad (n \to \infty). $$
-이는 앞에서 제시한 i.i.d. 강대수의 법칙(Strong LLN)을 넓힌 결과다. Birkhoff의 에르고딕 정리는 독립성 대신 정상성(stationarity)과 에르고딕성(ergodicity)을 가정한다.
+Birkhoff의 에르고딕 정리는 독립성을 가정하지 않고 정상성(stationarity)과 에르고딕성(ergodicity)만 가정한다. i.i.d. 열은 정상 에르고딕 과정이므로 23장의 강한 큰 수의 법칙(strong LLN)은 이 정리의 특수한 경우다.
 </div>
 
-<div class="example"><span class="env-label">Example 25.10 (에르고딕 마르코프 연쇄의 시간 평균)</span>
+<div class="example"><span class="env-label">Example 25.10 (에르고딕 마르코프 체인의 시간 평균)</span>
 정상분포 \(\pi\)에서 시작한 에르고딕 마르코프 체인 \(\{X_n\}\)과 \(\sum_i\pi_i|g(i)|<\infty\)를 만족하는 상태 공간 위의 함수 \(g\)에 대해 Birkhoff의 에르고딕 정리를 적용하면:
 $$ \frac{1}{n}\sum_{k=0}^{n-1} g(X_k) \xrightarrow{\text{a.s.}} \sum_{i} \pi_i \, g(i) \quad (n \to \infty). $$
-특히, \(g = \mathbf{1}_{\{j\}}\) (상태 \(j\)의 indicator function)로 놓으면:
+특히, \(g = \mathbf{1}_{\{j\}}\) (상태 \(j\)의 지시함수(indicator function))로 놓으면:
 $$ \frac{1}{n}\sum_{k=0}^{n-1} \mathbf{1}_{\{X_k = j\}} \xrightarrow{\text{a.s.}} \pi_j. $$
-즉, 상태 \(j\)에 머무는 시간의 비율은 정상분포 \(\pi_j\)로 수렴한다. 몬테카를로 시뮬레이션이 작동하는 이론적 근거가 여기에 있다.
-</div>
-
-<div class="remark"><span class="env-label">Remark (확률론의 핵심 관계 요약)</span>
-<ul>
-  <li>Markov 부등식은 1차 모멘트(기댓값)만으로 꼬리 확률의 상한을 제공한다.</li>
-  <li>Chebyshev 부등식은 중심 2차 모멘트(분산)를 추가로 사용하여 더 정밀한 상한을 제공한다.</li>
-  <li>Weak LLN은 Chebyshev 부등식의 직접적인 결과이다.</li>
-  <li>CLT는 LLN과 다른 정보를 준다. 표본평균의 수렴 자체를 넘어, 적절히 정규화한 오차의 극한분포를 알려준다.</li>
-  <li>Bayesian 추론은 Bayes' rule의 적용이며, 사전분포의 선택이 결과에 영향을 준다.</li>
-</ul>
+곧 상태 \(j\)에 머문 시간의 비율은 \(\pi_j\)로 수렴한다. 기약이고 양재귀적인 체인이면 \(\pi\)가 아닌 초기 분포에서 출발해도 같은 결론이 성립하며, MCMC는 이 성질을 쓴다.
 </div>
 
 <p class="source-tag">Sources: MIT 6.041SC (Lectures 1-25), MIT 18.650, Stanford CS229, Harvard Stat 110, Rice Mathematical Statistics</p>
@@ -239,22 +225,22 @@ $$ \frac{1}{n}\sum_{k=0}^{n-1} \mathbf{1}_{\{X_k = j\}} \xrightarrow{\text{a.s.}
 <details class="video-resources">
 <summary>추천 영상 강의 (원본 소스 기반)</summary>
 <ul>
-<li><a href="https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-262-discrete-stochastic-processes-spring-2011/" target="_blank">6.262 Discrete Stochastic Processes — MIT OCW</a></li>
-<li><a href="http://nptel.ac.in/courses/111102096/" target="_blank">Stochastic Processes 1 — NPTEL IIT Bombay</a></li>
-<li><a href="http://nptel.ac.in/courses/111102014/" target="_blank">Stochastic Processes — NPTEL IIT Bombay</a></li>
+<li><a href="https://ocw.mit.edu/courses/6-262-discrete-stochastic-processes-spring-2011/" target="_blank">6.262 Discrete Stochastic Processes — MIT OCW</a></li>
+<li><a href="https://nptel.ac.in/courses/111102096" target="_blank">NOC: Stochastic Processes — NPTEL IIT Delhi (S. Dharmaraja)</a></li>
+<li><a href="https://nptel.ac.in/courses/111102014" target="_blank">Stochastic Processes — NPTEL IIT Delhi (S. Dharmaraja)</a></li>
 </ul>
 </details>
 
 <details class="video-resources">
 <summary>추천 교재 &amp; 오픈 자료</summary>
 <ul>
-<li><a href="https://www.stat.berkeley.edu/~aldous/150/prob_book.pdf" target="_blank">Probability and Stochastic Processes (Aldous &amp; Fill, Berkeley)</a> — 무료 초안 PDF</li>
-<li>Karlin &amp; Taylor, <em>A First Course in Stochastic Processes</em> — 고전적 입문서</li>
-<li>Ross, <em>Introduction to Probability Models</em> — 응용 확률과정 표준 교재</li>
-<li>Durrett, <em>Probability: Theory and Examples</em> — Ch 6-8: 마르팅게일, 마르코프 체인</li>
-<li>Øksendal, <em>Stochastic Differential Equations</em> — 확률미분방정식 표준 입문서</li>
-<li>Norris, <em>Markov Chains</em> — Cambridge, 마르코프 체인 전문서</li>
-<li>Lawler, <em>Introduction to Stochastic Processes</em> — 간결한 학부 수준 교재</li>
+<li><a href="https://www.stat.berkeley.edu/~aldous/RWG/book.html" target="_blank">Reversible Markov Chains and Random Walks on Graphs (Aldous &amp; Fill, Berkeley)</a> — 무료 초안 PDF</li>
+<li>Karlin &amp; Taylor, <em>A First Course in Stochastic Processes</em> — 입문서</li>
+<li>Ross, <em>Introduction to Probability Models</em> — 응용 확률과정 교재</li>
+<li>Durrett, <em>Probability: Theory and Examples</em> — 5판 4장: 마팅게일, 5장: 마르코프 체인</li>
+<li>Øksendal, <em>Stochastic Differential Equations</em> — Springer Universitext</li>
+<li>Norris, <em>Markov Chains</em> — Cambridge University Press</li>
+<li>Lawler, <em>Introduction to Stochastic Processes</em> — 학부 수준 교재</li>
 </ul>
 </details>
 

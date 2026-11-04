@@ -11,66 +11,62 @@
 
 <p class="section-intro">볼록 최적화의 기반은 볼록 집합과 볼록 함수이다.</p>
 
-<p>볼록 문제에서는 모든 지역 최솟값(local minimum)이 곧 전역 최솟값(global minimum)이다. 매끄러움과 스텝 크기 같은 조건이 갖춰지면 경사하강법으로도 전역 최적값에 수렴할 수 있다. 기계학습에서 SVM(support vector machine)의 쌍대 문제와 로지스틱 회귀의 손실함수 최소화, 제어 시스템에서 선형·이차 조절(LQR)과 볼록하게 정식화한 모델 예측 제어(MPC), 신호처리에서 압축 센싱(compressed sensing)과 빔포밍(beamforming), 통신에서 OFDM 부반송파 전력 할당, 구조 설계에서 최소 중량 최적화 등이 볼록 최적화의 대표적 응용이다.</p>
+<p>볼록 문제에서는 모든 지역 최솟값(local minimum)이 곧 전역 최솟값(global minimum)이다. 함수가 매끄럽고 스텝 크기를 알맞게 잡으면 경사하강법만으로도 전역 최솟값에 다가간다. 기계학습에서는 SVM(support vector machine)의 쌍대 문제와 로지스틱 회귀의 손실함수 최소화가 볼록 문제다. 제어에서는 선형·이차 조절(LQR)과 볼록하게 정식화한 모델 예측 제어(MPC)가, 신호처리에서는 압축 센싱(compressed sensing)과 빔포밍(beamforming)이 볼록 최적화로 풀린다. 통신의 OFDM 부반송파 전력 할당과 구조 설계의 최소 중량 문제도 여기에 든다.</p>
 
-<p>일반적인 비볼록 최적화 문제는 NP-hard일 수 있다. 반면 선형계획, 이차계획, 반정치계획처럼 적절한 장벽과 유한한 표현을 갖춘 넓은 부류의 볼록 문제는 내부점 방법(interior-point method)으로 다항 시간에 풀 수 있다. 볼록 최적화는 계산 가능한 최적화의 중요한 축이며, 비볼록 문제에서도 볼록 완화(convex relaxation)나 볼록-오목 절차(convex-concave procedure)의 하위 문제(subproblem)로 등장한다.</p>
+<p>비볼록 최적화는 일반적으로 NP-hard이다. 볼록 문제 가운데 선형계획(LP), 이차계획(QP), 반정치계획(semidefinite programming, SDP)은 내부점 방법(interior-point method)으로 원하는 정밀도까지 다항 시간에 푼다. 비볼록 문제를 풀 때도 볼록 완화(convex relaxation)나 볼록-오목 절차(convex-concave procedure)로 볼록 하위 문제(subproblem)를 만들어 푸는 일이 많다.</p>
 
 <!-- Based on Boyd & Vandenberghe, Convex Optimization (Stanford EE364A) -->
-
-<p>볼록 최적화는 "볼록 집합" 위에서 "볼록 함수"를 최소화하는 구조이다.</p>
 
 <div class="definition"><span class="env-label">Definition 26.1 (Convex Set)</span>
 집합 \(C \subseteq \mathbb{R}^n\)이 <strong>볼록(convex)</strong>하다 함은, 모든 \(x, y \in C\)와 \(\theta \in [0,1]\)에 대해 다음이 성립하는 것을 말한다:
 $$ \theta x + (1 - \theta) y \in C. $$
-즉, \(C\) 내의 임의의 두 점을 잇는 선분이 전부 \(C\) 안에 포함된다.
+\(C\) 안의 두 점을 잇는 선분은 모두 \(C\) 안에 있다.
 </div>
 
 <div class="definition"><span class="env-label">Definition 26.2 (Important Convex Sets)</span>
 <ul>
-  <li><strong>Hyperplane:</strong> \(\{x : a^T x = b\}\). <strong>Halfspace:</strong> \(\{x : a^T x \leq b\}\).</li>
-  <li><strong>Polyhedron:</strong> \(\{x : Ax \leq b\}\) (유한개 halfspace의 교집합).</li>
-  <li><strong>Ellipsoid:</strong> \(\{x : (x - x_c)^T P^{-1} (x - x_c) \leq 1\}\), 여기서 \(P \succ 0\).</li>
-  <li><strong>Norm ball:</strong> 임의의 노름에 대해 \(\{x : \|x - x_c\| \leq r\}\).</li>
-  <li><strong>Positive semidefinite cone:</strong> \(\mathbb{S}^n_+ = \{X \in \mathbb{S}^n : X \succeq 0\}\).</li>
+  <li><strong>초평면(hyperplane):</strong> \(\{x : a^T x = b\}\). <strong>반공간(halfspace):</strong> \(\{x : a^T x \leq b\}\).</li>
+  <li><strong>다면체(polyhedron):</strong> \(\{x : Ax \leq b\}\) (유한개 반공간의 교집합).</li>
+  <li><strong>타원체(ellipsoid):</strong> \(\{x : (x - x_c)^T P^{-1} (x - x_c) \leq 1\}\), 여기서 \(P \succ 0\).</li>
+  <li><strong>노름 공(norm ball):</strong> 임의의 노름에 대해 \(\{x : \|x - x_c\| \leq r\}\).</li>
+  <li><strong>양의 반정치 원뿔(positive semidefinite cone):</strong> \(\mathbb{S}^n_+ = \{X \in \mathbb{S}^n : X \succeq 0\}\).</li>
 </ul>
-볼록성은 교집합, 아핀 사상, 원근 함수를 거쳐도 유지된다.
+교집합을 잡거나 아핀 사상이나 원근 함수(perspective function)를 적용해도 볼록성은 그대로다.
 </div>
 
-<p class="subsection-transition">볼록 함수는 그래프 위의 임의의 두 점을 잇는 선분이 항상 그래프보다 위에 놓이는 함수이다. 이 성질은 지역 최솟값이 존재할 때 그것이 전역 최솟값임을 보장하지만, 최솟값 자체의 존재까지 보장하지는 않는다.</p>
+<p class="subsection-transition">볼록 함수는 그래프 위의 두 점을 잇는 선분이 그래프보다 아래로 내려가지 않는 함수이다. 볼록 함수의 지역 최솟값은 곧 전역 최솟값이다. \(e^x\)처럼 최솟값이 없는 볼록 함수도 있다.</p>
 
 <div class="definition"><span class="env-label">Definition 26.3 (Convex Function)</span>
 함수 \(f : \mathbb{R}^n \to \mathbb{R} \cup \{+\infty\}\)가 <strong>볼록</strong>하다 함은, \(\operatorname{dom} f\)가 볼록이고 모든 \(x, y \in \operatorname{dom} f\), \(\theta \in [0,1]\)에 대해 다음이 성립하는 것을 말한다:
 $$ f(\theta x + (1-\theta) y) \leq \theta f(x) + (1-\theta) f(y). $$
-정의역이 열린 볼록집합이고 \(f\)가 두 번 미분 가능하면, \(f\)가 볼록할 필요충분조건은 모든 \(x \in \operatorname{dom} f\)에서 \(\nabla^2 f(x) \succeq 0\)인 것이다.
 </div>
 
 <div class="definition"><span class="env-label">Definition 26.4 (First- and Second-Order Conditions)</span>
 볼록 정의역 위에서 미분 가능한 \(f\)에 대해:
 <ul>
-  <li><strong>First-order condition:</strong> \(f\)가 볼록할 필요충분조건은
+  <li><strong>1차 조건:</strong> \(f\)가 볼록할 필요충분조건은
   $$ f(y) \geq f(x) + \nabla f(x)^T (y - x) \quad \forall\, x, y \in \operatorname{dom} f $$
-  인 것이다. (접선 초평면이 전역적 하한이 된다.)</li>
-  <li><strong>Second-order condition:</strong> 정의역이 열린 볼록집합이고 \(f\)가 두 번 미분 가능하면, \(f\)가 볼록할 필요충분조건은 모든 \(x\)에서 \(\nabla^2 f(x) \succeq 0\)인 것이다.</li>
+  인 것이다. 곧 접평면이 \(f\)의 전역 하한이다.</li>
+  <li><strong>2차 조건:</strong> 정의역이 열린 볼록집합이고 \(f\)가 두 번 미분 가능하면, \(f\)가 볼록할 필요충분조건은 모든 \(x\)에서 \(\nabla^2 f(x) \succeq 0\)인 것이다.</li>
 </ul>
 </div>
 
-<h4>Convex Function: Criteria and Inequalities</h4>
+<h4>볼록 함수의 판정법과 부등식 (Convex Function: Criteria and Inequalities)</h4>
 
 <div class="theorem"><span class="env-label">Theorem 26.1 (Hessian Criterion for Convexity)</span>
 열린 볼록집합에서 두 번 미분 가능한 함수 \(f\)에 대해:
 <ul>
-  <li>\(f\)가 볼록 \(\iff\) 모든 \(x \in \operatorname{dom} f\)에서 Hessian \(\nabla^2 f(x) \succeq 0\) (양반정치, positive semidefinite).</li>
-  <li>\(f\)가 <strong>순볼록</strong> \(\Leftarrow\) 모든 \(x\)에서 \(\nabla^2 f(x) \succ 0\) (양정치). 역은 일반적으로 성립하지 않는다 (\(f(x) = x^4\)는 순볼록이지만 \(f''(0) = 0\)).</li>
-  <li>\(f\)가 <strong>strongly convex(강볼록)</strong> with parameter \(m > 0\) \(\iff\) \(\nabla^2 f(x) \succeq mI\) for all \(x\). 이 조건은 수렴 분석에서 중요하다.</li>
+  <li>모든 \(x\)에서 \(\nabla^2 f(x) \succ 0\)(양정치)이면 \(f\)는 <strong>순볼록</strong>이다. 역은 일반적으로 성립하지 않는다 (\(f(x) = x^4\)는 순볼록이지만 \(f''(0) = 0\)).</li>
+  <li>\(f\)가 매개변수 \(m > 0\)으로 <strong>강볼록(strongly convex)</strong>일 필요충분조건은 모든 \(x\)에서 \(\nabla^2 f(x) \succeq mI\)인 것이다. 경사하강법의 선형 수렴(Theorem 26.4)에 이 조건이 쓰인다.</li>
 </ul>
 </div>
 
 <div class="example"><span class="env-label">Example 26.1 (Hessian을 이용한 볼록성 판정)</span>
 \(f(x_1, x_2) = x_1^2 + x_1 x_2 + x_2^2\)의 볼록성을 판정하자. Hessian은
 $$ \nabla^2 f = \begin{pmatrix} 2 & 1 \\ 1 & 2 \end{pmatrix}. $$
-고유값은 \(\lambda_1 = 3\), \(\lambda_2 = 1\)이며 모두 양수이므로 \(\nabla^2 f \succ 0\)이다. 따라서 \(f\)는 순볼록이다. 실제로 strongly convex with \(m = 1\)이다.
+고유값은 \(\lambda_1 = 3\), \(\lambda_2 = 1\)이며 모두 양수이므로 \(\nabla^2 f \succ 0\)이다. 따라서 \(f\)는 순볼록이고, \(m = 1\)로 강볼록이다.
 
-<p>반면, \(g(x_1, x_2) = x_1^2 - x_1 x_2 + x_2^2\)의 Hessian은</p>
+<p>한편 \(g(x_1, x_2) = x_1^2 - x_1 x_2 + x_2^2\)의 Hessian은</p>
 $$ \nabla^2 g = \begin{pmatrix} 2 & -1 \\ -1 & 2 \end{pmatrix} $$
 이며, 고유값 \(3, 1 > 0\)이므로 이것도 순볼록이다.
 </div>
@@ -78,7 +74,7 @@ $$ \nabla^2 g = \begin{pmatrix} 2 & -1 \\ -1 & 2 \end{pmatrix} $$
 <div class="theorem"><span class="env-label">Theorem 26.2 (Jensen's Inequality)</span>
 \(f\)가 볼록 함수이고 \(X\)가 확률변수이면,
 $$ f(\mathbb{E}[X]) \leq \mathbb{E}[f(X)], $$
-단, \(\mathbb{E}[X] \in \operatorname{dom} f\)이다. \(f\)가 순볼록이면 등호 조건은 \(X\)가 상수(a.s.)인 것이다. \(f\)가 오목이면 부등호가 뒤집힌다.
+단, \(\mathbb{E}|X| < \infty\)이고 \(\mathbb{E}[X] \in \operatorname{dom} f\)이다. \(f\)가 순볼록이면 등호가 성립할 필요충분조건은 \(X\)가 거의 확실하게 상수인 것이다. \(f\)가 오목이면 부등호가 뒤집힌다.
 </div>
 
 <div class="example"><span class="env-label">Example 26.2 (Jensen 부등식의 응용)</span>
@@ -90,66 +86,62 @@ $$ f(\mathbb{E}[X]) \leq \mathbb{E}[f(X)], $$
 </ul>
 </div>
 
-<div class="example"><span class="env-label">Example 26.3 (주요 Convex/Concave 함수 목록)</span>
+<div class="example"><span class="env-label">Example 26.3 (주요 볼록·오목 함수 목록)</span>
 중요한 볼록 함수: \(e^{ax}\), \(\mathbb{R}_{++}\) 위에서 \(p \geq 1\) 또는 \(p \leq 0\)일 때 \(x^p\), 임의의 노름 \(\|x\|\), \(A \succeq 0\)일 때 \(x^T A x\), \(\mathbb{S}^n_{++}\) 위에서 \(\log\det(X^{-1})\). 중요한 오목 함수: \(\log x\), \(\sqrt{x}\), \(\mathbb{R}_{++}\) 위에서 \(0 \leq p \leq 1\)일 때 \(x^p\).
 </div>
 
 <p>볼록 최적화 문제에서는 목적함수와 부등식 제약이 모두 볼록이고, 등식 제약이 아핀이다.</p>
 
 <div class="definition"><span class="env-label">Definition 26.5 (Convex Optimization Problem)</span>
-<strong>Convex optimization(볼록 최적화) 문제</strong>(표준형)는 다음과 같다:
+<strong>볼록 최적화 문제</strong>(표준형)는 다음과 같다:
 $$ \begin{aligned}
 \operatorname{minimize} \quad & f_0(x) \\
 \text{subject to} \quad & f_i(x) \leq 0, \quad i = 1, \ldots, m, \\
 & a_j^T x = b_j, \quad j = 1, \ldots, p,
 \end{aligned} $$
-여기서 \(f_0, f_1, \ldots, f_m\)은 볼록 함수이고 등식 제약은 아핀이다. 볼록 문제의 모든 지역 최적해는 전역 최적해이다.
+여기서 \(f_0, f_1, \ldots, f_m\)은 볼록 함수이다. 볼록 문제의 지역 최적해는 모두 전역 최적해이다.
 </div>
 
 <div class="definition"><span class="env-label">Definition 26.6 (Lagrangian and Dual Function)</span>
-<strong>Lagrangian</strong>은 다음과 같다:
+<strong>라그랑지안(Lagrangian)</strong>은 다음과 같다:
 $$ L(x, \lambda, \nu) = f_0(x) + \sum_{i=1}^m \lambda_i f_i(x) + \sum_{j=1}^p \nu_j (a_j^T x - b_j), $$
-여기서 \(\lambda_i \geq 0\)이다. <strong>Lagrange dual function</strong>은
+여기서 \(\lambda_i \geq 0\)이다. <strong>라그랑주 쌍대 함수(Lagrange dual function)</strong>는
 $$ g(\lambda, \nu) = \inf_x L(x, \lambda, \nu) $$
-이다. 임의의 \(\lambda \geq 0\)과 임의의 \(\nu\)에 대해 \(g(\lambda, \nu) \leq p^*\) (최적 원시 값)이다. Dual function은 항상 오목이다.
+이다. 임의의 \(\lambda \geq 0\)과 임의의 \(\nu\)에 대해 \(g(\lambda, \nu) \leq p^*\)이다. 여기서 \(p^*\)는 원 문제(primal problem)의 최적값이다. \(g\)는 원 문제가 볼록이 아니어도 항상 오목이다.
 </div>
 
-<p class="subsection-transition">쌍대 문제는 원래 문제에 대한 하한을 제공하며, 특정 조건 하에서 원래 문제와 동일한 최적값을 갖는다. 이 관계가 최적성 조건(KKT)과 알고리즘 설계의 기반이 된다.</p>
-
-<h4>Duality: Intuition and Strong Duality</h4>
+<h4>쌍대성의 직관과 강한 쌍대성 (Duality: Intuition and Strong Duality)</h4>
 
 <div class="definition"><span class="env-label">Definition 26.7 (Lagrange Dual Problem)</span>
-<strong>Dual(쌍대) 문제</strong>는 다음과 같다:
+<strong>쌍대(dual) 문제</strong>는 다음과 같다:
 $$ \begin{aligned}
 \operatorname{maximize} \quad & g(\lambda, \nu) \\
 \text{subject to} \quad & \lambda \geq 0.
 \end{aligned} $$
-최적 쌍대값 \(d^*\)는 <strong>약한 쌍대성(weak duality)</strong>을 만족한다: \(d^* \leq p^*\). \(d^* = p^*\)이면 <strong>강한 쌍대성</strong>이 성립한다. 볼록 문제에서 등식 제약과 모든 아핀 부등식 제약을 만족하고, 모든 비아핀 부등식 제약에 대해 \(f_i(x)<0\)인 상대내부점이 존재하는 <strong>Slater 조건(Slater's condition)</strong>은 강한 쌍대성을 보장한다.
+최적 쌍대값 \(d^*\)는 <strong>약한 쌍대성(weak duality)</strong>을 만족한다: \(d^* \leq p^*\). \(d^* = p^*\)이면 <strong>강한 쌍대성</strong>이 성립한다. 볼록 문제에서 <strong>Slater 조건(Slater's condition)</strong>이 성립하면 강한 쌍대성이 성립한다. Slater 조건은 등식 제약과 아핀 부등식 제약을 모두 만족하고 비아핀 부등식 제약은 모두 \(f_i(x)<0\)으로 만족하는 점이 정의역의 상대내부에 있다는 조건이다.
 </div>
 
-<p><strong>쌍대성의 직관적 이해.</strong> Lagrangian \(L(x, \lambda, \nu)\)는 제약 조건 위반에 "벌금"을 매기는 구조로 이해할 수 있다. \(\lambda_i\)는 제약 \(f_i(x) \leq 0\)의 위반에 대한 단위 벌금(가격)이다. Dual function \(g(\lambda, \nu) = \inf_x L(x, \lambda, \nu)\)는 벌금 가격이 \((\lambda, \nu)\)로 고정되었을 때, 최적의 \(x\)가 달성하는 비용의 하한이다. Dual 문제는 이 하한을 가능한 한 높이는 벌금 가격을 찾는 것이다. 따라서 dual 문제의 최적값 \(d^*\)는 원시 최적값 \(p^*\)에 대한 최선의 하한이며, weak duality \(d^* \leq p^*\)는 항상 성립한다.</p>
+<p><strong>쌍대성의 직관적 이해.</strong> 라그랑지안 \(L(x, \lambda, \nu)\)는 제약을 어긴 만큼 벌금을 더한 비용으로 읽을 수 있다. \(\lambda_i\)는 제약 \(f_i(x) \leq 0\)을 한 단위 어길 때 내는 벌금(가격)이다. 쌍대 함수 \(g(\lambda, \nu) = \inf_x L(x, \lambda, \nu)\)는 벌금 가격을 \((\lambda, \nu)\)로 고정하고 \(x\)를 마음대로 골라 얻는 가장 작은 비용이다. 실행 가능한 \(x\)에서는 벌금 항이 0 이하이므로 이 값은 \(p^*\)보다 클 수 없다. 쌍대 문제는 이 하한을 가장 높이는 벌금 가격을 찾는 문제다. 따라서 쌍대 문제의 최적값 \(d^*\)는 원 문제의 최적값 \(p^*\)의 가장 좋은 하한이고, 약한 쌍대성 \(d^* \leq p^*\)는 항상 성립한다.</p>
 
-<p><strong>Strong duality와 Slater 조건.</strong> Weak duality만으로는 \(d^* < p^*\)(쌍대 갭)일 수 있다. 볼록 문제에서 Slater 조건이 성립하면 강한 쌍대성 \(d^* = p^*\)가 보장된다. 아핀 부등식에는 엄격한 부등식을 요구하지 않는다. 다만 주어진 LP, QP, SDP가 실제로 Slater 조건을 만족하는지는 문제마다 확인해야 한다.</p>
+<p><strong>강한 쌍대성과 Slater 조건.</strong> 약한 쌍대성만 성립하면 \(d^* < p^*\)일 수 있고, 그 차이 \(p^*-d^*\)를 쌍대 갭이라 한다. 볼록 문제에서 Slater 조건이 성립하면 \(d^* = p^*\)이다. 아핀 부등식은 등호로 만족해도 된다. 그래서 제약이 모두 아핀인 문제(LP 등)는 실행 가능하기만 하면 강한 쌍대성이 성립한다(Boyd &amp; Vandenberghe §5.2.3). SDP처럼 비아핀 제약이 있는 문제는 Slater 조건을 문제마다 확인해야 한다.</p>
 
 <div class="theorem"><span class="env-label">Theorem 26.3 (KKT Conditions)</span>
-함수들이 미분 가능하고 적절한 제약자격 조건이 성립한다고 하자. 이때 primal-dual 최적점 \((x^*, \lambda^*, \nu^*)\)는 <strong>Karush&ndash;Kuhn&ndash;Tucker (KKT 조건)</strong>을 만족한다:
+함수들이 미분 가능하고 적절한 제약자격 조건이 성립한다고 하자. 이때 원-쌍대 최적점 \((x^*, \lambda^*, \nu^*)\)는 <strong>Karush&ndash;Kuhn&ndash;Tucker 조건(KKT 조건)</strong>을 만족한다:
 <ol>
-  <li><strong>Primal feasibility:</strong> \(f_i(x^*) \leq 0\), \(a_j^T x^* = b_j\).</li>
-  <li><strong>Dual feasibility:</strong> \(\lambda_i^* \geq 0\).</li>
-  <li><strong>Complementary slackness:</strong> 모든 \(i\)에 대해 \(\lambda_i^* f_i(x^*) = 0\).</li>
-  <li><strong>Stationarity:</strong> \(\nabla f_0(x^*) + \sum_{i} \lambda_i^* \nabla f_i(x^*) + \sum_{j} \nu_j^* a_j = 0\).</li>
+  <li><strong>원 실행 가능성(primal feasibility):</strong> \(f_i(x^*) \leq 0\), \(a_j^T x^* = b_j\).</li>
+  <li><strong>쌍대 실행 가능성(dual feasibility):</strong> \(\lambda_i^* \geq 0\).</li>
+  <li><strong>상보 여유성(complementary slackness):</strong> 모든 \(i\)에 대해 \(\lambda_i^* f_i(x^*) = 0\).</li>
+  <li><strong>정상성(stationarity):</strong> \(\nabla f_0(x^*) + \sum_{i} \lambda_i^* \nabla f_i(x^*) + \sum_{j} \nu_j^* a_j = 0\).</li>
 </ol>
 볼록 문제에서는 KKT 조건을 만족하는 점이 전역 최적점이며, Slater 조건 아래에서는 최적점이 KKT 조건을 만족하므로 필요충분조건이 된다.
 </div>
 
-<h4>KKT Conditions: Worked Examples</h4>
-
-<p>다음 예제들에서 등식 제약만 있는 경우, 부등식 제약이 있는 경우, 통신공학의 water-filling 문제 순서로 KKT 조건을 적용한다.</p>
+<h4>KKT 조건 예제 (KKT Conditions: Worked Examples)</h4>
 
 <div class="example"><span class="env-label">Example 26.4 (KKT: 등식 제약이 있는 이차 최소화)</span>
 다음 문제를 KKT 조건으로 풀자:
 $$ \operatorname{minimize} \quad x_1^2 + x_2^2 \qquad \text{subject to} \quad x_1 + x_2 = 1. $$
-Lagrangian: \(L(x, \nu) = x_1^2 + x_2^2 + \nu(x_1 + x_2 - 1)\). Stationarity 조건:
+라그랑지안: \(L(x, \nu) = x_1^2 + x_2^2 + \nu(x_1 + x_2 - 1)\). 정상성 조건:
 $$ \frac{\partial L}{\partial x_1} = 2x_1 + \nu = 0, \qquad \frac{\partial L}{\partial x_2} = 2x_2 + \nu = 0. $$
 따라서 \(x_1 = x_2 = -\nu/2\). 등식 제약 \(x_1 + x_2 = 1\)에 대입하면 \(-\nu = 1\), \(\nu = -1\). 최적해: \(x^* = (1/2,\; 1/2)\), 최적값 \(f^* = 1/2\).
 </div>
@@ -159,41 +151,39 @@ $$ \frac{\partial L}{\partial x_1} = 2x_1 + \nu = 0, \qquad \frac{\partial L}{\p
 $$ \operatorname{minimize} \quad x^2 \qquad \text{subject to} \quad x \geq 2. $$
 표준형으로 바꾸면 \(f_1(x) = 2 - x \leq 0\). KKT 조건:
 <ol>
-  <li>Primal feasibility: \(x \geq 2\).</li>
-  <li>Dual feasibility: \(\lambda \geq 0\).</li>
-  <li>Complementary slackness: \(\lambda(2 - x) = 0\).</li>
-  <li>Stationarity: \(2x - \lambda = 0\), 즉 \(\lambda = 2x\).</li>
+  <li>원 실행 가능성: \(x \geq 2\).</li>
+  <li>쌍대 실행 가능성: \(\lambda \geq 0\).</li>
+  <li>상보 여유성: \(\lambda(2 - x) = 0\).</li>
+  <li>정상성: \(2x - \lambda = 0\), 즉 \(\lambda = 2x\).</li>
 </ol>
-<p>\(\lambda = 2x \geq 0\)이므로 \(x \geq 0\). Complementary slackness에서 \(\lambda = 0\) 또는 \(x = 2\)이다.</p>
+<p>\(\lambda = 2x \geq 0\)이므로 \(x \geq 0\). 상보 여유성에서 \(\lambda = 0\) 또는 \(x = 2\)이다.</p>
 <ul>
-  <li>\(\lambda = 0\)이면 stationarity에서 \(x = 0\)인데, \(x \geq 2\)에 모순.</li>
+  <li>\(\lambda = 0\)이면 정상성에서 \(x = 0\)인데, \(x \geq 2\)에 모순.</li>
   <li>\(x = 2\)이면 \(\lambda = 4 > 0\)으로 모든 조건 만족.</li>
 </ul>
 따라서 \(x^* = 2\), \(\lambda^* = 4\), \(f^* = 4\).
 </div>
 
-<div class="example"><span class="env-label">Example 26.6 (KKT: Water-filling 문제)</span>
-통신 이론의 전력 할당 문제(water-filling)를 생각하자:
+<div class="example"><span class="env-label">Example 26.6 (KKT: 물 채우기 문제)</span>
+통신 이론의 전력 할당 문제를 생각하자:
 $$ \operatorname{minimize} \quad -\sum_{i=1}^n \log(\alpha_i + x_i) \qquad \text{subject to} \quad x_i \geq 0,\; \sum_{i=1}^n x_i = P, $$
-여기서 \(\alpha_i > 0\)은 각 채널의 유효 잡음 바닥, \(P > 0\)은 총 전력 예산이다. KKT 조건을 세우자. Lagrangian:
+여기서 \(\alpha_i > 0\)은 각 채널의 유효 잡음 바닥, \(P > 0\)은 총 전력 예산이다. KKT 조건을 세우자. 라그랑지안:
 $$ L = -\sum_i \log(\alpha_i + x_i) - \sum_i \lambda_i x_i + \nu\!\left(\sum_i x_i - P\right). $$
-Stationarity: \(-\frac{1}{\alpha_i + x_i} - \lambda_i + \nu = 0\), 즉 \(\frac{1}{\alpha_i + x_i} = \nu - \lambda_i\). Complementary slackness: \(\lambda_i x_i = 0\).
+정상성: \(-\frac{1}{\alpha_i + x_i} - \lambda_i + \nu = 0\), 즉 \(\frac{1}{\alpha_i + x_i} = \nu - \lambda_i\). 상보 여유성: \(\lambda_i x_i = 0\).
 <ul>
   <li>\(x_i > 0\)이면 \(\lambda_i = 0\)이므로 \(\alpha_i + x_i = 1/\nu\), 즉 \(x_i = 1/\nu - \alpha_i\).</li>
   <li>\(x_i = 0\)이면 \(1/(\alpha_i) \leq \nu\), 즉 \(\alpha_i \geq 1/\nu\).</li>
 </ul>
-따라서 최적해는 \(x_i^* = \max(1/\nu - \alpha_i,\; 0)\)이며, \(\nu\)는 \(\sum_i x_i^* = P\)로 결정된다. 이것이 "물 채우기(water-filling)" 해법이다: 수위 \(1/\nu\)까지 물을 채우되, 바닥 높이 \(\alpha_i\)가 수위보다 높은 채널에는 전력을 할당하지 않는다.
+따라서 최적해는 \(x_i^* = \max(1/\nu - \alpha_i,\; 0)\)이고, \(\nu\)는 \(\sum_i x_i^* = P\)에서 정해진다. 채널 \(i\)의 바닥 높이가 \(\alpha_i\)인 수조에 물을 붓는다고 생각하면, 수위가 \(1/\nu\)가 될 때까지 채운 물의 깊이가 \(x_i^*\)다. 바닥이 수위보다 높은 채널에는 전력을 주지 않는다. 그래서 이 해법을 물 채우기(water-filling)라 부른다.
 </div>
 
-<div class="example"><span class="env-label">Example 26.7 (Convex 문제로서의 최소제곱법)</span>
- \(\|Ax - b\|_2^2\)를 최소화하는 것은 제약 조건 없는 볼록 문제이다 (\(\nabla^2 f = 2A^TA \succeq 0\)). 최적성 조건 \(\nabla f = 2A^T(Ax - b) = 0\)으로부터 정규방정식 \(A^TAx = A^Tb\)를 얻는다. \(\ell_1\) 벌칙항 \(\|x\|_1\)을 추가하면 Lasso가 되며, 여전히 볼록이지만 모든 곳에서 미분 가능하지는 않다.
+<div class="example"><span class="env-label">Example 26.7 (볼록 문제로 본 최소자승법)</span>
+ \(\|Ax - b\|_2^2\)를 최소화하는 것은 제약 조건 없는 볼록 문제이다 (\(\nabla^2 f = 2A^TA \succeq 0\)). 최적성 조건 \(\nabla f = 2A^T(Ax - b) = 0\)으로부터 정규방정식 \(A^TAx = A^Tb\)를 얻는다. \(\ell_1\) 벌칙항 \(\|x\|_1\)을 더하면 Lasso가 된다. Lasso도 볼록이지만 성분이 0인 점에서 미분할 수 없다.
 </div>
 
-<p class="subsection-transition">경사하강법, Newton 방법, 내부점 방법은 각각 정확도와 계산 비용의 절충이 다르다.</p>
+<h4>최적화 알고리즘 (Optimization Algorithms)</h4>
 
-<h4>Optimization Algorithms</h4>
-
-<p>경사하강법(gradient descent)은 1차 도함수만 사용하여 대규모 문제에 확장 가능하다. Newton 방법은 2차 도함수(Hessian)를 활용하여 적은 반복 횟수로 고정밀 해를 얻는다. 내부점 방법(interior-point method)은 부등식 제약을 log-barrier로 처리하여 LP, QP, SDP 등에 다항 시간 복잡도를 보장한다.</p>
+<p>경사하강법(gradient descent)은 1차 도함수만 쓰므로 변수가 아주 많은 문제에도 쓸 수 있다. Newton 방법은 2차 도함수(Hessian)까지 써서 적은 반복으로 정밀한 해를 얻는다. 내부점 방법은 부등식 제약을 로그 장벽(log barrier) 항으로 바꿔 목적함수에 넣고 Newton 방법으로 푼다.</p>
 
 <div class="definition"><span class="env-label">Definition 26.8 (Descent Method)</span>
 <strong>하강법(descent method)</strong>은 다음 반복으로 \(f\)를 최소화한다:
@@ -206,23 +196,23 @@ $$ x^{(k+1)} = x^{(k)} + t_k \Delta x^{(k)}, $$
 $$ x^{(k+1)} = x^{(k)} - t_k \nabla f(x^{(k)}). $$
 스텝 크기 선택 방법:
 <ul>
-  <li><strong>고정 스텝 크기:</strong> \(t_k = t\) (상수). \(f\)가 볼록이고 최솟값을 달성하며 Lipschitz 연속 기울기를 가지면 (\(\|\nabla f(x) - \nabla f(y)\| \leq L\|x - y\|\)), \(0<t \leq 1/L\)로 택할 때 함수값이 최솟값으로 수렴한다.</li>
-  <li><strong>Backtracking line search:</strong> 파라미터 \(\alpha \in (0, 0.5)\), \(\beta \in (0, 1)\). \(t = 1\)에서 시작하여, Armijo 조건 \(f(x - t\nabla f) \leq f(x) - \alpha t \|\nabla f\|^2\)가 만족될 때까지 \(t \leftarrow \beta t\)로 축소한다.</li>
-  <li><strong>Exact line search:</strong> \(t_k = \arg\min_{t \geq 0} f(x^{(k)} - t \nabla f(x^{(k)}))\). 실제로는 거의 사용하지 않는다.</li>
+  <li><strong>고정 스텝 크기:</strong> \(t_k = t\) (상수). \(f\)가 볼록이고 최솟값이 존재하며 기울기가 Lipschitz 연속이면 (\(\|\nabla f(x) - \nabla f(y)\| \leq L\|x - y\|\)), \(0<t \leq 1/L\)로 택할 때 함수값이 최솟값으로 수렴한다.</li>
+  <li><strong>역추적 선 탐색(backtracking line search):</strong> 파라미터 \(\alpha \in (0, 0.5)\), \(\beta \in (0, 1)\). \(t = 1\)에서 시작하여, Armijo 조건 \(f(x - t\nabla f) \leq f(x) - \alpha t \|\nabla f\|^2\)가 만족될 때까지 \(t \leftarrow \beta t\)로 축소한다.</li>
+  <li><strong>정확한 선 탐색(exact line search):</strong> \(t_k = \arg\min_{t \geq 0} f(x^{(k)} - t \nabla f(x^{(k)}))\). 1변수 최소화 비용이 탐색 방향 계산보다 작을 때 쓴다(Boyd &amp; Vandenberghe §9.2).</li>
 </ul>
 </div>
 
 <div class="theorem"><span class="env-label">Theorem 26.4 (Gradient Descent Convergence)</span>
-\(f\)가 볼록이고, \(\nabla f\)가 Lipschitz 상수 \(L\)을 가지며, 고정 스텝 크기 \(t = 1/L\)을 사용하면:
+\(f\)가 볼록이고 최소점 \(x^*\)가 존재하며, \(\nabla f\)가 상수 \(L\)로 Lipschitz 연속이고, 고정 스텝 크기 \(t = 1/L\)을 사용하면:
 $$ f(x^{(k)}) - f^* \leq \frac{L \|x^{(0)} - x^*\|^2}{2k}. $$
-즉, \(\epsilon\)-최적해를 얻으려면 \(O(1/\epsilon)\)회 반복이 필요하다 (sublinear convergence).
+즉, \(\epsilon\)-최적해를 얻으려면 \(O(1/\epsilon)\)회 반복이 필요하다(부선형 수렴, sublinear convergence).
 
-<p>추가로 \(f\)가 strongly convex with parameter \(m > 0\)이면:</p>
+<p>\(f\)가 매개변수 \(m > 0\)으로 강볼록이기도 하면</p>
 $$ f(x^{(k)}) - f^* \leq \frac{L}{2} \left(1 - \frac{m}{L}\right)^k \|x^{(0)} - x^*\|^2. $$
-이 경우 수렴은 <strong>선형(linear)</strong>(기하급수적)이며, 수렴률은 조건수(condition number) \(\kappa = L/m\)이 결정한다. \(\kappa\)가 크면 수렴이 느리다.
+이때 오차는 매 반복 일정한 비율로 줄어드는데, 이를 <strong>선형(linear) 수렴</strong>이라 한다. 줄어드는 비율은 조건수(condition number) \(\kappa = L/m\)이 정하고, \(\kappa\)가 클수록 수렴이 느리다.
 </div>
 
-<div class="example"><span class="env-label">Example 26.8 (이차 함수에 대한 경사하강법)</span>
+<div class="example"><span class="env-label">Example 26.8 (이차 함수의 경사하강법)</span>
 \(f(x) = \frac{1}{2} x^T Q x - b^T x\)에서 \(Q \succ 0\)이라 하자. \(\nabla f(x) = Qx - b\)이므로 경사하강법은
 $$ x^{(k+1)} = x^{(k)} - t(Qx^{(k)} - b). $$
 최적해는 \(x^* = Q^{-1}b\)이다. \(Q\)의 고유값이 \(0 < m = \lambda_{\min} \leq \lambda_{\max} = L\)이면, 최적 스텝 크기 \(t = 2/(m+L)\)에서 수렴률은
@@ -231,79 +221,76 @@ $$ \|x^{(k)} - x^*\| \leq \left(\frac{\kappa - 1}{\kappa + 1}\right)^k \|x^{(0)}
 </div>
 
 <div class="definition"><span class="env-label">Definition 26.10 (Newton's Method)</span>
-<strong>Newton 방법</strong>은 탐색 방향으로 <strong>Newton step</strong>을 사용한다:
+<strong>Newton 방법</strong>은 탐색 방향으로 <strong>Newton 스텝(Newton step)</strong>을 쓴다:
 $$ \Delta x_{\text{nt}} = -[\nabla^2 f(x)]^{-1} \nabla f(x). $$
 반복:
 $$ x^{(k+1)} = x^{(k)} + t_k \Delta x_{\text{nt}}^{(k)}, $$
-여기서 \(t_k\)는 backtracking line search로 결정한다. Newton step은 \(f\)를 \(x^{(k)}\)에서 이차 근사한 뒤 그 근사를 최소화하는 점으로 이동하는 것에 해당한다:
+여기서 \(t_k\)는 역추적 선 탐색으로 결정한다. Newton 스텝은 \(f\)를 \(x^{(k)}\)에서 이차 근사한 뒤 그 근사를 최소화하는 점으로 이동하는 것에 해당한다:
 $$ \hat{f}(x) = f(x^{(k)}) + \nabla f(x^{(k)})^T (x - x^{(k)}) + \frac{1}{2}(x - x^{(k)})^T \nabla^2 f(x^{(k)})(x - x^{(k)}). $$
 
 <p>Newton 방법의 주요 성질:</p>
 <ul>
-  <li><strong>아핀 불변성:</strong> 변수 변환 \(x = Ty\)에 대해 Newton step은 불변이다. 경사하강법은 이 성질이 없어 좌표계 선택에 민감하다.</li>
-  <li><strong>수렴 단계:</strong> (1) <em>감쇠(damped) 단계</em>: \(x^*\)에서 멀 때, backtracking을 통해 \(f\)가 일정량씩 감소한다. (2) <em>이차 수렴(quadratically convergent) 단계</em>: \(x^*\) 근처에서 \(t_k = 1\)이 채택되며 오차가 매 반복마다 제곱으로 줄어든다.</li>
-  <li><strong>비용:</strong> 조밀한 문제에서는 각 반복에서 Hessian의 \(O(n^2)\)개 원소를 구성하고 Newton 선형계를 대략 \(O(n^3)\)에 푼다. 희소성이나 구조가 있으면 비용은 크게 달라진다.</li>
+  <li><strong>아핀 불변성:</strong> 가역 행렬 \(T\)로 변수를 \(x = Ty\)로 바꿔도 Newton 반복이 만드는 점들은 같다. 경사하강법은 그렇지 않아서 좌표를 어떻게 잡느냐에 따라 수렴 속도가 달라진다.</li>
+  <li><strong>수렴 단계:</strong> \(x^*\)에서 멀 때는 <em>감쇠(damped) 단계</em>로, 역추적 선 탐색 때문에 \(f\)가 반복마다 적어도 일정량씩 줄어든다. \(x^*\) 근처에 오면 <em>이차 수렴(quadratically convergent) 단계</em>로 넘어가 \(t_k = 1\)이 받아들여지고 오차가 반복마다 대략 제곱으로 줄어든다.</li>
+  <li><strong>비용:</strong> 조밀한 문제에서는 각 반복에서 Hessian의 \(O(n^2)\)개 원소를 계산하고 Newton 선형계를 대략 \(O(n^3)\)에 푼다. 희소성이나 구조가 있으면 비용은 크게 달라진다.</li>
 </ul>
 </div>
 
 <div class="theorem"><span class="env-label">Theorem 26.5 (Newton's Method: Quadratic Convergence)</span>
-\(f\)가 self-concordant이거나, \(\nabla^2 f\)가 Lipschitz 연속인 strongly convex 함수이면, Newton 방법은 \(x^*\)에 충분히 가까운 곳에서 <strong>이차 수렴(quadratic convergence)</strong>을 달성한다:
-$$ \|x^{(k+1)} - x^*\| \leq C \|x^{(k)} - x^*\|^2 $$
-인 상수 \(C>0\)가 존재한다. 이차 수렴 구간에서는 정확한 자릿수가 매우 빠르게 늘지만, 기계 정밀도까지 필요한 반복 횟수는 문제와 시작점에 따라 달라진다.
+\(f\)가 자기 일치(self-concordant) 함수이거나, 강볼록이면서 \(\nabla^2 f\)가 Lipschitz 연속이면, Newton 방법은 \(x^*\)에 충분히 가까운 곳에서 <strong>이차 수렴(quadratic convergence)</strong>한다. 곧 다음을 만족하는 상수 \(C>0\)가 있다.
+$$ \|x^{(k+1)} - x^*\| \leq C \|x^{(k)} - x^*\|^2 $$ 이차 수렴 구간에서는 정확한 자릿수가 매우 빠르게 늘지만, 기계 정밀도까지 필요한 반복 횟수는 문제와 시작점에 따라 달라진다.
 </div>
 
-<div class="example"><span class="env-label">Example 26.9 (Newton 방법 vs. 경사하강법 비교)</span>
+<div class="example"><span class="env-label">Example 26.9 (Newton 방법과 경사하강법 비교)</span>
 \(f(x_1, x_2) = 10x_1^2 + x_2^2\)를 최소화하자. 조건수 \(\kappa = 20/2 = 10\).
 <ul>
-  <li><strong>경사하강법:</strong> 등고선이 납작한 타원이므로, 최적해 \((0,0)\)을 향해 지그재그로 진행한다. 수렴률 \(\approx (\kappa-1)/(\kappa+1) = 9/11 \approx 0.82\). 정밀도 \(10^{-6}\)까지 약 70회 반복.</li>
-  <li><strong>Newton 방법:</strong> Hessian \(\nabla^2 f = \operatorname{diag}(20, 2)\)가 상수이므로, Newton step은 \(-[\nabla^2 f]^{-1}\nabla f = -(x_1, x_2)\). 따라서 첫 번째 반복에서 정확히 \(x^* = (0, 0)\)에 도달한다 (이차 함수이므로 1회 반복으로 종료).</li>
+  <li><strong>경사하강법:</strong> 등고선이 납작한 타원이어서 최적해 \((0,0)\)을 향해 지그재그로 나아간다. 스텝 크기를 \(2/(m+L)\)로 잡으면 오차가 반복마다 \((\kappa-1)/(\kappa+1) = 9/11 \approx 0.82\)배로 줄고, 오차를 \(10^{-6}\)배로 줄이는 데 약 70회가 걸린다.</li>
+  <li><strong>Newton 방법:</strong> Hessian \(\nabla^2 f = \operatorname{diag}(20, 2)\)가 상수이므로, Newton 스텝은 \(-[\nabla^2 f]^{-1}\nabla f = -(x_1, x_2)\). 목적함수가 이차 함수이므로 첫 반복에서 바로 \(x^* = (0, 0)\)에 닿는다.</li>
 </ul>
-이 예는 Newton 방법의 아핀 불변성과 이차 함수에 대한 유한 종료 성질을 보여준다.
 </div>
 
 <div class="example"><span class="env-label">Example 26.10 (로지스틱 회귀의 Newton 방법)</span>
-로지스틱 회귀의 negative log-likelihood를 최소화하자:
+로지스틱 회귀의 음의 로그우도(negative log-likelihood)를 최소화하자:
 $$ f(\beta) = -\sum_{i=1}^N \bigl[ y_i \log \sigma(x_i^T \beta) + (1-y_i) \log(1-\sigma(x_i^T \beta)) \bigr], $$
-여기서 \(\sigma(z) = 1/(1+e^{-z})\)이다. Gradient와 Hessian은:
+여기서 \(\sigma(z) = 1/(1+e^{-z})\)이다. 기울기와 Hessian은:
 $$ \nabla f = X^T (\sigma(X\beta) - y), \qquad \nabla^2 f = X^T W X, $$
-여기서 \(W = \operatorname{diag}(\sigma_i(1-\sigma_i))\), \(\sigma_i = \sigma(x_i^T \beta)\)이다. 유한한 \(\beta\)에서는 \(W \succ 0\)이므로 \(\nabla^2 f \succeq 0\)이고, \(X\)가 열 완전계수이면 \(\nabla^2 f \succ 0\)이다. 유한한 최적점이 존재하고 그 근처에 도달하면 Newton 방법은 이차 수렴한다. 통계학에서는 이 알고리즘을 <strong>IRLS(iteratively reweighted least squares)</strong>라 부른다.
+여기서 \(W = \operatorname{diag}(\sigma_i(1-\sigma_i))\), \(\sigma_i = \sigma(x_i^T \beta)\)이다. \(\beta\)가 유한하면 \(W \succ 0\)이므로 \(\nabla^2 f \succeq 0\)이고, \(X\)가 열 완전계수이면 \(\nabla^2 f \succ 0\)이다. 유한한 최적점이 있고 반복이 그 근처에 이르면 Newton 방법은 이차 수렴한다. 데이터가 선형 분리 가능하면 유한한 최적점이 없다. 통계학에서는 이 알고리즘을 <strong>IRLS(iteratively reweighted least squares)</strong>라 부른다.
 </div>
 
-<div class="example"><span class="env-label">Example 26.11 (Log-barrier를 이용한 부등식 제약 처리)</span>
+<div class="example"><span class="env-label">Example 26.11 (로그 장벽으로 부등식 제약 다루기)</span>
 부등식 제약이 있는 문제
 $$ \operatorname{minimize} \quad c^T x \qquad \text{subject to} \quad a_i^T x \leq b_i,\; i = 1, \ldots, m $$
-를 barrier method로 풀 수 있다. Logarithmic barrier를 도입하면:
+는 장벽법(barrier method)으로 푼다. 로그 장벽 항을 넣으면 다음 문제가 된다.
 $$ \operatorname{minimize} \quad t \cdot c^T x - \sum_{i=1}^m \log(b_i - a_i^T x). $$
-이 비제약 문제를 Newton 방법으로 풀고, 파라미터 \(t\)를 점진적으로 증가시키면(\(t \to \infty\)), 해가 원래 문제의 최적해에 수렴한다. 쌍대 갭은 \(m/t\)로 상한이 잡히므로, 정밀도 \(\epsilon\)을 원하면 \(t \geq m/\epsilon\)으로 설정한다.
+이 무제약 문제를 Newton 방법으로 풀면서 \(t\)를 차례로 키우면 해가 원래 문제의 최적해로 다가간다. 이 해의 쌍대 갭은 \(m/t\)이므로(Boyd &amp; Vandenberghe §11.2), 정밀도 \(\epsilon\)을 원하면 \(t \geq m/\epsilon\)으로 잡는다.
 </div>
 
-<div class="example"><span class="env-label">Example 26.12 (Convex 판정 + KKT 종합)</span>
+<div class="example"><span class="env-label">Example 26.12 (볼록성 판정과 KKT)</span>
 포트폴리오 최적화 문제를 생각하자. \(n\)개 자산의 수익률 평균 \(\mu \in \mathbb{R}^n\), 공분산 행렬 \(\Sigma \succ 0\), 투자 비중 \(w \in \mathbb{R}^n\)에 대해:
 $$ \operatorname{minimize} \quad w^T \Sigma w \qquad \text{subject to} \quad \mu^T w \geq r_{\min},\; \mathbf{1}^T w = 1,\; w \geq 0, $$
 여기서 \(r_{\min}\)은 최소 기대 수익률이다.
 <ul>
-  <li><strong>볼록성 확인:</strong> 목적함수의 Hessian은 \(2\Sigma \succ 0\)이므로 strongly convex이다. 제약 조건은 모두 아핀이므로 실행 가능 집합은 볼록이다.</li>
-  <li><strong>Slater 조건:</strong> \(w = \mathbf{1}/n\)이 엄격 실행 가능점이면(모든 성분이 양수이고, \(\mu^T(\mathbf{1}/n) > r_{\min}\)이면) strong duality가 성립한다.</li>
-  <li><strong>KKT 조건 적용:</strong> 수익률 제약의 승수를 \(\lambda\), 합 제약의 승수를 \(\nu\), 비음수 제약의 승수 벡터를 \(\eta\)라 하면 정상성은 \(2\Sigma w^* - \lambda^*\mu + \nu^*\mathbf 1-\eta^*=0\)이다. 최적해가 내부에 있어 \(\eta^*=0\)이면 \(w^*\)는 \(\Sigma^{-1}\mu\)와 \(\Sigma^{-1}\mathbf1\)의 선형결합이 된다.</li>
+  <li><strong>볼록성 확인:</strong> 목적함수의 Hessian은 \(2\Sigma \succ 0\)이므로 목적함수는 강볼록이다. 제약은 모두 아핀이므로 실행 가능 집합은 볼록이다.</li>
+  <li><strong>강한 쌍대성:</strong> 제약이 모두 아핀이므로 정밀화한 Slater 조건(Boyd &amp; Vandenberghe §5.2.3)에 따라 실행 가능한 \(w\)가 하나라도 있으면 강한 쌍대성이 성립한다. 예를 들어 \(\mu^T(\mathbf{1}/n) \geq r_{\min}\)이면 \(w = \mathbf{1}/n\)이 실행 가능하다.</li>
+  <li><strong>KKT 조건 적용:</strong> 수익률 제약의 승수를 \(\lambda\), 합 제약의 승수를 \(\nu\), 비음수 제약의 승수 벡터를 \(\eta\)라 하면 정상성은 \(2\Sigma w^* - \lambda^*\mu + \nu^*\mathbf 1-\eta^*=0\)이다. \(w^*\)의 성분이 모두 양수이면 상보 여유성에서 \(\eta^*=0\)이고, 이때 \(w^*\)는 \(\Sigma^{-1}\mu\)와 \(\Sigma^{-1}\mathbf1\)의 선형결합이 된다.</li>
 </ul>
 </div>
 
-<div class="example"><span class="env-label">Example 26.13 (경사하강법 수렴 비교: Strongly Convex vs. Non-Strongly Convex)</span>
+<div class="example"><span class="env-label">Example 26.13 (경사하강법 수렴 비교: 강볼록 함수와 강볼록이 아닌 함수)</span>
 두 함수를 비교하자:
 <ul>
-  <li>\(f_1(x) = x^2\): strongly convex with \(m = 2\), \(L = 2\), \(\kappa = 1\). 고정 스텝 \(t = 1/2\)로 경사하강법을 적용하면 \(x^{(k+1)} = x^{(k)} - x^{(k)} = 0\), 즉 1회 반복으로 수렴.</li>
-  <li>\(f_2(x) = |x|\): convex이지만 \(x = 0\)에서 미분 불가능. 경사하강법을 직접 적용할 수 없으며, 대신 <strong>subgradient method</strong>를 사용할 수 있다. 함수가 Lipschitz이고 적절한 스텝 크기를 쓰는 일반 볼록 문제에서 대표적인 목적값 오차 보장은 \(O(1/\sqrt{k})\)이다.</li>
+  <li>\(f_1(x) = x^2\): \(m = L = 2\)로 강볼록이고 \(\kappa = 1\)이다. 고정 스텝 \(t = 1/2\)로 경사하강법을 적용하면 \(x^{(k+1)} = x^{(k)} - x^{(k)} = 0\)이어서 한 번에 최솟값에 닿는다.</li>
+  <li>\(f_2(x) = |x|\): 볼록이지만 \(x = 0\)에서 미분할 수 없어 경사하강법을 그대로 쓸 수 없다. 대신 기울기 자리에 부분기울기(subgradient)를 넣는 <strong>부분기울기법(subgradient method)</strong>을 쓴다. 목적함수가 Lipschitz 연속인 볼록 문제에서 스텝 크기를 알맞게 줄여 가면 지금까지 얻은 가장 좋은 목적값의 오차는 \(O(1/\sqrt{k})\)로 줄어든다.</li>
 </ul>
-이 예는 목적함수의 매끄러움(smoothness)과 강볼록성이 수렴 속도에 미치는 영향을 보여준다.
 </div>
 
-<h4>Algorithm Summary</h4>
+<h4>알고리즘 요약 (Algorithm Summary)</h4>
 
-<p>볼록 최적화에서 사용하는 주요 알고리즘의 특성을 비교하면 다음과 같다:</p>
+
 <ul>
-  <li><strong>경사하강법:</strong> 구현이 간단하고 메모리 효율적이다. 수렴은 \(O(1/k)\)(일반 볼록) 또는 \(O((1-m/L)^k)\)(강볼록). 대규모 문제에 적합하다.</li>
-  <li><strong>Newton 방법:</strong> 이차 수렴으로 반복 수가 적다. 각 반복에서 Hessian 역행렬(또는 선형계 풀기) \(O(n^3)\) 비용. 중소 규모 문제에 적합하다.</li>
-  <li><strong>Interior-point method:</strong> 부등식 제약을 log-barrier로 처리. Newton 방법을 내부적으로 사용. LP, QP, SDP에서 다항 시간 복잡도를 보장한다.</li>
+  <li><strong>경사하강법:</strong> 구현이 간단하고 메모리를 적게 쓴다. 목적값 오차는 일반 볼록 함수에서 \(O(1/k)\), 강볼록 함수에서 \(O((1-m/L)^k)\)로 줄어든다. 변수가 많은 문제에 쓴다.</li>
+  <li><strong>Newton 방법:</strong> 이차 수렴이라 반복 수가 적다. 조밀한 문제에서는 반복마다 Newton 선형계를 푸는 데 \(O(n^3)\)이 든다. 중소 규모 문제에 쓴다.</li>
+  <li><strong>내부점 방법:</strong> 부등식 제약을 로그 장벽 항으로 바꾸고 Newton 방법으로 푼다. LP, QP, SDP를 원하는 정밀도까지 다항 시간에 푼다.</li>
 </ul>
 
 </section>
@@ -317,20 +304,20 @@ $$ \operatorname{minimize} \quad w^T \Sigma w \qquad \text{subject to} \quad \mu
 <ul>
 <li><a href="https://see.stanford.edu/Course/EE364A" target="_blank">EE364A Convex Optimization I — Stanford (Boyd)</a></li>
 <li><a href="https://see.stanford.edu/Course/EE364B" target="_blank">EE364B Convex Optimization II — Stanford (Boyd)</a></li>
-<li><a href="http://nptel.ac.in/courses/111104068/" target="_blank">Convex Optimization — NPTEL IIT Kanpur</a></li>
-<li><a href="http://nptel.ac.in/courses/111104071/" target="_blank">Foundations of Optimization — NPTEL IIT Kanpur</a></li>
+<li><a href="https://nptel.ac.in/courses/111104068" target="_blank">Convex Optimization — NPTEL IIT Kanpur</a></li>
+<li><a href="https://nptel.ac.in/courses/111104071" target="_blank">Foundations of Optimization — NPTEL IIT Kanpur</a></li>
 </ul>
 </details>
 
 <details class="video-resources">
 <summary>추천 교재 &amp; 오픈 자료</summary>
 <ul>
-<li><a href="https://web.stanford.edu/~boyd/cvxbook/" target="_blank">Convex Optimization (Boyd &amp; Vandenberghe, Stanford)</a> — 무료 PDF, 볼록최적화의 바이블</li>
+<li><a href="https://web.stanford.edu/~boyd/cvxbook/" target="_blank">Convex Optimization (Boyd &amp; Vandenberghe, Stanford)</a> — 무료 PDF</li>
 <li><a href="https://arxiv.org/abs/1405.4980" target="_blank">Convex Optimization: Algorithms and Complexity (Bubeck)</a> — 무료 모노그래프</li>
-<li><a href="https://www.cs.cmu.edu/~ggordon/10725-F12/scribes.html" target="_blank">Convex Optimization (CMU 10-725)</a> — 강의노트</li>
+<li><a href="https://www.cs.cmu.edu/~ggordon/10725-F12/" target="_blank">10-725 Optimization, Fall 2012 (CMU, Gordon)</a> — 강의 홈페이지</li>
 <li>Bertsekas, <em>Convex Optimization Theory</em> — Athena Scientific, 이론 중심</li>
-<li>Nesterov, <em>Introductory Lectures on Convex Optimization</em> — 최적화 알고리즘의 현대적 기초</li>
-<li>Rockafellar, <em>Convex Analysis</em> — Princeton, 볼록해석학의 고전</li>
-<li>Ben-Tal &amp; Nemirovski, <em>Lectures on Modern Convex Optimization</em> — SIAM, 응용 중심</li>
+<li>Nesterov, <em>Introductory Lectures on Convex Optimization</em> — Kluwer</li>
+<li>Rockafellar, <em>Convex Analysis</em> — Princeton</li>
+<li>Ben-Tal &amp; Nemirovski, <em>Lectures on Modern Convex Optimization</em> — SIAM</li>
 </ul>
 </details>
