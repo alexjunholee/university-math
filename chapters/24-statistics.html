@@ -1,17 +1,17 @@
 <section id="statistics">
 <h3>24. 통계학 (Statistics)</h3>
 
-<p class="chapter-intro">통계학은 데이터를 근거로 모집단에 관한 결론을 내리는 학문이다. 빈도주의 추론의 기본 도구는 추정량, 신뢰구간, 가설검정, 선형회귀다.</p>
+<p class="chapter-intro">앞선 23장이 알려진 확률 모형에서 어떤 데이터가 나올지 묻는 학문이었다면, 통계학은 방향을 뒤집어 손에 쥔 데이터를 근거로 보이지 않는 모집단을 추론한다. 이 장에서는 빈도주의 추론의 핵심 도구인 추정량, 신뢰구간, 가설검정, 선형회귀를 차례로 살펴본다.</p>
 
-<p>통계학은 표본(sample)을 보고 모집단(population)을 짐작할 때 그 짐작을 얼마나 믿을 수 있는지 묻는다.</p>
+<p>통계학의 근본 질문은 표본에서 읽은 정보로 모집단 전체를 짐작할 때 그 결론을 얼마나 신뢰할 수 있는가이다. 품질 관리에서 공정의 이상 여부를 감시하는 관리도와 공정 능력 지수는 통계적 추정과 검정을 현장에 옮겨 놓은 도구다. 신약의 효능이나 웹 서비스의 화면 개선 효과를 판정하는 실험 계획법과 A/B 테스트 역시 가설검정의 틀 위에서 움직이며, 레이더 신호에서 목표물의 유무를 가려내는 신호 탐지 이론은 네이만-피어슨(Neyman-Pearson) 가설검정과 같은 구조를 공유한다. 오늘날 기계학습에서도 최대우도추정(MLE)과 MAP 추정으로 모형의 모수를 데이터에 맞춘다.</p>
 
-<p>품질 관리(quality control)의 관리도(control chart)와 공정 능력 지수(process capability index)는 통계적 추정과 검정을 그대로 쓴다. 실험 계획법(Design of Experiments)과 A/B 테스트는 가설검정(hypothesis testing)의 틀을 따른다. 신호 탐지 이론(signal detection theory)에서 레이더가 목표물이 있는지 판단하는 문제는 네이만-피어슨(Neyman-Pearson) 가설검정과 구조가 같다. 기계학습(machine learning)에서는 최대우도추정(MLE)과 MAP 추정으로 모형의 모수(parameter)를 데이터에 맞춘다.</p>
-
-<p>통계적 추론은 데이터를 요약하는 통계량(statistic)과 모르는 모수를 어림하는 추정량(estimator)에서 시작한다. 추정량이 좋은지는 주로 불편성(unbiasedness), 일치성(consistency), 효율성(efficiency)으로 판단한다.</p>
+<p>통계적 추론은 데이터를 한두 개의 숫자로 요약하는 통계량과 모르는 모수를 어림하는 추정량을 세우는 데서 출발한다. 좋은 추정량을 가려내는 기준으로는 평균적으로 참값을 빗나가지 않는 불편성(unbiasedness), 표본이 늘수록 참값으로 모이는 일치성(consistency), 그리고 오차의 퍼짐이 작은 효율성(efficiency)을 꼽는다.</p>
 
 <div class="definition"><span class="env-label">Definition 24.1 (Statistic and Estimator)</span>
-<strong>통계량</strong>은 관측 데이터의 임의의 함수 \(T = T(X_1, \ldots, X_n)\)이다. 모수 \(\theta\)의 <strong>추정량</strong> \(\hat{\theta}\)는 \(\theta\)를 근사하기 위한 통계량이다.
+관측 데이터의 함수 \(T = T(X_1, \ldots, X_n)\)를 <strong>통계량</strong>이라 한다. \(\theta\)를 어림하는 데 쓰는 통계량 \(\hat{\theta}\)를 모수 \(\theta\)의 <strong>추정량</strong>이라 한다.
 </div>
+
+<p>추정량이 참값에 얼마나 가까운지는 크게 두 가지 요인, 곧 평균적인 치우침(편향)과 표본마다 값이 출렁이는 정도(분산)로 갈린다. 평균제곱오차는 이 둘을 한 식에 담아 추정량의 전반적인 성능을 재는 잣대다.</p>
 
 <div class="definition"><span class="env-label">Definition 24.2 (Bias, Variance, MSE)</span>
 \(\theta\)의 추정량 \(\hat{\theta}\)에 대해:
@@ -22,16 +22,18 @@
 </ul>
 </div>
 
-<p>최대우도추정(Maximum Likelihood Estimation, MLE)은 널리 쓰이는 점추정 방법으로, 관측된 데이터가 나올 확률(밀도)을 가장 크게 만드는 모수값을 고른다. 기계학습에서 로그우도를 최대화하거나 음의 로그우도를 손실로 두고 최소화하는 훈련이 여기에 해당한다.</p>
+<p>그렇다면 실제로 좋은 추정량은 어떻게 찾아낼까? 가장 널리 쓰이는 점추정 원리인 최대우도추정(Maximum Likelihood Estimation, MLE)은 관측된 데이터가 나올 확률이나 밀도를 가장 크게 만드는 모수값을 고른다. 기계학습에서 로그우도를 최대화하거나 음의 로그우도를 손실함수로 두고 최소화하는 훈련 역시 이 원리를 따른다.</p>
 
 <div class="definition"><span class="env-label">Definition 24.3 (Maximum Likelihood Estimation)</span>
-서로 독립인 데이터 \(x_1, \ldots, x_n\)과 모수적 모형 \(f_i(x_i \mid \theta)\)가 주어졌을 때, <strong>우도함수</strong>는
+서로 독립인 데이터 \(x_1, \ldots, x_n\)과 모수적 모형 \(f_i(x_i \mid \theta)\)가 주어졌을 때, <strong>우도함수</strong>는 다음과 같다.
 $$ L(\theta) = \prod_{i=1}^n f_i(x_i \mid \theta). $$
-여기서 \(f_i\)는 각 관측의 밀도 또는 확률질량함수다. 독립·동일분포 표본이면 모두 같은 \(f\)를 쓴다. <strong>최대우도추정량</strong>(MLE)은 \(\hat{\theta}_{\text{MLE}} = \arg\max_\theta L(\theta)\)이다. 실제로는 <strong>로그우도</strong> \(\ell(\theta) = \sum_{i=1}^n \log f_i(x_i \mid \theta)\)를 최대화한다.
+여기서 \(f_i\)는 각 관측의 밀도 또는 확률질량함수다. 독립·동일분포 표본이면 모두 같은 \(f\)를 쓴다. <strong>최대우도추정량</strong>(MLE)은 \(\hat{\theta}_{\text{MLE}} = \arg\max_\theta L(\theta)\)이며, 실제 계산에서는 곱을 합으로 바꾸어 <strong>로그우도</strong> \(\ell(\theta) = \sum_{i=1}^n \log f_i(x_i \mid \theta)\)를 최대화한다.
 </div>
 
+<p>최대우도추정이 실무와 이론 양쪽에서 표준으로 대접받는 까닭은, 표본이 충분히 클 때 다음과 같은 세 가지 이상적인 점근 성질을 두루 갖추기 때문이다.</p>
+
 <div class="theorem"><span class="env-label">Theorem 24.1 (Properties of MLE)</span>
-독립·동일분포 표본이고 정칙 조건이 성립하면
+독립·동일분포 표본이고 정칙 조건이 성립하면 다음이 성립한다.
 <ol>
   <li><strong>일치성:</strong> \(\hat{\theta}_{\text{MLE}} \xrightarrow{P} \theta_0\) (참 모수로 수렴).</li>
   <li><strong>점근 정규성(asymptotic normality):</strong> \(\sqrt{n}(\hat{\theta}_{\text{MLE}} - \theta_0) \xrightarrow{d} N(0, I(\theta_0)^{-1})\), 여기서 \(I(\theta)\)는 피셔 정보(Fisher information, Definition 24.4)다.</li>
@@ -39,86 +41,97 @@ $$ L(\theta) = \prod_{i=1}^n f_i(x_i \mid \theta). $$
 </ol>
 </div>
 
-<p>피셔 정보는 관측 하나가 모수에 관해 담은 정보의 양이다. 피셔 정보가 클수록 모수를 정밀하게 추정할 수 있다. 불편 추정량의 분산이 얼마까지 작아질 수 있는지는 Cramér–Rao 하한이 정한다.</p>
+<p>여기서 등장하는 피셔 정보는 관측값 하나가 모수에 관해 얼마나 많은 정보를 담고 있는지 재는 양이다. 로그우도의 봉우리가 뾰족할수록 모수가 조금만 바뀌어도 데이터 분포가 크게 달라지므로 관측값이 모수를 날카롭게 가려낸다. 따라서 피셔 정보가 클수록 추정의 한계 정밀도가 높아지며, 불편 추정량의 분산이 아무리 줄어들어도 넘을 수 없는 바닥을 Cramér–Rao 하한이 정해 준다.</p>
 
 <div class="definition"><span class="env-label">Definition 24.4 (Fisher Information)</span>
-관측 하나의 <strong>피셔 정보</strong>는 다음과 같다. 두 번째 등식에는 미분과 적분을 바꿀 수 있는 정칙 조건이 필요하다.
+관측 하나의 <strong>피셔 정보</strong>는 다음과 같다. 두 번째 등식이 성립하려면 미분과 적분의 순서를 바꿀 수 있는 정칙 조건이 필요하다.
 $$ I(\theta) = E\!\left[\left(\frac{\partial}{\partial \theta} \log f(X \mid \theta)\right)^{\!2}\right] = -E\!\left[\frac{\partial^2}{\partial \theta^2} \log f(X \mid \theta)\right]. $$
 </div>
 
 <div class="theorem"><span class="env-label">Theorem 24.2 (Cram&eacute;r&ndash;Rao Lower Bound)</span>
-독립·동일분포 표본과 스칼라 모수에 대해 정칙 조건이 성립한다고 하자. 이때 \(\theta\)의 임의의 불편 추정량 \(\hat{\theta}\)는
+독립·동일분포 표본과 스칼라 모수에 대해 정칙 조건이 성립한다고 하자. 이때 \(\theta\)의 불편 추정량 \(\hat{\theta}\)는 모두 다음 부등식을 만족한다.
 $$ \operatorname{Var}(\hat{\theta}) \geq \frac{1}{n I(\theta)}. $$
-이 하한을 달성하는 불편 추정량을 효율적(efficient) 추정량이라 한다.
+이 하한을 정확히 달성하는 불편 추정량을 효율적(efficient) 추정량이라 부른다.
 </div>
 
-<p>점추정값 하나로는 추정이 얼마나 정밀한지 알 수 없다. 신뢰구간(confidence interval)은 추정값 둘레에 불확실성의 폭을 붙인다.</p>
+<p>추정값 하나로 모수를 콕 집는 점추정만으로는 그 값이 참값에서 얼마나 떨어져 있을지 가늠하기 어렵다. 신뢰구간은 추정값 둘레에 불확실성의 폭을 덧붙여 구간 형태로 답을 제시한다.</p>
 
 <div class="definition"><span class="env-label">Definition 24.5 (Confidence Interval)</span>
-\(\theta\)에 대한 <strong>\((1-\alpha)\) 신뢰구간</strong>은 모든 \(\theta\)에서 \(P_\theta(\theta \in [L(X), U(X)]) \geq 1 - \alpha\)를 만족하는 확률구간 \([L(X), U(X)]\)이다. 분산 \(\sigma^2\)가 알려진 정규모집단의 경우:
+모든 \(\theta\)에서 \(P_\theta(\theta \in [L(X), U(X)]) \geq 1 - \alpha\)를 만족하는 확률구간 \([L(X), U(X)]\)를 \(\theta\)의 <strong>\((1-\alpha)\) 신뢰구간</strong>이라 한다. 분산 \(\sigma^2\)를 아는 정규모집단에서는 다음과 같은 대칭 구간을 얻는다.
 $$ \bar{X} \pm z_{\alpha/2} \frac{\sigma}{\sqrt{n}}, $$
 여기서 \(z_{\alpha/2}\)는 \(N(0,1)\)의 상위 \(\alpha/2\) 분위수이다.
 </div>
 
-<p>가설검정(hypothesis testing)은 데이터로 주장을 받아들일지 판단하는 절차다. 레이더의 목표물 탐지, 임상시험의 신약 효과 판정, A/B 테스트를 모두 가설검정으로 정식화한다. 표본 크기가 정해져 있으면 1종 오류(위양성)를 줄일수록 2종 오류(위음성)가 늘기 쉬워서, 실무에서는 둘을 어떻게 맞바꿀지 정해야 한다.</p>
+<p>추정에서 한 걸음 더 나아가, 데이터로 특정 주장을 받아들일지 기각할지 결정을 내려야 할 상황도 잦다. 신약이 위약보다 효과가 있는지 판정하는 임상시험처럼 가설검정은 찬반의 결론을 내리는 절차다. 다만 표본 크기가 고정된 상태에서는 참인 가설을 잘못 기각하는 1종 오류(위양성)를 줄이려 할수록 거짓인 가설을 놓치는 2종 오류(위음성)가 커지기 쉬워, 두 오류 사이의 균형을 어디에 둘지 정해야 한다.</p>
 
 <div class="definition"><span class="env-label">Definition 24.6 (Hypothesis Testing)</span>
-<strong>가설검정</strong>은 귀무가설 \(H_0\)을 대립가설 \(H_1\)에 대해 평가한다.
+<strong>가설검정</strong>은 귀무가설 \(H_0\)을 대립가설 \(H_1\)과 견주어 평가하는 절차다.
 <ul>
-  <li><strong>1종 오류(Type I error, 위양성):</strong> \(H_0\)이 참일 때 \(H_0\)을 기각하는 오류. 그 확률의 상한이 <strong>유의수준</strong> \(\alpha\)이다.</li>
-  <li><strong>2종 오류(Type II error, 위음성):</strong> \(H_1\)이 참일 때 \(H_0\)을 기각하지 못하는 오류. 그 확률은 \(\beta\)이다.</li>
-  <li><strong>검정력</strong> \(= 1 - \beta\): \(H_0\)을 올바르게 기각할 확률.</li>
-  <li><strong>유의확률(p-value):</strong> 관측된 데이터가 주어졌을 때 \(H_0\)을 기각할 수 있는 가장 작은 유의수준.</li>
+  <li><strong>1종 오류(Type I error, 위양성):</strong> \(H_0\)이 참인데도 \(H_0\)을 기각하는 오류. 그 확률의 허용 상한이 <strong>유의수준</strong> \(\alpha\)이다.</li>
+  <li><strong>2종 오류(Type II error, 위음성):</strong> \(H_1\)이 참인데도 \(H_0\)을 기각하지 못하는 오류. 그 확률을 \(\beta\)로 쓴다.</li>
+  <li><strong>검정력</strong> \(= 1 - \beta\): \(H_0\)이 거짓일 때 이를 올바르게 기각할 확률.</li>
+  <li><strong>유의확률(p-value):</strong> 관측한 데이터로 \(H_0\)을 기각할 수 있는 가장 작은 유의수준.</li>
 </ul>
 </div>
 
+<p>1종 오류 확률을 정해진 유의수준 \(\alpha\) 이하로 묶어 두었을 때, 검정력을 가장 크게 끌어올리는 규칙은 무엇일까? 네이만-피어슨 보조정리는 두 가설의 우도 비율을 비교하는 것이 언제나 최선임을 보여 준다.</p>
+
 <div class="theorem"><span class="env-label">Theorem 24.3 (Neyman&ndash;Pearson Lemma)</span>
-단순가설 \(H_0: \theta = \theta_0\) 대 \(H_1: \theta = \theta_1\)의 검정에서, 크기 \(\alpha\)인 검정 가운데 검정력이 가장 높은 검정은 우도비검정이다: 다음 조건일 때 \(H_0\)을 기각한다.
+단순가설 \(H_0: \theta = \theta_0\) 대 \(H_1: \theta = \theta_1\)의 검정에서, 크기 \(\alpha\)인 검정 가운데 검정력이 가장 높은 검정은 우도비검정이다. 곧 다음 조건일 때 \(H_0\)을 기각한다.
 $$ \frac{L(\theta_1)}{L(\theta_0)} > c, $$
-여기서 임계값 \(c\)를 고르고, 우도비가 \(c\)와 같을 때에는 필요에 따라 무작위로 기각하여 \(H_0\) 하의 전체 기각 확률이 \(\alpha\)가 되도록 한다.
+여기서 임계값 \(c\)는, 우도비가 정확히 \(c\)와 같을 때 필요하면 무작위로 기각하는 경우까지 포함해 \(H_0\) 아래 전체 기각 확률이 \(\alpha\)가 되도록 고른다.
 </div>
+
+<p>지금까지 살펴본 최대우도추정과 신뢰구간을 구체적인 확률분포에 적용해 계산해 보자.</p>
 
 <div class="example"><span class="env-label">Example 24.1 (MLE &mdash; Poisson)</span>
 \(X_1, \ldots, X_n \overset{\text{iid}}{\sim} \text{Poisson}(\lambda)\)일 때, \(\lambda\)의 MLE를 구하라.<br>
-<strong>풀이.</strong> 로그우도:
+<strong>풀이.</strong> 로그우도는 다음과 같다.
 $$ \ell(\lambda) = \sum_{i=1}^n \left(X_i \log\lambda - \lambda - \log(X_i!)\right) = \left(\sum X_i\right)\log\lambda - n\lambda - \sum\log(X_i!). $$
+이를 \(\lambda\)에 대해 미분해 0으로 두면 표본평균을 얻는다.
 $$ \frac{d\ell}{d\lambda} = \frac{\sum X_i}{\lambda} - n = 0 \implies \hat{\lambda}_{\text{MLE}} = \bar{X}. $$
-Poisson 분포의 평균이 \(\lambda\)이니 표본평균이 추정량으로 나오는 것은 자연스럽다. \(E[\bar{X}] = \lambda\)이므로 불편 추정량이기도 하다.
+Poisson 분포의 모평균이 \(\lambda\)이니 표본평균이 최대우도추정량으로 나오는 것은 자연스럽다. 게다가 \(E[\bar{X}] = \lambda\)이므로 불편 추정량이기도 하다.
 </div>
 
 <div class="example"><span class="env-label">Example 24.2 (신뢰구간 계산)</span>
-모집단의 분산 \(\sigma^2 = 16\)이 알려진 정규모집단에서 표본 25개(\(n = 25\))를 뽑아 \(\bar{x} = 50.3\)을 얻었다. 모평균 \(\mu\)의 95% 신뢰구간을 구하라.<br>
-<strong>풀이.</strong> \(z_{0.025} = 1.96\), \(\sigma/\sqrt{n} = 4/5 = 0.8\).
+분산 \(\sigma^2 = 16\)을 아는 정규모집단에서 표본 25개(\(n = 25\))를 뽑아 \(\bar{x} = 50.3\)을 얻었다. 모평균 \(\mu\)의 95% 신뢰구간을 구하라.<br>
+<strong>풀이.</strong> \(z_{0.025} = 1.96\), 표준오차 \(\sigma/\sqrt{n} = 4/5 = 0.8\)이므로 신뢰구간은 다음과 같다.
 $$ 50.3 \pm 1.96 \times 0.8 = 50.3 \pm 1.568 = [48.732, 51.868]. $$
-95% 신뢰구간은 \([48.73, 51.87]\)이다. 95%는 구간을 만드는 방법의 성질이다. 이 방법으로 표본을 새로 뽑아 구간을 거듭 만들면 그 가운데 95%가 참 모평균을 품는다. 이미 구한 구간 하나는 \(\mu\)를 품었거나 품지 못했거나 둘 중 하나다.
+따라서 95% 신뢰구간은 \([48.73, 51.87]\)이다. 여기서 95%라는 숫자는 이미 계산된 이 특정 구간이 참 모평균을 포함할 확률이 아니라, 구간을 만드는 절차 자체의 신뢰도를 뜻한다. 똑같은 방법으로 표본을 새로 뽑아 구간을 거듭 만들면 전체의 95%가 참 모평균을 품지만, 이미 손에 쥔 구간 하나는 \(\mu\)를 품었거나 품지 못했거나 둘 중 하나다.
 </div>
 
-<p>선형회귀(linear regression)는 변수 사이의 관계를 모형화하는 기본 방법이다. 센서 교정(sensor calibration)에서 출력과 참값의 선형 관계를 추정하거나, 재료 시험에서 응력-변형률 곡선의 기울기(영률)를 구할 때 쓴다.</p>
+<p>단일 모수를 추정하는 단계를 넘어, 여러 설명변수와 반응변수 사이의 관계를 함수로 모형화하는 대표적인 도구가 선형회귀다. 센서 교정에서 계측기 출력과 참값의 선형 관계를 맞추거나, 재료 시험에서 응력-변형률 곡선의 기울기인 영률을 구할 때 흔히 선형회귀를 쓴다.</p>
 
 <div class="definition"><span class="env-label">Definition 24.7 (Linear Regression)</span>
-<strong>선형회귀 모형</strong>은 \(Y = X\beta + \varepsilon\)이며, 여기서 \(Y \in \mathbb{R}^n\)은 반응변수, \(X \in \mathbb{R}^{n \times p}\)은 설계행렬, \(\beta \in \mathbb{R}^p\)은 계수, \(\varepsilon \sim N(0, \sigma^2 I)\)이다. \(X\)가 열 완전계수일 때 <strong>최소자승(ordinary least squares, OLS)</strong> 추정량은
+<strong>선형회귀 모형</strong>은 \(Y = X\beta + \varepsilon\)으로 쓰며, 여기서 \(Y \in \mathbb{R}^n\)은 반응변수, \(X \in \mathbb{R}^{n \times p}\)은 설계행렬, \(\beta \in \mathbb{R}^p\)은 회귀계수, \(\varepsilon \sim N(0, \sigma^2 I)\)는 오차항이다. \(X\)가 열 완전계수일 때 잔차 제곱합을 최소화하는 <strong>최소자승(ordinary least squares, OLS)</strong> 추정량은 다음과 같다.
 $$ \hat{\beta} = (X^T X)^{-1} X^T Y. $$
 </div>
 
+<p>최소자승 추정량은 오차가 정규분포를 따르지 않더라도 놀라울 만큼 강한 최적성을 지닌다. Gauss–Markov 정리는 오차의 평균이 0이고 분산이 일정할 때 최소자승법이 왜 최선의 선형 불편 추정량인지 밝혀 준다.</p>
+
 <div class="theorem"><span class="env-label">Theorem 24.4 (Gauss&ndash;Markov)</span>
-설계행렬 \(X\)가 고정된 열 완전계수 행렬이고 \(E[\varepsilon] = 0\), \(\operatorname{Cov}(\varepsilon) = \sigma^2 I\)이면, OLS 추정량 \(\hat{\beta}\)는 최량 선형 불편 추정량(Best Linear Unbiased Estimator, BLUE)이다. 곧 \(Y\)의 선형 함수인 불편 추정량 가운데 공분산이 가장 작다(두 공분산 행렬의 차가 양의 반정치이다). 정규성은 가정하지 않는다.
+설계행렬 \(X\)가 고정된 열 완전계수 행렬이고 \(E[\varepsilon] = 0\), \(\operatorname{Cov}(\varepsilon) = \sigma^2 I\)이면, OLS 추정량 \(\hat{\beta}\)는 최량 선형 불편 추정량(Best Linear Unbiased Estimator, BLUE)이다. 곧 \(Y\)의 선형 함수인 모든 불편 추정량 가운데 공분산이 가장 작다(두 공분산 행렬의 차가 양의 반정치이다). 이때 오차의 정규성은 가정하지 않는다.
 </div>
+
+<p>끝으로 정규분포 모수의 최대우도추정에서 나타나는 편향의 문제와, 표본평균을 이용한 Z-검정 절차를 예제로 확인해 보자.</p>
 
 <div class="example"><span class="env-label">Example 24.3 (MLE &mdash; 정규분포 모수 추정)</span>
 \(X_1, \ldots, X_n \overset{\text{iid}}{\sim} N(\mu, \sigma^2)\)일 때, \(\mu\)와 \(\sigma^2\)의 MLE를 구하라.<br>
-<strong>풀이.</strong> 로그우도:
+<strong>풀이.</strong> 로그우도를 전개하면 다음과 같다.
 $$ \ell(\mu, \sigma^2) = -\frac{n}{2}\log(2\pi) - \frac{n}{2}\log\sigma^2 - \frac{1}{2\sigma^2}\sum_{i=1}^n (X_i - \mu)^2. $$
-\(\partial \ell / \partial \mu = 0\)에서 \(\hat{\mu} = \bar{X}\). \(\partial \ell / \partial \sigma^2 = 0\)에서:
+\(\partial \ell / \partial \mu = 0\)을 풀면 \(\hat{\mu} = \bar{X}\)를 얻고, 이를 대입해 \(\partial \ell / \partial \sigma^2 = 0\)을 풀면 다음과 같다.
 $$ \hat{\sigma}^2_{\text{MLE}} = \frac{1}{n}\sum_{i=1}^n (X_i - \bar{X})^2. $$
-MLE \(\hat{\sigma}^2\)은 \(n\)으로 나누므로 편향이 있다(\(E[\hat{\sigma}^2] = \frac{n-1}{n}\sigma^2\)). \(n-1\)로 나눈 표본분산 \(S^2\)은 불편 추정량이다.
+모평균 자리에 표본평균 \(\bar{X}\)를 대입한 탓에 제곱합이 참 모평균 주위의 제곱합보다 약간 작아지므로, \(n\)으로 나눈 MLE \(\hat{\sigma}^2\)에는 하향 편향이 생긴다(\(E[\hat{\sigma}^2] = \frac{n-1}{n}\sigma^2\)). 대신 \(n-1\)로 나눈 표본분산 \(S^2\)이 불편 추정량이다.
 </div>
 
 <div class="example"><span class="env-label">Example 24.4 (가설검정 &mdash; Z-검정)</span>
-공장에서 생산되는 볼트의 길이가 \(N(\mu, 4)\)를 따른다. 규격은 \(\mu = 10\)cm이다. 볼트 36개를 표본으로 뽑아 \(\bar{x} = 10.5\)를 얻었다. \(H_0: \mu = 10\) 대 \(H_1: \mu \neq 10\), 유의수준 \(\alpha = 0.05\)로 검정하라.<br>
-<strong>풀이.</strong> 검정통계량:
+공장에서 만드는 볼트의 길이가 \(N(\mu, 4)\)를 따른다. 규격은 \(\mu = 10\)cm인데, 볼트 36개를 표본으로 뽑아 재었더니 \(\bar{x} = 10.5\)를 얻었다. \(H_0: \mu = 10\) 대 \(H_1: \mu \neq 10\)을 유의수준 \(\alpha = 0.05\)로 검정하라.<br>
+<strong>풀이.</strong> 검정통계량을 계산하면 다음과 같다.
 $$ Z = \frac{\bar{x} - \mu_0}{\sigma/\sqrt{n}} = \frac{10.5 - 10}{2/6} = \frac{0.5}{1/3} = 1.5. $$
-\(|Z| = 1.5 < z_{0.025} = 1.96\)이므로, \(H_0\)을 기각하지 못한다. 유의확률 = \(2P(Z > 1.5) = 2 \times 0.0668 = 0.1336 > 0.05\).
+\(|Z| = 1.5 < z_{0.025} = 1.96\)이므로 유의수준 5%에서 \(H_0\)을 기각하지 못한다. 양측 검정의 유의확률 역시 \(2P(Z > 1.5) = 2 \times 0.0668 = 0.1336 > 0.05\)여서 규격에서 벗어났다고 단정하기에는 증거가 부족하다.
 </div>
+
+<p>이 장에서는 관측값들이 서로 독립이고 같은 분포에서 뽑혔다고 가정한 채 정적인 모집단을 추론했다. 그러나 주가의 등락, 통신 채널의 잡음, 서버로 몰려드는 요청처럼 시간이 흐르면서 앞선 상태가 다음 상태에 영향을 미치는 동적 현상을 다루려면 시간 축이 필요하다. 다음 25장에서는 시간에 따라 진화하는 확률변수들의 모임인 확률과정을 살펴본다.</p>
 
 </section>
 
