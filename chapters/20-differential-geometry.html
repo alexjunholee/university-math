@@ -1,11 +1,11 @@
 <section id="differential-geometry">
 <h3>20. 미분기하학 (Differential Geometry)</h3>
 
-<p class="chapter-intro">미분기하학은 위상 공간 위에 미분 가능성과 거리 구조를 얹어, 매끄러운 곡선과 곡면의 곡률, 측지선, 계량을 미적분으로 연구한다. 특히 Gauss–Bonnet 정리는 각 점의 곡률을 곡면 전체에 걸쳐 적분한 값이 곡면의 위상 불변량으로 딱 떨어진다는 놀라운 다리를 놓으며, 현대 물리학의 일반상대론(general relativity)은 시공간(spacetime)을 로런츠 계량이 부여된 4차원 매니폴드로 기술한다.</p>
+<p class="chapter-intro">미분기하학은 위상 공간 위에 미분 가능성과 거리 구조를 얹어, 매끄러운 곡선과 곡면의 곡률, 측지선, 계량을 미적분으로 연구한다. 특히 Gauss–Bonnet 정리에 따르면, 각 점의 곡률을 곡면 전체에 걸쳐 적분한 값이 곡면의 위상 불변량으로 딱 떨어진다. 또한 현대 물리학의 일반상대론(general relativity)에서는 시공간(spacetime)을 로런츠 계량이 부여된 4차원 매니폴드로 기술한다.</p>
 
-<p>구면 위 두 도시를 잇는 가장 짧은 항공 경로를 찾는 문제는 곧 <strong>측지선(geodesic)</strong>을 구하는 문제다. 지구를 완벽한 구로 근사하면 측지선은 대원의 호가 되지만, 조금 더 현실적인 회전타원체 모델로 옮기면 계산이 훨씬 까다로워진다. 공학에서도 매니폴드(manifold) 기하학은 자연스럽게 모습을 드러낸다. 예컨대 회전 관절 \(n\)개로 이루어진 로봇 팔에서 각 관절 각도가 이루는 공간은 원 \(n\)개의 곱인 토러스 \(T^n\)이라는 매니폴드다. 또한 컴퓨터 비전(computer vision)에서는 3D 스캔 점군으로부터 곡면을 복원하고 곡률을 추정하며, 기계학습(machine learning)의 정보 기하학(information geometry)에서는 확률 분포들의 집합 자체를 하나의 매니폴드로 보고 그 위에 계량을 부여해 학습 알고리즘을 분석한다.</p>
+<p>구면 위 두 도시를 잇는 가장 짧은 항공 경로를 찾는 문제는 곧 <strong>측지선(geodesic)</strong>을 구하는 문제다. 지구를 완벽한 구로 근사하면 측지선은 대원의 호가 되지만, 조금 더 현실적인 회전타원체 모델로 옮기면 계산이 훨씬 까다로워진다. 공학에서도 매니폴드(manifold) 기하학을 찾아볼 수 있다. 예컨대 회전 관절 \(n\)개로 이루어진 로봇 팔에서 각 관절 각도가 이루는 공간은 원 \(n\)개의 곱인 토러스 \(T^n\)이라는 매니폴드다. 또한 컴퓨터 비전(computer vision)에서는 3D 스캔 점군으로부터 곡면을 복원하고 곡률을 추정하며, 기계학습(machine learning)의 정보 기하학(information geometry)에서는 확률 분포들의 집합 자체를 하나의 매니폴드로 보고 그 위에 계량을 부여해 학습 알고리즘을 분석한다.</p>
 
-<p>미분기하학을 처음 대할 때 눈여겨볼 핵심 구분이 있다. 곡면 위의 거리나 곡률 가운데는 곡면이 3차원 공간 속에 어떻게 놓여 있는지를 전혀 보지 않고도, 오직 곡면 표면 위에서 직접 잰 길이만으로 계산할 수 있는 양이 존재한다. 오직 표면 내부의 측정값만 사용하는 이런 시선을 <strong>내재적 기하학(intrinsic geometry)</strong>이라 부른다.</p>
+<p>미분기하학을 처음 대할 때 눈여겨볼 핵심 구분이 있다. 곡면 위의 거리나 곡률 가운데 어떤 양은 곡면이 3차원 공간 속에 어떻게 놓여 있는지 전혀 보지 않고도, 표면 위에서 직접 잰 길이만으로 계산할 수 있다. 오직 표면 내부의 측정값만 사용하는 이런 시선을 <strong>내재적 기하학(intrinsic geometry)</strong>이라 부른다.</p>
 
 <p>그 깊은 이론으로 들어가기 전에, 먼저 가장 단순한 1차원 대상인 곡선이 공간 속에서 얼마나 휘어지고 비틀리는지부터 재 보자. 실제로 도로 설계에서는 곡선 구간의 곡률로 차량의 안전 제한 속도를 산정하고, CNC 가공에서는 공구 경로의 곡률이 가공 표면의 정밀도를 좌우한다.</p>
 
@@ -24,7 +24,7 @@ $$ \kappa = \frac{|x' y'' - y' x''|}{(x'^2 + y'^2)^{3/2}}. $$
 <div class="example"><span class="env-label">Example 20.1a (포물선의 곡률)</span>
 포물선 \(y = x^2\)를 \(\gamma(t) = (t, t^2)\)로 매개변수화하면 \(x' = 1\), \(y' = 2t\), \(x'' = 0\), \(y'' = 2\)가 된다. 이를 일반 곡률 공식에 대입하면
 $$ \kappa(t) = \frac{|x' y'' - y' x''|}{(x'^2 + y'^2)^{3/2}} = \frac{|1 \cdot 2 - 2t \cdot 0|}{(1 + 4t^2)^{3/2}} = \frac{2}{(1 + 4t^2)^{3/2}} $$
-을 얻는다. 따라서 곡률은 꼭짓점 \(t = 0\)에서 \(\kappa(0) = 2\)로 최댓값을 찍고, \(|t| \to \infty\)로 갈수록 직선에 가까워지며 \(\kappa(t) \to 0\)으로 줄어든다. 곡선과 가장 잘 맞닿는 접촉원의 반지름(곡률 반지름)은 \(R = 1/\kappa\)이므로, 꼭짓점에서의 곡률 반지름은 \(R = 1/2\)이다.
+을 얻는다. 따라서 곡률은 꼭짓점 \(t = 0\)에서 \(\kappa(0) = 2\)로 최대가 되고, \(|t| \to \infty\)로 갈수록 곡선이 직선에 가까워지면서 \(\kappa(t) \to 0\)으로 줄어든다. 곡선과 가장 잘 맞닿는 접촉원의 반지름(곡률 반지름)은 \(R = 1/\kappa\)이므로, 꼭짓점에서의 곡률 반지름은 \(R = 1/2\)이다.
 </div>
 
 <div class="example"><span class="env-label">Example 20.1a' (타원의 곡률)</span>
@@ -38,10 +38,10 @@ $$ \kappa(t) = \frac{|(-a\sin t)(-b\sin t) - (b\cos t)(-a\cos t)|}{(a^2\sin^2 t 
 속도 벡터 \(\gamma'(t) = (-a\sin t,\; a\cos t,\; b)\)의 크기가 \(\|\gamma'\| = \sqrt{a^2 + b^2}\)이므로 등속이긴 하지만 단위 속력은 아니다. 일반 공식을 적용하면
 $$ \gamma''(t) = (-a\cos t,\; -a\sin t,\; 0), \quad \gamma' \times \gamma'' = (ab\sin t,\; -ab\cos t,\; a^2), $$
 $$ \|\gamma' \times \gamma''\| = a\sqrt{a^2 + b^2}, \quad \kappa = \frac{a\sqrt{a^2+b^2}}{(a^2+b^2)^{3/2}} = \frac{a}{a^2 + b^2} $$
-을 얻으며, 곡선이 접촉 평면 밖으로 솟구쳐 비틀리는 정도를 재는 비틀림(torsion)은 \(\tau = \frac{b}{a^2 + b^2}\)로 계산된다. 놀랍게도 곡선의 기본 정리에 따르면, 곡률이 양의 상수이고 비틀림이 0이 아닌 상수인 단위 속력 공간 곡선은 원형 나선을 강체 운동으로 옮긴 것뿐이다.
+을 얻는다. 곡선이 접촉 평면 밖으로 솟구쳐 비틀리는 정도를 재는 비틀림(torsion)은 \(\tau = \frac{b}{a^2 + b^2}\)로 계산된다. 곡선의 기본 정리에 따르면, 곡률이 양의 상수이고 비틀림이 0이 아닌 상수인 단위 속력 공간 곡선은 원형 나선을 강체 운동으로 옮긴 것뿐이다.
 </div>
 
-<p>평면 곡선은 한 평면 안에 갇혀 있으므로 곡률 하나만으로 모양이 결정되지만, 3차원 공간 곡선은 평면 밖으로 휘감겨 오르는 <strong>비틀림(torsion)</strong>까지 함께 재야 한다. 이를 위해 곡선을 따라 움직이는 세 직교 단위벡터 틀을 세우고, 그 틀이 회전하는 속도를 행렬로 기록한 것이 Frenet&ndash;Serret 방정식이다.</p>
+<p>평면 곡선은 한 평면 안에 갇혀 있으므로 곡률 하나만으로 모양이 결정되지만, 3차원 공간 곡선은 평면 밖으로 휘감겨 오르는 <strong>비틀림(torsion)</strong>까지 함께 재야 한다. 이를 위해 곡선을 따라 움직이는 세 직교 단위벡터 틀을 세우고, 그 틀이 회전하는 속도를 행렬로 기록하면 Frenet&ndash;Serret 방정식을 얻는다.</p>
 
 <div class="definition"><span class="env-label">Definition 20.3 (Frenet&ndash;Serret Frame)</span>
 \(\mathbb{R}^3\)의 단위 속력 곡선 \(\gamma(s)\)에서 곡률 \(\kappa(s)=\|\gamma''(s)\|\)이 양수인 구간을 생각하자. 각 점에서 진행 방향인 <strong>접선 벡터(tangent)</strong> \(\mathbf{T} = \gamma'\), 휘어지는 안쪽을 가리키는 <strong>법선 벡터(normal)</strong> \(\mathbf{N} = \mathbf{T}'/\|\mathbf{T}'\|\), 그리고 두 벡터에 수직인 <strong>종법선 벡터(binormal)</strong> \(\mathbf{B} = \mathbf{T} \times \mathbf{N}\)를 세워 직교 틀을 만든다. 이 움직이는 좌표틀의 미분 관계인 Frenet&ndash;Serret 방정식은 다음과 같다.
@@ -55,7 +55,7 @@ $$ \mathbf{T} = (-\sin(s/R),\; \cos(s/R),\; 0), \quad \mathbf{T}' = \frac{1}{R}(
 가 된다. 여기서 곡률 \(\kappa = \|\mathbf{T}'\| = 1/R\)을 얻고, 법선 벡터 \(\mathbf{N} = (-\cos(s/R),\; -\sin(s/R),\; 0)\)은 늘 원의 중심을 향하며, 종법선 벡터는 \(\mathbf{B} = \mathbf{T} \times \mathbf{N} = (0, 0, 1)\)로 일정하다. 원은 평면 위에 놓여 있으므로 비틀림 \(\tau = 0\)이며, 이는 Frenet&ndash;Serret 방정식의 셋째 행 \(\mathbf{B}' = -\tau \mathbf{N} = 0\)과 정확히 일치한다.
 </div>
 
-<p>1차원 곡선에서 2차원 곡면으로 올라가면 기하학이 훨씬 풍성해진다. 곡면 위의 한 점에서는 방향마다 꺾이는 정도가 다를 수 있기 때문이다. 이때 역할을 나누는 두 가지 이차형식이 등장한다. 곡면 위의 접평면 안에서 호의 길이·각도·넓이를 재는 내적 규칙이 <strong>제1기본형식</strong>이고, 곡면이 3차원 바깥 공간의 법선 방향으로 얼마나 휘어 나가는지 재는 형식이 <strong>제2기본형식</strong>이다. CAD 시스템에서 설계 곡면의 매끄러움을 검증하거나 지형 데이터의 굴곡을 분석할 때도 바로 이 두 기본형식을 계산한다.</p>
+<p>1차원 곡선에서 2차원 곡면으로 올라가면 기하학이 훨씬 풍성해진다. 곡면 위의 한 점에서는 방향마다 꺾이는 정도가 다를 수 있기 때문이다. 이때 서로 다른 역할을 맡는 두 가지 이차형식이 등장한다. 곡면 위의 접평면 안에서 호의 길이·각도·넓이를 재는 내적 규칙이 <strong>제1기본형식</strong>이고, 곡면이 3차원 바깥 공간의 법선 방향으로 얼마나 휘어 나가는지 재는 형식이 <strong>제2기본형식</strong>이다. CAD 시스템에서 설계 곡면의 매끄러움을 검증하거나 지형 데이터의 굴곡을 분석할 때도 바로 이 두 기본형식을 계산한다.</p>
 
 <div class="definition"><span class="env-label">Definition 20.4 (Regular Surface)</span>
 부분집합 \(S \subseteq \mathbb{R}^3\)의 모든 점 \(p \in S\)마다 \(\mathbb{R}^3\) 안의 열린 근방 \(V\)와, 열린집합 \(U \subseteq \mathbb{R}^2\) 위에서 정의된 매끄러운 사상 \(\mathbf{r} : U \to V \cap S\)가 존재하여, \(\mathbf{r}\)이 위상동형사상(homeomorphism)이고 \(U\) 전체에서 접평면이 퇴화하지 않으면(\(\mathbf{r}_u \times \mathbf{r}_v \neq 0\)), \(S\)를 <strong>정칙 곡면(regular surface)</strong>이라 한다.
@@ -73,7 +73,7 @@ $$ II = L\, du^2 + 2M\, du\, dv + N\, dv^2, $$
 여기서 계수는 \(L = \mathbf{r}_{uu} \cdot \hat{\mathbf{n}}\), \(M = \mathbf{r}_{uv} \cdot \hat{\mathbf{n}}\), \(N = \mathbf{r}_{vv} \cdot \hat{\mathbf{n}}\)이고, \(\hat{\mathbf{n}} = \frac{\mathbf{r}_u \times \mathbf{r}_v}{\|\mathbf{r}_u \times \mathbf{r}_v\|}\)는 곡면의 단위 법선 벡터이다.
 </div>
 
-<p>한 점을 지나는 접방향에 따라 곡면의 단면 곡률이 달라지는데, 그 최댓값과 최솟값이 두 <strong>주곡률</strong>이다. 이들의 곱으로 정의하는 가우스 곡률은 겉보기와 달리 놀라운 비밀을 품고 있다.</p>
+<p>한 점을 지나는 접방향에 따라 곡면의 단면 곡률이 달라지는데, 그 최댓값과 최솟값이 두 <strong>주곡률</strong>이다. 이들의 곱으로 정의하는 가우스 곡률은 겉보기와 달리 뜻밖의 성질을 띤다.</p>
 
 <div class="definition"><span class="env-label">Definition 20.7 (Principal, Gaussian, and Mean Curvature)</span>
 <strong>주곡률(principal curvature)</strong> \(\kappa_1, \kappa_2\)는 형상 연산자의 고유값으로, 행렬 방정식 \(\det(II - \kappa\, I) = 0\)의 두 근이다. 두 주곡률을 결합해 다음 두 기본 곡률을 정의한다.
@@ -85,14 +85,14 @@ $$ II = L\, du^2 + 2M\, du\, dv + N\, dv^2, $$
 
 <div class="theorem"><span class="env-label">Theorem 20.1 (Theorema Egregium, Gauss)</span>
 가우스 곡률 \(K\)는 곡면의 내재적 불변량이다. 정의 식에는 제2기본형식 계수 \(L, M, N\)이 들어가지만, 놀랍게도 \(K\)는 제1기본형식의 계수 \(E, F, G\)와 그 도함수들만으로 완전히 표현되며, 곡면이 \(\mathbb{R}^3\) 속에 어떻게 굽혀져 놓였는지와는 무관하다.
-이는 곡면 위에 사는 2차원 생물이 바깥 3차원 공간을 전혀 보지 못하고 오직 표면 위에서 잰 거리와 각도만 가지고도 자신의 세계의 가우스 곡률을 알아낼 수 있음을 뜻한다. 예컨대 반지름 \(R\)인 구면은 \(K=1/R^2\)이고 평면은 \(K=0\)이므로, 구면의 어떤 작은 조각도 길이를 조금도 늘이거나 줄이지 않고 평면에 펼칠 수 없다. 세계의 모든 영역을 축척 왜곡 없이 평면 지도로 그릴 수 없는 수학적 이유가 바로 여기에 있다.
+이는 곡면 위에 사는 2차원 생물이 바깥 3차원 공간을 전혀 보지 못한 채, 오직 표면 위에서 잰 거리와 각도만으로도 자기 세계의 가우스 곡률을 알아낼 수 있다는 뜻이다. 예컨대 반지름 \(R\)인 구면은 \(K=1/R^2\)이고 평면은 \(K=0\)이므로, 구면의 어떤 작은 조각도 길이를 조금도 늘이거나 줄이지 않고 평면에 펼칠 수 없다. 세계의 모든 영역을 축척 왜곡 없이 평면 지도로 그릴 수 없는 수학적 이유가 바로 여기에 있다.
 </div>
 
 <div class="example"><span class="env-label">Example 20.1d (구면의 제1, 제2 기본형식)</span>
 반지름 \(R\)인 구면을 구면좌표 \(\mathbf{r}(\theta, \phi) = (R\sin\theta\cos\phi,\; R\sin\theta\sin\phi,\; R\cos\theta)\)로 매개변수화하자. 편미분하면
 $$ \mathbf{r}_\theta = (R\cos\theta\cos\phi,\; R\cos\theta\sin\phi,\; -R\sin\theta), \quad \mathbf{r}_\phi = (-R\sin\theta\sin\phi,\; R\sin\theta\cos\phi,\; 0) $$
 이므로 제1기본형식의 계수는 \(E = R^2\), \(F = 0\), \(G = R^2\sin^2\theta\), 곧 선소 제곱이 \(ds^2 = R^2(d\theta^2 + \sin^2\theta\, d\phi^2)\)이다.
-바깥쪽을 향하는 단위 법선 \(\hat{\mathbf{n}} = (\sin\theta\cos\phi,\; \sin\theta\sin\phi,\; \cos\theta)\)을 택하면 제2기본형식의 계수는 \(L = -R\), \(M = 0\), \(N = -R\sin^2\theta\)가 된다. 형상 연산자를 \(S = -d\hat{\mathbf{n}}\)으로 잡는 부호 관례에서는 주곡률이 \(\kappa_1 = L/E = -1/R\), \(\kappa_2 = N/G = -1/R\)이므로 \(K = 1/R^2\), \(H = -1/R\)을 얻는다. 법선 방향을 안쪽으로 뒤집으면 두 주곡률과 평균 곡률의 부호가 함께 반전되지만, 둘을 곱한 가우스 곡률 \(K\)는 변하지 않는다. 모든 점에서 두 주곡률이 일치하므로 구면 위의 모든 점은 <em>배꼽점(umbilic point)</em>이다.
+바깥쪽을 향하는 단위 법선 \(\hat{\mathbf{n}} = (\sin\theta\cos\phi,\; \sin\theta\sin\phi,\; \cos\theta)\)을 택하면 제2기본형식의 계수는 \(L = -R\), \(M = 0\), \(N = -R\sin^2\theta\)가 된다. 형상 연산자를 \(S = -d\hat{\mathbf{n}}\)으로 잡는 부호 관례에서는 주곡률이 \(\kappa_1 = L/E = -1/R\), \(\kappa_2 = N/G = -1/R\)이므로 \(K = 1/R^2\), \(H = -1/R\)을 얻는다. 법선 방향을 안쪽으로 뒤집으면 두 주곡률과 평균 곡률의 부호가 함께 반전되지만, 두 주곡률의 곱인 가우스 곡률 \(K\)는 변하지 않는다. 모든 점에서 두 주곡률이 일치하므로 구면 위의 모든 점은 <em>배꼽점(umbilic point)</em>이다.
 </div>
 
 <div class="example"><span class="env-label">Example 20.1d' (안장 곡면의 가우스 곡률)</span>
@@ -105,7 +105,7 @@ $$ K = \frac{LN - M^2}{EG - F^2} = \frac{-1/(1+u^2+v^2)}{(1+v^2)(1+u^2) - u^2v^2
 으로 계산된다. 가우스 곡률이 모든 곳에서 음수이므로 안장 곡면 위의 모든 점은 쌍곡점이며, 특히 원점에서는 \(K(0,0) = -1\)이다.
 </div>
 
-<p>내재적 기하학이 빚어낸 또 하나의 핵심 개념은 곡면 위에서 "가장 곧게 뻗은 경로"인 <strong>측지선(geodesic)</strong>이다. 곡면 위 두 점을 잇는 최단 경로는 언제나 측지선이다. 다만 그 역이 성립하려면 전역적인 조건이 더 필요하다. 예컨대 구면 위의 두 점을 잇는 대원(great circle)에서 반대쪽으로 돌아가는 긴 호 역시 측지선 방정식을 만족하지만, 짧은 호보다 길므로 최단 경로는 아니다.</p>
+<p>내재적 기하학에서 다루는 또 하나의 핵심 개념은 곡면 위에서 "가장 곧게 뻗은 경로"인 <strong>측지선(geodesic)</strong>이다. 곡면 위 두 점을 잇는 최단 경로는 언제나 측지선이다. 다만 그 역이 성립하려면 전역적인 조건이 더 필요하다. 예컨대 구면 위의 두 점을 잇는 대원(great circle)에서 반대쪽으로 돌아가는 긴 호 역시 측지선 방정식을 만족하지만, 짧은 호보다 길므로 최단 경로는 아니다.</p>
 
 <div class="definition"><span class="env-label">Definition 20.8 (Geodesic)</span>
 곡면 \(S\) 위의 단위 속력 곡선 \(\gamma\)에서 가속도 벡터 \(\gamma''\)가 곡면에 수직일 때(즉 접평면 성분이 0이어서 측지 곡률이 어디서나 0일 때), \(\gamma\)를 <strong>측지선(geodesic)</strong>이라 한다. 국소 좌표로 쓰면 측지선은 다음 2계 미분방정식을 만족한다.
@@ -113,7 +113,7 @@ $$ \ddot{u}^k + \sum_{i,j} \Gamma^k_{ij}\, \dot{u}^i \dot{u}^j = 0, $$
 여기서 \(\Gamma^k_{ij}\)는 오직 제1기본형식의 계수들만으로 계산되는 크리스토펠 기호(Christoffel symbol)이다.
 </div>
 
-<p>지금까지 각 점에서의 국소적인 곡률 \(K\)를 계산했다면, 이제 이 국소적 양을 곡면 전체에 걸쳐 적분해 보는 순간 미분기하학 전체에서 가장 극적인 정리가 모습을 드러낸다.</p>
+<p>지금까지는 각 점의 국소적인 곡률 \(K\)를 계산했다. 이제 이 양을 곡면 전체에 걸쳐 적분하면 미분기하학에서 가장 극적인 정리에 이른다.</p>
 
 <div class="theorem"><span class="env-label">Theorem 20.2 (Gauss&ndash;Bonnet)</span>
 \(S\)를 경계가 없는 콤팩트(compact) 유향 곡면이라 하자. 그러면 다음 등식이 성립한다.
@@ -123,9 +123,9 @@ $$ \int_S K \, dA = 2\pi \chi(S), $$
 </div>
 
 <div class="example"><span class="env-label">Example 20.2 (Gauss&ndash;Bonnet: 구)</span>
-반지름 \(R\)인 구면 \(S^2\)는 종수 \(g = 0\)이므로 오일러 지표가 \(\chi(S^2) = 2\)이다. 구면 위의 가우스 곡률은 모든 점에서 상수 \(K = 1/R^2\)이고 총 넓이는 \(4\pi R^2\)이므로, Gauss&ndash;Bonnet 정리가 양변에서 정확히 일치함을 직접 확인할 수 있다.
+반지름 \(R\)인 구면 \(S^2\)는 종수 \(g = 0\)이므로 오일러 지표가 \(\chi(S^2) = 2\)이다. 구면 위의 가우스 곡률은 모든 점에서 상수 \(K = 1/R^2\)이고 총 넓이는 \(4\pi R^2\)이므로, Gauss&ndash;Bonnet 정리의 양변이 정확히 일치함을 직접 확인할 수 있다.
 $$ \int_{S^2} K\, dA = \frac{1}{R^2} \cdot 4\pi R^2 = 4\pi = 2\pi \cdot 2 = 2\pi\chi(S^2). $$
-참고로 경계가 있는 곡면에 대한 Gauss&ndash;Bonnet 정리를 적용하면, 구면 위에서 세 대원의 호로 이루어진 측지 삼각형의 내각의 합이 평면과 달리 \(\pi + A/R^2\)(\(A\)는 삼각형의 넓이)이 된다는 구면기하학의 고전 공식도 얻는다.
+참고로 경계가 있는 곡면에서의 Gauss&ndash;Bonnet 정리를 적용하면 구면기하학의 고전 공식도 얻는다. 구면 위에서 세 대원의 호로 이루어진 측지 삼각형의 넓이를 \(A\)라 하면, 내각의 합은 평면과 달리 \(\pi + A/R^2\)이 된다.
 </div>
 
 <div class="example"><span class="env-label">Example 20.3 (Gauss&ndash;Bonnet: 토러스)</span>

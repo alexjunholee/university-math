@@ -11,10 +11,10 @@
 두 연속 사상 \(f, g : X \to Y\)에 대해 \(H(x,0) = f(x)\)이고 \(H(x,1) = g(x)\)인 연속 사상 \(H : X \times [0,1] \to Y\)가 존재하면 \(f\)와 \(g\)가 <strong>호모토픽(homotopic)</strong>하다고 하고 \(f \simeq g\)로 쓴다. 부분집합 \(A \subseteq X\) 위에서 변형 과정 내내 사상이 움직이지 않아 모든 \(a\in A\), \(t\in[0,1]\)에 대해 \(H(a,t)=f(a)=g(a)\)가 성립하면, 이를 \(A\)에 상대적인 호모토피(homotopy rel \(A\))라 한다.
 </div>
 
-<p>공간 안에 구멍이 뚫려 있는지 알아보는 가장 직관적인 방법은 공간 위로 고리(올가미)를 던져 보고 한 점으로 조여 오그라드는지 확인해 보는 일이다. 평면 위에서는 어떤 고리든 한 점으로 수축하지만, 원판 가운데에 구멍을 뚫어 놓으면 그 구멍을 감고 도는 고리는 구멍을 가로지르지 않고서는 결코 한 점으로 줄일 수 없다. 고리들을 이어 붙이는 연산에 호모토피를 결합해 얻은 군이 바로 <strong>기본군(fundamental group)</strong>이다.</p>
+<p>공간 안에 구멍이 뚫려 있는지 알아보는 가장 직관적인 방법은 공간 위로 고리(올가미)를 던져 보고 한 점으로 조여 오그라드는지 확인해 보는 일이다. 평면 위에서는 어떤 고리든 한 점으로 수축하지만, 원판 가운데에 구멍을 뚫어 놓으면 그 구멍을 감고 도는 고리는 구멍을 가로지르지 않고서는 결코 한 점으로 줄어들 수 없다. 고리들을 이어 붙이는 연산에 호모토피를 결합해 얻은 군이 바로 <strong>기본군(fundamental group)</strong>이다.</p>
 
 <div class="definition"><span class="env-label">Definition 22.2 (Fundamental Group)</span>
-기준점 \(x_0 \in X\)를 잡자. 출발점과 끝점이 모두 \(x_0\)인 연속 사상 \(\gamma : [0,1] \to X\)(\(\gamma(0) = \gamma(1) = x_0\))를 \(x_0\)을 기점으로 하는 <strong>고리(loop)</strong>라 한다. <strong>기본군(fundamental group)</strong> \(\pi_1(X, x_0)\)은 호모토피 과정 내내 양 끝점을 \(x_0\)에 고정한 채 변형한 고리 호모토피류들의 집합이며, 군 연산은 두 고리를 차례로 밟는 이어붙이기(concatenation)로 정의한다.
+기준점 \(x_0 \in X\)를 잡자. 출발점과 끝점이 모두 \(x_0\)인 연속 사상 \(\gamma : [0,1] \to X\)(\(\gamma(0) = \gamma(1) = x_0\))를 \(x_0\)을 기점으로 하는 <strong>고리(loop)</strong>라 한다. <strong>기본군(fundamental group)</strong> \(\pi_1(X, x_0)\)은 변형 과정 내내 양 끝점을 \(x_0\)에 고정해 얻는 고리 호모토피류들의 집합이며, 군 연산은 두 고리를 차례로 밟는 이어붙이기(concatenation)로 정의한다.
 $$ [\gamma] \cdot [\delta] = [\gamma * \delta], \quad (\gamma * \delta)(t) = \begin{cases} \gamma(2t) & 0 \leq t \leq 1/2, \\ \delta(2t-1) & 1/2 \leq t \leq 1. \end{cases} $$
 </div>
 
@@ -43,21 +43,21 @@ $$ \pi_1(K) \cong \langle a, b \mid abab^{-1} = 1 \rangle. $$
 여기서 \(a\)는 수직 방향 고리, \(b\)는 수평 방향 고리다. 관계식 \(abab^{-1} = 1\)은 \(aba = b\)로 쓸 수 있는데, 토러스와 달리 두 생성원이 가환하지 않으므로 \(\pi_1(K)\)는 비가환군이다. 다만 교환자 관계식을 덧붙여 아벨화하면 \(a^2 = 1\)이 되어 \(\pi_1(K)^{\text{ab}} \cong \mathbb{Z} \times \mathbb{Z}/2\mathbb{Z}\)라는 비틀림 성분이 나타난다.
 </div>
 
-<p>Example 22.1a에서 원 위의 고리를 직선 \(\mathbb{R}\)로 들어 올렸듯, <strong>피복 공간(covering space)</strong>은 공간 \(X\) 위에 국소적으로 똑같이 생긴 조각들을 여러 겹 겹쳐 쌓아 놓은 공간이다. 단순 연결인 피복을 보편 피복(universal cover)이라 부르며, 15장의 Galois 이론이 체 확장과 군의 부분군을 짝지었듯이, 아래의 두 정리는 사상을 피복 공간으로 들어 올릴 수 있는 조건과 \(X\)의 모든 연결 피복 공간의 분류가 정확히 기본군 \(\pi_1(X, x_0)\)의 부분군 구조에 지배됨을 보여 준다.</p>
+<p>Example 22.1a에서 원 위의 고리를 직선 \(\mathbb{R}\)로 들어 올렸듯, <strong>피복 공간(covering space)</strong>은 공간 \(X\) 위에 국소적으로 똑같이 생긴 조각들을 여러 겹 겹쳐 쌓아 놓은 공간이다. 단순 연결인 피복을 보편 피복(universal cover)이라 부른다. 15장의 Galois 이론이 체 확장과 군의 부분군을 짝지었듯이, 아래 두 정리를 보면 사상을 피복 공간으로 들어 올릴 수 있는 조건과 \(X\)의 모든 연결 피복 공간 분류가 정확히 기본군 \(\pi_1(X, x_0)\)의 부분군 구조로 결정됨을 알 수 있다.</p>
 
 <div class="definition"><span class="env-label">Definition 22.3 (Covering Space)</span>
-위상 공간 \(\tilde{X}\)와 연속 전사 사상 \(p : \tilde{X} \to X\)의 쌍이 다음 조건을 만족하면 이를 \(X\)의 <strong>피복 공간(covering space)</strong>이라 한다. 곧 \(X\)의 모든 점 \(x\)마다 열린 근방 \(U\)가 존재해서, 그 역상 \(p^{-1}(U)\)가 \(\tilde{X}\) 안에서 서로소인 열린집합(open set)들의 합집합으로 쪼개지고, \(p\)는 그 각각의 열린 조각을 \(U\) 위로 위상동형(homeomorphic)하게 보낸다.
+위상 공간 \(\tilde{X}\)와 연속 전사 사상 \(p : \tilde{X} \to X\)의 쌍이 다음 조건을 만족하면 이를 \(X\)의 <strong>피복 공간(covering space)</strong>이라 한다. 곧 \(X\)의 모든 점 \(x\)마다 열린 근방 \(U\)가 존재해서, 그 역상 \(p^{-1}(U)\)가 \(\tilde{X}\) 안에서 서로소인 열린집합(open set)들의 합집합으로 쪼개지고, \(p\)는 그 각각의 열린 조각을 \(U\) 위로 위상동형(homeomorphic)으로 보낸다.
 </div>
 
 <div class="theorem"><span class="env-label">Theorem 22.1 (Lifting Criterion)</span>
-\(p : \tilde{X} \to X\)를 피복(covering), \(\tilde{x}_0 \in p^{-1}(x_0)\)이라 하고, \(f : (Y, y_0) \to (X, x_0)\)를 연속 사상이라 하자. 여기서 \(Y\)는 연결(connected)이고 국소 경로 연결(locally path-connected) 공간이라 가정한다. 그러면 \(f\)를 기점을 맞추어 \(\tilde{f} : (Y, y_0) \to (\tilde{X}, \tilde{x}_0)\)로 들어 올릴(lift) 수 있을 필요충분조건은 유도 준동형 사이에 포함 관계 \(f_*(\pi_1(Y, y_0)) \subseteq p_*(\pi_1(\tilde{X}, \tilde{x}_0))\)가 성립함에 있다.
+\(p : \tilde{X} \to X\)를 피복(covering), \(\tilde{x}_0 \in p^{-1}(x_0)\)이라 하고, \(f : (Y, y_0) \to (X, x_0)\)를 연속 사상이라 하자. 여기서 \(Y\)는 연결(connected)이고 국소 경로 연결(locally path-connected) 공간이라 가정한다. 그러면 \(f\)를 기점을 맞추어 \(\tilde{f} : (Y, y_0) \to (\tilde{X}, \tilde{x}_0)\)로 들어 올릴(lift) 수 있을 필요충분조건은 유도 준동형 사이에 포함 관계 \(f_*(\pi_1(Y, y_0)) \subseteq p_*(\pi_1(\tilde{X}, \tilde{x}_0))\)가 성립하는 것이다.
 </div>
 
 <div class="theorem"><span class="env-label">Theorem 22.2 (Galois Correspondence for Coverings)</span>
 연결이고 국소 경로 연결이며 반국소 단순 연결인 공간 \(X\)에 대해, 기본군 \(\pi_1(X, x_0)\)의 부분군들이 이루는 켤레류와 \(X\)의 연결 피복 공간들이 이루는 동형류 사이에 전단사 대응이 성립한다. 특히 가장 큰 피복인 보편 피복은 가장 작은 자명 부분군 \(\{e\}\)에 대응한다.
 </div>
 
-<p>기본군은 1차원 고리만 보므로 2차원 이상의 높은 차원 구멍(예컨대 속이 빈 구면 \(S^2\) 내부의 공간)은 구별하지 못하고, 비가환군이어서 계산하기도 만만치 않다. <strong>호몰로지(homology)</strong>는 차원마다 구멍을 가환군으로 세어 주어 훨씬 계산하기 쉬운 대수적 불변량을 제공한다. 16장에서 다룬 사슬 복합체와 경계 작용소 \(\partial^2 = 0\)의 대수 장치가 바로 여기서 위상 공간의 차원별 구멍을 재는 기계로 살아 움직인다. 0차 호몰로지의 계수(rank)는 연결 성분의 수를, 1차 호몰로지는 고리 모양의 1차원 구멍을, 2차 호몰로지는 속이 빈 공동(cavity)을 포착한다. 좋은 덮개 조건 아래서 센서 감지 영역이 이루는 nerve의 1차 호몰로지가 0이 아니라는 사실은 영역 내부에 감지되지 않는 빈 구멍이 있다는 확실한 증거가 되며, 지속 호몰로지는 관측 척도를 넓혀 가며 이런 구멍이 얼마나 오래 버티는지(persistence)를 기록한다.</p>
+<p>기본군은 1차원 고리만 보므로 2차원 이상의 높은 차원 구멍(예컨대 속이 빈 구면 \(S^2\) 내부의 공간)은 구별하지 못하고, 비가환군이어서 계산하기도 만만치 않다. <strong>호몰로지(homology)</strong>는 차원마다 구멍을 가환군으로 세어 주어 훨씬 계산하기 쉬운 대수적 불변량을 제공한다. 16장에서 다룬 사슬 복합체와 경계 작용소 \(\partial^2 = 0\)의 대수 장치가 바로 여기서 위상 공간의 차원별 구멍을 재는 기계로 살아 움직인다. 0차 호몰로지의 계수(rank)는 연결 성분의 수를 나타내고, 1차 호몰로지는 고리 모양의 1차원 구멍을, 2차 호몰로지는 속이 빈 공동(cavity)을 포착한다. 좋은 덮개 조건에서 센서 감지 영역이 이루는 nerve의 1차 호몰로지가 0이 아니라면, 이는 영역 내부에 감지되지 않는 빈 구멍이 있다는 확실한 증거가 된다. 지속 호몰로지는 관측 척도를 넓혀 가며 이런 구멍이 얼마나 오래 버티는지(persistence)를 기록한다.</p>
 
 <div class="definition"><span class="env-label">Definition 22.4 (Simplicial Homology)</span>
 아핀 독립인 \(k+1\)개 점의 볼록 껍질을 <strong>\(k\)-단체(\(k\)-simplex)</strong>라 한다(0-단체는 점, 1-단체는 선분, 2-단체는 삼각형, 3-단체는 사면체이다). 단체 복합체 \(K\)가 주어졌을 때 \(k\)번째 사슬군 \(C_k(K)\)는 방향이 주어진 \(k\)-단체들이 생성하는 자유 아벨군이다. 각 단체의 경계를 부호와 함께 취하는 <strong>경계 작용소(boundary operator)</strong> \(\partial_k : C_k \to C_{k-1}\)는 다음과 같이 정의된다.
@@ -69,7 +69,7 @@ $$ H_k(K) = \ker \partial_k \,/\, \operatorname{im} \partial_{k+1}. $$
 <p>호몰로지군 전체를 구하는 것보다도 더 손쉽게 계산할 수 있는 위상 불변량이 <strong>오일러 지표(Euler characteristic)</strong>다. 3D 컴퓨터 그래픽스나 유한요소해석에서 다면체 메시(mesh)를 생성한 뒤 각 차원의 셀 개수로 계산한 \(\chi = V - E + F\)를 기대하는 곡면의 오일러 지표와 대조하면, 잘못 접합된 모서리나 누락된 삼각형 면처럼 위상을 망가뜨리는 결함을 즉시 잡아낼 수 있다. 호몰로지 관점에서 이 값은 각 차수 호몰로지 계수의 교대합과도 정확히 같다.</p>
 
 <div class="definition"><span class="env-label">Definition 22.5 (Euler Characteristic)</span>
-유한 단체 복합체 \(K\) (더 일반적으로 유한 CW-복합체)에 대해 <strong>오일러 지표(Euler characteristic)</strong>는 셀의 개수의 교대합으로 정의되며, 이는 호몰로지 계수의 교대합과 일치한다.
+유한 단체 복합체 \(K\) (더 일반적으로 유한 CW-복합체)에 대해 <strong>오일러 지표(Euler characteristic)</strong>는 셀 개수의 교대합으로 정의되며, 이는 호몰로지 계수의 교대합과 일치한다.
 $$ \chi(K) = \sum_{k=0}^{n} (-1)^k \, c_k = \sum_{k=0}^{n} (-1)^k \, \operatorname{rank} H_k(K), $$
 여기서 \(n\)은 \(K\)의 차원, \(c_k\)는 \(k\)-단체(또는 \(k\)-셀)의 개수이다.
 </div>
@@ -81,7 +81,7 @@ $$ \chi(K) = \sum_{k=0}^{n} (-1)^k \, c_k = \sum_{k=0}^{n} (-1)^k \, \operatorna
 <p>단체 분해를 일일이 세지 않고도 복잡한 공간의 호몰로지를 계산하려면 분할 정복 전략이 필요하다. 16장의 호몰로지 긴 완전열을 위상 공간의 덮개 \(X = A \cup B\)에 적용해 얻은 도구가 바로 <strong>Mayer&ndash;Vietoris 열</strong>이다. 이 완전열을 쓰면 공간 \(X\)를 더 단순한 두 열린 조각 \(A, B\)로 쪼갠 뒤 두 조각과 교집합 \(A \cap B\)의 호몰로지로부터 원래 공간의 호몰로지를 역산할 수 있다.</p>
 
 <div class="example"><span class="env-label">Example 22.2a (호몰로지: 구 \(S^n\))</span>
-\(n\)-차원 구면 \(S^n\) (\(n \geq 1\))의 호몰로지를 아래 Theorem 22.3의 Mayer&ndash;Vietoris 열로 계산해 보자. 구면에서 남극을 뺀 열린집합 \(A\)와 북극을 뺀 열린집합 \(B\)로 \(S^n = A \cup B\)라 분해하면, 입체 사영으로 말미암아 \(A \simeq B \simeq \mathbb{R}^n\)처럼 축약 가능해지고 교집합은 적도 근방의 띠 \(A \cap B \simeq S^{n-1}\)이 된다. \(A\)와 \(B\)의 축약 호몰로지가 모두 0이므로 Mayer&ndash;Vietoris 열의 연결 준동형이 동형사상이 되고, 차원에 대한 수학적 귀납법을 쓰면 다음 결과를 얻는다.
+\(n\)-차원 구면 \(S^n\) (\(n \geq 1\))의 호몰로지를 아래 Theorem 22.3의 Mayer&ndash;Vietoris 열로 계산해 보자. 구면에서 남극을 뺀 열린집합 \(A\)와 북극을 뺀 열린집합 \(B\)로 \(S^n = A \cup B\)라 분해하면, 입체 사영으로 \(A \simeq B \simeq \mathbb{R}^n\)이므로 둘 다 축약 가능하고 교집합은 적도 근방의 띠 \(A \cap B \simeq S^{n-1}\)이 된다. \(A\)와 \(B\)의 축약 호몰로지가 모두 0이므로 Mayer&ndash;Vietoris 열의 연결 준동형이 동형사상이 되고, 차원에 대한 수학적 귀납법을 쓰면 다음 결과를 얻는다.
 $$ H_k(S^n) \cong \begin{cases} \mathbb{Z} & k = 0 \text{ 또는 } k = n, \\ 0 & \text{그 외.} \end{cases} $$
 여기서 오일러 지표는 \(\chi(S^n) = 1 + (-1)^n\)이므로, 짝수 차원 구면에서는 \(\chi(S^2) = 2\)이고 홀수 차원 구면에서는 \(\chi(S^3) = 0\)이 된다.
 </div>
@@ -100,7 +100,7 @@ $$ \cdots \to H_n(A \cap B) \xrightarrow{(\iota_{A*}, \iota_{B*})} H_n(A) \oplus
 <div class="example"><span class="env-label">Example 22.3 (Mayer&ndash;Vietoris: 토러스의 호몰로지)</span>
 이번에는 토러스 \(T^2\)의 호몰로지를 Mayer&ndash;Vietoris 열로 계산해 보자. 토러스를 경도 방향으로 살짝 겹치게 자른 두 개의 원통 \(A\)와 \(B\)로 분해한다. 각 원통은 원 \(S^1\)에 호모토피 동치이므로 \(H_0(A) \cong H_0(B) \cong \mathbb{Z}\), \(H_1(A) \cong H_1(B) \cong \mathbb{Z}\)이고, 두 원통이 겹치는 교집합 \(A \cap B\)는 서로 떨어진 두 원의 합집합 \(S^1 \sqcup S^1\)에 호모토피 동치이다. 이를 Mayer&ndash;Vietoris 열에 대입하면 다음과 같은 완전열이 나온다.
 $$ 0 \to H_2(T^2) \xrightarrow{\partial} H_1(A \cap B) \to H_1(A) \oplus H_1(B) \to H_1(T^2) \xrightarrow{\partial} H_0(A \cap B) \to H_0(A) \oplus H_0(B) \to H_0(T^2) \to 0. $$
-열 안의 사상들을 차근차근 추적하면 \(H_0(T^2) \cong \mathbb{Z}\), \(H_1(T^2) \cong \mathbb{Z}^2\), \(H_2(T^2) \cong \mathbb{Z}\)를 얻으며, 여기서 계산한 오일러 지표 \(\chi(T^2) = 1 - 2 + 1 = 0\) 역시 토러스가 종수 1 곡면임과 일치한다.
+열 안의 사상들을 차근차근 추적하면 \(H_0(T^2) \cong \mathbb{Z}\), \(H_1(T^2) \cong \mathbb{Z}^2\), \(H_2(T^2) \cong \mathbb{Z}\)를 얻으며, 여기서 계산한 오일러 지표 \(\chi(T^2) = 1 - 2 + 1 = 0\) 역시 토러스가 종수 1 곡면이라는 사실과 일치한다.
 </div>
 
 <div class="example"><span class="env-label">Example 22.4 (호몰로지: 클라인 병)</span>
@@ -111,14 +111,14 @@ $$ H_0(K) \cong \mathbb{Z}, \quad H_1(K) \cong \mathbb{Z}\langle a, b \rangle / 
 연결된 닫힌 2차원 곡면에서 \(H_2 = 0\)이라는 것은 그 곡면이 비가향임을 뜻하므로 클라인 병은 비가향 곡면이며, \(\mathbb{R}P^2\)에서처럼 \(H_1\)에 나타난 비틀림 부분 \(\mathbb{Z}/2\mathbb{Z}\)도 같은 기하학적 성질을 대수적으로 증언한다.
 </div>
 
-<p>대수적 위상수학의 불변량은 공간을 분류하는 데 그치지 않고 존재성 정리의 강력한 증명 무기가 되기도 한다. 대표적인 예가 <strong>브라우어 고정점 정리(Brouwer fixed-point theorem)</strong>다. John Nash는 1951년 <em>Annals of Mathematics</em> 논문 "Non-Cooperative Games"에서 모든 유한 게임에 내시 균형점이 반드시 존재함을 브라우어 고정점 정리로 증명했다(1950년 PNAS의 첫 증명에서는 이를 집합값 사상으로 확장한 Kakutani 고정점 정리를 사용했다). 다만 이 정리가 보장해 주는 것은 고정점이 적어도 하나 존재한다는 사실까지이며, 실제로 사상을 반복 적용해 그 고정점으로 수렴하는지는 별도의 해석이 필요하다.</p>
+<p>대수적 위상수학의 불변량은 공간을 분류하는 데 그치지 않고 존재성 정리의 강력한 증명 무기가 되기도 한다. 대표적인 예가 <strong>브라우어 고정점 정리(Brouwer fixed-point theorem)</strong>다. John Nash는 1951년 <em>Annals of Mathematics</em> 논문 "Non-Cooperative Games"에서 모든 유한 게임에 내시 균형점이 반드시 존재함을 브라우어 고정점 정리로 증명했다(1950년 PNAS의 첫 증명에서는 이를 집합값 사상으로 확장한 Kakutani 고정점 정리를 사용했다). 다만 이 정리는 고정점이 적어도 하나 존재한다는 사실만 보장하며, 실제로 사상을 반복 적용할 때 그 고정점으로 수렴하는지를 따지려면 별도의 해석이 필요하다.</p>
 
 <div class="theorem"><span class="env-label">Theorem 22.4 (Brouwer Fixed-Point Theorem)</span>
 닫힌 단위 원판 \(D^n \subset \mathbb{R}^n\)에서 자기 자신으로 가는 모든 연속 사상 \(f : D^n \to D^n\)에는 반드시 \(f(x) = x\)를 만족하는 고정점이 적어도 하나 존재한다.
 </div>
 
 <div class="example"><span class="env-label">Example 22.5 (Brouwer 고정점 정리의 호몰로지 증명 개요)</span>
-\(n = 2\)인 경우를 호몰로지 불변량만으로 단숨에 증명해 보자. 만약 고정점이 하나도 없다고 가정하면 모든 \(x \in D^2\)에서 \(f(x) \neq x\)이다. 그러면 \(f(x)\)에서 출발해 \(x\)를 지나 뻗어 나가는 반직선이 경계 원 \(S^1 = \partial D^2\)과 만나는 점을 \(r(x)\)로 잡을 때, \(r : D^2 \to S^1\)은 원판 전체를 경계 위로 연속적으로 내려앉히면서 경계의 각 점은 제자리에 두는 수축(retraction) 사상이 된다. 즉 경계 포함 사상 \(\iota : S^1 \hookrightarrow D^2\)에 대해 \(r \circ \iota = \mathrm{id}_{S^1}\)이 성립한다. 여기에 1차 호몰로지 함자를 씌우면 \(r_* \circ \iota_* = \mathrm{id}_{H_1(S^1)}\)이어야 한다. 그러나 원판은 축약 가능해 \(H_1(D^2) = 0\)인 반면 원의 호몰로지는 \(H_1(S^1) \cong \mathbb{Z}\)이므로, 군 준동형의 합성이 중간에 자명군 \(0\)을 지나면서 \(\mathbb{Z} \to 0 \to \mathbb{Z}\)가 항등 사상이 될 도리가 없다. 이 모순으로 인해 고정점이 존재할 수밖에 없다. 일반적인 \(n\)차원 원판에서도 \(H_{n-1}(S^{n-1})\cong\mathbb{Z}\), \(H_{n-1}(D^n)=0\)을 이용하면 똑같은 논증으로 증명된다(\(n=1\)일 때는 \(H_0\) 대신 환원 호몰로지를 사용한다).
+\(n = 2\)인 경우를 호몰로지 불변량만으로 단숨에 증명해 보자. 만약 고정점이 하나도 없다고 가정하면 모든 \(x \in D^2\)에서 \(f(x) \neq x\)이다. 그러면 \(f(x)\)에서 출발해 \(x\)를 지나 뻗어 나가는 반직선이 경계 원 \(S^1 = \partial D^2\)과 만나는 점을 \(r(x)\)로 잡을 때, \(r : D^2 \to S^1\)은 원판 전체를 경계 위로 연속적으로 내려앉히면서 경계의 각 점은 제자리에 두는 수축(retraction) 사상이 된다. 즉 경계 포함 사상 \(\iota : S^1 \hookrightarrow D^2\)에 대해 \(r \circ \iota = \mathrm{id}_{S^1}\)이 성립한다. 여기에 1차 호몰로지 함자를 씌우면 \(r_* \circ \iota_* = \mathrm{id}_{H_1(S^1)}\)이어야 한다. 그러나 원판은 축약 가능해 \(H_1(D^2) = 0\)인 반면 원의 호몰로지는 \(H_1(S^1) \cong \mathbb{Z}\)이므로, 군 준동형의 합성이 중간에 자명군 \(0\)을 지나면서 \(\mathbb{Z} \to 0 \to \mathbb{Z}\)가 항등 사상이 될 도리가 없다. 이 모순 때문에 고정점이 존재할 수밖에 없다. 일반적인 \(n\)차원 원판에서도 \(H_{n-1}(S^{n-1})\cong\mathbb{Z}\), \(H_{n-1}(D^n)=0\)을 이용하면 똑같은 논증으로 증명된다(\(n=1\)일 때는 \(H_0\) 대신 환원 호몰로지를 사용한다).
 </div>
 
 <p>이로써 제7부의 여정을 마친다. 19장의 일반 위상수학으로 공간의 기초 공리를 다지고, 20장에서 곡률과 계량을, 21장에서 다항 방정식의 대수다양체를, 그리고 22장에서 기본군과 호몰로지를 써서 공간의 대수적 본질을 포착해 보았다.</p>

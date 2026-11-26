@@ -8,7 +8,7 @@
 <!-- 12.1 Fourier Series -->
 <h3 id="fourier-series">12.1 Fourier 급수</h3>
 
-<p>Fourier 급수는 주기 함수를 기본 주파수와 그 정수배 진동수(고조파)를 가진 삼각함수들의 합으로 펼친다. 1822년 Fourier가 『열의 해석적 이론(Théorie analytique de la chaleur)』에서 열전도 방정식을 풀기 위해 삼각급수를 도입한 이후, 이 기법은 전력 계통의 고조파(harmonics) 분석, 악기 소리의 배음(overtone) 분석, 구조물에 가해지는 주기 하중의 분해에 이르기까지 폭넓게 쓰이고 있다. 10장에서 배운 Hilbert space의 언어로 말하자면, \(L^2\) 공간의 정규직교 기저 \(\{e^{inx}/\sqrt{2\pi}\}\)에 대한 좌표를 구하는 작업이 바로 Fourier 급수 전개다.</p>
+<p>Fourier 급수는 주기 함수를 진동수가 기본 주파수와 그 정수배(고조파)인 삼각함수의 합으로 펼친다. 1822년 Fourier가 『열의 해석적 이론(Théorie analytique de la chaleur)』에서 열전도 방정식을 풀기 위해 삼각급수를 도입한 이후, 이 기법은 전력 계통의 고조파(harmonics) 분석, 악기 소리의 배음(overtone) 분석, 구조물에 가해지는 주기 하중의 분해에 이르기까지 폭넓게 쓰이고 있다. 10장에서 배운 Hilbert space의 언어로 말하자면, Fourier 급수 전개는 \(L^2\) 공간의 정규직교 기저 \(\{e^{inx}/\sqrt{2\pi}\}\)를 기준으로 좌표를 구하는 작업이다.</p>
 
 <div class="definition"><span class="env-label">Definition 12.1 (Fourier Series)</span>
 \(f \in L^1([-\pi,\pi])\)라 하자. \(f\)의 <em>Fourier 계수(Fourier coefficients)</em>는 다음과 같이 정의한다.
@@ -18,7 +18,7 @@ $$ f(x) \sim \sum_{n=-\infty}^{\infty} c_n e^{inx} $$
 이다. 실수 형태로는 \(f(x) \sim \frac{a_0}{2} + \sum_{n=1}^\infty (a_n \cos nx + b_n \sin nx)\)로 쓰며, 이때 각 계수는 \(a_n = \frac{1}{\pi}\int_{-\pi}^\pi f(x)\cos(nx)\, dx\), \(b_n = \frac{1}{\pi}\int_{-\pi}^\pi f(x)\sin(nx)\, dx\)로 주어진다.
 </div>
 
-<p>정의에서 기호 \(\sim\)을 쓴 이유는 형식적으로 만든 급수가 실제로 원래 함수 \(f\)로 수렴하는지, 그리고 어느 의미로 수렴하는지 아직 알 수 없기 때문이다. \(L^2\) 에너지 관점의 수렴, 점별 수렴, 균등 수렴이라는 세 층위가 차례로 이를 밝혀 준다. 먼저 제곱 적분 가능 함수 공간에서는 Fourier 계수들의 제곱합이 유한할 뿐 아니라(Bessel 부등식), 신호의 총에너지가 계수 제곱합과 정확히 일치한다(Parseval 정리).</p>
+<p>정의에서 기호 \(\sim\)을 쓴 이유는 형식적으로 만든 급수가 실제로 원래 함수 \(f\)로 수렴하는지, 그리고 어느 의미로 수렴하는지 아직 알 수 없기 때문이다. 실제 수렴 여부와 그 의미는 \(L^2\) 에너지 관점의 수렴, 점별 수렴, 균등 수렴이라는 세 층위에서 차례로 밝혀진다. 먼저 제곱 적분 가능 함수 공간에서는 Fourier 계수들의 제곱합이 유한할 뿐 아니라(Bessel 부등식), 신호의 총에너지가 계수 제곱합과 정확히 일치한다(Parseval 정리).</p>
 
 <div class="theorem"><span class="env-label">Theorem 12.1 (Bessel's Inequality and Parseval's Theorem)</span>
 \(f \in L^2[-\pi, \pi]\)에 대해 다음 부등식이 성립한다.
@@ -27,7 +27,7 @@ $$ \sum_{n=-\infty}^{\infty} |c_n|^2 \leq \frac{1}{2\pi}\int_{-\pi}^{\pi} |f(x)|
 $$ \frac{1}{2\pi}\int_{-\pi}^{\pi} |f(x)|^2\, dx = \sum_{n=-\infty}^{\infty} |c_n|^2. $$
 </div>
 
-<p>평균적인 \(L^2\) 수렴보다 한 걸음 더 나아가 특정 점 \(x\)에서 급수가 어떤 값으로 모이는지 묻는다면, 함수가 구분적으로 매끄러울 때 연속점에서는 함수값으로, 점프 불연속점에서는 좌극한과 우극한의 평균으로 수렴한다는 Dirichlet 정리가 답을 준다.</p>
+<p>평균적인 \(L^2\) 수렴보다 한 걸음 더 나아가 특정 점 \(x\)에서 급수가 어떤 값으로 모이는지 묻는다면, 그 답은 Dirichlet 정리에 있다. 이 정리에 따르면 함수가 구분적으로 매끄러울 때 급수는 연속점에서는 함수값으로, 점프 불연속점에서는 좌극한과 우극한의 평균으로 수렴한다.</p>
 
 <div class="theorem"><span class="env-label">Theorem 12.2 (Pointwise Convergence -- Dirichlet Conditions)</span>
 \(f\)의 \(2\pi\)-주기적 확장이 구분적으로 매끄러우면(구분적 \(C^1\)이고 점프 불연속점이 유한 개뿐이면), 대칭 부분합으로 취한 Fourier 급수는 모든 점에서 다음 값으로 수렴한다.
@@ -35,13 +35,13 @@ $$ \sum_{n=-\infty}^{\infty} c_n e^{inx} = \frac{f(x^+) + f(x^-)}{2}. $$
 특히 \(f\)가 연속인 점에서는 급수가 \(f(x)\)로 수렴한다.
 </div>
 
-<p>여기에 점프 불연속마저 없어 함수가 전 구간에서 연속으로 이어진다면, 급수는 가장 강한 형태인 균등 수렴을 이룬다.</p>
+<p>여기에 점프 불연속마저 없어 함수가 전 구간에서 연속으로 이어진다면, 급수는 가장 강한 형태인 균등 수렴을 한다.</p>
 
 <div class="theorem"><span class="env-label">Theorem 12.3 (Uniform Convergence)</span>
 \(f\)가 연속이고 주기적이며 구분적 \(C^1\)이면, 그 Fourier 급수는 \(f\)로 균등 수렴한다.
 </div>
 
-<p>Fourier 계수가 얼마나 빨리 0으로 줄어드는지는 함수의 매끄러움과 직결된다. \(f\)의 \(2\pi\)-주기 확장이 \(k\)번 연속 미분 가능하면 계수 적분에 부분적분을 \(k\)번 적용해 \(|c_n| = O(|n|^{-k})\)를 얻는다. 따라서 함수가 매끄러울수록 고주파 계수가 빠르게 잦아들어 적은 항만 더해도 정밀한 근사를 얻는다. 반면 구분적 \(C^1\) 함수에 점프 불연속이 있으면 계수가 \(O(1/n)\) 정도로 느리게 줄어들며, 불연속점 주변에서는 부분합이 목표값을 넘어 출렁이는 Gibbs 현상이 나타난다. 이제 톱니파와 구형파를 직접 전개해 보면서 이 이론들이 어떻게 손에 잡히는 숫자로 이어지는지 확인하자.</p>
+<p>Fourier 계수가 얼마나 빨리 0으로 줄어드는지는 함수의 매끄러움과 직결된다. \(f\)의 \(2\pi\)-주기 확장이 \(k\)번 연속 미분 가능하면 계수 적분에 부분적분을 \(k\)번 적용해 \(|c_n| = O(|n|^{-k})\)를 얻는다. 따라서 함수가 매끄러울수록 고주파 계수가 빠르게 잦아들어 적은 항만 더해도 정밀하게 근사된다. 반면 구분적 \(C^1\) 함수에 점프 불연속이 있으면 계수가 \(O(1/n)\) 정도로 느리게 줄어들며, 불연속점 주변에서는 부분합이 목표값을 넘어 출렁이는 Gibbs 현상이 나타난다. 이제 톱니파와 구형파를 직접 전개해 보면서 이 이론이 어떻게 손에 잡히는 숫자로 이어지는지 확인하자.</p>
 
 <div class="example"><span class="env-label">Example 12.1</span>
 구간 \((-\pi, \pi)\) 위의 톱니파 \(f(x) = x\)는 홀함수이므로 코사인 계수는 \(a_n = 0\)이고 사인 계수만 살아남아 \(b_n = \frac{2(-1)^{n+1}}{n}\)이 된다. 따라서 Fourier 급수는 다음과 같다.
@@ -52,7 +52,7 @@ $$ x \sim 2\sum_{n=1}^\infty \frac{(-1)^{n+1}}{n} \sin(nx), \quad x \in (-\pi, \
 <div class="example"><span class="env-label">Example 12.1a (구형파의 Fourier 급수)</span>
 이번에는 점프 불연속이 있는 구형파(square wave)를 \([-\pi, \pi]\) 위에서 다음과 같이 정의해 보자.
 $$ f(x) = \begin{cases} -1, & -\pi < x < 0, \\ \phantom{-}1, & 0 < x < \pi. \end{cases} $$
-\(f\) 역시 홀함수이므로 \(a_n = 0\)이고, 사인 계수 \(b_n\)을 적분하면
+\(f\) 역시 홀함수이므로 \(a_n = 0\)이고, 사인 계수 \(b_n\)을 적분으로 구하면
 $$ b_n = \frac{1}{\pi}\int_{-\pi}^{\pi} f(x)\sin(nx)\, dx = \frac{2}{\pi}\int_0^{\pi} \sin(nx)\, dx = \frac{2}{n\pi}(1 - \cos(n\pi)) = \begin{cases} \frac{4}{n\pi}, & n \text{ 홀수}, \\ 0, & n \text{ 짝수}. \end{cases} $$ 즉 구형파의 Fourier 급수는 홀수 고조파만으로 이루어진다.
 $$ f(x) \sim \frac{4}{\pi}\sum_{k=0}^{\infty} \frac{\sin((2k+1)x)}{2k+1} = \frac{4}{\pi}\left(\sin x + \frac{\sin 3x}{3} + \frac{\sin 5x}{5} + \cdots\right). $$
 불연속점 \(x = 0, \pm\pi\)에서는 Theorem 12.2대로 급수가 \(\frac{f(x^+)+f(x^-)}{2} = 0\)으로 수렴한다. 다만 불연속점 바로 옆에서는 부분합의 봉우리가 점프 크기의 약 8.95%만큼 솟아오르며 진동하는데, 이를 <em>Gibbs 현상</em>이라 부른다(Example 12.9에서 정량적으로 다시 다룬다).
@@ -73,7 +73,7 @@ Example 12.1a의 구형파 \(f(x)\)에 Parseval 등식을 적용하면 유명한
 $$ \frac{1}{2}\sum_{k=0}^{\infty} b_{2k+1}^2 = \frac{1}{2}\sum_{k=0}^{\infty} \frac{16}{(2k+1)^2 \pi^2} = 1. $$
 양변을 정리하면 홀수 제곱의 역수합을 얻는다.
 $$ \sum_{k=0}^{\infty} \frac{1}{(2k+1)^2} = 1 + \frac{1}{9} + \frac{1}{25} + \cdots = \frac{\pi^2}{8}. $$
-여기에 \(\sum_{n=1}^{\infty} \frac{1}{n^2} = \sum_{k=0}^{\infty}\frac{1}{(2k+1)^2} + \sum_{m=1}^{\infty}\frac{1}{(2m)^2}\)임을 결합하면 \(\frac{\pi^2}{8} + \frac{1}{4}\sum\frac{1}{n^2} = \sum\frac{1}{n^2}\)이 되어, 오일러가 풀었던 바젤 문제의 해 \(\sum_{n=1}^{\infty}\frac{1}{n^2} = \frac{\pi^2}{6}\)이 자연스럽게 나온다.
+여기에 \(\sum_{n=1}^{\infty} \frac{1}{n^2} = \sum_{k=0}^{\infty}\frac{1}{(2k+1)^2} + \sum_{m=1}^{\infty}\frac{1}{(2m)^2}\)이라는 식을 결합하면 \(\frac{\pi^2}{8} + \frac{1}{4}\sum\frac{1}{n^2} = \sum\frac{1}{n^2}\)이 되어, 오일러가 풀었던 바젤 문제의 해 \(\sum_{n=1}^{\infty}\frac{1}{n^2} = \frac{\pi^2}{6}\)이 자연스럽게 나온다.
 </div>
 
 <!-- 12.2 Fourier Transform -->
@@ -81,7 +81,7 @@ $$ \sum_{k=0}^{\infty} \frac{1}{(2k+1)^2} = 1 + \frac{1}{9} + \frac{1}{25} + \cd
 
 <h3 id="fourier-transform">12.2 Fourier 변환</h3>
 
-<p>실제 세상에는 주기적으로 반복되지 않는 신호나 파형이 훨씬 많다. Fourier 급수에서 주기를 무한대로 키워 나가면 이산 주파수 \(n\) 사이의 간격이 0으로 줄어들면서 연속 주파수 변수 \(\xi\)가 되고, 계수의 급수 합은 적분으로 바뀐다. 이것이 비주기 함수를 다루는 Fourier 변환이다. 레이더 펄스 설계, 통신 채널의 대역폭 분석, 그리고 MRI에서 k-공간(k-space, 공간 주파수 영역) 데이터를 역변환해 인체 단면 영상을 복원하는 작업까지 모두 Fourier 변환을 사용한다.</p>
+<p>실제 세상에는 주기적으로 반복되지 않는 신호나 파형이 훨씬 많다. Fourier 급수에서 주기를 무한대로 키워 나가면 이산 주파수 \(n\) 사이의 간격이 0으로 줄어들면서 연속 주파수 변수 \(\xi\)가 되고, 계수의 급수 합은 적분으로 바뀐다. 이것이 비주기 함수를 다루는 Fourier 변환이다. 레이더 펄스 설계, 통신 채널의 대역폭 분석, 그리고 MRI에서 k-공간(k-space, 공간 주파수 영역) 데이터를 역변환해 인체 단면 영상을 복원하는 데까지 모두 Fourier 변환이 쓰인다.</p>
 
 <div class="definition"><span class="env-label">Definition 12.2 (Fourier Transform)</span>
 \(f \in L^1(\mathbb{R})\)에 대해, <em>Fourier 변환(Fourier transform)</em>을 다음과 같이 정의한다.
@@ -116,7 +116,7 @@ $$ \hat{f}(\xi) = \int_{-a/2}^{a/2} e^{-2\pi i \xi x}\, dx = \frac{e^{-2\pi i \x
 </div>
 
 <h4>주요 Fourier 변환 쌍 표</h4>
-<p>자주 등장하는 함수들의 변환 쌍을 모아 두면 복잡한 계산을 매번 처음부터 적분하지 않고도 조합해서 쓸 수 있다. 아래 표에서 \(L^1\)에 속하지 않는 델타 함수, 상수 함수, 복소 지수, 부호 함수, 동차 함수 등은 초함수(분포, distribution)의 의미로 해석한다.</p>
+<p>자주 등장하는 함수들의 변환 쌍을 모아 두면 복잡한 적분을 매번 처음부터 계산하지 않고도 이를 조합해서 쓸 수 있다. 아래 표에서 \(L^1\)에 속하지 않는 델타 함수, 상수 함수, 복소 지수, 부호 함수, 동차 함수 등은 초함수(분포, distribution)의 의미로 해석한다.</p>
 <table border="1" cellpadding="6" cellspacing="0" style="border-collapse: collapse; margin: 1em auto;">
 <thead>
 <tr><th>\(f(x)\)</th><th>\(\hat{f}(\xi)\)</th><th>비고</th></tr>
@@ -157,7 +157,7 @@ $$ \hat{f}(\xi) = \int_{-a/2}^{a/2} e^{-2\pi i \xi x}\, dx = \frac{e^{-2\pi i \x
 </tbody>
 </table>
 
-<p>이제 Fourier 변환의 두 핵심 정리를 확인할 차례다. 첫째는 주파수 스펙트럼으로부터 원래 신호를 오차 없이 되돌리는 역변환 정리이고, 둘째는 \(L^2(\mathbb{R})\) 공간에서 신호의 총에너지가 변환 전후로 보존된다는 Plancherel 정리(Fourier 급수의 Parseval 정리에 대응하는 정리)다.</p>
+<p>이제 Fourier 변환의 두 핵심 정리를 확인할 차례다. 첫째는 주파수 스펙트럼에서 원래 신호를 오차 없이 복원하는 역변환 정리다. 둘째는 \(L^2(\mathbb{R})\) 공간에서 신호의 총에너지가 변환 전후로 보존된다는 Plancherel 정리로, Fourier 급수의 Parseval 정리에 대응한다.</p>
 
 <div class="theorem"><span class="env-label">Theorem 12.5 (Fourier Inversion)</span>
 \(f \in L^1(\mathbb{R})\)이고 \(\hat{f} \in L^1(\mathbb{R})\)이면, 거의 모든 \(x\)에서 다음 역변환 공식이 성립한다.
@@ -173,7 +173,7 @@ $$ \int_{-\infty}^{\infty} |f(x)|^2\, dx = \int_{-\infty}^{\infty} |\hat{f}(\xi)
 <p>변환 쌍 가운데 가장 우아하고 중요한 함수인 가우시안은 Fourier 변환을 취해도 형태가 바뀌지 않는다.</p>
 
 <div class="example"><span class="env-label">Example 12.2a</span>
-가우시안 \(f(x) = e^{-\pi x^2}\)은 자기 자신의 Fourier 변환, 즉 \(\hat{f}(\xi) = e^{-\pi \xi^2}\)이 된다. 더 일반적으로 \(f(x) = e^{-ax^2}\) (\(a > 0\))을 변환하면 \(\hat{f}(\xi) = \sqrt{\pi/a}\, e^{-\pi^2 \xi^2/a}\)를 얻는다. 뒤에 다룰 불확정성 원리(Theorem 12.10)에서 시간 퍼짐과 주파수 퍼짐의 곱을 최소화하는 극단적 함수가 바로 이 가우시안 계열이다.
+가우시안 \(f(x) = e^{-\pi x^2}\)의 Fourier 변환은 자기 자신, 즉 \(\hat{f}(\xi) = e^{-\pi \xi^2}\)이다. 더 일반적으로 \(f(x) = e^{-ax^2}\) (\(a > 0\))을 변환하면 \(\hat{f}(\xi) = \sqrt{\pi/a}\, e^{-\pi^2 \xi^2/a}\)를 얻는다. 바로 이 가우시안 계열이 뒤에 다룰 불확정성 원리(Theorem 12.10)에서 시간 퍼짐과 주파수 퍼짐의 곱을 최소화한다.
 </div>
 
 <!-- 12.3 Convolution -->
@@ -189,23 +189,23 @@ $$ (f * g)(x) = \int_{-\infty}^{\infty} f(t)\, g(x - t)\, dt. $$
 합성곱은 교환 법칙과 결합 법칙, 덧셈에 대한 분배 법칙을 따른다. 또한 \(f \in L^1\)이고 \(g \in L^p\) (\(1 \leq p \leq \infty\))이면 \(f * g \in L^p\)이며 부등식 \(\|f * g\|_p \leq \|f\|_1 \|g\|_p\) (Young 부등식)이 성립한다.
 </div>
 
-<p>정의 식만 보면 매 점 \(x\)마다 적분을 새로 계산해야 해서 번거롭기 짝이 없다. 그러나 Fourier 변환을 씌우는 순간 이 복잡한 적분이 단순한 점별 곱셈으로 바뀐다.</p>
+<p>정의 식만 보면 점 \(x\)마다 적분을 새로 계산해야 해서 번거롭기 짝이 없다. 그러나 Fourier 변환을 씌우는 순간 이 복잡한 적분이 단순한 점별 곱셈으로 바뀐다.</p>
 
 <div class="theorem"><span class="env-label">Theorem 12.7 (Convolution Theorem)</span>
 \(f, g \in L^1(\mathbb{R})\)에 대해 다음 등식이 성립한다.
 $$ \widehat{f * g}(\xi) = \hat{f}(\xi) \cdot \hat{g}(\xi). $$
-쌍대적으로 Schwartz 함수처럼 곱과 주파수 영역 합성곱이 모두 잘 정의되는 조건 아래에서는 곱셈이 합성곱으로 바뀐다.
+쌍대적으로 Schwartz 함수에서처럼 곱과 주파수 영역 합성곱이 모두 잘 정의되는 조건에서는 곱셈이 합성곱으로 바뀐다.
 $$ \widehat{f \cdot g}(\xi) = (\hat{f} * \hat{g})(\xi). $$
 </div>
 
 <p>이 정리는 이론을 넘어 계산 복잡도까지 극적으로 바꾼다. 길이 \(N\)인 두 이산 신호의 순환 합성곱을 정의대로 직접 계산하면 \(O(N^2)\)번의 곱셈이 들지만, FFT로 두 신호를 주파수 영역으로 옮겨 \(N\)번 곱한 뒤 역 FFT로 돌아오면 전체 연산량이 \(O(N \log N)\)으로 뚝 떨어진다(12.5절). 오늘날 디지털 필터링, 이미지 처리, 대형 다항식과 큰 정수의 곱셈이 모두 이 지름길을 탄다. 이제 합성곱 정리와 Plancherel 정리가 실제 계산을 어떻게 간소화하는지 세 예제로 확인해 보자.</p>
 
 <div class="example"><span class="env-label">Example 12.3</span>
-직사각형 펄스 \(f = \mathbf{1}_{[-1/2, 1/2]}\) 자기 자신과의 합성곱 \(h = f * f\)를 생각해 보자. \(\hat{f}(\xi) = \operatorname{sinc}(\xi)\)이므로 합성곱 정리에 따라 \(\hat{h}(\xi) = \operatorname{sinc}^2(\xi)\)다. 한편 적분을 직접 계산하면 겹치는 구간의 길이가 삼각형 함수 \(h(x) = \max(1 - |x|, 0)\)으로 나오므로, 삼각형 함수의 Fourier 변환이 곧 \(\operatorname{sinc}^2\)임을 별도 적분 없이 바로 알아낼 수 있다.
+직사각형 펄스 \(f = \mathbf{1}_{[-1/2, 1/2]}\)와 자기 자신의 합성곱 \(h = f * f\)를 생각해 보자. \(\hat{f}(\xi) = \operatorname{sinc}(\xi)\)이므로 합성곱 정리에 따라 \(\hat{h}(\xi) = \operatorname{sinc}^2(\xi)\)다. 한편 적분을 직접 계산하면 겹치는 구간의 길이가 삼각형 함수 \(h(x) = \max(1 - |x|, 0)\)으로 나오므로, 삼각형 함수의 Fourier 변환이 곧 \(\operatorname{sinc}^2\)임을 별도 적분 없이 바로 알아낼 수 있다.
 </div>
 
 <div class="example"><span class="env-label">Example 12.3a (합성곱 정리 활용: LTI 시스템 출력 계산)</span>
-임펄스 응답이 \(h(t) = e^{-t}\mathbf{1}_{[0,\infty)}(t)\)인 인과적 지수 감쇠 LTI 시스템에 입력 \(x(t) = e^{-2t}\mathbf{1}_{[0,\infty)}(t)\)를 넣었을 때의 출력 \(y = h * x\)를 합성곱 정리로 구해 보자.
+인과적 지수 감쇠 LTI 시스템의 임펄스 응답이 \(h(t) = e^{-t}\mathbf{1}_{[0,\infty)}(t)\)이고, 여기에 입력 \(x(t) = e^{-2t}\mathbf{1}_{[0,\infty)}(t)\)를 넣는다고 하자. 이때 출력 \(y = h * x\)를 합성곱 정리로 구해 보자.
 
 먼저 두 함수의 Fourier 변환을 구한다.
 $$ \hat{h}(\xi) = \frac{1}{1 + 2\pi i \xi}, \qquad \hat{x}(\xi) = \frac{1}{2 + 2\pi i \xi}. $$
@@ -215,7 +215,7 @@ $$ \hat{y}(\xi) = \hat{h}(\xi)\hat{x}(\xi) = \frac{1}{(1 + 2\pi i \xi)(2 + 2\pi 
 $$ \hat{y}(\xi) = \frac{1}{1 + 2\pi i \xi} - \frac{1}{2 + 2\pi i \xi}. $$
 각 항을 역 Fourier 변환하면 원하는 출력 신호를 얻는다.
 $$ y(t) = (e^{-t} - e^{-2t})\mathbf{1}_{[0,\infty)}(t). $$
-직접 합성곱 적분을 계산해 봐도 \(t \geq 0\)에서 결과가 빈틈없이 일치한다.
+합성곱 적분을 직접 계산해 봐도 \(t \geq 0\)에서 결과가 빈틈없이 일치한다.
 $$ y(t) = \int_0^t e^{-\tau} e^{-2(t-\tau)}\, d\tau = e^{-2t}\int_0^t e^{\tau}\, d\tau = e^{-2t}(e^t - 1) = e^{-t} - e^{-2t}. $$
 </div>
 
@@ -261,10 +261,10 @@ $$\begin{aligned}
 <h4>편미분방정식 (Partial Differential Equations)</h4>
 <p>Fourier 변환은 상수 계수 선형 편미분방정식을 푸는 데도 탁월한 힘을 발휘한다. 공간 변수에 대한 미분을 주파수 곱셈으로 바꿔 편미분방정식을 상미분방정식으로 낮추어 주기 때문이다. 예를 들어 실수 직선 \(\mathbb{R}\) 위의 열 방정식 \(u_t = k\, u_{xx}\)에 초기 조건 \(u(x,0) = f(x)\)가 주어졌을 때, \(x\)에 대해 Fourier 변환을 취하면 \(\hat{u}_t = -4\pi^2 k \xi^2 \hat{u}\)라는 단순한 일차 상미분방정식이 되고, 이를 풀면 \(\hat{u}(\xi, t) = \hat{f}(\xi) e^{-4\pi^2 k \xi^2 t}\)를 얻는다. 이를 다시 역변환하면 다음과 같다.</p>
 $$ u(x,t) = f * G_t(x), \qquad G_t(x) = \frac{1}{\sqrt{4\pi k t}}\, e^{-x^2/(4kt)}, $$
-<p>여기서 여기서 \(G_t\)는 시간이 지남에 따라 점점 넓고 완만하게 퍼지는 가우시안인 열 핵(heat kernel)이다. 파동 방정식 역시 같은 방식으로 풀 수 있다.</p>
+<p>여기서 \(G_t\)는 열 핵(heat kernel)으로, 시간이 지날수록 점점 넓고 완만하게 퍼지는 가우시안이다. 파동 방정식 역시 같은 방식으로 풀 수 있다.</p>
 
 <div class="example"><span class="env-label">Example 12.4</span>
-\(\mathbb{R}\) 위의 1차원 파동 방정식 \(u_{tt} = c^2 u_{xx}\)에 대해 \(x\) 방향으로 Fourier 변환을 취하면 \(\hat{u}_{tt} = -4\pi^2 c^2 \xi^2 \hat{u}\)가 된다. 각 주파수 \(\xi\)에 대한 이 조화진동자 방정식의 해는 \(\hat{u}(\xi,t) = A(\xi)\cos(2\pi c\xi t) + B(\xi)\sin(2\pi c\xi t)\)다. 여기에 초기 위치 \(u(x,0) = f(x)\)와 초기 속도 \(u_t(x,0) = g(x)\)를 맞춰 역변환하면 고전적인 d'Alembert 해 공식 \(u(x,t) = \frac{1}{2}[f(x+ct) + f(x-ct)] + \frac{1}{2c}\int_{x-ct}^{x+ct} g(s)\, ds\)을 얻는다.
+\(\mathbb{R}\) 위의 1차원 파동 방정식 \(u_{tt} = c^2 u_{xx}\)에 \(x\) 방향으로 Fourier 변환을 취하면 \(\hat{u}_{tt} = -4\pi^2 c^2 \xi^2 \hat{u}\)가 된다. 각 주파수 \(\xi\)에서 이 조화진동자 방정식의 해는 \(\hat{u}(\xi,t) = A(\xi)\cos(2\pi c\xi t) + B(\xi)\sin(2\pi c\xi t)\)다. 여기에 초기 위치 \(u(x,0) = f(x)\)와 초기 속도 \(u_t(x,0) = g(x)\)를 맞춰 역변환하면 고전적인 d'Alembert 해 공식 \(u(x,t) = \frac{1}{2}[f(x+ct) + f(x-ct)] + \frac{1}{2c}\int_{x-ct}^{x+ct} g(s)\, ds\)을 얻는다.
 </div>
 
 <!-- 12.5 Discrete Fourier Transform and FFT -->
@@ -272,7 +272,7 @@ $$ u(x,t) = f * G_t(x), \qquad G_t(x) = \frac{1}{\sqrt{4\pi k t}}\, e^{-x^2/(4kt
 
 <h3 id="dft-fft">12.5 이산 Fourier 변환과 고속 Fourier 변환</h3>
 
-<p>지금까지 다룬 Fourier 급수와 Fourier 변환은 연속 함수의 세계였지만, 실제 컴퓨터가 다룰 수 있는 것은 유한 개의 이산 표본뿐이다. 이산 Fourier 변환(DFT, Discrete Fourier Transform)은 길이 \(N\)인 유한 수열에서 주파수 성분을 뽑아내는 변환으로, 디지털 오실로스코프의 스펙트럼 화면, 음성 인식의 특징 추출(MFCC), 구조물 진동 데이터의 주파수 분석에서 실질적으로 계산하는 대상이 바로 DFT다.</p>
+<p>지금까지는 연속 함수의 세계에서 Fourier 급수와 Fourier 변환을 다루었지만, 실제 컴퓨터는 유한 개의 이산 표본만 다룰 수 있다. 이산 Fourier 변환(DFT, Discrete Fourier Transform)은 길이 \(N\)인 유한 수열에서 주파수 성분을 뽑아내는 변환이다. 디지털 오실로스코프의 스펙트럼 화면, 음성 인식의 특징 추출(MFCC), 구조물 진동 데이터의 주파수 분석에서 실제로 계산하는 대상이 바로 DFT다.</p>
 
 <div class="definition"><span class="env-label">Definition 12.4 (Discrete Fourier Transform)</span>
 길이 \(N\)인 복소수 열 \(x_0, x_1, \ldots, x_{N-1}\)에 대해 <em>이산 Fourier 변환(DFT)</em>은 다음과 같이 정의한다.
@@ -282,17 +282,17 @@ $$ x_n = \frac{1}{N} \sum_{k=0}^{N-1} X_k \, e^{2\pi i \, kn / N}, \qquad n = 0,
 DFT에서도 순환 합성곱 \(x \circledast y\)가 주파수 영역의 점별 곱 \(\operatorname{DFT}(x \circledast y)_k = X_k Y_k\)로 바뀐다.
 </div>
 
-<p>그러나 DFT를 정의 식 그대로 계산하면 \(N\)개의 출력 \(X_k\)마다 각각 \(N\)번의 복소수 곱셈·덧셈이 필요해 총 \(O(N^2)\)의 연산량이 든다. \(N\)이 커지면 이 비용은 금세 감당하기 어려워진다. <em>고속 Fourier 변환(FFT)</em>은 1의 \(N\)제곱근 \(\omega_N = e^{-2\pi i/N}\)이 갖는 주기성과 대칭성을 교묘히 활용해 문제를 절반 크기의 하위 문제 두 개로 쪼갬으로써 연산량을 \(O(N \log N)\)까지 낮춘다.</p>
+<p>그러나 DFT를 정의 식 그대로 계산하면 \(N\)개의 출력 \(X_k\)마다 각각 \(N\)번의 복소수 곱셈·덧셈이 필요해 총 \(O(N^2)\)의 연산량이 든다. \(N\)이 커지면 이 비용은 금세 감당하기 어려워진다. <em>고속 Fourier 변환(FFT)</em>은 1의 \(N\)제곱근인 \(\omega_N = e^{-2\pi i/N}\)의 주기성과 대칭성을 교묘히 활용해 문제를 절반 크기의 하위 문제 두 개로 쪼갬으로써 연산량을 \(O(N \log N)\)까지 낮춘다.</p>
 
 <div class="theorem"><span class="env-label">Theorem 12.9 (Cooley-Tukey FFT)</span>
 \(N = 2^m\)일 때 \(\omega_N = e^{-2\pi i/N}\)으로 두자. 합을 짝수 인덱스와 홀수 인덱스로 갈라 정리하면 다음과 같다.
 $$ X_k = \underbrace{\sum_{j=0}^{N/2-1} x_{2j}\, \omega_{N/2}^{jk}}_{E_k} + \omega_N^k \underbrace{\sum_{j=0}^{N/2-1} x_{2j+1}\, \omega_{N/2}^{jk}}_{O_k}, $$
 여기서 \(E_k\)와 \(O_k\)는 각각 짝수 성분과 홀수 성분으로 만든 길이 \(N/2\)짜리 DFT다. \(E_k\)와 \(O_k\)가 \(k\)에 대해 주기 \(N/2\)를 가지며 \(\omega_N^{k+N/2} = -\omega_N^k\)이므로, 앞쪽 절반과 뒤쪽 절반을 한꺼번에 얻는다.
 $$ X_k = E_k + \omega_N^k O_k, \qquad X_{k+N/2} = E_k - \omega_N^k O_k. $$
-이 분할을 재귀적으로 끝까지 밀고 나가면 총 연산량은 점화식 \(T(N) = 2T(N/2) + O(N)\)을 따라 \(T(N) = O(N \log N)\)이 된다.
+이 분할을 재귀적으로 끝까지 밀고 나가면 총 연산량은 점화식 \(T(N) = 2T(N/2) + O(N)\)에 따라 \(T(N) = O(N \log N)\)이 된다.
 </div>
 
-<p>FFT와 같은 분할 정복 아이디어는 12.3절에서 언급한 고속 합성곱 계산과 초대형 정수의 곱셈(Schönhage-Strassen 알고리즘)뿐 아니라 JPEG의 DCT, MP3·AAC 등 오디오 코덱의 MDCT 구현에도 핵심으로 쓰인다. 체감 차이를 가늠해 보자면, \(N = 10^6\)일 때 직접 DFT는 약 \(N^2 = 10^{12}\)번의 연산을 요구하는 반면 FFT는 약 \(N\log_2 N \approx 2 \times 10^7\)번 수준으로 끝난다. 상수 인자를 제하고 봐도 무려 \(5 \times 10^4\)배에 이르는 속도 차이다.</p>
+<p>FFT와 같은 분할 정복 아이디어는 12.3절에서 언급한 고속 합성곱 계산과 초대형 정수의 곱셈(Schönhage-Strassen 알고리즘)뿐 아니라 JPEG의 DCT, MP3·AAC 등 오디오 코덱의 MDCT 구현에도 핵심으로 쓰인다. 체감 차이를 가늠해 보자면, \(N = 10^6\)일 때 직접 DFT는 약 \(N^2 = 10^{12}\)번의 연산이 필요한 반면, FFT는 약 \(N\log_2 N \approx 2 \times 10^7\)번 수준으로 끝난다. 상수 인자를 제하고 봐도 무려 \(5 \times 10^4\)배에 이르는 속도 차이다.</p>
 
 <p>이제 DFT, 확산 방정식, 주파수 필터링, 순환 합성곱, 그리고 앞서 예고했던 Gibbs 현상까지 다섯 개의 구체적 예제로 이론을 손으로 짚어 보자.</p>
 
@@ -316,14 +316,14 @@ $$ \hat{u}_t = -4\pi^2 D \xi^2 \hat{u}, \qquad \hat{u}(\xi, 0) = \hat{f}(\xi) = 
 $$ \hat{u}(\xi, t) = \frac{2}{1 + 4\pi^2\xi^2}\, e^{-4\pi^2 D \xi^2 t}. $$
 합성곱 정리에 따라 이를 시간 영역으로 되돌리면 초기 분포와 열 핵의 합성곱이 된다.
 $$ u(x,t) = (f * G_t)(x), \qquad G_t(x) = \frac{1}{\sqrt{4\pi D t}}\, e^{-x^2/(4Dt)}. $$
-물리적 거동을 살펴보면, \(t > 0\)이 되는 즉시 \(x = 0\)의 뾰족한 모서리가 둥글게 녹아내리며 해가 매끄러워지고 넓게 퍼진다. 그러면서도 전체 질량 \(\int u\,dx = \hat{f}(0) = 2\)는 변하지 않고 보존되며, 확산 길이 \(\sqrt{Dt}\) 단위로 축을 다시 잡으면 시간이 한참 흐른 뒤의 분포는 질량 2를 가진 가우시안 열 핵의 모양으로 수렴한다.
+물리적 거동을 살펴보면, \(t > 0\)이 되는 즉시 \(x = 0\)의 뾰족한 모서리가 둥글게 녹아내리며 해가 매끄러워지고 넓게 퍼진다. 그러면서도 전체 질량 \(\int u\,dx = \hat{f}(0) = 2\)는 변하지 않고 보존된다. 확산 길이 \(\sqrt{Dt}\) 단위로 축을 다시 잡으면 시간이 한참 흐른 뒤의 분포는 질량이 2인 가우시안 열 핵의 모양으로 수렴한다.
 </div>
 
 <div class="example"><span class="env-label">Example 12.7 (주파수 필터링)</span>
 50Hz 성분과 500Hz 고주파 잡음이 섞인 신호 \(x(t) = \cos(2\pi \cdot 50t) + 0.5\cos(2\pi \cdot 500t)\)에서 50Hz 신호만 골라내고 싶다고 하자. 차단 주파수 \(B = 100\text{ Hz}\)인 이상적 저대역 필터(ideal low-pass filter)의 전달함수를 다음과 같이 두자.
 $$ \hat{h}(\xi) = \mathbf{1}_{[-B, B]}(\xi), \qquad B = 100\text{ Hz}. $$
-그러면 합성곱 정리에 따라 출력의 스펙트럼은 다음 식이 된다.
-$$ \hat{y}(\xi) = \hat{h}(\xi) \hat{x}(\xi). $$ \(\hat{x}(\xi)\)는 \(\pm 50\)Hz와 \(\pm 500\)Hz에만 델타 함수 스파이크를 가지므로, \(B = 100\)Hz 창을 씌우면 \(\pm 500\)Hz 성분은 깨끗이 잘려 나가고 \(\pm 50\)Hz만 남아 \(y(t) = \cos(2\pi \cdot 50t)\)가 복원된다.
+그러면 합성곱 정리에 따라 출력의 스펙트럼은 다음과 같다.
+$$ \hat{y}(\xi) = \hat{h}(\xi) \hat{x}(\xi). $$ \(\hat{x}(\xi)\)에는 \(\pm 50\)Hz와 \(\pm 500\)Hz에만 델타 함수 스파이크가 있으므로, \(B = 100\)Hz 창을 씌우면 \(\pm 500\)Hz 성분은 깨끗이 잘려 나가고 \(\pm 50\)Hz만 남아 \(y(t) = \cos(2\pi \cdot 50t)\)가 복원된다.
 
 다만 시간 영역에서 이 연산은 임펄스 응답 \(h(t) = 2B\operatorname{sinc}(2Bt)\)와의 합성곱 \(y(t) = (h * x)(t)\)에 해당한다. 그런데 이 \(\operatorname{sinc}\) 함수는 \(t < 0\)에서도 0이 아니므로, 이상적 저대역 필터는 인과적(causal)이지 않다. 아직 들어오지도 않은 미래 입력을 미리 반영해야 한다는 뜻이어서, 실시간 물리 시스템으로 완벽하게 구현하는 일은 불가능하다.
 </div>
@@ -336,7 +336,7 @@ $$\begin{aligned}
 X &= (2, \; 0, \; 2, \; 0) \quad (X_k = 1 + (-1)^k), \\
 H &= (2, \; 1+(-i), \; 0, \; 1+i) = (2, \; 1-i, \; 0, \; 1+i).
 \end{aligned}$$
-주파수 영역에서 점별 곱 \(Y_k = X_k H_k\)를 취하면 \(Y = (4, 0, 0, 0)\)이 되고, 이를 역 DFT로 되돌리면 모든 \(n\)에 대해 \(y_n = \frac{1}{4}\sum_{k} Y_k \omega_4^{-kn} = \frac{4}{4} = 1\), 즉 \(y = (1, 1, 1, 1)\)을 얻는다. 직접 순환 합성곱 정의대로 검산해 봐도 \(y_0 = x_0 h_0 + x_3 h_1 + x_2 h_2 + x_1 h_3 = 1+0+0+0 = 1\), \(y_1 = x_1 h_0 + x_0 h_1 + x_3 h_2 + x_2 h_3 = 0+1+0+0 = 1\)처럼 모든 성분이 1로 일치한다.
+주파수 영역에서 점별 곱 \(Y_k = X_k H_k\)를 취하면 \(Y = (4, 0, 0, 0)\)이 되고, 이를 역 DFT로 되돌리면 모든 \(n\)에 대해 \(y_n = \frac{1}{4}\sum_{k} Y_k \omega_4^{-kn} = \frac{4}{4} = 1\), 즉 \(y = (1, 1, 1, 1)\)을 얻는다. 순환 합성곱 정의대로 직접 검산해 봐도 \(y_0 = x_0 h_0 + x_3 h_1 + x_2 h_2 + x_1 h_3 = 1+0+0+0 = 1\), \(y_1 = x_1 h_0 + x_0 h_1 + x_3 h_2 + x_2 h_3 = 0+1+0+0 = 1\)처럼 모든 성분이 1로 일치한다.
 </div>
 
 <div class="example"><span class="env-label">Example 12.9 (Gibbs 현상의 정량적 분석)</span>
@@ -344,15 +344,15 @@ Example 12.1a에서 본 구형파의 부분합 \(S_N(x) = \frac{4}{\pi}\sum_{k=0
 
 \(N\)이 클 때 \(S_N\)의 첫 번째 극댓값은 도함수 \(S_N'(x) = \frac{2\sin(2Nx)}{\pi \sin x}\)가 처음 0이 되는 점 \(x = \frac{\pi}{2N}\)에서 나타나며, 그 높이는 다음과 같이 근사된다.
 $$ \max S_N \approx \frac{2}{\pi}\int_0^{\pi} \frac{\sin t}{t}\, dt \approx \frac{2}{\pi} \cdot \text{Si}(\pi) \approx \frac{2}{\pi} \cdot 1.8519 \approx 1.1790. $$
-원래 목표값 1보다 약 0.179만큼 더 솟구치는데, 이는 \(-1\)에서 \(+1\)로 뛰는 전체 점프 크기 2의 약 \(8.95\%\)에 해당한다. 놀라운 점은 \(N \to \infty\)로 항의 개수를 아무리 늘려도 이 초과 비율이 0으로 줄어들지 않고, 단지 뾰족한 봉우리의 위치만 불연속점 \(x = 0\) 쪽으로 바짝 다가갈 뿐이라는 사실이다. 구형파의 Fourier 급수는 \(L^2\) 의미에서도, 각 점에서도 수렴하지만, 이 Gibbs 현상 때문에 불연속점 근방에서의 균등 수렴만은 끝내 성립하지 않는다.
+원래 목푯값 1보다 약 0.179만큼 더 솟구치는데, 이는 \(-1\)에서 \(+1\)로 뛰는 전체 점프 크기 2의 약 \(8.95\%\)에 해당한다. 놀랍게도 \(N \to \infty\)로 항의 개수를 아무리 늘려도 이 초과 비율은 0으로 줄어들지 않는다. 단지 뾰족한 봉우리의 위치만 불연속점 \(x = 0\) 쪽으로 바짝 다가갈 뿐이다. 구형파의 Fourier 급수는 \(L^2\) 의미에서도, 각 점에서도 수렴하지만, 이 Gibbs 현상 때문에 불연속점 근방에서의 균등 수렴만은 끝내 성립하지 않는다.
 </div>
 
-<p>이 장의 도입에서 언급했던 레이더 펄스의 시간 폭과 주파수 대역폭 사이의 맞교환, 그리고 양자역학에서 입자의 위치와 운동량을 동시에 정밀하게 잴 수 없다는 Heisenberg 불확정성 원리는 모두 다음 하나의 해석적 부등식으로 귀결된다.</p>
+<p>이 장의 도입에서 언급했듯이 레이더 펄스에서는 시간 폭과 주파수 대역폭 사이에 맞교환이 있고, 양자역학에서는 입자의 위치와 운동량을 동시에 정밀하게 잴 수 없다는 Heisenberg 불확정성 원리가 성립한다. 이 맞교환과 불확정성 원리는 모두 다음 해석적 부등식 하나로 귀결된다.</p>
 
 <div class="theorem"><span class="env-label">Theorem 12.10 (Uncertainty Principle)</span>
 \(f \in L^2(\mathbb{R})\)이고 \(\|f\|_2 = 1\)일 때(\(f\)가 원점을 중심으로 놓여 있다고 가정), <em>시간 퍼짐(time spread)</em>을 \(\Delta x^2 = \int x^2 |f(x)|^2\, dx\)로, <em>주파수 퍼짐(frequency spread)</em>을 \(\Delta \xi^2 = \int \xi^2 |\hat{f}(\xi)|^2\, d\xi\)로 정의하면 다음 부등식이 성립한다.
 $$ \Delta x \cdot \Delta \xi \geq \frac{1}{4\pi} $$
-등호가 성립할 필요충분조건은 \(f\)가 가우시안 \(Ce^{-\alpha x^2}\) (\(\alpha > 0\)) 꼴이라는 점이다.
+등호가 성립할 필요충분조건은 \(f\)가 가우시안 \(Ce^{-\alpha x^2}\) (\(\alpha > 0\)) 꼴인 것이다.
 </div>
 
 <p>실제로 가우시안 파속을 대입해 이 하한이 정확히 달성되는지 계산해 보면서 Fourier 해석의 장을 마무리하자.</p>
@@ -360,9 +360,9 @@ $$ \Delta x \cdot \Delta \xi \geq \frac{1}{4\pi} $$
 <div class="example"><span class="env-label">Example 12.10 (불확정성 원리의 구체적 적용)</span>
 \(\|f\|_2 = 1\)로 정규화한 가우시안 파속(wave packet) \(f(x) = \left(\frac{2\alpha}{\pi}\right)^{1/4} e^{-\alpha x^2}\)의 시간-주파수 퍼짐을 구해 보자.
 
-시간 퍼짐을 적분하면 \(\Delta x^2 = \int x^2 |f(x)|^2\, dx = \frac{1}{4\alpha}\)이므로 \(\Delta x = \frac{1}{2\sqrt{\alpha}}\)다. 한편 정규화된 가우시안의 Fourier 변환은 \(\hat{f}(\xi) = \left(\frac{2\alpha}{\pi}\right)^{1/4}\sqrt{\frac{\pi}{\alpha}}\, e^{-\pi^2\xi^2/\alpha}\)이므로 같은 방식으로 주파수 퍼짐을 계산하면 \(\Delta \xi = \frac{\sqrt{\alpha}}{2\pi}\)가 된다.
+적분으로 시간 퍼짐을 구하면 \(\Delta x^2 = \int x^2 |f(x)|^2\, dx = \frac{1}{4\alpha}\)이므로 \(\Delta x = \frac{1}{2\sqrt{\alpha}}\)다. 한편 정규화된 가우시안의 Fourier 변환은 \(\hat{f}(\xi) = \left(\frac{2\alpha}{\pi}\right)^{1/4}\sqrt{\frac{\pi}{\alpha}}\, e^{-\pi^2\xi^2/\alpha}\)이므로 같은 방식으로 주파수 퍼짐을 계산하면 \(\Delta \xi = \frac{\sqrt{\alpha}}{2\pi}\)가 된다.
 
-두 값을 곱하면 매개변수 \(\alpha\)가 정확히 약분되면서 \(\Delta x \cdot \Delta \xi = \frac{1}{2\sqrt{\alpha}} \cdot \frac{\sqrt{\alpha}}{2\pi} = \frac{1}{4\pi}\)를 얻어 불확정성 원리의 하한에 딱 닿는다. 평행이동, 변조, 스케일링, 상수 위상 인자를 허용할 때 이 하한을 이루는 함수는 오직 가우시안 계열뿐이다.
+두 값을 곱하면 매개변수 \(\alpha\)가 정확히 약분되면서 \(\Delta x \cdot \Delta \xi = \frac{1}{2\sqrt{\alpha}} \cdot \frac{\sqrt{\alpha}}{2\pi} = \frac{1}{4\pi}\)가 되어 불확정성 원리의 하한에 딱 닿는다. 평행이동, 변조, 스케일링, 상수 위상 인자를 허용할 때 이 하한을 달성하는 함수는 오직 가우시안 계열뿐이다.
 </div>
 
 <p>함수해석학(10장), 측도론(11장), Fourier 해석(12장)을 거치면서 우리는 무한차원 공간 위에서 함수를 분해하고 극한과 적분을 다루는 해석학의 현대적 무기를 손에 넣었다. 이제 시선을 전환해 연속적인 크기와 극한을 잠시 내려놓고, 수와 대칭과 연산 규칙 자체의 순수한 뼈대를 탐구하는 제5부 대수학으로 넘어가자.</p>
@@ -406,5 +406,5 @@ $$ \Delta x \cdot \Delta \xi \geq \frac{1}{4\pi} $$
 <h2 class="part-title">제5부 대수학</h2>
 
 <div class="part-intro">
-<p>수의 덧셈, 가역 행렬의 곱셈, 도형의 대칭 변환 합성은 겉으로 보기에는 전혀 다른 대상처럼 보이지만, 그 안을 흐르는 연산의 규칙은 놀랄 만큼 닮아 있다. 구체적인 대상을 잠시 걷어 내고 연산이 따르는 순수한 규칙만 추상화해 만든 구조가 바로 군, 환, 체다.</p>
+<p>수의 덧셈, 가역 행렬의 곱셈, 도형의 대칭 변환 합성은 겉으로는 전혀 다른 대상처럼 보이지만, 그 안을 흐르는 연산의 규칙은 놀랄 만큼 닮아 있다. 구체적인 대상을 잠시 걷어 내고 연산이 따르는 순수한 규칙만 추상화해 만든 구조가 바로 군, 환, 체다.</p>
 </div>

@@ -1,11 +1,11 @@
 <section id="stochastic-processes">
 <h3>25. 확률과정 (Stochastic Processes)</h3>
 
-<p class="chapter-intro">확률과정은 시간에 따라 무작위로 변하는 현상을 모형화하는 수학적 틀이다. 이 장에서는 대표적인 모형인 마르코프 체인과 포아송 과정, 브라운 운동을 살피고, 이어서 공정한 게임의 추상화인 마팅게일, 브라운 운동의 미적분인 이토 미적분, 시간 평균과 앙상블 평균을 잇는 에르고딕 정리까지 나아간다.</p>
+<p class="chapter-intro">확률과정은 시간에 따라 무작위로 변하는 현상을 모형화하는 수학적 틀이다. 대표적인 모형으로는 마르코프 체인, 포아송 과정, 브라운 운동이 있다. 이와 함께 공정한 게임의 추상화인 마팅게일, 브라운 운동의 미적분인 이토 미적분, 시간 평균과 앙상블 평균을 잇는 에르고딕 정리도 확률과정의 주요 주제를 이룬다.</p>
 
 <p>공학이나 자연과학, 금융에서 마주하는 무작위 현상은 시간과 동떨어져 있지 않다. 통신 채널의 백색 가우스 잡음(AWGN)은 일반화된 가우스 과정으로, Black&ndash;Scholes 옵션 가격 모형의 주가는 기하 브라운 운동(geometric Brownian motion)으로 모형화한다. 네트워크 서버에 몰려드는 패킷 흐름을 포아송 과정으로 잡으면 대기행렬 이론(queueing theory)으로 지연 시간과 버퍼 크기를 계산할 수 있고, 로봇이나 항공기의 자세를 추정하는 칼만 필터(Kalman filter)는 선형·가우스 모형 위에서 확률과정의 숨은 상태를 최적으로 추적한다. 신뢰성 공학에서도 시스템이 정상, 고장, 수리 상태를 오가는 이력을 마르코프 체인으로 모형화해 장기 가용성(availability)을 구한다.</p>
 
-<p>이처럼 입력이 무작위이거나 시스템 안에 불확실성이 개입하면, 똑같은 초기 조건에서 출발하더라도 시간에 따른 궤적, 곧 표본 경로가 매번 달라진다. 확률과정은 각 시점에 확률변수를 하나씩 대응시켜 시간의 흐름에 따른 불확실성을 하나의 객체로 묶어 다룬다.</p>
+<p>이처럼 입력이 무작위이거나 시스템 안에 불확실성이 개입하면, 똑같은 초기 조건에서 출발하더라도 시간에 따른 궤적, 곧 표본 경로가 매번 달라진다. 확률과정에서는 각 시점에 확률변수를 하나씩 대응시켜 시간의 흐름에 따른 불확실성을 하나의 대상으로 묶어 다룬다.</p>
 
 <div class="definition"><span class="env-label">Definition 25.1 (Stochastic Process)</span>
 집합 \(T\)(주로 시간)의 원소를 첨자로 하고 같은 확률 공간 위에서 정의된 확률변수의 모임 \(\{X_t\}_{t \in T}\)를 <strong>확률과정(stochastic process)</strong>이라 한다. \(T\)가 가산이면 <strong>이산시간</strong> 과정이고, \(T = [0,\infty)\)이면 <strong>연속시간</strong> 과정이다.
@@ -16,7 +16,7 @@
 <div class="definition"><span class="env-label">Definition 25.2 (Discrete-Time Markov Chain)</span>
 가산 상태공간 \(S\)에서 값을 취하는 확률변수 열 \(\{X_n\}_{n \geq 0}\)이 다음 <strong>마르코프 성질(Markov property)</strong>을 만족하면 <strong>마르코프 체인</strong>이라 한다.
 $$ P(X_{n+1} = j \mid X_n = i, X_{n-1} = i_{n-1}, \ldots, X_0 = i_0) = P(X_{n+1} = j \mid X_n = i) = p_{ij}. $$
-각 전이확률을 원소로 모은 행렬 \(P = (p_{ij})\)를 <strong>전이행렬</strong>이라 하며, 다음 상태로의 확률의 합이므로 각 행의 합은 언제나 1이다.
+각 전이확률을 원소로 모은 행렬 \(P = (p_{ij})\)를 <strong>전이행렬</strong>이라 하며, 각 행의 합은 다음 상태로 가는 확률을 모두 더한 것이므로 언제나 1이다.
 </div>
 
 <p>마르코프 체인이 오랜 시간 뒤 어떤 모습으로 안정되는지 알려면 상태의 성격을 먼저 분류해야 한다. 언젠가 확률 1로 반드시 돌아오는 상태를 재귀 상태(recurrent state), 영영 돌아오지 못할 위험이 있는 상태를 일시 상태(transient state)라 부른다. 체인이 한 덩어리로 잘 섞여 어떤 극한 분포로 수렴하는지를 판가름하는 기준이 바로 이 상태 분류다.</p>
@@ -65,7 +65,7 @@ $$ P_i(\text{ruin}) = \frac{(q/p)^i - (q/p)^N}{1 - (q/p)^N}. $$
 이때 사건과 사건 사이의 도착간 시간은 i.i.d. \(\text{Exponential}(\lambda)\)를 따른다.
 </div>
 
-<p>포아송 과정이 계단처럼 뛰어오르는 정수값 계수과정이라면, 연속적으로 쉼 없이 흔들리는 무작위 경로를 대표하는 모형은 브라운 운동이다. 이 이름은 식물학자 Robert Brown에게서 유래했는데, 그는 1827년 여름 물에 띄운 꽃가루(<em>Clarkia pulchella</em>) 알갱이에서 나온 미세 입자가 멈추지 않고 불규칙하게 움직이는 현상을 관찰해 1828년에 보고했다. 오늘날 브라운 운동은 금융공학의 주가 모형, 통계역학의 확산 현상, 확률미분방정식의 구동 잡음(driving noise)을 이루는 핵심 모형이다.</p>
+<p>포아송 과정이 계단처럼 뛰어오르는 정수값 계수과정이라면, 연속적으로 쉼 없이 흔들리는 무작위 경로를 대표하는 모형은 브라운 운동이다. 이 이름은 식물학자 Robert Brown에게서 유래했다. 그는 1827년 여름 꽃가루(<em>Clarkia pulchella</em>) 알갱이를 물에 띄웠는데, 알갱이에서 나온 미세 입자가 멈추지 않고 불규칙하게 움직이는 현상을 관찰해 1828년에 보고했다. 오늘날 브라운 운동은 금융공학에서 주가 모형의 토대가 되고, 통계역학의 확산 현상을 기술하며, 확률미분방정식의 구동 잡음(driving noise)으로 쓰이는 핵심 모형이다.</p>
 
 <div class="definition"><span class="env-label">Definition 25.5 (Brownian Motion / Wiener Process)</span>
 다음 네 조건을 만족하는 연속시간 확률과정 \(\{W(t)\}_{t \geq 0}\)를 <strong>표준 브라운 운동</strong>이라 한다.
@@ -96,17 +96,17 @@ $$ P_i(\text{ruin}) = \frac{(q/p)^i - (q/p)^N}{1 - (q/p)^N}. $$
 <ul>
   <li><strong>2일 후 전이 확률:</strong> 행렬을 제곱하면 \(P^2 = \begin{pmatrix} 0.76 & 0.24 \\ 0.72 & 0.28 \end{pmatrix}\)이므로, 오늘 비가 오면 이틀 후 맑을 확률은 0.72다.</li>
   <li><strong>정상분포:</strong> \(\pi_S \cdot 0.2 = \pi_R \cdot 0.6\)과 \(\pi_S + \pi_R = 1\)을 연립해 풀면 \(\pi_S = 3/4, \pi_R = 1/4\)이 된다. 장기적으로 전체 날수의 75%가 맑다.</li>
-  <li><strong>기대 복귀 시간:</strong> 정상분포의 역수에서 맑은 날의 기대 복귀 시간은 \(1/\pi_S = 4/3\)일, 비 오는 날의 기대 복귀 시간은 \(1/\pi_R = 4\)일이다.</li>
+  <li><strong>기대 복귀 시간:</strong> 정상분포의 역수를 취하면 맑은 날의 기대 복귀 시간은 \(1/\pi_S = 4/3\)일, 비 오는 날의 기대 복귀 시간은 \(1/\pi_R = 4\)일이다.</li>
 </ul>
 </div>
 
 <div class="example"><span class="env-label">Example 25.4 (Poisson 과정 — 합류와 분할)</span>
-발생률이 \(\lambda_1 = 3\)과 \(\lambda_2 = 5\)인 두 독립 포아송 과정을 하나로 합치면(superposition) 발생률이 \(\lambda_1 + \lambda_2 = 8\)인 포아송 과정이 된다. 반대로 발생률 \(\lambda\)인 포아송 과정의 각 도착을 독립적으로 확률 \(p\)로 1유형, 확률 \(1-p\)로 2유형에 배정하면(thinning), 1유형 도착은 발생률 \(\lambda p\), 2유형 도착은 발생률 \(\lambda(1-p)\)를 갖는 서로 독립인 두 포아송 과정을 이룬다.
+발생률이 각각 \(\lambda_1 = 3\)과 \(\lambda_2 = 5\)인 두 독립 포아송 과정을 하나로 합치면(superposition) 발생률이 \(\lambda_1 + \lambda_2 = 8\)인 포아송 과정이 된다. 반대로 발생률이 \(\lambda\)인 포아송 과정의 각 도착을 독립적으로 확률 \(p\)로 1유형, 확률 \(1-p\)로 2유형에 배정하면(thinning), 1유형 도착은 발생률이 \(\lambda p\)인 포아송 과정을, 2유형 도착은 발생률이 \(\lambda(1-p)\)인 포아송 과정을 이루며 두 과정은 서로 독립이다.
 </div>
 
 <h4>마팅게일 (Martingales)</h4>
 
-<p>마팅게일은 '공정한 게임'을 수학의 언어로 옮겨 놓은 개념이다. 지금까지 드러난 모든 정보가 주어졌을 때 다음 시점 값의 조건부 기댓값이 정확히 현재값과 같다면 그 과정을 마팅게일이라 부른다. 도박 이론에서 출발했지만 오늘날에는 파생상품의 위험중립 가격 결정(risk-neutral pricing), 순차 검정, 확률 수렴 정리를 증명하는 핵심 도구로 쓰인다. 이때 시점 \(n\)까지 쌓인 정보의 양은 시그마 대수의 증가열인 여과(filtration)로 정식화한다.</p>
+<p>마팅게일은 '공정한 게임'을 수학의 언어로 옮겨 놓은 개념이다. 지금까지 드러난 모든 정보가 주어졌을 때 다음 시점 값의 조건부 기댓값이 정확히 현재값과 같다면 그 과정을 마팅게일이라 부른다. 도박 이론에서 출발했지만 오늘날에는 파생상품의 위험중립 가격 결정(risk-neutral pricing), 순차 검정, 확률 수렴 정리의 증명에 핵심 도구로 쓰인다. 이때 시점 \(n\)까지 쌓인 정보의 양은 시그마 대수의 증가열인 여과(filtration)로 정식화한다.</p>
 
 <div class="definition"><span class="env-label">Definition 25.6 (Filtration and Adapted Process)</span>
 확률 공간 \((\Omega, \mathcal{F}, P)\) 위의 시그마 대수(\(\sigma\)-algebra)의 증가열
@@ -140,10 +140,10 @@ $$ E[S_{n+1} \mid \mathcal{F}_n] = E[S_n + Y_{n+1} \mid \mathcal{F}_n] = S_n + E
 $$ X_n = E[Y \mid \mathcal{F}_n] $$
 으로 정의하면, 반복 기댓값의 법칙(탑 성질)에 따라 다음을 얻는다.
 $$ E[X_{n+1} \mid \mathcal{F}_n] = E\bigl[E[Y \mid \mathcal{F}_{n+1}] \mid \mathcal{F}_n\bigr] = E[Y \mid \mathcal{F}_n] = X_n. $$
-따라서 \(\{X_n\}\)은 마팅게일이다. 새로운 정보가 쌓일수록 미지의 값 \(Y\)에 대한 최선의 추정치가 흔들림 없이 갱신되는 이러한 마팅게일을 Doob 마팅게일이라 부른다.
+따라서 \(\{X_n\}\)은 마팅게일이다. 이러한 마팅게일을 Doob 마팅게일이라 부르는데, 새로운 정보가 쌓일수록 미지의 값 \(Y\)에 대한 최선의 추정치가 흔들림 없이 갱신된다.
 </div>
 
-<p>공정한 게임에서 "지금 이길 때 그만두고 지면 계속 버티는" 식으로 종료 시점을 영리하게 고르면 평균 수익을 높일 수 있을까? 선택 정지 정리(Optional Stopping Theorem)는 미래를 미리 내다보지 않고 유한한 시간 안에 반드시 멈추는 전략을 쓰는 한, 기대 자산은 출발 시점과 달라질 수 없음을 못 박는다.</p>
+<p>공정한 게임에서 "지금 이길 때 그만두고 지면 계속 버티는" 식으로 종료 시점을 영리하게 고르면 평균 수익을 높일 수 있을까? 선택 정지 정리(Optional Stopping Theorem)는 미래를 내다보지 않고 유한한 시간 안에 반드시 멈추는 전략을 쓰는 한, 기대 자산이 출발할 때와 달라질 수 없다고 못 박는다.</p>
 
 <div class="theorem"><span class="env-label">Theorem 25.3 (Optional Stopping Theorem)</span>
 \(\{X_n\}\)이 여과 \(\{\mathcal{F}_n\}\)에 대한 마팅게일이고, \(\tau\)가 <strong>유계 정지시간</strong>이면(즉 \(\tau \leq N\) a.s.인 상수 \(N\)이 존재하면) 다음이 성립한다.
@@ -160,7 +160,7 @@ $$ 0 \cdot P(\text{ruin}) + N \cdot P(\text{win}) = i \quad \Longrightarrow \qua
 
 <h4>이토 미적분 기초 (Itô Calculus Basics)</h4>
 
-<p>상미분방정식 \(dx = f(x)\,dt\)에 무작위 구동항을 더한 \(dX = f(X)\,dt + \sigma(X)\,dW\)를 확률미분방정식(SDE)이라 부른다. 앞서 보았듯 브라운 운동의 표본 경로는 거의 확실하게 어디서도 미분할 수 없고 유계변동도 아니어서, 일반적인 피적분 과정에 대해 \(\int f\,dW\)를 고전적인 Riemann&ndash;Stieltjes 적분으로 정의할 수 없다. 이토 미적분(Itô calculus)은 왼쪽 끝점 근사를 바탕으로 이 확률적분을 엄밀하게 세운 이론으로, 파생상품 가격 결정과 확률 제어, 연속시간 칼만 필터(Kalman–Bucy 필터) 등 필터링 이론의 토대를 이룬다.</p>
+<p>상미분방정식 \(dx = f(x)\,dt\)에 무작위 구동항을 더한 \(dX = f(X)\,dt + \sigma(X)\,dW\)를 확률미분방정식(SDE)이라 부른다. 앞서 보았듯 브라운 운동의 표본 경로는 거의 확실하게 어디서도 미분 가능하지 않고 유계변동도 아니어서, 일반적인 피적분 과정에서는 \(\int f\,dW\)를 고전적인 Riemann&ndash;Stieltjes 적분으로 정의할 수 없다. 이토 미적분(Itô calculus)은 왼쪽 끝점 근사를 바탕으로 이 확률적분을 엄밀하게 정립한 이론으로, 파생상품 가격 결정과 확률 제어, 연속시간 칼만 필터(Kalman–Bucy 필터) 등 필터링 이론의 토대를 이룬다.</p>
 
 <div class="definition"><span class="env-label">Definition 25.8 (Itô Integral)</span>
 먼저 \(\xi_k\)가 \(\mathcal F_{t_k}\)-가측인 단순 적합 과정 \(f(s)=\sum_k \xi_k\mathbf 1_{(t_k,t_{k+1}]}(s)\)에 대해 <strong>이토 적분</strong>을 각 구간의 왼쪽 끝점 값 \(\xi_k\)와 브라운 증분의 곱을 더한 값으로 정의한다.
@@ -172,7 +172,7 @@ $$ \int_0^t f(s) \, dW(s) = \sum_k \xi_k\bigl(W(t_{k+1}) - W(t_k)\bigr) $$
 </ul>
 </div>
 
-<p>고전 미적분에서 작은 시간 간격 \(dt\)의 제곱 \((dt)^2\)은 사라지지만, 브라운 운동의 증분 \(dW_t\)는 표준편차가 \(\sqrt{dt}\) 크기이므로 제곱한 \((dW_t)^2\)의 크기가 \(dt\)와 같은 차수로 남는다. 이 때문에 합성함수 \(f(W_t)\)를 테일러 전개하면 2차 미분항이 사라지지 않고 살아남는데, 이것이 확률 미적분의 연쇄법칙이라 불리는 Itô's Lemma다.</p>
+<p>고전 미적분에서 작은 시간 간격 \(dt\)의 제곱 \((dt)^2\)은 사라지지만, 브라운 운동의 증분 \(dW_t\)는 표준편차가 \(\sqrt{dt}\) 크기이므로 이를 제곱한 \((dW_t)^2\)은 \(dt\)와 같은 차수로 남는다. 이 때문에 합성함수 \(f(W_t)\)를 테일러 전개하면 2차 미분항이 사라지지 않으며, 이렇게 얻는 미분 공식이 확률 미적분의 연쇄법칙이라 불리는 Itô's Lemma다.</p>
 
 <div class="theorem"><span class="env-label">Theorem 25.4 (Itô's Lemma)</span>
 \(f \in C^2(\mathbb{R})\)이고 \(W_t\)가 표준 브라운 운동일 때 다음 미분 공식이 성립한다.
@@ -197,28 +197,28 @@ $$ \int_0^t W_s \, dW_s = \frac{W_t^2 - t}{2}. $$
 <div class="definition"><span class="env-label">Definition 25.9 (Stochastic Differential Equation)</span>
 다음 꼴의 방정식을 <strong>확률미분방정식(SDE)</strong>이라 한다.
 $$ dX_t = \mu(X_t, t) \, dt + \sigma(X_t, t) \, dW_t. $$
-여기서 \(\mu(X_t, t)\)는 <strong>추세 계수</strong>, \(\sigma(X_t, t)\)는 <strong>확산 계수</strong>이며, 엄밀히는 다음과 같은 이토 적분 방정식의 약기호다.
+여기서 \(\mu(X_t, t)\)는 <strong>추세 계수</strong>, \(\sigma(X_t, t)\)는 <strong>확산 계수</strong>이며, 위의 식은 엄밀히는 다음과 같은 이토 적분 방정식의 약기호다.
 $$ X_t = X_0 + \int_0^t \mu(X_s, s) \, ds + \int_0^t \sigma(X_s, s) \, dW_s. $$
 </div>
 
 <div class="example"><span class="env-label">Example 25.9 (Geometric Brownian Motion)</span>
 주가 모형에 널리 쓰이는 <strong>기하 브라운 운동</strong>은 수익률이 현재 주가에 비례하는 다음 SDE를 따른다.
 $$ dS_t = \mu S_t \, dt + \sigma S_t \, dW_t. $$
-해를 구하기 위해 \(f(S) = \ln S\)에 Itô's Lemma를 적용하자. \(f'(S) = 1/S\), \(f''(S) = -1/S^2\)이므로:
+해를 구하기 위해 \(f(S) = \ln S\)에 Itô's Lemma를 적용하자. \(f'(S) = 1/S\), \(f''(S) = -1/S^2\)이므로 다음을 얻는다.
 $$ d(\ln S_t) = \frac{1}{S_t}(\mu S_t \, dt + \sigma S_t \, dW_t) + \frac{1}{2}\left(-\frac{1}{S_t^2}\right)\sigma^2 S_t^2 \, dt = \left(\mu - \frac{\sigma^2}{2}\right) dt + \sigma \, dW_t. $$
 양변을 적분하면 \(\ln S_t - \ln S_0 = \left(\mu - \frac{\sigma^2}{2}\right)t + \sigma W_t\)가 되어 다음 닫힌 해를 얻는다.
 $$ S_t = S_0 \exp\!\left[\left(\mu - \frac{\sigma^2}{2}\right)t + \sigma W_t\right]. $$
-<strong>Black&ndash;Scholes 모형</strong>은 주가가 이 식을 따라 움직인다고 가정한다. 지수 안의 \(-\sigma^2/2\) 역시 Itô's Lemma의 \(\tfrac12 f''\) 항에서 나온 이토 보정항이다.
+<strong>Black&ndash;Scholes 모형</strong>에서는 주가가 이 식을 따라 움직인다고 가정한다. 지수 안의 \(-\sigma^2/2\) 역시 Itô's Lemma의 \(\tfrac12 f''\) 항에서 나온 이토 보정항이다.
 </div>
 
 <h4>에르고딕 정리 (Ergodic Theorem)</h4>
 
-<p>확률과정의 기댓값을 알고 싶어도 현실에서는 똑같은 시스템을 수천 개 복사해 동시에 앙상블 평균(ensemble average)을 재기 어렵다. 대신 시스템 하나를 오랫동안 관측해 시간에 따른 평균, 곧 시간 평균(time average)을 낸다. 에르고딕 정리는 과정이 정상적이고 에르고딕할 때 단 하나의 긴 궤적에서 구한 시간 평균이 앙상블 평균으로 수렴함을 보장한다. 마르코프 체인 몬테카를로(MCMC) 시뮬레이션이 체인 하나의 표본 평균으로 복잡한 분포의 기댓값을 어림하는 이론적 근거가 바로 이 정리다.</p>
+<p>확률과정의 기댓값을 알고 싶어도 현실에서는 똑같은 시스템을 수천 개 복사해 동시에 앙상블 평균(ensemble average)을 구하기 어렵다. 대신 시스템 하나를 오랫동안 관측해 시간에 따른 평균, 곧 시간 평균(time average)을 낸다. 에르고딕 정리는 과정이 정상성과 에르고딕성을 만족할 때 단 하나의 긴 궤적에서 구한 시간 평균이 앙상블 평균으로 수렴함을 보장한다. 마르코프 체인 몬테카를로(MCMC) 시뮬레이션에서는 체인 하나의 표본 평균으로 복잡한 분포의 기댓값을 어림하는데, 이 정리가 바로 그 이론적 근거다.</p>
 
 <div class="theorem"><span class="env-label">Theorem 25.5 (Birkhoff's Ergodic Theorem)</span>
 \(E[|X_0|] < \infty\)인 <strong>정상 에르고딕 과정</strong> \(\{X_n\}\)에 대해, 시간 평균(time average)은 거의 확실하게 앙상블 평균(ensemble average)으로 수렴한다.
 $$ \frac{1}{n}\sum_{k=0}^{n-1} X_k \xrightarrow{\text{a.s.}} E[X_0] \quad (n \to \infty). $$
-Birkhoff의 에르고딕 정리는 변수 사이의 독립성을 요구하지 않고 정상성(stationarity)과 에르고딕성(ergodicity)만 가정한다. i.i.d. 확률변수 열은 정상 에르고딕 과정의 가장 단순한 보기이므로, 23장에서 본 강한 큰 수의 법칙(strong LLN)은 이 정리의 특수한 경우다.
+Birkhoff의 에르고딕 정리에서는 변수 사이의 독립성을 요구하지 않고 정상성(stationarity)과 에르고딕성(ergodicity)만 가정한다. i.i.d. 확률변수 열은 정상 에르고딕 과정의 가장 단순한 보기이므로, 23장에서 본 강한 큰 수의 법칙(strong LLN)은 이 정리의 특수한 경우다.
 </div>
 
 <div class="example"><span class="env-label">Example 25.10 (에르고딕 마르코프 체인의 시간 평균)</span>

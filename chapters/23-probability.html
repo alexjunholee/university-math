@@ -11,21 +11,21 @@
 <section id="probability">
 <h3>23. 확률론 (Probability Theory)</h3>
 
-<p class="chapter-intro">확률론은 표본공간과 사건의 시그마 대수, 확률측도로 확률 공간을 세우는 데서 출발해 확률변수와 기댓값, 여러 확률분포를 다룬다. 이 장의 후반부에서는 표본 수가 커질 때 표본평균의 움직임을 밝히는 큰 수의 법칙과 중심극한정리를 살펴본다.</p>
+<p class="chapter-intro">확률론은 표본공간과 사건의 시그마 대수, 확률측도로 확률 공간을 세우는 데서 출발해 확률변수와 기댓값, 여러 확률분포를 다룬다. 나아가 표본 수가 커질 때 표본평균의 움직임을 밝히는 큰 수의 법칙과 중심극한정리까지 아우른다.</p>
 
 <p>확률의 언어는 공학과 데이터 과학 곳곳에 스며 있다. 통신 공학에서는 채널을 지나는 신호의 잡음을 확률 모형으로 두고 채널 용량과 비트 오류율을 정의하며, 샤논의 채널 코딩 정리(Shannon's channel coding theorem) 역시 확률론의 언어로 기술한다. 신뢰성 공학에서는 부품의 수명을 지수분포나 와이블 분포(Weibull distribution)로 모형화한 뒤 개별 고장 확률을 엮어 시스템 전체의 신뢰도를 계산한다.</p>
 
-<p>금융공학과 인공지능에서도 확률은 핵심 도구다. 금융의 리스크 모델링은 자산 수익률의 확률분포에서 출발하고, 기계학습의 베이즈 추론은 조건부 확률과 베이즈 정리를 직접 적용해 믿음을 갱신한다. 센서 융합에 널리 쓰이는 칼만 필터(Kalman filter)가 예측과 관측 갱신을 되풀이할 수 있는 배경에도 조건부 기댓값과 정규분포의 공액 성질이 자리한다. 반대로 확률 추론을 소홀히 하면 일상에서도 판단이 빗나가기 쉽다. 예를 들어 "양성 반응이 나왔을 때 실제로 병이 있을 확률"을 어림하면서 전체 유병률을 빠뜨리는 흔한 오류를 기저율 오류(base rate fallacy)라 부른다.</p>
+<p>금융공학과 인공지능에서도 확률은 핵심 도구다. 금융의 리스크 모델링은 자산 수익률의 확률분포에서 출발하고, 기계학습의 베이즈 추론은 조건부 확률과 베이즈 정리를 직접 적용해 믿음을 갱신한다. 센서 융합에 널리 쓰이는 칼만 필터(Kalman filter)는 조건부 기댓값과 정규분포의 공액 성질을 바탕으로 예측과 관측 갱신을 되풀이할 수 있다. 반대로 확률 추론을 소홀히 하면 일상에서도 판단이 빗나가기 쉽다. 예를 들어 "양성 반응이 나왔을 때 실제로 병이 있을 확률"을 어림하면서 전체 유병률을 빠뜨리는 흔한 오류를 기저율 오류(base rate fallacy)라 부른다.</p>
 
 <!-- Axioms and fundamentals, following MIT 6.041SC Lectures 1-3 -->
 
-<p>직관적인 도박 셈법이나 "전체 경우의 수 분의 해당 경우의 수"라는 고전적 정의만으로는 주사위 눈이 무한히 많은 경우나 연속적인 시간·길이를 다루기 어렵다. 콜모고로프(Kolmogorov)는 1933년 저서 <em>Grundbegriffe der Wahrscheinlichkeitsrechnung</em>(확률론의 기초 개념)에서 측도론을 토대로 확률론의 공리 체계를 확립하며 이 한계를 넘어섰다. 이 체계에서는 실험의 모든 가능한 결과, 확률을 부여할 수 있는 사건의 모임, 그리고 각 사건에 확률값을 매기는 규칙을 하나로 묶어 확률 공간을 정의한다.</p>
+<p>직관적인 도박 셈법이나 "전체 경우의 수 분의 해당 경우의 수"라는 고전적 정의만으로는 주사위 눈이 무한히 많은 경우나 연속적인 시간·길이를 다루기 어렵다. 콜모고로프(Kolmogorov)는 1933년 저서 <em>Grundbegriffe der Wahrscheinlichkeitsrechnung</em>(확률론의 기초 개념)에서 측도론을 토대로 확률론의 공리 체계를 확립하며 이 한계를 넘어섰다. 이 체계에서는 실험에서 가능한 모든 결과, 확률을 부여할 수 있는 사건의 모임, 그리고 각 사건에 확률값을 매기는 규칙을 하나로 묶어 확률 공간을 정의한다.</p>
 
 <div class="definition"><span class="env-label">Definition 23.1 (Probability Space)</span>
 <strong>확률 공간(probability space)</strong>은 삼중쌍 \((\Omega, \mathcal{F}, P)\)이다.
 <ul>
   <li>\(\Omega\)는 <strong>표본공간(sample space)</strong>으로, 가능한 결과의 집합이다.</li>
-  <li>\(\mathcal{F}\)는 \(\Omega\)의 부분집합으로 이루어진 사건의 모임인 시그마 대수(\(\sigma\)-algebra)이다.</li>
+  <li>\(\mathcal{F}\)는 시그마 대수(\(\sigma\)-algebra)로, \(\Omega\)의 부분집합을 원소로 하는 사건의 모임이다.</li>
   <li>\(P : \mathcal{F} \to [0,1]\)는 아래 공리를 만족하는 <strong>확률측도(probability measure)</strong>이다.</li>
 </ul>
 </div>
@@ -76,19 +76,19 @@ $$ P(A \cap B \cap C) = P(A)\, P(B \mid A)\, P(C \mid A \cap B). $$
 $$ P(A_1 \cap \cdots \cap A_n) = P(A_1)\, P(A_2 \mid A_1)\, P(A_3 \mid A_1 \cap A_2) \cdots P(A_n \mid A_1 \cap \cdots \cap A_{n-1}). $$
 </div>
 
-<p>반대로 어떤 사건의 확률을 한 번에 구하기 어려울 때는, 표본공간을 서로 겹치지 않는 여러 시나리오로 나눈 뒤 각 시나리오 아래에서 확률을 구해 가중합으로 모으는 전략이 유용하다.</p>
+<p>반대로 어떤 사건의 확률을 한 번에 구하기 어려울 때는, 표본공간을 서로 겹치지 않는 여러 시나리오로 나눈 뒤 각 시나리오별로 확률을 구해 가중합으로 모으는 전략이 유용하다.</p>
 
 <div class="theorem"><span class="env-label">Theorem 23.2 (Total Probability Theorem)</span>
 \(A_1, A_2, \ldots, A_n\)이 \(\Omega\)의 분할(쌍별 서로소이고 합집합이 \(\Omega\))을 이루고 모든 \(i\)에 대해 \(P(A_i)>0\)이면, 임의의 사건 \(B\)에 대해 다음이 성립한다.
 $$ P(B) = \sum_{i=1}^{n} P(A_i)\, P(B \mid A_i). $$
 </div>
 
-<p>이제 추론의 방향을 뒤집어 보자. 원인에서 결과로 가는 조건부 확률을 알 때, 결과라는 증거를 관측한 뒤 원래 원인이 무엇이었을지 거꾸로 계산하는 공식이 바로 베이즈 정리다.</p>
+<p>이제 추론의 방향을 뒤집어 보자. 베이즈 정리는 원인에서 결과로 가는 조건부 확률을 알 때, 결과를 증거로 관측한 뒤 원래 원인이 무엇이었을지 거꾸로 계산하는 공식이다.</p>
 
 <div class="theorem"><span class="env-label">Theorem 23.3 (Bayes' Rule)</span>
 \(\Omega\)의 분할 \(\{A_i\}\)의 사전확률 \(P(A_i)\)와 각 \(i\)에 대해 \(P(B \mid A_i)\)가 주어지고 \(P(B) > 0\)이면 다음과 같다.
 $$ P(A_i \mid B) = \frac{P(A_i)\, P(B \mid A_i)}{\sum_{j} P(A_j)\, P(B \mid A_j)}. $$
-새로운 증거 \(B\)를 얻었을 때, 기존의 사전확률 \(P(A_i)\)를 이 공식에 따라 사후확률 \(P(A_i\mid B)\)로 고친다.
+새로운 증거 \(B\)를 얻었을 때, 기존의 사전확률 \(P(A_i)\)를 이 공식에 따라 사후확률 \(P(A_i\mid B)\)로 갱신한다.
 </div>
 
 <p>곱셈 법칙과 전체 확률 정리, 베이즈 정리가 실제 판별 문제에서 어떻게 맞물려 작동하는지 두 가지 예제로 확인해 보자.</p>
@@ -120,7 +120,7 @@ $$ P\!\left(\bigcap_{i \in S} A_i\right) = \prod_{i \in S} P(A_i) $$
 </div>
 
 <div class="remark"><span class="env-label">Remark (Pairwise vs. Mutual Independence -- MIT 6.041 L3)</span>
-두 사건씩 짝지어 보았을 때 모두 독립인 쌍별 독립(pairwise independence)이 성립하더라도, 셋 이상이 함께 독립인 상호독립이 되지는 않는다. 공정한 동전을 두 번 던질 때 \(A\) = 첫째 앞면, \(B\) = 둘째 앞면, \(C\) = 두 결과가 같음으로 정의하면, \(A, B, C\)는 쌍별 독립이지만 \(P(A \cap B \cap C) = 1/4 \neq P(A)P(B)P(C) = 1/8\)이므로 상호독립은 아니다.
+두 사건씩 짝지어 보았을 때 모두 독립인 쌍별 독립(pairwise independence)이 성립하더라도, 셋 이상이 함께 독립인 상호독립이 되지는 않는다. 공정한 동전을 두 번 던질 때 첫째가 앞면인 사건을 \(A\), 둘째가 앞면인 사건을 \(B\), 두 결과가 같은 사건을 \(C\)라 하자. 그러면 \(A, B, C\)는 쌍별 독립이지만 \(P(A \cap B \cap C) = 1/4 \neq P(A)P(B)P(C) = 1/8\)이므로 상호독립은 아니다.
 </div>
 
 <div class="remark"><span class="env-label">Remark (조건부 독립 -- MIT 6.041 L3)</span>
@@ -165,7 +165,7 @@ $$ E[X] = E[E[X \mid Y]] = \sum_y E[X \mid Y = y]\, P(Y = y). $$
 $$ E[X] = E[X \mid H] P(H) + E[X \mid T] P(T) = 3.5 \times 0.5 + 7 \times 0.5 = 5.25. $$
 </div>
 
-<p>확률변수 \(X\)의 함수 \(g(X)\)에 대한 기댓값을 구해야 할 때, 원칙대로라면 먼저 새로운 확률변수 \(g(X)\)의 분포를 알아내야 할 것 같다. 하지만 '무의식적 통계학자의 법칙(LOTUS)'이라 불리는 다음 정리는 그 번거로운 중간 과정을 건너뛰고 원래 \(X\)의 분포만으로 바로 기댓값을 계산하게 해 준다.</p>
+<p>확률변수 \(X\)의 함수 \(g(X)\)의 기댓값을 구해야 할 때, 원칙대로라면 먼저 새로운 확률변수 \(g(X)\)의 분포를 알아내야 할 것 같다. 하지만 '무의식적 통계학자의 법칙(LOTUS)'이라 불리는 다음 정리를 이용하면 그 번거로운 중간 과정을 건너뛰고 원래 \(X\)의 분포만으로 바로 기댓값을 계산할 수 있다.</p>
 
 <div class="theorem"><span class="env-label">Theorem 23.4 (LOTUS -- Law of the Unconscious Statistician)</span>
 아래 합이나 적분이 절대수렴할 때, \(g(X)\)의 기댓값은 \(g(X)\)의 분포를 따로 구할 필요 없이 \(X\)의 분포만으로 직접 계산할 수 있다.
@@ -178,10 +178,10 @@ $$ E[g(X)] = \begin{cases} \sum_x g(x)\, p_X(x) & \text{(discrete)}, \\ \int_{-\
 $$ E[X^3] = \int_0^2 x^3 \cdot \frac{1}{2}\,dx = \frac{1}{2} \cdot \frac{x^4}{4}\bigg|_0^2 = \frac{1}{2} \cdot 4 = 2. $$
 </div>
 
-<p>지금까지는 확률변수 하나만 따로 떼어 살펴보았다. 그러나 현실에서는 여러 확률변수가 함께 움직이며 서로 영향을 주고받으므로, 이들의 동시 거동을 담는 결합 분포와 선형 연관성을 재는 공분산·상관계수의 개념으로 시야를 넓혀야 한다.</p>
+<p>지금까지는 확률변수 하나만 따로 떼어 살펴보았다. 그러나 현실에서는 여러 확률변수가 함께 움직이며 서로 영향을 주고받으므로, 이들의 동시 거동을 담는 결합 분포와 선형 연관성을 재는 공분산·상관계수로 시야를 넓혀야 한다.</p>
 
 <div class="definition"><span class="env-label">Definition 23.9 (Joint Distribution)</span>
-확률변수 \(X, Y\)의 <strong>결합(joint) PMF/PDF</strong>는 이산인 경우 \(p_{X,Y}(x,y) = P(X=x, Y=y)\), 연속인 경우 \(P((X,Y) \in A) = \iint_A f_{X,Y}\,dx\,dy\)를 만족하는 \(f_{X,Y}(x,y)\)로 정의한다. 한 변수의 <strong>주변 분포(marginal distribution)</strong>는 다른 변수에 대해 합하거나 적분해서 얻으며, 예를 들어 이산 변수는 \(p_X(x) = \sum_y p_{X,Y}(x,y)\)이다. \(X\)와 \(Y\)가 독립이면 결합 밀도가 \(f_{X,Y}(x,y) = f_X(x) f_Y(y)\)처럼 곱으로 분리된다.
+확률변수 \(X, Y\)의 <strong>결합(joint) PMF/PDF</strong>는 이산인 경우 \(p_{X,Y}(x,y) = P(X=x, Y=y)\)로, 연속인 경우 \(P((X,Y) \in A) = \iint_A f_{X,Y}\,dx\,dy\)를 만족하는 \(f_{X,Y}(x,y)\)로 정의한다. 한 변수의 <strong>주변 분포(marginal distribution)</strong>는 다른 변수에 대해 합하거나 적분해서 얻으며, 예를 들어 이산 변수에서는 \(p_X(x) = \sum_y p_{X,Y}(x,y)\)이다. \(X\)와 \(Y\)가 독립이면 결합 밀도가 \(f_{X,Y}(x,y) = f_X(x) f_Y(y)\)처럼 곱으로 분리된다.
 </div>
 
 <div class="definition"><span class="env-label">Definition 23.10 (Covariance and Correlation)</span>
@@ -195,7 +195,7 @@ $$ E[X^3] = \int_0^2 x^3 \cdot \frac{1}{2}\,dx = \frac{1}{2} \cdot \frac{x^4}{4}
 
 <h4 id="discrete-distributions">23.3 주요 이산 분포</h4>
 
-<p>응용 현장에서는 자주 등장하는 이산 확률 실험들이 몇 가지 대표적인 분포 모형으로 정리된다. 정해진 횟수만큼 독립 시행을 반복할 때 성공 횟수를 세는 이항분포, 드물게 일어나는 사건의 횟수를 모형화하는 포아송 분포, 그리고 첫 성공이 나올 때까지 기다리는 시행 횟수를 다루는 기하분포를 차례로 살펴보자.</p>
+<p>응용 현장에서 자주 등장하는 이산 확률 실험은 몇 가지 대표적인 분포 모형으로 정리된다. 그중 이항분포는 정해진 횟수만큼 독립 시행을 반복할 때 성공 횟수를 세고, 포아송 분포는 드물게 일어나는 사건의 횟수를 모형화하며, 기하분포는 첫 성공이 나올 때까지 기다리는 시행 횟수를 다룬다. 이 세 분포를 차례로 살펴보자.</p>
 
 <div class="definition"><span class="env-label">Definition 23.11 (Binomial Distribution)</span>
 \(X \sim \text{Binomial}(n, p)\)는 서로 독립인 Bernoulli 시행을 \(n\)회 반복했을 때 성공한 횟수를 나타낸다.
@@ -212,7 +212,7 @@ $$ E[X^3] = \int_0^2 x^3 \cdot \frac{1}{2}\,dx = \frac{1}{2} \cdot \frac{x^4}{4}
 $$ P(X = 2) = \binom{20}{2}(0.03)^2(0.97)^{18} = 190 \times 0.0009 \times 0.5780 \approx 0.0988. $$
 </div>
 
-<p>이항분포에서 시행 횟수 \(n\)은 아주 크고 성공 확률 \(p\)는 매우 작은 대신, 두 값의 곱만 일정하게 유지되는 극한 상황을 생각해 보자. 교차로의 교통사고나 콜센터의 전화 도착처럼 드물게 일어나는 사건을 단위 시간당 횟수로 셀 때 자연스럽게 포아송 분포가 나타난다.</p>
+<p>이항분포에서 시행 횟수 \(n\)은 아주 크고 성공 확률 \(p\)는 매우 작되, 두 값의 곱만 일정하게 유지되는 극한 상황을 생각해 보자. 교차로의 교통사고나 콜센터에 걸려 오는 전화처럼 드물게 일어나는 사건을 단위 시간당 횟수로 셀 때가 이에 해당하며, 이때 포아송 분포가 나타난다.</p>
 
 <div class="definition"><span class="env-label">Definition 23.12 (Poisson Distribution)</span>
 \(X \sim \text{Poisson}(\lambda)\)는 단위 시간이나 단위 영역당 발생하는 사건의 수를 모형화한다.
@@ -230,7 +230,7 @@ $$ P(X \geq 6) = 1 - \sum_{k=0}^{5} \frac{4^k e^{-4}}{k!} = 1 - e^{-4}\left(1 + 
 $$ = 1 - e^{-4} \cdot \frac{643}{15} \approx 1 - 0.01832 \times 42.87 \approx 1 - 0.7851 = 0.2149. $$
 </div>
 
-<p>이항분포와 포아송 분포가 정해진 틀 안에서 성공 횟수를 센다면, 기하분포는 관점을 바꾸어 "첫 번째 성공이 나올 때까지 몇 번이나 시도해야 하는가"라는 대기 횟수를 묻는다.</p>
+<p>이항분포와 포아송 분포가 정해진 틀 안에서 성공 횟수를 센다면, 기하분포는 관점을 바꾸어 "첫 번째 성공이 나올 때까지 몇 번이나 시도해야 하는가"를 물으며 대기 횟수를 다룬다.</p>
 
 <div class="definition"><span class="env-label">Definition 23.13 (Geometric Distribution)</span>
 \(X \sim \text{Geometric}(p)\)는 첫 성공이 나올 때까지의 총 시행 횟수이다.
@@ -244,7 +244,7 @@ $$ = 1 - e^{-4} \cdot \frac{643}{15} \approx 1 - 0.01832 \times 42.87 \approx 1 
 
 <h4 id="continuous-distributions">23.4 주요 연속 분포</h4>
 
-<p>시간, 거리, 전압, 오차처럼 연속적인 값을 갖는 현상에는 연속 분포를 쓴다. 수많은 독립 요인이 더해질 때 자연스럽게 모습을 드러내는 정규분포, 연속 시간에서 사건이 일어날 때까지의 대기 시간을 모형화하는 지수분포, 그리고 여러 사건을 기다리는 총 시간에 해당하는 감마분포는 공학과 통계 전반의 기본 블록이다. 특히 정규분포는 센서 잡음 모형과 칼만 필터의 상태 추정에서 핵심적인 표준 가정으로 자리 잡고 있다.</p>
+<p>시간, 거리, 전압, 오차처럼 연속적인 값을 갖는 현상에는 연속 분포를 쓴다. 이 가운데 정규분포는 수많은 독립 요인이 더해질 때 나타나고, 지수분포는 연속 시간에서 사건이 일어날 때까지의 대기 시간을 모형화하며, 감마분포는 여러 사건을 기다리는 총 시간에 해당한다. 이 세 분포는 공학과 통계 전반의 기본 요소이며, 특히 정규분포는 센서 잡음 모형과 칼만 필터의 상태 추정에서 핵심적인 표준 가정으로 자리 잡고 있다.</p>
 
 <div class="definition"><span class="env-label">Definition 23.14 (Normal / Gaussian Distribution)</span>
 \(X \sim N(\mu, \sigma^2)\):
@@ -268,11 +268,11 @@ $$ = 1 - e^{-4} \cdot \frac{643}{15} \approx 1 - 0.01832 \times 42.87 \approx 1 
   <li><strong>기댓값:</strong> \(E[X] = 1/\lambda\).</li>
   <li><strong>분산:</strong> \(\text{Var}(X) = 1/\lambda^2\).</li>
   <li><strong>무기억 성질:</strong> \(P(X > s + t \mid X > s) = P(X > t)\). 비퇴화 비음 연속분포 가운데 모든 \(s,t\geq0\)에서 이 성질을 만족하는 분포는 지수분포뿐이다.</li>
-  <li><strong>Poisson 과정과의 관계:</strong> 도착률(rate)이 \(\lambda\)인 Poisson 과정에서 사건 사이의 도착간 시간은 \(\text{Exponential}(\lambda)\)를 따른다.</li>
+  <li><strong>Poisson 과정과의 관계:</strong> 도착률(rate)이 \(\lambda\)인 Poisson 과정에서 사건 사이의 도착 간 시간은 \(\text{Exponential}(\lambda)\)를 따른다.</li>
 </ul>
 </div>
 
-<p>지수분포가 사건 하나를 기다리는 시간이라면, 같은 조건에서 사건이 여러 번 일어날 때까지 걸리는 누적 대기 시간은 감마분포로 일반화된다.</p>
+<p>지수분포가 사건 하나를 기다리는 시간을 다룬다면, 같은 조건에서 사건이 여러 번 일어날 때까지 걸리는 누적 대기 시간은 이 분포를 일반화한 감마분포로 모형화한다.</p>
 
 <div class="definition"><span class="env-label">Definition 23.16 (Gamma Distribution)</span>
 \(X \sim \text{Gamma}(\alpha, \beta)\) (shape \(\alpha > 0\), rate \(\beta > 0\)):
@@ -281,7 +281,7 @@ $$ = 1 - e^{-4} \cdot \frac{643}{15} \approx 1 - 0.01832 \times 42.87 \approx 1 
   <li><strong>기댓값:</strong> \(E[X] = \alpha / \beta\).</li>
   <li><strong>분산:</strong> \(\text{Var}(X) = \alpha / \beta^2\).</li>
   <li><strong>특수한 경우:</strong> \(\text{Gamma}(1, \lambda) = \text{Exponential}(\lambda)\)이며, \(\text{Gamma}(n, \lambda)\)는 i.i.d. \(\text{Exponential}(\lambda)\) 확률변수 \(n\)개의 합이 따르는 분포이다.</li>
-  <li>\(\text{Gamma}(n/2, 1/2) = \chi^2(n)\) (자유도가 \(n\)인 카이제곱 분포)으로 통계적 검정에도 자주 등장한다.</li>
+  <li>\(\text{Gamma}(n/2, 1/2) = \chi^2(n)\) (자유도가 \(n\)인 카이제곱 분포)이며, 통계적 검정에도 자주 등장한다.</li>
 </ul>
 </div>
 
@@ -294,7 +294,7 @@ $$ P(X > 10 \mid X > 3) = P(X > 7) = e^{-7/5} \approx 0.2466. $$
 
 <h4 id="bayesian-inference">23.5 베이즈 추론</h4>
 
-<p>데이터를 해석하는 또 하나의 관점은 모르는 모수 \(\theta\) 자체를 고정된 상수가 아니라 불확실성을 지닌 확률변수로 다루는 데 있다. 관측하기 전의 믿음을 사전분포로 두고, 데이터를 얻은 뒤 베이즈 정리를 적용해 사후분포로 고쳐 나가는 틀이 베이즈 추론이다.</p>
+<p>데이터를 해석하는 또 하나의 관점에서는 모르는 모수 \(\theta\) 자체를 고정된 상수가 아니라 불확실성을 지닌 확률변수로 다룬다. 베이즈 추론은 이런 관점을 바탕으로, 관측하기 전의 믿음을 사전분포로 두고 데이터를 얻은 뒤 베이즈 정리를 적용해 사후분포로 고쳐 나가는 틀이다.</p>
 
 <div class="remark"><span class="env-label">Remark (베이즈 추론의 구조)</span>
 베이즈 추론은 다음 세 단계로 이루어진다.
@@ -303,23 +303,23 @@ $$ P(X > 10 \mid X > 3) = P(X > 7) = e^{-7/5} \approx 0.2466. $$
   <li><strong>우도(likelihood)</strong> \(P(D \mid \theta)\): 모수가 주어졌을 때 현재 데이터가 관찰될 확률.</li>
   <li><strong>사후분포(posterior)</strong> \(P(\theta \mid D) \propto P(\theta) P(D \mid \theta)\): 데이터를 관찰한 뒤 갱신된 믿음.</li>
 </ol>
-모수가 연속 확률변수라면 확률밀도함수를 써서 \(f_{\Theta \mid X}(\theta \mid x) = \frac{f_\Theta(\theta) f_{X \mid \Theta}(x \mid \theta)}{f_X(x)}\)로 쓴다.
+모수가 연속 확률변수라면 확률밀도함수를 써서 \(f_{\Theta \mid X}(\theta \mid x) = \frac{f_\Theta(\theta) f_{X \mid \Theta}(x \mid \theta)}{f_X(x)}\)로 나타낸다.
 </div>
 
 <div class="example"><span class="env-label">Example 23.9 (베이즈 추론 -- 동전 편향 추정)</span>
 동전의 앞면 확률 \(\theta\)가 \(\text{Uniform}(0,1)\)을 따른다고 가정하자(사전분포). 10번 던져서 7번 앞면이 나왔을 때, \(\theta\)의 사후분포는 어떻게 바뀔까?<br>
 <strong>풀이.</strong> 사전분포는 \(f_\Theta(\theta) = 1\) (\(0 \leq \theta \leq 1\))이고 우도는 \(P(X = 7 \mid \theta) = \binom{10}{7}\theta^7(1-\theta)^3\)이다.
 $$ f_{\Theta \mid X}(\theta \mid 7) \propto \theta^7(1-\theta)^3. $$
-이는 \(\text{Beta}(8, 4)\) 분포에 해당한다. 사후 평균은 \(\frac{8}{8+4} = \frac{2}{3} \approx 0.667\)로서, 균등 사전분포의 평균인 \(0.5\) 쪽으로 당겨져 최대우도추정치 \(7/10 = 0.7\)보다 조금 작게 나타난다.
+이는 \(\text{Beta}(8, 4)\) 분포에 해당한다. 사후 평균은 \(\frac{8}{8+4} = \frac{2}{3} \approx 0.667\)이며, 균등 사전분포의 평균인 \(0.5\) 쪽으로 당겨져 최대우도추정치 \(7/10 = 0.7\)보다 조금 작다.
 </div>
 
 <p>앞선 예제에서는 이항 우도와 베타 사전분포가 짝을 이루어 사후분포 역시 같은 베타 분포족에 속했다. 이처럼 계산이 닫힌 꼴로 깔끔하게 떨어지는 성질을 공액성이라 하며, 연속 모형에서 가장 널리 쓰이는 공액 쌍이 바로 정규-정규 모형이다.</p>
 
 <div class="example"><span class="env-label">Example 23.10 (베이즈 추론 -- 정규 사전분포와 정규 우도)</span>
 모수 \(\theta \sim N(\mu_0, \sigma_0^2)\)이고, 관측 \(X \mid \theta \sim N(\theta, \sigma^2)\)라 하자. 관측값 \(x\) 하나가 주어졌을 때 사후분포는 다음과 같다.<br>
-<strong>풀이.</strong> 정규-정규 공액 쌍의 공식에서:
+<strong>풀이.</strong> 정규-정규 공액 쌍의 공식에서 다음을 얻는다.
 $$ \theta \mid X = x \sim N\!\left(\frac{\sigma^2 \mu_0 + \sigma_0^2 x}{\sigma^2 + \sigma_0^2},\; \frac{\sigma^2 \sigma_0^2}{\sigma^2 + \sigma_0^2}\right). $$
-사후 평균은 사전 평균 \(\mu_0\)과 관측값 \(x\)의 <strong>가중 평균</strong>이다. 이때 가중치는 각각의 정밀도(precision), 곧 분산의 역수 \(1/\sigma_0^2\)과 \(1/\sigma^2\)에 비례하므로, 관측의 잡음이 작고 정밀할수록 사후 평균은 \(x\)에 바짝 다가간다.
+사후 평균은 사전 평균 \(\mu_0\)과 관측값 \(x\)의 <strong>가중 평균</strong>이다. 이때 가중치는 각각의 정밀도(precision), 곧 분산의 역수 \(1/\sigma_0^2\)과 \(1/\sigma^2\)에 비례하므로, 잡음이 작고 관측이 정밀할수록 사후 평균은 \(x\)에 바짝 다가간다.
 </div>
 
 <h4 id="prob-inequalities">23.6 부등식</h4>
@@ -341,13 +341,13 @@ $$ P(|X - \mu| \geq k\sigma) \leq \frac{1}{k^2}. $$
 </div>
 
 <div class="remark"><span class="env-label">Remark (Markov와 Chebyshev의 관계)</span>
-Chebyshev 부등식은 \(Y = (X - \mu)^2\)에 Markov 부등식을 그대로 적용해 얻은 결과다: \(P((X-\mu)^2 \geq a^2) \leq E[(X-\mu)^2]/a^2 = \sigma^2/a^2\). 
+Chebyshev 부등식은 \(Y = (X - \mu)^2\)에 Markov 부등식을 그대로 적용해 얻은 결과다. 곧 \(P((X-\mu)^2 \geq a^2) \leq E[(X-\mu)^2]/a^2 = \sigma^2/a^2\)이다. 
 </div>
 
 <div class="example"><span class="env-label">Example 23.11 (Chebyshev 부등식 활용)</span>
 \(X\)의 평균이 100, 분산이 25라 할 때, \(P(|X - 100| \geq 15)\)의 상한은 얼마일까?
 $$ P(|X - 100| \geq 15) = P(|X - \mu| \geq 3\sigma) \leq \frac{1}{3^2} = \frac{1}{9} \approx 0.111. $$
-만약 \(X \sim N(100, 25)\)라면 실제 확률은 \(P(|Z| \geq 3) \approx 0.0027\)에 불과하다. Chebyshev 부등식이 주는 0.111이라는 상한은 꽤 느슨해 보이지만, 분포의 구체적인 모양에 아무런 가정도 두지 않고 성립한다는 점에서 쓸모가 크다.
+만약 \(X \sim N(100, 25)\)라면 실제 확률은 \(P(|Z| \geq 3) \approx 0.0027\)에 불과하다. Chebyshev 부등식으로 얻은 0.111이라는 상한은 꽤 느슨해 보이지만, 분포의 구체적인 모양에 아무런 가정도 두지 않고 성립하므로 쓸모가 크다.
 </div>
 
 <h4 id="lln-clt">23.7 큰 수의 법칙과 중심극한정리</h4>
@@ -365,11 +365,11 @@ $$ P(|X - 100| \geq 15) = P(|X - \mu| \geq 3\sigma) \leq \frac{1}{3^2} = \frac{1
 <div class="remark"><span class="env-label">Remark (약한 큰 수의 법칙을 Chebyshev 부등식으로 증명하기)</span>
 \(\text{Var}(\bar{X}_n) = \sigma^2/n\)이므로, Chebyshev 부등식을 적용하면 곧장 다음을 얻는다.
 $$ P(|\bar{X}_n - \mu| \geq \epsilon) \leq \frac{\sigma^2}{n\epsilon^2} \to 0 \quad (n \to \infty). $$
-분산이 유한한 조건에서는 약한 큰 수의 법칙이 이처럼 두 줄 만에 증명된다. 분산이 유한하지 않더라도 평균만 유한하면 두 법칙 모두 성립하지만, 증명은 한층 정교한 절단 기법이 필요하다.
+분산이 유한한 조건에서는 약한 큰 수의 법칙이 이처럼 두 줄 만에 증명된다. 분산이 유한하지 않더라도 평균만 유한하면 두 법칙 모두 성립하지만, 증명에는 한층 정교한 절단 기법이 필요하다.
 </div>
 
 <div class="remark"><span class="env-label">Remark (큰 수의 법칙의 직관)</span>
-앞면 확률이 \(p\)인 동전을 \(n\)번 던지면, \(n\)이 커질수록 앞면 비율이 \(p\)에 가까워진다. 확률을 장기 상대도수로 보는 빈도주의 해석이 바로 이 정리에 기댄다. 다만 "지금까지 앞면이 적게 나왔으니 앞으로는 많이 나올 차례"라는 도박사의 오류는 큰 수의 법칙에서 나오지 않는다. 매 던지기는 서로 독립이며, 비율이 \(p\)로 수렴하는 이유는 앞선 편차가 상쇄되어서가 아니라 누적 합을 \(n\)으로 나누면서 초기 편차의 영향이 0으로 줄어들기 때문이다.
+앞면 확률이 \(p\)인 동전을 \(n\)번 던지면, \(n\)이 커질수록 앞면 비율이 \(p\)에 가까워진다. 확률을 장기 상대도수로 보는 빈도주의 해석이 바로 이 정리에 기댄다. 다만 "지금까지 앞면이 적게 나왔으니 앞으로는 많이 나올 차례"라는 도박사의 오류는 큰 수의 법칙에서 나오지 않는다. 각 던지기는 서로 독립이며, 비율이 \(p\)로 수렴하는 이유는 앞선 편차가 상쇄되어서가 아니라 누적 합을 \(n\)으로 나누면서 초기 편차의 영향이 0으로 줄어들기 때문이다.
 </div>
 
 <p>큰 수의 법칙이 표본평균의 극한 위치만 알려 준다면, 중심극한정리는 표본평균이 그 극한 주변에서 어떤 모양으로 요동치는지까지 밝혀 준다.</p>
@@ -381,7 +381,7 @@ $$ \frac{\bar{X}_n - \mu}{\sigma / \sqrt{n}} \xrightarrow{d} N(0, 1) \quad \text
 </div>
 
 <div class="remark"><span class="env-label">Remark (CLT의 직관)</span>
-분산이 유한한 i.i.d. 확률변수를 많이 더한 뒤 표준화하면 원래 분포가 무엇이었든 상관없이 그 분포가 정규분포에 가까워진다. 수많은 미세한 교란이 겹쳐 생기는 측정 오차가 흔히 정규분포를 따르는 이유도 여기에 있다. 다만 얼마나 큰 표본이 있어야 근사가 충분히 정확한지에 만능 기준은 없으며, 원래 분포가 한쪽으로 치우쳐 있거나 꼬리가 두꺼울수록 근사 오차를 줄이는 데 더 큰 표본이 필요하다.
+분산이 유한한 i.i.d. 확률변수를 많이 더한 뒤 표준화하면 원래 분포가 무엇이었든 상관없이 그 결과의 분포가 정규분포에 가까워진다. 수많은 미세한 교란이 겹쳐 생기는 측정 오차가 흔히 정규분포를 따르는 이유도 여기에 있다. 다만 얼마나 큰 표본이 있어야 근사가 충분히 정확한지를 판단할 만능 기준은 없으며, 원래 분포가 한쪽으로 치우쳐 있거나 꼬리가 두꺼울수록 근사 오차를 줄이는 데 더 큰 표본이 필요하다.
 </div>
 
 <p>중심극한정리가 실제 문제에서 확률을 근사하는 데 어떻게 쓰이는지 두 예제로 살펴보자.</p>
@@ -399,10 +399,10 @@ $$ P(\hat{p} \geq 0.5) \approx P\!\left(Z > \frac{0.5 - 0.52}{0.0158}\right) = P
 조사 결과가 50% 이상으로 나올 확률은 약 90%에 이른다.
 </div>
 
-<p>지금까지 배운 확률 부등식, 베이즈 정리, 적률생성함수(MGF)를 실제 계산 문제에 적용하는 연습 문제도 세 가지 더 풀어 보자.</p>
+<p>지금까지 배운 확률 부등식, 베이즈 정리, 적률생성함수(MGF)를 실제 계산에 적용하는 연습 문제도 세 가지 더 풀어 보자.</p>
 
 <div class="example"><span class="env-label">Example 23.14 (Markov 부등식 활용)</span>
-비음인 확률변수 \(X\)의 기댓값이 \(E[X] = 4\)일 때, \(P(X \geq 20)\)의 상한은 얼마일까?<br>
+음이 아닌 확률변수 \(X\)의 기댓값이 \(E[X] = 4\)일 때, \(P(X \geq 20)\)의 상한은 얼마일까?<br>
 <strong>풀이.</strong> Markov 부등식을 그대로 적용한다.
 $$ P(X \geq 20) \leq \frac{E[X]}{20} = \frac{4}{20} = 0.2. $$
 분포의 자세한 모양을 모르더라도 \(X\)가 20 이상일 확률은 20%를 넘지 못한다.
@@ -412,7 +412,7 @@ $$ P(X \geq 20) \leq \frac{E[X]}{20} = \frac{4}{20} = 0.2. $$
 동전 A는 \(P(H) = 0.9\), 동전 B는 \(P(H) = 0.1\)이다. 두 동전 가운데 하나를 무작위로 골라(\(P(\text{A}) = P(\text{B}) = 0.5\)) 3번 던졌더니 모두 앞면이 나왔다. 이 동전이 A일 확률은 얼마일까?<br>
 <strong>풀이.</strong> 세 번 모두 앞면이 나온 사건을 \(D = \text{HHH}\)라 하자.
 $$ P(D \mid \text{A}) = 0.9^3 = 0.729, \quad P(D \mid \text{B}) = 0.1^3 = 0.001. $$
-베이즈 정리를 적용하면:
+베이즈 정리를 적용하면 다음과 같다.
 $$ P(\text{A} \mid D) = \frac{0.5 \times 0.729}{0.5 \times 0.729 + 0.5 \times 0.001} = \frac{0.3645}{0.365} \approx 0.9986. $$
 3번 연속 앞면이 나왔다는 증거만으로도 동전 A일 확률이 약 99.9%까지 치솟는다.
 </div>
@@ -440,7 +440,7 @@ $$ M_Z(t) = M_X(t) M_Y(t) = e^{(\lambda_1 + \lambda_2)(e^t - 1)}. $$
 <tr><td>Gamma\((\alpha,\beta)\)</td><td>\(\frac{\beta^\alpha}{\Gamma(\alpha)}x^{\alpha-1}e^{-\beta x}\)</td><td>\(\alpha/\beta\)</td><td>\(\alpha/\beta^2\)</td></tr>
 </table>
 
-<p>확률론이 주어진 모형과 분포로부터 어떤 데이터가 관측될지를 예측하는 학문이라면, 이제 추론의 화살표를 반대로 돌려 볼 차례다. 다음 24장에서는 거꾸로 손에 쥔 표본 데이터를 바탕으로 보이지 않는 모집단의 분포와 모수를 추론하는 통계학을 다룬다.</p>
+<p>확률론이 주어진 모형과 분포로부터 어떤 데이터가 관측될지를 예측하는 학문이라면, 이제 추론의 화살표를 반대로 돌려 볼 차례다. 다음 24장에서 다루는 통계학은 손에 쥔 표본 데이터를 바탕으로 보이지 않는 모집단의 분포와 모수를 거꾸로 추론한다.</p>
 
 </section>
 

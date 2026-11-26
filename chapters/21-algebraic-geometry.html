@@ -1,11 +1,11 @@
 <section id="algebraic-geometry">
 <h3>21. 대수기하학 (Algebraic Geometry)</h3>
 
-<p class="chapter-intro">대수기하학은 다항 방정식의 연립 해집합인 대수다양체를 기하학적 공간으로 연구하는 분야다. 그 중심에는 기하적 대상인 다양체와 대수적 대상인 아이디얼을 일대일로 짝짓는 힐베르트 영점정리가 자리하고 있으며, 이 다리 덕분에 도형에 관한 난제를 다항식 환의 대수적 계산으로 바꾸어 풀 수 있다.</p>
+<p class="chapter-intro">대수기하학은 다항 방정식의 연립 해집합인 대수다양체를 기하학적 공간으로 연구하는 분야다. 그 중심에는 기하적 대상인 다양체와 대수적 대상인 아이디얼을 일대일로 짝짓는 힐베르트 영점정리가 있다. 이 대응 덕분에 도형에 관한 난제를 다항식 환의 대수적 계산으로 바꾸어 풀 수 있다.</p>
 
-<p>다항식 연립방정식은 순수 수학을 넘어 공학 문제에서도 흔히 마주친다. 로봇 운동학(robot kinematics)에서는 관절각의 삼각함수 식에서 \(c=\cos\theta\), \(s=\sin\theta\)를 독립 변수로 놓고 항등식 \(c^2+s^2=1\)을 덧붙이면, 로봇 팔의 역기구학(inverse kinematics) 문제가 곧장 다항식 연립방정식의 해집합을 찾는 대수기하 문제로 바뀐다. 컴퓨터 비전(computer vision)에서도 두 카메라 영상 사이의 에피폴라 제약(epipolar constraint) \(x'^{\top}Fx=0\)은 기본 행렬(fundamental matrix) \(F\)의 성분들에 대한 일차식이고, 행렬이 퇴화해야 한다는 조건 \(\det F=0\)은 \(F\) 성분의 3차 다항식 방정식으로 주어진다.</p>
+<p>순수 수학을 넘어 공학 문제에서도 다항식 연립방정식을 흔히 마주친다. 로봇 운동학(robot kinematics)을 보면, 관절각의 삼각함수 식에서 \(c=\cos\theta\), \(s=\sin\theta\)를 독립 변수로 놓고 항등식 \(c^2+s^2=1\)을 덧붙이면, 로봇 팔의 역기구학(inverse kinematics) 문제가 곧장 다항식 연립방정식의 해집합을 찾는 대수기하 문제로 바뀐다. 컴퓨터 비전(computer vision)에서도 두 카메라 영상 사이의 에피폴라 제약(epipolar constraint) \(x'^{\top}Fx=0\)은 기본 행렬(fundamental matrix) \(F\)의 성분에 대한 일차식이고, 행렬이 퇴화해야 한다는 조건 \(\det F=0\)은 \(F\) 성분의 3차 다항식 방정식으로 주어진다.</p>
 
-<p>부호 이론과 암호학 역시 대수기하의 깊은 열매를 거두었다. Goppa는 1981년에 대수기하 부호(algebraic geometry code)를 제안하여("Codes on algebraic curves", <em>Dokl. Akad. Nauk SSSR</em> 259), 유한체 위 대수 곡선의 유리점(rational point)에서 함숫값을 모아 부호어를 만들고 곡선 위의 인자(divisor) 이론으로 최소 거리의 하한을 도출했다. 또한 타원 곡선 암호(ECC)는 종수(genus) 1인 타원 곡선의 점들이 이루는 아벨 군 위에서 이산 로그 문제(discrete logarithm problem)를 풀기 어렵다는 사실에 안전성을 둔다.</p>
+<p>부호 이론과 암호학 역시 대수기하의 깊은 열매를 거두었다. Goppa는 1981년에 대수기하 부호(algebraic geometry code)를 제안하여("Codes on algebraic curves", <em>Dokl. Akad. Nauk SSSR</em> 259), 유한체 위 대수 곡선의 유리점(rational point)에서 함숫값을 모아 부호어를 만들고 곡선 위의 인자(divisor) 이론으로 최소 거리의 하한을 도출했다. 또한 타원 곡선 암호(ECC)는 종수(genus) 1인 타원 곡선의 점들이 이루는 아벨 군 위에서 이산 로그 문제(discrete logarithm problem)를 풀기 어렵다는 점을 안전성의 근거로 삼는다.</p>
 
 <p>가장 친숙한 다항식 하나의 영점 집합 \(\{f(x, y) = 0\}\)은 평면 위의 대수 곡선이다. 이제 변수를 \(n\)개로 늘리고 다항식 여러 개가 동시에 0이 되는 공통 영점 집합을 생각하면, 대수기하학의 무대가 되는 <strong>아핀 다양체(affine variety)</strong>를 얻는다.</p>
 
@@ -14,7 +14,7 @@
 $$ V(S) = \{ (a_1, \ldots, a_n) \in k^n : f(a_1, \ldots, a_n) = 0 \text{ for all } f \in S \}. $$
 </div>
 
-<p>거꾸로 공간 \(k^n\)의 점 집합 \(X\)가 주어졌을 때, \(X\) 위의 모든 점에서 함숫값이 0이 되는 다항식들을 모으면 다항식 환 안에서 하나의 아이디얼이 만들어진다.</p>
+<p>거꾸로 공간 \(k^n\)의 점 집합 \(X\)가 주어졌을 때, \(X\) 위의 모든 점에서 함숫값이 0이 되는 다항식들을 모으면 다항식 환 안에서 아이디얼을 이룬다.</p>
 
 <div class="definition"><span class="env-label">Definition 21.2 (Ideal of a Variety)</span>
 부분집합 \(X \subseteq k^n\)에 대해, \(X\) 전체에서 소멸하는 다항식들의 모임을 \(X\)의 <strong>아이디얼(ideal)</strong>이라 한다.
@@ -22,13 +22,13 @@ $$ I(X) = \{ f \in k[x_1, \ldots, x_n] : f(a) = 0 \text{ for all } a \in X \}. $
 \(f^r\)이 \(X\) 위에서 0이면 체의 원소 성질상 \(f\) 자신도 \(X\) 위에서 0이어야 하므로, \(I(X)\)는 언제나 근기 아이디얼(radical ideal)이 된다: \(I(X) = \sqrt{I(X)}\).
 </div>
 
-<p>유한체처럼 거리나 순서를 줄 수 없는 일반 체 위에서 기하학을 하려면 유클리드 위상에 기댈 수 없다. 대신 대수기하학에서는 "아핀 다양체 자체를 닫힌집합으로 삼는다"는 기발한 발상으로 <strong>자리스키 위상(Zariski topology)</strong>을 도입한다. 이 위상에서는 닫힌집합이 극도로 작고 희소하기 때문에, 거꾸로 공집합이 아닌 열린집합들은 너무 커서 서로 떼어 놓을 수가 없다.</p>
+<p>유한체처럼 거리나 순서를 줄 수 없는 일반 체 위에서 기하학을 하려고 해도 유클리드 위상에 기댈 수 없다. 대신 대수기하학에서는 "아핀 다양체 자체를 닫힌집합으로 삼는다"는 기발한 발상으로 <strong>자리스키 위상(Zariski topology)</strong>을 도입한다. 이 위상에서는 닫힌집합이 극도로 작고 희소하기 때문에, 거꾸로 공집합이 아닌 열린집합들은 너무 커서 서로 떼어 놓을 수가 없다.</p>
 
 <div class="definition"><span class="env-label">Definition 21.3 (Zariski Topology)</span>
 \(k^n\) (또는 아핀 다양체 \(V\)) 위의 <strong>자리스키 위상(Zariski topology)</strong>은 아핀 다양체들을 닫힌집합으로 삼는 위상이며, 그 여집합들이 열린집합이 된다. \(k\)가 무한체이면 \(k^n\) (\(n\geq1\))에서 공집합이 아닌 임의의 두 열린집합은 반드시 만나므로, 이 위상은 하우스도르프가 아니다.
 </div>
 
-<p>아핀 다양체를 정의할 때 다항식 집합 \(S\)가 무한히 많은 식을 담고 있어도 괜찮을까? 힐베르트의 기저 정리는 다항식 환 안의 어떤 아이디얼도 유한 개의 생성원으로 표현된다고 보장하여, 모든 아핀 다양체가 유한 개 방정식의 해집합임을 알려 준다. 한 걸음 더 나아가, 대수적으로 닫힌 체 위에서는 방정식의 기하적 해집합과 대수적 근기 아이디얼이 정확히 맞물린다는 힐베르트 영점정리가 대수와 기하를 잇는 황금 다리를 놓는다.</p>
+<p>아핀 다양체를 정의할 때 다항식 집합 \(S\)가 무한히 많은 식을 담고 있어도 괜찮을까? 힐베르트의 기저 정리에 따르면 다항식 환 안의 어떤 아이디얼도 유한 개의 생성원으로 표현되므로, 모든 아핀 다양체가 유한 개 방정식의 해집합임을 알 수 있다. 한 걸음 더 나아가, 대수적으로 닫힌 체 위에서는 방정식의 기하적 해집합과 대수적 근기 아이디얼이 정확히 맞물린다. 이를 밝히는 힐베르트 영점정리가 대수와 기하를 잇는 다리를 놓는다.</p>
 
 <div class="theorem"><span class="env-label">Theorem 21.1 (Hilbert's Basis Theorem)</span>
 다항식 환 \(k[x_1, \ldots, x_n]\)은 뇌터 환(Noetherian ring)이어서 모든 아이디얼이 유한 생성이다. 따라서 어떤 아핀 다양체도 유한 개 다항식의 공통 영점 집합으로 나타낼 수 있다.
@@ -37,7 +37,7 @@ $$ I(X) = \{ f \in k[x_1, \ldots, x_n] : f(a) = 0 \text{ for all } a \in X \}. $
 <div class="theorem"><span class="env-label">Theorem 21.2 (Hilbert's Nullstellensatz)</span>
 \(k\)를 대수적으로 닫힌 체라 하고 \(J \subseteq k[x_1, \ldots, x_n]\)을 아이디얼이라 하자. 그러면 다음 등식이 성립한다.
 $$ I(V(J)) = \sqrt{J}, $$
-여기서 \(\sqrt{J} = \{f : f^r \in J \text{ for some } r \geq 1\}\)는 \(J\)의 근기(radical)이다. 특히 연립방정식 \(J\)의 해집합이 공집합(\(V(J) = \emptyset\))일 필요충분조건은 \(J = k[x_1, \ldots, x_n]\) (즉 \(1 \in J\))임에 있다.
+여기서 \(\sqrt{J} = \{f : f^r \in J \text{ for some } r \geq 1\}\)는 \(J\)의 근기(radical)이다. 특히 연립방정식 \(J\)의 해집합이 공집합(\(V(J) = \emptyset\))일 필요충분조건은 \(J = k[x_1, \ldots, x_n]\) (즉 \(1 \in J\))이다.
 </div>
 
 <p>이 정리에서 체 \(k\)가 대수적으로 닫혀 있다는 가정과 근기 \(\sqrt{J}\)를 취하는 조건은 둘 다 꼭 필요하다. 예컨대 실수체 위에서는 \(x^2+1=0\)의 해집합이 공집합이지만 \(1 \notin (x^2+1)\)이며, \((x^2)\)와 \((x)\)는 서로 다른 아이디얼이지만 같은 영점 집합 \(\{0\}\)을 정의하기 때문이다. 영점정리 덕분에 연산 \(V\)와 \(I\)는 근기 아이디얼과 아핀 다양체 사이에 포함 관계를 뒤집는 일대일 대응을 만든다. 큰 아이디얼일수록 작은 다양체에 대응하며, 특히 소 아이디얼은 더 이상 쪼개지지 않는 기약 다양체에, 극대 아이디얼은 한 점에 대응한다. 이로써 연립방정식의 기하적 성질을 몫환인 좌표환의 대수로 온전히 번역할 수 있다.</p>
@@ -48,10 +48,10 @@ $$ k[V] = k[x_1, \ldots, x_n] / I(V). $$
 이 환의 원소는 다양체 \(V\) 위에서 정의된 다항식 함수와 일대일로 대응한다.
 </div>
 
-<p>아핀 평면 위에서 기하학을 전개하면 한 가지 아쉬운 예외가 자꾸 고개를 든다. 평행한 두 직선이 만나지 않기 때문에, 두 곡선의 교점 개수를 세는 정리에 "평행할 때는 제외한다"는 꼬리표가 붙는다. 19장에서 몫공간을 배웠듯, 비례하는 방향 벡터들을 하나의 점으로 묶어 무한원점(point at infinity)을 덧붙인 <strong>사영 공간(projective space)</strong>으로 무대를 옮기면 평행선도 무한원점에서 만나게 되어 베주 정리(B&eacute;zout's theorem)가 예외 없이 성립한다. 컴퓨터 비전에서 카메라 투영과 호모그래피를 다룰 때 쓰는 동차 좌표(homogeneous coordinates)가 바로 이 사영 공간의 좌표다.</p>
+<p>아핀 평면 위에서 기하학을 전개하면 한 가지 아쉬운 예외가 자꾸 고개를 든다. 평행한 두 직선이 만나지 않기 때문에, 두 곡선의 교점 개수를 세는 정리에 "평행할 때는 제외한다"는 꼬리표가 붙는다. 19장에서 몫공간을 배웠듯, 비례하는 방향 벡터들을 하나의 점으로 묶어 무한원점(point at infinity)을 덧붙이면 <strong>사영 공간(projective space)</strong>이 된다. 무대를 여기로 옮기면 평행선도 무한원점에서 만나므로 베주 정리(B&eacute;zout's theorem)가 예외 없이 성립한다. 컴퓨터 비전에서 카메라 투영과 호모그래피를 다룰 때 쓰는 동차 좌표(homogeneous coordinates)가 바로 이 사영 공간의 좌표다.</p>
 
 <div class="definition"><span class="env-label">Definition 21.5 (Projective Space and Projective Variety)</span>
-<strong>사영 \(n\)-공간(projective \(n\)-space)</strong> \(\mathbb{P}^n(k)\)은 \(k^{n+1} \setminus \{0\}\) 위에서 스칼라배 동치관계 \((x_0, \ldots, x_n) \sim (\lambda x_0, \ldots, \lambda x_n)\) (\(\lambda \neq 0\))으로 나눈 동치류들의 집합이다. 동차 다항식(모든 항의 총차수가 같은 다항식)들의 공통 영점을 \(\mathbb{P}^n\)에서 모은 집합을 <strong>사영 다양체(projective variety)</strong>라 한다.
+<strong>사영 \(n\)-공간(projective \(n\)-space)</strong> \(\mathbb{P}^n(k)\)은 \(k^{n+1} \setminus \{0\}\)을 스칼라배 동치관계 \((x_0, \ldots, x_n) \sim (\lambda x_0, \ldots, \lambda x_n)\) (\(\lambda \neq 0\))으로 나누어 얻은 동치류들의 집합이다. 동차 다항식(모든 항의 총차수가 같은 다항식)의 공통 영점을 \(\mathbb{P}^n\)에서 모은 집합을 <strong>사영 다양체(projective variety)</strong>라 한다.
 </div>
 
 <div class="definition"><span class="env-label">Definition 21.6 (Morphism of Varieties)</span>
@@ -59,11 +59,11 @@ $$ k[V] = k[x_1, \ldots, x_n] / I(V). $$
 </div>
 
 <div class="example"><span class="env-label">Example 21.1</span>
-아핀 평면의 곡선 \(V(y^2 - x^3) \subset k^2\)는 원점에서 뾰족하게 꺾이는 뾰족 3차 곡선(cuspidal cubic)이다. 18장 Example 18.4에서 만났듯 그 좌표환 \(k[x,y]/(y^2 - x^3)\)은 정수적으로 닫혀 있지 않다. 분수체의 원소 \(t=y/x\)가 모닉 방정식 \(t^2-x=0\)의 근이면서도, \(x=t^2,\;y=t^3\)으로 식별되는 좌표환 \(k[t^2,t^3]\) 안에는 \(t\)가 빠져 있기 때문이다. 기하적으로 이는 매개변수화 \(t \mapsto (t^2, t^3)\)가 직선 \(\mathbb{A}^1\)에서 뾰족 곡선으로 가는 전단사 정칙 사상이지만 원점의 뾰족한 특이점 때문에 동형사상이 되지는 못함을 반영한다. 반면 매끄러운 3차 곡선 \(V(y^2 - x^3 - x)\)를 사영 평면으로 완비화하면 종수 1인 타원 곡선(elliptic curve)을 얻는다 (\(\mathbb{C}\) 위에서는 위상적으로 토러스다).
+아핀 평면의 곡선 \(V(y^2 - x^3) \subset k^2\)는 원점에서 뾰족하게 꺾이는 뾰족 3차 곡선(cuspidal cubic)이다. 18장 Example 18.4에서 만났듯 그 좌표환 \(k[x,y]/(y^2 - x^3)\)은 정수적으로 닫혀 있지 않다. 분수체의 원소 \(t=y/x\)가 모닉 방정식 \(t^2-x=0\)의 근이면서도, \(x=t^2,\;y=t^3\)으로 나타나는 좌표환 \(k[t^2,t^3]\) 안에는 \(t\)가 빠져 있기 때문이다. 기하적으로 보면, 이는 매개변수화 \(t \mapsto (t^2, t^3)\)가 직선 \(\mathbb{A}^1\)에서 뾰족 곡선으로 가는 전단사 정칙 사상이지만 원점의 뾰족한 특이점 때문에 동형사상이 되지는 못한다는 사실을 반영한다. 반면 매끄러운 3차 곡선 \(V(y^2 - x^3 - x)\)를 사영 평면으로 완비화하면 종수 1인 타원 곡선(elliptic curve)을 얻는다 (\(\mathbb{C}\) 위에서는 위상적으로 토러스다).
 </div>
 
 <div class="theorem"><span class="env-label">Theorem 21.3 (Affine&ndash;Projective Dictionary)</span>
-\(k\)가 대수적으로 닫힌 체이면, \(k[x_0, \ldots, x_n]\)의 근기 동차 아이디얼 가운데 원점의 동치류가 없는 무관 아이디얼(irrelevant ideal) \((x_0, \ldots, x_n)\)을 제외한 모임과 \(\mathbb{P}^n\)의 사영 다양체 모임 사이에 전단사 대응이 성립한다. 무관 아이디얼과 전체 환 \(k[x_0,\ldots,x_n]\)은 모두 공집합에 대응한다. 임의의 아핀 다양체는 표준 매장 \((a_1, \ldots, a_n) \mapsto [1 : a_1 : \cdots : a_n]\)을 따라 \(x_0 \neq 0\)인 열린 조각 안으로 들어가며, 그 폐포가 사영 완비화가 된다.
+\(k\)가 대수적으로 닫힌 체이면, \(k[x_0, \ldots, x_n]\)의 근기 동차 아이디얼 가운데 원점의 동치류가 없는 무관 아이디얼(irrelevant ideal) \((x_0, \ldots, x_n)\)을 제외한 모임과 \(\mathbb{P}^n\)의 사영 다양체 모임 사이에 전단사 대응이 성립한다. 무관 아이디얼과 전체 환 \(k[x_0,\ldots,x_n]\)은 모두 공집합에 대응한다. 임의의 아핀 다양체는 표준 매장 \((a_1, \ldots, a_n) \mapsto [1 : a_1 : \cdots : a_n]\)을 따라 \(x_0 \neq 0\)인 열린 조각 안으로 들어가며, 매장된 다양체의 폐포가 사영 완비화가 된다.
 </div>
 
 <p>곡선은 1차원, 곡면은 2차원이라는 직관적 차원을 순수하게 자리스키 위상과 좌표환의 언어로 어떻게 정의할 수 있을까? 대수기하학에서는 다양체 안에 들어가는 기약 닫힌 부분다양체들의 가장 긴 포함 사슬 길이로 차원을 잰다.</p>
@@ -74,7 +74,7 @@ $$ V_0 \subsetneq V_1 \subsetneq \cdots \subsetneq V_d \subseteq V $$
 의 길이 \(d\)의 상한(supremum)이다. 아핀 다양체에서는 이 값이 좌표환의 소 아이디얼 사슬 길이인 크룰 차원과 정확히 일치하여 \(\dim V = \operatorname{Krull\,dim} k[V]\)가 된다. 예컨대 \(\dim k^n = n\)이고, 차원이 1인 다양체를 곡선(curve), 2인 다양체를 곡면(surface)이라 부른다.
 </div>
 
-<p>미분기하학에서 곡면의 한 점에 접평면을 세웠듯, 대수다양체에서도 미분 대신 국소환의 극대 아이디얼을 이용해 <strong>자리스키 접공간(tangent space)</strong>을 순수하게 대수적으로 정의할 수 있다. 매끄러운 점에서는 접공간의 차원이 다양체의 차원과 딱 맞아떨어지지만, 뾰족하거나 스스로 교차하는 특이점(singular point)에서는 접공간의 차원이 부풀어 오른다. 공학의 로봇 팔 운동학에서도 관절 각도를 말단 위치로 보내는 사상의 특이 자세(singular configuration)는 관절 속도를 말단 속도로 보내는 야코비안의 계수(rank)가 최대치보다 떨어지는 지점으로, 대수적 특이점 개념과 궤를 같이한다.</p>
+<p>미분기하학에서 곡면의 한 점에 접평면을 세웠듯, 대수다양체에서도 미분 대신 국소환의 극대 아이디얼을 이용해 <strong>자리스키 접공간(tangent space)</strong>을 순수하게 대수적으로 정의할 수 있다. 매끄러운 점에서는 접공간의 차원이 다양체의 차원과 딱 맞아떨어지지만, 뾰족하거나 스스로 교차하는 특이점(singular point)에서는 접공간의 차원이 부풀어 오른다. 공학의 로봇 팔 운동학에서도 관절 각도를 말단 위치로 보내는 사상의 특이 자세(singular configuration)는 대수적 특이점 개념과 궤를 같이한다. 특이 자세는 관절 속도를 말단 속도로 보내는 야코비안의 계수(rank)가 최대치보다 떨어지는 지점이다.</p>
 
 <div class="definition"><span class="env-label">Definition 21.8 (Zariski Tangent Space)</span>
 다양체 \(V\)의 점 \(p \in V\)에서의 <strong>자리스키 접공간(Zariski tangent space)</strong>은 국소환(local ring)의 극대 아이디얼(maximal ideal) \(\mathfrak{m}_p\)를 써서 다음과 같이 정의한다.
@@ -87,35 +87,35 @@ $$ T_p V = (\mathfrak{m}_p / \mathfrak{m}_p^2)^*, $$
 </div>
 
 <div class="example"><span class="env-label">Example 21.2 (Singularity Detection)</span>
-<strong>뾰족 3차 곡선</strong> \(V(y^2 - x^3)\): 원점에서 극대 아이디얼이 \(\mathfrak{m} = (x, y)\)이고 2차 항 이상을 몫으로 날려도 \(\mathfrak{m}/\mathfrak{m}^2\)의 기저는 \(\{\bar{x}, \bar{y}\}\) 두 개가 모두 살아남는다. 따라서 \(\dim T_0 V = 2 > 1 = \dim V\)가 되어 원점이 특이점임을 대수적으로 확인한다.
+<strong>뾰족 3차 곡선</strong> \(V(y^2 - x^3)\): 원점에서 극대 아이디얼은 \(\mathfrak{m} = (x, y)\)이고, 2차 항 이상을 몫으로 날려도 \(\mathfrak{m}/\mathfrak{m}^2\)의 기저로 \(\{\bar{x}, \bar{y}\}\) 두 개가 모두 살아남는다. 따라서 \(\dim T_0 V = 2 > 1 = \dim V\)이므로 원점이 특이점임을 대수적으로 확인한다.
 <br><br>
-<strong>마디 3차 곡선(nodal cubic)</strong> \(V(y^2 - x^2(x+1))\): 원점에서 역시 최저차 항이 \(y^2 - x^2 = (y-x)(y+x)\)인 2차식이므로 \(\dim T_0 V = 2 > 1\)이 되어 특이점이다 (곡선이 원점에서 두 접선 방향 \(y=\pm x\)로 스스로 교차한다).
+<strong>마디 3차 곡선(nodal cubic)</strong> \(V(y^2 - x^2(x+1))\): 이 곡선 역시 원점에서 최저차 항이 \(y^2 - x^2 = (y-x)(y+x)\)인 2차식이어서 \(\dim T_0 V = 2 > 1\)이므로 원점은 특이점이다 (곡선이 원점에서 두 접선 방향 \(y=\pm x\)로 스스로 교차한다).
 <br><br>
-두 곡선 모두 원점을 제외한 나머지 모든 점에서는 야코비 행렬의 계수가 1이 되어 매끄럽다.
+두 곡선 모두 원점을 제외한 나머지 모든 점에서는 야코비 행렬의 계수가 1이므로 매끄럽다.
 </div>
 
 <p>이제 사영 평면 \(\mathbb{P}^2(k)\)에서 두 대수 곡선이 몇 개의 점에서 만나는지 세어 보자. 대수적으로 닫힌 체 위에서 차수와 교점의 중복도까지 꼼꼼히 계산하면, 두 곡선의 교점 수의 총합은 언제나 두 차수의 곱과 같다는 우아한 정리가 성립한다.</p>
 
 <div class="theorem"><span class="env-label">Theorem 21.4 (B&eacute;zout's Theorem)</span>
-\(k\)가 대수적으로 닫힌 체라고 하자. \(\mathbb{P}^2(k)\)에서 차수가 각각 \(d\), \(e\)인 두 사영 곡선(projective curve) \(C\)와 \(D\)가 공통 성분(common component)을 공유하지 않으면, 각 교점 \(p\)에서의 교점 중복도(intersection multiplicity) \(I_p(C, D)\)를 모두 합한 값은 다음과 같다.
+\(k\)가 대수적으로 닫힌 체라고 하자. \(\mathbb{P}^2(k)\)에서 차수가 각각 \(d\), \(e\)인 두 사영 곡선(projective curve) \(C\)와 \(D\)가 공통 성분(common component)을 갖지 않으면, 각 교점 \(p\)에서의 교점 중복도(intersection multiplicity) \(I_p(C, D)\)를 모두 합한 값은 다음과 같다.
 $$ \sum_{p} I_p(C, D) = de. $$
 즉 사영 평면에서는 무한원점과 중복도까지 포함해 세면 두 곡선의 교점 수가 예외 없이 두 차수의 곱과 일치한다.
 </div>
 
 <div class="example"><span class="env-label">Example 21.3 (B&eacute;zout Applications)</span>
-공통 성분이 없을 때, 직선(\(d=1\))과 이차 곡선(conic, \(e=2\))은 중복도를 포함해 정확히 2번, 서로 다른 점으로는 최대 2개에서 만난다. 두 이차 곡선은 최대 4개, 두 3차 곡선(cubic)은 최대 9개의 점에서 만난다.
+공통 성분이 없을 때, 직선(\(d=1\))과 이차 곡선(conic, \(e=2\))은 중복도를 포함해 정확히 2번 만나고, 서로 다른 점으로는 최대 2곳에서 만난다. 두 이차 곡선은 최대 4개, 두 3차 곡선(cubic)은 최대 9개의 점에서 만난다.
 </div>
 
-<p>대수 곡선을 체계적으로 분류할 때 가장 먼저 확인하는 불변량은 <strong>종수(genus)</strong>다. 복소수체 \(\mathbb{C}\) 위에서 매끄러운 사영 곡선은 실수 차원으로는 2차원인 닫힌 리만 곡면이 되는데, 이때 대수적으로 정의되는 산술 종수가 20장의 Gauss–Bonnet 정리에서 보았던 위상적 구멍의 개수 \(g\)와 정확히 일치한다.</p>
+<p>대수 곡선을 체계적으로 분류할 때 가장 먼저 확인하는 불변량은 <strong>종수(genus)</strong>다. 복소수체 \(\mathbb{C}\) 위에서는 매끄러운 사영 곡선이 실수 차원으로는 2차원인 닫힌 리만 곡면이 된다. 이때 대수적으로 정의되는 산술 종수가 20장의 Gauss–Bonnet 정리에서 보았던 위상적 구멍의 개수 \(g\)와 정확히 일치한다.</p>
 
 <div class="definition"><span class="env-label">Definition 21.10 (Genus)</span>
 \(\mathbb{P}^2\) 안에 놓인 차수 \(d\)인 매끄러운 사영 평면 곡선(smooth projective curve) \(C\)의 <strong>산술 종수(arithmetic genus)</strong>는 다음 공식으로 주어진다.
 $$ g = \frac{(d-1)(d-2)}{2}. $$
-특히 \(k = \mathbb{C}\)일 때 이 값은 복소 곡선을 2차원 곡면으로 보았을 때의 위상적 종수(topological genus)와 같다.
+특히 \(k = \mathbb{C}\)이면 이 값은 복소 곡선을 2차원 곡면으로 보았을 때의 위상적 종수(topological genus)와 같다.
 </div>
 
 <div class="remark"><span class="env-label">Remark 21.1 (Classification by Genus)</span>
-종수에 따라 매끄러운 사영 대수 곡선의 기하와 산술적 성질이 극적으로 갈린다.
+종수에 따라 매끄러운 사영 대수 곡선의 기하적 성질과 산술적 성질이 극적으로 갈린다.
 <ul>
 <li>대수적으로 닫힌 체 위에서 \(g = 0\): 매끄러운 사영 곡선은 사영 직선 \(\mathbb{P}^1\)과 동형이다(예: 직선 \(d=1\), 원뿔곡선 \(d=2\)).</li>
 <li>대수적으로 닫힌 체 위에서 \(g = 1\): 곡선 위에 유리점 하나를 기준점으로 찍으면 <strong>타원 곡선(elliptic curve)</strong>이 되고, 그 점을 항등원으로 삼는 아름다운 아벨 군 구조(group law)가 자연스럽게 부여된다.</li>
